@@ -1,25 +1,20 @@
 package ulb;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 
 public class Main extends Application {
 
 	@Override
-	public void start(Stage primaryStage) {
-		Label label = new Label("Hello World!");
-
-		StackPane root = new StackPane();
-		root.getChildren().add(label);
-
-		Scene scene = new Scene(root, 300, 200);
-
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("Hello World JavaFX");
+	public void start(Stage primaryStage) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/ulb/views/main.fxml"));
+		primaryStage.setScene(new Scene(root, 300, 200));
+		primaryStage.setTitle("Menu App");
 		primaryStage.show();
 	}
 
