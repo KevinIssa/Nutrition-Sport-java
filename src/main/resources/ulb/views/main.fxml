@@ -13,13 +13,13 @@
 		<MenuBar>
 			<menus>
 				<Menu text="Consultation du profil">
-					<MenuItem text="Consulter profil"/>
+					<MenuItem text="Consulter profil" onAction="#consulterProfil"/>
 				</Menu>
 				<Menu text="Encodage d'activité">
-					<MenuItem text="Encoder activité"/>
+					<MenuItem text="Encoder activité" onAction="#encoderActivite"/>
 				</Menu>
 				<Menu text="Calcul du nombre de calories">
-					<MenuItem text="Calculer calories"/>
+					<MenuItem text="Calculer calories" onAction="#calculerCalories"/>
 				</Menu>
 			</menus>
 		</MenuBar>

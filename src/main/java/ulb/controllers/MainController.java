@@ -3,12 +3,12 @@ package ulb.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 
-
-public class MainController {
+// controller for the main menu
+public class MainController extends Abstract_Controller{
 
 	@FXML
 	public void consulterProfil() {
-		showAlert("Consultation du profil");
+		this.modele.getController().switchFXML("/ulb/views/profil_creation.fxml",this.modele);
 	}
 
 	@FXML
