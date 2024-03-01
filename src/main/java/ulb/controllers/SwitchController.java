@@ -17,8 +17,8 @@ public class SwitchController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
             Parent root = loader.load();
-            Abstract_Controller loader_controller = loader.getController();
-            loader_controller.Set_modele(modele);
+            AbstractController loaderController = loader.getController();
+            loaderController.setModele(modele);
             // Replace the scene's root with the new FXML content
             primaryStage.setScene(new Scene(root, 300, 200));
         } catch (IOException e) {

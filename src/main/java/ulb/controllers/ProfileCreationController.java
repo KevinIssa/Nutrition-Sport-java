@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 
 
 //define this file in the fx:controller of the fxml
-public class Profil_creation_controller extends Abstract_Controller implements Initializable {
+public class ProfileCreationController extends AbstractController implements Initializable {
     //@fxml to precise that this variable are connected to the item with fx:id the same as variable name
     @FXML
     private TextField surname;
@@ -28,7 +28,7 @@ public class Profil_creation_controller extends Abstract_Controller implements I
         System.out.println("creation profil window launched");
         this.birthdate.setValue(LocalDate.now());
     }
-    public void make_profil(){
+    public void makeProfil(){
         String surname = this.surname.getText();
         String firstname = this.firstname.getText();
         LocalDate selectedDate = this.birthdate.getValue();

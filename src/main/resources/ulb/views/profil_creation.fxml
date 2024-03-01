@@ -8,7 +8,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="ulb.controllers.Profil_creation_controller">
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="ulb.controllers.ProfileCreationController">
     <children>
         <HBox>
             <children>
@@ -28,6 +28,6 @@
                 <DatePicker fx:id="birthdate" />
             </children>
         </HBox>
-        <Button text="cree le profil" onAction="#make_profil"/>
+        <Button text="cree le profil" onAction="#makeProfil"/>
     </children>
 </VBox>

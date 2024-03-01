@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 
 // controller for the main menu
-public class MainController extends Abstract_Controller{
+public class MainController extends AbstractController {
 
 	@FXML
 	public void consulterProfil() {

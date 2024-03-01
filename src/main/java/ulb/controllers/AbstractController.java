@@ -2,10 +2,10 @@ package ulb.controllers;
 
 import ulb.models.Modele;
 // ALL controller heritate from this class
-public abstract class Abstract_Controller {
+public abstract class AbstractController {
     Modele modele;
 
-    public void Set_modele(Modele modele){
+    public void setModele(Modele modele){
         this.modele = modele;
     }
 }
