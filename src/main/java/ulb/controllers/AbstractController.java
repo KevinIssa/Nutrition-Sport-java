@@ -8,4 +8,9 @@ public abstract class AbstractController {
     public void setModele(Modele modele){
         this.modele = modele;
     }
+    public void giveData(Object data){
+        if (data != null){
+            // do something with override in children class
+        }
+    }
 }
