@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.gluonhq.charm.glisten.control.ToggleButtonGroup?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -82,8 +83,20 @@
                         <Font size="22.0" />
                      </font>
                   </Label>
-                  <RadioButton mnemonicParsing="false" text="♂" translateX="100.0" />
-                  <RadioButton layoutX="112.0" layoutY="29.0" mnemonicParsing="false" text="♀" translateX="150.0" />
+                  <ToggleButtonGroup selectionType="SINGLE" translateX="190.0" translateY="10.0">
+                      <toggles>
+                          <ToggleButton selected="true">
+                           <graphic>
+                              <Label text="♀" />
+                           </graphic>
+                          </ToggleButton>
+                          <ToggleButton translateX="40.0">
+                           <graphic>
+                              <Label text="♂ " />
+                           </graphic>
+                          </ToggleButton>
+                      </toggles>
+                  </ToggleButtonGroup>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="273.0" prefHeight="100.0" prefWidth="200.0">
