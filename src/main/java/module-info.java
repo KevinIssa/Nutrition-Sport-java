@@ -3,4 +3,5 @@ module ulb {
 	requires javafx.fxml;
 	exports ulb;
 	opens ulb.controllers to javafx.fxml;
+	opens ulb.views to javafx.fxml;
 }

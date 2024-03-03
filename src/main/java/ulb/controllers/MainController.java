@@ -8,7 +8,7 @@ public class MainController extends AbstractController {
 
 	@FXML
 	public void consulterProfil() {
-		this.modele.getController().switchFXML("/ulb/views/profil_creation.fxml",this.modele);
+		this.modele.getController().switchFXML("/ulb/views/profile_creation.fxml",this.modele);
 	}
 
 	@FXML
