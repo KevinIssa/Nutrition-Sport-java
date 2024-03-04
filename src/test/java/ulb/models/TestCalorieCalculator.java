@@ -2,7 +2,7 @@ package ulb.models;
 
 import org.junit.Assert;
 import org.junit.Test;
-import ulb.models.Sport;
+
 
 public class TestCalorieCalculator {
     @Test
