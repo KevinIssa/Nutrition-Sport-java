@@ -1,77 +1,40 @@
 package ulb.models;
 
+import ulb.models.enums.Intensity;
+import ulb.models.enums.Sport;
+
+import java.util.HashMap;
+import java.util.Map;
+
+
 public class CalorieCalculator {
-    Sport sport;
-    int intensity_level;
-    float weight;
-    double time;
 
-    public CalorieCalculator (Sport sport, int intensity_level, float weight, double time) {
-        this.sport = sport;
-        this.intensity_level = intensity_level;
-        this.weight = weight;
-        this.time = time;
+	private static final HashMap<Map.Entry<Sport, Intensity>, Double> metMap = new HashMap<>(
+			Map.ofEntries(
+					Map.entry(Map.entry(Sport.WALKING, Intensity.SLOW), 3.0),
+					Map.entry(Map.entry(Sport.WALKING, Intensity.MODERATE), 3.75),
+					Map.entry(Map.entry(Sport.WALKING, Intensity.INTENSE), 4.5),
+					Map.entry(Map.entry(Sport.RUNNING, Intensity.SLOW), 8.0),
+					Map.entry(Map.entry(Sport.RUNNING, Intensity.MODERATE), 10.0),
+					Map.entry(Map.entry(Sport.RUNNING, Intensity.INTENSE), 13.0),
+					Map.entry(Map.entry(Sport.BIKING, Intensity.SLOW), 4.0),
+					Map.entry(Map.entry(Sport.BIKING, Intensity.MODERATE), 7.0),
+					Map.entry(Map.entry(Sport.BIKING, Intensity.INTENSE), 10.0),
+					Map.entry(Map.entry(Sport.SWIMMING, Intensity.SLOW), 6.0),
+					Map.entry(Map.entry(Sport.SWIMMING, Intensity.MODERATE), 8.0),
+					Map.entry(Map.entry(Sport.SWIMMING, Intensity.INTENSE), 10.0),
+					Map.entry(Map.entry(Sport.VOLLEYBALL, Intensity.SLOW), 3.0),
+					Map.entry(Map.entry(Sport.VOLLEYBALL, Intensity.MODERATE), 3.75),
+					Map.entry(Map.entry(Sport.VOLLEYBALL, Intensity.INTENSE), 4.5)
+			)
+	);
 
-    }
+	private static double getMET(Sport sport, Intensity intensity) {
+		return metMap.get(Map.entry(sport, intensity));
+	}
 
-    public double getMET(){
-        switch (sport) {
-            case VOLLEYBALL:
-                switch (intensity_level){
-                    case 1 :
-                        return Constants.MET_SLOW_VOLLEYBALL;
-                    case 2 :
-                        return  Constants.MET_AVERAGE_VOLLEYBALL;
-                    case 3 :
-                        return Constants.MET_INTENSE_VOLLEYBALL;
-
-                }
-            case WALKING:
-                switch (intensity_level){
-                    case 1 :
-                        return Constants.MET_SLOW_WALK;
-                    case 2 :
-                        return Constants.MET_MODERATE_WALK;
-                    case 3 :
-                        return Constants.MET_FAST_WALK;
-
-                }
-            case SWIMMING:
-                switch (intensity_level){
-                    case 1 :
-                        return Constants.MET_SLOW_SWIM;
-                    case 2 :
-                        return Constants.MET_MODERATE_SWIM;
-                    case 3 :
-                        return Constants.MET_FAST_SWIM;
-
-                }
-            case BIKING:
-                switch (intensity_level){
-                    case 1 :
-                        return Constants.MET_SLOW_BIKE;
-                    case 2 :
-                        return Constants.MET_MODERATE_BIKE;
-                    case 3 :
-                        return Constants.MET_FAST_BIKE;
-
-                }
-            case RUNNING:
-                switch (intensity_level){
-                    case 1 :
-                        return Constants.MET_SLOW_RUN;
-                    case 2 :
-                        return Constants.MET_MODERATE_RUN;
-                    case 3 :
-                        return Constants.MET_FAST_RUN;
-
-                }
-        }
-        return 0;
-    }
-    public double compute() {
-        double MET = getMET();
-        return ((MET*3.5* this.weight)/200)* time;
-    }
+	public static double compute(Activity activity, Weight weight) {
+		return ((getMET(activity.getSport(), activity.getIntensity()) * 3.5 * weight.getWeight()) / 200) * activity.getDurationInMinutes();
+	}
 
 }

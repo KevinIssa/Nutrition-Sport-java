@@ -2,52 +2,52 @@ package ulb.models;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ulb.models.enums.Intensity;
+import ulb.models.enums.Sport;
+
+import java.time.Duration;
+import java.util.Date;
 
 
 public class TestCalorieCalculator {
-    @Test
-    public void testcompute (){
-        CalorieCalculator caloriecalc = new CalorieCalculator(Sport.VOLLEYBALL, 3, 60,15);
-        Assert.assertEquals(71, caloriecalc.compute(), 1);
 
-    }
+	@Test
+	public void computeRunning() {
+		Activity activity = new Activity(Sport.RUNNING, Intensity.INTENSE, Duration.ofMinutes(15), new Date());
+		Assert.assertEquals(137, activity.getCaloriesBurned(new Weight(40)), 1);
+		activity = new Activity(Sport.RUNNING, Intensity.SLOW, Duration.ofHours(1), new Date());
+		Assert.assertEquals(672, activity.getCaloriesBurned(new Weight(80)), 1);
+	}
 
-    @Test
-    public void testrunning(){
-        CalorieCalculator caloriecalc1 =  new CalorieCalculator(Sport.RUNNING, 3, 40,15);
-        CalorieCalculator caloriecalc3 =  new CalorieCalculator(Sport.RUNNING, 1, 80,60);
-        Assert.assertEquals(137, caloriecalc1.compute(), 1);
-        Assert.assertEquals(672, caloriecalc3.compute(), 1);
-    }
-    @Test
-    public void testvolleyball(){
-        CalorieCalculator caloriecalc1 =  new CalorieCalculator(Sport.VOLLEYBALL, 3, 40,15);
-        CalorieCalculator caloriecalc3 =  new CalorieCalculator(Sport.VOLLEYBALL, 1, 80,60);
-        Assert.assertEquals(47, caloriecalc1.compute(), 1);
-        Assert.assertEquals(252, caloriecalc3.compute(), 1);
-    }
+	@Test
+	public void computeVolleyball() {
+		Activity activity = new Activity(Sport.VOLLEYBALL, Intensity.INTENSE, Duration.ofMinutes(15), new Date());
+		Assert.assertEquals(47, activity.getCaloriesBurned(new Weight(40)), 1);
+		activity = new Activity(Sport.VOLLEYBALL, Intensity.SLOW, Duration.ofHours(1), new Date());
+		Assert.assertEquals(252, activity.getCaloriesBurned(new Weight(80)), 1);
+	}
 
-    @Test
-    public void testwalking(){
-        CalorieCalculator caloriecalc1 =  new CalorieCalculator(Sport.WALKING, 3, 40,15);
-        CalorieCalculator caloriecalc3 =  new CalorieCalculator(Sport.WALKING, 1, 80,60);
-        Assert.assertEquals(47, caloriecalc1.compute(), 1);
-        Assert.assertEquals(252, caloriecalc3.compute(), 1);
+	@Test
+	public void computeWalking() {
+		Activity activity = new Activity(Sport.WALKING, Intensity.INTENSE, Duration.ofMinutes(15), new Date());
+		Assert.assertEquals(47, activity.getCaloriesBurned(new Weight(40)), 1);
+		activity = new Activity(Sport.WALKING, Intensity.SLOW, Duration.ofHours(1), new Date());
+		Assert.assertEquals(252, activity.getCaloriesBurned(new Weight(80)), 1);
+	}
 
-    }
-    @Test
-    public void testbiking(){
-        CalorieCalculator caloriecalc3 =  new CalorieCalculator(Sport.BIKING, 3, 40,15);
-        CalorieCalculator caloriecalc1 =  new CalorieCalculator(Sport.BIKING, 1, 80,60);
-        Assert.assertEquals(105, caloriecalc3.compute(), 1);
-        Assert.assertEquals(336, caloriecalc1.compute(), 1);
-    }
-    @Test
-    public void testswimming(){
-        CalorieCalculator caloriecalc3 =  new CalorieCalculator(Sport.SWIMMING, 3, 40,15);
-        CalorieCalculator caloriecalc2 =  new CalorieCalculator(Sport.SWIMMING, 2, 80,60);
-        Assert.assertEquals(105, caloriecalc3.compute(), 1);
-        Assert.assertEquals(672, caloriecalc2.compute(), 1);
-    }
+	@Test
+	public void computeBiking() {
+		Activity activity = new Activity(Sport.BIKING, Intensity.INTENSE, Duration.ofMinutes(15), new Date());
+		Assert.assertEquals(105, activity.getCaloriesBurned(new Weight(40)), 1);
+		activity = new Activity(Sport.BIKING, Intensity.SLOW, Duration.ofHours(1), new Date());
+		Assert.assertEquals(336, activity.getCaloriesBurned(new Weight(80)), 1);
+	}
 
+	@Test
+	public void computeSwimming() {
+		Activity activity = new Activity(Sport.SWIMMING, Intensity.INTENSE, Duration.ofMinutes(15), new Date());
+		Assert.assertEquals(105, activity.getCaloriesBurned(new Weight(40)), 1);
+		activity = new Activity(Sport.SWIMMING, Intensity.MODERATE, Duration.ofHours(1), new Date());
+		Assert.assertEquals(672, activity.getCaloriesBurned(new Weight(80)), 1);
+	}
 }

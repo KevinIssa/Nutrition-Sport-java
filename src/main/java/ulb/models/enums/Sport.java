@@ -1,4 +1,4 @@
-package ulb.models;
+package ulb.models.enums;
 
 public enum Sport {
     WALKING,
