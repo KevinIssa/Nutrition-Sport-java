@@ -44,15 +44,19 @@ public class ProfileCreationView extends AbstractController implements Initializ
 
         String savedHeight = this.height.getText();
         String savedWeight = this.weight.getText();
+        int intergerWeight;
+        int intergerHeight;
         try {
-            Integer.parseInt(savedHeight);
-            Integer.parseInt(savedWeight);
+            intergerHeight = Integer.parseInt(savedHeight);
+            intergerWeight = Integer.parseInt(savedWeight);
         } catch (NumberFormatException e) {
             logger.log(System.Logger.Level.ERROR, "height and weight must be numbers");
             return;
         }
         RadioButton selectedRadioButton = (RadioButton) sex.getSelectedToggle();
         String savedSex = selectedRadioButton.getText();
+        this.getModele().setProfil(savedSurname, savedFirstname, savedSex, selectedDate, intergerWeight, intergerHeight);
+        this.getModele().getController().switchFXML("/ulb/views/main.fxml", this.getModele());
         logger.log(System.Logger.Level.INFO, "surname: " + savedSurname + " firstname: " + savedFirstname + " birthdate: " + day + "/" + month + "/" + year + " height: " + savedHeight + " weight: " + savedWeight +" sex:" + savedSex);
     }
 }

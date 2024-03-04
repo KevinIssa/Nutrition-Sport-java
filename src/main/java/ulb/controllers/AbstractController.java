@@ -13,4 +13,7 @@ public abstract class AbstractController {
             // do something with override in children class
         }
     }
+    public Modele getModele(){
+        return this.modele;
+    }
 }

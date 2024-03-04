@@ -80,13 +80,15 @@ class Profil{
     * */
     String surname;
     String firstname;
+    String sex;
     LocalDate birthDay;
     Database database = new Database();
 
-    public Profil(String surname, String firstname, int birthDay, int birthMonth, int birthYear){
+    public Profil(String surname, String firstname,String sex, LocalDate birthDay){
         this.surname = surname;
         this.firstname = firstname;
-        this.birthDay = LocalDate.of(birthYear, birthMonth, birthDay);
+        this.sex = sex;
+        this.birthDay = birthDay;
     }
     public Profil() throws IOException {
         this.loadUser();
@@ -104,7 +106,8 @@ class Profil{
         if (lines.size() >= 3){
             this.surname = lines.get(0);
             this.firstname = lines.get(1);
-            String birthDate = lines.get(2);
+            this.sex = lines.get(2);
+            String birthDate = lines.get(3);
             String[] birthData = birthDate.split("\\s+");
             // Check if the size of the list is 3 for day month and years
             if (birthData.length != 3) {
@@ -161,8 +164,9 @@ class Profil{
         }
     }
     public void loadDatabase(List<String> lines) {
-        if (lines.size() > 3){
-            for (int i=3; i<lines.size();i++){
+        //modifying the number next to > to change the line that Database start
+        if (lines.size() > 4){
+            for (int i=4; i<lines.size();i++){
                 String data = lines.get(i);
                 // load data in format:    weights:2 3 2024:50
                 if (data.contains(":")) {
@@ -190,15 +194,17 @@ class Profil{
             }
         }
     }
-    public void saveUser() throws IOException {
-        String filePath = "src/main/resources/ulb/database/user.txt";
-        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+    public  void saveBasicData(BufferedWriter writer) throws IOException {
         writer.write(this.surname+"\n");
         writer.flush();
         writer.write(this.firstname+"\n");
         writer.flush();
+        writer.write(this.sex+"\n");
+        writer.flush();
         writer.write(this.birthDay.getDayOfMonth()+" "+ this.birthDay.getMonthValue() + " "+ this.birthDay.getYear()+"\n");
         writer.flush();
+    }
+    public void saveDatabase(BufferedWriter writer) throws IOException {
         // Convert the HashMap keys to a sorted TreeMap
         TreeMap<LocalDate, Float> sortedMap = new TreeMap<>(this.database.weights);
         // Iterate over the sorted entries
@@ -222,6 +228,12 @@ class Profil{
             writer.flush();
         }
     }
+    public void saveUser() throws IOException {
+        String filePath = "src/main/resources/ulb/database/user.txt";
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+        this.saveBasicData(writer);
+        this.saveDatabase(writer);
+    }
 }
 
 
@@ -235,12 +247,18 @@ public class Modele {
     public void createProfil() throws IOException {
         if (Profil.fileExist()){
             // calling Profil constructor without parameter will try to load the user.txt file
-            this.profil = new Profil();
+            this.setProfil();
         }else{
-            //TODO the person that do the ui for creation profil
-            // can use the controller to switch window to the profil creation window
-            // and using the done button to get the data and call the constructor of Profil with parameter
+            this.getController().switchFXML("/ulb/views/profil_creation.fxml", this);
         }
+    }
+    public void setProfil() throws IOException {
+        this.profil = new Profil();
+    }
+    public void setProfil(String surname, String firstname,String sex, LocalDate birthdate, int weight, int height){
+        this.profil = new Profil(surname, firstname, sex, birthdate);
+        this.profil.addHeight(LocalDate.now(), height);
+        this.profil.addWeight(LocalDate.now(), weight);
     }
     public SwitchController getController(){
         return this.controller;

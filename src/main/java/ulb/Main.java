@@ -14,8 +14,12 @@ public class Main extends Application {
 		SwitchController controller = new SwitchController(primaryStage);
 		this.modele = new Modele(controller);
 		controller.switchFXML("/ulb/views/main.fxml", modele);
-		this.modele.createProfil();// todo need to add controller.switchFXML(path of the profil creation , modele)
+		this.modele.createProfil();
 		primaryStage.setTitle("Menu App");
+		primaryStage.setWidth(800); // Initial width
+		primaryStage.setHeight(600); // Initial height
+		// Allow the user to resize the window
+		primaryStage.setResizable(true);
 		primaryStage.show();
 	}
 	@Override
