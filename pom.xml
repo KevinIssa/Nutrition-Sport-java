@@ -61,7 +61,7 @@
 					<artifactId>exec-maven-plugin</artifactId>
 					<version>3.1.1</version>
 					<configuration>
-						<mainClass>ulb.Main</mainClass>
+						<mainClass>ulb.App</mainClass>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -71,7 +71,7 @@
 						<archive>
 							<manifest>
 								<addClasspath>true</addClasspath>
-								<mainClass>ulb.Main</mainClass>
+								<mainClass>ulb.App</mainClass>
 							</manifest>
 						</archive>
 					</configuration>
@@ -109,7 +109,7 @@
 				<artifactId>javafx-maven-plugin</artifactId>
 				<version>0.0.3</version>
 				<configuration>
-					<mainClass>ulb.Main</mainClass>
+					<mainClass>ulb.App</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>

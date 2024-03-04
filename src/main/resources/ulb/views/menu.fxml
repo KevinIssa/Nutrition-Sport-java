@@ -3,33 +3,32 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx"
-	  xmlns:fx="http://javafx.com/fxml"
-	  fx:controller="ulb.controllers.MenuController"
-	  alignment="CENTER">
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.controllers.MenuController">
+   <BorderPane prefHeight="480" prefWidth="270" />
 
 	<HBox alignment="CENTER" spacing="20">
 		<Button fx:id="profileButton">
 			<graphic>
-				<ImageView fitHeight="40" fitWidth="40">
-					<Image url="@profile_icon.png"/>
-				</ImageView>
+         				<ImageView fitHeight="40" fitWidth="40">
+         					<Image url="@profile_icon.png" />
+         				</ImageView>
 			</graphic>
 		</Button>
 		<Button fx:id="activityButton">
 			<graphic>
 				<ImageView fitHeight="40" fitWidth="40">
-					<Image url="@profile_icon.png"/>
+					<Image url="@profile_icon.png" />
 				</ImageView>
 			</graphic>
 		</Button>
 		<Button fx:id="addActivityButton">
 			<graphic>
 				<ImageView fitHeight="40" fitWidth="40">
-					<Image url="@profile_icon.png"/>
+					<Image url="@profile_icon.png" />
 				</ImageView>
 			</graphic>
 		</Button>
