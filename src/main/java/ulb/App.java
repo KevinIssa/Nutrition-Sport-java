@@ -1,5 +1,6 @@
 package ulb;
 
+import ulb.models.Profile;
 import ulb.views.AppView;
 import ulb.controllers.AppController;
 
@@ -24,6 +25,7 @@ public class App extends Application {
 		appView.loadMenu();
 		primaryStage.setTitle("YOYOYO");
 		primaryStage.show();
+		//System.out.println(Profile.load().toString());
 	}
 
 	public static void main(String[] args) {
