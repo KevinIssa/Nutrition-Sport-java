@@ -1,11 +1,7 @@
 {
-  "name": "John Doe",
-  "sex": "MALE",
-  "weight": {
-    "weight": 75.5
-  },
-  "height": {
-    "height": 180.0
-  },
-  "birthDate": "1990-05-15T00:00:00Z"
+  "name" : "Hugo",
+  "sex" : "MALE",
+  "weight" : 60.0,
+  "height" : 175.0,
+  "birthDate" : "2003-05-23"
 }

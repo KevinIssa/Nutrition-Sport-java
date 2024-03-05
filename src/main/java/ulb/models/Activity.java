@@ -4,7 +4,7 @@ import ulb.models.enums.Intensity;
 import ulb.models.enums.Sport;
 
 import java.time.Duration;
-import java.util.Date;
+import java.time.LocalDate;
 
 
 public class Activity {
@@ -12,10 +12,10 @@ public class Activity {
 	private final Sport sport;
 	private final Intensity intensity;
 	private final Duration duration;
-	private final Date date;
+	private final LocalDate date;
 
 
-	public Activity(Sport sport, Intensity intensity, Duration duration, Date date) {
+	public Activity(Sport sport, Intensity intensity, Duration duration, LocalDate date) {
 		this.sport = sport;
 		this.intensity = intensity;
 		this.duration = duration;

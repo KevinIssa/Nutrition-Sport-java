@@ -2,16 +2,17 @@ package ulb.models;
 
 import ulb.models.enums.Sex;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
+import java.time.LocalDate;
 
 
-public class Profile implements Model {
+public class Profile {
 
 	public static final String FILENAME = "profile.json";
 
@@ -19,14 +20,16 @@ public class Profile implements Model {
 	private Sex sex;
 	private Weight weight;
 	private Height height;
-	private Date birthDate;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private LocalDate birthDate;
 
 	public Profile() {
 	}
 
-	public static Profile load() throws IOException {
+	public static Profile load() {
 		File file = new File(FILENAME);
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JavaTimeModule());
 		try {
 			return mapper.readValue(file, Profile.class);
 		} catch (IOException e) {
@@ -38,6 +41,7 @@ public class Profile implements Model {
 	public void save() {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.registerModule(new JavaTimeModule());
 		try {
 			mapper.writeValue(new File(FILENAME), this);
 		} catch (IOException e) {
@@ -77,11 +81,11 @@ public class Profile implements Model {
 		this.height = new Height(height);
 	}
 
-	public Date getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 
@@ -89,8 +93,8 @@ public class Profile implements Model {
 		return "Profile{" +
 				"name=" + name +
 				", sex=" + sex +
-				", weight=" + weight +
-				", height=" + height +
+				", weight=" + weight.getWeight() +
+				", height=" + height.getHeight() +
 				", birthDate=" + birthDate +
 				'}';
 	}

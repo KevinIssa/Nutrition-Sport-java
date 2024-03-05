@@ -1,11 +1,14 @@
 package ulb;
 
 import ulb.models.Profile;
+import ulb.models.enums.Sex;
 import ulb.views.AppView;
 import ulb.controllers.AppController;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import java.time.LocalDate;
 
 
 
@@ -25,7 +28,7 @@ public class App extends Application {
 		appView.loadMenu();
 		primaryStage.setTitle("YOYOYO");
 		primaryStage.show();
-		//System.out.println(Profile.load().toString());
+		System.out.println(Profile.load().toString());
 	}
 
 	public static void main(String[] args) {
