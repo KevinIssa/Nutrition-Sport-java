@@ -5,7 +5,6 @@ public class Weight {
 	private float weight; // in kg
 
 	public Weight(float weight) {
-		this.weight = weight;
 		if (weight <= 0) {
 			throw new IllegalArgumentException("Weight must be greater than 0");
 			// tu dois être dans une autre dimension
@@ -13,6 +12,7 @@ public class Weight {
 			throw new IllegalArgumentException("Weight must be less than 300");
 			// tes trop gros mec
 		}
+		this.weight = weight;
 	}
 
 	public float getWeight() {

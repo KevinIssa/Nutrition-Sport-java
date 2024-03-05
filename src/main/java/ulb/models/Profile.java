@@ -23,7 +23,25 @@ public class Profile {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate birthDate;
 
-	public Profile() {
+	public Profile (String name, String sex, float weight, float height, LocalDate birthDate) {
+		this.name = name;
+		sexStringToSex(sex);
+		this.weight = new Weight(weight);
+		this.height = new Height(height);
+		this.birthDate = birthDate;
+	}
+
+	private void sexStringToSex(String sex) throws IllegalArgumentException{
+		switch (sex) {
+			case "♀":
+				this.sex = Sex.FEMALE;
+				break;
+			case "♂":
+				this.sex = Sex.MALE;
+				break;
+			default:
+				throw new IllegalArgumentException("no valid sex given to the profile constructor");
+		}
 	}
 
 	public static Profile load() {
