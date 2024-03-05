@@ -44,6 +44,17 @@ public class Profile {
 		}
 	}
 
+	public void save() {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.registerModule(new JavaTimeModule());
+		try {
+			mapper.writeValue(new File(FILENAME), this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static Profile load() {
 		File file = new File(FILENAME);
 		ObjectMapper mapper = new ObjectMapper();
@@ -53,17 +64,6 @@ public class Profile {
 		} catch (IOException e) {
 			System.out.println("No valid profile found");
 			return null;
-		}
-	}
-
-	public void save() {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		mapper.registerModule(new JavaTimeModule());
-		try {
-			mapper.writeValue(new File(FILENAME), this);
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 
