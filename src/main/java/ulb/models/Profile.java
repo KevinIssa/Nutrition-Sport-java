@@ -16,15 +16,18 @@ public class Profile {
 
 	public static final String FILENAME = "profile.json";
 
-	private String name;
+	private String firstName;
+
+	private String lastName;
 	private Sex sex;
 	private Weight weight;
 	private Height height;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate birthDate;
 
-	public Profile (String name, String sex, float weight, float height, LocalDate birthDate) {
-		this.name = name;
+	public Profile (String firstName, String lastName, String sex, float weight, float height, LocalDate birthDate) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 		sexStringToSex(sex);
 		this.weight = new Weight(weight);
 		this.height = new Height(height);
@@ -67,12 +70,20 @@ public class Profile {
 		}
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return this.firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String newFirstName) {
+		this.firstName = newFirstName;
+	}
+
+	public String getLastName() {
+		return this.lastName;
+	}
+
+	public void setLastName(String newLastName) {
+		this.lastName = newLastName;
 	}
 
 	public Sex getSex() {
@@ -83,7 +94,7 @@ public class Profile {
 		this.sex = sex;
 	}
 
-	public double getWeight() {
+	public float getWeight() {
 		return weight.getWeight();
 	}
 
@@ -109,7 +120,8 @@ public class Profile {
 
 	public String toString() {
 		return "Profile{" +
-				"name=" + name +
+				"First Name=" + firstName +
+				", Last Name=" + lastName +
 				", sex=" + sex +
 				", weight=" + weight.getWeight() +
 				", height=" + height.getHeight() +

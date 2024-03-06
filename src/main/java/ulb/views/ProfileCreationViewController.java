@@ -37,14 +37,14 @@ public class ProfileCreationViewController extends AbstractController implements
     }
 
     public void saveProfile() {
-        String savedSurname = lastname.getText();
-        String savedFirstname = firstname.getText();
+        String savedLastName = lastname.getText();
+        String savedFirstName = firstname.getText();
         try {
             String savedSex = getSavedSex();
             LocalDate selectedDate = birthdate.getValue();
             float floatHeight = Float.parseFloat(height.getText());
             float floatWeight = Float.parseFloat(weight.getText());
-            safeSaveProfile(savedSurname, savedFirstname, savedSex, selectedDate, floatWeight, floatHeight);
+            safeSaveProfile(savedLastName, savedFirstName, savedSex, selectedDate, floatWeight, floatHeight);
         } catch (NumberFormatException e) {
             logger.log(System.Logger.Level.ERROR, "Height and weight must be numbers");
             return;

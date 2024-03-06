@@ -1,4 +1,6 @@
-package ulb.views;
+package ulb.models;
+
+import ulb.models.enums.Sex;
 
 import java.time.LocalDate;
 
@@ -6,15 +8,19 @@ public class ProfileReader{
     private final String firstName;
     private final String lastName;
     private final LocalDate birthDate;
+
+    private final Sex sex;
     private final float height;
     private final float weight;
     
-    public ProfileReader(String firstName, String lastName, LocalDate birthDate, float height, float weight) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthDate = birthDate;
-        this.height = height;
-        this.weight = weight;
+    public ProfileReader(Profile profile) {
+        this.firstName = profile.getFirstName();
+        this.lastName = profile.getLastName();
+        this.birthDate = profile.getBirthDate();
+        this.sex = profile.getSex();
+        this.height = profile.getHeight();
+        this.weight = profile.getWeight();
+
     }
     
     public String getFirstName() {
@@ -26,9 +32,14 @@ public class ProfileReader{
     }
 
     public String getSex() {
-        return "♂";
+       if (sex.equals(Sex.MALE)){
+           return "♂";
+       }
+       else{
+           return "♀";
+       }
     }
-    
+
     public LocalDate getBirthDate() {
         return birthDate;
     }
