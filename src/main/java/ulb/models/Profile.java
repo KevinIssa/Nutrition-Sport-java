@@ -17,7 +17,6 @@ public class Profile {
 	public static final String FILENAME = "profile.json";
 
 	private String firstName;
-
 	private String lastName;
 	private Sex sex;
 	private Weight weight;
@@ -25,26 +24,37 @@ public class Profile {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate birthDate;
 
-	public Profile (String firstName, String lastName, String sex, float weight, float height, LocalDate birthDate) {
+
+	public Profile() {}
+
+	public Profile (String firstName, String lastName, Sex sex, Weight weight, Height height, LocalDate birthDate) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		sexStringToSex(sex);
-		this.weight = new Weight(weight);
-		this.height = new Height(height);
+		this.sex = sex;
+		this.weight = weight;
+		this.height = height;
 		this.birthDate = birthDate;
 	}
 
-	private void sexStringToSex(String sex) throws IllegalArgumentException{
-		switch (sex) {
-			case "♀":
-				this.sex = Sex.FEMALE;
-				break;
-			case "♂":
-				this.sex = Sex.MALE;
-				break;
-			default:
-				throw new IllegalArgumentException("no valid sex given to the profile constructor");
+	public Profile(String firstName, String lastName, String sex, float weight, float height, LocalDate birthDate) {
+		this(firstName, lastName, Sex.fromString(sex), new Weight(weight), new Height(height), birthDate);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
 		}
+		if (obj instanceof Profile) {
+			Profile profile = (Profile) obj;
+			return this.firstName.equals(profile.firstName) &&
+					this.lastName.equals(profile.lastName) &&
+					this.sex.equals(profile.sex) &&
+					this.weight.equals(profile.weight) &&
+					this.height.equals(profile.height) &&
+					this.birthDate.equals(profile.birthDate);
+		}
+		return false;
 	}
 
 	public void save() {
@@ -120,8 +130,8 @@ public class Profile {
 
 	public String toString() {
 		return "Profile{" +
-				"First Name=" + firstName +
-				", Last Name=" + lastName +
+				"firstName=" + firstName +
+				", lastName=" + lastName +
 				", sex=" + sex +
 				", weight=" + weight.getWeight() +
 				", height=" + height.getHeight() +

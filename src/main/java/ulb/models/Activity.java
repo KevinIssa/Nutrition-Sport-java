@@ -25,12 +25,7 @@ public class Activity {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd-HH-mm-ss")
 	private LocalDateTime date;
 
-	public Activity() {
-		this.sport = null;
-		this.intensity = null;
-		this.duration = null;
-		this.date = null;
-	}
+	public Activity() {}
 
 	public Activity(Sport sport, Intensity intensity, Duration duration, LocalDateTime date) {
 		this.sport = sport;
@@ -39,13 +34,19 @@ public class Activity {
 		this.date = date;
 	}
 
-	public String toString() {
-		return "Activity{" +
-				"sport=" + sport +
-				", intensity=" + intensity +
-				", duration=" + duration +
-				", date=" + date +
-				'}';
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (obj instanceof Activity) {
+			Activity activity = (Activity) obj;
+			return this.sport.equals(activity.sport) &&
+					this.intensity.equals(activity.intensity) &&
+					this.duration.equals(activity.duration) &&
+					this.date.equals(activity.date);
+		}
+		return false;
 	}
 
 	public void save() {
@@ -54,7 +55,6 @@ public class Activity {
 			folder.mkdir();
 		}
 		String filename = FOLDERNAME + "/" + this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")) + ".json";
-		System.out.println(filename);
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		mapper.registerModule(new JavaTimeModule());
@@ -66,7 +66,6 @@ public class Activity {
 	}
 
 	public static Activity load(String filename) {
-		System.out.println(filename);
 		File file = new File(filename);
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new JavaTimeModule());
@@ -117,6 +116,15 @@ public class Activity {
 
 	public double getCaloriesBurned(Weight weight) {
 		return CalorieCalculator.compute(this, weight);
+	}
+
+	public String toString() {
+		return "Activity{" +
+				"sport=" + sport +
+				", intensity=" + intensity +
+				", duration=" + duration +
+				", date=" + date +
+				'}';
 	}
 
 }

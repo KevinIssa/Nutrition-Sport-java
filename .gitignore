@@ -183,3 +183,12 @@ buildNumber.properties
 .classpath
 
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij,visualstudiocode
+
+
+# App save files
+profile.json
+activities/
+
+
+# Others
+.obsidian/
