@@ -43,8 +43,8 @@ public class ProfileModificatorViewController extends AbstractController impleme
         this.firstname.setText(profile.getFirstName());
         this.lastname.setText(profile.getLastName());
         this.birthdate.setValue(profile.getBirthDate());
-        this.height.setText(profile.getHeight.toString());
-        this.weight.setText(profile.getWeight.toString());
+        this.height.setText(Float.toString(profile.getHeight()));
+        this.weight.setText(Float.toString(profile.getWeight()));
         if (profile.getSex().equals("♂")){
 			maleButton.setSelected(true);
         }
@@ -88,3 +88,4 @@ public class ProfileModificatorViewController extends AbstractController impleme
         void saveProfile(String surname, String firstname, String savedSex, LocalDate selectedDate, float floatWeight, float floatHeight);
     }
 }
+
