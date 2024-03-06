@@ -1,19 +1,19 @@
+
 package ulb.views;
 
-import javafx.scene.control.RadioButton;
-import ulb.controllers.AbstractController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import ulb.controllers.AbstractController;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 
-public class ProfileCreationViewController extends AbstractController implements Initializable {
+public class ProfileModificatorViewController extends AbstractController implements Initializable {
     @FXML
     private TextField firstname;
     @FXML
@@ -26,16 +26,32 @@ public class ProfileCreationViewController extends AbstractController implements
     private TextField weight;
     @FXML
     private ToggleGroup sex; // radio button
+    @FXML
+    private RadioButton maleButton;
+    @FXML
+    private RadioButton femaleButton;
+    private final ProfileReader profile;
+    private ProfileCreationViewController.Listener listener;
+    System.Logger logger = System.getLogger(ProfileModificatorViewController.class.getName());
 
-    private Listener listener;
-    System.Logger logger = System.getLogger(ProfileCreationViewController.class.getName());
+    public ProfileModificatorViewController(ProfileReader profile){
+        this.profile = profile;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        logger.log(System.Logger.Level.INFO, "ProfileCreationViewController initialized");
-        this.birthdate.setValue(LocalDate.now());
+        this.firstname.setText(profile.getFirstName());
+        this.lastname.setText(profile.getLastName());
+        this.birthdate.setValue(profile.getBirthDate());
+        this.height.setText(profile.getHeight.toString());
+        this.weight.setText(profile.getWeight.toString());
+        if (profile.getSex().equals("♂")){
+			maleButton.setSelected(true);
+        }
+		else{
+        	femaleButton.setSelected(true);
+		}
     }
-
     public void saveProfile() {
         String savedSurname = lastname.getText();
         String savedFirstname = firstname.getText();
@@ -56,7 +72,7 @@ public class ProfileCreationViewController extends AbstractController implements
         RadioButton selectedRadioButton = (RadioButton) sex.getSelectedToggle();
         return selectedRadioButton.getText();
     }
-    public void setListener(Listener listener) {
+    public void setListener(ProfileCreationViewController.Listener listener) {
         this.listener = listener;
     }
 
