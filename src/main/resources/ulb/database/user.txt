@@ -1,0 +1,10 @@
+xu
+jason
+male
+22 9 2002
+weights:5 6 2022:70.0
+weights:6 6 2022:69.0
+weights:7 6 2022:69.0
+heights:5 6 2022:169.0
+heights:6 6 2022:170.0
+heights:7 6 2022:171.0

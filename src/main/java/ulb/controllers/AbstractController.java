@@ -1,19 +1,24 @@
 package ulb.controllers;
 
-import ulb.models.Modele;
+import ulb.models.Model;
 // ALL controller heritate from this class
 public abstract class AbstractController {
-    Modele modele;
+    /**
+     * class used to be heritate from all controller of fxml file
+     */
+    Model model;
 
-    public void setModele(Modele modele){
-        this.modele = modele;
+    public void setModele(Model model){
+        // get the model
+        this.model = model;
     }
     public void giveData(Object data){
+        // function to receive data if not null
         if (data != null){
             // do something with override in children class
         }
     }
-    public Modele getModele(){
-        return this.modele;
+    public Model getModele(){
+        return this.model;
     }
 }

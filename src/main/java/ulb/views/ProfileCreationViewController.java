@@ -39,16 +39,21 @@ public class ProfileCreationViewController extends AbstractController implements
     public void saveProfile() {
         String savedLastName = lastname.getText();
         String savedFirstName = firstname.getText();
+        String savedSex;
+        LocalDate selectedDate;
+        float floatHeight = 0;
+        float floatWeight = 0;
         try {
-            String savedSex = getSavedSex();
-            LocalDate selectedDate = birthdate.getValue();
-            float floatHeight = Float.parseFloat(height.getText());
-            float floatWeight = Float.parseFloat(weight.getText());
+            savedSex = getSavedSex();
+            selectedDate = birthdate.getValue();
+            floatHeight = Float.parseFloat(height.getText());
+            floatWeight = Float.parseFloat(weight.getText());
             safeSaveProfile(savedLastName, savedFirstName, savedSex, selectedDate, floatWeight, floatHeight);
         } catch (NumberFormatException e) {
             logger.log(System.Logger.Level.ERROR, "Height and weight must be numbers");
             return;
         }
+        this.getModele().setProfil(savedLastName, savedFirstName, savedSex,selectedDate, floatWeight, floatHeight);
         this.getModele().getController().switchFXML("/ulb/views/main.fxml", this.getModele()); // switch to main.fxml after saving profile ?
     }
 
