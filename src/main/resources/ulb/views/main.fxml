@@ -15,6 +15,11 @@
 				<Menu text="Consultation du profil">
 					<MenuItem text="Consulter profil" onAction="#consulterProfil"/>
 				</Menu>
+
+				<Menu text="Modification du profil">
+					<MenuItem text="Modifier le profil" onAction="#modifierProfil"/>
+				</Menu>
+
 				<Menu text="Encodage d'activité">
 					<MenuItem text="Encoder activité" onAction="#encoderActivite"/>
 				</Menu>

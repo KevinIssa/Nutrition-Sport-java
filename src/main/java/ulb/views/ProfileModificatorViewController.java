@@ -88,5 +88,6 @@ public class ProfileModificatorViewController extends AbstractController impleme
     public interface Listener {
         void saveProfile(String surname, String firstname, String savedSex, LocalDate selectedDate, float floatWeight, float floatHeight);
     }
+
 }
 
