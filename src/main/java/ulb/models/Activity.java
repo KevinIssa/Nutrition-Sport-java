@@ -55,7 +55,6 @@ public class Activity {
 			folder.mkdir();
 		}
 		String filename = FOLDERNAME + "/" + this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")) + ".json";
-		System.out.println(filename);
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		mapper.registerModule(new JavaTimeModule());
@@ -67,7 +66,6 @@ public class Activity {
 	}
 
 	public static Activity load(String filename) {
-		System.out.println(filename);
 		File file = new File(filename);
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new JavaTimeModule());
