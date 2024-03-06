@@ -22,18 +22,19 @@
 		   </children>
 	   </HBox>
 	   <HBox alignment="CENTER_LEFT" prefHeight="300.0" prefWidth="600.0">
-		   <children>
-			   <Label text="Duration" textAlignment="CENTER" translateX="30.0">
-				   <font>
-					   <Font size="22.0" />
-				   </font>
-			   </Label>
-			   <TextField fx:id="sport" translateX="80.0">
-				   <font>
-					   <Font size="15.0" />
-				   </font>
-			   </TextField>
-		   </children>
+         <children>
+			 <Label text="Intensity" textAlignment="CENTER" translateX="30.0">
+				 <font>
+					 <Font size="22.0" />
+				 </font>
+			 </Label>
+            <Slider fx:id="intensity_slider" prefWidth="200.0"  translateX="50"/>
+			 <TextField fx:id="intensity"  translateX="80">
+				 <font>
+					 <Font size="15.0" />
+				 </font>
+			 </TextField>
+         </children>
 	   </HBox>
 	  <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="600.0">
 		 <children>
@@ -49,6 +50,11 @@
 			</TextField>
 		 </children>
 	  </HBox>
+	   <Button alignment="CENTER" mnemonicParsing="false" onAction="#saveActivity" text="OK" textAlignment="CENTER" translateX="450.0">
+		   <font>
+			   <Font size="21.0" />
+		   </font>
+	   </Button>
 
 	</VBox>
 
