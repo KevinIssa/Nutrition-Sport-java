@@ -5,5 +5,5 @@ public enum Sport {
     RUNNING,
     BIKING,
     SWIMMING,
-    VOLLEYBALL
+    VOLLEYBALL;
 }
