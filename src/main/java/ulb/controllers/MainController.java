@@ -14,7 +14,7 @@ public class MainController extends AbstractController {
 
 	@FXML
 	public void encoderActivite() {
-		showAlert("Encodage d'activité");
+		this.getModele().getController().switchFXML("/ulb/views/add_activity.fxml", this.modele);
 	}
 
 	@FXML
