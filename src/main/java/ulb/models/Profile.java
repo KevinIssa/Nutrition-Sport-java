@@ -16,7 +16,8 @@ public class Profile {
 
 	public static final String FILENAME = "profile.json";
 
-	private String name;
+	private String firstName;
+	private String lastName;
 	private Sex sex;
 	private Weight weight;
 	private Height height;
@@ -26,16 +27,17 @@ public class Profile {
 
 	public Profile() {}
 
-	public Profile (String name, Sex sex, Weight weight, Height height, LocalDate birthDate) {
-		this.name = name;
+	public Profile (String firstName, String lastName, Sex sex, Weight weight, Height height, LocalDate birthDate) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.sex = sex;
 		this.weight = weight;
 		this.height = height;
 		this.birthDate = birthDate;
 	}
 
-	public Profile(String name, String sex, float weight, float height, LocalDate birthDate) {
-		this(name, Sex.fromString(sex), new Weight(weight), new Height(height), birthDate);
+	public Profile(String firstName, String lastName, String sex, float weight, float height, LocalDate birthDate) {
+		this(firstName, lastName, Sex.fromString(sex), new Weight(weight), new Height(height), birthDate);
 	}
 
 	@Override
@@ -45,7 +47,8 @@ public class Profile {
 		}
 		if (obj instanceof Profile) {
 			Profile profile = (Profile) obj;
-			return this.name.equals(profile.name) &&
+			return this.firstName.equals(profile.firstName) &&
+					this.lastName.equals(profile.lastName) &&
 					this.sex.equals(profile.sex) &&
 					this.weight.equals(profile.weight) &&
 					this.height.equals(profile.height) &&
@@ -77,12 +80,20 @@ public class Profile {
 		}
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return this.firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String newFirstName) {
+		this.firstName = newFirstName;
+	}
+
+	public String getLastName() {
+		return this.lastName;
+	}
+
+	public void setLastName(String newLastName) {
+		this.lastName = newLastName;
 	}
 
 	public Sex getSex() {
@@ -93,7 +104,7 @@ public class Profile {
 		this.sex = sex;
 	}
 
-	public double getWeight() {
+	public float getWeight() {
 		return weight.getWeight();
 	}
 
@@ -119,7 +130,8 @@ public class Profile {
 
 	public String toString() {
 		return "Profile{" +
-				"name=" + name +
+				"firstName=" + firstName +
+				", lastName=" + lastName +
 				", sex=" + sex +
 				", weight=" + weight.getWeight() +
 				", height=" + height.getHeight() +

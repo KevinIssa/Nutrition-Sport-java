@@ -9,7 +9,7 @@ public class TestProfile {
 
 	@Test
 	public void testProfile() {
-		Profile profile = new Profile("Hugo", "♂", 60, 175, LocalDate.of(2003, 5, 23));
+		Profile profile = new Profile("Hugo", "Charels", "♂", 60, 175, LocalDate.of(2003, 5, 23));
 		profile.save();
 		Profile loadedProfile = Profile.load();
 		assertEquals(profile, loadedProfile);

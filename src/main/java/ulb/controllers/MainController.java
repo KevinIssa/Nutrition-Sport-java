@@ -22,6 +22,11 @@ public class MainController extends AbstractController {
 		showAlert("Calcul du nombre de calories");
 	}
 
+	@FXML
+	public void modifierProfil(){
+
+	}
+
 	private void showAlert(String message) {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("Action sélectionnée");
