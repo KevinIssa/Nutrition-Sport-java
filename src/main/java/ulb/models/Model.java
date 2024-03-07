@@ -13,21 +13,24 @@ public class Model implements ProfileCreationViewController.Listener {
     public Model(SwitchController controller){
         this.controller = controller;
     }
-    public void createProfil() throws IOException {
-        if (Profil.fileExist()){
-            // doing nothing because the profil already created
+
+    public void createProfile() throws IOException {
+        if (Profile.fileExist()){
+            // doing nothing because the profile already created
         }else{
-            this.getController().switchFXML("/ulb/views/profil_creation.fxml", this, this);
+            this.getController().switchFXML("/ulb/views/profile_creation.fxml", this, this);
         }
     }
+
     public void saveProfile(String firstname, String lastname, String sex,float weight, float height , LocalDate birthdate){
-        Profil profil = new Profil(firstname, lastname, sex, weight, height, birthdate);
-        profil.save();
+        Profile profile = new Profile(firstname, lastname, sex, weight, height, birthdate);
+        profile.save();
     }
+
     public SwitchController getController(){
         return this.controller;
     }
-    public Profil getProfil(){
-        return Profil.load();
+    public Profile getProfile(){
+        return Profile.load();
     }
 }

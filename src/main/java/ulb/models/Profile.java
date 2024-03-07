@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 
-public class Profil {
+public class Profile {
 
 	public static final String FILENAME = "profile.json";
 
@@ -25,8 +25,8 @@ public class Profil {
 	private LocalDate birthDate;
 
 
-	public Profil() {}
-	public Profil(String firstName, String lastName, Sex sex, Weight weight, Height height, LocalDate birthDate) {
+	public Profile() {}
+	public Profile(String firstName, String lastName, Sex sex, Weight weight, Height height, LocalDate birthDate) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.sex = sex;
@@ -35,7 +35,7 @@ public class Profil {
 		this.birthDate = birthDate;
 	}
 
-	public Profil(String firstName, String lastName, String sex, float weight, float height, LocalDate birthDate) {
+	public Profile(String firstName, String lastName, String sex, float weight, float height, LocalDate birthDate) {
 		this(firstName, lastName, Sex.fromString(sex), new Weight(weight), new Height(height), birthDate);
 	}
 
@@ -44,14 +44,14 @@ public class Profil {
 		if (obj == null) {
 			return false;
 		}
-		if (obj instanceof Profil) {
-			Profil profil = (Profil) obj;
-			return this.firstName.equals(profil.firstName) &&
-					this.lastName.equals(profil.lastName) &&
-					this.sex.equals(profil.sex) &&
-					this.weight.equals(profil.weight) &&
-					this.height.equals(profil.height) &&
-					this.birthDate.equals(profil.birthDate);
+		if (obj instanceof Profile) {
+			Profile profile = (Profile) obj;
+			return this.firstName.equals(profile.firstName) &&
+					this.lastName.equals(profile.lastName) &&
+					this.sex.equals(profile.sex) &&
+					this.weight.equals(profile.weight) &&
+					this.height.equals(profile.height) &&
+					this.birthDate.equals(profile.birthDate);
 		}
 		return false;
 	}
@@ -71,12 +71,12 @@ public class Profil {
 		return file.exists();
 	}
 
-	public static Profil load() {
+	public static Profile load() {
 		File file = new File(FILENAME);
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new JavaTimeModule());
 		try {
-			return mapper.readValue(file, Profil.class);
+			return mapper.readValue(file, Profile.class);
 		} catch (IOException e) {
 			System.out.println("No valid profile found");
 			return null;

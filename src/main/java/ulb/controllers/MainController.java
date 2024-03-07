@@ -2,29 +2,29 @@ package ulb.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import ulb.models.Model;
 import ulb.models.ProfileReader;
+
 
 // controller for the main menu
 public class MainController extends AbstractController {
 
 	@FXML
-	public void consulterProfil() {
-		this.getModel().getController().switchFXML("/ulb/views/profile.fxml",this.getModel(), new ProfileReader(this.getModel().getProfil()));
+	public void consultProfile() {
+		this.getModel().getController().switchFXML("/ulb/views/profile.fxml",this.getModel(), new ProfileReader(this.getModel().getProfile()));
 	}
 
 	@FXML
-	public void encoderActivite() {
+	public void encodeActivity() {
 		this.getModel().getController().switchFXML("/ulb/views/add_activity.fxml", this.getModel());
 	}
 
 	@FXML
-	public void calculerCalories() {
+	public void computeCalories() {
 		showAlert("Calcul du nombre de calories");
 	}
 
 	@FXML
-	public void modifierProfil(){
+	public void modifyProfile(){
 
 	}
 

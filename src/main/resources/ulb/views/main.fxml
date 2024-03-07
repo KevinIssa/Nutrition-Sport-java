@@ -12,19 +12,17 @@
 	<top>
 		<MenuBar>
 			<menus>
-				<Menu text="Consultation du profil">
-					<MenuItem text="Consulter profil" onAction="#consulterProfil"/>
+				<Menu text="Profil">
+					<MenuItem text="Consulter le profil" onAction="#consultProfile"/>
+					<MenuItem text="Modifier le profil" onAction="#modifyProfile"/>
 				</Menu>
 
-				<Menu text="Modification du profil">
-					<MenuItem text="Modifier le profil" onAction="#modifierProfil"/>
-				</Menu>
-
-				<Menu text="Encodage d'activité">
-					<MenuItem text="Encoder activité" onAction="#encoderActivite"/>
+				<Menu text="Activitée">
+					<MenuItem text="Encoder une activité" onAction="#encodeActivity"/>
+					<!--<MenuItem text="Voir les activitées enregistrées" onAction="#ActivityHistory?"/>-->
 				</Menu>
 				<Menu text="Calcul du nombre de calories">
-					<MenuItem text="Calculer calories" onAction="#calculerCalories"/>
+					<MenuItem text="Calculer calories" onAction="#computeCalories"/>
 				</Menu>
 			</menus>
 		</MenuBar>

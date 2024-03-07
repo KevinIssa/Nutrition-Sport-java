@@ -7,6 +7,7 @@ import ulb.models.Model;
 
 import java.io.IOException;
 
+
 public class Main extends Application {
 	Model model;
 	@Override
@@ -15,8 +16,8 @@ public class Main extends Application {
 		this.model = new Model(controller);
 		// switch to the main menu
 		controller.switchFXML("/ulb/views/main.fxml", model);
-		// switch to profil creation menu if profil not created else load the profil
-		this.model.createProfil();
+		// switch to profile creation menu if profile not created else load the profile
+		this.model.createProfile();
 		primaryStage.setTitle("Menu App");
 		primaryStage.setWidth(800); // Initial width
 		primaryStage.setHeight(600); // Initial height
