@@ -16,9 +16,7 @@ public class MainController extends AbstractController {
 
 	@FXML
 	public void encodeActivity() {
-		// TODO you forgot to add a listener as the third parameter
-		Object listener = null;
-		this.getModel().getController().switchFXML("/ulb/views/add_activity.fxml", this.getModel(), null);
+		this.getModel().getController().switchFXML("/ulb/views/add_activity.fxml", this.getModel());
 	}
 
 	@FXML
@@ -29,6 +27,14 @@ public class MainController extends AbstractController {
 	@FXML
 	public void modifyProfile(){
 		this.getModel().getController().switchFXML("/ulb/views/profile_modification.fxml", this.getModel(), new ProfileReaderAndSaver(this.getModel().getProfile()));
+	}
+
+	private void showAlert(String message) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Action sélectionnée");
+		alert.setHeaderText(null);
+		alert.setContentText(message);
+		alert.showAndWait();
 	}
 
 }
