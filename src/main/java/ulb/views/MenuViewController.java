@@ -21,8 +21,7 @@ public class MenuViewController implements ViewController {
 	}
 
 	public void modifyProfile(){
-		// TODO: implement this method
-		this.listener.loadConsultProfileView();
+		this.listener.loadModifyProfileView();
 	}
 
 	public void createActivity() {
@@ -52,7 +51,10 @@ public class MenuViewController implements ViewController {
 	public interface Listener {
 		void loadConsultProfileView();
 		void loadCreateActivityView();
-		// ...
+		void loadModifyProfileView();
+		void loadCreateProfileView();
+		void loadMenuView();
+		void loadWelcomeView();
 	}
 
 }

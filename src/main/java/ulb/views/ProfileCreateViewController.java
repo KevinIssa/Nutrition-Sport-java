@@ -49,6 +49,7 @@ public class ProfileCreateViewController implements ViewController {
 		this.listener.returnHome();
 	}
 
+
 	public void setListener(Object listener) {
 		this.listener = (Listener) listener;
 		if (listener == null) {
