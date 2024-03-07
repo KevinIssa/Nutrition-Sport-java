@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import ulb.models.Model;
 
 public class ProfileCreationViewController extends AbstractController implements Initializable {
     @FXML
@@ -27,7 +28,7 @@ public class ProfileCreationViewController extends AbstractController implements
     @FXML
     private ToggleGroup sex; // radio button
 
-    private Listener listener;
+    private ProfileCreationViewController.Listener listener;
     System.Logger logger = System.getLogger(ProfileCreationViewController.class.getName());
 
     @Override
@@ -39,41 +40,38 @@ public class ProfileCreationViewController extends AbstractController implements
     public void saveProfile() {
         String savedLastName = lastname.getText();
         String savedFirstName = firstname.getText();
-        String savedSex;
-        LocalDate selectedDate;
-        float floatHeight = 0;
-        float floatWeight = 0;
         try {
-            savedSex = getSavedSex();
-            selectedDate = birthdate.getValue();
-            floatHeight = Float.parseFloat(height.getText());
-            floatWeight = Float.parseFloat(weight.getText());
+            String savedSex = getSavedSex();
+            LocalDate selectedDate = birthdate.getValue();
+            float floatHeight = Float.parseFloat(height.getText());
+            float floatWeight = Float.parseFloat(weight.getText());
             safeSaveProfile(savedLastName, savedFirstName, savedSex, selectedDate, floatWeight, floatHeight);
         } catch (NumberFormatException e) {
             logger.log(System.Logger.Level.ERROR, "Height and weight must be numbers");
             return;
         }
-        this.getModele().setProfil(savedLastName, savedFirstName, savedSex,selectedDate, floatWeight, floatHeight);
-        this.getModele().getController().switchFXML("/ulb/views/main.fxml", this.getModele()); // switch to main.fxml after saving profile ?
+        this.getModel().getController().switchFXML("/ulb/views/main.fxml", this.getModel());
     }
 
     private String getSavedSex() {
         RadioButton selectedRadioButton = (RadioButton) sex.getSelectedToggle();
         return selectedRadioButton.getText();
     }
-    public void setListener(Listener listener) {
-        this.listener = listener;
+    @Override
+    public void setListener(Object listener) {
+        this.listener = (ProfileCreationViewController.Listener) listener;
     }
 
-    public void safeSaveProfile(String surname, String firstname, String savedSex, LocalDate selectedDate, float floatWeight, float floatHeight) {
+    public void safeSaveProfile(String lastname, String firstname, String savedSex, LocalDate selectedDate, float floatWeight, float floatHeight) {
         if (listener == null) {
             logger.log(System.Logger.Level.ERROR, "Listener is null");
             return;
         }
-        listener.saveProfile(surname, firstname, savedSex, selectedDate, floatWeight, floatHeight);
+        listener.saveProfile(lastname, firstname, savedSex,  floatWeight,  floatHeight, selectedDate);
 
     }
     public interface Listener {
-        void saveProfile(String surname, String firstname, String savedSex, LocalDate selectedDate, float floatWeight, float floatHeight);
+        void saveProfile(String firstname, String lastname, String sex,float weight, float height , LocalDate birthdate);
     }
+
 }

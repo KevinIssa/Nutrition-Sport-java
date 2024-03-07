@@ -32,7 +32,7 @@ public class ProfileModificatorViewController extends AbstractController impleme
     @FXML
     private RadioButton femaleButton;
     private final ProfileReader profile;
-    private ProfileCreationViewController.Listener listener;
+    private ProfileModificatorViewController.Listener listener;
     System.Logger logger = System.getLogger(ProfileModificatorViewController.class.getName());
 
     public ProfileModificatorViewController(ProfileReader profile){
@@ -66,23 +66,28 @@ public class ProfileModificatorViewController extends AbstractController impleme
             logger.log(System.Logger.Level.ERROR, "Height and weight must be numbers");
             return;
         }
-        this.getModele().getController().switchFXML("/ulb/views/main.fxml", this.getModele()); // switch to main.fxml after saving profile ?
+        this.getModel().getController().switchFXML("/ulb/views/main.fxml", this.getModel()); // switch to main.fxml after saving profile ?
     }
 
     private String getSavedSex() {
         RadioButton selectedRadioButton = (RadioButton) sex.getSelectedToggle();
         return selectedRadioButton.getText();
     }
-    public void setListener(ProfileCreationViewController.Listener listener) {
-        this.listener = listener;
+
+    public DatePicker getBirthdate() {
+        return birthdate;
     }
 
-    public void safeSaveProfile(String surname, String firstname, String savedSex, LocalDate selectedDate, float floatWeight, float floatHeight) {
+    public void setListener(Object listener) {
+        this.listener = (ProfileModificatorViewController.Listener) listener;
+    }
+
+    public void safeSaveProfile(String lastname, String firstname, String savedSex, LocalDate selectedDate, float floatWeight, float floatHeight) {
         if (listener == null) {
             logger.log(System.Logger.Level.ERROR, "Listener is null");
             return;
         }
-        listener.saveProfile(surname, firstname, savedSex, selectedDate, floatWeight, floatHeight);
+        listener.saveProfile(lastname, firstname, savedSex,selectedDate,  floatWeight,  floatHeight );
 
     }
     public interface Listener {

@@ -9,16 +9,18 @@ import ulb.models.Model;
 import java.io.IOException;
 
 
-public class SwitchController {
+public class SwitchController{
 
     /*Controller used to switch the Scene showed on the screen and at the time giving data to
-    * the controller of the scene if needed
+     * the controller of the scene if needed
      * */
     Stage primaryStage;
-    public SwitchController(Stage primaryStage){
+
+    public SwitchController(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
-    public void switchFXML(String fxmlFileName, Model model, Object data) {
+
+    public void switchFXML(String fxmlFileName, Model model, Object listener) {
         /* the function switchFXML use the path to a fxml file to be able to switch to this scene
          * the Model are given to give the possibility to the controller of each fxml file to apply changes
          * Attention, the controller of each fxml file need to heritate from AbstractController
@@ -34,17 +36,19 @@ public class SwitchController {
             // get the controller of the fxml file
             AbstractController loaderController = loader.getController();
             // give the model to the controller
-            loaderController.setModele(model);
+            loaderController.setModel(model);
+            loaderController.setListener(listener);
             // give an Object type data that need to be cast or null
-            loaderController.giveData(data);
             // create a scene using the root of the fxml file and use it as display
             primaryStage.setScene(new Scene(root, 300, 200));
         } catch (IOException e) {
             e.printStackTrace();
             // Handle the exception
         }
+
     }
+
     public void switchFXML(String fxmlFileName, Model model) {
-        this.switchFXML(fxmlFileName, model,  null);
+        switchFXML(fxmlFileName, model, null);
     }
 }

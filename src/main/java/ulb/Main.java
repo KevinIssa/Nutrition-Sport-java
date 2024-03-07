@@ -24,15 +24,6 @@ public class Main extends Application {
 		primaryStage.setResizable(true);
 		primaryStage.show();
 	}
-	@Override
-	public void stop() throws Exception {
-		// Code to execute when the JavaFX application is closing
-		savingUser();
-	}
-	public void savingUser() throws IOException {
-		// saving the user in a file called user.text in resources.ulb.database
-		this.model.saveUser();
-	}
 
 	public static void main(String[] args) {
 		launch(args);

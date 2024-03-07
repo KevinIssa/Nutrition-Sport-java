@@ -1,10 +1,11 @@
 package ulb.models;
 
 import ulb.models.enums.Sex;
+import ulb.views.ProfileViewController;
 
 import java.time.LocalDate;
 
-public class ProfileReader{
+public class ProfileReader implements ProfileViewController.Listener {
     private final String firstName;
     private final String lastName;
     private final LocalDate birthDate;
@@ -13,13 +14,13 @@ public class ProfileReader{
     private final float height;
     private final float weight;
     
-    public ProfileReader(Profile profile) {
-        this.firstName = profile.getFirstName();
-        this.lastName = profile.getLastName();
-        this.birthDate = profile.getBirthDate();
-        this.sex = profile.getSex();
-        this.height = profile.getHeight();
-        this.weight = profile.getWeight();
+    public ProfileReader(Profil profil) {
+        this.firstName = profil.getFirstName();
+        this.lastName = profil.getLastName();
+        this.birthDate = profil.getBirthDate();
+        this.sex = profil.getSex();
+        this.height = profil.getHeight();
+        this.weight = profil.getWeight();
 
     }
     

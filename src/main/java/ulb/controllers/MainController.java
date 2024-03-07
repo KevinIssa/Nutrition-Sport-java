@@ -2,14 +2,15 @@ package ulb.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import ulb.models.Model;
+import ulb.models.ProfileReader;
 
 // controller for the main menu
 public class MainController extends AbstractController {
 
 	@FXML
 	public void consulterProfil() {
-		//TODO putting the right file for profil consulation and not creation and removing the // and this comment
-		//this.getModele().getController().switchFXML("/ulb/views/profil_creation.fxml",this.model);
+		this.getModel().getController().switchFXML("/ulb/views/profile.fxml",this.getModel(), new ProfileReader(this.getModel().getProfil()));
 	}
 
 	@FXML
@@ -34,4 +35,5 @@ public class MainController extends AbstractController {
 		alert.setContentText(message);
 		alert.showAndWait();
 	}
+
 }
