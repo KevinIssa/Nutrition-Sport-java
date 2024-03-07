@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="Add Activity" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.AddActivityController">
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="Add Activity" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ActivityCreateViewController">
    <VBox prefHeight="200.0" prefWidth="100.0">
 	  <Label text="Add your activity">
 		 <font>
@@ -28,7 +28,7 @@
 					 <Font size="22.0" />
 				 </font>
 			 </Label>
-            <Slider fx:id="intensity_slider" prefWidth="200.0"  translateX="50"/>
+            <Slider fx:id="intensitySlider" prefWidth="200.0"  translateX="50"/>
 			 <TextField fx:id="intensity"  translateX="80">
 				 <font>
 					 <Font size="15.0" />

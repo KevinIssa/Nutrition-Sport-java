@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
-public class Activity {
+public class Activity implements JsonSerializable {
 
 	private static final String FOLDERNAME = "activities";
 
@@ -55,26 +55,11 @@ public class Activity {
 			folder.mkdir();
 		}
 		String filename = FOLDERNAME + "/" + this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")) + ".json";
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		mapper.registerModule(new JavaTimeModule());
-		try {
-			mapper.writeValue(new File(filename), this);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		saveToFile(filename);
 	}
 
 	public static Activity load(String filename) {
-		File file = new File(filename);
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new JavaTimeModule());
-		try {
-			return mapper.readValue(file, Activity.class);
-		} catch (IOException e) {
-			System.out.println("No activity found");
-			return null;
-		}
+		return (Activity) new Activity().loadFromFile(filename);
 	}
 
 	public Sport getSport() {
@@ -127,4 +112,28 @@ public class Activity {
 				'}';
 	}
 
+	@Override
+	public void saveToFile(String filename) {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.registerModule(new JavaTimeModule());
+		try {
+			mapper.writeValue(new File(filename), this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public JsonSerializable loadFromFile(String filename) {
+		File file = new File(filename);
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JavaTimeModule());
+		try {
+			return mapper.readValue(file, Activity.class);
+		} catch (IOException e) {
+			System.out.println("No activity found");
+			return null;
+		}
+	}
 }

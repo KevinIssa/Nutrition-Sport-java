@@ -7,7 +7,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
 			xmlns:fx="http://javafx.com/fxml"
-			fx:controller="ulb.controllers.MainController">
+			fx:controller="ulb.views.MenuViewController">
 
 	<top>
 		<MenuBar>
@@ -18,7 +18,7 @@
 				</Menu>
 
 				<Menu text="Activitée">
-					<MenuItem text="Encoder une activité" onAction="#encodeActivity"/>
+					<MenuItem text="Encoder une activité" onAction="#createActivity"/>
 					<!--<MenuItem text="Voir les activitées enregistrées" onAction="#ActivityHistory?"/>-->
 				</Menu>
 				<Menu text="Calcul du nombre de calories">
