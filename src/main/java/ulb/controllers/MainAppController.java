@@ -124,32 +124,6 @@ public class MainAppController extends AppController implements MenuViewControll
 	}
 
 	@Override
-	public void loadCreateActivityView() {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/views/ActivityCreate.fxml"));
-			Parent root = loader.load();
-			ActivityCreateViewController viewController = loader.getController();
-			viewController.setListener(new ActivityCreateViewController.Listener() {
-
-					@Override
-					public void saveActivity(Sport selectedSport, String selectedIntensity, float selectedDuration) {
-						Activity activity = new Activity(selectedSport, Intensity.fromString(selectedIntensity), Duration.ofMinutes((long) selectedDuration), LocalDateTime.now());
-						activity.save();
-					}
-
-					@Override
-					public void returnHome() {
-						loadMenuView();
-					}
-				}
-			);
-			primaryStage.setScene(new Scene(root, 300, 200));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-	@Override
 	public void loadModifyProfileView(){
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/views/ProfileModify.fxml"));
@@ -198,6 +172,57 @@ public class MainAppController extends AppController implements MenuViewControll
 					return profile.getWeight();
 				}
 									   }
+			);
+			primaryStage.setScene(new Scene(root, 300, 200));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void loadCreateActivityView() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/views/ActivityCreate.fxml"));
+			Parent root = loader.load();
+			ActivityCreateViewController viewController = loader.getController();
+			viewController.setListener(new ActivityCreateViewController.Listener() {
+
+										   @Override
+										   public void saveActivity(Sport selectedSport, String selectedIntensity, float selectedDuration) {
+											   Activity activity = new Activity(selectedSport, Intensity.fromString(selectedIntensity), Duration.ofMinutes((long) selectedDuration), LocalDateTime.now());
+											   activity.save();
+										   }
+
+										   @Override
+										   public void returnHome() {
+											   loadMenuView();
+										   }
+									   }
+			);
+			primaryStage.setScene(new Scene(root, 300, 200));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public void loadActivityHistoryView(){
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/views/ProfileModify.fxml"));
+			Parent root = loader.load();
+			ViewController viewController = loader.getController();
+			Profile profile = Profile.load();
+			viewController.setListener(new ActivityHistoryController.Listener() {
+				@Override
+				public void returnHome() {
+					loadWelcomeView();
+				}
+				@Override
+				public Activity loadActivity(String filename) {
+					return Activity.load(filename);
+				}
+			    }
 			);
 			primaryStage.setScene(new Scene(root, 300, 200));
 		} catch (Exception e) {

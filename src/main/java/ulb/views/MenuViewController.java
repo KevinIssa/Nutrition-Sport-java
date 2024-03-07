@@ -28,6 +28,8 @@ public class MenuViewController implements ViewController {
 		this.listener.loadCreateActivityView();
 	}
 
+	public void activityHistory(){this.listener.loadActivityHistoryView();}
+
 	public void computeCalories() {
 		showAlert("Calcul du nombre de calories");
 		// TODO: implement this method
@@ -55,6 +57,7 @@ public class MenuViewController implements ViewController {
 		void loadCreateProfileView();
 		void loadMenuView();
 		void loadWelcomeView();
+		void loadActivityHistoryView();
 	}
 
 }
