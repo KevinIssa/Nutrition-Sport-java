@@ -3,14 +3,14 @@ package ulb.views;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.fxml.Initializable;
-import ulb.controllers.AbstractController;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class ProfileViewController extends AbstractController implements Initializable {
+
+public class ProfileConsultViewController implements ViewController {
+
     @FXML
     private Label firstname;
     @FXML
@@ -23,22 +23,17 @@ public class ProfileViewController extends AbstractController implements Initial
     private Label height;
     @FXML
     private Label weight;
-
     @FXML
-    private Button return_button;
+    private Button homeButton;
 
-    private ProfileViewController.Listener listener;
+    private ProfileConsultViewController.Listener listener;
 
 
     @Override
     public void initialize (URL url, ResourceBundle resourceBundle) {
         // if we put setter here, the initialize will be executed before setListener so listener is null
     }
-    @Override
-    public void setListener(Object listener) {
-        this.listener = (ProfileViewController.Listener) listener;
-        this.setDefaultValue();
-    }
+
     public void setDefaultValue(){
         this.firstname.setText(listener.getFirstName());
         this.lastname.setText(listener.getLastName());
@@ -47,9 +42,20 @@ public class ProfileViewController extends AbstractController implements Initial
         this.weight.setText(Float.toString(listener.getWeight()));
         this.sex.setText(listener.getSex());
     }
-    public void returnBack(){
-        this.getModel().getController().switchFXML("/ulb/views/main.fxml", this.getModel());
+
+    public void returnHome(){
+        this.listener.returnHome();
     }
+
+
+    public void setListener(Object listener) {
+        this.listener = (Listener) listener;
+        if (listener == null) {
+            throw new IllegalArgumentException("Listener cannot be null");
+        }
+        this.setDefaultValue();
+    }
+
     public interface Listener {
         String getFirstName();
         String getLastName();
@@ -57,6 +63,7 @@ public class ProfileViewController extends AbstractController implements Initial
         LocalDate getBirthDate();
         float getHeight();
         float getWeight();
+        void returnHome();
     }
 
 }

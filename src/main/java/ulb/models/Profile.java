@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 
-public class Profile {
+public class Profile implements JsonSerializable {
 
 	public static final String FILENAME = "profile.json";
 
@@ -36,10 +36,6 @@ public class Profile {
 		this.birthDate = birthDate;
 	}
 
-	public Profile(String firstName, String lastName, String sex, float weight, float height, LocalDate birthDate) {
-		this(firstName, lastName, Sex.fromString(sex), new Weight(weight), new Height(height), birthDate);
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
@@ -57,32 +53,17 @@ public class Profile {
 		return false;
 	}
 
-	public void save() {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		mapper.registerModule(new JavaTimeModule());
-		try {
-			mapper.writeValue(new File(FILENAME), this);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static Boolean fileExist(){
+	public static boolean isCreated() {
 		File file = new File(FILENAME);
 		return file.exists();
 	}
 
+	public void save() {
+		this.saveToFile(FILENAME);
+	}
+
 	public static Profile load() {
-		File file = new File(FILENAME);
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new JavaTimeModule());
-		try {
-			return mapper.readValue(file, Profile.class);
-		} catch (IOException e) {
-			System.out.println("No valid profile found");
-			return null;
-		}
+		return (Profile) new Profile().loadFromFile(FILENAME);
 	}
 
 	public String getFirstName() {
@@ -143,4 +124,30 @@ public class Profile {
 				", birthDate=" + birthDate +
 				'}';
 	}
+
+	@Override
+	public void saveToFile(String filename) {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.registerModule(new JavaTimeModule());
+		try {
+			mapper.writeValue(new File(filename), this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public JsonSerializable loadFromFile(String filename) {
+		File file = new File(filename);
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JavaTimeModule());
+		try {
+			return mapper.readValue(file, Profile.class);
+		} catch (IOException e) {
+			System.out.println("No valid profile found");
+			return null;
+		}
+	}
+
 }

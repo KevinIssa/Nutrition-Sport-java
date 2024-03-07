@@ -9,7 +9,7 @@ module ulb {
 	exports ulb.models.enums;
 	exports ulb.views;
 	exports ulb.controllers;
-	opens ulb.controllers to javafx.fxml;
+	opens ulb.models to javafx.fxml;
 	opens ulb.views to javafx.fxml;
-    opens ulb.models to javafx.fxml;
+	opens ulb.controllers to javafx.fxml;
 }

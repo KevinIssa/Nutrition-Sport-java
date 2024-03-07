@@ -13,7 +13,17 @@ public enum Sex {
 			case "♀":
 				return FEMALE;
 			default:
-				throw new IllegalArgumentException("No valid sex given");
+				throw new IllegalArgumentException("Invalid sex: " + sex);
 		}
+	}
+
+	public String toString() {
+		switch (this) {
+			case MALE:
+				return "♂";
+			case FEMALE:
+				return "♀";
+		}
+		return null;
 	}
 }
