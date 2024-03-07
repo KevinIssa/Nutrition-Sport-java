@@ -8,7 +8,7 @@
       <Button onAction="#returnBack" layoutX="460.0" layoutY="340.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="126.0" text="Return" />
       <Label layoutX="43.0" layoutY="29.0" prefHeight="37.0" prefWidth="83.0" text="Prénom:" />
       <Label layoutX="43.0" layoutY="81.0" prefHeight="37.0" prefWidth="83.0" text="Nom:" />
-      <Label layoutX="43.0" layoutY="136.0" prefHeight="37.0" prefWidth="83.0" text="Poid:" />
+      <Label layoutX="43.0" layoutY="136.0" prefHeight="37.0" prefWidth="83.0" text="Poids:" />
       <Label layoutX="43.0" layoutY="182.0" prefHeight="37.0" prefWidth="83.0" text="Taille:" />
       <Label layoutX="43.0" layoutY="231.0" prefHeight="37.0" prefWidth="83.0" text="Sexe:" />
       <Label layoutX="43.0" layoutY="281.0" prefHeight="37.0" prefWidth="83.0" text="Date de naissance:" />
