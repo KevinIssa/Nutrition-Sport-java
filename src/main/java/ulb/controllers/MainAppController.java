@@ -209,7 +209,7 @@ public class MainAppController extends AppController implements MenuViewControll
 	@Override
 	public void loadActivityHistoryView(){
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/views/ProfileModify.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/views/ActivityHistory.fxml"));
 			Parent root = loader.load();
 			ViewController viewController = loader.getController();
 			Profile profile = Profile.load();

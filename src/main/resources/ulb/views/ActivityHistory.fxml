@@ -6,9 +6,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-			xmlns:fx="http://javafx.com/fxml"
-			fx:controller="ulb.views.ActivityHistoryController"
-			prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<VBox xmlns="http://javafx.com/javafx"
+	  xmlns:fx="http://javafx.com/fxml"
+	  fx:controller="ulb.views.ActivityHistoryController"
+	  prefHeight="400.0" prefWidth="600.0">
+    <children>
+	    <!-- Container for history labels -->
+	    <ListView fx:id="historylist"/>
+		<Button onAction="#returnHome" layoutX="460.0" layoutY="340.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="126.0" text="Return" />
+	</children>
+</VBox>
