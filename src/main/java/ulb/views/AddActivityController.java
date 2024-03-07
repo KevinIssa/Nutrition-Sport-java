@@ -81,14 +81,13 @@ public class AddActivityController extends AbstractController implements Initial
             safeSaveActivity(selectedSport, selectedIntensity, selectedDuration,date);
         } catch (NumberFormatException e) {
             logger.log(System.Logger.Level.ERROR, "Duration must be a number");
-            this.showAlert("la durée doit etre un nombre");
             return;
         }
         this.getModel().getController().switchFXML("/ulb/views/main.fxml", this.getModel());
     }
-    @Override
-    public void setListener(Object listener) {
-        this.listener = (AddActivityController.Listener) listener;
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
     }
     public void safeSaveActivity(Sport selectedSport, String selectedIntensity, float selectedDuration, LocalDateTime date) {
         if(listener == null) {

@@ -6,18 +6,19 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ProfileViewController">
    <children>
       <Button onAction="#returnBack" layoutX="460.0" layoutY="340.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="126.0" text="Return" />
-      <Label layoutX="43.0" layoutY="29.0" prefHeight="37.0" prefWidth="83.0" text="Prénom:" />
-      <Label layoutX="43.0" layoutY="81.0" prefHeight="37.0" prefWidth="83.0" text="Nom:" />
-      <Label layoutX="43.0" layoutY="136.0" prefHeight="37.0" prefWidth="83.0" text="Poid:" />
-      <Label layoutX="43.0" layoutY="182.0" prefHeight="37.0" prefWidth="83.0" text="Taille:" />
-      <Label layoutX="43.0" layoutY="231.0" prefHeight="37.0" prefWidth="83.0" text="Sexe:" />
-      <Label layoutX="43.0" layoutY="281.0" prefHeight="37.0" prefWidth="83.0" text="Date de naissance:" />
+      <Label layoutX="43.0" layoutY="29.0" prefHeight="37.0" prefWidth="83.0" text="Lastname:" />
+      <Label layoutX="43.0" layoutY="81.0" prefHeight="37.0" prefWidth="83.0" text="Firstname:" />
+      <Label layoutX="43.0" layoutY="136.0" prefHeight="37.0" prefWidth="83.0" text="Sex:" />
+      <Label layoutX="43.0" layoutY="182.0" prefHeight="37.0" prefWidth="83.0" text="Birthdate:" />
+      <Label layoutX="43.0" layoutY="231.0" prefHeight="37.0" prefWidth="83.0" text="Weight:" />
+      <Label layoutX="43.0" layoutY="281.0" prefHeight="37.0" prefWidth="83.0" text="Height:" />
 
-      <Label fx:id="firstname" layoutX="144.0" layoutY="34.0" prefHeight="28.0" prefWidth="70.0" />
-      <Label fx:id="lastname" layoutX="144.0" layoutY="86.0" prefHeight="28.0" prefWidth="70.0" />
-      <Label fx:id="weight" layoutX="144.0" layoutY="141.0" prefHeight="28.0" prefWidth="70.0" />
-      <Label fx:id="height" layoutX="144.0" layoutY="187.0" prefHeight="28.0" prefWidth="70.0" />
-      <Label fx:id="sex" layoutX="144.0" layoutY="240.0" prefHeight="28.0" prefWidth="70.0" />
-      <Label fx:id="birthdate" layoutX="144.0" layoutY="286.0" prefHeight="28.0" prefWidth="70.0" />
+
+      <Label fx:id="lastname" layoutX="144.0" layoutY="34.0" prefHeight="28.0" prefWidth="70.0" />
+      <Label fx:id="firstname" layoutX="144.0" layoutY="86.0" prefHeight="28.0" prefWidth="70.0" />
+      <Label fx:id="sex" layoutX="144.0" layoutY="141.0" prefHeight="28.0" prefWidth="70.0" />
+      <Label fx:id="birthdate" layoutX="144.0" layoutY="187.0" prefHeight="28.0" prefWidth="70.0" />
+      <Label fx:id="weight" layoutX="144.0" layoutY="240.0" prefHeight="28.0" prefWidth="70.0" />
+      <Label fx:id="height" layoutX="144.0" layoutY="286.0" prefHeight="28.0" prefWidth="70.0" />
    </children>
 </AnchorPane>

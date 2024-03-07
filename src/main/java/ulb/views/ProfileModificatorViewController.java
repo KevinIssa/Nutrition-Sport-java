@@ -8,14 +8,13 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import ulb.controllers.AbstractController;
-import ulb.models.Profile;
 import ulb.models.ProfileReader;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class ProfileModificatorViewController extends AbstractController{
+public class ProfileModificatorViewController extends AbstractController implements Initializable {
     @FXML
     private TextField firstname;
     @FXML
@@ -32,21 +31,27 @@ public class ProfileModificatorViewController extends AbstractController{
     private RadioButton maleButton;
     @FXML
     private RadioButton femaleButton;
+    private final ProfileReader profile;
     private ProfileModificatorViewController.Listener listener;
     System.Logger logger = System.getLogger(ProfileModificatorViewController.class.getName());
 
-    public void setDefaultValue() {
-        this.firstname.setText(listener.getFirstName());
-        this.lastname.setText(listener.getLastName());
-        this.birthdate.setValue(listener.getBirthDate());
-        this.height.setText(Float.toString(listener.getHeight()));
-        this.weight.setText(Float.toString(listener.getWeight()));
-        if (listener.getSex().equals("♂")){
-            maleButton.setSelected(true);
+    public ProfileModificatorViewController(ProfileReader profile){
+        this.profile = profile;
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.firstname.setText(profile.getFirstName());
+        this.lastname.setText(profile.getLastName());
+        this.birthdate.setValue(profile.getBirthDate());
+        this.height.setText(Float.toString(profile.getHeight()));
+        this.weight.setText(Float.toString(profile.getWeight()));
+        if (profile.getSex().equals("♂")){
+			maleButton.setSelected(true);
         }
-        else{
-            femaleButton.setSelected(true);
-        }
+		else{
+        	femaleButton.setSelected(true);
+		}
     }
     public void saveProfile() {
         String savedLastName = lastname.getText();
@@ -56,10 +61,9 @@ public class ProfileModificatorViewController extends AbstractController{
             LocalDate selectedDate = birthdate.getValue();
             float floatHeight = Float.parseFloat(height.getText());
             float floatWeight = Float.parseFloat(weight.getText());
-            safeSaveProfile(savedFirstName, savedLastName, savedSex, selectedDate, floatWeight, floatHeight);
+            safeSaveProfile(savedLastName, savedFirstName, savedSex, selectedDate, floatWeight, floatHeight);
         } catch (NumberFormatException e) {
             logger.log(System.Logger.Level.ERROR, "Height and weight must be numbers");
-            this.showAlert("le poid et la taille doivent etre des nombres");
             return;
         }
         this.getModel().getController().switchFXML("/ulb/views/main.fxml", this.getModel()); // switch to main.fxml after saving profile ?
@@ -76,7 +80,6 @@ public class ProfileModificatorViewController extends AbstractController{
 
     public void setListener(Object listener) {
         this.listener = (ProfileModificatorViewController.Listener) listener;
-        this.setDefaultValue();
     }
 
     public void safeSaveProfile(String lastname, String firstname, String savedSex, LocalDate selectedDate, float floatWeight, float floatHeight) {
@@ -88,14 +91,8 @@ public class ProfileModificatorViewController extends AbstractController{
 
     }
     public interface Listener {
-        String getFirstName();
-        String getLastName();
-        String getSex();
-        LocalDate getBirthDate();
-        float getHeight();
-        float getWeight();
-        public void saveProfile(String firstname, String lastname, String sex, LocalDate birthdate, float weight, float height );
-        }
+        void saveProfile(String surname, String firstname, String savedSex, LocalDate selectedDate, float floatWeight, float floatHeight);
+    }
 
 }
 
