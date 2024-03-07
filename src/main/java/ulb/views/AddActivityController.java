@@ -83,7 +83,7 @@ public class AddActivityController extends AbstractController implements Initial
             logger.log(System.Logger.Level.ERROR, "Duration must be a number");
             return;
         }
-        this.getModele().getController().switchFXML("/ulb/views/main.fxml", this.getModele());
+        this.getModel().getController().switchFXML("/ulb/views/main.fxml", this.getModel());
     }
 
     public void setListener(Listener listener) {
