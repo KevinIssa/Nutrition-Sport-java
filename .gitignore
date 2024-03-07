@@ -186,7 +186,7 @@ buildNumber.properties
 
 
 # App save files
-profil.json
+profile.json
 activities/
 
 
