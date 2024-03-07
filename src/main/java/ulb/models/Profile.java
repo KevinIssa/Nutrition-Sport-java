@@ -26,6 +26,7 @@ public class Profile {
 
 
 	public Profile() {}
+
 	public Profile(String firstName, String lastName, Sex sex, Weight weight, Height height, LocalDate birthDate) {
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -66,6 +67,7 @@ public class Profile {
 			e.printStackTrace();
 		}
 	}
+
 	public static Boolean fileExist(){
 		File file = new File(FILENAME);
 		return file.exists();
