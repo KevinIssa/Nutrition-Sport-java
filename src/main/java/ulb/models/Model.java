@@ -22,7 +22,7 @@ public class Model implements ProfileCreationViewController.Listener {
         }
     }
 
-    public void saveProfile(String firstname, String lastname, String sex,float weight, float height , LocalDate birthdate){
+    public void saveProfile(String firstname, String lastname, String sex, LocalDate birthdate, float weight, float height ){
         Profile profile = new Profile(firstname, lastname, sex, weight, height, birthdate);
         profile.save();
     }

@@ -1,5 +1,6 @@
 package ulb.controllers;
 
+import javafx.scene.control.Alert;
 import ulb.models.Model;
 
 // ALL controller heritate from this class
@@ -16,5 +17,12 @@ public abstract class AbstractController {
     }
     public Model getModel(){
         return model;
+    }
+    public void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Erreur");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

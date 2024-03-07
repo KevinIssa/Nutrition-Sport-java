@@ -3,6 +3,7 @@ package ulb.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import ulb.models.ProfileReader;
+import ulb.models.ProfileReaderAndSaver;
 
 
 // controller for the main menu
@@ -25,7 +26,7 @@ public class MainController extends AbstractController {
 
 	@FXML
 	public void modifyProfile(){
-
+		this.getModel().getController().switchFXML("/ulb/views/profile_modification.fxml", this.getModel(), new ProfileReaderAndSaver(this.getModel().getProfile()));
 	}
 
 	private void showAlert(String message) {
