@@ -14,7 +14,7 @@ public class ActivityHistoryViewController implements ViewController {
     Listener listener;
 
     @FXML
-    ListView historylist;
+    ListView historyList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -25,13 +25,13 @@ public class ActivityHistoryViewController implements ViewController {
                                 "   Activity: " + activity.getSport().name() +
                                 "   intensity: " + activity.getIntensity().name() +
                                 "   duration: " + activity.getDuration().toString());
-        historylist.getItems().add(label);
+        historyList.getItems().add(label);
     }
     public void returnHome(){
         this.listener.returnHome();
     }
     public void addActivities(){
-        historylist.getItems().clear();
+        historyList.getItems().clear();
         // Specify the directory path
         File directory = new File(FOLDERNAME);
 
