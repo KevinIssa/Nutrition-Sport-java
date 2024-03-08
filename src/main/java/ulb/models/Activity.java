@@ -103,7 +103,7 @@ public class Activity implements JsonSerializable {
 		return (int) duration.toMinutes();
 	}
 
-	public double getCaloriesBurned(Weight weight) {
+	public double getCaloriesBurned(float weight) {
 		return CalorieCalculator.compute(this, weight);
 	}
 
