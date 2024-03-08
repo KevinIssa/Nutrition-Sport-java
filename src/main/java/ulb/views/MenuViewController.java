@@ -24,6 +24,10 @@ public class MenuViewController implements ViewController {
 		this.listener.loadModifyProfileView();
 	}
 
+	public void deleteProfile(){
+		this.listener.loadDeleteProfileView();
+	}
+
 	public void createActivity() {
 		this.listener.loadCreateActivityView();
 	}
@@ -54,6 +58,7 @@ public class MenuViewController implements ViewController {
 		void loadConsultProfileView();
 		void loadCreateActivityView();
 		void loadModifyProfileView();
+		void loadDeleteProfileView();
 		void loadCreateProfileView();
 		void loadMenuView();
 		void loadWelcomeView();

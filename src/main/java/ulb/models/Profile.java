@@ -66,6 +66,16 @@ public class Profile implements JsonSerializable {
 		return (Profile) new Profile().loadFromFile(FILENAME);
 	}
 
+	public void delete() {
+		File file = new File(FILENAME);
+		if (file.exists()) {
+			boolean deleted = file.delete();
+			if (!deleted) {
+				System.err.println("Failed to delete the file: " + FILENAME);
+			}
+		}
+	}
+
 	public String getFirstName() {
 		return this.firstName;
 	}

@@ -23,8 +23,6 @@ public class ProfileConsultViewController implements ViewController {
     private Label height;
     @FXML
     private Label weight;
-    @FXML
-    private Button homeButton;
 
     private ProfileConsultViewController.Listener listener;
 

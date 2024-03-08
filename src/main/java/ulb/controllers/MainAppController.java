@@ -34,6 +34,8 @@ public class MainAppController extends AppController implements MenuViewControll
 			loadCreateProfileView();
 		}
 	}
+
+
     @Override
 	public void loadMenuView() {
 		try {
@@ -178,6 +180,34 @@ public class MainAppController extends AppController implements MenuViewControll
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void loadDeleteProfileView(){
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/views/ProfileDeleteConfirm.fxml"));
+			Parent root = loader.load();
+			ProfileDeleteConfirmViewController viewController = loader.getController();
+			Profile profile = Profile.load();
+			viewController.setListener(new ProfileDeleteConfirmViewController.Listener() {
+				@Override
+				public void deleteProfile() {
+					profile.delete();
+					loadCreateProfileView();
+				}
+
+				@Override
+				public void returnHome() {
+					loadMenuView();
+				}
+			});
+			primaryStage.setScene(new Scene(root, 300, 200));
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
+
 
 	@Override
 	public void loadCreateActivityView() {

@@ -4,6 +4,7 @@ import org.junit.Test;
 import ulb.models.enums.Sex;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.time.LocalDate;
 
@@ -15,6 +16,14 @@ public class TestProfile {
 		profile.save();
 		Profile loadedProfile = Profile.load();
 		assertEquals(profile, loadedProfile);
+	}
+	@Test
+	public  void testDeleteProfile() {
+		Profile profile = new Profile("lucas", "dubois", Sex.MALE, new Weight(70), new Height(180), java.time.LocalDate.now());
+		profile.save();
+		profile.delete();
+		assertFalse(Profile.isCreated());
+
 	}
 
 }
