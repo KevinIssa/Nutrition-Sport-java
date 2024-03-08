@@ -10,7 +10,7 @@ import javafx.scene.control.ListView;
 import ulb.models.Activity;
 
 public class ActivityHistoryViewController implements ViewController {
-	private static final String FOLDERNAME = "Activités";
+	private static final String FOLDERNAME = "activities";
 	Listener listener;
 
 	@FXML ListView historyList;
