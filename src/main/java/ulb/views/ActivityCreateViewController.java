@@ -96,6 +96,7 @@ public class ActivityCreateViewController implements ViewController {
 
 	public interface Listener {
 		void saveActivity(Sport selectedSport, String selectedIntensity, float selectedDuration);
+
 		void returnHome();
 	}
 }
