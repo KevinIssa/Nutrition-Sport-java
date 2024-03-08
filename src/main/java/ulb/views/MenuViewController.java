@@ -12,7 +12,7 @@ public class MenuViewController implements ViewController {
 	private Listener listener;
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {
+	public void initialize(URL url, ResourceBundle resourceBundle){
 		// Auto-generated method stub
 	}
 
