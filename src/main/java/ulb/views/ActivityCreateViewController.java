@@ -65,11 +65,21 @@ public class ActivityCreateViewController implements ViewController {
 						});
 	}
 
+	public void showAlert(double calories) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Calcul du nombre de calories");
+		alert.setHeaderText(null);
+		String text = "Vous avez dépensé " + calories + " calories durant cette activité";
+		alert.setContentText(text);
+		alert.showAndWait();
+	}
+
 	public void saveActivity() {
 		try {
 			Sport selectedSport = cbSport.getValue();
 			String selectedIntensity = intensity.getText();
 			float selectedDuration = Float.parseFloat(duration.getText());
+			//computeCalories()
 			this.listener.saveActivity(selectedSport, selectedIntensity, selectedDuration);
 		} catch (NumberFormatException e) {
 			return;
