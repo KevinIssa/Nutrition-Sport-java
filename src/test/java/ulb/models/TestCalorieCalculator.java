@@ -18,11 +18,11 @@ public class TestCalorieCalculator {
 						Intensity.INTENSE,
 						Duration.ofMinutes(15),
 						LocalDateTime.now());
-		Assert.assertEquals(137, activity.getCaloriesBurned(new Weight(40)), 1);
+		Assert.assertEquals(137, activity.getCaloriesBurned(40), 1);
 		activity =
 				new Activity(
 						Sport.RUNNING, Intensity.SLOW, Duration.ofHours(1), LocalDateTime.now());
-		Assert.assertEquals(672, activity.getCaloriesBurned(new Weight(80)), 1);
+		Assert.assertEquals(672, activity.getCaloriesBurned(80), 1);
 	}
 
 	@Test
@@ -33,11 +33,11 @@ public class TestCalorieCalculator {
 						Intensity.INTENSE,
 						Duration.ofMinutes(15),
 						LocalDateTime.now());
-		Assert.assertEquals(47, activity.getCaloriesBurned(new Weight(40)), 1);
+		Assert.assertEquals(47, activity.getCaloriesBurned(40), 1);
 		activity =
 				new Activity(
 						Sport.VOLLEYBALL, Intensity.SLOW, Duration.ofHours(1), LocalDateTime.now());
-		Assert.assertEquals(252, activity.getCaloriesBurned(new Weight(80)), 1);
+		Assert.assertEquals(252, activity.getCaloriesBurned(80), 1);
 	}
 
 	@Test
@@ -48,11 +48,11 @@ public class TestCalorieCalculator {
 						Intensity.INTENSE,
 						Duration.ofMinutes(15),
 						LocalDateTime.now());
-		Assert.assertEquals(47, activity.getCaloriesBurned(new Weight(40)), 1);
+		Assert.assertEquals(47, activity.getCaloriesBurned(40), 1);
 		activity =
 				new Activity(
 						Sport.WALKING, Intensity.SLOW, Duration.ofHours(1), LocalDateTime.now());
-		Assert.assertEquals(252, activity.getCaloriesBurned(new Weight(80)), 1);
+		Assert.assertEquals(252, activity.getCaloriesBurned(80), 1);
 	}
 
 	@Test
@@ -63,11 +63,11 @@ public class TestCalorieCalculator {
 						Intensity.INTENSE,
 						Duration.ofMinutes(15),
 						LocalDateTime.now());
-		Assert.assertEquals(105, activity.getCaloriesBurned(new Weight(40)), 1);
+		Assert.assertEquals(105, activity.getCaloriesBurned(40), 1);
 		activity =
 				new Activity(
 						Sport.BIKING, Intensity.SLOW, Duration.ofHours(1), LocalDateTime.now());
-		Assert.assertEquals(336, activity.getCaloriesBurned(new Weight(80)), 1);
+		Assert.assertEquals(336, activity.getCaloriesBurned(80), 1);
 	}
 
 	@Test
@@ -78,13 +78,13 @@ public class TestCalorieCalculator {
 						Intensity.INTENSE,
 						Duration.ofMinutes(15),
 						LocalDateTime.now());
-		Assert.assertEquals(105, activity.getCaloriesBurned(new Weight(40)), 1);
+		Assert.assertEquals(105, activity.getCaloriesBurned(40), 1);
 		activity =
 				new Activity(
 						Sport.SWIMMING,
 						Intensity.MODERATE,
 						Duration.ofHours(1),
 						LocalDateTime.now());
-		Assert.assertEquals(672, activity.getCaloriesBurned(new Weight(80)), 1);
+		Assert.assertEquals(672, activity.getCaloriesBurned(80), 1);
 	}
 }

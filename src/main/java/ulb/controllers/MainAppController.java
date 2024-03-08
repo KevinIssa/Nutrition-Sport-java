@@ -258,6 +258,7 @@ public class MainAppController extends AppController implements MenuViewControll
 											Duration.ofMinutes((long) selectedDuration),
 											LocalDateTime.now());
 							activity.save();
+							viewController.showAlert(activity.getCaloriesBurned(Profile.load().getWeight()));
 						}
 
 						@Override
