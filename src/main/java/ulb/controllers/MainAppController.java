@@ -213,7 +213,7 @@ public class MainAppController extends AppController implements MenuViewControll
 			Parent root = loader.load();
 			ViewController viewController = loader.getController();
 			Profile profile = Profile.load();
-			viewController.setListener(new ActivityHistoryController.Listener() {
+			viewController.setListener(new ActivityHistoryViewController.Listener() {
 				@Override
 				public void returnHome() {
 					loadWelcomeView();

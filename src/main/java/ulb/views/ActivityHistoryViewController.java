@@ -3,15 +3,13 @@ package ulb.views;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import ulb.controllers.AppController;
 import ulb.models.Activity;
-import ulb.models.enums.Sport;
 
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ActivityHistoryController implements ViewController {
+public class ActivityHistoryViewController implements ViewController {
     private static final String FOLDERNAME = "activities";
     Listener listener;
 
