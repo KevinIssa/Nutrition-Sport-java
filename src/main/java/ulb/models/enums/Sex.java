@@ -1,10 +1,9 @@
+/* (C)2024 */
 package ulb.models.enums;
-
 
 public enum Sex {
 	MALE,
 	FEMALE;
-
 
 	public static Sex fromString(String sex) {
 		switch (sex) {

@@ -1,3 +1,4 @@
+/* (C)2024 */
 package ulb.models;
 
 public class Weight {
@@ -41,5 +42,4 @@ public class Weight {
 	public int hashCode() {
 		return (int) weight;
 	}
-
 }

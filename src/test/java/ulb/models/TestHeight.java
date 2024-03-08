@@ -1,8 +1,8 @@
+/* (C)2024 */
 package ulb.models;
 
 import org.junit.Assert;
 import org.junit.Test;
-
 
 public class TestHeight {
 

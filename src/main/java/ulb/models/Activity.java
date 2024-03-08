@@ -1,3 +1,4 @@
+/* (C)2024 */
 package ulb.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -5,15 +6,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import ulb.models.enums.Intensity;
-import ulb.models.enums.Sport;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+import ulb.models.enums.Intensity;
+import ulb.models.enums.Sport;
 
 public class Activity implements JsonSerializable {
 
@@ -22,6 +21,7 @@ public class Activity implements JsonSerializable {
 	private Sport sport;
 	private Intensity intensity;
 	private Duration duration;
+
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd-HH-mm-ss")
 	private LocalDateTime date;
 
@@ -41,10 +41,10 @@ public class Activity implements JsonSerializable {
 		}
 		if (obj instanceof Activity) {
 			Activity activity = (Activity) obj;
-			return this.sport.equals(activity.sport) &&
-					this.intensity.equals(activity.intensity) &&
-					this.duration.equals(activity.duration) &&
-					this.date.equals(activity.date);
+			return this.sport.equals(activity.sport)
+					&& this.intensity.equals(activity.intensity)
+					&& this.duration.equals(activity.duration)
+					&& this.date.equals(activity.date);
 		}
 		return false;
 	}
@@ -54,7 +54,11 @@ public class Activity implements JsonSerializable {
 		if (!folder.exists()) {
 			folder.mkdir();
 		}
-		String filename = FOLDERNAME + "/" + this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")) + ".json";
+		String filename =
+				FOLDERNAME
+						+ "/"
+						+ this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))
+						+ ".json";
 		saveToFile(filename);
 	}
 
@@ -104,12 +108,16 @@ public class Activity implements JsonSerializable {
 	}
 
 	public String toString() {
-		return "Activity{" +
-				"sport=" + sport +
-				", intensity=" + intensity +
-				", duration=" + duration +
-				", date=" + date +
-				'}';
+		return "Activity{"
+				+ "sport="
+				+ sport
+				+ ", intensity="
+				+ intensity
+				+ ", duration="
+				+ duration
+				+ ", date="
+				+ date
+				+ '}';
 	}
 
 	@Override

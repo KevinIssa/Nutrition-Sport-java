@@ -1,11 +1,9 @@
+/* (C)2024 */
 package ulb.views;
-
-import javafx.scene.control.Alert;
-import ulb.views.ViewController;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import javafx.scene.control.Alert;
 
 public class MenuViewController implements ViewController {
 
@@ -20,11 +18,11 @@ public class MenuViewController implements ViewController {
 		this.listener.loadConsultProfileView();
 	}
 
-	public void modifyProfile(){
+	public void modifyProfile() {
 		this.listener.loadModifyProfileView();
 	}
 
-	public void deleteProfile(){
+	public void deleteProfile() {
 		this.listener.loadDeleteProfileView();
 	}
 
@@ -32,7 +30,9 @@ public class MenuViewController implements ViewController {
 		this.listener.loadCreateActivityView();
 	}
 
-	public void activityHistory(){this.listener.loadActivityHistoryView();}
+	public void activityHistory() {
+		this.listener.loadActivityHistoryView();
+	}
 
 	public void computeCalories() {
 		showAlert("Calcul du nombre de calories");
@@ -56,13 +56,19 @@ public class MenuViewController implements ViewController {
 
 	public interface Listener {
 		void loadConsultProfileView();
+
 		void loadCreateActivityView();
+
 		void loadModifyProfileView();
+
 		void loadDeleteProfileView();
+
 		void loadCreateProfileView();
+
 		void loadMenuView();
+
 		void loadWelcomeView();
+
 		void loadActivityHistoryView();
 	}
-
 }
