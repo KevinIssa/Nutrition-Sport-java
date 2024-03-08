@@ -18,6 +18,7 @@
 		<fxml.version>21</fxml.version>
 		<jackson.version>2.16.0</jackson.version>
 		<jaxb.version>2.3.1</jaxb.version>
+		<spotless.version>2.42.0</spotless.version>
 	</properties>
 
 	<dependencies>
@@ -35,7 +36,6 @@
 			<artifactId>javafx-controls</artifactId>
 			<version>${javafx.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
@@ -48,25 +48,29 @@
 			<artifactId>jackson-core</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
 
-
 		<!-- JAXB -->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>${jaxb.version}</version>
+		</dependency>
+
+		<!-- Spotless -->
+		<dependency>
+			<groupId>com.diffplug.spotless</groupId>
+			<artifactId>spotless-maven-plugin</artifactId>
+			<version>${spotless.version}</version>
 		</dependency>
 
 	</dependencies>
@@ -148,6 +152,49 @@
 					<mainClass>${mainClass}</mainClass>
 				</configuration>
 			</plugin>
+
+			<!-- Spotless -->
+			<!-- Spotless -->
+			<plugin>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>${spotless.version}</version>
+				<executions>
+					<execution>
+						<id>java</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<java>
+						<!-- no need to specify files, inferred automatically, but you can if you want -->
+
+						<!-- apply a specific flavor of google-java-format and reflow long strings -->
+						<googleJavaFormat>
+							<version>1.17.0</version>
+							<style>AOSP</style>
+							<reflowLongStrings>true</reflowLongStrings>
+							<formatJavadoc>false</formatJavadoc>
+						</googleJavaFormat>
+
+						<!-- Avoid displaying the copyright and date at the top of the file -->
+						<licenseHeader>
+							<!-- Disable copyright and date docstring -->
+							<content><![CDATA[/* (C)$YEAR */]]></content>
+						</licenseHeader>
+
+						<!-- Use tab indentation instead of 4 spaces -->
+						<indent>
+							<tabs>true</tabs>
+							<spacesPerTab>4</spacesPerTab>
+						</indent>
+					</java>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 </project>

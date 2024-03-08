@@ -1,61 +1,68 @@
+/* (C)2024 */
 package ulb.views;
 
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import ulb.models.Activity;
 
-import java.io.File;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 public class ActivityHistoryViewController implements ViewController {
-    private static final String FOLDERNAME = "activities";
-    Listener listener;
+	private static final String FOLDERNAME = "activities";
+	Listener listener;
 
-    @FXML
-    ListView historyList;
+	@FXML ListView historyList;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+	@Override
+	public void initialize(URL url, ResourceBundle resourceBundle) {}
 
-    }
-    public void addActivity(Activity activity){
-        Label label = new Label("Date: " + activity.getDate().toString() +
-                                "   Activity: " + activity.getSport().name() +
-                                "   intensity: " + activity.getIntensity().name() +
-                                "   duration: " + activity.getDuration().toString());
-        historyList.getItems().add(label);
-    }
-    public void returnHome(){
-        this.listener.returnHome();
-    }
-    public void addActivities(){
-        historyList.getItems().clear();
-        // Specify the directory path
-        File directory = new File(FOLDERNAME);
+	public void addActivity(Activity activity) {
+		Label label =
+				new Label(
+						"Date: "
+								+ activity.getDate().toString()
+								+ "   Activity: "
+								+ activity.getSport().name()
+								+ "   intensity: "
+								+ activity.getIntensity().name()
+								+ "   duration: "
+								+ activity.getDuration().toString());
+		historyList.getItems().add(label);
+	}
 
-        // Get list of files in the directory
-        File[] files = directory.listFiles();
+	public void returnHome() {
+		this.listener.returnHome();
+	}
 
-        // Print the names of files
-        if (files != null) {
-            for (File file : files) {
-                this.addActivity(listener.loadActivity(file.getPath()));
-            }
-        }
-    }
+	public void addActivities() {
+		historyList.getItems().clear();
+		// Specify the directory path
+		File directory = new File(FOLDERNAME);
 
-    public void setListener(Object listener) {
-        this.listener = (Listener) listener;
-        if (listener == null) {
-            throw new IllegalArgumentException("Listener cannot be null");
-        }
-        this.addActivities();
-    }
+		// Get list of files in the directory
+		File[] files = directory.listFiles();
 
-    public interface Listener {
-        Activity loadActivity(String filename);
-        void returnHome();
-    }
+		// Print the names of files
+		if (files != null) {
+			for (File file : files) {
+				this.addActivity(listener.loadActivity(file.getPath()));
+			}
+		}
+	}
+
+	public void setListener(Object listener) {
+		this.listener = (Listener) listener;
+		if (listener == null) {
+			throw new IllegalArgumentException("Listener cannot be null");
+		}
+		this.addActivities();
+	}
+
+	public interface Listener {
+		Activity loadActivity(String filename);
+
+		void returnHome();
+	}
 }

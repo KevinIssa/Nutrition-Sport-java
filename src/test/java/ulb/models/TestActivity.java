@@ -1,17 +1,15 @@
+/* (C)2024 */
 package ulb.models;
-
-import org.junit.Test;
-import ulb.models.enums.Sport;
-import ulb.models.enums.Intensity;
-
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import org.junit.Test;
+import ulb.models.enums.Intensity;
+import ulb.models.enums.Sport;
 
 public class TestActivity {
 
@@ -22,7 +20,11 @@ public class TestActivity {
 		Duration duration = Duration.ofMinutes(30);
 		LocalDateTime date = LocalDateTime.now().withNano(0);
 
-		String filename = "activities" + "/" + date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")) + ".json";
+		String filename =
+				"activities"
+						+ "/"
+						+ date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))
+						+ ".json";
 
 		Activity activity = new Activity(sport, intensity, duration, date);
 		activity.save();
@@ -37,5 +39,4 @@ public class TestActivity {
 		// Test
 		assertEquals(activity, activity2);
 	}
-
 }

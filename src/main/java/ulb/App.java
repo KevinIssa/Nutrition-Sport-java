@@ -1,9 +1,9 @@
+/* (C)2024 */
 package ulb;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
 import ulb.controllers.MainAppController;
-
 
 public class App extends Application {
 

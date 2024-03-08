@@ -1,10 +1,10 @@
+/* (C)2024 */
 package ulb.models.enums;
 
 public enum Intensity {
-	SLOW,     // 🙂
+	SLOW, // 🙂
 	MODERATE, // 😮‍💨
-	INTENSE;  // 🥵
-
+	INTENSE; // 🥵
 
 	public static Intensity fromString(String selectedIntensity) {
 		switch (selectedIntensity) {

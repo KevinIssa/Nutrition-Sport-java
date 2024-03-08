@@ -1,16 +1,14 @@
+/* (C)2024 */
 package ulb.models;
 
-import ulb.models.enums.Sex;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-
+import ulb.models.enums.Sex;
 
 public class Profile implements JsonSerializable {
 
@@ -21,13 +19,19 @@ public class Profile implements JsonSerializable {
 	private Sex sex;
 	private Weight weight;
 	private Height height;
+
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate birthDate;
 
-
 	public Profile() {}
 
-	public Profile(String firstName, String lastName, Sex sex, Weight weight, Height height, LocalDate birthDate) {
+	public Profile(
+			String firstName,
+			String lastName,
+			Sex sex,
+			Weight weight,
+			Height height,
+			LocalDate birthDate) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.sex = sex;
@@ -43,12 +47,12 @@ public class Profile implements JsonSerializable {
 		}
 		if (obj instanceof Profile) {
 			Profile profile = (Profile) obj;
-			return this.firstName.equals(profile.firstName) &&
-					this.lastName.equals(profile.lastName) &&
-					this.sex.equals(profile.sex) &&
-					this.weight.equals(profile.weight) &&
-					this.height.equals(profile.height) &&
-					this.birthDate.equals(profile.birthDate);
+			return this.firstName.equals(profile.firstName)
+					&& this.lastName.equals(profile.lastName)
+					&& this.sex.equals(profile.sex)
+					&& this.weight.equals(profile.weight)
+					&& this.height.equals(profile.height)
+					&& this.birthDate.equals(profile.birthDate);
 		}
 		return false;
 	}
@@ -64,6 +68,16 @@ public class Profile implements JsonSerializable {
 
 	public static Profile load() {
 		return (Profile) new Profile().loadFromFile(FILENAME);
+	}
+
+	public void delete() {
+		File file = new File(FILENAME);
+		if (file.exists()) {
+			boolean deleted = file.delete();
+			if (!deleted) {
+				System.err.println("Failed to delete the file: " + FILENAME);
+			}
+		}
 	}
 
 	public String getFirstName() {
@@ -115,14 +129,20 @@ public class Profile implements JsonSerializable {
 	}
 
 	public String toString() {
-		return "Profile{" +
-				"firstName=" + firstName +
-				", lastName=" + lastName +
-				", sex=" + sex +
-				", weight=" + weight.getWeight() +
-				", height=" + height.getHeight() +
-				", birthDate=" + birthDate +
-				'}';
+		return "Profile{"
+				+ "firstName="
+				+ firstName
+				+ ", lastName="
+				+ lastName
+				+ ", sex="
+				+ sex
+				+ ", weight="
+				+ weight.getWeight()
+				+ ", height="
+				+ height.getHeight()
+				+ ", birthDate="
+				+ birthDate
+				+ '}';
 	}
 
 	@Override
@@ -149,5 +169,4 @@ public class Profile implements JsonSerializable {
 			return null;
 		}
 	}
-
 }
