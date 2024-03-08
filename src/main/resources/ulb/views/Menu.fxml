@@ -22,9 +22,6 @@
 					<MenuItem text="Encoder une activité" onAction="#createActivity"/>
 					<MenuItem text="Voir les activitées enregistrées" onAction="#activityHistory"/>
 				</Menu>
-				<Menu text="Calcul du nombre de calories">
-					<MenuItem text="Calculer calories" onAction="#computeCalories"/>
-				</Menu>
 			</menus>
 		</MenuBar>
 	</top>

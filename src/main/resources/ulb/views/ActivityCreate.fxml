@@ -5,8 +5,8 @@
 <?import javafx.scene.text.*?>
 
 <TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="Add Activity" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ActivityCreateViewController">
-   <VBox prefHeight="200.0" prefWidth="100.0">
-	  <Label text="Add your activity">
+	<VBox prefHeight="200.0" prefWidth="100.0">
+	  <Label text="Ajoutez votre activitée">
 		 <font>
 			<Font name="Consolas" size="28.0" />
 		 </font>
@@ -18,18 +18,18 @@
 					   <Font size="22.0" />
 				   </font>
 			   </Label>
-			   <ComboBox fx:id="cbSport" prefWidth="200.0" promptText="choose" translateX="80" />
+			   <ComboBox fx:id="cbSport" prefWidth="200.0" promptText="choisissez" translateX="80" />
 		   </children>
 	   </HBox>
 	   <HBox alignment="CENTER_LEFT" prefHeight="300.0" prefWidth="600.0">
          <children>
-			 <Label text="Intensity" textAlignment="CENTER" translateX="30.0">
+			 <Label text="Intensité" textAlignment="CENTER" translateX="30.0">
 				 <font>
 					 <Font size="22.0" />
 				 </font>
 			 </Label>
-            <Slider fx:id="intensitySlider" prefWidth="200.0"  translateX="50"/>
-			 <TextField fx:id="intensity"  translateX="80">
+            <Slider fx:id="intensitySlider" prefWidth="200.0" translateX="50" />
+			 <TextField fx:id="intensity" translateX="80">
 				 <font>
 					 <Font size="15.0" />
 				 </font>
@@ -38,7 +38,7 @@
 	   </HBox>
 	  <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="600.0">
 		 <children>
-			<Label text="Duration" textAlignment="CENTER" translateX="30.0">
+			<Label text="Durée (en minutes)" textAlignment="CENTER" translateX="30.0">
 			   <font>
 				  <Font size="22.0" />
 			   </font>
@@ -50,11 +50,15 @@
 			</TextField>
 		 </children>
 	  </HBox>
-	   <Button alignment="CENTER" mnemonicParsing="false" onAction="#saveActivity" text="OK" textAlignment="CENTER" translateX="450.0">
+	   <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#saveActivity" text="OK" textAlignment="RIGHT" translateX="450.0">
 		   <font>
-			   <Font size="21.0" />
+			   <Font size="19.0" />
 		   </font>
 	   </Button>
+   	<Button mnemonicParsing="false" onAction="#returnHome" prefHeight="34.0" prefWidth="99.0" text="Retour">
+         <font>
+            <Font size="19.0" />
+         </font></Button>
 
 	</VBox>
 

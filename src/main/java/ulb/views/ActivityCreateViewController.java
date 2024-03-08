@@ -33,8 +33,8 @@ public class ActivityCreateViewController implements ViewController {
 					}
 
 					@Override
-					public Double fromString(String s) {
-						switch (s) {
+					public Double fromString(String intensity) {
+						switch (intensity) {
 							case "Slow":
 								return 0d;
 							case "Moderate":
@@ -98,5 +98,8 @@ public class ActivityCreateViewController implements ViewController {
 		void saveActivity(Sport selectedSport, String selectedIntensity, float selectedDuration);
 
 		void returnHome();
+	}
+	public void returnHome() {
+		this.listener.returnHome();
 	}
 }

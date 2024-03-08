@@ -13,7 +13,7 @@
 
 <TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="Création de profile" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ProfileModifyViewController" >
    <VBox prefHeight="200.0" prefWidth="100.0">
-      <Label text="Modifiez votre profile (/*￣︶￣)/">
+      <Label text="Modifiez votre profile">
          <font>
             <Font name="Consolas" size="28.0" />
          </font>
@@ -48,7 +48,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="152.0" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label text=" Votre poid (en kg)" textAlignment="CENTER" translateX="30.0">
+            <Label text=" Votre poids (en kg)" textAlignment="CENTER" translateX="30.0">
                <font>
                   <Font size="22.0" />
                </font>
