@@ -27,9 +27,8 @@ import ulb.models.enums.Sport;
 
 public class ActivityCreateViewController implements ViewController {
 
-	@FXML private TextField sport;
+	private String intensity;
 	@FXML private Slider intensitySlider;
-	@FXML private TextField intensity;
 	@FXML private TextField duration;
 	@FXML private ComboBox<Sport> cbSport;
 
@@ -58,9 +57,9 @@ public class ActivityCreateViewController implements ViewController {
 				.valueProperty()
 				.addListener(
 						(observable, oldValue, newValue) -> {
-							if (newValue.intValue() == 0) intensity.setText("Slow");
-							if (newValue.intValue() == 1) intensity.setText("Moderate");
-							if (newValue.intValue() == 2) intensity.setText("Intense");
+							if (newValue.intValue() == 0) intensity="Slow";
+							if (newValue.intValue() == 1) intensity="Moderate";
+							if (newValue.intValue() == 2) intensity="Intense";
 						});
 	}
 
@@ -68,7 +67,7 @@ public class ActivityCreateViewController implements ViewController {
 	public void saveActivity() {
 		try {
 			Sport selectedSport = cbSport.getValue();
-			String selectedIntensity = intensity.getText();
+			String selectedIntensity = intensity;
 			float selectedDuration = Float.parseFloat(duration.getText());
 			this.listener.saveActivity(selectedSport, selectedIntensity, selectedDuration);
 		} catch (NumberFormatException e) {

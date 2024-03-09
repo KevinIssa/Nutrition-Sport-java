@@ -11,7 +11,7 @@
 			<Font name="Consolas" size="28.0" />
 		 </font>
 	  </Label>
-	   <HBox alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="579.0">
+	   <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="579.0">
 		   <children>
 			   <Label text="Sport" textAlignment="CENTER" translateX="30.0">
 				   <font>
@@ -21,7 +21,7 @@
 			   <ComboBox fx:id="cbSport" prefWidth="200.0" promptText="choisissez" translateX="80" />
 		   </children>
 	   </HBox>
-	   <HBox alignment="CENTER_LEFT" prefHeight="300.0" prefWidth="600.0">
+	   <HBox alignment="CENTER_LEFT" prefHeight="250.0" prefWidth="600.0">
          <children>
 			 <Label text="Intensité" textAlignment="CENTER" translateX="30.0">
 				 <font>
@@ -29,11 +29,6 @@
 				 </font>
 			 </Label>
             <Slider fx:id="intensitySlider" prefWidth="200.0" translateX="50" />
-			 <TextField fx:id="intensity" translateX="80">
-				 <font>
-					 <Font size="15.0" />
-				 </font>
-			 </TextField>
          </children>
 	   </HBox>
 	  <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="600.0">
@@ -50,16 +45,18 @@
 			</TextField>
 		 </children>
 	  </HBox>
-	   <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#saveActivity" text="OK" textAlignment="RIGHT" translateX="450.0">
+			  <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="600.0">
+	   <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#saveActivity" text="OK" textAlignment="RIGHT" translateX="500.0">
 		   <font>
 			   <Font size="19.0" />
 		   </font>
 	   </Button>
-   	<Button mnemonicParsing="false" onAction="#returnHome" prefHeight="34.0" prefWidth="99.0" text="Retour">
+   		<Button mnemonicParsing="false" onAction="#returnHome" prefHeight="34.0" prefWidth="99.0" text="Retour">
          <font>
             <Font size="19.0" />
-         </font></Button>
-
+         </font>
+		</Button>
+	</HBox>
 	</VBox>
 
 </TitledPane>
