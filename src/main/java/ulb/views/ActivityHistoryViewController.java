@@ -32,6 +32,8 @@ public class ActivityHistoryViewController implements ViewController {
 		historyList.getItems().add(label);
 	}
 
+
+
 	public void returnHome() {
 		this.listener.returnHome();
 	}

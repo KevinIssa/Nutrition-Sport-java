@@ -62,6 +62,23 @@ public class Activity implements JsonSerializable {
 		saveToFile(filename);
 	}
 
+	public static void clearAllActivities() {
+		// Specify the directory path
+		File folder = new File(FOLDERNAME);
+
+		// Get list of files in the directory
+		File[] files = folder.listFiles();
+
+		// Delete each file in the directory
+		if (files != null) {
+			for (File file : files) {
+				if (!file.isDirectory()) {
+					file.delete();
+				}
+			}
+		}
+	}
+
 	public static Activity load(String filename) {
 		return (Activity) new Activity().loadFromFile(filename);
 	}

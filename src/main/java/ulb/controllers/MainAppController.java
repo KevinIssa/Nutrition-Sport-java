@@ -222,8 +222,11 @@ public class MainAppController extends AppController implements MenuViewControll
 						@Override
 						public void deleteProfile() {
 							profile.delete();
+							Activity.clearAllActivities();
 							loadCreateProfileView();
 						}
+
+
 
 						@Override
 						public void returnHome() {

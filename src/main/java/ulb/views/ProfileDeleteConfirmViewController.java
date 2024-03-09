@@ -15,6 +15,7 @@ public class ProfileDeleteConfirmViewController implements ViewController {
 
 	public void setYesButton() {
 		this.listener.deleteProfile();
+
 	}
 
 	public void setNoButton() {
