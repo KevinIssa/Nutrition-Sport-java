@@ -25,12 +25,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import ulb.models.Activity;
+import ulb.models.Profile;
 
 public class ActivityHistoryViewController implements ViewController {
 
 	// Folder name where activity files are stored
 	private static final String FOLDERNAME = "activities";
-
+	private double caloriesBurnedTotal = 0;
 	private ActivityHistoryViewController.Listener
 			listener; // Listener interface for communication with the controller
 
@@ -51,7 +52,10 @@ public class ActivityHistoryViewController implements ViewController {
 								+ "   Intensité: "
 								+ activity.getIntensity().name()
 								+ "   Durée (en minutes): "
-								+ activity.getDuration().toString());
+								+ activity.getDuration().toString()
+								+ "   Calories brûlées: "
+								+ activity.getCaloriesBurned(Profile.load().getWeight())) ;
+		caloriesBurnedTotal += activity.getCaloriesBurned(Profile.load().getWeight());
 		historyList.getItems().add(label);
 	}
 
@@ -76,6 +80,9 @@ public class ActivityHistoryViewController implements ViewController {
 								file.getPath())); // Load activity from file and add it to the list
 			}
 		}
+		Label label = new Label("Total des calories brûlées: " + caloriesBurnedTotal);
+		historyList.getItems().add(label);
+
 	}
 
 	// Set listener for communication with the controller
