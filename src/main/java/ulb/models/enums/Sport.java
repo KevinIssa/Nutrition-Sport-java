@@ -24,4 +24,39 @@ public enum Sport {
 	BIKING,
 	SWIMMING,
 	VOLLEYBALL;
+
+	public static Sport fromString(String sport) {
+		switch (sport.toLowerCase()) {
+			case "walking":
+				return WALKING;
+			case "running":
+				return RUNNING;
+			case "biking":
+				return BIKING;
+			case "swimming":
+				return SWIMMING;
+			case "volleyball":
+				return VOLLEYBALL;
+			default:
+				throw new IllegalArgumentException("Invalid sport: " + sport);
+		}
+	}
+
+	@Override
+	public String toString() {
+		switch (this) {
+			case WALKING:
+				return "Walking";
+			case RUNNING:
+				return "Running";
+			case BIKING:
+				return "Biking";
+			case SWIMMING:
+				return "Swimming";
+			case VOLLEYBALL:
+				return "Volleyball";
+			default:
+				throw new IllegalStateException("Unexpected value: " + this);
+		}
+	}
 }

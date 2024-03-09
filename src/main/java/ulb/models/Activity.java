@@ -33,7 +33,7 @@ import ulb.models.enums.Sport;
 
 public class Activity implements JsonSerializable {
 
-	private static final String FOLDERNAME = "activities";
+	private static final String FOLDER_NAME = "activities";
 
 	private Sport sport;
 	private Intensity intensity;
@@ -53,40 +53,32 @@ public class Activity implements JsonSerializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (obj == null || this.getClass() != obj.getClass()) {
 			return false;
 		}
-		if (obj instanceof Activity) {
-			Activity activity = (Activity) obj;
-			return this.sport.equals(activity.sport)
-					&& this.intensity.equals(activity.intensity)
-					&& this.duration.equals(activity.duration)
-					&& this.date.equals(activity.date);
-		}
-		return false;
+		Activity activity = (Activity) obj;
+		return sport == activity.sport
+				&& intensity == activity.intensity
+				&& duration.equals(activity.duration)
+				&& date.equals(activity.date);
 	}
 
 	public void save() {
-		File folder = new File(FOLDERNAME);
+		File folder = new File(FOLDER_NAME);
 		if (!folder.exists()) {
 			folder.mkdir();
 		}
 		String filename =
-				FOLDERNAME
+				FOLDER_NAME
 						+ "/"
-						+ this.date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))
+						+ date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))
 						+ ".json";
 		saveToFile(filename);
 	}
 
 	public static void clearAllActivities() {
-		// Specify the directory path
-		File folder = new File(FOLDERNAME);
-
-		// Get list of files in the directory
+		File folder = new File(FOLDER_NAME);
 		File[] files = folder.listFiles();
-
-		// Delete each file in the directory
 		if (files != null) {
 			for (File file : files) {
 				if (!file.isDirectory()) {
@@ -141,6 +133,7 @@ public class Activity implements JsonSerializable {
 		return CalorieCalculator.compute(this, weight);
 	}
 
+	@Override
 	public String toString() {
 		return "Activity{"
 				+ "sport="

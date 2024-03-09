@@ -59,19 +59,19 @@ public class Profile implements JsonSerializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || this.getClass() != obj.getClass()) {
 			return false;
 		}
-		if (obj instanceof Profile) {
-			Profile profile = (Profile) obj;
-			return this.firstName.equals(profile.firstName)
-					&& this.lastName.equals(profile.lastName)
-					&& this.sex.equals(profile.sex)
-					&& this.weight.equals(profile.weight)
-					&& this.height.equals(profile.height)
-					&& this.birthDate.equals(profile.birthDate);
-		}
-		return false;
+		Profile profile = (Profile) obj;
+		return firstName.equals(profile.firstName)
+				&& lastName.equals(profile.lastName)
+				&& sex == profile.sex
+				&& weight.equals(profile.weight)
+				&& height.equals(profile.height)
+				&& birthDate.equals(profile.birthDate);
 	}
 
 	public static boolean isCreated() {
@@ -96,6 +96,8 @@ public class Profile implements JsonSerializable {
 			}
 		}
 	}
+
+	// Getters and setters for Profile properties
 
 	public String getFirstName() {
 		return this.firstName;
@@ -145,12 +147,15 @@ public class Profile implements JsonSerializable {
 		this.birthDate = birthDate;
 	}
 
+	@Override
 	public String toString() {
 		return "Profile{"
-				+ "firstName="
+				+ "firstName='"
 				+ firstName
-				+ ", lastName="
+				+ '\''
+				+ ", lastName='"
 				+ lastName
+				+ '\''
 				+ ", sex="
 				+ sex
 				+ ", weight="

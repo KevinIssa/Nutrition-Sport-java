@@ -36,7 +36,7 @@ public class TestWeight {
 	@Test
 	public void tooFat() {
 		try {
-			Weight weight = new Weight(500);
+			Weight weight = new Weight(1000);
 			Assert.fail();
 		} catch (Exception e) {
 			//

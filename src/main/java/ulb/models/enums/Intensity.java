@@ -19,9 +19,9 @@
 package ulb.models.enums;
 
 public enum Intensity {
-	SLOW, // 🙂
-	MODERATE, // 😮‍💨
-	INTENSE; // 🥵
+	SLOW,
+	MODERATE,
+	INTENSE;
 
 	public static Intensity fromString(String selectedIntensity) {
 		switch (selectedIntensity) {
@@ -33,6 +33,20 @@ public enum Intensity {
 				return INTENSE;
 			default:
 				throw new IllegalArgumentException("Invalid intensity: " + selectedIntensity);
+		}
+	}
+
+	@Override
+	public String toString() {
+		switch (this) {
+			case SLOW:
+				return "Slow";
+			case MODERATE:
+				return "Moderate";
+			case INTENSE:
+				return "Intense";
+			default:
+				throw new IllegalStateException("Unexpected value: " + this);
 		}
 	}
 }

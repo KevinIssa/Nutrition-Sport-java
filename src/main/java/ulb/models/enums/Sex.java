@@ -33,13 +33,15 @@ public enum Sex {
 		}
 	}
 
+	@Override
 	public String toString() {
 		switch (this) {
 			case MALE:
 				return "♂";
 			case FEMALE:
 				return "♀";
+			default:
+				throw new IllegalStateException("Unexpected value: " + this);
 		}
-		return null;
 	}
 }

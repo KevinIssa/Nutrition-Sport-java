@@ -20,16 +20,22 @@ package ulb.models;
 
 public class Height {
 
+	private static final int MIN_HEIGHT = 1; // Minimum height allowed
+	private static final int MAX_HEIGHT = 300; // Maximum height allowed
+
 	private float height; // in cm
 
 	public Height(float height) {
+		validateHeight(height);
 		this.height = height;
-		if (height <= 0) {
-			throw new IllegalArgumentException("Height must be greater than 0");
-			// mec tes a l'envers
-		} else if (height > 300) {
-			throw new IllegalArgumentException("Height must be less than 300");
-			// redescend un peu
+	}
+
+	// Validate height value
+	private void validateHeight(float height) {
+		if (height <= MIN_HEIGHT) {
+			throw new IllegalArgumentException("Height must be greater than " + MIN_HEIGHT);
+		} else if (height > MAX_HEIGHT) {
+			throw new IllegalArgumentException("Height must be less than " + MAX_HEIGHT);
 		}
 	}
 
@@ -38,25 +44,24 @@ public class Height {
 	}
 
 	public void setHeight(float height) {
+		validateHeight(height);
 		this.height = height;
 	}
 
+	@Override
 	public String toString() {
 		return "Height=" + height;
 	}
 
+	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || this.getClass() != obj.getClass()) {
 			return false;
 		}
-		if (obj instanceof Height) {
-			Height height = (Height) obj;
-			return this.height == height.getHeight();
-		}
-		return false;
-	}
-
-	public int hashCode() {
-		return (int) height;
+		Height otherHeight = (Height) obj;
+		return Float.compare(otherHeight.height, height) == 0;
 	}
 }
