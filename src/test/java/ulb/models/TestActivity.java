@@ -1,4 +1,21 @@
-/* (C)2024 */
+/*
+ * Ce projet est une application de santé et de bien-être développée dans le cadre du cours INFO-F-307 à l'ULB.
+ *
+ * Groupe : 06
+ * Étudiants :
+ * - Kevin ISSA
+ * - Hamza CAEYMAN
+ * - Alexandru MELNIC
+ * - Ze-Xuan XU
+ * - Bao TRAN
+ * - Hà Uyên TRAN
+ * - Hugo CHARELS
+ * - Hodo SOULEIMAN AHMED
+ * - Kevin VANDERVAEREN
+ * - Arthur INSTALLÉ
+ *
+ * Date : 2024
+ */
 package ulb.models;
 
 import static org.junit.Assert.assertEquals;
@@ -57,7 +74,12 @@ public class TestActivity {
 		LocalDateTime now = LocalDateTime.now().withNano(0);
 		for (int i = 1; i <= 3; i++) {
 			// Create dummy activity files with dif timestamps and save them
-			Activity activity = new Activity(Sport.RUNNING, Intensity.INTENSE, Duration.ofMinutes(30), now.minusDays(i));
+			Activity activity =
+					new Activity(
+							Sport.RUNNING,
+							Intensity.INTENSE,
+							Duration.ofMinutes(30),
+							now.minusDays(i));
 			activity.save();
 		}
 	}
@@ -67,7 +89,11 @@ public class TestActivity {
 		boolean filesExist = true;
 		for (int i = 1; i <= 3; i++) {
 			// Check if the dummy activity files still exist
-			String filename = "activities/" + now.minusDays(i).format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")) + ".json";
+			String filename =
+					"activities/"
+							+ now.minusDays(i)
+									.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))
+							+ ".json";
 			File file = new File(filename);
 			if (!file.exists()) {
 				filesExist = false;
@@ -77,4 +103,3 @@ public class TestActivity {
 		return filesExist;
 	}
 }
-

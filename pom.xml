@@ -236,8 +236,26 @@
 
 						<!-- Avoid displaying the copyright and date at the top of the file -->
 						<licenseHeader>
-							<!-- Disable copyright and date docstring -->
-							<content><![CDATA[/* (C)$YEAR */]]></content>
+							<content><![CDATA[
+/*
+ * Ce projet est une application de santé et de bien-être développée dans le cadre du cours INFO-F-307 à l'ULB.
+ *
+ * Groupe : 06
+ * Étudiants :
+ * - Kevin ISSA
+ * - Hamza CAEYMAN
+ * - Alexandru MELNIC
+ * - Ze-Xuan XU
+ * - Bao TRAN
+ * - Hà Uyên TRAN
+ * - Hugo CHARELS
+ * - Hodo SOULEIMAN AHMED
+ * - Kevin VANDERVAEREN
+ * - Arthur INSTALLÉ
+ *
+ * Date : $YEAR
+ */
+								]]></content>
 						</licenseHeader>
 
 						<!-- Use tab indentation instead of 4 spaces -->

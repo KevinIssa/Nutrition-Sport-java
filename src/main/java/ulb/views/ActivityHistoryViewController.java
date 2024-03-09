@@ -1,4 +1,21 @@
-/* (C)2024 */
+/*
+ * Ce projet est une application de santé et de bien-être développée dans le cadre du cours INFO-F-307 à l'ULB.
+ *
+ * Groupe : 06
+ * Étudiants :
+ * - Kevin ISSA
+ * - Hamza CAEYMAN
+ * - Alexandru MELNIC
+ * - Ze-Xuan XU
+ * - Bao TRAN
+ * - Hà Uyên TRAN
+ * - Hugo CHARELS
+ * - Hodo SOULEIMAN AHMED
+ * - Kevin VANDERVAEREN
+ * - Arthur INSTALLÉ
+ *
+ * Date : 2024
+ */
 package ulb.views;
 
 import java.io.File;
@@ -31,8 +48,6 @@ public class ActivityHistoryViewController implements ViewController {
 								+ activity.getDuration().toString());
 		historyList.getItems().add(label);
 	}
-
-
 
 	public void returnHome() {
 		this.listener.returnHome();
