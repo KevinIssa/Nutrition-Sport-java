@@ -79,7 +79,7 @@ public class ActivityCreateViewController implements ViewController {
 			Sport selectedSport = cbSport.getValue();
 			String selectedIntensity = intensity.getText();
 			float selectedDuration = Float.parseFloat(duration.getText());
-			//computeCalories()
+			// computeCalories()
 			this.listener.saveActivity(selectedSport, selectedIntensity, selectedDuration);
 		} catch (NumberFormatException e) {
 			return;
@@ -99,6 +99,7 @@ public class ActivityCreateViewController implements ViewController {
 
 		void returnHome();
 	}
+
 	public void returnHome() {
 		this.listener.returnHome();
 	}

@@ -32,8 +32,7 @@ public class CalorieCalculator {
 	}
 
 	public static double compute(Activity activity, float weight) {
-		return ((getMET(activity.getSport(), activity.getIntensity()) * 3.5 * weight)
-						/ 200)
+		return ((getMET(activity.getSport(), activity.getIntensity()) * 3.5 * weight) / 200)
 				* activity.getDurationInMinutes();
 	}
 }
