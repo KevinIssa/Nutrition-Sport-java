@@ -23,31 +23,36 @@ import java.util.ResourceBundle;
 
 public class ProfileDeleteConfirmViewController implements ViewController {
 
-	private ProfileDeleteConfirmViewController.Listener listener;
+	private ProfileDeleteConfirmViewController.Listener
+			listener; // Listener interface for communication with the controller
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		// Auto-generated method stub
 	}
 
+	// Action when "Yes" button is clicked
 	public void setYesButton() {
 		this.listener.deleteProfile();
 	}
 
+	// Action when "No" button is clicked
 	public void setNoButton() {
 		this.listener.returnHome();
 	}
 
+	// Set listener for button actions
 	public void setListener(Object listener) {
-		this.listener = (ProfileDeleteConfirmViewController.Listener) listener;
 		if (listener == null) {
 			throw new IllegalArgumentException("Listener cannot be null");
 		}
+		this.listener = (ProfileDeleteConfirmViewController.Listener) listener;
 	}
 
+	// Listener interface for button actions
 	public interface Listener {
-		void deleteProfile();
+		void deleteProfile(); // Action when "Yes" button is clicked
 
-		void returnHome();
+		void returnHome(); // Action when "No" button is clicked
 	}
 }

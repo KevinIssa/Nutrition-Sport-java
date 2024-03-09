@@ -20,16 +20,14 @@ package ulb.views;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.scene.control.Alert;
 
 public class MenuViewController implements ViewController {
 
-	private Listener listener;
+	private MenuViewController.Listener
+			listener; // Listener interface for communication with the controller
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {
-		// Auto-generated method stub
-	}
+	public void initialize(URL url, ResourceBundle resourceBundle) {}
 
 	public void consultProfile() {
 		this.listener.loadConsultProfileView();
@@ -51,19 +49,6 @@ public class MenuViewController implements ViewController {
 		this.listener.loadActivityHistoryView();
 	}
 
-	public void computeCalories() {
-		showAlert("Calcul du nombre de calories");
-		// TODO: implement this method
-	}
-
-	private void showAlert(String message) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle("Action sélectionnée");
-		alert.setHeaderText(null);
-		alert.setContentText(message);
-		alert.showAndWait();
-	}
-
 	public void setListener(Object listener) {
 		this.listener = (Listener) listener;
 		if (listener == null) {
@@ -72,20 +57,20 @@ public class MenuViewController implements ViewController {
 	}
 
 	public interface Listener {
-		void loadConsultProfileView();
+		void loadConsultProfileView(); // Load the consult profile view
 
-		void loadCreateActivityView();
+		void loadCreateActivityView(); // Load the create activity view
 
-		void loadModifyProfileView();
+		void loadModifyProfileView(); // Load the modify profile view
 
-		void loadDeleteProfileView();
+		void loadDeleteProfileView(); // Load the delete profile view
 
-		void loadCreateProfileView();
+		void loadCreateProfileView(); // Load the create profile view
 
-		void loadMenuView();
+		void loadMenuView(); // Load the menu view
 
-		void loadWelcomeView();
+		void loadWelcomeView(); // Load the welcome view
 
-		void loadActivityHistoryView();
+		void loadActivityHistoryView(); // Load the activity history view
 	}
 }

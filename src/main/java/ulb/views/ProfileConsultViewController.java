@@ -33,13 +33,11 @@ public class ProfileConsultViewController implements ViewController {
 	@FXML private Label height;
 	@FXML private Label weight;
 
-	private ProfileConsultViewController.Listener listener;
+	private ProfileConsultViewController.Listener
+			listener; // Listener interface for communication with the controller
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {
-		// if we put setter here, the initialize will be executed before setListener so listener is
-		// null
-	}
+	public void initialize(URL url, ResourceBundle resourceBundle) {}
 
 	public void setDefaultValue() {
 		this.firstname.setText(listener.getFirstName());
@@ -75,6 +73,6 @@ public class ProfileConsultViewController implements ViewController {
 
 		float getWeight();
 
-		void returnHome();
+		void returnHome(); // Return to the home page
 	}
 }

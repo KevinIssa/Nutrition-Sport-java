@@ -27,14 +27,20 @@ import javafx.scene.control.ListView;
 import ulb.models.Activity;
 
 public class ActivityHistoryViewController implements ViewController {
+
+	// Folder name where activity files are stored
 	private static final String FOLDERNAME = "activities";
-	Listener listener;
 
-	@FXML ListView historyList;
+	private ActivityHistoryViewController.Listener
+			listener; // Listener interface for communication with the controller
 
+	@FXML private ListView<Label> historyList; // ListView to display activity history
+
+	// Method called after FXML file has been loaded; overridden from Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {}
 
+	// Add an activity to the activity history list
 	public void addActivity(Activity activity) {
 		Label label =
 				new Label(
@@ -49,37 +55,43 @@ public class ActivityHistoryViewController implements ViewController {
 		historyList.getItems().add(label);
 	}
 
+	// Return to the home view
 	public void returnHome() {
 		this.listener.returnHome();
 	}
 
+	// Add all activities to the activity history list
 	public void addActivities() {
-		historyList.getItems().clear();
-		// Specify the directory path
-		File directory = new File(FOLDERNAME);
+		historyList.getItems().clear(); // Clear existing items from the list
+		File directory = new File(FOLDERNAME); // Specify the directory path
 
 		// Get list of files in the directory
 		File[] files = directory.listFiles();
 
-		// Print the names of files
+		// Add activities to the list
 		if (files != null) {
 			for (File file : files) {
-				this.addActivity(listener.loadActivity(file.getPath()));
+				this.addActivity(
+						listener.loadActivity(
+								file.getPath())); // Load activity from file and add it to the list
 			}
 		}
 	}
 
+	// Set listener for communication with the controller
 	public void setListener(Object listener) {
-		this.listener = (Listener) listener;
 		if (listener == null) {
 			throw new IllegalArgumentException("Listener cannot be null");
 		}
-		this.addActivities();
+		this.listener = (Listener) listener;
+		this.addActivities(); // Add activities when listener is set
 	}
 
+	// Listener interface for communication with the controller
 	public interface Listener {
-		Activity loadActivity(String filename);
 
-		void returnHome();
+		Activity loadActivity(String filename); // Load activity from file
+
+		void returnHome(); // Return to the home view
 	}
 }

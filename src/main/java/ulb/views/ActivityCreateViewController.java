@@ -26,44 +26,24 @@ import javafx.util.StringConverter;
 import ulb.models.enums.Sport;
 
 public class ActivityCreateViewController implements ViewController {
+
 	@FXML private TextField sport;
 	@FXML private Slider intensitySlider;
 	@FXML private TextField intensity;
 	@FXML private TextField duration;
-	@FXML ComboBox<Sport> cbSport;
+	@FXML private ComboBox<Sport> cbSport;
 
-	private Listener listener;
+	private ActivityCreateViewController.Listener
+			listener; // Listener interface for communication with the controller
 
+	// Initialize method called after FXML file has been loaded
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		// TODO: hugo will refactor this 💩
+		// Populate ComboBox with sports
 		this.cbSport.getItems().addAll(Sport.values());
-		intensitySlider.setLabelFormatter(
-				new StringConverter<Double>() {
-					@Override
-					public String toString(Double aDouble) {
-						if (aDouble < 0.5) return "Slow";
-						if (aDouble < 1.5) return "Moderate";
-						if (aDouble < 2.5) return "Intense";
 
-						return "Intense";
-					}
-
-					@Override
-					public Double fromString(String intensity) {
-						switch (intensity) {
-							case "Slow":
-								return 0d;
-							case "Moderate":
-								return 1d;
-							case "Intense":
-								return 2d;
-
-							default:
-								return 2d;
-						}
-					}
-				});
+		// Set up intensity slider
+		intensitySlider.setLabelFormatter(new IntensityStringConverter());
 		intensitySlider.setMin(0);
 		intensitySlider.setMax(2);
 		intensitySlider.setValue(1);
@@ -72,6 +52,8 @@ public class ActivityCreateViewController implements ViewController {
 		intensitySlider.setShowTickMarks(true);
 		intensitySlider.setShowTickLabels(true);
 		intensitySlider.setMajorTickUnit(1);
+
+		// Listen for changes in slider value and update intensity text field accordingly
 		intensitySlider
 				.valueProperty()
 				.addListener(
@@ -82,6 +64,7 @@ public class ActivityCreateViewController implements ViewController {
 						});
 	}
 
+	// Method to show an alert with the calculated calories
 	public void showAlert(double calories) {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("Calcul du nombre de calories");
@@ -91,12 +74,12 @@ public class ActivityCreateViewController implements ViewController {
 		alert.showAndWait();
 	}
 
+	// Method to save the activity
 	public void saveActivity() {
 		try {
 			Sport selectedSport = cbSport.getValue();
 			String selectedIntensity = intensity.getText();
 			float selectedDuration = Float.parseFloat(duration.getText());
-			// computeCalories()
 			this.listener.saveActivity(selectedSport, selectedIntensity, selectedDuration);
 		} catch (NumberFormatException e) {
 			return;
@@ -104,20 +87,44 @@ public class ActivityCreateViewController implements ViewController {
 		this.listener.returnHome();
 	}
 
+	public void returnHome() {
+		this.listener.returnHome();
+	}
+
+	// Method to set the listener for communication with the controller
 	public void setListener(Object listener) {
-		this.listener = (Listener) listener;
 		if (listener == null) {
 			throw new IllegalArgumentException("Listener cannot be null");
 		}
+		this.listener = (Listener) listener;
 	}
 
+	// Listener interface for communication with the controller
 	public interface Listener {
 		void saveActivity(Sport selectedSport, String selectedIntensity, float selectedDuration);
 
 		void returnHome();
 	}
 
-	public void returnHome() {
-		this.listener.returnHome();
+	// Custom string converter for intensity slider labels
+	private static class IntensityStringConverter extends StringConverter<Double> {
+		@Override
+		public String toString(Double aDouble) {
+			if (aDouble < 0.5) return "Slow";
+			if (aDouble < 1.5) return "Moderate";
+			return "Intense";
+		}
+
+		@Override
+		public Double fromString(String intensity) {
+			switch (intensity) {
+				case "Slow":
+					return 0d;
+				case "Moderate":
+					return 1d;
+				default:
+					return 2d;
+			}
+		}
 	}
 }

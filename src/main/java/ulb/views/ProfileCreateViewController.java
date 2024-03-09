@@ -29,6 +29,7 @@ import javafx.scene.control.ToggleGroup;
 
 public class ProfileCreateViewController implements ViewController {
 
+	// Injected fields from the FXML file
 	@FXML private TextField firstname;
 	@FXML private TextField lastname;
 	@FXML private DatePicker birthdate;
@@ -36,13 +37,16 @@ public class ProfileCreateViewController implements ViewController {
 	@FXML private TextField weight;
 	@FXML private ToggleGroup sex; // radio button
 
-	private Listener listener;
+	private ProfileCreateViewController.Listener
+			listener; // Listener interface for communication with the controller
 
+	// Method called after FXML file has been loaded; overridden from Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		this.birthdate.setValue(LocalDate.now());
+		this.birthdate.setValue(LocalDate.now()); // Set default birthdate to current date
 	}
 
+	// Save profile information
 	public void saveProfile() {
 		try {
 			String savedLastName = this.lastname.getText();
@@ -59,19 +63,23 @@ public class ProfileCreateViewController implements ViewController {
 					floatHeight,
 					floatWeight);
 		} catch (NumberFormatException e) {
+			// If height or weight is not a valid number, do nothing
 			return;
 		}
-		this.listener.returnHome();
+		this.listener.returnHome(); // Return to the home view after saving the profile
 	}
 
+	// Set listener for communication with the controller
 	public void setListener(Object listener) {
-		this.listener = (Listener) listener;
 		if (listener == null) {
 			throw new IllegalArgumentException("Listener cannot be null");
 		}
+		this.listener = (Listener) listener;
 	}
 
+	// Listener interface for communication with the controller
 	public interface Listener {
+		// Save profile information
 		void saveProfile(
 				String firstName,
 				String lastName,
@@ -80,6 +88,6 @@ public class ProfileCreateViewController implements ViewController {
 				float height,
 				float weight);
 
-		void returnHome();
+		void returnHome(); // Return to the home view
 	}
 }

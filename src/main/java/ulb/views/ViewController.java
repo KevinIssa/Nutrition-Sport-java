@@ -20,7 +20,17 @@ package ulb.views;
 
 import javafx.fxml.Initializable;
 
+/**
+ * A common interface for view controllers in the application.
+ * Provides a method to set a listener object for communication with the controller.
+ */
 public interface ViewController extends Initializable {
 
+	/**
+	 * Sets the listener object for communication with the controller.
+	 * This method should be implemented by all view controllers.
+	 *
+	 * @param listener The listener object to be set for communication with the controller.
+	 */
 	void setListener(Object listener);
 }

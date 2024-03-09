@@ -28,6 +28,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
 public class ProfileModifyViewController implements ViewController {
+
+	// Injected fields from the FXML file
 	@FXML private TextField firstname;
 	@FXML private TextField lastname;
 	@FXML private DatePicker birthdate;
@@ -36,12 +38,15 @@ public class ProfileModifyViewController implements ViewController {
 	@FXML private ToggleGroup sex;
 	@FXML private RadioButton maleButton;
 	@FXML private RadioButton femaleButton;
-	private ProfileModifyViewController.Listener listener;
-	System.Logger logger = System.getLogger(ProfileModifyViewController.class.getName());
 
+	private ProfileModifyViewController.Listener
+			listener; // Listener interface for communication with the controller
+
+	// Method called after FXML file has been loaded; overridden from Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {}
 
+	// Set default values from listener
 	public void setDefaultValue() {
 		this.firstname.setText(listener.getFirstName());
 		this.lastname.setText(listener.getLastName());
@@ -55,6 +60,7 @@ public class ProfileModifyViewController implements ViewController {
 		}
 	}
 
+	// Save profile information
 	public void saveProfile() {
 		try {
 			String savedLastName = lastname.getText();
@@ -71,17 +77,20 @@ public class ProfileModifyViewController implements ViewController {
 					floatHeight,
 					floatWeight);
 		} catch (NumberFormatException e) {
-			logger.log(System.Logger.Level.ERROR, "Height and weight must be numbers");
+			// Log error if height and weight are not numbers
+			System.err.println("Height and weight must be numbers");
 			return;
 		}
 		this.listener.returnHome();
 	}
 
+	// Set listener for communication with the controller
 	public void setListener(Object listener) {
 		this.listener = (ProfileModifyViewController.Listener) listener;
 		this.setDefaultValue();
 	}
 
+	// Listener interface for communication with the controller
 	public interface Listener {
 		void saveProfile(
 				String firstName,
