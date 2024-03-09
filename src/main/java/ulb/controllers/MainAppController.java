@@ -18,17 +18,17 @@
  */
 package ulb.controllers;
 
+import java.io.IOException;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.function.Supplier;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import ulb.models.Activity;
-import ulb.models.Height;
 import ulb.models.Profile;
-import ulb.models.Weight;
 import ulb.models.enums.Intensity;
 import ulb.models.enums.Sex;
 import ulb.models.enums.Sport;
@@ -36,10 +36,22 @@ import ulb.views.*;
 
 public class MainAppController extends AppController implements MenuViewController.Listener {
 
-	Stage primaryStage;
+	private final Stage primaryStage;
 
 	public MainAppController(Stage primaryStage) {
 		this.primaryStage = primaryStage;
+	}
+
+	private void loadView(String resourcePath, Supplier<Object> listenerSupplier) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(resourcePath));
+			Parent root = loader.load();
+			ViewController viewController = loader.getController();
+			viewController.setListener(listenerSupplier.get());
+			primaryStage.setScene(new Scene(root, 300, 200));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -53,267 +65,222 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadMenuView() {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/views/Menu.fxml"));
-			Parent root = loader.load();
-			ViewController viewController = loader.getController();
-			viewController.setListener(this);
-			primaryStage.setScene(new Scene(root, 300, 200));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		loadView("/ulb/views/Menu.fxml", () -> this);
 	}
 
 	@Override
 	public void loadCreateProfileView() {
-		try {
-			FXMLLoader loader =
-					new FXMLLoader(getClass().getResource("/ulb/views/ProfileCreate.fxml"));
-			Parent root = loader.load();
-			ProfileCreateViewController viewController = loader.getController();
-			viewController.setListener(
-					new ProfileCreateViewController.Listener() {
+		loadView(
+				"/ulb/views/ProfileCreate.fxml",
+				() ->
+						new ProfileCreateViewController.Listener() {
+							@Override
+							public void saveProfile(
+									String firstName,
+									String lastName,
+									String sex,
+									java.time.LocalDate birthDate,
+									float height,
+									float weight) {
+								Profile profile =
+										new Profile(
+												firstName,
+												lastName,
+												Sex.fromString(sex),
+												new ulb.models.Weight(weight),
+												new ulb.models.Height(height),
+												birthDate);
+								profile.save();
+							}
 
-						@Override
-						public void saveProfile(
-								String firstName,
-								String lastName,
-								String sex,
-								LocalDate birthDate,
-								float height,
-								float weight) {
-							Profile profile =
-									new Profile(
-											firstName,
-											lastName,
-											Sex.fromString(sex),
-											new Weight(weight),
-											new Height(height),
-											birthDate);
-							profile.save();
-						}
-
-						@Override
-						public void returnHome() {
-							loadWelcomeView();
-						}
-					});
-			primaryStage.setScene(new Scene(root, 300, 200));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+							@Override
+							public void returnHome() {
+								loadWelcomeView();
+							}
+						});
 	}
 
 	@Override
 	public void loadConsultProfileView() {
-		try {
-			FXMLLoader loader =
-					new FXMLLoader(getClass().getResource("/ulb/views/ProfileConsult.fxml"));
-			Parent root = loader.load();
-			ProfileConsultViewController viewController = loader.getController();
-			Profile profile = Profile.load();
-			viewController.setListener(
-					new ProfileConsultViewController.Listener() {
+		loadView(
+				"/ulb/views/ProfileConsult.fxml",
+				() ->
+						new ProfileConsultViewController.Listener() {
+							@Override
+							public String getFirstName() {
+								return Profile.load().getFirstName();
+							}
 
-						@Override
-						public String getFirstName() {
-							return profile.getFirstName();
-						}
+							@Override
+							public String getLastName() {
+								return Profile.load().getLastName();
+							}
 
-						@Override
-						public String getLastName() {
-							return profile.getLastName();
-						}
+							@Override
+							public String getSex() {
+								return Profile.load().getSex().toString();
+							}
 
-						@Override
-						public String getSex() {
-							return profile.getSex().toString();
-						}
+							@Override
+							public java.time.LocalDate getBirthDate() {
+								return Profile.load().getBirthDate();
+							}
 
-						@Override
-						public LocalDate getBirthDate() {
-							return profile.getBirthDate();
-						}
+							@Override
+							public float getHeight() {
+								return Profile.load().getHeight();
+							}
 
-						@Override
-						public float getHeight() {
-							return profile.getHeight();
-						}
+							@Override
+							public float getWeight() {
+								return Profile.load().getWeight();
+							}
 
-						@Override
-						public float getWeight() {
-							return profile.getWeight();
-						}
-
-						@Override
-						public void returnHome() {
-							loadMenuView();
-						}
-					});
-			primaryStage.setScene(new Scene(root, 300, 200));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+							@Override
+							public void returnHome() {
+								loadMenuView();
+							}
+						});
 	}
 
 	@Override
 	public void loadModifyProfileView() {
-		try {
-			FXMLLoader loader =
-					new FXMLLoader(getClass().getResource("/ulb/views/ProfileModify.fxml"));
-			Parent root = loader.load();
-			ViewController viewController = loader.getController();
-			Profile profile = Profile.load();
-			viewController.setListener(
-					new ProfileModifyViewController.Listener() {
-						@Override
-						public void saveProfile(
-								String firstName,
-								String lastName,
-								String sex,
-								LocalDate birthDate,
-								float height,
-								float weight) {
-							Profile profile =
-									new Profile(
-											firstName,
-											lastName,
-											Sex.fromString(sex),
-											new Weight(weight),
-											new Height(height),
-											birthDate);
-							profile.save();
-						}
+		loadView(
+				"/ulb/views/ProfileModify.fxml",
+				() ->
+						new ProfileModifyViewController.Listener() {
+							Profile profile = Profile.load();
 
-						@Override
-						public void returnHome() {
-							loadWelcomeView();
-						}
+							@Override
+							public void saveProfile(
+									String firstName,
+									String lastName,
+									String sex,
+									java.time.LocalDate birthDate,
+									float height,
+									float weight) {
+								Profile profile =
+										new Profile(
+												firstName,
+												lastName,
+												Sex.fromString(sex),
+												new ulb.models.Weight(weight),
+												new ulb.models.Height(height),
+												birthDate);
+								profile.save();
+							}
 
-						@Override
-						public String getFirstName() {
-							return profile.getFirstName();
-						}
+							@Override
+							public void returnHome() {
+								loadWelcomeView();
+							}
 
-						@Override
-						public String getLastName() {
-							return profile.getLastName();
-						}
+							@Override
+							public String getFirstName() {
+								return profile.getFirstName();
+							}
 
-						@Override
-						public String getSex() {
-							return profile.getSex().toString();
-						}
+							@Override
+							public String getLastName() {
+								return profile.getLastName();
+							}
 
-						@Override
-						public LocalDate getBirthDate() {
-							return profile.getBirthDate();
-						}
+							@Override
+							public String getSex() {
+								return profile.getSex().toString();
+							}
 
-						@Override
-						public float getHeight() {
-							return profile.getHeight();
-						}
+							@Override
+							public java.time.LocalDate getBirthDate() {
+								return profile.getBirthDate();
+							}
 
-						@Override
-						public float getWeight() {
-							return profile.getWeight();
-						}
-					});
-			primaryStage.setScene(new Scene(root, 300, 200));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+							@Override
+							public float getHeight() {
+								return profile.getHeight();
+							}
+
+							@Override
+							public float getWeight() {
+								return profile.getWeight();
+							}
+						});
 	}
 
 	@Override
 	public void loadDeleteProfileView() {
-		try {
-			FXMLLoader loader =
-					new FXMLLoader(getClass().getResource("/ulb/views/ProfileDeleteConfirm.fxml"));
-			Parent root = loader.load();
-			ProfileDeleteConfirmViewController viewController = loader.getController();
-			Profile profile = Profile.load();
-			viewController.setListener(
-					new ProfileDeleteConfirmViewController.Listener() {
-						@Override
-						public void deleteProfile() {
-							profile.delete();
-							Activity.clearAllActivities();
-							loadCreateProfileView();
-						}
+		loadView(
+				"/ulb/views/ProfileDeleteConfirm.fxml",
+				() ->
+						new ProfileDeleteConfirmViewController.Listener() {
+							@Override
+							public void deleteProfile() {
+								Profile profile = Profile.load();
+								profile.delete();
+								Activity.clearAllActivities();
+								loadCreateProfileView();
+							}
 
-						@Override
-						public void returnHome() {
-							loadMenuView();
-						}
-					});
-			primaryStage.setScene(new Scene(root, 300, 200));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+							@Override
+							public void returnHome() {
+								loadMenuView();
+							}
+						});
 	}
 
 	@Override
 	public void loadCreateActivityView() {
-		try {
-			FXMLLoader loader =
-					new FXMLLoader(getClass().getResource("/ulb/views/ActivityCreate.fxml"));
-			Parent root = loader.load();
-			ActivityCreateViewController viewController = loader.getController();
-			viewController.setListener(
-					new ActivityCreateViewController.Listener() {
+		loadView(
+				"/ulb/views/ActivityCreate.fxml",
+				() ->
+						new ActivityCreateViewController.Listener() {
+							@Override
+							public void saveActivity(
+									Sport selectedSport,
+									String selectedIntensity,
+									float selectedDuration) {
+								Activity activity =
+										new Activity(
+												selectedSport,
+												Intensity.fromString(selectedIntensity),
+												Duration.ofMinutes((long) selectedDuration),
+												LocalDateTime.now());
+								activity.save();
+								showAlert(activity.getCaloriesBurned(Profile.load().getWeight()));
+							}
 
-						@Override
-						public void saveActivity(
-								Sport selectedSport,
-								String selectedIntensity,
-								float selectedDuration) {
-							Activity activity =
-									new Activity(
-											selectedSport,
-											Intensity.fromString(selectedIntensity),
-											Duration.ofMinutes((long) selectedDuration),
-											LocalDateTime.now());
-							activity.save();
-							viewController.showAlert(
-									activity.getCaloriesBurned(Profile.load().getWeight()));
-						}
-
-						@Override
-						public void returnHome() {
-							loadMenuView();
-						}
-					});
-			primaryStage.setScene(new Scene(root, 300, 200));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+							@Override
+							public void returnHome() {
+								loadMenuView();
+							}
+						});
 	}
 
 	@Override
 	public void loadActivityHistoryView() {
-		try {
-			FXMLLoader loader =
-					new FXMLLoader(getClass().getResource("/ulb/views/ActivityHistory.fxml"));
-			Parent root = loader.load();
-			ViewController viewController = loader.getController();
-			Profile profile = Profile.load();
-			viewController.setListener(
-					new ActivityHistoryViewController.Listener() {
-						@Override
-						public void returnHome() {
-							loadWelcomeView();
-						}
+		loadView(
+				"/ulb/views/ActivityHistory.fxml",
+				() ->
+						new ActivityHistoryViewController.Listener() {
+							@Override
+							public void returnHome() {
+								loadWelcomeView();
+							}
 
-						@Override
-						public Activity loadActivity(String filename) {
-							return Activity.load(filename);
-						}
-					});
-			primaryStage.setScene(new Scene(root, 300, 200));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+							@Override
+							public Activity loadActivity(String filename) {
+								return Activity.load(filename);
+							}
+						});
+	}
+
+	// Method to show an alert with the calculated calories
+	public void showAlert(double calories) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Calcul du nombre de calories");
+		alert.setHeaderText(null);
+		String text = "Vous avez dépensé " + calories + " calories durant cette activité";
+		alert.setContentText(text);
+		alert.showAndWait();
 	}
 }
