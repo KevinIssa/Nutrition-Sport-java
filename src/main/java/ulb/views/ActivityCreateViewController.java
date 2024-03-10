@@ -57,10 +57,20 @@ public class ActivityCreateViewController implements ViewController {
 				.valueProperty()
 				.addListener(
 						(observable, oldValue, newValue) -> {
-							if (newValue.intValue() == 0) intensity="Slow";
-							if (newValue.intValue() == 1) intensity="Moderate";
-							if (newValue.intValue() == 2) intensity="Intense";
+							if (newValue.intValue() == 0) intensity = "Slow";
+							if (newValue.intValue() == 1) intensity = "Moderate";
+							if (newValue.intValue() == 2) intensity = "Intense";
 						});
+	}
+
+	// Method to show an alert with the calculated calories
+	public void showAlert(double calories) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Calcul du nombre de calories");
+		alert.setHeaderText(null);
+		String text = "Vous avez dépensé " + calories + " calories durant cette activité";
+		alert.setContentText(text);
+		alert.showAndWait();
 	}
 
 	// Method to save the activity

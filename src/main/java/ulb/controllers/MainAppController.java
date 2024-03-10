@@ -25,7 +25,6 @@ import java.util.function.Supplier;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import ulb.models.Activity;
 import ulb.models.Profile;
@@ -42,16 +41,22 @@ public class MainAppController extends AppController implements MenuViewControll
 		this.primaryStage = primaryStage;
 	}
 
-	private void loadView(String resourcePath, Supplier<Object> listenerSupplier) {
+	private ViewController loadView(String resourcePath) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(resourcePath));
 			Parent root = loader.load();
 			ViewController viewController = loader.getController();
-			viewController.setListener(listenerSupplier.get());
 			primaryStage.setScene(new Scene(root, 300, 200));
+			return viewController;
 		} catch (IOException e) {
 			e.printStackTrace();
+			return null;
 		}
+	}
+
+	private void loadView(String resourcePath, Supplier<Object> listenerSupplier) {
+		ViewController viewController = this.loadView(resourcePath);
+		viewController.setListener(listenerSupplier.get());
 	}
 
 	@Override
@@ -230,30 +235,29 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadCreateActivityView() {
-		loadView(
-				"/ulb/views/ActivityCreate.fxml",
-				() ->
-						new ActivityCreateViewController.Listener() {
-							@Override
-							public void saveActivity(
-									Sport selectedSport,
-									String selectedIntensity,
-									float selectedDuration) {
-								Activity activity =
-										new Activity(
-												selectedSport,
-												Intensity.fromString(selectedIntensity),
-												Duration.ofMinutes((long) selectedDuration),
-												LocalDateTime.now());
-								activity.save();
-								showAlert(activity.getCaloriesBurned(Profile.load().getWeight()));
-							}
+		ActivityCreateViewController viewController =
+				(ActivityCreateViewController) this.loadView("/ulb/views/ActivityCreate.fxml");
+		viewController.setListener(
+				new ActivityCreateViewController.Listener() {
+					@Override
+					public void saveActivity(
+							Sport selectedSport, String selectedIntensity, float selectedDuration) {
+						Activity activity =
+								new Activity(
+										selectedSport,
+										Intensity.fromString(selectedIntensity),
+										Duration.ofMinutes((long) selectedDuration),
+										LocalDateTime.now());
+						activity.save();
+						viewController.showAlert(
+								activity.getCaloriesBurned(Profile.load().getWeight()));
+					}
 
-							@Override
-							public void returnHome() {
-								loadMenuView();
-							}
-						});
+					@Override
+					public void returnHome() {
+						loadMenuView();
+					}
+				});
 	}
 
 	@Override
@@ -272,15 +276,5 @@ public class MainAppController extends AppController implements MenuViewControll
 								return Activity.load(filename);
 							}
 						});
-	}
-
-	// Method to show an alert with the calculated calories
-	public void showAlert(double calories) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle("Calcul du nombre de calories");
-		alert.setHeaderText(null);
-		String text = "Vous avez dépensé " + calories + " calories durant cette activité";
-		alert.setContentText(text);
-		alert.showAndWait();
 	}
 }

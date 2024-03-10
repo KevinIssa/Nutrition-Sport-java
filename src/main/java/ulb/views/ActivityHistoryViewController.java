@@ -54,7 +54,7 @@ public class ActivityHistoryViewController implements ViewController {
 								+ "   Durée (en minutes): "
 								+ activity.getDuration().toString()
 								+ "   Calories brûlées: "
-								+ activity.getCaloriesBurned(Profile.load().getWeight())) ;
+								+ activity.getCaloriesBurned(Profile.load().getWeight()));
 		caloriesBurnedTotal += activity.getCaloriesBurned(Profile.load().getWeight());
 		historyList.getItems().add(label);
 	}
@@ -82,7 +82,6 @@ public class ActivityHistoryViewController implements ViewController {
 		}
 		Label label = new Label("Total des calories brûlées: " + caloriesBurnedTotal);
 		historyList.getItems().add(label);
-
 	}
 
 	// Set listener for communication with the controller
