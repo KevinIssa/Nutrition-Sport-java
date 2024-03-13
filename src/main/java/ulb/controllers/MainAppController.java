@@ -17,8 +17,8 @@
  * Date : 2024
  */
 package ulb.controllers;
-
 import java.io.IOException;
+import java.nio.file.Files;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.function.Supplier;
@@ -32,6 +32,7 @@ import ulb.models.enums.Intensity;
 import ulb.models.enums.Sex;
 import ulb.models.enums.Sport;
 import ulb.views.*;
+import java.nio.file.*;
 
 public class MainAppController extends AppController implements MenuViewController.Listener {
 
@@ -103,11 +104,31 @@ public class MainAppController extends AppController implements MenuViewControll
 							public void returnHome() {
 								loadWelcomeView();
 							}
+							@Override
+							public void saveProfileImage(String imagepath) throws IOException {
+								final String destinationpath = "images/";
+								Path sourcePath = Paths.get(imagepath.substring(6));
+								Path destinationDirectory = Paths.get(destinationpath);
+
+								// Create the destination directory if it doesn't exist
+								if (!Files.exists(destinationDirectory)) {
+									Files.createDirectories(destinationDirectory);
+								}
+
+								// Get the file name of the source image
+								String fileName = "profile.png";
+
+								// Resolve the destination path
+								Path destinationPath = destinationDirectory.resolve(fileName);
+
+								// Copy the image file to the destination directory
+								Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+							}
 						});
 	}@Override
 	public void loadOpenProfileView() {
 		loadView(
-				"/ulb/views/ProfileModify.fxml",
+				"/ulb/views/Profile.fxml",
 				() ->
 						new ProfileViewController.Listener() {
 							Profile profile = Profile.load();

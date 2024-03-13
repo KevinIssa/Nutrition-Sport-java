@@ -18,7 +18,10 @@
  */
 package ulb.views;
 
+import java.awt.*;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -28,10 +31,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class ProfileViewController implements ViewController {
-
-	// Injected fields from the FXML file
+	@FXML private ImageView profileimage;
 	@FXML private TextField firstname_text;
 	@FXML private Label firstname_label;
 	@FXML private Button firstnameswitch;
@@ -87,6 +94,13 @@ public class ProfileViewController implements ViewController {
 		this.height_label.setText(Float.toString(listener.getHeight()));
 		this.weight_label.setText(Float.toString(listener.getWeight()));
 		this.sex_label.setText(listener.getSex());
+		String relativePath = "images/profile.png";
+		// Convert relative path to absolute path
+		Path absolutePath = Paths.get(relativePath).toAbsolutePath();
+		double desiredWidth = 200; // Desired width in pixels
+		double desiredHeight = 150; // Desired height in pixels
+		javafx.scene.image.Image resizedImage = new Image("file:/" + absolutePath.toString(), desiredWidth, desiredHeight, true, true);
+		this.profileimage.setImage(resizedImage);
 	}
 	public void switcher(ActionEvent event){
 		Node node = (Node) event.getSource();
