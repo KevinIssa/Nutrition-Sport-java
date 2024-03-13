@@ -56,7 +56,8 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	private void loadView(String resourcePath, Supplier<Object> listenerSupplier) {
 		ViewController viewController = this.loadView(resourcePath);
-		viewController.setListener(listenerSupplier.get());
+        assert viewController != null;
+        viewController.setListener(listenerSupplier.get());
 	}
 
 	@Override
@@ -103,57 +104,12 @@ public class MainAppController extends AppController implements MenuViewControll
 								loadWelcomeView();
 							}
 						});
-	}
-
-	@Override
-	public void loadConsultProfileView() {
-		loadView(
-				"/ulb/views/ProfileConsult.fxml",
-				() ->
-						new ProfileConsultViewController.Listener() {
-							@Override
-							public String getFirstName() {
-								return Profile.load().getFirstName();
-							}
-
-							@Override
-							public String getLastName() {
-								return Profile.load().getLastName();
-							}
-
-							@Override
-							public String getSex() {
-								return Profile.load().getSex().toString();
-							}
-
-							@Override
-							public java.time.LocalDate getBirthDate() {
-								return Profile.load().getBirthDate();
-							}
-
-							@Override
-							public float getHeight() {
-								return Profile.load().getHeight();
-							}
-
-							@Override
-							public float getWeight() {
-								return Profile.load().getWeight();
-							}
-
-							@Override
-							public void returnHome() {
-								loadMenuView();
-							}
-						});
-	}
-
-	@Override
-	public void loadModifyProfileView() {
+	}@Override
+	public void loadOpenProfileView() {
 		loadView(
 				"/ulb/views/ProfileModify.fxml",
 				() ->
-						new ProfileModifyViewController.Listener() {
+						new ProfileViewController.Listener() {
 							Profile profile = Profile.load();
 
 							@Override

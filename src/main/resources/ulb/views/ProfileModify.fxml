@@ -11,7 +11,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="Création de profile" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ProfileModifyViewController" >
+<?import javafx.scene.layout.StackPane?>
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="modification du profile" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ProfileViewController" >
    <VBox prefHeight="200.0" prefWidth="100.0">
       <Label text="Modifiez votre profile">
          <font>
@@ -25,11 +26,19 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <TextField fx:id="firstname" translateX="100.0">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
+            <StackPane>
+               <Label fx:id="firstname_label" translateX="100.0">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="firstname_text" promptText="firstname" translateX="100.0">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </TextField>
+            </StackPane>
+            <Button text="Edit" fx:id="firstnameswitch" onAction="#switcher" translateX="100.0"/>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="52.0" prefHeight="100.0" prefWidth="200.0">
@@ -39,11 +48,19 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <TextField fx:id="lastname" translateX="132.0">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
+            <StackPane>
+               <Label fx:id="lastname_label" translateX="100.0">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="lastname_text" promptText="lastname" translateX="100.0">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </TextField>
+            </StackPane>
+            <Button text="Edit" fx:id="lastnameswitch" onAction="#switcher" translateX="100.0"/>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="152.0" prefHeight="100.0" prefWidth="200.0">
@@ -53,11 +70,19 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <TextField fx:id="weight" promptText="ex: 49" translateX="124.0">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
+            <StackPane>
+               <Label fx:id="weight_label" translateX="124.0">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="weight_text" promptText="ex: 49" translateX="124.0">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </TextField>
+            </StackPane>
+            <Button text="Edit" fx:id="weightswitch" onAction="#switcher" translateX="124.0"/>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="252.0" prefHeight="100.0" prefWidth="200.0">
@@ -67,11 +92,19 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <TextField fx:id="height" promptText="ex: 159" translateX="130.0">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </TextField>
+            <StackPane>
+               <Label fx:id="height_label" translateX="130.0">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+               <TextField fx:id="height_text" promptText="ex: 159" translateX="130.0">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </TextField>
+            </StackPane>
+            <Button text="Edit" fx:id="heightswitch" onAction="#switcher" translateX="130.0"/>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="259.0" prefHeight="100.0" prefWidth="200.0">
@@ -81,11 +114,19 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <RadioButton fx:id="maleButton" mnemonicParsing="false" text="♂" translateX="100.0">
-               <toggleGroup>
-                  <ToggleGroup fx:id="sex" />
-               </toggleGroup></RadioButton>
-            <RadioButton fx:id="femaleButton" layoutX="112.0" layoutY="29.0" mnemonicParsing="false" text="♀" toggleGroup="$sex" translateX="150.0" />
+            <StackPane>
+               <Label fx:id="sex_label" translateX="130.0">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+               <RadioButton fx:id="maleButton" mnemonicParsing="false" text="♂" translateX="100.0">
+                  <toggleGroup>
+                     <ToggleGroup fx:id="sex" />
+                  </toggleGroup></RadioButton>
+               <RadioButton fx:id="femaleButton" layoutX="112.0" layoutY="29.0" mnemonicParsing="false" text="♀" toggleGroup="$sex" translateX="150.0" />
+            </StackPane>
+            <Button text="Edit" fx:id="sexswitch" onAction="#switcher" translateX="150.0"/>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="273.0" prefHeight="100.0" prefWidth="200.0">
@@ -95,7 +136,15 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <DatePicker translateX="70.0" fx:id="birthdate"/>
+            <StackPane>
+               <Label fx:id="birthdate_label" translateX="70.0">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+               <DatePicker translateX="70.0" fx:id="birthdate_text"/>
+            </StackPane>
+            <Button text="Edit" fx:id="birthdateswitch" onAction="#switcher" translateX="70.0"/>
          </children>
       </HBox>
       <Button alignment="CENTER" mnemonicParsing="false" onAction="#saveProfile" text="OK" textAlignment="CENTER" translateX="450.0">

@@ -28,13 +28,8 @@ public class MenuViewController implements ViewController {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {}
-
-	public void consultProfile() {
-		this.listener.loadConsultProfileView();
-	}
-
-	public void modifyProfile() {
-		this.listener.loadModifyProfileView();
+	public void openProfile() {
+		this.listener.loadOpenProfileView();
 	}
 
 	public void deleteProfile() {
@@ -57,11 +52,10 @@ public class MenuViewController implements ViewController {
 	}
 
 	public interface Listener {
-		void loadConsultProfileView(); // Load the consult profile view
 
 		void loadCreateActivityView(); // Load the create activity view
 
-		void loadModifyProfileView(); // Load the modify profile view
+		void loadOpenProfileView(); // Load the modify profile view
 
 		void loadDeleteProfileView(); // Load the delete profile view
 

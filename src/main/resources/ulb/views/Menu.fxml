@@ -12,13 +12,12 @@
 	<top>
 		<MenuBar>
 			<menus>
-				<Menu text="Profil">
-					<MenuItem text="Consulter le profil" onAction="#consultProfile"/>
-					<MenuItem text="Modifier le profil" onAction="#modifyProfile"/>
-					<MenuItem text="Supprimer le profil" onAction="#deleteProfile"/>
+				<Menu text="Profile">
+					<MenuItem text="profile" onAction="#openProfile"/>
+					<MenuItem text="delete profile" onAction="#deleteProfile"/>
 				</Menu>
 
-				<Menu text="Activitée">
+				<Menu text="Activity">
 					<MenuItem text="Encoder une activité" onAction="#createActivity"/>
 					<MenuItem text="Voir les activitées enregistrées" onAction="#activityHistory"/>
 				</Menu>
