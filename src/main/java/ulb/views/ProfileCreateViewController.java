@@ -74,7 +74,6 @@ public class ProfileCreateViewController implements ViewController {
 			LocalDate selectedDate = this.birthdate.getValue();
 			float floatHeight = Float.parseFloat(this.height.getText());
 			float floatWeight = Float.parseFloat(this.weight.getText());
-			Image image = this.image.getImage();
 			this.listener.saveProfile(
 					savedFirstName,
 					savedLastName,

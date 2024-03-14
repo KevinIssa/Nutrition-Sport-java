@@ -65,6 +65,9 @@ public class ProfileViewController implements ViewController {
 	@FXML private RadioButton femaleButton;
 	@FXML private Button sexswitch;
 
+	private Image pen;
+	private Image check;
+
 	private ProfileViewController.Listener
 			listener; // Listener interface for communication with the controller
 
@@ -88,19 +91,34 @@ public class ProfileViewController implements ViewController {
 
 	// Set default values from listener
 	public void setDefaultValue() {
+		String relativePath = "images/pen.png";
+		double desiredWidth = 15; // Desired width in pixels
+		double desiredHeight = 15; // Desired height in pixels
+		this.pen = this.listener.getImage(relativePath, desiredWidth, desiredHeight);
+		relativePath = "images/check.png";
+		this.check  = this.listener.getImage(relativePath, desiredWidth, desiredHeight);
+
+		this.firstnameswitch.setGraphic(new ImageView(pen));
+		this.lastnameswitch.setGraphic(new ImageView(pen));
+		this.birthdateswitch.setGraphic(new ImageView(pen));
+		this.sexswitch.setGraphic(new ImageView(pen));
+		this.heightswitch.setGraphic(new ImageView(pen));
+		this.weightswitch.setGraphic(new ImageView(pen));
+
 		this.firstname_label.setText(listener.getFirstName());
 		this.lastname_label.setText(listener.getLastName());
 		this.birthdate_label.setText(listener.getBirthDate().toString());
 		this.height_label.setText(Float.toString(listener.getHeight()));
 		this.weight_label.setText(Float.toString(listener.getWeight()));
 		this.sex_label.setText(listener.getSex());
+		this.setProfileImage();
+	}
+	public void setProfileImage(){
 		String relativePath = "images/profile.png";
-		// Convert relative path to absolute path
-		Path absolutePath = Paths.get(relativePath).toAbsolutePath();
 		double desiredWidth = 200; // Desired width in pixels
 		double desiredHeight = 150; // Desired height in pixels
-		javafx.scene.image.Image resizedImage = new Image("file:/" + absolutePath.toString(), desiredWidth, desiredHeight, true, true);
-		this.profileimage.setImage(resizedImage);
+		Image image = this.listener.getImage(relativePath, desiredWidth, desiredHeight);
+		this.profileimage.setImage(image);
 	}
 	public void switcher(ActionEvent event){
 		Node node = (Node) event.getSource();
@@ -109,11 +127,13 @@ public class ProfileViewController implements ViewController {
 			case "firstnameswitch":
 				if (Objects.equals(this.firstnameswitch.getText(), "Edit")){
 					this.firstnameswitch.setText("Done");
+					this.firstnameswitch.setGraphic(new ImageView(check));
 					this.firstname_text.setVisible(true);
 					this.firstname_label.setVisible(false);
 					this.firstname_text.setText(this.firstname_label.getText());
 				}else{
 					this.firstnameswitch.setText("Edit");
+					this.firstnameswitch.setGraphic(new ImageView(pen));
 					this.firstname_text.setVisible(false);
 					this.firstname_label.setVisible(true);
 					this.firstname_label.setText(this.firstname_text.getText());
@@ -122,11 +142,13 @@ public class ProfileViewController implements ViewController {
 			case "lastnameswitch":
 				if (Objects.equals(this.lastnameswitch.getText(), "Edit")){
 					this.lastnameswitch.setText("Done");
+					this.lastnameswitch.setGraphic(new ImageView(check));
 					this.lastname_text.setVisible(true);
 					this.lastname_label.setVisible(false);
 					this.lastname_text.setText(this.lastname_label.getText());
 				}else{
 					this.lastnameswitch.setText("Edit");
+					this.lastnameswitch.setGraphic(new ImageView(pen));
 					this.lastname_text.setVisible(false);
 					this.lastname_label.setVisible(true);
 					this.lastname_label.setText(this.lastname_text.getText());
@@ -135,12 +157,14 @@ public class ProfileViewController implements ViewController {
 			case "birthdateswitch":
 				if (Objects.equals(this.birthdateswitch.getText(), "Edit")){
 					this.birthdateswitch.setText("Done");
+					this.birthdateswitch.setGraphic(new ImageView(check));
 					this.birthdate_text.setVisible(true);
 					this.birthdate_label.setVisible(false);
 
 					this.birthdate_text.setValue(LocalDate.parse(birthdate_label.getText(), DateTimeFormatter.ofPattern("yyyy-MM-d")));
 				}else{
 					this.birthdateswitch.setText("Edit");
+					this.birthdateswitch.setGraphic(new ImageView(pen));
 					this.birthdate_text.setVisible(false);
 					this.birthdate_label.setVisible(true);
 					this.birthdate_label.setText(this.birthdate_text.getValue().toString());
@@ -149,11 +173,13 @@ public class ProfileViewController implements ViewController {
 			case "heightswitch":
 				if (Objects.equals(this.heightswitch.getText(), "Edit")){
 					this.heightswitch.setText("Done");
+					this.heightswitch.setGraphic(new ImageView(check));
 					this.height_text.setVisible(true);
 					this.height_label.setVisible(false);
 					this.height_text.setText(this.height_label.getText());
 				}else{
 					this.heightswitch.setText("Edit");
+					this.heightswitch.setGraphic(new ImageView(pen));
 					this.height_text.setVisible(false);
 					this.height_label.setVisible(true);
 					this.height_label.setText(this.height_text.getText());
@@ -162,11 +188,13 @@ public class ProfileViewController implements ViewController {
 			case "weightswitch":
 				if (Objects.equals(this.weightswitch.getText(), "Edit")){
 					this.weightswitch.setText("Done");
+					this.weightswitch.setGraphic(new ImageView(check));
 					this.weight_text.setVisible(true);
 					this.weight_label.setVisible(false);
 					this.weight_text.setText(this.weight_label.getText());
 				}else{
 					this.weightswitch.setText("Edit");
+					this.weightswitch.setGraphic(new ImageView(pen));
 					this.weight_text.setVisible(false);
 					this.weight_label.setVisible(true);
 					this.weight_label.setText(this.weight_text.getText());
@@ -175,6 +203,7 @@ public class ProfileViewController implements ViewController {
 			case "sexswitch":
 				if (Objects.equals(this.sexswitch.getText(), "Edit")){
 					this.sexswitch.setText("Done");
+					this.sexswitch.setGraphic(new ImageView(check));
 					this.maleButton.setVisible(true);
 					this.femaleButton.setVisible(true);
 					this.sex_label.setVisible(false);
@@ -188,6 +217,7 @@ public class ProfileViewController implements ViewController {
 
 				}else{
 					this.sexswitch.setText("Edit");
+					this.sexswitch.setGraphic(new ImageView(pen));
 					this.maleButton.setVisible(false);
 					this.femaleButton.setVisible(false);
 					this.sex_label.setVisible(true);
@@ -257,5 +287,7 @@ public class ProfileViewController implements ViewController {
 		float getHeight();
 
 		float getWeight();
+
+		Image getImage(String relativePath, double width, double height);
 	}
 }

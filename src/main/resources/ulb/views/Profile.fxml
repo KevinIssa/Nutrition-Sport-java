@@ -13,6 +13,7 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.Image?>
 <TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="modification du profile" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ProfileViewController" >
    <VBox prefHeight="200.0" prefWidth="100.0">
       <Label text="Modifiez votre profile">
@@ -44,7 +45,11 @@
                   </font>
                </TextField>
             </StackPane>
-            <Button text="Edit" fx:id="firstnameswitch" onAction="#switcher" translateX="100.0"/>
+            <Button text="Edit" fx:id="firstnameswitch" onAction="#switcher" translateX="100.0">
+               <graphic>
+                  <ImageView fitWidth="100" fitHeight="100"/>
+               </graphic>
+            </Button>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="52.0" prefHeight="100.0" prefWidth="200.0">
@@ -66,7 +71,11 @@
                   </font>
                </TextField>
             </StackPane>
-            <Button text="Edit" fx:id="lastnameswitch" onAction="#switcher" translateX="100.0"/>
+            <Button text="Edit" fx:id="lastnameswitch" onAction="#switcher" translateX="100.0">
+               <graphic>
+                  <ImageView fitWidth="100" fitHeight="100"/>
+               </graphic>
+            </Button>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="152.0" prefHeight="100.0" prefWidth="200.0">
@@ -88,7 +97,11 @@
                   </font>
                </TextField>
             </StackPane>
-            <Button text="Edit" fx:id="weightswitch" onAction="#switcher" translateX="124.0"/>
+            <Button text="Edit" fx:id="weightswitch" onAction="#switcher" translateX="124.0">
+               <graphic>
+                  <ImageView fitWidth="100" fitHeight="100"/>
+               </graphic>
+            </Button>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="252.0" prefHeight="100.0" prefWidth="200.0">
@@ -110,7 +123,11 @@
                   </font>
                </TextField>
             </StackPane>
-            <Button text="Edit" fx:id="heightswitch" onAction="#switcher" translateX="130.0"/>
+            <Button text="Edit" fx:id="heightswitch" onAction="#switcher" translateX="130.0">
+               <graphic>
+                  <ImageView fitWidth="100" fitHeight="100"/>
+               </graphic>
+            </Button>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="259.0" prefHeight="100.0" prefWidth="200.0">
@@ -132,7 +149,11 @@
                   </toggleGroup></RadioButton>
                <RadioButton fx:id="femaleButton" layoutX="112.0" layoutY="29.0" mnemonicParsing="false" text="♀" toggleGroup="$sex" translateX="150.0" />
             </StackPane>
-            <Button text="Edit" fx:id="sexswitch" onAction="#switcher" translateX="150.0"/>
+            <Button text="Edit" fx:id="sexswitch" onAction="#switcher" translateX="150.0">
+               <graphic>
+                  <ImageView fitWidth="100" fitHeight="100"/>
+               </graphic>
+            </Button>
          </children>
       </HBox>
       <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="273.0" prefHeight="100.0" prefWidth="200.0">
@@ -150,7 +171,11 @@
                </Label>
                <DatePicker translateX="70.0" fx:id="birthdate_text"/>
             </StackPane>
-            <Button text="Edit" fx:id="birthdateswitch" onAction="#switcher" translateX="70.0"/>
+            <Button text="Edit" fx:id="birthdateswitch" onAction="#switcher" translateX="70.0">
+               <graphic>
+                  <ImageView fitWidth="100" fitHeight="100"/>
+               </graphic>
+            </Button>
          </children>
       </HBox>
       <Button alignment="CENTER" mnemonicParsing="false" onAction="#saveProfile" text="OK" textAlignment="CENTER" translateX="450.0">

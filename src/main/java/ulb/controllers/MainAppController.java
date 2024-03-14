@@ -25,6 +25,7 @@ import java.util.function.Supplier;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import ulb.models.Activity;
 import ulb.models.Profile;
@@ -185,6 +186,13 @@ public class MainAppController extends AppController implements MenuViewControll
 							@Override
 							public float getWeight() {
 								return profile.getWeight();
+							}
+                            @Override
+							public Image getImage(String relativePath, double width, double height){
+								// Convert relative path to absolute path
+								Path absolutePath = Paths.get(relativePath).toAbsolutePath();
+								javafx.scene.image.Image resizedImage = new Image("file:/" + absolutePath.toString(), width, height, true, true);
+								return resizedImage;
 							}
 						});
 	}

@@ -20,9 +20,9 @@
          </font>
       </Label>
 
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER_LEFT" prefHeight="150.0" prefWidth="200.0">
          <children>
-            <ImageView fx:id="image" translateX="30.0"/>
+            <ImageView fx:id="image"  translateX="30.0"/>
             <Button text="File" fx:id="imageselection" onAction="#eventHandler" translateX="100.0"/>
          </children>
       </HBox>
