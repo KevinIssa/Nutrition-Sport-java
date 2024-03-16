@@ -118,7 +118,9 @@ public class ProfileViewController implements ViewController {
 		double desiredWidth = 200; // Desired width in pixels
 		double desiredHeight = 150; // Desired height in pixels
 		Image image = this.listener.getImage(relativePath, desiredWidth, desiredHeight);
-		this.profileimage.setImage(image);
+		if (!(image == null)){
+			this.profileimage.setImage(image);
+		}
 	}
 	public void switcher(ActionEvent event){
 		Node node = (Node) event.getSource();

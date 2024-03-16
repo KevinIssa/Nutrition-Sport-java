@@ -30,7 +30,7 @@
             <children>
                <ImageView fx:id="image" fitHeight="150.0" fitWidth="150.0" translateX="30.0">
                   <image>
-                     <Image url="@../images/profile/Default_profile.png" />
+                     <Image url="@../images/default_profile.png" />
                   </image>
                </ImageView>
                <HBox alignment="BOTTOM_LEFT" prefHeight="148.0" prefWidth="342.0" translateX="50.0">

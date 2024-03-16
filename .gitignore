@@ -188,7 +188,6 @@ buildNumber.properties
 # App save files
 profile.json
 activities/
-images/profile.png
 
 
 # Others

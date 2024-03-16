@@ -30,7 +30,7 @@
             <children>
                  <ImageView fx:id="profileimage" fitHeight="125.0" fitWidth="129.0" preserveRatio="true" translateX="30.0">
                   <image>
-                     <Image url="@../images/profile/Default_profile.png" />
+                     <Image url="@../images/default_profile.png" />
                   </image>
                </ImageView>
             </children>
