@@ -36,7 +36,7 @@ public class Activity implements JsonSerializable {
 	private static final String FOLDER_NAME = "activities";
 
 	private Sport sport;
-	private Intensity intensity;
+	private Intensity intensity = Intensity.MODERATE;
 	private Duration duration;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd-HH-mm-ss")
@@ -129,8 +129,8 @@ public class Activity implements JsonSerializable {
 		return (int) duration.toMinutes();
 	}
 
-	public double getCaloriesBurned(float weight) {
-		return CalorieCalculator.compute(this, weight);
+	public int getCaloriesBurned(float weight) {
+		return (int) CalorieCalculator.compute(this, weight);
 	}
 
 	@Override
@@ -145,6 +145,17 @@ public class Activity implements JsonSerializable {
 				+ ", date="
 				+ date
 				+ '}';
+	}
+
+	public String changeDateFormat(LocalDateTime date) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm");
+		return date.format(formatter);
+	}
+
+	public String durationToString(Duration duration) {
+		long hours = duration.toHours();
+		long minutes = duration.minusHours(hours).toMinutes();
+		return hours + "h" + minutes + "m";
 	}
 
 	@Override

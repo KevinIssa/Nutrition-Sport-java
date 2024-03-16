@@ -109,8 +109,8 @@ public class ActivityCreateViewController implements ViewController {
 	private static class IntensityStringConverter extends StringConverter<Double> {
 		@Override
 		public String toString(Double aDouble) {
-			if (aDouble < 0.5) return "Slow";
-			if (aDouble < 1.5) return "Moderate";
+			if (aDouble < 0.5) return "Lent";
+			if (aDouble < 1.5) return "Modéré";
 			return "Intense";
 		}
 

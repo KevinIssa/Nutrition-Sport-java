@@ -40,9 +40,9 @@ public enum Intensity {
 	public String toString() {
 		switch (this) {
 			case SLOW:
-				return "Slow";
+				return "Lent";
 			case MODERATE:
-				return "Moderate";
+				return "Modéré";
 			case INTENSE:
 				return "Intense";
 			default:
