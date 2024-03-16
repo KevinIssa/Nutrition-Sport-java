@@ -1,0 +1,21 @@
+/*
+.slider .track {
+    -fx-background-image: linear-gradient(to right, #fdeff9, #ec38bc, #7303c0, #03001e);
+}*/
+
+.slider .track {
+    -fx-background-color: transparent;
+    -fx-background-image: url('image/intensity_gradient.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+/*
+.slider {
+    -fx-pref-width: 200px;
+}
+
+.rectangle {
+    -fx-fill: #ff0000;
+}
+*/
