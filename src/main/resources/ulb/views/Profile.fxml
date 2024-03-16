@@ -106,6 +106,36 @@
                      <DatePicker fx:id="birthdate_text" />
                   </children>
                </VBox>
+               <VBox alignment="CENTER" prefHeight="674.0" prefWidth="376.0" spacing="80.0">
+                  <children>
+                     <Label fx:id="firstname_label">
+                        <font>
+                           <Font size="15.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="lastname_label" >
+                        <font>
+                           <Font size="15.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="weight_label" >
+                        <font>
+                           <Font size="15.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="height_label" >
+                        <font>
+                           <Font size="15.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="sex_label">
+                        <font>
+                           <Font size="22.0" />
+                        </font>
+                     </Label>
+                     <Label fx:id="birthdate_label" />
+                  </children>
+               </VBox>
                <VBox prefHeight="674.0" prefWidth="162.0">
                   <children>
                      <Button fx:id="firstnameswitch" onAction="#switcher" text="Edit">
