@@ -1,0 +1,17 @@
+.rectangle-green {
+    -fx-fill: green;
+}
+
+.rectangle-yellow {
+    -fx-fill: yellow;
+}
+
+.rectangle-red {
+    -fx-fill: red;
+}
+
+.slider .track {
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
