@@ -19,11 +19,14 @@
 package ulb.views;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import ulb.models.enums.Sport;
+import java.util.List;
+
 
 public class ActivityCreateViewController implements ViewController {
 	private Sport selectedSport;
@@ -100,11 +103,10 @@ public class ActivityCreateViewController implements ViewController {
 
 	public void setButtonDefaultColor(){
 		String color = "-fx-background-color: rgb(255,255,255);";
-		button_walking.setStyle(color);
-		button_running.setStyle(color);
-		button_biking.setStyle(color);
-		button_swimming.setStyle(color);
-		button_volleyball.setStyle(color);
+		List<Button> buttons = List.of(button_walking, button_running, button_biking, button_swimming, button_volleyball);
+		for (Button button : buttons) {
+			button.setStyle(color);
+		}
 		selectedSport = null;
 	}
 
@@ -135,11 +137,6 @@ public class ActivityCreateViewController implements ViewController {
 		selectedSport = sport;
 	}
 
-
-
-
-
-
 	// Method to set the listener for communication with the controller
 	public void setListener(Object listener) {
 		if (listener == null) {
@@ -159,8 +156,8 @@ public class ActivityCreateViewController implements ViewController {
 	private static class IntensityStringConverter extends StringConverter<Double> {
 		@Override
 		public String toString(Double aDouble) {
-			if (aDouble < 0.5) return "Slow";
-			if (aDouble < 1.5) return "Moderate";
+			if (aDouble < 0.5) return "Lent";
+			if (aDouble < 1.5) return "Modéré";
 			return "Intense";
 		}
 
