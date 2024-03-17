@@ -20,6 +20,8 @@ package ulb.views;
 
 import java.io.File;
 import java.net.URL;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -31,7 +33,7 @@ public class ActivityHistoryViewController implements ViewController {
 
 	// Folder name where activity files are stored
 	private static final String FOLDERNAME = "activities";
-	private double caloriesBurnedTotal = 0;
+	private int caloriesBurnedTotal = 0;
 	private ActivityHistoryViewController.Listener
 			listener; // Listener interface for communication with the controller
 
@@ -43,16 +45,19 @@ public class ActivityHistoryViewController implements ViewController {
 
 	// Add an activity to the activity history list
 	public void addActivity(Activity activity) {
+		LocalDateTime date = activity.getDate();
+		Duration duration = activity.getDuration();
+
 		Label label =
 				new Label(
 						"Date: "
-								+ activity.getDate().toString()
+								+ activity.changeDateFormat(date)
 								+ "   Activité: "
-								+ activity.getSport().name()
+								+ activity.getSport().toString()
 								+ "   Intensité: "
-								+ activity.getIntensity().name()
-								+ "   Durée (en minutes): "
-								+ activity.getDuration().toString()
+								+ activity.getIntensity().toString()
+								+ "   Durée: "
+								+ activity.durationToString(duration)
 								+ "   Calories brûlées: "
 								+ activity.getCaloriesBurned(Profile.load().getWeight()));
 		caloriesBurnedTotal += activity.getCaloriesBurned(Profile.load().getWeight());

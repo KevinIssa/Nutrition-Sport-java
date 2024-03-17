@@ -20,6 +20,8 @@ package ulb.views;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -42,7 +44,7 @@ public class ProfileConsultViewController implements ViewController {
 	public void setDefaultValue() {
 		this.firstname.setText(listener.getFirstName());
 		this.lastname.setText(listener.getLastName());
-		this.birthdate.setText(listener.getBirthDate().toString());
+		this.birthdate.setText(birthDateToString(listener.getBirthDate()));
 		this.height.setText(Float.toString(listener.getHeight()));
 		this.weight.setText(Float.toString(listener.getWeight()));
 		this.sex.setText(listener.getSex());
@@ -60,6 +62,10 @@ public class ProfileConsultViewController implements ViewController {
 		this.setDefaultValue();
 	}
 
+	public String birthDateToString(LocalDate date) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		return date.format(formatter);
+	}
 	public interface Listener {
 		String getFirstName();
 
