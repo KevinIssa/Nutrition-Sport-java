@@ -40,11 +40,11 @@ Listez les différentes configurations possibles pour votre projet.
 - JAXB version 2.3.1
 
 ## Ressources 
-- Calcul du nombre de calories brulé lors d'une activité selon son intensité:
+- Calcul du nombre de calories brulé lors d'une activité selon son intensité:  
 https://www.regivia.com/comment-maigrir-conseils-solutions-trucs-et-astuces/calcul-des-depenses-energetiques-en-calories-par-sports-et-activites/   
 https://en.wikipedia.org/wiki/Metabolic_equivalent_of_task 
 
-- Base de données d'aliment:
+- Base de données d'aliment:  
 https://www.kaggle.com/datasets/syedjaferk/calories-in-food-items-per-100gm-ounce-serving 
 
 ## Contributeurs
