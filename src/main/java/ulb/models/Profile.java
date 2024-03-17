@@ -30,7 +30,6 @@ import ulb.models.enums.Sex;
 public class Profile implements JsonSerializable {
 
 	public static final String FILENAME = "profile.json";
-
 	private String firstName;
 	private String lastName;
 	private Sex sex;

@@ -41,7 +41,6 @@
 			<artifactId>javafx-fxml</artifactId>
 			<version>${fxml.version}</version>
 		</dependency>
-
 		<!-- Jackson -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>

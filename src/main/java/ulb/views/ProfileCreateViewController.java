@@ -18,18 +18,24 @@
  */
 package ulb.views;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 
 public class ProfileCreateViewController implements ViewController {
-
+	private String imagepath = null;
 	// Injected fields from the FXML file
+	@FXML private ImageView image;
+	@FXML private Button imageselection;
 	@FXML private TextField firstname;
 	@FXML private TextField lastname;
 	@FXML private DatePicker birthdate;
@@ -46,6 +52,19 @@ public class ProfileCreateViewController implements ViewController {
 		this.birthdate.setValue(LocalDate.now()); // Set default birthdate to current date
 	}
 
+	public void eventHandler(ActionEvent event){
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Image File");
+		File selectedFile = fileChooser.showOpenDialog(imageselection.getScene().getWindow());
+		if (selectedFile != null) {
+			Image image = new Image(selectedFile.toURI().toString());
+			double desiredWidth = 200; // Desired width in pixels
+			double desiredHeight = 150; // Desired height in pixels
+			Image resizedImage = new Image(image.getUrl(), desiredWidth, desiredHeight, true, true);
+			this.image.setImage(resizedImage);
+			this.imagepath = selectedFile.toURI().toString();
+		}
+	}
 	// Save profile information
 	public void saveProfile() {
 		try {
@@ -62,11 +81,16 @@ public class ProfileCreateViewController implements ViewController {
 					selectedDate,
 					floatHeight,
 					floatWeight);
+			if (this.imagepath != null){
+				this.listener.saveProfileImage(this.imagepath);
+			}
 		} catch (NumberFormatException e) {
 			// If height or weight is not a valid number, do nothing
 			return;
-		}
-		this.listener.returnHome(); // Return to the home view after saving the profile
+		} catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        this.listener.returnHome(); // Return to the home view after saving the profile
 	}
 
 	// Set listener for communication with the controller
@@ -89,5 +113,6 @@ public class ProfileCreateViewController implements ViewController {
 				float weight);
 
 		void returnHome(); // Return to the home view
+		void saveProfileImage(String image) throws IOException;
 	}
 }

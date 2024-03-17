@@ -4,7 +4,10 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
-
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Circle?>
 <BorderPane xmlns="http://javafx.com/javafx"
 			xmlns:fx="http://javafx.com/fxml"
 			fx:controller="ulb.views.MenuViewController">
@@ -12,13 +15,25 @@
 	<top>
 		<MenuBar>
 			<menus>
-				<Menu text="Profil">
-					<MenuItem text="Consulter le profil" onAction="#consultProfile"/>
-					<MenuItem text="Modifier le profil" onAction="#modifyProfile"/>
-					<MenuItem text="Supprimer le profil" onAction="#deleteProfile"/>
+				<Menu>
+					<graphic>
+						<StackPane prefWidth="30" prefHeight="30">
+							<!-- Create a Circle shape as the clip -->
+							<clip>
+								<Circle radius="15" centerX="15" centerY="15" />
+							</clip>
+							<!-- Create the ImageView with the image -->
+
+							<ImageView fx:id="profileimage" fitWidth="30" fitHeight="30">
+								<Image url="@../images/default_profile.png" />
+							</ImageView>
+						</StackPane>
+					</graphic>
+					<MenuItem text="profile" onAction="#openProfile"/>
+					<MenuItem text="delete profile" onAction="#deleteProfile"/>
 				</Menu>
 
-				<Menu text="Activitée">
+				<Menu text="Activity" >
 					<MenuItem text="Encoder une activité" onAction="#createActivity"/>
 					<MenuItem text="Voir les activitées enregistrées" onAction="#activityHistory"/>
 				</Menu>
