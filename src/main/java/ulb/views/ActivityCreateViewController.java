@@ -26,11 +26,16 @@ import javafx.util.StringConverter;
 import ulb.models.enums.Sport;
 
 public class ActivityCreateViewController implements ViewController {
-
+	private Sport selectedSport;
 	private String intensity;
 	@FXML private Slider intensitySlider;
 	@FXML private TextField duration;
-	@FXML private ComboBox<Sport> cbSport;
+
+	@FXML private Button button_walking;
+	@FXML private Button button_running;
+	@FXML private Button button_biking;
+	@FXML private Button button_swimming;
+	@FXML private Button button_volleyball;
 
 	private ActivityCreateViewController.Listener
 			listener; // Listener interface for communication with the controller
@@ -39,7 +44,6 @@ public class ActivityCreateViewController implements ViewController {
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		// Populate ComboBox with sports
-		this.cbSport.getItems().addAll(Sport.values());
 
 		// Set up intensity slider
 		intensitySlider.setLabelFormatter(new IntensityStringConverter());
@@ -76,7 +80,7 @@ public class ActivityCreateViewController implements ViewController {
 	// Method to save the activity
 	public void saveActivity() {
 		try {
-			Sport selectedSport = cbSport.getValue();
+			System.out.println("selectedSport: " + selectedSport);
 			String selectedIntensity = intensity;
 			float selectedDuration = Float.parseFloat(duration.getText());
 			this.listener.saveActivity(selectedSport, selectedIntensity, selectedDuration);
@@ -89,6 +93,50 @@ public class ActivityCreateViewController implements ViewController {
 	public void returnHome() {
 		this.listener.returnHome();
 	}
+
+	public void setButtonDefaultColor(){
+		button_walking.setStyle("-fx-background-color: rgb(255,255,255);");
+		button_running.setStyle("-fx-background-color: rgb(255,255,255);");
+		button_biking.setStyle("-fx-background-color: rgb(255,255,255);");
+		button_swimming.setStyle("-fx-background-color: rgb(255,255,255);");
+		button_volleyball.setStyle("-fx-background-color: rgb(255,255,255);");
+		selectedSport = null;
+	}
+
+	public void selectWalking(){
+		this.setButtonDefaultColor();
+		button_walking.setStyle("-fx-background-color: #3c8000;");
+		selectedSport = Sport.WALKING;
+	}
+
+	public void selectRunning(){
+		this.setButtonDefaultColor();
+		button_running.setStyle("-fx-background-color: #3c8000;");
+		selectedSport = Sport.RUNNING;
+	}
+
+	public void selectBiking(){
+		this.setButtonDefaultColor();
+		button_biking.setStyle("-fx-background-color: #3c8000;");
+		selectedSport = Sport.BIKING;
+	}
+
+	public void selectSwimming(){
+		this.setButtonDefaultColor();
+		button_swimming.setStyle("-fx-background-color: #3c8000;");
+		selectedSport = Sport.SWIMMING;
+	}
+
+	public void selectVolleyball(){
+		this.setButtonDefaultColor();
+		button_volleyball.setStyle("-fx-background-color: #3c8000;");
+		selectedSport = Sport.VOLLEYBALL;
+	}
+
+
+
+
+
 
 	// Method to set the listener for communication with the controller
 	public void setListener(Object listener) {
