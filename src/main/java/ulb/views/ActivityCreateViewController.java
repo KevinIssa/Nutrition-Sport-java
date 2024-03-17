@@ -19,11 +19,14 @@
 package ulb.views;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import ulb.models.enums.Sport;
+import java.util.List;
+
 
 public class ActivityCreateViewController implements ViewController {
 	private Sport selectedSport;
@@ -80,7 +83,6 @@ public class ActivityCreateViewController implements ViewController {
 	// Method to save the activity
 	public void saveActivity() {
 		try {
-			System.out.println("selectedSport: " + selectedSport);
 			String selectedIntensity = intensity;
 			float selectedDuration = Float.parseFloat(duration.getText());
 			this.listener.saveActivity(selectedSport, selectedIntensity, selectedDuration);
@@ -95,11 +97,11 @@ public class ActivityCreateViewController implements ViewController {
 	}
 
 	public void setButtonDefaultColor(){
-		button_walking.setStyle("-fx-background-color: rgb(255,255,255);");
-		button_running.setStyle("-fx-background-color: rgb(255,255,255);");
-		button_biking.setStyle("-fx-background-color: rgb(255,255,255);");
-		button_swimming.setStyle("-fx-background-color: rgb(255,255,255);");
-		button_volleyball.setStyle("-fx-background-color: rgb(255,255,255);");
+		String color = "-fx-background-color: rgb(255,255,255);";
+		List<Button> buttons = List.of(button_walking, button_running, button_biking, button_swimming, button_volleyball);
+		for (Button button : buttons) {
+			button.setStyle(color);
+		}
 		selectedSport = null;
 	}
 
@@ -129,11 +131,6 @@ public class ActivityCreateViewController implements ViewController {
 		button.setStyle(color);
 		selectedSport = sport;
 	}
-
-
-
-
-
 
 	// Method to set the listener for communication with the controller
 	public void setListener(Object listener) {
