@@ -104,33 +104,30 @@ public class ActivityCreateViewController implements ViewController {
 	}
 
 	public void selectWalking(){
-		this.setButtonDefaultColor();
-		button_walking.setStyle("-fx-background-color: #3c8000;");
-		selectedSport = Sport.WALKING;
+		this.selectSport(this.button_walking, Sport.WALKING);
 	}
 
 	public void selectRunning(){
-		this.setButtonDefaultColor();
-		button_running.setStyle("-fx-background-color: #3c8000;");
-		selectedSport = Sport.RUNNING;
+		this.selectSport(this.button_running, Sport.RUNNING);
 	}
 
 	public void selectBiking(){
-		this.setButtonDefaultColor();
-		button_biking.setStyle("-fx-background-color: #3c8000;");
-		selectedSport = Sport.BIKING;
+		this.selectSport(this.button_biking, Sport.BIKING);
 	}
 
 	public void selectSwimming(){
-		this.setButtonDefaultColor();
-		button_swimming.setStyle("-fx-background-color: #3c8000;");
-		selectedSport = Sport.SWIMMING;
+		this.selectSport(this.button_swimming, Sport.SWIMMING);
 	}
 
 	public void selectVolleyball(){
+		this.selectSport(this.button_volleyball, Sport.VOLLEYBALL);
+	}
+
+	public void selectSport(Button button, Sport sport){
 		this.setButtonDefaultColor();
-		button_volleyball.setStyle("-fx-background-color: #3c8000;");
-		selectedSport = Sport.VOLLEYBALL;
+		String color = "-fx-background-color: #3c8000;";
+		button.setStyle(color);
+		selectedSport = sport;
 	}
 
 
