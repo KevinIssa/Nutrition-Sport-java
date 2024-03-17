@@ -10,13 +10,13 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ProfileViewController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="1080.0" prefWidth="1920.0">
+      <VBox alignment="TOP_LEFT" prefWidth="1920.0">
          <HBox alignment="TOP_CENTER" spacing="20.0">
             <children>
                <Label text="Modifiez votre profile">
@@ -35,137 +35,139 @@
                </ImageView>
             </children>
          </HBox>
-         <HBox alignment="TOP_CENTER">
+         <HBox alignment="CENTER">
             <children>
-               <VBox alignment="CENTER_LEFT" prefHeight="610.0" prefWidth="290.0" spacing="80.0">
+               <VBox alignment="TOP_CENTER" prefHeight="390.0" prefWidth="196.0" spacing="30.0">
                   <children>
-                     <Label text="Votre prénom" textAlignment="CENTER">
+                     <Label minHeight="36.0" prefHeight="36.0" prefWidth="136.0" text="Votre prénom" textAlignment="CENTER">
                         <font>
                            <Font size="22.0" />
                         </font>
                      </Label>
-                     <Label text="Votre nom" textAlignment="CENTER">
+                     <Label minHeight="36.0" text="Votre nom" textAlignment="CENTER">
                         <font>
                            <Font size="22.0" />
                         </font>
                      </Label>
-                     <Label text=" Votre poids (en kg)" textAlignment="CENTER">
+                     <Label minHeight="36.0" text=" Votre poids (en kg)" textAlignment="CENTER">
                         <font>
                            <Font size="22.0" />
                         </font>
                      </Label>
-                     <Label text="Votre taille (en cm)" textAlignment="CENTER">
+                     <Label minHeight="36.0" text="Votre taille (en cm)" textAlignment="CENTER">
                         <font>
                            <Font size="22.0" />
                         </font>
                      </Label>
-                     <Label text="Votre sexe" textAlignment="CENTER">
+                     <Label minHeight="36.0" text="Votre sexe" textAlignment="CENTER">
                         <font>
                            <Font size="22.0" />
                         </font>
                      </Label>
-                     <Label text="Votre date de naissance" textAlignment="CENTER">
+                     <Label minHeight="36.0" text="Votre date de naissance" textAlignment="CENTER">
                         <font>
                            <Font size="22.0" />
                         </font>
                      </Label>
                   </children>
                </VBox>
-               <VBox alignment="CENTER" prefHeight="674.0" prefWidth="376.0" spacing="80.0">
+               <StackPane prefHeight="450.0" prefWidth="300.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="390.0" prefWidth="376.0" spacing="30.0" StackPane.alignment="TOP_CENTER">
+                     <children>
+                        <Label fx:id="firstname_label" minHeight="36.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lastname_label" minHeight="36.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="weight_label" minHeight="36.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="height_label" minHeight="36.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="sex_label" minHeight="36.0">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="birthdate_label" minHeight="36.0" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="674.0" prefWidth="376.0" spacing="30.0" StackPane.alignment="TOP_CENTER">
+                     <children>
+                        <TextField fx:id="firstname_text" minHeight="36.0" promptText="firstname">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="lastname_text" minHeight="36.0" promptText="lastname">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="weight_text" minHeight="36.0" promptText="ex: 49">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="height_text" minHeight="36.0" promptText="ex: 159">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <HBox alignment="CENTER" minHeight="36.0">
+                           <children>
+                              <RadioButton fx:id="maleButton" mnemonicParsing="false" text="♂" translateX="-40.0">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="sex" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="femaleButton" mnemonicParsing="false" text="♀" toggleGroup="$sex" translateX="40.0" />
+                           </children>
+                        </HBox>
+                        <DatePicker fx:id="birthdate_text" minHeight="36.0" />
+                     </children>
+                  </VBox>
+               </StackPane>
+               <VBox prefHeight="390.0" prefWidth="196.0" spacing="30.0">
                   <children>
-                     <TextField fx:id="firstname_text" promptText="firstname">
-                        <font>
-                           <Font size="15.0" />
-                        </font>
-                     </TextField>
-                     <TextField fx:id="lastname_text" promptText="lastname">
-                        <font>
-                           <Font size="15.0" />
-                        </font>
-                     </TextField>
-                     <TextField fx:id="weight_text" promptText="ex: 49">
-                        <font>
-                           <Font size="15.0" />
-                        </font>
-                     </TextField>
-                     <TextField fx:id="height_text" promptText="ex: 159">
-                        <font>
-                           <Font size="15.0" />
-                        </font>
-                     </TextField>
-                     <HBox alignment="CENTER">
-                        <children>
-                           <RadioButton fx:id="maleButton" mnemonicParsing="false" text="♂" translateX="-100.0">
-                              <toggleGroup>
-                                 <ToggleGroup fx:id="sex" />
-                              </toggleGroup>
-                           </RadioButton>
-                           <RadioButton fx:id="femaleButton" mnemonicParsing="false" text="♀" toggleGroup="$sex" translateX="100.0" />
-                        </children>
-                     </HBox>
-                     <DatePicker fx:id="birthdate_text" />
-                  </children>
-               </VBox>
-               <VBox alignment="CENTER" prefHeight="674.0" prefWidth="376.0" spacing="80.0">
-                  <children>
-                     <Label fx:id="firstname_label">
-                        <font>
-                           <Font size="15.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="lastname_label" >
-                        <font>
-                           <Font size="15.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="weight_label" >
-                        <font>
-                           <Font size="15.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="height_label" >
-                        <font>
-                           <Font size="15.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="sex_label">
-                        <font>
-                           <Font size="22.0" />
-                        </font>
-                     </Label>
-                     <Label fx:id="birthdate_label" />
-                  </children>
-               </VBox>
-               <VBox prefHeight="674.0" prefWidth="162.0">
-                  <children>
-                     <Button fx:id="firstnameswitch" onAction="#switcher" text="Edit">
+                     <Button fx:id="firstnameswitch" minHeight="35.0" onAction="#switcher" text="Edit">
                         <graphic>
-                           <ImageView fitHeight="100" fitWidth="100" />
+                           <ImageView fitHeight="20.0" fitWidth="100" />
                         </graphic>
                      </Button>
-                     <Button fx:id="lastnameswitch" onAction="#switcher" text="Edit">
+                     <Button fx:id="lastnameswitch" minHeight="35.0" onAction="#switcher" text="Edit">
                         <graphic>
-                           <ImageView fitHeight="100" fitWidth="100" />
+                           <ImageView fitHeight="30.0" fitWidth="100" />
                         </graphic>
                      </Button>
-                     <Button fx:id="weightswitch" onAction="#switcher" text="Edit">
+                     <Button fx:id="weightswitch" minHeight="35.0" onAction="#switcher" text="Edit">
                         <graphic>
-                           <ImageView fitHeight="100" fitWidth="100" />
+                           <ImageView fitHeight="30.0" fitWidth="100" />
                         </graphic>
                      </Button>
-                     <Button fx:id="sexswitch" onAction="#switcher" text="Edit">
+                     <Button fx:id="heightswitch" minHeight="35.0" onAction="#switcher" text="Edit">
                         <graphic>
-                           <ImageView fitHeight="100" fitWidth="100" />
+                           <ImageView fitHeight="30.0" fitWidth="100" />
                         </graphic>
                      </Button>
-                     <Button fx:id="heightswitch" onAction="#switcher" text="Edit">
+                     <Button fx:id="sexswitch" minHeight="35.0" onAction="#switcher" text="Edit">
                         <graphic>
-                           <ImageView fitHeight="100" fitWidth="100" />
+                           <ImageView fitHeight="30.0" fitWidth="100" />
                         </graphic>
                      </Button>
-                     <Button fx:id="birthdateswitch" onAction="#switcher" text="Edit">
+                     <Button fx:id="birthdateswitch" minHeight="35.0" onAction="#switcher" text="Edit">
                         <graphic>
-                           <ImageView fitHeight="100" fitWidth="100" />
+                           <ImageView fitHeight="30.0" fitWidth="100" />
                         </graphic>
                      </Button>
                   </children>
