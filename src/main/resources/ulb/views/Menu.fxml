@@ -24,8 +24,8 @@
 							</clip>
 							<!-- Create the ImageView with the image -->
 
-							<ImageView fitWidth="30" fitHeight="30">
-								<Image url="@../images/profile.png" />
+							<ImageView fx:id="profileimage" fitWidth="30" fitHeight="30">
+								<Image url="@../images/default_profile.png" />
 							</ImageView>
 						</StackPane>
 					</graphic>

@@ -32,7 +32,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 public class ProfileCreateViewController implements ViewController {
-	private String imagepath;
+	private String imagepath = null;
 	// Injected fields from the FXML file
 	@FXML private ImageView image;
 	@FXML private Button imageselection;
@@ -81,7 +81,9 @@ public class ProfileCreateViewController implements ViewController {
 					selectedDate,
 					floatHeight,
 					floatWeight);
-			this.listener.saveProfileImage(this.imagepath);
+			if (this.imagepath != null){
+				this.listener.saveProfileImage(this.imagepath);
+			}
 		} catch (NumberFormatException e) {
 			// If height or weight is not a valid number, do nothing
 			return;

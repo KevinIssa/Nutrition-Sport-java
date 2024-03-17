@@ -18,10 +18,16 @@
  */
 package ulb.views;
 
+import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MenuViewController implements ViewController {
+	@FXML
+	ImageView profileimage;
 
 	private MenuViewController.Listener
 			listener; // Listener interface for communication with the controller
@@ -49,6 +55,13 @@ public class MenuViewController implements ViewController {
 		if (listener == null) {
 			throw new IllegalArgumentException("Listener cannot be null");
 		}
+		this.setdefault();
+	}
+	public void setdefault(){
+		Image image = this.listener.getImage("images/profile.png", 30, 30);
+		if (image != null){
+			this.profileimage.setImage(image);
+		}
 	}
 
 	public interface Listener {
@@ -66,5 +79,12 @@ public class MenuViewController implements ViewController {
 		void loadWelcomeView(); // Load the welcome view
 
 		void loadActivityHistoryView(); // Load the activity history view
+		default Image getImage(String relativePath, double width, double height){
+			URL path = getClass().getResource("/ulb/" + relativePath);
+			if (path == null){
+				return null;
+			}
+			return new Image(path.toString(), width, height, true, true);
+		}
 	}
 }

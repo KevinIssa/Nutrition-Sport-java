@@ -205,6 +205,15 @@ public class MainAppController extends AppController implements MenuViewControll
 								profile.delete();
 								Activity.clearAllActivities();
 								loadCreateProfileView();
+                                try {
+									URI destinationuri = new URI(Objects.requireNonNull(getClass().getResource("/ulb/")).toString());
+									Path filetodelete = Paths.get(destinationuri).resolve("images/profile.png");
+									if (Files.exists(filetodelete)){
+										Files.delete(filetodelete);
+									}
+                                } catch (URISyntaxException | IOException e) {
+                                    throw new RuntimeException(e);
+                                }
 							}
 
 							@Override

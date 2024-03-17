@@ -18,6 +18,7 @@
  */
 package ulb.views;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -32,7 +33,7 @@ public class ProfileDeleteConfirmViewController implements ViewController {
 	}
 
 	// Action when "Yes" button is clicked
-	public void setYesButton() {
+	public void setYesButton() throws IOException {
 		this.listener.deleteProfile();
 	}
 
@@ -51,7 +52,7 @@ public class ProfileDeleteConfirmViewController implements ViewController {
 
 	// Listener interface for button actions
 	public interface Listener {
-		void deleteProfile(); // Action when "Yes" button is clicked
+		void deleteProfile() throws IOException; // Action when "Yes" button is clicked
 
 		void returnHome(); // Action when "No" button is clicked
 	}
