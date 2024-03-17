@@ -46,16 +46,7 @@ public class ActivityCreateViewController implements ViewController {
 		// Populate ComboBox with sports
 
 		// Set up intensity slider
-		intensitySlider.setLabelFormatter(new IntensityStringConverter());
-		intensitySlider.setMin(0);
-		intensitySlider.setMax(2);
-		intensitySlider.setValue(1);
-		intensitySlider.setMinorTickCount(0);
-		intensitySlider.setSnapToTicks(true);
-		intensitySlider.setShowTickMarks(true);
-		intensitySlider.setShowTickLabels(true);
-		intensitySlider.setMajorTickUnit(1);
-
+		configIntensitySlider();
 		// Listen for changes in slider value and update intensity text field accordingly
 		intensitySlider
 				.valueProperty()
@@ -66,6 +57,19 @@ public class ActivityCreateViewController implements ViewController {
 							if (newValue.intValue() == 2) intensity = "Intense";
 						});
 	}
+
+	private void configIntensitySlider() {
+		intensitySlider.setLabelFormatter(new IntensityStringConverter());
+		intensitySlider.setMin(0);
+		intensitySlider.setMax(2);
+		intensitySlider.setValue(1);
+		intensitySlider.setMinorTickCount(0);
+		intensitySlider.setSnapToTicks(true);
+		intensitySlider.setShowTickMarks(true);
+		intensitySlider.setShowTickLabels(true);
+		intensitySlider.setMajorTickUnit(1);
+        intensity = "Moderate"; // * Default value
+		}
 
 	// Method to show an alert with the calculated calories
 	public void showAlert(double calories) {
@@ -80,11 +84,11 @@ public class ActivityCreateViewController implements ViewController {
 	// Method to save the activity
 	public void saveActivity() {
 		try {
-			System.out.println("selectedSport: " + selectedSport);
 			String selectedIntensity = intensity;
 			float selectedDuration = Float.parseFloat(duration.getText());
 			this.listener.saveActivity(selectedSport, selectedIntensity, selectedDuration);
 		} catch (NumberFormatException e) {
+			System.out.println("Invalid duration");
 			return;
 		}
 		this.listener.returnHome();
@@ -95,11 +99,12 @@ public class ActivityCreateViewController implements ViewController {
 	}
 
 	public void setButtonDefaultColor(){
-		button_walking.setStyle("-fx-background-color: rgb(255,255,255);");
-		button_running.setStyle("-fx-background-color: rgb(255,255,255);");
-		button_biking.setStyle("-fx-background-color: rgb(255,255,255);");
-		button_swimming.setStyle("-fx-background-color: rgb(255,255,255);");
-		button_volleyball.setStyle("-fx-background-color: rgb(255,255,255);");
+		String color = "-fx-background-color: rgb(255,255,255);";
+		button_walking.setStyle(color);
+		button_running.setStyle(color);
+		button_biking.setStyle(color);
+		button_swimming.setStyle(color);
+		button_volleyball.setStyle(color);
 		selectedSport = null;
 	}
 
