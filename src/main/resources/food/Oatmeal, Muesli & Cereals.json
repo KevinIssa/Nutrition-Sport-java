@@ -1,0 +1,377 @@
+[
+    {
+        "name": "Bran Flakes",
+        "caloriesPer100": 356,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Cap\u2019n Crunch",
+        "caloriesPer100": 404,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Cheerios",
+        "caloriesPer100": 347,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Chex",
+        "caloriesPer100": 387,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Chocolate Cheerios",
+        "caloriesPer100": 367,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Chocos",
+        "caloriesPer100": 380,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Cinnamon Toast Crunch",
+        "caloriesPer100": 433,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Coco Pops",
+        "caloriesPer100": 376,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Cocoa Krispies",
+        "caloriesPer100": 386,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Cocoa Pebbles",
+        "caloriesPer100": 367,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Cocoa Puffs",
+        "caloriesPer100": 400,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Cookie Crisp",
+        "caloriesPer100": 400,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Corn Flakes",
+        "caloriesPer100": 357,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Corn Pops",
+        "caloriesPer100": 377,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Count Chocula",
+        "caloriesPer100": 407,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Cracklin Oat Bran",
+        "caloriesPer100": 402,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Cream of Wheat",
+        "caloriesPer100": 364,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Crunchy Nut",
+        "caloriesPer100": 600,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Crunchy Nut Cornflakes",
+        "caloriesPer100": 600,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Fiber One",
+        "caloriesPer100": 267,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Froot Loops",
+        "caloriesPer100": 379,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Frosted Cheerios",
+        "caloriesPer100": 393,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Frosted Flakes",
+        "caloriesPer100": 367,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Frosted Mini-Wheats",
+        "caloriesPer100": 353,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Frosties",
+        "caloriesPer100": 367,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Fruity Pebbles",
+        "caloriesPer100": 400,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Golden Grahams",
+        "caloriesPer100": 400,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Grape-Nuts",
+        "caloriesPer100": 362,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Honey Nut Cheerios",
+        "caloriesPer100": 393,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Honey Smacks",
+        "caloriesPer100": 370,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Honeycomb",
+        "caloriesPer100": 397,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Just Right",
+        "caloriesPer100": 391,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Kashi",
+        "caloriesPer100": 377,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Kelloggs Corn Flakes",
+        "caloriesPer100": 357,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Kix",
+        "caloriesPer100": 367,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Krave",
+        "caloriesPer100": 372,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Life Cereal",
+        "caloriesPer100": 375,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Lucky Charms",
+        "caloriesPer100": 406,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Malt-O-Meal",
+        "caloriesPer100": 51,
+        "servingQuantity": "1 cup (240 g)"
+    },
+    {
+        "name": "Mini-Wheats",
+        "caloriesPer100": 353,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Muesli",
+        "caloriesPer100": 336,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Multigrain Cheerios",
+        "caloriesPer100": 380,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Nutri-Grain",
+        "caloriesPer100": 351,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Oatibix",
+        "caloriesPer100": 421,
+        "servingQuantity": "1 biscuit (24 g)"
+    },
+    {
+        "name": "Oatmeal",
+        "caloriesPer100": 375,
+        "servingQuantity": "1 cup (175 g)"
+    },
+    {
+        "name": "Peanut Butter Toast Crunch",
+        "caloriesPer100": 431,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Post Raisin Bran",
+        "caloriesPer100": 322,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Post Shredded Wheat",
+        "caloriesPer100": 347,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Puff",
+        "caloriesPer100": 367,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Puffed Rice",
+        "caloriesPer100": 383,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Puffed Wheat",
+        "caloriesPer100": 367,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Quaker Grits",
+        "caloriesPer100": 344,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Quaker Oatmeal",
+        "caloriesPer100": 375,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Quaker Oatmeal Squares",
+        "caloriesPer100": 400,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Raisin Bran",
+        "caloriesPer100": 322,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Raisin Bran Crunch",
+        "caloriesPer100": 355,
+        "servingQuantity": "100g"
+    },
+    {
+        "name": "Raisin Nut Bran",
+        "caloriesPer100": 367,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Ready Brek",
+        "caloriesPer100": 359,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Rice Chex",
+        "caloriesPer100": 387,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Rice Krispies",
+        "caloriesPer100": 394,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Scooters",
+        "caloriesPer100": 367,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Shredded Wheat",
+        "caloriesPer100": 340,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Shreddies",
+        "caloriesPer100": 351,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Smart Start",
+        "caloriesPer100": 371,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Special K",
+        "caloriesPer100": 377,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Special K Chocolatey Delight",
+        "caloriesPer100": 388,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Special K Protein Plus",
+        "caloriesPer100": 375,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Special K Red Berries",
+        "caloriesPer100": 345,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Sugar Puffs",
+        "caloriesPer100": 379,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Toasties",
+        "caloriesPer100": 361,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Trix",
+        "caloriesPer100": 400,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Weet-Bix",
+        "caloriesPer100": 353,
+        "servingQuantity": "1 bix (15 g)"
+    },
+    {
+        "name": "Weetabix",
+        "caloriesPer100": 358,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Weetos",
+        "caloriesPer100": 378,
+        "servingQuantity": "1 serving (37.5 g)"
+    },
+    {
+        "name": "Wheaties",
+        "caloriesPer100": 367,
+        "servingQuantity": "1 serving (37.5 g)"
+    }
+]

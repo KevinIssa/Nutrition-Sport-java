@@ -1,0 +1,167 @@
+[
+    {
+        "name": "Almond Milk",
+        "caloriesPer100": 17,
+        "servingQuantity": "1 cup (235 ml)"
+    },
+    {
+        "name": "Buttermilk",
+        "caloriesPer100": 62,
+        "servingQuantity": "1 cup (254 ml)"
+    },
+    {
+        "name": "Chocolate Mousse",
+        "caloriesPer100": 225,
+        "servingQuantity": "1/2 cup (202 g)"
+    },
+    {
+        "name": "Coconut Milk",
+        "caloriesPer100": 230,
+        "servingQuantity": "1 cup (240 ml)"
+    },
+    {
+        "name": "Coffee Creamer",
+        "caloriesPer100": 195,
+        "servingQuantity": "1 tbsp (15 g)"
+    },
+    {
+        "name": "Condensed Milk",
+        "caloriesPer100": 321,
+        "servingQuantity": "1 cup (306 g)"
+    },
+    {
+        "name": "Cottage Cheese",
+        "caloriesPer100": 98,
+        "servingQuantity": "1 cup (210 g)"
+    },
+    {
+        "name": "Cream",
+        "caloriesPer100": 242,
+        "servingQuantity": "1 tbsp (15 g)"
+    },
+    {
+        "name": "Creme Fraiche",
+        "caloriesPer100": 393,
+        "servingQuantity": "1 tbsp (14 g)"
+    },
+    {
+        "name": "Curd",
+        "caloriesPer100": 98,
+        "servingQuantity": "1 cup (210 g)"
+    },
+    {
+        "name": "Custard",
+        "caloriesPer100": 122,
+        "servingQuantity": "1/2 cup (141 g)"
+    },
+    {
+        "name": "Evaporated Milk",
+        "caloriesPer100": 135,
+        "servingQuantity": "1 cup (252 g)"
+    },
+    {
+        "name": "Goat Milk",
+        "caloriesPer100": 69,
+        "servingQuantity": "1 cup (244 g)"
+    },
+    {
+        "name": "Hot Chocolate",
+        "caloriesPer100": 89,
+        "servingQuantity": "1 cup (266 ml)"
+    },
+    {
+        "name": "Kefir",
+        "caloriesPer100": 55,
+        "servingQuantity": "1 cup (246 ml)"
+    },
+    {
+        "name": "Lactose-free Milk",
+        "caloriesPer100": 52,
+        "servingQuantity": "1 cup (250 ml)"
+    },
+    {
+        "name": "Lassi",
+        "caloriesPer100": 75,
+        "servingQuantity": "1 glass (200 ml)"
+    },
+    {
+        "name": "Milk",
+        "caloriesPer100": 61,
+        "servingQuantity": "1 cup (244 ml)"
+    },
+    {
+        "name": "Plain Yogurt",
+        "caloriesPer100": 61,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Powdered Milk",
+        "caloriesPer100": 496,
+        "servingQuantity": "1 cup (68 g)"
+    },
+    {
+        "name": "Quark",
+        "caloriesPer100": 145,
+        "servingQuantity": "1 cup (220 g)"
+    },
+    {
+        "name": "Rice Milk",
+        "caloriesPer100": 49,
+        "servingQuantity": "1 cup (245 ml)"
+    },
+    {
+        "name": "Rice Pudding",
+        "caloriesPer100": 118,
+        "servingQuantity": "1 serving (113 g)"
+    },
+    {
+        "name": "Semi-skimmed Milk",
+        "caloriesPer100": 50,
+        "servingQuantity": "1 serving (250 ml)"
+    },
+    {
+        "name": "Semolina Pudding",
+        "caloriesPer100": 67,
+        "servingQuantity": "1 serving (143 g)"
+    },
+    {
+        "name": "Skim Milk",
+        "caloriesPer100": 35,
+        "servingQuantity": "1 cup (247 ml)"
+    },
+    {
+        "name": "Sour Cream",
+        "caloriesPer100": 181,
+        "servingQuantity": "1 tbsp (12 g)"
+    },
+    {
+        "name": "Soy Milk",
+        "caloriesPer100": 45,
+        "servingQuantity": "1 cup (243 ml)"
+    },
+    {
+        "name": "Sweetened Condensed Milk",
+        "caloriesPer100": 321,
+        "servingQuantity": "1 cup (306 ml)"
+    },
+    {
+        "name": "Tzatziki",
+        "caloriesPer100": 117,
+        "servingQuantity": "1 tbsp (15 g)"
+    },
+    {
+        "name": "Whipped Cream",
+        "caloriesPer100": 257,
+        "servingQuantity": "1 tbsp (3 g)"
+    },
+    {
+        "name": "Whole Milk",
+        "caloriesPer100": 61,
+        "servingQuantity": "1 cup (244 ml)"
+    },
+    {
+        "name": "Yogurt",
+        "caloriesPer100": 61,
+        "servingQuantity": "1 container (227 g)"
+    }
+]

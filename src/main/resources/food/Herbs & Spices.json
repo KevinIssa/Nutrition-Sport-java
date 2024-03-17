@@ -1,0 +1,452 @@
+[
+    {
+        "name": "Almond Extract",
+        "caloriesPer100": 374,
+        "servingQuantity": "1 tbsp (10 ml)"
+    },
+    {
+        "name": "Anise",
+        "caloriesPer100": 337,
+        "servingQuantity": "1 tsp (2.1 g)"
+    },
+    {
+        "name": "Anise Seed",
+        "caloriesPer100": 337,
+        "servingQuantity": "1 tsp (2.1 g)"
+    },
+    {
+        "name": "Arrowroot",
+        "caloriesPer100": 65,
+        "servingQuantity": "1 root (33 g)"
+    },
+    {
+        "name": "Arugula",
+        "caloriesPer100": 25,
+        "servingQuantity": "1 leaf (2 g)"
+    },
+    {
+        "name": "Balsamic Vinegar",
+        "caloriesPer100": 88,
+        "servingQuantity": "1 tbsp (16 ml)"
+    },
+    {
+        "name": "Basil",
+        "caloriesPer100": 233,
+        "servingQuantity": "1 tsp (0.7 g)"
+    },
+    {
+        "name": "Black Pepper",
+        "caloriesPer100": 251,
+        "servingQuantity": "1 tsp (2.4 g)"
+    },
+    {
+        "name": "Black Sesame Seeds",
+        "caloriesPer100": 573,
+        "servingQuantity": "1 tbsp (9 g)"
+    },
+    {
+        "name": "Broth",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 tsp (5 g)"
+    },
+    {
+        "name": "Capers",
+        "caloriesPer100": 23,
+        "servingQuantity": "1 tbsp (8.6 g)"
+    },
+    {
+        "name": "Caraway Seeds",
+        "caloriesPer100": 333,
+        "servingQuantity": "1 tbsp (6.7 g)"
+    },
+    {
+        "name": "Cardamom",
+        "caloriesPer100": 311,
+        "servingQuantity": "1 tbsp (5.8 g)"
+    },
+    {
+        "name": "Cassava",
+        "caloriesPer100": 160,
+        "servingQuantity": "1 root (408 g)"
+    },
+    {
+        "name": "Cayenne Pepper",
+        "caloriesPer100": 318,
+        "servingQuantity": "1 tsp (1.8 g)"
+    },
+    {
+        "name": "Chard",
+        "caloriesPer100": 19,
+        "servingQuantity": "1 leaf (48 g)"
+    },
+    {
+        "name": "Chicory Greens",
+        "caloriesPer100": 23,
+        "servingQuantity": "1 cup (29 g)"
+    },
+    {
+        "name": "Chicory Roots",
+        "caloriesPer100": 72,
+        "servingQuantity": "1 root (60 g)"
+    },
+    {
+        "name": "Chili",
+        "caloriesPer100": 282,
+        "servingQuantity": "1 tbsp (8 g)"
+    },
+    {
+        "name": "Chili Powder",
+        "caloriesPer100": 282,
+        "servingQuantity": "1 tsp (2.7 g)"
+    },
+    {
+        "name": "Chives",
+        "caloriesPer100": 30,
+        "servingQuantity": "1 tbsp (3 g)"
+    },
+    {
+        "name": "Cider Vinegar",
+        "caloriesPer100": 21,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Cilantro",
+        "caloriesPer100": 23,
+        "servingQuantity": "1/4 cup (4 g)"
+    },
+    {
+        "name": "Cinnamon",
+        "caloriesPer100": 247,
+        "servingQuantity": "1 tbsp (7.9 g)"
+    },
+    {
+        "name": "Cloves",
+        "caloriesPer100": 274,
+        "servingQuantity": "1 tbsp (6.5 g)"
+    },
+    {
+        "name": "Coriander",
+        "caloriesPer100": 23,
+        "servingQuantity": "1/4 cup (4 g)"
+    },
+    {
+        "name": "Cream of Tartar",
+        "caloriesPer100": 258,
+        "servingQuantity": "1 tsp (3 g)"
+    },
+    {
+        "name": "Cress",
+        "caloriesPer100": 32,
+        "servingQuantity": "1 sprig (1 g)"
+    },
+    {
+        "name": "Crystallized Ginger",
+        "caloriesPer100": 335,
+        "servingQuantity": "1 tbsp (5.2 g)"
+    },
+    {
+        "name": "Cumin",
+        "caloriesPer100": 375,
+        "servingQuantity": "1 tbsp (6 g)"
+    },
+    {
+        "name": "Cumin Seed",
+        "caloriesPer100": 375,
+        "servingQuantity": "1 tbsp (6 g)"
+    },
+    {
+        "name": "Curry",
+        "caloriesPer100": 325,
+        "servingQuantity": "1 tbsp (6.3 g)"
+    },
+    {
+        "name": "Dandelion",
+        "caloriesPer100": 45,
+        "servingQuantity": "1 cup (55 g)"
+    },
+    {
+        "name": "Dill",
+        "caloriesPer100": 43,
+        "servingQuantity": "5 sprigs (1 g)"
+    },
+    {
+        "name": "Dill Weed",
+        "caloriesPer100": 43,
+        "servingQuantity": "5 sprigs (1 g)"
+    },
+    {
+        "name": "Fennel",
+        "caloriesPer100": 31,
+        "servingQuantity": "1 bulb (234 g)"
+    },
+    {
+        "name": "Fennel Seed",
+        "caloriesPer100": 345,
+        "servingQuantity": "1 tsp (2 g)"
+    },
+    {
+        "name": "Fenugreek",
+        "caloriesPer100": 323,
+        "servingQuantity": "1 tbsp (11.1 g)"
+    },
+    {
+        "name": "Garlic",
+        "caloriesPer100": 149,
+        "servingQuantity": "1 clove (3 g)"
+    },
+    {
+        "name": "Garlic Powder",
+        "caloriesPer100": 331,
+        "servingQuantity": "1 tsp (3.1 g)"
+    },
+    {
+        "name": "Garlic Salt",
+        "caloriesPer100": 0,
+        "servingQuantity": "1/4 tsp (1 g)"
+    },
+    {
+        "name": "Ginger",
+        "caloriesPer100": 80,
+        "servingQuantity": "1 tsp (2 g)"
+    },
+    {
+        "name": "Grape Leaves",
+        "caloriesPer100": 93,
+        "servingQuantity": "1 leaf (3 g)"
+    },
+    {
+        "name": "Ground Ginger",
+        "caloriesPer100": 335,
+        "servingQuantity": "1 tbsp (5.2 g)"
+    },
+    {
+        "name": "Horseradish",
+        "caloriesPer100": 48,
+        "servingQuantity": "1 tbsp (15 g)"
+    },
+    {
+        "name": "Hot Pepper",
+        "caloriesPer100": 318,
+        "servingQuantity": "1 tsp (1.8 g)"
+    },
+    {
+        "name": "Iodized Salt",
+        "caloriesPer100": 0,
+        "servingQuantity": "1 tbsp (18 g)"
+    },
+    {
+        "name": "Jalapeno",
+        "caloriesPer100": 13,
+        "servingQuantity": "1 oz. (30 g)"
+    },
+    {
+        "name": "Juniper",
+        "caloriesPer100": 45,
+        "servingQuantity": "1 cup (55 g)"
+    },
+    {
+        "name": "Lemon Grass",
+        "caloriesPer100": 99,
+        "servingQuantity": "1 tbsp (4.8 g)"
+    },
+    {
+        "name": "Licorice",
+        "caloriesPer100": 375,
+        "servingQuantity": "1 tbsp (18 g)"
+    },
+    {
+        "name": "Maggi",
+        "caloriesPer100": 104,
+        "servingQuantity": "1 tsp (4 ml)"
+    },
+    {
+        "name": "Marjoram",
+        "caloriesPer100": 271,
+        "servingQuantity": "1 tbsp (1.7 g)"
+    },
+    {
+        "name": "Minced Onion",
+        "caloriesPer100": 40,
+        "servingQuantity": "1 cup (160 g)"
+    },
+    {
+        "name": "Mint",
+        "caloriesPer100": 70,
+        "servingQuantity": "1 tbsp (1.6 g)"
+    },
+    {
+        "name": "Mustard Seed",
+        "caloriesPer100": 508,
+        "servingQuantity": "1 tsp (2 g)"
+    },
+    {
+        "name": "Nutmeg",
+        "caloriesPer100": 525,
+        "servingQuantity": "1 tsp (2.2 g)"
+    },
+    {
+        "name": "Okra",
+        "caloriesPer100": 33,
+        "servingQuantity": "1 tbsp (18 g)"
+    },
+    {
+        "name": "Onion",
+        "caloriesPer100": 40,
+        "servingQuantity": "1 onion (85 g)"
+    },
+    {
+        "name": "Onion Powder",
+        "caloriesPer100": 341,
+        "servingQuantity": "1 tsp (2.4 g)"
+    },
+    {
+        "name": "Orange Peel",
+        "caloriesPer100": 97,
+        "servingQuantity": "1 tbsp (6 g)"
+    },
+    {
+        "name": "Oregano",
+        "caloriesPer100": 265,
+        "servingQuantity": "1 tsp (1 g)"
+    },
+    {
+        "name": "Paprika",
+        "caloriesPer100": 282,
+        "servingQuantity": "1 tsp (2.3 g)"
+    },
+    {
+        "name": "Parsley",
+        "caloriesPer100": 36,
+        "servingQuantity": "1 tbsp (3.8 g)"
+    },
+    {
+        "name": "Parsnip",
+        "caloriesPer100": 75,
+        "servingQuantity": "1 parsnip (170 g)"
+    },
+    {
+        "name": "Pepper",
+        "caloriesPer100": 251,
+        "servingQuantity": "1 tsp (2.4 g)"
+    },
+    {
+        "name": "Poppy Seed",
+        "caloriesPer100": 525,
+        "servingQuantity": "1 tbsp (8.8 g)"
+    },
+    {
+        "name": "Poultry Seasoning",
+        "caloriesPer100": 307,
+        "servingQuantity": "1 tbsp (4.4 g)"
+    },
+    {
+        "name": "Pumpkin Pie Spice",
+        "caloriesPer100": 342,
+        "servingQuantity": "1 tbsp (5.6 g)"
+    },
+    {
+        "name": "Red Pepper",
+        "caloriesPer100": 251,
+        "servingQuantity": "1 tsp (3 g)"
+    },
+    {
+        "name": "Red Wine Vinegar",
+        "caloriesPer100": 19,
+        "servingQuantity": "1 tbsp (14.9 g)"
+    },
+    {
+        "name": "Rosemary",
+        "caloriesPer100": 131,
+        "servingQuantity": "1 tbsp (1.7 g)"
+    },
+    {
+        "name": "Saffron",
+        "caloriesPer100": 310,
+        "servingQuantity": "1 tbsp (2.1 g)"
+    },
+    {
+        "name": "Sage",
+        "caloriesPer100": 315,
+        "servingQuantity": "1 tbsp (2 g)"
+    },
+    {
+        "name": "Salt",
+        "caloriesPer100": 0,
+        "servingQuantity": "1 tbsp (18 g)"
+    },
+    {
+        "name": "Savory",
+        "caloriesPer100": 272,
+        "servingQuantity": "1 tbsp (4.4 g)"
+    },
+    {
+        "name": "Sea Salt",
+        "caloriesPer100": 0,
+        "servingQuantity": "1 tbsp (18 g)"
+    },
+    {
+        "name": "Serrano Pepper",
+        "caloriesPer100": 32,
+        "servingQuantity": "1 pepper (6.1 g)"
+    },
+    {
+        "name": "Sesame Seeds",
+        "caloriesPer100": 573,
+        "servingQuantity": "1 cup (144 g)"
+    },
+    {
+        "name": "Stevia",
+        "caloriesPer100": 0,
+        "servingQuantity": "1 tbsp (15 g)"
+    },
+    {
+        "name": "Tamarind",
+        "caloriesPer100": 239,
+        "servingQuantity": "1 tamarind (2 g)"
+    },
+    {
+        "name": "Taro",
+        "caloriesPer100": 112,
+        "servingQuantity": "1 cup, sliced (104 g)"
+    },
+    {
+        "name": "Tarragon",
+        "caloriesPer100": 295,
+        "servingQuantity": "1 tbsp (1.8 g)"
+    },
+    {
+        "name": "Thyme",
+        "caloriesPer100": 276,
+        "servingQuantity": "1 tsp (1 g)"
+    },
+    {
+        "name": "Turmeric",
+        "caloriesPer100": 354,
+        "servingQuantity": "1 tsp (2.2 g)"
+    },
+    {
+        "name": "Vanilla Bean",
+        "caloriesPer100": 250,
+        "servingQuantity": "1 pod (2 g)"
+    },
+    {
+        "name": "Vanilla Extract",
+        "caloriesPer100": 288,
+        "servingQuantity": "1 tbsp (13 ml)"
+    },
+    {
+        "name": "Vinegar",
+        "caloriesPer100": 18,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "White Pepper",
+        "caloriesPer100": 296,
+        "servingQuantity": "1 tsp (2.4 g)"
+    },
+    {
+        "name": "Yam",
+        "caloriesPer100": 118,
+        "servingQuantity": "1 cup (150 g)"
+    }
+]

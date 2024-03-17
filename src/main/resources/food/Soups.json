@@ -1,0 +1,262 @@
+[
+    {
+        "name": "Alphabet Soup",
+        "caloriesPer100": 25,
+        "servingQuantity": "1 cup (248 g)"
+    },
+    {
+        "name": "Bean Stew",
+        "caloriesPer100": 133,
+        "servingQuantity": "1 cup (252 g)"
+    },
+    {
+        "name": "Beef Bouillon",
+        "caloriesPer100": 3,
+        "servingQuantity": "1 cup (240 g)"
+    },
+    {
+        "name": "Beef Noodle Soup",
+        "caloriesPer100": 34,
+        "servingQuantity": "1 cup (244 g)"
+    },
+    {
+        "name": "Beef Soup",
+        "caloriesPer100": 33,
+        "servingQuantity": "1 cup (213 g)"
+    },
+    {
+        "name": "Bouillon",
+        "caloriesPer100": 16,
+        "servingQuantity": "1 cup (244 g)"
+    },
+    {
+        "name": "Broccoli Cheese Soup",
+        "caloriesPer100": 87,
+        "servingQuantity": "1 can (303 g)"
+    },
+    {
+        "name": "Broccoli Soup",
+        "caloriesPer100": 87,
+        "servingQuantity": "1 cup (237 g)"
+    },
+    {
+        "name": "Cabbage Soup",
+        "caloriesPer100": 28,
+        "servingQuantity": "1 cup (245 g)"
+    },
+    {
+        "name": "Carrot Ginger Soup",
+        "caloriesPer100": 25,
+        "servingQuantity": "1 serving (381 g)"
+    },
+    {
+        "name": "Carrot Soup",
+        "caloriesPer100": 25,
+        "servingQuantity": "1 serving (381 g)"
+    },
+    {
+        "name": "Chicken Bouillon",
+        "caloriesPer100": 4,
+        "servingQuantity": "1 cup (241 g)"
+    },
+    {
+        "name": "Chicken Broth",
+        "caloriesPer100": 16,
+        "servingQuantity": "1 cup (244 g)"
+    },
+    {
+        "name": "Chicken Gumbo Soup",
+        "caloriesPer100": 23,
+        "servingQuantity": "1 cup (244 g)"
+    },
+    {
+        "name": "Chicken Noodle Soup",
+        "caloriesPer100": 25,
+        "servingQuantity": "1 cup (248 g)"
+    },
+    {
+        "name": "Chicken Stock",
+        "caloriesPer100": 16,
+        "servingQuantity": "1 cup (244 g)"
+    },
+    {
+        "name": "Chicken Vegetable Soup",
+        "caloriesPer100": 31,
+        "servingQuantity": "1 cup (248 g)"
+    },
+    {
+        "name": "Chicken with Rice Soup",
+        "caloriesPer100": 24,
+        "servingQuantity": "1 cup (243 g)"
+    },
+    {
+        "name": "Cream of Asparagus Soup",
+        "caloriesPer100": 35,
+        "servingQuantity": "1 cup (244 g)"
+    },
+    {
+        "name": "Cream of Broccoli Soup",
+        "caloriesPer100": 45,
+        "servingQuantity": "1 serving (310 g)"
+    },
+    {
+        "name": "Cream of Celery Soup",
+        "caloriesPer100": 37,
+        "servingQuantity": "1 cup (248 g)"
+    },
+    {
+        "name": "Cream of Chicken Soup",
+        "caloriesPer100": 48,
+        "servingQuantity": "1 cup (244 g)"
+    },
+    {
+        "name": "Cream of Mushroom Soup",
+        "caloriesPer100": 39,
+        "servingQuantity": "1 cup (248 g)"
+    },
+    {
+        "name": "Cream of Onion Soup",
+        "caloriesPer100": 44,
+        "servingQuantity": "1 cup (244 g)"
+    },
+    {
+        "name": "Cream of Potato Soup",
+        "caloriesPer100": 30,
+        "servingQuantity": "1 cup (244 g)"
+    },
+    {
+        "name": "Creamy Chicken Noodle Soup",
+        "caloriesPer100": 23,
+        "servingQuantity": "1 cup (245 g)"
+    },
+    {
+        "name": "French Onion Soup",
+        "caloriesPer100": 23,
+        "servingQuantity": "1 cup (243 g)"
+    },
+    {
+        "name": "Golden Mushroom Soup",
+        "caloriesPer100": 65,
+        "servingQuantity": "1 cup (248 g)"
+    },
+    {
+        "name": "Goulash",
+        "caloriesPer100": 1009,
+        "servingQuantity": "1 serving (187 g)"
+    },
+    {
+        "name": "Instant Ramen",
+        "caloriesPer100": 436,
+        "servingQuantity": "1 package (85 g)"
+    },
+    {
+        "name": "Lentil Soup",
+        "caloriesPer100": 56,
+        "servingQuantity": "1 cup (248 g)"
+    },
+    {
+        "name": "Lobster Bisque Soup",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 cup (248 g)"
+    },
+    {
+        "name": "Meatball Soup",
+        "caloriesPer100": 49,
+        "servingQuantity": "1 cup (245 g)"
+    },
+    {
+        "name": "Minestrone",
+        "caloriesPer100": 34,
+        "servingQuantity": "1 cup (241 g)"
+    },
+    {
+        "name": "Mushroom Soup",
+        "caloriesPer100": 35,
+        "servingQuantity": "1 cup (244 g)"
+    },
+    {
+        "name": "Noodle Soup",
+        "caloriesPer100": 34,
+        "servingQuantity": "1 cup (244 g)"
+    },
+    {
+        "name": "Onion Soup",
+        "caloriesPer100": 23,
+        "servingQuantity": "1 cup (243 g)"
+    },
+    {
+        "name": "Oxtail Soup",
+        "caloriesPer100": 28,
+        "servingQuantity": "1 cup (244 g)"
+    },
+    {
+        "name": "Pea Soup",
+        "caloriesPer100": 75,
+        "servingQuantity": "1 cup (253 g)"
+    },
+    {
+        "name": "Potato Soup",
+        "caloriesPer100": 80,
+        "servingQuantity": "1 serving (240 g)"
+    },
+    {
+        "name": "Pumpkin Soup",
+        "caloriesPer100": 29,
+        "servingQuantity": "1 cup (245 g)"
+    },
+    {
+        "name": "Ramen",
+        "caloriesPer100": 436,
+        "servingQuantity": "1 package (85 g)"
+    },
+    {
+        "name": "Scotch Broth",
+        "caloriesPer100": 33,
+        "servingQuantity": "1 cup (241 g)"
+    },
+    {
+        "name": "Succotash",
+        "caloriesPer100": 115,
+        "servingQuantity": "1 cup (192 g)"
+    },
+    {
+        "name": "Thai Soup",
+        "caloriesPer100": 60,
+        "servingQuantity": "1 cup (245 g)"
+    },
+    {
+        "name": "Tomato Rice Soup",
+        "caloriesPer100": 47,
+        "servingQuantity": "1 cup (247 g)"
+    },
+    {
+        "name": "Tomato Soup",
+        "caloriesPer100": 30,
+        "servingQuantity": "1 cup (248 g)"
+    },
+    {
+        "name": "Vegetable Beef Soup",
+        "caloriesPer100": 31,
+        "servingQuantity": "1 cup (244 g)"
+    },
+    {
+        "name": "Vegetable Broth",
+        "caloriesPer100": 5,
+        "servingQuantity": "1 cup (235 g)"
+    },
+    {
+        "name": "Vegetable Soup",
+        "caloriesPer100": 28,
+        "servingQuantity": "1 cup (241 g)"
+    },
+    {
+        "name": "Vegetable Stock",
+        "caloriesPer100": 5,
+        "servingQuantity": "1 cup (235 g)"
+    },
+    {
+        "name": "Wedding Soup",
+        "caloriesPer100": 53,
+        "servingQuantity": "1 cup (245 g)"
+    }
+]

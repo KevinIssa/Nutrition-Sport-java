@@ -1,0 +1,392 @@
+[
+    {
+        "name": "Apple Pie",
+        "caloriesPer100": 237,
+        "servingQuantity": "1 slice (125 g)"
+    },
+    {
+        "name": "Apple Turnover",
+        "caloriesPer100": 348,
+        "servingQuantity": "1 turnover (82 g)"
+    },
+    {
+        "name": "Bagel",
+        "caloriesPer100": 257,
+        "servingQuantity": "1 bagel (98 g)"
+    },
+    {
+        "name": "Baguette",
+        "caloriesPer100": 274,
+        "servingQuantity": "1 slice (60 g)"
+    },
+    {
+        "name": "Banana Bread",
+        "caloriesPer100": 326,
+        "servingQuantity": "1 oz. (28.4 g)"
+    },
+    {
+        "name": "Banana Nut Bread",
+        "caloriesPer100": 326,
+        "servingQuantity": "1 piece (57 g)"
+    },
+    {
+        "name": "Beer Bread",
+        "caloriesPer100": 227,
+        "servingQuantity": "1 slice (30 g)"
+    },
+    {
+        "name": "Biscuit",
+        "caloriesPer100": 269,
+        "servingQuantity": "1 biscuit (58 g)"
+    },
+    {
+        "name": "Black Bread",
+        "caloriesPer100": 250,
+        "servingQuantity": "1 slice (26 g)"
+    },
+    {
+        "name": "Bran Muffins",
+        "caloriesPer100": 270,
+        "servingQuantity": "1 muffin (58 g)"
+    },
+    {
+        "name": "Bread Pudding",
+        "caloriesPer100": 153,
+        "servingQuantity": "1 serving (100 g)"
+    },
+    {
+        "name": "Breadsticks",
+        "caloriesPer100": 400,
+        "servingQuantity": "1 breadstick (5 g)"
+    },
+    {
+        "name": "Brioche",
+        "caloriesPer100": 346,
+        "servingQuantity": "1 serving (77 g)"
+    },
+    {
+        "name": "Brown Bread",
+        "caloriesPer100": 246,
+        "servingQuantity": "1 slice (30 g)"
+    },
+    {
+        "name": "Brownies",
+        "caloriesPer100": 405,
+        "servingQuantity": "1 square (40 g)"
+    },
+    {
+        "name": "Bun",
+        "caloriesPer100": 316,
+        "servingQuantity": "1 bun (38 g)"
+    },
+    {
+        "name": "Cannoli",
+        "caloriesPer100": 254,
+        "servingQuantity": "1 serving (85 g)"
+    },
+    {
+        "name": "Caramel Cake",
+        "caloriesPer100": 385,
+        "servingQuantity": "1 oz. (28.4 g)"
+    },
+    {
+        "name": "Challah",
+        "caloriesPer100": 283,
+        "servingQuantity": "1 slice (23 g)"
+    },
+    {
+        "name": "Chapati",
+        "caloriesPer100": 240,
+        "servingQuantity": "1 piece (50 g)"
+    },
+    {
+        "name": "Ciabatta",
+        "caloriesPer100": 271,
+        "servingQuantity": "1 slice (20 g)"
+    },
+    {
+        "name": "Cinnamon Bun",
+        "caloriesPer100": 436,
+        "servingQuantity": "1 bun (65 g)"
+    },
+    {
+        "name": "Coffee Cake",
+        "caloriesPer100": 418,
+        "servingQuantity": "1 piece (76 g)"
+    },
+    {
+        "name": "Conchas/Mexican Sweet Bread",
+        "caloriesPer100": 353,
+        "servingQuantity": "1 piece (82 g)"
+    },
+    {
+        "name": "Cornbread",
+        "caloriesPer100": 179,
+        "servingQuantity": "1 oz. (28.4 g)"
+    },
+    {
+        "name": "Crepes",
+        "caloriesPer100": 224,
+        "servingQuantity": "1 crepe (50 g)"
+    },
+    {
+        "name": "Croissant",
+        "caloriesPer100": 406,
+        "servingQuantity": "1 croissant (57 g)"
+    },
+    {
+        "name": "Crumpet",
+        "caloriesPer100": 178,
+        "servingQuantity": "1 crumpet (55 g)"
+    },
+    {
+        "name": "Cupcakes",
+        "caloriesPer100": 305,
+        "servingQuantity": "1 cupcake (43 g)"
+    },
+    {
+        "name": "Donut/Doughnut",
+        "caloriesPer100": 421,
+        "servingQuantity": "1 doughnut (45 g)"
+    },
+    {
+        "name": "Dosa",
+        "caloriesPer100": 209,
+        "servingQuantity": "1 serving (50 g)"
+    },
+    {
+        "name": "Empanada",
+        "caloriesPer100": 335,
+        "servingQuantity": "1 piece (89 g)"
+    },
+    {
+        "name": "English Muffin",
+        "caloriesPer100": 227,
+        "servingQuantity": "1 muffin (57 g)"
+    },
+    {
+        "name": "Flatbread",
+        "caloriesPer100": 311,
+        "servingQuantity": "1 slice (50 g)"
+    },
+    {
+        "name": "Focaccia",
+        "caloriesPer100": 249,
+        "servingQuantity": "1 piece (57 g)"
+    },
+    {
+        "name": "Garlic Bread",
+        "caloriesPer100": 350,
+        "servingQuantity": "1 slice (43 g)"
+    },
+    {
+        "name": "Hot Dog Buns",
+        "caloriesPer100": 279,
+        "servingQuantity": "1 bun (43 g)"
+    },
+    {
+        "name": "Italian Bread",
+        "caloriesPer100": 271,
+        "servingQuantity": "1 slice (30 g)"
+    },
+    {
+        "name": "Latkes",
+        "caloriesPer100": 189,
+        "servingQuantity": "1 serving (74 g)"
+    },
+    {
+        "name": "Matzo Bread",
+        "caloriesPer100": 351,
+        "servingQuantity": "1 matzo (28 g)"
+    },
+    {
+        "name": "Monkey Bread",
+        "caloriesPer100": 290,
+        "servingQuantity": "1 piece (57 g)"
+    },
+    {
+        "name": "Muffin",
+        "caloriesPer100": 296,
+        "servingQuantity": "1 muffin (71 g)"
+    },
+    {
+        "name": "Multi-Grain Bread",
+        "caloriesPer100": 265,
+        "servingQuantity": "1 slice (26 g)"
+    },
+    {
+        "name": "Naan",
+        "caloriesPer100": 275,
+        "servingQuantity": "1 naan (160 g)"
+    },
+    {
+        "name": "Oatmeal Cookies",
+        "caloriesPer100": 450,
+        "servingQuantity": "1 cookie (25 g)"
+    },
+    {
+        "name": "Oatmeal Raisin Cookies",
+        "caloriesPer100": 435,
+        "servingQuantity": "1 cookie (25 g)"
+    },
+    {
+        "name": "Pan de Sal",
+        "caloriesPer100": 293,
+        "servingQuantity": "1 serving (50 g)"
+    },
+    {
+        "name": "Pancake",
+        "caloriesPer100": 233,
+        "servingQuantity": "1 pancake (38 g)"
+    },
+    {
+        "name": "Pandesal",
+        "caloriesPer100": 293,
+        "servingQuantity": "1 serving (50 g)"
+    },
+    {
+        "name": "Panettone",
+        "caloriesPer100": 318,
+        "servingQuantity": "1 slice (27 g)"
+    },
+    {
+        "name": "Pide",
+        "caloriesPer100": 268,
+        "servingQuantity": "1 pide (60 g)"
+    },
+    {
+        "name": "Pie",
+        "caloriesPer100": 237,
+        "servingQuantity": "1 piece (125 g)"
+    },
+    {
+        "name": "Pita Bread",
+        "caloriesPer100": 275,
+        "servingQuantity": "1 pita (50 g)"
+    },
+    {
+        "name": "Potato Bread",
+        "caloriesPer100": 266,
+        "servingQuantity": "1 slice (32 g)"
+    },
+    {
+        "name": "Pretzel",
+        "caloriesPer100": 338,
+        "servingQuantity": "1 pretzel (115 g)"
+    },
+    {
+        "name": "Pretzel Roll",
+        "caloriesPer100": 338,
+        "servingQuantity": "1 roll (60 g)"
+    },
+    {
+        "name": "Puff Pastry",
+        "caloriesPer100": 558,
+        "servingQuantity": "1 piece (47 g)"
+    },
+    {
+        "name": "Pumpernickel",
+        "caloriesPer100": 250,
+        "servingQuantity": "1 pumpernickel (36 g)"
+    },
+    {
+        "name": "Raisin Bread",
+        "caloriesPer100": 274,
+        "servingQuantity": "1 slice (32 g)"
+    },
+    {
+        "name": "Roll",
+        "caloriesPer100": 316,
+        "servingQuantity": "1 roll (38 g)"
+    },
+    {
+        "name": "Roti",
+        "caloriesPer100": 264,
+        "servingQuantity": "1 roti (43 g)"
+    },
+    {
+        "name": "Rye Bread",
+        "caloriesPer100": 259,
+        "servingQuantity": "1 oz. (28.4 g)"
+    },
+    {
+        "name": "Sandwich",
+        "caloriesPer100": 304,
+        "servingQuantity": "1 sandwich (83 g)"
+    },
+    {
+        "name": "Sandwich Bread",
+        "caloriesPer100": 251,
+        "servingQuantity": "1 slice (26 g)"
+    },
+    {
+        "name": "Scone",
+        "caloriesPer100": 362,
+        "servingQuantity": "1 scone (40 g)"
+    },
+    {
+        "name": "Shortcrust Pastry",
+        "caloriesPer100": 544,
+        "servingQuantity": "1 serving (50 g)"
+    },
+    {
+        "name": "Soda Bread",
+        "caloriesPer100": 290,
+        "servingQuantity": "1 oz. (28.4 g)"
+    },
+    {
+        "name": "Souffl\u00e9",
+        "caloriesPer100": 204,
+        "servingQuantity": "1 cup (136 g)"
+    },
+    {
+        "name": "Sourdough Bread",
+        "caloriesPer100": 289,
+        "servingQuantity": "1 slice (35 g)"
+    },
+    {
+        "name": "Spanakopita",
+        "caloriesPer100": 246,
+        "servingQuantity": "1 piece (57 g)"
+    },
+    {
+        "name": "Spice Cake",
+        "caloriesPer100": 332,
+        "servingQuantity": "1 piece (66 g)"
+    },
+    {
+        "name": "Sweet Rolls",
+        "caloriesPer100": 333,
+        "servingQuantity": "1 roll (66 g)"
+    },
+    {
+        "name": "Swiss Roll",
+        "caloriesPer100": 313,
+        "servingQuantity": "1 piece (32 g)"
+    },
+    {
+        "name": "Toast",
+        "caloriesPer100": 261,
+        "servingQuantity": "1 slice (33 g)"
+    },
+    {
+        "name": "Tortilla",
+        "caloriesPer100": 297,
+        "servingQuantity": "1 tortilla (49 g)"
+    },
+    {
+        "name": "Tortilla Bread",
+        "caloriesPer100": 265,
+        "servingQuantity": "1 tortilla (68 g)"
+    },
+    {
+        "name": "White Bread",
+        "caloriesPer100": 238,
+        "servingQuantity": "1 slice (28 g)"
+    },
+    {
+        "name": "Whole Wheat Bread",
+        "caloriesPer100": 247,
+        "servingQuantity": "1 slice (46 g)"
+    }
+]

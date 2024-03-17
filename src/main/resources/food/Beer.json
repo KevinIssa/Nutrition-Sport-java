@@ -1,0 +1,427 @@
+[
+    {
+        "name": "Ale",
+        "caloriesPer100": 35,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Altbier",
+        "caloriesPer100": 43,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Bass",
+        "caloriesPer100": 45,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Beck\u2019s",
+        "caloriesPer100": 39,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Beer",
+        "caloriesPer100": 43,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Blue Moon",
+        "caloriesPer100": 48,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Bock Beer",
+        "caloriesPer100": 50,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Buckler (N.A.)",
+        "caloriesPer100": 21,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Bud Ice",
+        "caloriesPer100": 35,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Bud Light",
+        "caloriesPer100": 29,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Bud Light Chelada",
+        "caloriesPer100": 43,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Bud Light Lime",
+        "caloriesPer100": 34,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Bud Select",
+        "caloriesPer100": 28,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Bud Select 55",
+        "caloriesPer100": 15,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Budweiser",
+        "caloriesPer100": 41,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Budweiser Chelada",
+        "caloriesPer100": 52,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Busch",
+        "caloriesPer100": 37,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Busch Light",
+        "caloriesPer100": 27,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Busch N.A.",
+        "caloriesPer100": 17,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Carlsberg",
+        "caloriesPer100": 32,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Clausthaler (N.A.)",
+        "caloriesPer100": 26,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Colt 45",
+        "caloriesPer100": 44,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Coors",
+        "caloriesPer100": 42,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Coors Light",
+        "caloriesPer100": 29,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Coors N.A.",
+        "caloriesPer100": 18,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Corona",
+        "caloriesPer100": 42,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Dark Beer",
+        "caloriesPer100": 46,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Genesee Cream Ale",
+        "caloriesPer100": 46,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Ginger Beer",
+        "caloriesPer100": 42,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Guinness",
+        "caloriesPer100": 35,
+        "servingQuantity": "1 pint (568 ml)"
+    },
+    {
+        "name": "Heineken",
+        "caloriesPer100": 35,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Honey Brown",
+        "caloriesPer100": 42,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Hurricane High Gravity",
+        "caloriesPer100": 39,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "IPA",
+        "caloriesPer100": 51,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Keystone Ice",
+        "caloriesPer100": 40,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Keystone Light",
+        "caloriesPer100": 29,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Koelsch",
+        "caloriesPer100": 43,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Labatt",
+        "caloriesPer100": 43,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Lager Beer",
+        "caloriesPer100": 43,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Land Shark",
+        "caloriesPer100": 42,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Light Beer",
+        "caloriesPer100": 29,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Lowenbrau",
+        "caloriesPer100": 45,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Malt Beer",
+        "caloriesPer100": 37,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Michelob Amber Bock",
+        "caloriesPer100": 47,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Michelob Lager",
+        "caloriesPer100": 44,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Michelob Light",
+        "caloriesPer100": 32,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Michelob Ultra",
+        "caloriesPer100": 27,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Michelob Ultra Amber",
+        "caloriesPer100": 26,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Michelob Ultra Lime Cactus",
+        "caloriesPer100": 27,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Miller Chill",
+        "caloriesPer100": 31,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Miller Genuine Draft",
+        "caloriesPer100": 40,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Miller High Life",
+        "caloriesPer100": 40,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Miller High Life Light",
+        "caloriesPer100": 31,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Miller Lite",
+        "caloriesPer100": 27,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Milwaukee\u2019s Best",
+        "caloriesPer100": 36,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Milwaukee\u2019s Best Light",
+        "caloriesPer100": 28,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Molson",
+        "caloriesPer100": 42,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Natural Ice",
+        "caloriesPer100": 44,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Natural Light",
+        "caloriesPer100": 27,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Newcastle",
+        "caloriesPer100": 39,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Non-alcoholic Beer",
+        "caloriesPer100": 37,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Old Milwaukee",
+        "caloriesPer100": 41,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Old Milwaukee N.A.",
+        "caloriesPer100": 16,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Olde English",
+        "caloriesPer100": 45,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "O\u2019Doul\u2019s (N.A.)",
+        "caloriesPer100": 19,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Pabst Blue Ribbon",
+        "caloriesPer100": 41,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Pale Ale",
+        "caloriesPer100": 42,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Pilsner",
+        "caloriesPer100": 43,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Porter",
+        "caloriesPer100": 54,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Redbridge (Gluten-free)",
+        "caloriesPer100": 45,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Rolling Rock",
+        "caloriesPer100": 37,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Rolling Rock Light",
+        "caloriesPer100": 30,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Root Beer",
+        "caloriesPer100": 41,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Samuel Adams",
+        "caloriesPer100": 45,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Shock Top",
+        "caloriesPer100": 47,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Shock Top Raspberry Wheat",
+        "caloriesPer100": 50,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Sierra Nevada Strong",
+        "caloriesPer100": 62,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Sparks",
+        "caloriesPer100": 74,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "St. Pauli Girl",
+        "caloriesPer100": 42,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Steel Reserve",
+        "caloriesPer100": 63,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Stout",
+        "caloriesPer100": 51,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Stout Beer",
+        "caloriesPer100": 51,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Strong Beer",
+        "caloriesPer100": 55,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Tilt",
+        "caloriesPer100": 64,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    },
+    {
+        "name": "Wheat Beer",
+        "caloriesPer100": 45,
+        "servingQuantity": "1 can/bottle (354 ml)"
+    }
+]

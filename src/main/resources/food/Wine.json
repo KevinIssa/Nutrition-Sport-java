@@ -1,0 +1,197 @@
+[
+    {
+        "name": "Cabernet Sauvignon",
+        "caloriesPer100": 77,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Cava",
+        "caloriesPer100": 76,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Champagne",
+        "caloriesPer100": 76,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Chardonnay",
+        "caloriesPer100": 85,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Chenin Blanc",
+        "caloriesPer100": 80,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Chocolate Wine",
+        "caloriesPer100": 256,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Dry Red Wine",
+        "caloriesPer100": 85,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Gamay",
+        "caloriesPer100": 78,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Malbec",
+        "caloriesPer100": 82,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Malbec Wine",
+        "caloriesPer100": 82,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Marsala Wine",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Merlot",
+        "caloriesPer100": 83,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Merlot Wine",
+        "caloriesPer100": 83,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Moscato Wine",
+        "caloriesPer100": 76,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Mulled Wine",
+        "caloriesPer100": 196,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Pinot Gris",
+        "caloriesPer100": 83,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Pinot Noir",
+        "caloriesPer100": 75,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Plum Wine",
+        "caloriesPer100": 163,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Port Wine",
+        "caloriesPer100": 160,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Prosecco",
+        "caloriesPer100": 71,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Red Wine",
+        "caloriesPer100": 85,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Red Wines",
+        "caloriesPer100": 85,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Riesling",
+        "caloriesPer100": 80,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Riesling Wine",
+        "caloriesPer100": 80,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Rose Wine",
+        "caloriesPer100": 71,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Sangria",
+        "caloriesPer100": 132,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Sauvignon Blanc",
+        "caloriesPer100": 81,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Sherry",
+        "caloriesPer100": 116,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Shiraz",
+        "caloriesPer100": 71,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Sparkling Wine",
+        "caloriesPer100": 190,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Sweet Red Wine",
+        "caloriesPer100": 81,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Sweet White Wine",
+        "caloriesPer100": 82,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Sweet Wines",
+        "caloriesPer100": 83,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Vermouth",
+        "caloriesPer100": 108,
+        "servingQuantity": "1 glass (30 ml)"
+    },
+    {
+        "name": "White Wine",
+        "caloriesPer100": 82,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "White Zinfandel",
+        "caloriesPer100": 88,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Wine",
+        "caloriesPer100": 83,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Yellow Tail Wine",
+        "caloriesPer100": 71,
+        "servingQuantity": "1 glass (118 ml)"
+    },
+    {
+        "name": "Zinfandel",
+        "caloriesPer100": 88,
+        "servingQuantity": "1 glass (118 ml)"
+    }
+]

@@ -1,0 +1,167 @@
+[
+    {
+        "name": "Almond Oil",
+        "caloriesPer100": 882,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Apricot Kernel Oil",
+        "caloriesPer100": 889,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Argan Oil",
+        "caloriesPer100": 896,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Avocado Oil",
+        "caloriesPer100": 857,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Babassu Oil",
+        "caloriesPer100": 884,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Canola Oil",
+        "caloriesPer100": 884,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Coconut Oil",
+        "caloriesPer100": 857,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Corn Oil",
+        "caloriesPer100": 800,
+        "servingQuantity": "1 tbsp (15 ml)"
+    },
+    {
+        "name": "Cottonseed Oil",
+        "caloriesPer100": 882,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Flaxseed Oil",
+        "caloriesPer100": 884,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Grape Seed Oil",
+        "caloriesPer100": 884,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Hazelnut Oil",
+        "caloriesPer100": 889,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Linseed Oil",
+        "caloriesPer100": 837,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Menhaden Oil",
+        "caloriesPer100": 911,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Mustard Oil",
+        "caloriesPer100": 884,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Oat Oil",
+        "caloriesPer100": 884,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Olive Oil",
+        "caloriesPer100": 800,
+        "servingQuantity": "1 tbsp (15 ml)"
+    },
+    {
+        "name": "Palm Kernel Oil",
+        "caloriesPer100": 882,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Palm Oil",
+        "caloriesPer100": 882,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Peanut Oil",
+        "caloriesPer100": 857,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Poppy Seed Oil",
+        "caloriesPer100": 884,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Pumpkin Seed Oil",
+        "caloriesPer100": 880,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Rice Bran Oil",
+        "caloriesPer100": 889,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Safflower Oil",
+        "caloriesPer100": 857,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Salmon Oil",
+        "caloriesPer100": 911,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Sesame Oil",
+        "caloriesPer100": 889,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Shea Oil",
+        "caloriesPer100": 884,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Soy Oil",
+        "caloriesPer100": 882,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Sunflower Oil",
+        "caloriesPer100": 884,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Tomato Seed Oil",
+        "caloriesPer100": 884,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Vegetable Oil",
+        "caloriesPer100": 800,
+        "servingQuantity": "1 tbsp (15 ml)"
+    },
+    {
+        "name": "Walnut Oil",
+        "caloriesPer100": 889,
+        "servingQuantity": "1 tbsp (14 ml)"
+    },
+    {
+        "name": "Wheat Germ Oil",
+        "caloriesPer100": 929,
+        "servingQuantity": "1 tbsp (14 ml)"
+    }
+]

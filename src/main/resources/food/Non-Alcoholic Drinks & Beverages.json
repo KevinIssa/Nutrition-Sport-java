@@ -1,0 +1,257 @@
+[
+    {
+        "name": "ACE Drink",
+        "caloriesPer100": 44,
+        "servingQuantity": "1/2 litre (500 ml)"
+    },
+    {
+        "name": "Apple Spritzer",
+        "caloriesPer100": 24,
+        "servingQuantity": "1/2 litre (500 ml)"
+    },
+    {
+        "name": "Chai",
+        "caloriesPer100": 0,
+        "servingQuantity": "1 cup (236 ml)"
+    },
+    {
+        "name": "Chai Tea",
+        "caloriesPer100": 0,
+        "servingQuantity": "1 cup (236 ml)"
+    },
+    {
+        "name": "Chocolate Milk",
+        "caloriesPer100": 89,
+        "servingQuantity": "1 cup (266 ml)"
+    },
+    {
+        "name": "Chocolate Milkshake",
+        "caloriesPer100": 125,
+        "servingQuantity": "10 fl. oz. (283 ml)"
+    },
+    {
+        "name": "Club Mate",
+        "caloriesPer100": 30,
+        "servingQuantity": "1/2 litre (500 ml)"
+    },
+    {
+        "name": "Coca Cola",
+        "caloriesPer100": 42,
+        "servingQuantity": "1 can (330 ml)"
+    },
+    {
+        "name": "Coffee",
+        "caloriesPer100": 1,
+        "servingQuantity": "1 cup (237 ml)"
+    },
+    {
+        "name": "Coke Zero",
+        "caloriesPer100": 1,
+        "servingQuantity": "1 can (330 ml)"
+    },
+    {
+        "name": "Cola",
+        "caloriesPer100": 42,
+        "servingQuantity": "1 can (330 ml)"
+    },
+    {
+        "name": "Crystal Light",
+        "caloriesPer100": 263,
+        "servingQuantity": "8 fl. oz. (237 ml)"
+    },
+    {
+        "name": "Diet Coke",
+        "caloriesPer100": 1,
+        "servingQuantity": "1 can (330 ml)"
+    },
+    {
+        "name": "Egg Cream",
+        "caloriesPer100": 94,
+        "servingQuantity": "1 serving (125 ml)"
+    },
+    {
+        "name": "Egg Nog",
+        "caloriesPer100": 88,
+        "servingQuantity": "1 cup (254 ml)"
+    },
+    {
+        "name": "Elderflower Cordial",
+        "caloriesPer100": 29,
+        "servingQuantity": "8 oz. (227 ml)"
+    },
+    {
+        "name": "Evian",
+        "caloriesPer100": 0,
+        "servingQuantity": "1 bottle (500 ml)"
+    },
+    {
+        "name": "Gatorade",
+        "caloriesPer100": 23,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Ginger Tea",
+        "caloriesPer100": 0,
+        "servingQuantity": "1 cup (254 ml)"
+    },
+    {
+        "name": "Hawaiian Punch",
+        "caloriesPer100": 31,
+        "servingQuantity": "8 oz. (227 ml)"
+    },
+    {
+        "name": "Hi-C",
+        "caloriesPer100": 49,
+        "servingQuantity": "12 fl. oz. (253 ml)"
+    },
+    {
+        "name": "Horchata",
+        "caloriesPer100": 54,
+        "servingQuantity": "8 fl. oz. (240 ml)"
+    },
+    {
+        "name": "Hot Chocolate",
+        "caloriesPer100": 89,
+        "servingQuantity": "1 cup (266 ml)"
+    },
+    {
+        "name": "Ice Tea",
+        "caloriesPer100": 27,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Iced Tea",
+        "caloriesPer100": 27,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Karamalz",
+        "caloriesPer100": 37,
+        "servingQuantity": "1 cup (237 ml)"
+    },
+    {
+        "name": "Kombucha",
+        "caloriesPer100": 13,
+        "servingQuantity": "8 oz. (227 ml)"
+    },
+    {
+        "name": "Kool-Aid",
+        "caloriesPer100": 26,
+        "servingQuantity": "8 fl. oz. (237 ml)"
+    },
+    {
+        "name": "Lassi",
+        "caloriesPer100": 104,
+        "servingQuantity": "1 cup (250 ml)"
+    },
+    {
+        "name": "Latte Macchiato",
+        "caloriesPer100": 57,
+        "servingQuantity": "1 cup (300 ml)"
+    },
+    {
+        "name": "Lemonade",
+        "caloriesPer100": 42,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Malt Beer",
+        "caloriesPer100": 37,
+        "servingQuantity": "1 cup (237 ml)"
+    },
+    {
+        "name": "Milk",
+        "caloriesPer100": 61,
+        "servingQuantity": "1 cup (244 ml)"
+    },
+    {
+        "name": "Milkshake (dry)",
+        "caloriesPer100": 329,
+        "servingQuantity": "1 tbsp (7 g)"
+    },
+    {
+        "name": "Milo",
+        "caloriesPer100": 409,
+        "servingQuantity": "3 tbsp (24 g)"
+    },
+    {
+        "name": "Nectar",
+        "caloriesPer100": 53,
+        "servingQuantity": "8 oz. (227 ml)"
+    },
+    {
+        "name": "Nestea",
+        "caloriesPer100": 36,
+        "servingQuantity": "1 cup (240 ml)"
+    },
+    {
+        "name": "Non-alcoholic Beer",
+        "caloriesPer100": 37,
+        "servingQuantity": "1 can, bottle (354 ml)"
+    },
+    {
+        "name": "Powerade",
+        "caloriesPer100": 16,
+        "servingQuantity": "1 bottle (500 ml)"
+    },
+    {
+        "name": "Slurpee",
+        "caloriesPer100": 4,
+        "servingQuantity": "8 oz. (240 ml)"
+    },
+    {
+        "name": "Slush Puppie",
+        "caloriesPer100": 50,
+        "servingQuantity": "8 fl. oz. (237 ml)"
+    },
+    {
+        "name": "Smoothie",
+        "caloriesPer100": 37,
+        "servingQuantity": "8 oz. (240 ml)"
+    },
+    {
+        "name": "Soy Milk",
+        "caloriesPer100": 45,
+        "servingQuantity": "1 cup (243 ml)"
+    },
+    {
+        "name": "Strawberry Milkshake",
+        "caloriesPer100": 113,
+        "servingQuantity": "10 fl. oz. (283 ml)"
+    },
+    {
+        "name": "Tang",
+        "caloriesPer100": 381,
+        "servingQuantity": "1/8 cup (24 g)"
+    },
+    {
+        "name": "Tap Water",
+        "caloriesPer100": 0,
+        "servingQuantity": "1 fl. oz. (29.6 ml)"
+    },
+    {
+        "name": "Tea",
+        "caloriesPer100": 1,
+        "servingQuantity": "1 cup (237 ml)"
+    },
+    {
+        "name": "Vanilla Milkshake",
+        "caloriesPer100": 149,
+        "servingQuantity": "10 fl. oz. (283 ml)"
+    },
+    {
+        "name": "Volvic",
+        "caloriesPer100": 0,
+        "servingQuantity": "1/2 litre (500 ml)"
+    },
+    {
+        "name": "Water",
+        "caloriesPer100": 0,
+        "servingQuantity": "1 fl. oz. (29.6 ml)"
+    },
+    {
+        "name": "Yerba Mate",
+        "caloriesPer100": 62,
+        "servingQuantity": "1 serving (50 ml)"
+    }
+]

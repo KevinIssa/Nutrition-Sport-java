@@ -1,0 +1,197 @@
+[
+    {
+        "name": "Beef",
+        "caloriesPer100": 171,
+        "servingQuantity": "6 oz. (168 g)"
+    },
+    {
+        "name": "Beef Brisket",
+        "caloriesPer100": 137,
+        "servingQuantity": "1 piece (178 g)"
+    },
+    {
+        "name": "Beef Fillet",
+        "caloriesPer100": 189,
+        "servingQuantity": "6 oz. (168 g)"
+    },
+    {
+        "name": "Beef Goulash",
+        "caloriesPer100": 123,
+        "servingQuantity": "1 cup (227 g)"
+    },
+    {
+        "name": "Beef Minute Steak",
+        "caloriesPer100": 133,
+        "servingQuantity": "6 oz. (168 g)"
+    },
+    {
+        "name": "Beef Neck",
+        "caloriesPer100": 213,
+        "servingQuantity": "1 piece (224 g)"
+    },
+    {
+        "name": "Beef Pancreas",
+        "caloriesPer100": 271,
+        "servingQuantity": "1 piece (222 g)"
+    },
+    {
+        "name": "Beef Patty",
+        "caloriesPer100": 247,
+        "servingQuantity": "1 patty  (64 g)"
+    },
+    {
+        "name": "Beef Prime Rib",
+        "caloriesPer100": 404,
+        "servingQuantity": "1 piece (278 g)"
+    },
+    {
+        "name": "Beef Ribs",
+        "caloriesPer100": 196,
+        "servingQuantity": "1 rib (340 g)"
+    },
+    {
+        "name": "Beef Sirloin",
+        "caloriesPer100": 182,
+        "servingQuantity": "1 serving (85 g)"
+    },
+    {
+        "name": "Beef Suet",
+        "caloriesPer100": 854,
+        "servingQuantity": "1 oz. (28 g)"
+    },
+    {
+        "name": "Beef Tallow",
+        "caloriesPer100": 902,
+        "servingQuantity": "1 cup (205 g)"
+    },
+    {
+        "name": "Beef Thymus",
+        "caloriesPer100": 319,
+        "servingQuantity": "1 piece (381 g)"
+    },
+    {
+        "name": "Beef Tripe",
+        "caloriesPer100": 94,
+        "servingQuantity": "1 serving (85 g)"
+    },
+    {
+        "name": "Chuck Roast",
+        "caloriesPer100": 141,
+        "servingQuantity": "1 piece (224 g)"
+    },
+    {
+        "name": "Chuck Steak",
+        "caloriesPer100": 137,
+        "servingQuantity": "1 piece (340 g)"
+    },
+    {
+        "name": "Filet Mignon",
+        "caloriesPer100": 207,
+        "servingQuantity": "6 oz. (168 g)"
+    },
+    {
+        "name": "Flank Steak",
+        "caloriesPer100": 194,
+        "servingQuantity": "1 steak (320 g)"
+    },
+    {
+        "name": "Ground Beef",
+        "caloriesPer100": 241,
+        "servingQuantity": "6 oz. (168 g)"
+    },
+    {
+        "name": "Ground Chuck",
+        "caloriesPer100": 250,
+        "servingQuantity": "6 oz. (168 g)"
+    },
+    {
+        "name": "Ground Round",
+        "caloriesPer100": 212,
+        "servingQuantity": "6 oz. (168 g)"
+    },
+    {
+        "name": "Minced Veal",
+        "caloriesPer100": 143,
+        "servingQuantity": "6 oz. (168 g)"
+    },
+    {
+        "name": "Porterhouse Steak",
+        "caloriesPer100": 247,
+        "servingQuantity": "1 steak (320 g)"
+    },
+    {
+        "name": "Rib Eye Steak",
+        "caloriesPer100": 217,
+        "servingQuantity": "1 steak (281 g)"
+    },
+    {
+        "name": "Roast Beef",
+        "caloriesPer100": 187,
+        "servingQuantity": "1 slice (341 g)"
+    },
+    {
+        "name": "Rump Steak",
+        "caloriesPer100": 171,
+        "servingQuantity": "1 steak (205 g)"
+    },
+    {
+        "name": "Skirt Steak",
+        "caloriesPer100": 205,
+        "servingQuantity": "6 oz. (168 g)"
+    },
+    {
+        "name": "Stew Beef",
+        "caloriesPer100": 191,
+        "servingQuantity": "1 lb. (454 g)"
+    },
+    {
+        "name": "Strip Steak",
+        "caloriesPer100": 117,
+        "servingQuantity": "3 slices (34 g)"
+    },
+    {
+        "name": "T-Bone-Steak",
+        "caloriesPer100": 221,
+        "servingQuantity": "6 oz. (168 g)"
+    },
+    {
+        "name": "Veal",
+        "caloriesPer100": 282,
+        "servingQuantity": "1 piece (291 g)"
+    },
+    {
+        "name": "Veal Breast",
+        "caloriesPer100": 282,
+        "servingQuantity": "1 piece (291 g)"
+    },
+    {
+        "name": "Veal Leg",
+        "caloriesPer100": 211,
+        "servingQuantity": "1 piece (272 g)"
+    },
+    {
+        "name": "Veal Roast Beef",
+        "caloriesPer100": 175,
+        "servingQuantity": "1 piece (208 g)"
+    },
+    {
+        "name": "Veal Shank",
+        "caloriesPer100": 177,
+        "servingQuantity": "1 piece (223 g)"
+    },
+    {
+        "name": "Veal Shoulder",
+        "caloriesPer100": 183,
+        "servingQuantity": "1 piece (283 g)"
+    },
+    {
+        "name": "Veal Sirloin",
+        "caloriesPer100": 204,
+        "servingQuantity": "1 piece (183 g)"
+    },
+    {
+        "name": "Veal Tenderloin",
+        "caloriesPer100": 217,
+        "servingQuantity": "1 piece (229 g)"
+    }
+]

@@ -1,0 +1,392 @@
+[
+    {
+        "name": "Baby Back Ribs",
+        "caloriesPer100": 259,
+        "servingQuantity": "1 serving (139 g)"
+    },
+    {
+        "name": "Bacon and Eggs",
+        "caloriesPer100": 252,
+        "servingQuantity": "1 serving (214 g)"
+    },
+    {
+        "name": "Baked Beans",
+        "caloriesPer100": 94,
+        "servingQuantity": "1 cup (260 g)"
+    },
+    {
+        "name": "Baked Chicken",
+        "caloriesPer100": 164,
+        "servingQuantity": "1 breast (172 g)"
+    },
+    {
+        "name": "BBQ Ribs",
+        "caloriesPer100": 255,
+        "servingQuantity": "1 rib (141 g)"
+    },
+    {
+        "name": "Beef Stew",
+        "caloriesPer100": 95,
+        "servingQuantity": "1 cup (196 g)"
+    },
+    {
+        "name": "Biryani",
+        "caloriesPer100": 176,
+        "servingQuantity": "1 cup (275 g)"
+    },
+    {
+        "name": "Black Pudding",
+        "caloriesPer100": 253,
+        "servingQuantity": "1 pudding (40 g)"
+    },
+    {
+        "name": "Black Rice",
+        "caloriesPer100": 323,
+        "servingQuantity": "1/2 cup (100 g)"
+    },
+    {
+        "name": "BLT",
+        "caloriesPer100": 247,
+        "servingQuantity": "1 item (240 g)"
+    },
+    {
+        "name": "Brown Rice",
+        "caloriesPer100": 362,
+        "servingQuantity": "1 cup (185 g)"
+    },
+    {
+        "name": "Burrito",
+        "caloriesPer100": 163,
+        "servingQuantity": "1 burrito (200 g)"
+    },
+    {
+        "name": "Butter Chicken",
+        "caloriesPer100": 140,
+        "servingQuantity": "1 tray (350 g)"
+    },
+    {
+        "name": "California Roll",
+        "caloriesPer100": 93,
+        "servingQuantity": "1 roll (35 g)"
+    },
+    {
+        "name": "Chicken Caesar Salad",
+        "caloriesPer100": 127,
+        "servingQuantity": "1 salad (309 g)"
+    },
+    {
+        "name": "Chicken Fried Steak",
+        "caloriesPer100": 151,
+        "servingQuantity": "1 steak  (280 g)"
+    },
+    {
+        "name": "Chicken Marsala",
+        "caloriesPer100": 96,
+        "servingQuantity": "1 serving (2301 g)"
+    },
+    {
+        "name": "Chicken Parmesan",
+        "caloriesPer100": 110,
+        "servingQuantity": "1 piece (227 g)"
+    },
+    {
+        "name": "Chicken Pot Pie",
+        "caloriesPer100": 223,
+        "servingQuantity": "1 pie (302 g)"
+    },
+    {
+        "name": "Chicken Tikka Masala",
+        "caloriesPer100": 81,
+        "servingQuantity": "1 serving (241 g)"
+    },
+    {
+        "name": "Chili con Carne",
+        "caloriesPer100": 105,
+        "servingQuantity": "1 cup (253 g)"
+    },
+    {
+        "name": "Chimichanga",
+        "caloriesPer100": 232,
+        "servingQuantity": "1 item (180 g)"
+    },
+    {
+        "name": "Cobb Salad",
+        "caloriesPer100": 118,
+        "servingQuantity": "1 serving (536 g)"
+    },
+    {
+        "name": "Collard Greens",
+        "caloriesPer100": 28,
+        "servingQuantity": "1 cup (45 g)"
+    },
+    {
+        "name": "Corn Dog",
+        "caloriesPer100": 250,
+        "servingQuantity": "1 item (175 g)"
+    },
+    {
+        "name": "Corned Beef Hash",
+        "caloriesPer100": 164,
+        "servingQuantity": "1 can (213 g)"
+    },
+    {
+        "name": "Cottage Pie",
+        "caloriesPer100": 139,
+        "servingQuantity": "1 pie (376 g)"
+    },
+    {
+        "name": "Dal",
+        "caloriesPer100": 330,
+        "servingQuantity": "1/2 cup (92 g)"
+    },
+    {
+        "name": "Deviled Eggs",
+        "caloriesPer100": 201,
+        "servingQuantity": "1/2 egg (31 g)"
+    },
+    {
+        "name": "Dim Sum",
+        "caloriesPer100": 193,
+        "servingQuantity": "1 piece (19 g)"
+    },
+    {
+        "name": "Dosa",
+        "caloriesPer100": 66,
+        "servingQuantity": "1 serving (435 g)"
+    },
+    {
+        "name": "Enchiladas",
+        "caloriesPer100": 168,
+        "servingQuantity": "1 enchilada (192 g)"
+    },
+    {
+        "name": "Fajita",
+        "caloriesPer100": 117,
+        "servingQuantity": "1 serving (248 g)"
+    },
+    {
+        "name": "Fish and Chips",
+        "caloriesPer100": 195,
+        "servingQuantity": "1 serving (300 g)"
+    },
+    {
+        "name": "Fried Rice",
+        "caloriesPer100": 186,
+        "servingQuantity": "1 serving (356 g)"
+    },
+    {
+        "name": "Fried Shrimp",
+        "caloriesPer100": 277,
+        "servingQuantity": "1 shrimp (27 g)"
+    },
+    {
+        "name": "Grilled Cheese Sandwich",
+        "caloriesPer100": 288,
+        "servingQuantity": "1 sandwich (136 g)"
+    },
+    {
+        "name": "Ham and Cheese Sandwich",
+        "caloriesPer100": 241,
+        "servingQuantity": "1 sandwich (146 g)"
+    },
+    {
+        "name": "Hummus",
+        "caloriesPer100": 177,
+        "servingQuantity": "1 cup (246 g)"
+    },
+    {
+        "name": "Jambalaya",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 cup (250 g)"
+    },
+    {
+        "name": "Kebab",
+        "caloriesPer100": 215,
+        "servingQuantity": "1 kebab (360 g)"
+    },
+    {
+        "name": "Lasagne",
+        "caloriesPer100": 132,
+        "servingQuantity": "1 serving (215 g)"
+    },
+    {
+        "name": "Mac and Cheese",
+        "caloriesPer100": 370,
+        "servingQuantity": "1 serving (189 g)"
+    },
+    {
+        "name": "Macaroni and Cheese",
+        "caloriesPer100": 370,
+        "servingQuantity": "1 serving (189 g)"
+    },
+    {
+        "name": "Mashed Potatoes",
+        "caloriesPer100": 83,
+        "servingQuantity": "1 cup (210 g)"
+    },
+    {
+        "name": "Meat Pie",
+        "caloriesPer100": 242,
+        "servingQuantity": "1 pie (120 g)"
+    },
+    {
+        "name": "Meatloaf",
+        "caloriesPer100": 254,
+        "servingQuantity": "1 loaf (284 g)"
+    },
+    {
+        "name": "Naan",
+        "caloriesPer100": 310,
+        "servingQuantity": "1 bread (84 g)"
+    },
+    {
+        "name": "Orange Chicken",
+        "caloriesPer100": 259,
+        "servingQuantity": "1 serving (162 g)"
+    },
+    {
+        "name": "Pad Thai",
+        "caloriesPer100": 150,
+        "servingQuantity": "1 cup (250 g)"
+    },
+    {
+        "name": "Paella",
+        "caloriesPer100": 156,
+        "servingQuantity": "1/2 package (128 g)"
+    },
+    {
+        "name": "Paratha",
+        "caloriesPer100": 325,
+        "servingQuantity": "1 paratha (80 g)"
+    },
+    {
+        "name": "Pea Soup",
+        "caloriesPer100": 75,
+        "servingQuantity": "1 cup (253 g)"
+    },
+    {
+        "name": "Peanut Butter Sandwich",
+        "caloriesPer100": 408,
+        "servingQuantity": "1 sandwich (49 g)"
+    },
+    {
+        "name": "Peking Duck",
+        "caloriesPer100": 225,
+        "servingQuantity": "1/2 duck (178 g)"
+    },
+    {
+        "name": "Philly Cheese Steak",
+        "caloriesPer100": 250,
+        "servingQuantity": "1 sandwich (120 g)"
+    },
+    {
+        "name": "Pizza",
+        "caloriesPer100": 267,
+        "servingQuantity": "1 slice (102 g)"
+    },
+    {
+        "name": "Pork Chop",
+        "caloriesPer100": 225,
+        "servingQuantity": "1 chop (131 g)"
+    },
+    {
+        "name": "Potato Salad",
+        "caloriesPer100": 143,
+        "servingQuantity": "1/3 cup (95 g)"
+    },
+    {
+        "name": "Pulled Pork Sandwich",
+        "caloriesPer100": 211,
+        "servingQuantity": "1 sandwich (261 g)"
+    },
+    {
+        "name": "Ramen",
+        "caloriesPer100": 447,
+        "servingQuantity": "1 package, dry (85 g)"
+    },
+    {
+        "name": "Ravioli",
+        "caloriesPer100": 203,
+        "servingQuantity": "5 ravioli (66 g)"
+    },
+    {
+        "name": "Reuben Sandwich",
+        "caloriesPer100": 208,
+        "servingQuantity": "1 sandwich (308 g)"
+    },
+    {
+        "name": "Roast Beef",
+        "caloriesPer100": 111,
+        "servingQuantity": "1 slice (21 g)"
+    },
+    {
+        "name": "Roast Dinner",
+        "caloriesPer100": 198,
+        "servingQuantity": "1 slice (121 g)"
+    },
+    {
+        "name": "Samosa",
+        "caloriesPer100": 214,
+        "servingQuantity": "1 samosa (50 g)"
+    },
+    {
+        "name": "Sausage Roll",
+        "caloriesPer100": 350,
+        "servingQuantity": "1 roll (103 g)"
+    },
+    {
+        "name": "Sausage Rolls",
+        "caloriesPer100": 297,
+        "servingQuantity": "1 roll (34 g)"
+    },
+    {
+        "name": "Shepherds Pie",
+        "caloriesPer100": 70,
+        "servingQuantity": "1 pie (227 g)"
+    },
+    {
+        "name": "Shrimp Cocktail",
+        "caloriesPer100": 464,
+        "servingQuantity": "1 oz. (28 g)"
+    },
+    {
+        "name": "Sloppy Joe",
+        "caloriesPer100": 71,
+        "servingQuantity": "1/2 cup (142 g)"
+    },
+    {
+        "name": "Sloppy Joes",
+        "caloriesPer100": 154,
+        "servingQuantity": "1 bun (258 g)"
+    },
+    {
+        "name": "Spaghetti Bolognese",
+        "caloriesPer100": 132,
+        "servingQuantity": "1 serving (283 g)"
+    },
+    {
+        "name": "Spring Roll",
+        "caloriesPer100": 250,
+        "servingQuantity": "1 roll (140 g)"
+    },
+    {
+        "name": "Spring Rolls",
+        "caloriesPer100": 250,
+        "servingQuantity": "1 roll (140 g)"
+    },
+    {
+        "name": "Taco",
+        "caloriesPer100": 217,
+        "servingQuantity": "1 taco (98 g)"
+    },
+    {
+        "name": "Tandoori Chicken",
+        "caloriesPer100": 113,
+        "servingQuantity": "1 serving (175 g)"
+    },
+    {
+        "name": "Yorkshire Pudding",
+        "caloriesPer100": 553,
+        "servingQuantity": "1 pudding (15 g)"
+    }
+]

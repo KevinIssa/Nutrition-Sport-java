@@ -1,0 +1,457 @@
+[
+    {
+        "name": "Angel Food Cake",
+        "caloriesPer100": 258,
+        "servingQuantity": "1 piece (28 g)"
+    },
+    {
+        "name": "Apple Cake",
+        "caloriesPer100": 252,
+        "servingQuantity": "1 serving (100 g)"
+    },
+    {
+        "name": "Apple Cobbler",
+        "caloriesPer100": 198,
+        "servingQuantity": "1 serving (100 g)"
+    },
+    {
+        "name": "Apple Crisp",
+        "caloriesPer100": 156,
+        "servingQuantity": "1 serving (100 g)"
+    },
+    {
+        "name": "Apple Crumble",
+        "caloriesPer100": 156,
+        "servingQuantity": "1 serving (100 g)"
+    },
+    {
+        "name": "Apple Pie",
+        "caloriesPer100": 237,
+        "servingQuantity": "1 slice (125 g)"
+    },
+    {
+        "name": "Apple Strudel",
+        "caloriesPer100": 274,
+        "servingQuantity": "1 piece (71 g)"
+    },
+    {
+        "name": "Apple Turnover",
+        "caloriesPer100": 348,
+        "servingQuantity": "1 turnover (82 g)"
+    },
+    {
+        "name": "Applesauce Cake",
+        "caloriesPer100": 358,
+        "servingQuantity": "1 piece (62 g)"
+    },
+    {
+        "name": "Baked Alaska",
+        "caloriesPer100": 247,
+        "servingQuantity": "1 piece (103 g)"
+    },
+    {
+        "name": "Bakewell Tart",
+        "caloriesPer100": 430,
+        "servingQuantity": "1 piece (59 g)"
+    },
+    {
+        "name": "Banoffee Pie",
+        "caloriesPer100": 395,
+        "servingQuantity": "1 serving (100 g)"
+    },
+    {
+        "name": "Birthday Cake",
+        "caloriesPer100": 465,
+        "servingQuantity": "1 piece (85 g)"
+    },
+    {
+        "name": "Black and White Cookie",
+        "caloriesPer100": 381,
+        "servingQuantity": "1 cookie (113 g)"
+    },
+    {
+        "name": "Black Forest Cake",
+        "caloriesPer100": 264,
+        "servingQuantity": "1 piece (107 g)"
+    },
+    {
+        "name": "Blueberry Cobbler",
+        "caloriesPer100": 234,
+        "servingQuantity": "1 slice (100 g)"
+    },
+    {
+        "name": "Blueberry Muffin",
+        "caloriesPer100": 377,
+        "servingQuantity": "1 muffin (57 g)"
+    },
+    {
+        "name": "Blueberry Pie",
+        "caloriesPer100": 232,
+        "servingQuantity": "1 piece (125 g)"
+    },
+    {
+        "name": "Bundt Cake",
+        "caloriesPer100": 370,
+        "servingQuantity": "1 slice (91 g)"
+    },
+    {
+        "name": "Buttermilk Pie",
+        "caloriesPer100": 380,
+        "servingQuantity": "1 piece (144 g)"
+    },
+    {
+        "name": "Caramel Cake",
+        "caloriesPer100": 475,
+        "servingQuantity": "1 slice (64 g)"
+    },
+    {
+        "name": "Carrot Cake",
+        "caloriesPer100": 408,
+        "servingQuantity": "1 piece (133 g)"
+    },
+    {
+        "name": "Cheesecake",
+        "caloriesPer100": 321,
+        "servingQuantity": "1 piece (80 g)"
+    },
+    {
+        "name": "Cherry Pie",
+        "caloriesPer100": 260,
+        "servingQuantity": "1 piece (125 g)"
+    },
+    {
+        "name": "Chess Pie",
+        "caloriesPer100": 411,
+        "servingQuantity": "1 piece (89 g)"
+    },
+    {
+        "name": "Chocolate Cake",
+        "caloriesPer100": 389,
+        "servingQuantity": "1 piece (138 g)"
+    },
+    {
+        "name": "Chocolate Cream Pie",
+        "caloriesPer100": 304,
+        "servingQuantity": "1 piece (99 g)"
+    },
+    {
+        "name": "Chocolate Mousse Cake",
+        "caloriesPer100": 260,
+        "servingQuantity": "1 piece (95 g)"
+    },
+    {
+        "name": "Chocolate Mousse Pie",
+        "caloriesPer100": 260,
+        "servingQuantity": "1 piece (95 g)"
+    },
+    {
+        "name": "Chocolate Muffin",
+        "caloriesPer100": 420,
+        "servingQuantity": "1 muffin (100 g)"
+    },
+    {
+        "name": "Coconut Cake",
+        "caloriesPer100": 356,
+        "servingQuantity": "1 piece (66 g)"
+    },
+    {
+        "name": "Coffee Cake",
+        "caloriesPer100": 331,
+        "servingQuantity": "1 piece (90 g)"
+    },
+    {
+        "name": "Cream Puff",
+        "caloriesPer100": 334,
+        "servingQuantity": "1 cream puff (130 g)"
+    },
+    {
+        "name": "Crumb Cake",
+        "caloriesPer100": 441,
+        "servingQuantity": "1 piece (57 g)"
+    },
+    {
+        "name": "Cupcake",
+        "caloriesPer100": 305,
+        "servingQuantity": "1 cupcake (43 g)"
+    },
+    {
+        "name": "Danish Pastry",
+        "caloriesPer100": 374,
+        "servingQuantity": "1 pastry (71 g)"
+    },
+    {
+        "name": "Donut",
+        "caloriesPer100": 403,
+        "servingQuantity": "1 donut (60 g)"
+    },
+    {
+        "name": "Doughnut",
+        "caloriesPer100": 403,
+        "servingQuantity": "1 doughnut (60 g)"
+    },
+    {
+        "name": "Flan",
+        "caloriesPer100": 145,
+        "servingQuantity": "1/2 cup (153 g)"
+    },
+    {
+        "name": "Flourless Chocolate Cake",
+        "caloriesPer100": 509,
+        "servingQuantity": "1 piece (80 g)"
+    },
+    {
+        "name": "French Cruller",
+        "caloriesPer100": 412,
+        "servingQuantity": "1 cruller (41 g)"
+    },
+    {
+        "name": "Fruit Cake",
+        "caloriesPer100": 324,
+        "servingQuantity": "1 piece (43 g)"
+    },
+    {
+        "name": "Funnel Cake",
+        "caloriesPer100": 307,
+        "servingQuantity": "1 cake (90 g)"
+    },
+    {
+        "name": "German Chocolate Cake",
+        "caloriesPer100": 370,
+        "servingQuantity": "1 piece (110 g)"
+    },
+    {
+        "name": "Gingerbread",
+        "caloriesPer100": 356,
+        "servingQuantity": "1 piece (74 g)"
+    },
+    {
+        "name": "Ice Cream Cake",
+        "caloriesPer100": 200,
+        "servingQuantity": "1 piece (120 g)"
+    },
+    {
+        "name": "Key Lime Pie",
+        "caloriesPer100": 359,
+        "servingQuantity": "1 piece (80 g)"
+    },
+    {
+        "name": "King Cake",
+        "caloriesPer100": 377,
+        "servingQuantity": "1 piece (91 g)"
+    },
+    {
+        "name": "Layer Cake",
+        "caloriesPer100": 402,
+        "servingQuantity": "1 slice (107 g)"
+    },
+    {
+        "name": "Lemon Cake",
+        "caloriesPer100": 352,
+        "servingQuantity": "1 piece (66 g)"
+    },
+    {
+        "name": "Lemon Meringue Pie",
+        "caloriesPer100": 268,
+        "servingQuantity": "1 piece (113 g)"
+    },
+    {
+        "name": "Madeira Cake",
+        "caloriesPer100": 394,
+        "servingQuantity": "1 slice (50 g)"
+    },
+    {
+        "name": "Marble Cake",
+        "caloriesPer100": 339,
+        "servingQuantity": "1 piece (109 g)"
+    },
+    {
+        "name": "Meringue",
+        "caloriesPer100": 285,
+        "servingQuantity": "1 piece (127 g)"
+    },
+    {
+        "name": "Opera Cake",
+        "caloriesPer100": 320,
+        "servingQuantity": "1 piece (25 g)"
+    },
+    {
+        "name": "Paczki",
+        "caloriesPer100": 336,
+        "servingQuantity": "1 paczki (85 g)"
+    },
+    {
+        "name": "Pancake",
+        "caloriesPer100": 227,
+        "servingQuantity": "1 pancake (38 g)"
+    },
+    {
+        "name": "Panettone",
+        "caloriesPer100": 360,
+        "servingQuantity": "1 slice (50 g)"
+    },
+    {
+        "name": "Pavlova",
+        "caloriesPer100": 294,
+        "servingQuantity": "1 serving (65 g)"
+    },
+    {
+        "name": "Peach Cobbler",
+        "caloriesPer100": 65,
+        "servingQuantity": "1 tbsp (15 g)"
+    },
+    {
+        "name": "Peach Pie",
+        "caloriesPer100": 223,
+        "servingQuantity": "1 piece (117 g)"
+    },
+    {
+        "name": "Pecan Pie",
+        "caloriesPer100": 407,
+        "servingQuantity": "1 slice (133 g)"
+    },
+    {
+        "name": "Pineapple Upside-Down Cake",
+        "caloriesPer100": 319,
+        "servingQuantity": "1 piece (115 g)"
+    },
+    {
+        "name": "Plum Cake",
+        "caloriesPer100": 109,
+        "servingQuantity": "1 piece (150 g)"
+    },
+    {
+        "name": "Poppy-Seed Cake",
+        "caloriesPer100": 394,
+        "servingQuantity": "1 piece (90 g)"
+    },
+    {
+        "name": "Pound Cake",
+        "caloriesPer100": 390,
+        "servingQuantity": "1 serving (55 g)"
+    },
+    {
+        "name": "Profiterole",
+        "caloriesPer100": 334,
+        "servingQuantity": "1 serving (113 g)"
+    },
+    {
+        "name": "Puff Pastry",
+        "caloriesPer100": 558,
+        "servingQuantity": "1 sheet (245 g)"
+    },
+    {
+        "name": "Pumpkin Bread",
+        "caloriesPer100": 298,
+        "servingQuantity": "1 slice (60 g)"
+    },
+    {
+        "name": "Pumpkin Cheesecake",
+        "caloriesPer100": 340,
+        "servingQuantity": "1 piece (100 g)"
+    },
+    {
+        "name": "Pumpkin Pie",
+        "caloriesPer100": 243,
+        "servingQuantity": "1 slice (133 g)"
+    },
+    {
+        "name": "Raspberry Pie",
+        "caloriesPer100": 240,
+        "servingQuantity": "1 piece (137 g)"
+    },
+    {
+        "name": "Red Velvet Cake",
+        "caloriesPer100": 367,
+        "servingQuantity": "1 piece (80 g)"
+    },
+    {
+        "name": "Rhubarb Pie",
+        "caloriesPer100": 245,
+        "servingQuantity": "1 piece (137 g)"
+    },
+    {
+        "name": "Rum Cake",
+        "caloriesPer100": 351,
+        "servingQuantity": "1 piece (57 g)"
+    },
+    {
+        "name": "Sacher Torte",
+        "caloriesPer100": 352,
+        "servingQuantity": "1 piece (125 g)"
+    },
+    {
+        "name": "Sponge Cake",
+        "caloriesPer100": 289,
+        "servingQuantity": "1 piece (38 g)"
+    },
+    {
+        "name": "Strawberry Cheesecake",
+        "caloriesPer100": 327,
+        "servingQuantity": "1 slice (61 g)"
+    },
+    {
+        "name": "Strawberry Pie",
+        "caloriesPer100": 230,
+        "servingQuantity": "1 piece (167 g)"
+    },
+    {
+        "name": "Strawberry Rhubarb Pie",
+        "caloriesPer100": 281,
+        "servingQuantity": "1 piece (150 g)"
+    },
+    {
+        "name": "Sweet Potato Pie",
+        "caloriesPer100": 260,
+        "servingQuantity": "1 piece (131 g)"
+    },
+    {
+        "name": "Swiss Roll",
+        "caloriesPer100": 439,
+        "servingQuantity": "1 cake (31 g)"
+    },
+    {
+        "name": "Tarte Tatin",
+        "caloriesPer100": 210,
+        "servingQuantity": "1 piece (100 g)"
+    },
+    {
+        "name": "Tiramisu",
+        "caloriesPer100": 283,
+        "servingQuantity": "1 serving (174 g)"
+    },
+    {
+        "name": "Tiramisu Cake",
+        "caloriesPer100": 291,
+        "servingQuantity": "1 piece (108 g)"
+    },
+    {
+        "name": "Treacle Tart",
+        "caloriesPer100": 369,
+        "servingQuantity": "1 serving (100 g)"
+    },
+    {
+        "name": "Tres Leches Cake",
+        "caloriesPer100": 246,
+        "servingQuantity": "1 piece (120 g)"
+    },
+    {
+        "name": "Trifle",
+        "caloriesPer100": 180,
+        "servingQuantity": "1 serving (100 g)"
+    },
+    {
+        "name": "Victoria Sponge Cake",
+        "caloriesPer100": 257,
+        "servingQuantity": "1 piece (28 g)"
+    },
+    {
+        "name": "Waffles",
+        "caloriesPer100": 312,
+        "servingQuantity": "1 waffle (33 g)"
+    },
+    {
+        "name": "Wedding Cake",
+        "caloriesPer100": 381,
+        "servingQuantity": "1 piece (109 g)"
+    }
+]

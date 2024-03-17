@@ -1,0 +1,227 @@
+[
+    {
+        "name": "Baskin-Robbins",
+        "caloriesPer100": 239,
+        "servingQuantity": "1 scoop (71 g)"
+    },
+    {
+        "name": "Ben and Jerry\u2019s",
+        "caloriesPer100": 228,
+        "servingQuantity": "1 scoop (92 g)"
+    },
+    {
+        "name": "Butter Pecan Ice Cream",
+        "caloriesPer100": 248,
+        "servingQuantity": "1 scoop (113 g)"
+    },
+    {
+        "name": "Carvel",
+        "caloriesPer100": 212,
+        "servingQuantity": "1 cup (212 g)"
+    },
+    {
+        "name": "Chocolate Chip Ice Cream",
+        "caloriesPer100": 215,
+        "servingQuantity": "1 scoop (72 g)"
+    },
+    {
+        "name": "Chocolate Ice Cream",
+        "caloriesPer100": 216,
+        "servingQuantity": "1 scoop (72 g)"
+    },
+    {
+        "name": "Ciao Bella",
+        "caloriesPer100": 109,
+        "servingQuantity": "1 cup (220 g)"
+    },
+    {
+        "name": "Coffee Ice Cream",
+        "caloriesPer100": 236,
+        "servingQuantity": "1 scoop (72 g)"
+    },
+    {
+        "name": "Cold Stone Creamery",
+        "caloriesPer100": 232,
+        "servingQuantity": "1 scoop (142 g)"
+    },
+    {
+        "name": "Cookie Dough Ice Cream",
+        "caloriesPer100": 200,
+        "servingQuantity": "1/2 cup (65 g)"
+    },
+    {
+        "name": "Crunchie McFlurry",
+        "caloriesPer100": 174,
+        "servingQuantity": "1 mcflurry (183 g)"
+    },
+    {
+        "name": "Dairy Milk McFlurry",
+        "caloriesPer100": 186,
+        "servingQuantity": "1 mcflurry (183 g)"
+    },
+    {
+        "name": "Dippin Dots",
+        "caloriesPer100": 224,
+        "servingQuantity": "1 cup (170 g)"
+    },
+    {
+        "name": "Double Rainbow",
+        "caloriesPer100": 257,
+        "servingQuantity": "1 scoop (72 g)"
+    },
+    {
+        "name": "Drumsticks",
+        "caloriesPer100": 255,
+        "servingQuantity": "1 cone (141 g)"
+    },
+    {
+        "name": "French Vanilla Ice Cream",
+        "caloriesPer100": 201,
+        "servingQuantity": "1 scoop (72 g)"
+    },
+    {
+        "name": "Friendly\u2019s",
+        "caloriesPer100": 212,
+        "servingQuantity": "1 scoop (66 g)"
+    },
+    {
+        "name": "Healthy Choice",
+        "caloriesPer100": 125,
+        "servingQuantity": "1 bar (64 g)"
+    },
+    {
+        "name": "Hot Fudge Sundae",
+        "caloriesPer100": 186,
+        "servingQuantity": "1 sundae (179 g)"
+    },
+    {
+        "name": "Ice Cream Sandwich",
+        "caloriesPer100": 237,
+        "servingQuantity": "1 bar (112 g)"
+    },
+    {
+        "name": "Ice Cream Sundae",
+        "caloriesPer100": 142,
+        "servingQuantity": "1 sundae (178 g)"
+    },
+    {
+        "name": "Ice Milk",
+        "caloriesPer100": 159,
+        "servingQuantity": "1 scoop (103 g)"
+    },
+    {
+        "name": "Magnolia",
+        "caloriesPer100": 230,
+        "servingQuantity": "1 scoop (72 g)"
+    },
+    {
+        "name": "Magnum",
+        "caloriesPer100": 300,
+        "servingQuantity": "1 magnum (86 g)"
+    },
+    {
+        "name": "Magnum Almond",
+        "caloriesPer100": 315,
+        "servingQuantity": "1 magnum (86 g)"
+    },
+    {
+        "name": "Magnum Double Caramel",
+        "caloriesPer100": 355,
+        "servingQuantity": "1 magnum (86 g)"
+    },
+    {
+        "name": "Magnum Double Chocolate",
+        "caloriesPer100": 380,
+        "servingQuantity": "1 magnum (86 g)"
+    },
+    {
+        "name": "Magnum Gold",
+        "caloriesPer100": 341,
+        "servingQuantity": "1 magnum (85 g)"
+    },
+    {
+        "name": "Magnum White",
+        "caloriesPer100": 297,
+        "servingQuantity": "1 magnum (86 g)"
+    },
+    {
+        "name": "McFlurry",
+        "caloriesPer100": 153,
+        "servingQuantity": "1 mcflurry (134 g)"
+    },
+    {
+        "name": "McFlurry Oreo",
+        "caloriesPer100": 186,
+        "servingQuantity": "1 mcflurry (183 g)"
+    },
+    {
+        "name": "Mini Milk",
+        "caloriesPer100": 120,
+        "servingQuantity": "1 mini milk (25 g)"
+    },
+    {
+        "name": "Mint Chocolate Chip Ice Cream",
+        "caloriesPer100": 239,
+        "servingQuantity": "1 scoop (72 g)"
+    },
+    {
+        "name": "Rocky Road Ice Cream",
+        "caloriesPer100": 257,
+        "servingQuantity": "1 scoop (113 g)"
+    },
+    {
+        "name": "Schwan\u2019s",
+        "caloriesPer100": 246,
+        "servingQuantity": "1 scoop (72 g)"
+    },
+    {
+        "name": "Smarties McFlurry",
+        "caloriesPer100": 198,
+        "servingQuantity": "1 mcflurry (202 g)"
+    },
+    {
+        "name": "Snickers Ice Cream",
+        "caloriesPer100": 360,
+        "servingQuantity": "1 bar (50 g)"
+    },
+    {
+        "name": "Soft Serve",
+        "caloriesPer100": 222,
+        "servingQuantity": "1 cup (86 g)"
+    },
+    {
+        "name": "Solero",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 solero (75 g)"
+    },
+    {
+        "name": "Strawberry Ice Cream",
+        "caloriesPer100": 236,
+        "servingQuantity": "1 scoop (72 g)"
+    },
+    {
+        "name": "Strawberry Sundae",
+        "caloriesPer100": 158,
+        "servingQuantity": "1 sundae (178 g)"
+    },
+    {
+        "name": "Sundae",
+        "caloriesPer100": 215,
+        "servingQuantity": "1 scoop (72 g)"
+    },
+    {
+        "name": "Turkey Hill",
+        "caloriesPer100": 271,
+        "servingQuantity": "1 sandwich (70 g)"
+    },
+    {
+        "name": "Vanilla Cone",
+        "caloriesPer100": 162,
+        "servingQuantity": "1 cone (142 g)"
+    },
+    {
+        "name": "Vanilla Ice Cream",
+        "caloriesPer100": 201,
+        "servingQuantity": "1 scoop (72 g)"
+    }
+]

@@ -1,0 +1,202 @@
+[
+    {
+        "name": "Activia",
+        "caloriesPer100": 74,
+        "servingQuantity": "1 container (113 g)"
+    },
+    {
+        "name": "Activia Lemon",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 container (113 g)"
+    },
+    {
+        "name": "Activia Strawberry",
+        "caloriesPer100": 97,
+        "servingQuantity": "1 container (113 g)"
+    },
+    {
+        "name": "Aloe Vera Yogurt",
+        "caloriesPer100": 85,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Ayran",
+        "caloriesPer100": 42,
+        "servingQuantity": "1 cup (200 ml)"
+    },
+    {
+        "name": "Bircher Muesli Yogurt",
+        "caloriesPer100": 109,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Blueberry Yogurt",
+        "caloriesPer100": 105,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Cherry Yogurt",
+        "caloriesPer100": 97,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Chocolate Yogurt",
+        "caloriesPer100": 128,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Cream Yogurt",
+        "caloriesPer100": 124,
+        "servingQuantity": "1 container (113 g)"
+    },
+    {
+        "name": "Creamy Yogurt",
+        "caloriesPer100": 90,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Diet Yogurt",
+        "caloriesPer100": 54,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Fruit Yogurt",
+        "caloriesPer100": 97,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Greek Yogurt",
+        "caloriesPer100": 53,
+        "servingQuantity": "1 container (150 g)"
+    },
+    {
+        "name": "Low-Fat Yogurt",
+        "caloriesPer100": 63,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Mocca Yogurt",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Organic Yogurt",
+        "caloriesPer100": 75,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Peach Yogurt",
+        "caloriesPer100": 97,
+        "servingQuantity": "1 container (113 g)"
+    },
+    {
+        "name": "Plain Yogurt",
+        "caloriesPer100": 61,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Probiotic Yogurt",
+        "caloriesPer100": 80,
+        "servingQuantity": "1 container (113 g)"
+    },
+    {
+        "name": "Skim Milk Yogurt",
+        "caloriesPer100": 56,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Stracciatella Yogurt",
+        "caloriesPer100": 139,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Strawberry Yogurt",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Vanilla Yogurt",
+        "caloriesPer100": 101,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Yogurt",
+        "caloriesPer100": 61,
+        "servingQuantity": "1 container (227 g)"
+    },
+    {
+        "name": "Yogurt Corner",
+        "caloriesPer100": 119,
+        "servingQuantity": "1 container (135 g)"
+    },
+    {
+        "name": "Yoplait Boston Cream Pie",
+        "caloriesPer100": 90,
+        "servingQuantity": "1 container (170 g)"
+    },
+    {
+        "name": "Yoplait French Vanilla",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 container (170 g)"
+    },
+    {
+        "name": "Yoplait Greek Blueberry",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 container (170 g)"
+    },
+    {
+        "name": "Yoplait Greek Coconut",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 container (170 g)"
+    },
+    {
+        "name": "Yoplait Greek Strawberry",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 container (170 g)"
+    },
+    {
+        "name": "Yoplait Greek Vanilla",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 container (170 g)"
+    },
+    {
+        "name": "Yoplait Harvest Peach",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 container (170 g)"
+    },
+    {
+        "name": "Yoplait Key Lime Pie",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 container (170 g)"
+    },
+    {
+        "name": "Yoplait Mango",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 container (170 g)"
+    },
+    {
+        "name": "Yoplait Mixed Berry",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 container (170 g)"
+    },
+    {
+        "name": "Yoplait Pina Colada",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 container (170 g)"
+    },
+    {
+        "name": "Yoplait Strawberry",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 container (170 g)"
+    },
+    {
+        "name": "Yoplait Strawberry Banana",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 container (170 g)"
+    },
+    {
+        "name": "Yoplait Strawberry Cheesecake",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 container (170 g)"
+    }
+]

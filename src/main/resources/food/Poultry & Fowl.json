@@ -1,0 +1,167 @@
+[
+    {
+        "name": "Capon",
+        "caloriesPer100": 229,
+        "servingQuantity": "1 capon (1418 g)"
+    },
+    {
+        "name": "Chicken",
+        "caloriesPer100": 219,
+        "servingQuantity": "1/2 chicken (334 g)"
+    },
+    {
+        "name": "Chicken Breast",
+        "caloriesPer100": 172,
+        "servingQuantity": "1 breast (200 g)"
+    },
+    {
+        "name": "Chicken Drumsticks",
+        "caloriesPer100": 185,
+        "servingQuantity": "1 drumstick (71 g)"
+    },
+    {
+        "name": "Chicken Gizzards",
+        "caloriesPer100": 154,
+        "servingQuantity": "1 cup (145 g)"
+    },
+    {
+        "name": "Chicken Legs",
+        "caloriesPer100": 174,
+        "servingQuantity": "1 leg (199 g)"
+    },
+    {
+        "name": "Chicken Thighs",
+        "caloriesPer100": 229,
+        "servingQuantity": "1 thigh (111 g)"
+    },
+    {
+        "name": "Chicken Wings",
+        "caloriesPer100": 266,
+        "servingQuantity": "1 wing (53 g)"
+    },
+    {
+        "name": "Cornish Hens",
+        "caloriesPer100": 259,
+        "servingQuantity": "1 duck (257 g)"
+    },
+    {
+        "name": "Dove",
+        "caloriesPer100": 213,
+        "servingQuantity": "1 serving (100 g)"
+    },
+    {
+        "name": "Duck",
+        "caloriesPer100": 337,
+        "servingQuantity": "1/2 duck (634 g)"
+    },
+    {
+        "name": "Duck Breast",
+        "caloriesPer100": 201,
+        "servingQuantity": "1 breast (73 g)"
+    },
+    {
+        "name": "Emu",
+        "caloriesPer100": 152,
+        "servingQuantity": "1 steak (394 g)"
+    },
+    {
+        "name": "Goose",
+        "caloriesPer100": 305,
+        "servingQuantity": "1/2 goose (591 g)"
+    },
+    {
+        "name": "Guinea-Fowl",
+        "caloriesPer100": 158,
+        "servingQuantity": "1/2 guinea (345 g)"
+    },
+    {
+        "name": "Ostrich",
+        "caloriesPer100": 145,
+        "servingQuantity": "1 serving (85 g)"
+    },
+    {
+        "name": "Ostrich Meat",
+        "caloriesPer100": 145,
+        "servingQuantity": "1 serving (85 g)"
+    },
+    {
+        "name": "Pheasant",
+        "caloriesPer100": 239,
+        "servingQuantity": "1 serving (100 g)"
+    },
+    {
+        "name": "Pheasant Breast",
+        "caloriesPer100": 133,
+        "servingQuantity": "1/2 breast (182 g)"
+    },
+    {
+        "name": "Pheasant Leg",
+        "caloriesPer100": 239,
+        "servingQuantity": "1 leg (107 g)"
+    },
+    {
+        "name": "Pigeon",
+        "caloriesPer100": 142,
+        "servingQuantity": "1 pigeon (199 g)"
+    },
+    {
+        "name": "Poularde",
+        "caloriesPer100": 200,
+        "servingQuantity": "1 serving (100 g)"
+    },
+    {
+        "name": "Quail",
+        "caloriesPer100": 227,
+        "servingQuantity": "1 quail (92 g)"
+    },
+    {
+        "name": "Quail Breast",
+        "caloriesPer100": 123,
+        "servingQuantity": "1 breast (56 g)"
+    },
+    {
+        "name": "Rhea",
+        "caloriesPer100": 160,
+        "servingQuantity": "1 serving (100 g)"
+    },
+    {
+        "name": "Turkey",
+        "caloriesPer100": 189,
+        "servingQuantity": "1 turkey (3812 g)"
+    },
+    {
+        "name": "Turkey Breast",
+        "caloriesPer100": 135,
+        "servingQuantity": "1/2 breast (864 g)"
+    },
+    {
+        "name": "Turkey Cutlet",
+        "caloriesPer100": 189,
+        "servingQuantity": "1 cutlet (113 g)"
+    },
+    {
+        "name": "Turkey Drumsticks",
+        "caloriesPer100": 208,
+        "servingQuantity": "1 serving (100 g)"
+    },
+    {
+        "name": "Turkey Legs",
+        "caloriesPer100": 208,
+        "servingQuantity": "1 leg (546 g)"
+    },
+    {
+        "name": "Turkey Steak",
+        "caloriesPer100": 189,
+        "servingQuantity": "1 steak (170 g)"
+    },
+    {
+        "name": "Turkey Wings",
+        "caloriesPer100": 221,
+        "servingQuantity": "1 wing (24 g)"
+    },
+    {
+        "name": "Wild Duck",
+        "caloriesPer100": 211,
+        "servingQuantity": "1/2 duck (270 g)"
+    }
+]

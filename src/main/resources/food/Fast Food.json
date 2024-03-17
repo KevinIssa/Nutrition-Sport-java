@@ -1,0 +1,362 @@
+[
+    {
+        "name": "Arby\u2019s Grand Turkey Club",
+        "caloriesPer100": 210,
+        "servingQuantity": "1 sandwich (233 g)"
+    },
+    {
+        "name": "Arby\u2019s Reuben",
+        "caloriesPer100": 208,
+        "servingQuantity": "1 sandwich (308 g)"
+    },
+    {
+        "name": "Arby\u2019s Roast Beef Classic",
+        "caloriesPer100": 234,
+        "servingQuantity": "1 burger (154 g)"
+    },
+    {
+        "name": "Arby\u2019s Roast Beef Max",
+        "caloriesPer100": 234,
+        "servingQuantity": "1 burger (154 g)"
+    },
+    {
+        "name": "BBQ Rib",
+        "caloriesPer100": 212,
+        "servingQuantity": "1 rib (67 g)"
+    },
+    {
+        "name": "Bean Burrito",
+        "caloriesPer100": 200,
+        "servingQuantity": "1 burrito (190 g)"
+    },
+    {
+        "name": "Big N\u2019 Tasty",
+        "caloriesPer100": 223,
+        "servingQuantity": "1 sandwich (232 g)"
+    },
+    {
+        "name": "Bratwurst",
+        "caloriesPer100": 333,
+        "servingQuantity": "1 piece (85 g)"
+    },
+    {
+        "name": "Burger King Angry Whopper",
+        "caloriesPer100": 255,
+        "servingQuantity": "1 burger (290 g)"
+    },
+    {
+        "name": "Burger King Double Whopper",
+        "caloriesPer100": 239,
+        "servingQuantity": "1 burger (374 g)"
+    },
+    {
+        "name": "Burger King Double Whopper with Cheese",
+        "caloriesPer100": 249,
+        "servingQuantity": "1 sandwich (399 g)"
+    },
+    {
+        "name": "Burger King Original Chicken Sandwich",
+        "caloriesPer100": 301,
+        "servingQuantity": "1 sandwich (219 g)"
+    },
+    {
+        "name": "Burger King Premium Alaskan Fish Sandwich",
+        "caloriesPer100": 259,
+        "servingQuantity": "1 burger (228 g)"
+    },
+    {
+        "name": "Burger King Triple Whopper",
+        "caloriesPer100": 269,
+        "servingQuantity": "1 burger (547 g)"
+    },
+    {
+        "name": "Burger King Whopper",
+        "caloriesPer100": 231,
+        "servingQuantity": "1 burger (291 g)"
+    },
+    {
+        "name": "Burger King Whopper Jr.",
+        "caloriesPer100": 234,
+        "servingQuantity": "1 burger (148 g)"
+    },
+    {
+        "name": "Burger King Whopper with Cheese",
+        "caloriesPer100": 241,
+        "servingQuantity": "1 burger (315 g)"
+    },
+    {
+        "name": "Cheeseburger",
+        "caloriesPer100": 263,
+        "servingQuantity": "1 burger (156 g)"
+    },
+    {
+        "name": "Chicken Breast",
+        "caloriesPer100": 163,
+        "servingQuantity": "1 piece (71 g)"
+    },
+    {
+        "name": "Chicken Fajita",
+        "caloriesPer100": 147,
+        "servingQuantity": "1 sandwich (222 g)"
+    },
+    {
+        "name": "Chicken McNuggets",
+        "caloriesPer100": 302,
+        "servingQuantity": "1 nugget (16 g)"
+    },
+    {
+        "name": "Chicken Nuggets",
+        "caloriesPer100": 296,
+        "servingQuantity": "1 piece (20 g)"
+    },
+    {
+        "name": "Chicken Pizziola",
+        "caloriesPer100": 141,
+        "servingQuantity": "1 sandwich (320 g)"
+    },
+    {
+        "name": "Chicken Sandwich",
+        "caloriesPer100": 241,
+        "servingQuantity": "1 sandwich (170 g)"
+    },
+    {
+        "name": "Chicken Teriyaki Sandwich",
+        "caloriesPer100": 138,
+        "servingQuantity": "1 sandwich (266 g)"
+    },
+    {
+        "name": "Chicken Wings",
+        "caloriesPer100": 324,
+        "servingQuantity": "1 piece (29 g)"
+    },
+    {
+        "name": "Chop Suey",
+        "caloriesPer100": 172,
+        "servingQuantity": "1 serving (340 g)"
+    },
+    {
+        "name": "Curly Fries",
+        "caloriesPer100": 311,
+        "servingQuantity": "1 serving (128 g)"
+    },
+    {
+        "name": "Double Cheeseburger",
+        "caloriesPer100": 267,
+        "servingQuantity": "1 burger (155 g)"
+    },
+    {
+        "name": "Egg Roll",
+        "caloriesPer100": 250,
+        "servingQuantity": "1 roll (80 g)"
+    },
+    {
+        "name": "Falafel",
+        "caloriesPer100": 335,
+        "servingQuantity": "1 patty (17 g)"
+    },
+    {
+        "name": "Filet-o-Fish",
+        "caloriesPer100": 282,
+        "servingQuantity": "1 sandwich (142 g)"
+    },
+    {
+        "name": "Fish and Chips",
+        "caloriesPer100": 195,
+        "servingQuantity": "1 serving (300 g)"
+    },
+    {
+        "name": "Fish Sandwich",
+        "caloriesPer100": 273,
+        "servingQuantity": "1 sandwich (158 g)"
+    },
+    {
+        "name": "French Fries",
+        "caloriesPer100": 312,
+        "servingQuantity": "1 serving (71 g)"
+    },
+    {
+        "name": "Grilled Chicken Salad",
+        "caloriesPer100": 88,
+        "servingQuantity": "1 salad (305 g)"
+    },
+    {
+        "name": "Ham Sandwich",
+        "caloriesPer100": 241,
+        "servingQuantity": "1 sandwich (146 g)"
+    },
+    {
+        "name": "Hamburger",
+        "caloriesPer100": 254,
+        "servingQuantity": "1 sandwich (110 g)"
+    },
+    {
+        "name": "Hot Dog",
+        "caloriesPer100": 269,
+        "servingQuantity": "1 hot dog (116 g)"
+    },
+    {
+        "name": "Italian BMT",
+        "caloriesPer100": 183,
+        "servingQuantity": "1 sandwich (224 g)"
+    },
+    {
+        "name": "Lasagna",
+        "caloriesPer100": 132,
+        "servingQuantity": "1 piece (130 g)"
+    },
+    {
+        "name": "McDonald\u2019s Big Mac",
+        "caloriesPer100": 256,
+        "servingQuantity": "1 burger (219 g)"
+    },
+    {
+        "name": "McDonald\u2019s Cheeseburger",
+        "caloriesPer100": 263,
+        "servingQuantity": "1 sandwich (114 g)"
+    },
+    {
+        "name": "McDonald\u2019s Chicken Nuggets",
+        "caloriesPer100": 297,
+        "servingQuantity": "1 nugget (16 g)"
+    },
+    {
+        "name": "McDonald\u2019s Double Cheeseburger",
+        "caloriesPer100": 282,
+        "servingQuantity": "1 burger (155 g)"
+    },
+    {
+        "name": "McDonald\u2019s Filet-o-Fish",
+        "caloriesPer100": 275,
+        "servingQuantity": "1 sandwich (142 g)"
+    },
+    {
+        "name": "McDonald\u2019s McChicken",
+        "caloriesPer100": 251,
+        "servingQuantity": "1 burger (143 g)"
+    },
+    {
+        "name": "McDonald\u2019s McDouble",
+        "caloriesPer100": 252,
+        "servingQuantity": "1 burger (160 g)"
+    },
+    {
+        "name": "McDonald\u2019s McMuffi Egg",
+        "caloriesPer100": 225,
+        "servingQuantity": "1 burger (129 g)"
+    },
+    {
+        "name": "McDonald\u2019s McRib",
+        "caloriesPer100": 265,
+        "servingQuantity": "1 sandwich (170 g)"
+    },
+    {
+        "name": "McDonald\u2019s Mighty Wings",
+        "caloriesPer100": 308,
+        "servingQuantity": "1 wing (31 g)"
+    },
+    {
+        "name": "McRib",
+        "caloriesPer100": 265,
+        "servingQuantity": "1 sandwich (170 g)"
+    },
+    {
+        "name": "Meatball Sandwich",
+        "caloriesPer100": 161,
+        "servingQuantity": "1 sandwich (299 g)"
+    },
+    {
+        "name": "Nachos with Cheese",
+        "caloriesPer100": 306,
+        "servingQuantity": "10 nachos (188 g)"
+    },
+    {
+        "name": "Onion Rings",
+        "caloriesPer100": 411,
+        "servingQuantity": "1 ring (6.5 g)"
+    },
+    {
+        "name": "Poutine",
+        "caloriesPer100": 227,
+        "servingQuantity": "1 serving (225 g)"
+    },
+    {
+        "name": "Smoked Salmon",
+        "caloriesPer100": 158,
+        "servingQuantity": "1 oz. (28.35 g)"
+    },
+    {
+        "name": "Spicy Italian",
+        "caloriesPer100": 219,
+        "servingQuantity": "1 sandwich (219 g)"
+    },
+    {
+        "name": "Subway Club Sandwich",
+        "caloriesPer100": 131,
+        "servingQuantity": "1 sandwich (238 g)"
+    },
+    {
+        "name": "Tortilla Wrap",
+        "caloriesPer100": 271,
+        "servingQuantity": "1 wrap (63 g)"
+    },
+    {
+        "name": "Tuna",
+        "caloriesPer100": 86,
+        "servingQuantity": "1 oz. (28.35 g)"
+    },
+    {
+        "name": "Turkey",
+        "caloriesPer100": 104,
+        "servingQuantity": "1 oz. (28.35 g)"
+    },
+    {
+        "name": "Veggie Burger",
+        "caloriesPer100": 181,
+        "servingQuantity": "1 burger (215 g)"
+    },
+    {
+        "name": "Veggie Delight",
+        "caloriesPer100": 138,
+        "servingQuantity": "1 sandwich (166 g)"
+    },
+    {
+        "name": "Veggie Patty",
+        "caloriesPer100": 390,
+        "servingQuantity": "1 sandwich (247 g)"
+    },
+    {
+        "name": "Wendy\u2019s Baconator",
+        "caloriesPer100": 304,
+        "servingQuantity": "1 burger (276 g)"
+    },
+    {
+        "name": "Wendy\u2019s Jr. Bacon Cheeseburger",
+        "caloriesPer100": 261,
+        "servingQuantity": "1 burger (161 g)"
+    },
+    {
+        "name": "Wendy\u2019s Jr. Cheeseburger",
+        "caloriesPer100": 225,
+        "servingQuantity": "1 burger (129 g)"
+    },
+    {
+        "name": "Wendy\u2019s Son of Baconator",
+        "caloriesPer100": 321,
+        "servingQuantity": "1 burger (218 g)"
+    },
+    {
+        "name": "Whopper",
+        "caloriesPer100": 231,
+        "servingQuantity": "1 burger (291 g)"
+    },
+    {
+        "name": "Zinger",
+        "caloriesPer100": 256,
+        "servingQuantity": "1 sandwich (202 g)"
+    },
+    {
+        "name": "Zinger Burger",
+        "caloriesPer100": 256,
+        "servingQuantity": "1 sandwich (202 g)"
+    }
+]

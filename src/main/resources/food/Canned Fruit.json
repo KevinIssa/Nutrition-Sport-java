@@ -1,0 +1,147 @@
+[
+    {
+        "name": "Applesauce",
+        "caloriesPer100": 62,
+        "servingQuantity": "1 cup (114 g)"
+    },
+    {
+        "name": "Canned Apricots",
+        "caloriesPer100": 48,
+        "servingQuantity": "1 cup (246 g)"
+    },
+    {
+        "name": "Canned Blackberries",
+        "caloriesPer100": 92,
+        "servingQuantity": "1 cup (256 g)"
+    },
+    {
+        "name": "Canned Blueberries",
+        "caloriesPer100": 88,
+        "servingQuantity": "1 cup (256 g)"
+    },
+    {
+        "name": "Canned Cherries",
+        "caloriesPer100": 54,
+        "servingQuantity": "1 cup (250 g)"
+    },
+    {
+        "name": "Canned Cranberries",
+        "caloriesPer100": 178,
+        "servingQuantity": "1 cup (275 g)"
+    },
+    {
+        "name": "Canned Crushed Pineapple",
+        "caloriesPer100": 53,
+        "servingQuantity": "1 cup (225 g)"
+    },
+    {
+        "name": "Canned Figs",
+        "caloriesPer100": 107,
+        "servingQuantity": "1 cup (261 g)"
+    },
+    {
+        "name": "Canned Fruit Cocktail",
+        "caloriesPer100": 81,
+        "servingQuantity": "1 cup (246 g)"
+    },
+    {
+        "name": "Canned Fruit Salad",
+        "caloriesPer100": 50,
+        "servingQuantity": "1 cup (259 g)"
+    },
+    {
+        "name": "Canned Gooseberries",
+        "caloriesPer100": 73,
+        "servingQuantity": "1 cup (252 g)"
+    },
+    {
+        "name": "Canned Grapefruit",
+        "caloriesPer100": 37,
+        "servingQuantity": "1 cup (249 g)"
+    },
+    {
+        "name": "Canned Grapes",
+        "caloriesPer100": 76,
+        "servingQuantity": "1 cup (256 g)"
+    },
+    {
+        "name": "Canned Mandarin Oranges",
+        "caloriesPer100": 71,
+        "servingQuantity": "1 container (113 g)"
+    },
+    {
+        "name": "Canned Mango",
+        "caloriesPer100": 65,
+        "servingQuantity": "1 cup (165 g)"
+    },
+    {
+        "name": "Canned Mangosteen",
+        "caloriesPer100": 73,
+        "servingQuantity": "1 cup (216 g)"
+    },
+    {
+        "name": "Canned Mixed Fruit",
+        "caloriesPer100": 71,
+        "servingQuantity": "1 can (113 g)"
+    },
+    {
+        "name": "Canned Morello Cherries",
+        "caloriesPer100": 81,
+        "servingQuantity": "1 cup (270 g)"
+    },
+    {
+        "name": "Canned Oranges",
+        "caloriesPer100": 62,
+        "servingQuantity": "1 can (113 g)"
+    },
+    {
+        "name": "Canned Peaches",
+        "caloriesPer100": 54,
+        "servingQuantity": "1/2 peach (98 g)"
+    },
+    {
+        "name": "Canned Pears",
+        "caloriesPer100": 35,
+        "servingQuantity": "1 cup (284 g)"
+    },
+    {
+        "name": "Canned Pineapple",
+        "caloriesPer100": 60,
+        "servingQuantity": "1 cup (232 g)"
+    },
+    {
+        "name": "Canned Plums",
+        "caloriesPer100": 58,
+        "servingQuantity": "1 plum (46 g)"
+    },
+    {
+        "name": "Canned Raspberries",
+        "caloriesPer100": 91,
+        "servingQuantity": "1 cup (256 g)"
+    },
+    {
+        "name": "Canned Sliced Pineapple",
+        "caloriesPer100": 53,
+        "servingQuantity": "1 cup (225 g)"
+    },
+    {
+        "name": "Canned Sour Cherries",
+        "caloriesPer100": 114,
+        "servingQuantity": "1 cup (261 g)"
+    },
+    {
+        "name": "Canned Strawberries",
+        "caloriesPer100": 92,
+        "servingQuantity": "1 cup (254 g)"
+    },
+    {
+        "name": "Canned Tangerines",
+        "caloriesPer100": 61,
+        "servingQuantity": "1 cup (252 g)"
+    },
+    {
+        "name": "Dried Fruit",
+        "caloriesPer100": 243,
+        "servingQuantity": "2 oz. (56 g)"
+    }
+]

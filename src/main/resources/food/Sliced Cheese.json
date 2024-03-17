@@ -1,0 +1,172 @@
+[
+    {
+        "name": "American Cheese",
+        "caloriesPer100": 148,
+        "servingQuantity": "1 slice (21 g)"
+    },
+    {
+        "name": "Applewood",
+        "caloriesPer100": 410,
+        "servingQuantity": "1 slice (20 g)"
+    },
+    {
+        "name": "Bergk\u00e4se",
+        "caloriesPer100": 418,
+        "servingQuantity": "1 slice (24 g)"
+    },
+    {
+        "name": "Butter Cheese",
+        "caloriesPer100": 388,
+        "servingQuantity": "1 slice (26 g)"
+    },
+    {
+        "name": "Cheddar",
+        "caloriesPer100": 403,
+        "servingQuantity": "1 slice (28 g)"
+    },
+    {
+        "name": "Cheese Platter",
+        "caloriesPer100": 357,
+        "servingQuantity": "1 slice (28 g)"
+    },
+    {
+        "name": "Cheese Slices",
+        "caloriesPer100": 356,
+        "servingQuantity": "1 slice (28 g)"
+    },
+    {
+        "name": "Colby Cheese",
+        "caloriesPer100": 394,
+        "servingQuantity": "1 slice (28 g)"
+    },
+    {
+        "name": "Colby-Jack Cheese",
+        "caloriesPer100": 394,
+        "servingQuantity": "1 slice (28 g)"
+    },
+    {
+        "name": "Cold Pack Cheese",
+        "caloriesPer100": 246,
+        "servingQuantity": "1 tbsp (14 g)"
+    },
+    {
+        "name": "Edam",
+        "caloriesPer100": 357,
+        "servingQuantity": "1 slice (28 g)"
+    },
+    {
+        "name": "Edam Cheese",
+        "caloriesPer100": 357,
+        "servingQuantity": "1 slice (28 g)"
+    },
+    {
+        "name": "Emmental",
+        "caloriesPer100": 357,
+        "servingQuantity": "1 slice (25 g)"
+    },
+    {
+        "name": "Emmentaler",
+        "caloriesPer100": 357,
+        "servingQuantity": "1 slice (25 g)"
+    },
+    {
+        "name": "Esrom (Cheese)",
+        "caloriesPer100": 322,
+        "servingQuantity": "1 slice (23 g)"
+    },
+    {
+        "name": "Fol Epi",
+        "caloriesPer100": 388,
+        "servingQuantity": "1 slice (24 g)"
+    },
+    {
+        "name": "Fresh Mozzarella",
+        "caloriesPer100": 280,
+        "servingQuantity": "1 slice (28 g)"
+    },
+    {
+        "name": "Gouda",
+        "caloriesPer100": 356,
+        "servingQuantity": "1 slice (28 g)"
+    },
+    {
+        "name": "Gouda Cheese",
+        "caloriesPer100": 356,
+        "servingQuantity": "1 slice (28 g)"
+    },
+    {
+        "name": "Havarti",
+        "caloriesPer100": 371,
+        "servingQuantity": "1 slice (28 g)"
+    },
+    {
+        "name": "Lacy Swiss Cheese",
+        "caloriesPer100": 321,
+        "servingQuantity": "1 slice (28 g)"
+    },
+    {
+        "name": "Leerdammer",
+        "caloriesPer100": 284,
+        "servingQuantity": "1 slice (25 g)"
+    },
+    {
+        "name": "Leerdammer Cheese",
+        "caloriesPer100": 284,
+        "servingQuantity": "1 slice (25 g)"
+    },
+    {
+        "name": "Maasdam Cheese",
+        "caloriesPer100": 344,
+        "servingQuantity": "1 slice (18 g)"
+    },
+    {
+        "name": "Monterey Jack Cheese",
+        "caloriesPer100": 373,
+        "servingQuantity": "1 slice (28 g)"
+    },
+    {
+        "name": "Mozzarella",
+        "caloriesPer100": 280,
+        "servingQuantity": "1 slice (28 g)"
+    },
+    {
+        "name": "Muenster Cheese",
+        "caloriesPer100": 368,
+        "servingQuantity": "1 slice (28 g)"
+    },
+    {
+        "name": "Pepper Cheese",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 slice (21 g)"
+    },
+    {
+        "name": "Sandwich Cheese",
+        "caloriesPer100": 148,
+        "servingQuantity": "1 slice (21 g)"
+    },
+    {
+        "name": "Smoked Cheese",
+        "caloriesPer100": 410,
+        "servingQuantity": "1 slice (20 g)"
+    },
+    {
+        "name": "Tilsit",
+        "caloriesPer100": 340,
+        "servingQuantity": "1 slice (25 g)"
+    },
+    {
+        "name": "White American",
+        "caloriesPer100": 148,
+        "servingQuantity": "1 slice (21 g)"
+    },
+    {
+        "name": "White Cheddar",
+        "caloriesPer100": 403,
+        "servingQuantity": "1 cup (132 g)"
+    },
+    {
+        "name": "Young Gouda",
+        "caloriesPer100": 356,
+        "servingQuantity": "1 slice (28 g)"
+    }
+]

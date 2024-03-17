@@ -1,0 +1,227 @@
+[
+    {
+        "name": "7up",
+        "caloriesPer100": 44,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Barq\u2019s",
+        "caloriesPer100": 46,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Bitter Lemon",
+        "caloriesPer100": 34,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Canada Dry Ginger Ale",
+        "caloriesPer100": 41,
+        "servingQuantity": "8 fl. oz. (240 ml)"
+    },
+    {
+        "name": "Cherry Coke",
+        "caloriesPer100": 44,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Coke",
+        "caloriesPer100": 42,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Coke Zero",
+        "caloriesPer100": 0,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Diet Cherry Coke",
+        "caloriesPer100": 1,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Diet Coke",
+        "caloriesPer100": 1,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Diet Dr. Pepper",
+        "caloriesPer100": 0,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Diet Pepsi",
+        "caloriesPer100": 0,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Diet Sunkist",
+        "caloriesPer100": 0,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Dr. Brown\u2019s",
+        "caloriesPer100": 53,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Dr. Pepper",
+        "caloriesPer100": 27,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Fanta",
+        "caloriesPer100": 39,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Fanta Zero",
+        "caloriesPer100": 0,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Five Alive",
+        "caloriesPer100": 35,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Fresca",
+        "caloriesPer100": 0,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Full Throttle",
+        "caloriesPer100": 110,
+        "servingQuantity": "8 fl. oz. (240 ml)"
+    },
+    {
+        "name": "Fuze",
+        "caloriesPer100": 20,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Fuze Tea",
+        "caloriesPer100": 25,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Gatorade",
+        "caloriesPer100": 25,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Ginger Ale",
+        "caloriesPer100": 35,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Ice Tea",
+        "caloriesPer100": 27,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Jolt Cola",
+        "caloriesPer100": 44,
+        "servingQuantity": "8 fl. oz. (240 ml)"
+    },
+    {
+        "name": "Kool-Aid",
+        "caloriesPer100": 26,
+        "servingQuantity": "8 fl. oz. (237 ml)"
+    },
+    {
+        "name": "Lemonade",
+        "caloriesPer100": 42,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Mello Yello",
+        "caloriesPer100": 49,
+        "servingQuantity": "8 fl. oz. (240 ml)"
+    },
+    {
+        "name": "Minute Maid",
+        "caloriesPer100": 46,
+        "servingQuantity": "8 fl. oz. (240 ml)"
+    },
+    {
+        "name": "Minute Maid Light",
+        "caloriesPer100": 2,
+        "servingQuantity": "8 fl. oz. (240 ml)"
+    },
+    {
+        "name": "Mug Root Beer",
+        "caloriesPer100": 42,
+        "servingQuantity": "8 fl. oz. (240 ml)"
+    },
+    {
+        "name": "Orange Soda",
+        "caloriesPer100": 48,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Pepsi",
+        "caloriesPer100": 44,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Pibb Xtra",
+        "caloriesPer100": 40,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Powerade",
+        "caloriesPer100": 120,
+        "servingQuantity": "1 bottle (500 ml)"
+    },
+    {
+        "name": "Schweppes Ginger Ale",
+        "caloriesPer100": 38,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Soda",
+        "caloriesPer100": 53,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Sprite",
+        "caloriesPer100": 37,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Sprite Zero",
+        "caloriesPer100": 0,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Squirt",
+        "caloriesPer100": 44,
+        "servingQuantity": "8 fl. oz. (240 ml)"
+    },
+    {
+        "name": "Sunkist",
+        "caloriesPer100": 25,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Surge",
+        "caloriesPer100": 48,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "TaB",
+        "caloriesPer100": 0,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Tonic Water",
+        "caloriesPer100": 35,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    },
+    {
+        "name": "Vanilla Coke",
+        "caloriesPer100": 45,
+        "servingQuantity": "12 fl. oz. (355 ml)"
+    }
+]

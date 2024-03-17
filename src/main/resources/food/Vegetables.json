@@ -1,0 +1,317 @@
+[
+    {
+        "name": "Artichoke",
+        "caloriesPer100": 47,
+        "servingQuantity": "1 artichoke (128 g)"
+    },
+    {
+        "name": "Arugula",
+        "caloriesPer100": 25,
+        "servingQuantity": "1 leaf (2 g)"
+    },
+    {
+        "name": "Asparagus",
+        "caloriesPer100": 20,
+        "servingQuantity": "1 spear (12 g)"
+    },
+    {
+        "name": "Aubergine",
+        "caloriesPer100": 25,
+        "servingQuantity": "1 aubergine (458 g)"
+    },
+    {
+        "name": "Beetroot",
+        "caloriesPer100": 43,
+        "servingQuantity": "1 beet (82 g)"
+    },
+    {
+        "name": "Bell Pepper",
+        "caloriesPer100": 20,
+        "servingQuantity": "1 pepper (73 g)"
+    },
+    {
+        "name": "Black Olives",
+        "caloriesPer100": 115,
+        "servingQuantity": "1 olive (2.7 g)"
+    },
+    {
+        "name": "Broccoli",
+        "caloriesPer100": 34,
+        "servingQuantity": "1 bunch (608 g)"
+    },
+    {
+        "name": "Brussels Sprouts",
+        "caloriesPer100": 43,
+        "servingQuantity": "1 sprout (19 g)"
+    },
+    {
+        "name": "Cabbage",
+        "caloriesPer100": 25,
+        "servingQuantity": "1 head (908 g)"
+    },
+    {
+        "name": "Capsicum",
+        "caloriesPer100": 27,
+        "servingQuantity": "1 pepper (45 g)"
+    },
+    {
+        "name": "Carrot",
+        "caloriesPer100": 41,
+        "servingQuantity": "1 carrot (61 g)"
+    },
+    {
+        "name": "Cauliflower",
+        "caloriesPer100": 25,
+        "servingQuantity": "1 floweret (13 g)"
+    },
+    {
+        "name": "Celery",
+        "caloriesPer100": 16,
+        "servingQuantity": "1 stalk (40 g)"
+    },
+    {
+        "name": "Chard",
+        "caloriesPer100": 19,
+        "servingQuantity": "1 leaf (48 g)"
+    },
+    {
+        "name": "Cherry Tomato",
+        "caloriesPer100": 100,
+        "servingQuantity": "1 cherry tomato (20 g)"
+    },
+    {
+        "name": "Chicory",
+        "caloriesPer100": 72,
+        "servingQuantity": "1 head (53 g)"
+    },
+    {
+        "name": "Chinese Cabbage",
+        "caloriesPer100": 16,
+        "servingQuantity": "1 head (840 g)"
+    },
+    {
+        "name": "Chives",
+        "caloriesPer100": 30,
+        "servingQuantity": "1 tbsp, chopped (3 g)"
+    },
+    {
+        "name": "Collard Greens",
+        "caloriesPer100": 32,
+        "servingQuantity": "1 cup, raw (36 g)"
+    },
+    {
+        "name": "Corn",
+        "caloriesPer100": 365,
+        "servingQuantity": "1 cup (154 g)"
+    },
+    {
+        "name": "Courgette",
+        "caloriesPer100": 17,
+        "servingQuantity": "1 courgette (196 g)"
+    },
+    {
+        "name": "Creamed Spinach",
+        "caloriesPer100": 74,
+        "servingQuantity": "1 cup (200 g)"
+    },
+    {
+        "name": "Cucumber",
+        "caloriesPer100": 16,
+        "servingQuantity": "1 cucumber (410 g)"
+    },
+    {
+        "name": "Eggplant",
+        "caloriesPer100": 25,
+        "servingQuantity": "1 eggplant (458 g)"
+    },
+    {
+        "name": "Endive",
+        "caloriesPer100": 17,
+        "servingQuantity": "1 head (513 g)"
+    },
+    {
+        "name": "Fennel",
+        "caloriesPer100": 31,
+        "servingQuantity": "1 bulb (234 g)"
+    },
+    {
+        "name": "Garlic",
+        "caloriesPer100": 149,
+        "servingQuantity": "1 clove (3 g)"
+    },
+    {
+        "name": "Gherkin",
+        "caloriesPer100": 14,
+        "servingQuantity": "1 gherkin (65 g)"
+    },
+    {
+        "name": "Gourd",
+        "caloriesPer100": 14,
+        "servingQuantity": "1 gourd (771 g)"
+    },
+    {
+        "name": "Green Beans",
+        "caloriesPer100": 31,
+        "servingQuantity": "1 cup (110 g)"
+    },
+    {
+        "name": "Green Olives",
+        "caloriesPer100": 115,
+        "servingQuantity": "1 olive (2.7 g)"
+    },
+    {
+        "name": "Green Onion",
+        "caloriesPer100": 32,
+        "servingQuantity": "1 green onion (15 g)"
+    },
+    {
+        "name": "Horseradish",
+        "caloriesPer100": 48,
+        "servingQuantity": "1 tbsp (15 g)"
+    },
+    {
+        "name": "Kale",
+        "caloriesPer100": 49,
+        "servingQuantity": "1 cup, chopped (67 g)"
+    },
+    {
+        "name": "Kohlrabi",
+        "caloriesPer100": 27,
+        "servingQuantity": "1 kohlrabi (400 g)"
+    },
+    {
+        "name": "Kumara",
+        "caloriesPer100": 86,
+        "servingQuantity": "1 kumara (130 g)"
+    },
+    {
+        "name": "Leek",
+        "caloriesPer100": 61,
+        "servingQuantity": "1 leek (89 g)"
+    },
+    {
+        "name": "Lettuce",
+        "caloriesPer100": 15,
+        "servingQuantity": "1 head (600 g)"
+    },
+    {
+        "name": "Mushrooms",
+        "caloriesPer100": 22,
+        "servingQuantity": "1 mushroom (5.4 g)"
+    },
+    {
+        "name": "Mustard Greens",
+        "caloriesPer100": 27,
+        "servingQuantity": "1 cup, chopped (56 g)"
+    },
+    {
+        "name": "Nori",
+        "caloriesPer100": 35,
+        "servingQuantity": "1 sheet (2.6 g)"
+    },
+    {
+        "name": "Okra",
+        "caloriesPer100": 33,
+        "servingQuantity": "1 pod (12 g)"
+    },
+    {
+        "name": "Olives",
+        "caloriesPer100": 115,
+        "servingQuantity": "1 olive (2.7 g)"
+    },
+    {
+        "name": "Onion",
+        "caloriesPer100": 40,
+        "servingQuantity": "1 onion (85 g)"
+    },
+    {
+        "name": "Parsnips",
+        "caloriesPer100": 75,
+        "servingQuantity": "1 parsnip (170 g)"
+    },
+    {
+        "name": "Peas",
+        "caloriesPer100": 81,
+        "servingQuantity": "1 cup (98 g)"
+    },
+    {
+        "name": "Pepper",
+        "caloriesPer100": 27,
+        "servingQuantity": "1 pepper (75 g)"
+    },
+    {
+        "name": "Potato",
+        "caloriesPer100": 77,
+        "servingQuantity": "1 potato (213 g)"
+    },
+    {
+        "name": "Pumpkin",
+        "caloriesPer100": 26,
+        "servingQuantity": "1 pumpkin (196 g)"
+    },
+    {
+        "name": "Radishes",
+        "caloriesPer100": 16,
+        "servingQuantity": "1 radish (4.5 g)"
+    },
+    {
+        "name": "Red Cabbage",
+        "caloriesPer100": 31,
+        "servingQuantity": "1 leaf (22 g)"
+    },
+    {
+        "name": "Rutabaga",
+        "caloriesPer100": 38,
+        "servingQuantity": "1 rutabaga (386 g)"
+    },
+    {
+        "name": "Shallots",
+        "caloriesPer100": 72,
+        "servingQuantity": "1 shallot (25 g)"
+    },
+    {
+        "name": "Spinach",
+        "caloriesPer100": 23,
+        "servingQuantity": "1 bunch (340 g)"
+    },
+    {
+        "name": "Squash",
+        "caloriesPer100": 45,
+        "servingQuantity": "1 squash (196 g)"
+    },
+    {
+        "name": "Sweet Potato",
+        "caloriesPer100": 86,
+        "servingQuantity": "1 potato (130 g)"
+    },
+    {
+        "name": "Tomato",
+        "caloriesPer100": 18,
+        "servingQuantity": "1 tomato (111 g)"
+    },
+    {
+        "name": "Turnip Greens",
+        "caloriesPer100": 20,
+        "servingQuantity": "1 turnip green (170 g)"
+    },
+    {
+        "name": "Turnips",
+        "caloriesPer100": 28,
+        "servingQuantity": "1 turnip (122 g)"
+    },
+    {
+        "name": "Wasabi",
+        "caloriesPer100": 109,
+        "servingQuantity": "1 root (169 g)"
+    },
+    {
+        "name": "Winter Squash",
+        "caloriesPer100": 34,
+        "servingQuantity": "1 squash (431 g)"
+    },
+    {
+        "name": "Zucchini",
+        "caloriesPer100": 17,
+        "servingQuantity": "1 zucchini (196 g)"
+    }
+]

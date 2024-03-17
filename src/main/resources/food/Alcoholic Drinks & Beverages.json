@@ -1,0 +1,242 @@
+[
+    {
+        "name": "Absinthe",
+        "caloriesPer100": 348,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Advocaat",
+        "caloriesPer100": 283,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Amaretto",
+        "caloriesPer100": 310,
+        "servingQuantity": "1 shot (25 ml)"
+    },
+    {
+        "name": "Applejack",
+        "caloriesPer100": 233,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Asti",
+        "caloriesPer100": 138,
+        "servingQuantity": "1 glass (100 ml)"
+    },
+    {
+        "name": "Baileys",
+        "caloriesPer100": 327,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Bailey\u2019s Irish Cream",
+        "caloriesPer100": 327,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Beer",
+        "caloriesPer100": 43,
+        "servingQuantity": "1 can (355 ml)"
+    },
+    {
+        "name": "Blue Curacao",
+        "caloriesPer100": 243,
+        "servingQuantity": "1 fl. oz. (30 ml)"
+    },
+    {
+        "name": "Bourbon",
+        "caloriesPer100": 233,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Brandy",
+        "caloriesPer100": 213,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Canadian Whiskey",
+        "caloriesPer100": 216,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Chambord",
+        "caloriesPer100": 348,
+        "servingQuantity": "1 glass (150 ml)"
+    },
+    {
+        "name": "Champagne",
+        "caloriesPer100": 75,
+        "servingQuantity": "1 glass (100 ml)"
+    },
+    {
+        "name": "Cider",
+        "caloriesPer100": 49,
+        "servingQuantity": "1 glass (150 ml)"
+    },
+    {
+        "name": "Cognac",
+        "caloriesPer100": 235,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Cointreau",
+        "caloriesPer100": 320,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Drambuie",
+        "caloriesPer100": 358,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Frangelico",
+        "caloriesPer100": 238,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Gin",
+        "caloriesPer100": 263,
+        "servingQuantity": "1 shot (25 ml)"
+    },
+    {
+        "name": "Glenfiddich",
+        "caloriesPer100": 230,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Grand Marnier",
+        "caloriesPer100": 253,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Irish Whiskey",
+        "caloriesPer100": 233,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Jack Daniel\u2019s",
+        "caloriesPer100": 146,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Jagermeister",
+        "caloriesPer100": 250,
+        "servingQuantity": "1 shot (25 ml)"
+    },
+    {
+        "name": "Jim Beam",
+        "caloriesPer100": 222,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Kahlua",
+        "caloriesPer100": 180,
+        "servingQuantity": "1 shot (25 ml)"
+    },
+    {
+        "name": "Liqueur",
+        "caloriesPer100": 250,
+        "servingQuantity": "1 shot (25 ml)"
+    },
+    {
+        "name": "Liquor",
+        "caloriesPer100": 250,
+        "servingQuantity": "1 shot (25 ml)"
+    },
+    {
+        "name": "Midori",
+        "caloriesPer100": 267,
+        "servingQuantity": "1 fl. oz. (30 ml)"
+    },
+    {
+        "name": "Prosecco",
+        "caloriesPer100": 66,
+        "servingQuantity": "1 glass (100 ml)"
+    },
+    {
+        "name": "Punch",
+        "caloriesPer100": 62,
+        "servingQuantity": "1 cup (237 ml)"
+    },
+    {
+        "name": "Red Wine",
+        "caloriesPer100": 85,
+        "servingQuantity": "1 glass (150 ml)"
+    },
+    {
+        "name": "Rose Wine",
+        "caloriesPer100": 71,
+        "servingQuantity": "1 glass (150 ml)"
+    },
+    {
+        "name": "Rum",
+        "caloriesPer100": 231,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Sambuca",
+        "caloriesPer100": 333,
+        "servingQuantity": "1 shot (25 ml)"
+    },
+    {
+        "name": "Sangria",
+        "caloriesPer100": 96,
+        "servingQuantity": "1 glass (250 ml)"
+    },
+    {
+        "name": "Scotch",
+        "caloriesPer100": 222,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Sherry",
+        "caloriesPer100": 116,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Sloe Gin",
+        "caloriesPer100": 332,
+        "servingQuantity": "1 shot (25 ml)"
+    },
+    {
+        "name": "Southern Comfort",
+        "caloriesPer100": 247,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Tequila",
+        "caloriesPer100": 110,
+        "servingQuantity": "1 shot (25 ml)"
+    },
+    {
+        "name": "Triple Sec",
+        "caloriesPer100": 153,
+        "servingQuantity": "1 glass (150 ml)"
+    },
+    {
+        "name": "Vermouth",
+        "caloriesPer100": 130,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "Vodka",
+        "caloriesPer100": 231,
+        "servingQuantity": "1 shot (25 ml)"
+    },
+    {
+        "name": "Whisky",
+        "caloriesPer100": 250,
+        "servingQuantity": "1 1/2 fl. oz. (44 ml)"
+    },
+    {
+        "name": "White Wine",
+        "caloriesPer100": 82,
+        "servingQuantity": "1 glass (150 ml)"
+    },
+    {
+        "name": "Wine",
+        "caloriesPer100": 83,
+        "servingQuantity": "1 glass (150 ml)"
+    }
+]
