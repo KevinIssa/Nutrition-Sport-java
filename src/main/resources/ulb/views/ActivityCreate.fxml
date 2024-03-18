@@ -83,33 +83,51 @@
       			<HBox fx:id="rectanglePane" alignment="BOTTOM_LEFT" prefHeight="84.0" prefWidth="115.0">
 				 <!-- Rectangles will be added dynamically here -->
 				 
-				 <!-- green -->
-				 <Rectangle fill="#006800" height="12.0" width="20.0" />
-				 <Rectangle fill="#2fff0094" height="19.0" width="20.0" />
-				 
-				 <!-- yellow -->
-				 <Rectangle height="36.0" width="20.0">
-                        <fill>
-                           <LinearGradient endX="0.5639810426540284" endY="1.0" startY="1.0">
-                              <stops>
-                                 <Stop>
-                                    <color>
-                                       <Color red="0.23333333432674408" green="1.0" />
-                                    </color>
-                                 </Stop>
-                                 <Stop offset="1.0">
-                                    <color>
-                                       <Color red="0.8999999761581421" green="1.0" />
-                                    </color>
-                                 </Stop>
-                              </stops>
-                           </LinearGradient>
-                        </fill></Rectangle>
-				 <Rectangle fill="#f2ff00" height="45.0" width="20.0" />
-				 
-				 <!-- red -->
-				 <Rectangle fill="#d70000" height="59.0" width="20.0" />
-				 <Rectangle fill="#d70000" height="78.0" width="20.0" />
+<!-- green -->
+<Rectangle fill="#006800" height="12.0" width="20.0" />
+<Rectangle fill="#006800" height="19.0" width="20.0" />
+
+<!-- green to yellow gradient -->
+<Rectangle height="36.0" width="20.0">
+   <fill>
+      <LinearGradient endX="0.4739336492890995" endY="1.0" startY="1.0">
+         <stops>
+            <Stop>
+               <color>
+                  <Color green="0.4000000059604645" />
+               </color>
+            </Stop>
+            <Stop offset="1.0">
+               <color>
+                  <Color red="1.0" green="1.0" />
+               </color>
+            </Stop>
+         </stops>
+      </LinearGradient>
+   </fill>
+</Rectangle>
+<Rectangle fill="#f2ff00" height="45.0" width="20.0" />
+
+<!-- yellow to red gradient -->
+<Rectangle height="59.0" width="20.0">
+   <fill>
+      <LinearGradient endX="0.7630331753554502" endY="1.0" startX="0.23696682464454977" startY="1.0">
+         <stops>
+            <Stop>
+               <color>
+                  <Color red="1.0" green="1.0" />
+               </color>
+            </Stop>
+            <Stop offset="1.0">
+               <color>
+                  <Color red="0.8500000238418579" />
+               </color>
+            </Stop>
+         </stops>
+      </LinearGradient>
+   </fill>
+</Rectangle>
+<Rectangle fill="#d70000" height="78.0" width="20.0" />
 
 			 </HBox>
       			 <Slider fx:id="intensitySlider" prefHeight="35.0" prefWidth="115.0" styleClass="slider" />
