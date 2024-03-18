@@ -111,7 +111,7 @@
 <!-- yellow to red gradient -->
 <Rectangle height="59.0" width="20.0">
    <fill>
-      <LinearGradient endX="0.7630331753554502" endY="1.0" startX="0.23696682464454977" startY="1.0">
+      <LinearGradient endX="0.7630331753554502" endY="1.0" startX="0.3364928909952607" startY="1.0">
          <stops>
             <Stop>
                <color>
