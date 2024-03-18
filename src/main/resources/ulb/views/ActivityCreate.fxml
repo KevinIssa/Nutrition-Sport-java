@@ -24,7 +24,7 @@
 				 <graphic>
 					 <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
 						 <image>
-							 <Image url="@image/Course_a_pied.png" /> <!-- Replace icon.png with your icon file name -->
+							 <Image url="@../images/sport_img/Course_a_pied.png" /> <!-- Replace icon.png with your icon file name -->
 						 </image>
 					 </ImageView>
 				 </graphic>
@@ -33,7 +33,7 @@
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                      <image>
-                        <Image url="@image/Marche.png" />
+                        <Image url="@../images/sport_img/Marche.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -42,7 +42,7 @@
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                      <image>
-                        <Image url="@image/Natation.png" />
+                        <Image url="@../images/sport_img/Natation.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -51,7 +51,7 @@
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                      <image>
-                        <Image url="@image/Velo.png" />
+                        <Image url="@../images/sport_img/Velo.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -60,7 +60,7 @@
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                      <image>
-                        <Image url="@image/Volleyball.png" />
+                        <Image url="@../images/sport_img/Volleyball.png" />
                      </image>
                   </ImageView>
                </graphic>

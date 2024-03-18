@@ -18,6 +18,7 @@
  */
 package ulb.views;
 
+
 import java.io.File;
 import java.net.URL;
 import java.time.Duration;
@@ -28,6 +29,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import ulb.models.Activity;
 import ulb.models.Profile;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.control.ListCell;
 
 public class ActivityHistoryViewController implements ViewController {
 
@@ -37,7 +41,7 @@ public class ActivityHistoryViewController implements ViewController {
 	private ActivityHistoryViewController.Listener
 			listener; // Listener interface for communication with the controller
 
-	@FXML private ListView<Label> historyList; // ListView to display activity history
+	@FXML private ListView<Image> historyList; // ListView to display activity history
 
 	// Method called after FXML file has been loaded; overridden from Initializable
 	@Override
@@ -61,7 +65,24 @@ public class ActivityHistoryViewController implements ViewController {
 								+ "   Calories brûlées: "
 								+ activity.getCaloriesBurned(Profile.load().getWeight()));
 		caloriesBurnedTotal += activity.getCaloriesBurned(Profile.load().getWeight());
-		historyList.getItems().add(label);
+		URL path = getClass().getResource("/ulb/images/sport_img/Marche.png");
+		Image image1 = new Image(path.toString(), 30, 30, false, false);
+		historyList.getItems().add(image1);
+
+		historyList.setCellFactory(listView -> new ListCell<Image>() {
+			private final ImageView imageView = new ImageView();
+
+			@Override
+			public void updateItem(Image item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty) {
+					setGraphic(null);
+				} else {
+					imageView.setImage(item);
+					setGraphic(imageView);
+				}
+			}
+		});
 	}
 
 	// Return to the home view
@@ -86,7 +107,7 @@ public class ActivityHistoryViewController implements ViewController {
 			}
 		}
 		Label label = new Label("Total des calories brûlées: " + caloriesBurnedTotal);
-		historyList.getItems().add(label);
+		//historyList.getItems().add(label);
 	}
 
 	// Set listener for communication with the controller
