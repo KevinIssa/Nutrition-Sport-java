@@ -32,6 +32,7 @@ import ulb.models.Profile;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.ListCell;
+import ulb.views.utils.CustomListCell;
 
 public class ActivityHistoryViewController implements ViewController {
 
@@ -65,24 +66,11 @@ public class ActivityHistoryViewController implements ViewController {
 								+ "   Calories brûlées: "
 								+ activity.getCaloriesBurned(Profile.load().getWeight()));
 		caloriesBurnedTotal += activity.getCaloriesBurned(Profile.load().getWeight());
-		URL path = getClass().getResource("/ulb/images/sport_img/Marche.png");
+		URL path = getClass().getResource("/ulb/images/sport_img/Velo.png");
 		Image image1 = new Image(path.toString(), 30, 30, false, false);
-		historyList.getItems().add(image1);
+		historyList.getItems().addAll(image1);
 
-		historyList.setCellFactory(listView -> new ListCell<Image>() {
-			private final ImageView imageView = new ImageView();
-
-			@Override
-			public void updateItem(Image item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty) {
-					setGraphic(null);
-				} else {
-					imageView.setImage(item);
-					setGraphic(imageView);
-				}
-			}
-		});
+		historyList.setCellFactory(listView -> new CustomListCell());
 	}
 
 	// Return to the home view
