@@ -31,14 +31,14 @@ import java.io.IOException;
 import java.util.*;
 
 @JsonDeserialize(using = MealDeserializer.class)
-public class Meal implements Consumable {
+public class Meal implements Consumable, JsonSerializable {
+
+	private static final String FOLDER_NAME = "meals";
 
 	private String name;
 
 	@JsonSerialize(using = FoodListSerializer.class)
 	private List<Map.Entry<Food, Integer>> ingredients = new ArrayList<>();
-
-	public static final String FILENAME = "Custom Meals.json";
 
 	Meal() {}
 
@@ -59,30 +59,59 @@ public class Meal implements Consumable {
 	}
 
 	@Override
-	public double getCaloriesConsumedByGrams(int grams) {
-		double totalCalories = 0;
+	public int getCaloriesConsumed() {
+		return getCaloriesConsumedByServing(1);
+	}
+
+	@Override
+	public int getCaloriesConsumedByGrams(int grams) {
+		int totalGrams = getGramsForServing(1);
+		return getCaloriesConsumed() * grams / totalGrams;
+	}
+
+	private int getGramsForServing(int i) {
+		int totalGrams = 0;
+		// TODO: :)
+		return totalGrams * i;
+	}
+
+	@Override
+	public int getCaloriesConsumedByServing(int servings) {
+		int totalCalories = 0;
 		for (Map.Entry<Food, Integer> ingredient : ingredients) {
 			totalCalories +=
 					ingredient
 							.getKey()
-							.getCaloriesConsumedByGrams(ingredient.getValue().intValue());
+							.getCaloriesConsumedByServing(ingredient.getValue().intValue());
 		}
-		return totalCalories;
+		return totalCalories * servings;
 	}
 
 	public void save() {
+		File folder = new File(FOLDER_NAME);
+		if (!folder.exists()) {
+			folder.mkdir();
+		}
+		String filename = FOLDER_NAME + "/" + name + ".json";
+		saveToFile(filename);
+	}
+
+	public static Meal load(String filename) {
+		return (Meal) new Meal().loadFromFile(filename);
+	}
+
+	public void saveToFile(String filename) {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		try {
-			mapper.writeValue(new File(FILENAME), this);
+			mapper.writeValue(new File(filename), this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static Meal load(String filename) {
+	public JsonSerializable loadFromFile(String filename) {
 		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		try {
 			return mapper.readValue(new File(filename), Meal.class);
 		} catch (IOException e) {
@@ -154,8 +183,9 @@ class MealDeserializer extends StdDeserializer<Meal> {
 			JsonNode foodNode = ingredientNode.get("food");
 			String foodName = foodNode.get("name").asText();
 			int caloriesPer100 = foodNode.get("caloriesPer100").asInt();
+			int caloriesPerServing = foodNode.get("caloriesPerServing").asInt();
 			String servingQuantity = foodNode.get("servingQuantity").asText();
-			Food food = new Food(foodName, caloriesPer100, servingQuantity);
+			Food food = new Food(foodName, caloriesPer100, caloriesPerServing, servingQuantity);
 			int quantity = ingredientNode.get("quantity").asInt();
 			ingredients.add(Map.entry(food, quantity));
 		}

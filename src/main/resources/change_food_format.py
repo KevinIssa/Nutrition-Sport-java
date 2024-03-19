@@ -4,35 +4,30 @@ import os
 
 def csv_to_json_by_category(csv_file, output_folder):
     # Créer un dictionnaire pour stocker les données par catégorie
-    data_by_category = {}
+    data = []
 
     with open(csv_file, "r") as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
-            category = row["food_category"]
-            if category not in data_by_category:
-                data_by_category[category] = []
-
             food_name = row["food_name"]
             calories_per_100_ml_or_gms = int(row["cal_per_100_ml_or_gms"].replace(" cal", "")) if row["cal_per_100_ml_or_gms"] else None
+            cal_per_serving = int(row["cal_per_serving"].replace(" cal", "")) if row["cal_per_serving"] else None
             serving_quantity = row["per_serving"] if row["per_serving"] else None
 
-            data_by_category[category].append({
+            data.append({
                 "name": food_name,
                 "caloriesPer100": calories_per_100_ml_or_gms,
+                "caloriesPerServing": cal_per_serving,
                 "servingQuantity": serving_quantity
             })
 
-    # Assurer l'existence du dossier de sortie
-    os.makedirs(output_folder, exist_ok=True)
+    data.sort(key=lambda x: x["name"])
 
-    # Écrire les données dans des fichiers JSON par catégorie
-    for category, data in data_by_category.items():
-        json_file = os.path.join(output_folder, f"{category}.json")
-        with open(json_file, "w") as jsonfile:
-            json.dump(data, jsonfile, indent=4)
+    with open(output_file, "w") as jsonfile:
+        json.dump(data, jsonfile, indent=4)
+
 
 csv_file = "src/main/resources/calorie_infos.csv"  # Chemin vers votre fichier CSV
-output_folder = "src/main/resources/food"  # Dossier de sortie pour les fichiers JSON
+output_file = "src/main/resources/food.json"  # Dossier de sortie pour les fichiers JSON
 
-csv_to_json_by_category(csv_file, output_folder)
+csv_to_json_by_category(csv_file, output_file)

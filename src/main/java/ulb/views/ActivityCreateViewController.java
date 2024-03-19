@@ -94,7 +94,7 @@ public class ActivityCreateViewController implements ViewController {
 		this.listener.returnHome();
 	}
 
-	public void setButtonDefaultColor(){
+	public void setButtonDefaultColor() {
 		button_walking.setStyle("-fx-background-color: rgb(255,255,255);");
 		button_running.setStyle("-fx-background-color: rgb(255,255,255);");
 		button_biking.setStyle("-fx-background-color: rgb(255,255,255);");
@@ -103,40 +103,35 @@ public class ActivityCreateViewController implements ViewController {
 		selectedSport = null;
 	}
 
-	public void selectWalking(){
+	public void selectWalking() {
 		this.setButtonDefaultColor();
 		button_walking.setStyle("-fx-background-color: #3c8000;");
 		selectedSport = Sport.WALKING;
 	}
 
-	public void selectRunning(){
+	public void selectRunning() {
 		this.setButtonDefaultColor();
 		button_running.setStyle("-fx-background-color: #3c8000;");
 		selectedSport = Sport.RUNNING;
 	}
 
-	public void selectBiking(){
+	public void selectBiking() {
 		this.setButtonDefaultColor();
 		button_biking.setStyle("-fx-background-color: #3c8000;");
 		selectedSport = Sport.BIKING;
 	}
 
-	public void selectSwimming(){
+	public void selectSwimming() {
 		this.setButtonDefaultColor();
 		button_swimming.setStyle("-fx-background-color: #3c8000;");
 		selectedSport = Sport.SWIMMING;
 	}
 
-	public void selectVolleyball(){
+	public void selectVolleyball() {
 		this.setButtonDefaultColor();
 		button_volleyball.setStyle("-fx-background-color: #3c8000;");
 		selectedSport = Sport.VOLLEYBALL;
 	}
-
-
-
-
-
 
 	// Method to set the listener for communication with the controller
 	public void setListener(Object listener) {

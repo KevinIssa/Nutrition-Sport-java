@@ -18,6 +18,7 @@
  */
 package ulb.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -29,13 +30,15 @@ public class Food implements Consumable {
 
 	private String name;
 	private int caloriesPer100;
+	private int caloriesPerServing;
 	private String servingQuantity;
 
 	public Food() {}
 
-	public Food(String name, int caloriesPer100, String servingQuantity) {
+	public Food(String name, int caloriesPer100, int caloriesPerServing, String servingQuantity) {
 		this.name = name;
 		this.caloriesPer100 = caloriesPer100;
+		this.caloriesPerServing = caloriesPerServing;
 		this.servingQuantity = servingQuantity;
 	}
 
@@ -43,12 +46,25 @@ public class Food implements Consumable {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Food food = (Food) o;
-		return caloriesPer100 == food.caloriesPer100 && name.equals(food.name) && servingQuantity.equals(food.servingQuantity);
+		return caloriesPer100 == food.caloriesPer100
+				&& name.equals(food.name)
+				&& servingQuantity.equals(food.servingQuantity);
+	}
+
+	@JsonIgnore
+	@Override
+	public int getCaloriesConsumed() {
+		return getCaloriesConsumedByServing(1);
 	}
 
 	@Override
-	public double getCaloriesConsumedByGrams(int grams) {
-		return ((double) this.caloriesPer100 / 100) * grams;
+	public int getCaloriesConsumedByGrams(int grams) {
+		return (this.caloriesPer100 / 100) * grams;
+	}
+
+	@Override
+	public int getCaloriesConsumedByServing(int servings) {
+		return this.caloriesPerServing * servings;
 	}
 
 	public String toString() {
@@ -79,6 +95,14 @@ public class Food implements Consumable {
 		this.caloriesPer100 = caloriesPer100;
 	}
 
+	public int getCaloriesPerServing() {
+		return caloriesPerServing;
+	}
+
+	public void setCaloriesPerServing(int caloriesPerServing) {
+		this.caloriesPerServing = caloriesPerServing;
+	}
+
 	public String getServingQuantity() {
 		return servingQuantity;
 	}
@@ -96,6 +120,7 @@ class FoodSerializer extends JsonSerializer<Food> {
 		jsonGenerator.writeStartObject();
 		jsonGenerator.writeStringField("name", food.getName());
 		jsonGenerator.writeNumberField("caloriesPer100", food.getCaloriesPer100());
+		jsonGenerator.writeNumberField("caloriesPerServing", food.getCaloriesPerServing());
 		jsonGenerator.writeStringField("servingQuantity", food.getServingQuantity());
 		jsonGenerator.writeEndObject();
 	}

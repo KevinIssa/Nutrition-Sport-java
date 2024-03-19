@@ -18,12 +18,22 @@
  */
 package ulb.models;
 
+import java.util.List;
 import org.junit.Test;
 
 public class TestFoodLoader {
 
 	@Test
 	public void testFoodLoader() {
-		FoodLoader foodLoader = new FoodLoader("src/main/resources/food/Venison & Game.json");
+		FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json");
+	}
+
+	@Test
+	public void testGetFoods() {
+		FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json");
+		List<Food> foods = foodLoader.getFoodsSuggestion("apple");
+		for (Food food : foods) {
+			assert (food.getName().toLowerCase().startsWith("apple"));
+		}
 	}
 }

@@ -20,5 +20,22 @@ package ulb.models;
 
 public interface Consumable {
 
-	public double getCaloriesConsumedByGrams(int grams);
+	/**
+	 * Compute the calories consumed by eating this consumable.
+	 */
+	public int getCaloriesConsumed();
+
+	/**
+	 * Compute the calories consumed by eating a certain amount of this consumable.
+	 * @param grams the amount of the consumable in grams
+	 * @return the calories consumed by eating the given amount of this consumable
+	 */
+	public int getCaloriesConsumedByGrams(int grams);
+
+	/**
+	 * Compute the calories consumed by eating a certain amount of this consumable.
+	 * @param servings the amount of the consumable in servings
+	 * @return the calories consumed by eating the given amount of this consumable
+	 */
+	public int getCaloriesConsumedByServing(int servings);
 }

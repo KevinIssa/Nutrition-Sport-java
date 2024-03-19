@@ -20,7 +20,6 @@ package ulb.views;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -66,6 +65,7 @@ public class ProfileConsultViewController implements ViewController {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		return date.format(formatter);
 	}
+
 	public interface Listener {
 		String getFirstName();
 

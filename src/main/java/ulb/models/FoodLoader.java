@@ -42,6 +42,20 @@ public class FoodLoader implements Iterable<Food> {
 		}
 	}
 
+	public List<Food> getFoods() {
+		return foods;
+	}
+
+	public List<Food> getFoodsSuggestion(String input) {
+		List<Food> result = new java.util.ArrayList<>();
+		for (Food food : foods) {
+			if (food.getName().toLowerCase().startsWith(input.toLowerCase())) {
+				result.add(food);
+			}
+		}
+		return result;
+	}
+
 	@Override
 	public Iterator<Food> iterator() {
 		return new FoodIterator();

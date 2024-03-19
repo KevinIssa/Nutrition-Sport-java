@@ -25,7 +25,7 @@ public class TestConsumable {
 
 	@Test
 	public void testGetCaloriesConsumedByGrams() {
-		Food food = new Food("food", 100, "100g");
+		Food food = new Food("food", 100, 100, "100g");
 		Assert.assertEquals(100, food.getCaloriesConsumedByGrams(100), 0);
 	}
 }
