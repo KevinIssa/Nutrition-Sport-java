@@ -182,15 +182,29 @@ public class MainAppController extends AppController implements MenuViewControll
 							public float getWeight() {
 								return profile.getWeight();
 							}
-                            @Override
-							public Image getImage(String relativePath, double width, double height){
+
+							@Override
+							public Image getImage(String relativePath, double width, double height) {
 								URL path = getClass().getResource("/ulb/" + relativePath);
-								if (path == null){
+								if (path == null) {
 									return null;
 								}
-                                return new Image(path.toString(), width, height, true, true);
+								return new Image(path.toString(), width, height, true, true);
 							}
-						});
+
+							@Override
+							public void saveProfileImage(String imagepath) {
+								try {
+									URL imageurl = new URL(imagepath);
+									URI destinationuri = new URI(Objects.requireNonNull(getClass().getResource("/ulb/")).toString());
+									Path destinationpath = Paths.get(destinationuri).resolve("images/profile.png");
+									Files.copy(imageurl.openStream(), destinationpath, StandardCopyOption.REPLACE_EXISTING);
+
+								} catch (URISyntaxException | IOException e) {
+									throw new RuntimeException(e);
+								}
+							}
+				        });
 	}
 
 	@Override

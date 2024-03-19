@@ -19,6 +19,7 @@
 package ulb.views;
 
 import java.awt.*;
+import java.io.File;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -36,9 +37,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 
 public class ProfileViewController implements ViewController {
 	@FXML private ImageView profileimage;
+	@FXML private Button imageselection;
+
 	@FXML private TextField firstname_text;
 	@FXML private Label firstname_label;
 	@FXML private Button firstnameswitch;
@@ -67,6 +71,7 @@ public class ProfileViewController implements ViewController {
 
 	private Image pen;
 	private Image check;
+	private String imagepath;
 
 	private ProfileViewController.Listener
 			listener; // Listener interface for communication with the controller
@@ -97,7 +102,7 @@ public class ProfileViewController implements ViewController {
 		this.pen = this.listener.getImage(relativePath, desiredWidth, desiredHeight);
 		relativePath = "images/check.png";
 		this.check  = this.listener.getImage(relativePath, desiredWidth, desiredHeight);
-
+        this.imageselection.setGraphic(new ImageView(pen));
 		this.firstnameswitch.setGraphic(new ImageView(pen));
 		this.lastnameswitch.setGraphic(new ImageView(pen));
 		this.birthdateswitch.setGraphic(new ImageView(pen));
@@ -120,6 +125,19 @@ public class ProfileViewController implements ViewController {
 		Image image = this.listener.getImage(relativePath, desiredWidth, desiredHeight);
 		if ((image != null)){
 			this.profileimage.setImage(image);
+		}
+	}
+	public void eventHandler(ActionEvent event){
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Image File");
+		File selectedFile = fileChooser.showOpenDialog(imageselection.getScene().getWindow());
+		if (selectedFile != null) {
+			Image image = new Image(selectedFile.toURI().toString());
+			double desiredWidth = 129; // Desired width in pixels
+			double desiredHeight = 125; // Desired height in pixels
+			Image resizedImage = new Image(image.getUrl(), desiredWidth, desiredHeight, true, true);
+			this.profileimage.setImage(resizedImage);
+			this.imagepath = selectedFile.toURI().toString();
 		}
 	}
 	public void switcher(ActionEvent event){
@@ -252,6 +270,9 @@ public class ProfileViewController implements ViewController {
 					localDate,
 					floatHeight,
 					floatWeight);
+			if (this.imagepath != null){
+				this.listener.saveProfileImage(this.imagepath);
+			}
 		} catch (NumberFormatException e) {
 			// Log error if height and weight are not numbers
 			System.err.println("Height and weight must be numbers");
@@ -291,5 +312,6 @@ public class ProfileViewController implements ViewController {
 		float getWeight();
 
 		Image getImage(String relativePath, double width, double height);
+		void saveProfileImage(String imagepath);
 	}
 }

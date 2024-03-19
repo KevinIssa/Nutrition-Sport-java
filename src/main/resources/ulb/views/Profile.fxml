@@ -10,6 +10,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -26,18 +27,27 @@
                </Label>
             </children>
          </HBox>
-         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
             <children>
-                 <ImageView fx:id="profileimage" fitHeight="125.0" fitWidth="129.0" preserveRatio="true" translateX="30.0">
+               <Region prefHeight="200.0" prefWidth="240.0" />
+                 <ImageView fx:id="profileimage" fitHeight="125.0" fitWidth="129.0">
                   <image>
                      <Image url="@../images/default_profile.png" />
                   </image>
                </ImageView>
+               <Region prefHeight="36.0" prefWidth="85.5" />
+               <Region prefHeight="200.0" prefWidth="85.5" />
+               <Button fx:id="imageselection" alignment="CENTER_RIGHT" minHeight="36.0" mnemonicParsing="false" onAction="#eventHandler" text="Edit" textAlignment="CENTER">
+                   <graphic>
+                      <ImageView fitHeight="15.0" fitWidth="15.0" />
+                   </graphic>
+               </Button>
             </children>
          </HBox>
+         <Region prefHeight="40.0" prefWidth="200.0" />
          <HBox alignment="CENTER">
             <children>
-               <VBox alignment="TOP_CENTER" prefHeight="390.0" prefWidth="196.0" spacing="30.0">
+               <VBox alignment="TOP_CENTER" prefHeight="390.0" prefWidth="240.0" spacing="40.0">
                   <children>
                      <Label minHeight="36.0" prefHeight="36.0" prefWidth="136.0" text="Votre prénom" textAlignment="CENTER">
                         <font>
@@ -72,7 +82,7 @@
                   </children>
                </VBox>
                <StackPane prefHeight="450.0" prefWidth="300.0">
-                  <VBox alignment="TOP_CENTER" prefHeight="390.0" prefWidth="376.0" spacing="30.0" StackPane.alignment="TOP_CENTER">
+                  <VBox alignment="TOP_CENTER" prefHeight="674.0" prefWidth="376.0" spacing="40.0" StackPane.alignment="TOP_CENTER">
                      <children>
                         <Label fx:id="firstname_label" minHeight="36.0">
                            <font>
@@ -102,7 +112,7 @@
                         <Label fx:id="birthdate_label" minHeight="36.0" />
                      </children>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="674.0" prefWidth="376.0" spacing="30.0" StackPane.alignment="TOP_CENTER">
+                  <VBox alignment="TOP_CENTER" prefHeight="674.0" prefWidth="376.0" spacing="40.0" StackPane.alignment="TOP_CENTER">
                      <children>
                         <TextField fx:id="firstname_text" minHeight="36.0" promptText="firstname">
                            <font>
@@ -138,36 +148,36 @@
                      </children>
                   </VBox>
                </StackPane>
-               <VBox prefHeight="390.0" prefWidth="196.0" spacing="30.0">
+               <VBox maxWidth="56.0" minHeight="36.0" prefHeight="3.0" prefWidth="196.0" spacing="40.0">
                   <children>
-                     <Button fx:id="firstnameswitch" minHeight="35.0" onAction="#switcher" text="Edit">
+                     <Button fx:id="firstnameswitch" minHeight="36.0" onAction="#switcher" text="Edit">
                         <graphic>
-                           <ImageView fitHeight="20.0" fitWidth="100" />
+                           <ImageView fitHeight="15.0" fitWidth="15.0" />
                         </graphic>
                      </Button>
-                     <Button fx:id="lastnameswitch" minHeight="35.0" onAction="#switcher" text="Edit">
+                     <Button fx:id="lastnameswitch" minHeight="36.0" onAction="#switcher" text="Edit">
                         <graphic>
-                           <ImageView fitHeight="30.0" fitWidth="100" />
+                           <ImageView fitHeight="15.0" fitWidth="15.0" />
                         </graphic>
                      </Button>
-                     <Button fx:id="weightswitch" minHeight="35.0" onAction="#switcher" text="Edit">
+                     <Button fx:id="weightswitch" minHeight="36.0" onAction="#switcher" text="Edit">
                         <graphic>
-                           <ImageView fitHeight="30.0" fitWidth="100" />
+                           <ImageView fitHeight="15.0" fitWidth="15.0" />
                         </graphic>
                      </Button>
-                     <Button fx:id="heightswitch" minHeight="35.0" onAction="#switcher" text="Edit">
+                     <Button fx:id="heightswitch" minHeight="36.0" onAction="#switcher" text="Edit">
                         <graphic>
-                           <ImageView fitHeight="30.0" fitWidth="100" />
+                           <ImageView fitHeight="15.0" fitWidth="15.0" />
                         </graphic>
                      </Button>
-                     <Button fx:id="sexswitch" minHeight="35.0" onAction="#switcher" text="Edit">
+                     <Button fx:id="sexswitch" minHeight="36.0" onAction="#switcher" text="Edit">
                         <graphic>
-                           <ImageView fitHeight="30.0" fitWidth="100" />
+                           <ImageView fitHeight="15.0" fitWidth="15.0" />
                         </graphic>
                      </Button>
-                     <Button fx:id="birthdateswitch" minHeight="35.0" onAction="#switcher" text="Edit">
+                     <Button fx:id="birthdateswitch" minHeight="36.0" onAction="#switcher" text="Edit">
                         <graphic>
-                           <ImageView fitHeight="30.0" fitWidth="100" />
+                           <ImageView fitHeight="15.0" fitWidth="15.0" />
                         </graphic>
                      </Button>
                   </children>
