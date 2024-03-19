@@ -18,6 +18,13 @@
  */
 package ulb.models;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
+
+@JsonSerialize(using = FoodSerializer.class)
 public class Food implements Consumable {
 
 	private String name;
@@ -30,6 +37,13 @@ public class Food implements Consumable {
 		this.name = name;
 		this.caloriesPer100 = caloriesPer100;
 		this.servingQuantity = servingQuantity;
+	}
+
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Food food = (Food) o;
+		return caloriesPer100 == food.caloriesPer100 && name.equals(food.name) && servingQuantity.equals(food.servingQuantity);
 	}
 
 	@Override
@@ -71,5 +85,18 @@ public class Food implements Consumable {
 
 	public void setServingQuantity(String servingQuantity) {
 		this.servingQuantity = servingQuantity;
+	}
+}
+
+class FoodSerializer extends JsonSerializer<Food> {
+	@Override
+	public void serialize(
+			Food food, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
+			throws IOException {
+		jsonGenerator.writeStartObject();
+		jsonGenerator.writeStringField("name", food.getName());
+		jsonGenerator.writeNumberField("caloriesPer100", food.getCaloriesPer100());
+		jsonGenerator.writeStringField("servingQuantity", food.getServingQuantity());
+		jsonGenerator.writeEndObject();
 	}
 }

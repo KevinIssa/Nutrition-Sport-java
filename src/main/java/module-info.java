@@ -11,7 +11,9 @@ module ulb {
 	exports ulb.views;
 	exports ulb.controllers;
 
-	opens ulb.models to javafx.fxml, com.fasterxml.jackson.databind;
+	opens ulb.models to
+			javafx.fxml,
+			com.fasterxml.jackson.databind;
 	opens ulb.views to
 			javafx.fxml;
 	opens ulb.controllers to

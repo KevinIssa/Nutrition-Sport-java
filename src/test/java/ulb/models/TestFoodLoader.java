@@ -25,9 +25,5 @@ public class TestFoodLoader {
 	@Test
 	public void testFoodLoader() {
 		FoodLoader foodLoader = new FoodLoader("src/main/resources/food/Venison & Game.json");
-
-		for (Food food : foodLoader) {
-			System.out.println(food);
-		}
 	}
 }
