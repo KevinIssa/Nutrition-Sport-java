@@ -68,14 +68,7 @@ public class ActivityCreateViewController implements ViewController {
 	}
 
 	// Method to show an alert with the calculated calories
-	public void showAlert(double calories) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle("Calcul du nombre de calories");
-		alert.setHeaderText(null);
-		String text = "Vous avez dépensé " + calories + " calories durant cette activité";
-		alert.setContentText(text);
-		alert.showAndWait();
-	}
+
 
 	// Method to save the activity
 	public void saveActivity() {
