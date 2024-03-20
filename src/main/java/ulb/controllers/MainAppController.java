@@ -17,7 +17,9 @@
  * Date : 2024
  */
 package ulb.controllers;
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -110,16 +112,16 @@ public class MainAppController extends AppController implements MenuViewControll
 								loadWelcomeView();
 							}
 							@Override
-							public void saveProfileImage(String imagepath) throws IOException {
+							public void saveProfileImage(String imagepath){
                                 try {
 									URL imageurl = new URL(imagepath);
-									URI destinationuri = new URI(Objects.requireNonNull(getClass().getResource("/ulb/")).toString());
-                                    Path destinationpath = Paths.get(destinationuri).resolve("images/profile.png");
+									URI destinationuri = new File("profile.png").toURI();
+									Path destinationpath = Paths.get(destinationuri);
 									Files.copy(imageurl.openStream(), destinationpath, StandardCopyOption.REPLACE_EXISTING);
-                                } catch (URISyntaxException e) {
+                                } catch (IOException e) {
                                     throw new RuntimeException(e);
                                 }
-							}
+                            }
 						});
 	}@Override
 	public void loadOpenProfileView() {
@@ -193,16 +195,28 @@ public class MainAppController extends AppController implements MenuViewControll
 							}
 
 							@Override
-							public void saveProfileImage(String imagepath) {
+							public void saveProfileImage(String imagepath){
 								try {
 									URL imageurl = new URL(imagepath);
-									URI destinationuri = new URI(Objects.requireNonNull(getClass().getResource("/ulb/")).toString());
-									Path destinationpath = Paths.get(destinationuri).resolve("images/profile.png");
+									URI destinationuri = new File("profile.png").toURI();
+									Path destinationpath = Paths.get(destinationuri);
 									Files.copy(imageurl.openStream(), destinationpath, StandardCopyOption.REPLACE_EXISTING);
-
-								} catch (URISyntaxException | IOException e) {
+								} catch (IOException e) {
 									throw new RuntimeException(e);
 								}
+							}
+
+							@Override
+							public Image getProfileImage(double width, double height) {
+                                try {
+									URL path = new File("profile.png").toURL();
+									if (path == null) {
+										return null;
+									}
+									return new Image(path.toString(), width, height, true, true);
+                                } catch (MalformedURLException e) {
+                                    throw new RuntimeException(e);
+                                }
 							}
 				        });
 	}
@@ -220,12 +234,11 @@ public class MainAppController extends AppController implements MenuViewControll
 								Activity.clearAllActivities();
 								loadCreateProfileView();
                                 try {
-									URI destinationuri = new URI(Objects.requireNonNull(getClass().getResource("/ulb/")).toString());
-									Path filetodelete = Paths.get(destinationuri).resolve("images/profile.png");
+									Path filetodelete = Paths.get(".").resolve("profile.png");
 									if (Files.exists(filetodelete)){
 										Files.delete(filetodelete);
 									}
-                                } catch (URISyntaxException | IOException e) {
+                                } catch (IOException e) {
                                     throw new RuntimeException(e);
                                 }
 							}
@@ -239,7 +252,10 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadCreateActivityView() {
-		loadView("/ulb/views/ActivityCreate.fxml", () ->new ActivityCreateViewController.Listener() {
+		ActivityCreateViewController viewController =
+				(ActivityCreateViewController) this.loadView("/ulb/views/ActivityCreate.fxml");
+		viewController.setListener(
+				new ActivityCreateViewController.Listener() {
 					@Override
 					public void saveActivity(
 							Sport selectedSport, String selectedIntensity, float selectedDuration) {
@@ -250,7 +266,7 @@ public class MainAppController extends AppController implements MenuViewControll
 										Duration.ofMinutes((long) selectedDuration),
 										LocalDateTime.now());
 						activity.save();
-						Tools.showAlert(
+						viewController.showAlert(
 								activity.getCaloriesBurned(Profile.load().getWeight()));
 					}
 
@@ -258,9 +274,9 @@ public class MainAppController extends AppController implements MenuViewControll
 					public void returnHome() {
 						loadMenuView();
 					}
-				}
-		);
+				});
 	}
+
 
 	@Override
 	public void loadActivityHistoryView() {
@@ -278,15 +294,5 @@ public class MainAppController extends AppController implements MenuViewControll
 								return Activity.load(filename);
 							}
 						});
-	}
-}
-class Tools{
-	public static void showAlert(double calories) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle("Calcul du nombre de calories");
-		alert.setHeaderText(null);
-		String text = "Vous avez dépensé " + calories + " calories durant cette activité";
-		alert.setContentText(text);
-		alert.showAndWait();
 	}
 }
