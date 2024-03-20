@@ -1,44 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Circle?>
-<BorderPane xmlns="http://javafx.com/javafx"
-			xmlns:fx="http://javafx.com/fxml"
-			fx:controller="ulb.views.MenuViewController">
+<?import javafx.scene.text.Font?>
 
-	<top>
-		<MenuBar>
-			<menus>
-				<Menu>
-					<graphic>
-						<StackPane prefWidth="30" prefHeight="30">
-							<!-- Create a Circle shape as the clip -->
-							<clip>
-								<Circle radius="15" centerX="15" centerY="15" />
-							</clip>
-							<!-- Create the ImageView with the image -->
 
-							<ImageView fx:id="profileimage" fitWidth="30" fitHeight="30">
-								<Image url="@../images/default_profile.png" />
-							</ImageView>
-						</StackPane>
-					</graphic>
-					<MenuItem text="profile" onAction="#openProfile"/>
-					<MenuItem text="delete profile" onAction="#deleteProfile"/>
-				</Menu>
-
-				<Menu text="Activity" >
-					<MenuItem text="Encoder une activité" onAction="#createActivity"/>
-					<MenuItem text="Voir les activitées enregistrées" onAction="#activityHistory"/>
-				</Menu>
-			</menus>
-		</MenuBar>
-	</top>
-
-</BorderPane>
+<Pane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.MenuViewController">
+   <children>
+      <BorderPane>
+      
+      	<top>
+      		<MenuBar prefWidth="661.0">
+      			<menus>
+      				<Menu>
+      					<graphic>
+      						<StackPane prefHeight="30" prefWidth="30">
+      							<!-- Create a Circle shape as the clip -->
+      							<clip>
+      								<Circle centerX="15" centerY="15" radius="15" />
+      							</clip>
+      							<!-- Create the ImageView with the image -->
+      
+      							<ImageView fx:id="profileimage" fitHeight="30" fitWidth="30">
+      								<Image url="@../images/default_profile.png" />
+      							</ImageView>
+      						</StackPane>
+      					</graphic>
+      					<MenuItem onAction="#openProfile" text="profile" />
+      					<MenuItem onAction="#deleteProfile" text="delete profile" />
+      				</Menu>
+      
+      				<Menu text="Activity">
+      					<MenuItem onAction="#createActivity" text="Encoder une activité" />
+      					<MenuItem onAction="#activityHistory" text="Voir les activitées enregistrées" />
+      				</Menu>
+      			</menus>
+      		</MenuBar>
+      	</top>
+      
+      </BorderPane>
+      <Button layoutX="1686.0" layoutY="894.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="105.0" style="-fx-border-radius: 0.5;" text="+">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Button>
+      <Button layoutX="1688.0" layoutY="760.0" mnemonicParsing="false" visible="false">
+         <graphic>
+            <ImageView fitHeight="87.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../../../Pictures/choppa.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="1688.0" layoutY="656.0" mnemonicParsing="false" prefHeight="85.0" prefWidth="91.0" visible="false">
+         <graphic>
+            <ImageView fitHeight="79.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../../../Pictures/pp/Screenshot%202022-11-23%20101022.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</Pane>
