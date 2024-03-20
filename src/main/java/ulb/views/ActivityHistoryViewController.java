@@ -81,44 +81,53 @@ public class ActivityHistoryViewController implements ViewController {
 		return "/ulb/images/intensity_img/" + intensity.toString() + ".png";
 	}
 
-	// Add an activity to the activity history list
 	public void addActivity(Activity activity) {
 		LocalDateTime date = activity.getDate();
 		Duration duration = activity.getDuration();
 
-		// Create label with activity details
+		Label label = createLabel(activity, date, duration);
+		HBox hbox = createHBox(activity, label);
+		historyList.getItems().add(hbox);
+
+		// Update total calories
+		caloriesBurnedTotal += activity.getCaloriesBurned(Profile.load().getWeight());
+	}
+
+	private Label createLabel(Activity activity, LocalDateTime date, Duration duration) {
 		Label label = new Label(
 				"Date: " + activity.changeDateFormat(date) +
 						"   Durée: " + activity.durationToString(duration) +
 						"   Calories brûlées: " + activity.getCaloriesBurned(Profile.load().getWeight())
 		);
 		label.setTextFill(Color.BLACK);
+		return label;
+	}
 
-		// Create image
-		// Get the image path for the activity's sport
-		String imagePath = getImagePathForSport(activity.getSport().toString());
+	private HBox createHBox(Activity activity, Label label) {
+		ImageView intensityImageView = createIntensityImageView(activity);
+		ImageView sportImageView = createSportImageView(activity);
 
-		URL path = getClass().getResource(imagePath);
-		Image image1 = new Image(path.toString(), 30, 30, false, false);
-		ImageView imageView = new ImageView(image1);
-
-		String intensityStringPath = getIntensityPathForSport(activity.getIntensity().toString()); // Specify the path for the new image
-		URL intensityPath = getClass().getResource(intensityStringPath);
-		Image intensityImage = new Image(intensityPath.toString(), 30, 30, false, false);
-		ImageView intensityImageView = new ImageView(intensityImage);
-
-
-		// Create an HBox to hold the image and text together
 		HBox hbox = new HBox();
-		hbox.setAlignment(Pos.CENTER_LEFT); // Align contents to the left
-		hbox.setSpacing(10); // Add spacing between image and text
-		hbox.getChildren().addAll(intensityImageView,imageView, label);
+		hbox.setAlignment(Pos.CENTER_LEFT);
+		hbox.setSpacing(10);
+		hbox.getChildren().addAll(intensityImageView, sportImageView, label);
+		return hbox;
+	}
 
-		// Add the HBox to the list
-		historyList.getItems().add(hbox);
+	private ImageView createImageView(String imagePath, int width, int height) {
+		URL path = getClass().getResource(imagePath);
+		Image image = new Image(path.toString(), width, height, false, false);
+		return new ImageView(image);
+	}
 
-		// Update total calories
-		caloriesBurnedTotal += activity.getCaloriesBurned(Profile.load().getWeight());
+	private ImageView createIntensityImageView(Activity activity) {
+		String intensityStringPath = getIntensityPathForSport(activity.getIntensity().toString());
+		return createImageView(intensityStringPath, 30, 30);
+	}
+
+	private ImageView createSportImageView(Activity activity) {
+		String imagePath = getImagePathForSport(activity.getSport().toString());
+		return createImageView(imagePath, 30, 30);
 	}
 
 	// Set listener for communication with the controller
