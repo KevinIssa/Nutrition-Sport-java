@@ -24,7 +24,7 @@
 				 <graphic>
 					 <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
 						 <image>
-							 <Image url="@../images/sport_img/Course_a_pied.png" /> <!-- Replace icon.png with your icon file name -->
+							 <Image url="@../images/sport_img/Course à pied.png" /> <!-- Replace icon.png with your icon file name -->
 						 </image>
 					 </ImageView>
 				 </graphic>
@@ -51,7 +51,7 @@
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                      <image>
-                        <Image url="@../images/sport_img/Velo.png" />
+                        <Image url="@../images/sport_img/Vélo.png" />
                      </image>
                   </ImageView>
                </graphic>

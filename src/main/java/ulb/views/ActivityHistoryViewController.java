@@ -27,12 +27,13 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import ulb.models.Activity;
 import ulb.models.Profile;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.ListCell;
-import ulb.views.utils.CustomListCell;
+import javafx.geometry.Pos;
 
 public class ActivityHistoryViewController implements ViewController {
 
@@ -42,41 +43,11 @@ public class ActivityHistoryViewController implements ViewController {
 	private ActivityHistoryViewController.Listener
 			listener; // Listener interface for communication with the controller
 
-	@FXML private ListView<Image> historyList; // ListView to display activity history
+	@FXML private ListView<HBox> historyList; // ListView to display activity history
 
 	// Method called after FXML file has been loaded; overridden from Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {}
-
-	// Add an activity to the activity history list
-	public void addActivity(Activity activity) {
-		LocalDateTime date = activity.getDate();
-		Duration duration = activity.getDuration();
-
-		Label label =
-				new Label(
-						"Date: "
-								+ activity.changeDateFormat(date)
-								+ "   Activité: "
-								+ activity.getSport().toString()
-								+ "   Intensité: "
-								+ activity.getIntensity().toString()
-								+ "   Durée: "
-								+ activity.durationToString(duration)
-								+ "   Calories brûlées: "
-								+ activity.getCaloriesBurned(Profile.load().getWeight()));
-		caloriesBurnedTotal += activity.getCaloriesBurned(Profile.load().getWeight());
-		URL path = getClass().getResource("/ulb/images/sport_img/Velo.png");
-		Image image1 = new Image(path.toString(), 30, 30, false, false);
-		historyList.getItems().addAll(image1);
-
-		historyList.setCellFactory(listView -> new CustomListCell());
-	}
-
-	// Return to the home view
-	public void returnHome() {
-		this.listener.returnHome();
-	}
 
 	// Add all activities to the activity history list
 	public void addActivities() {
@@ -89,13 +60,57 @@ public class ActivityHistoryViewController implements ViewController {
 		// Add activities to the list
 		if (files != null) {
 			for (File file : files) {
-				this.addActivity(
-						listener.loadActivity(
-								file.getPath())); // Load activity from file and add it to the list
+				Activity activity = listener.loadActivity(file.getPath());
+				addActivity(activity); // Add each activity individually
 			}
 		}
-		Label label = new Label("Total des calories brûlées: " + caloriesBurnedTotal);
-		//historyList.getItems().add(label);
+
+		// Add total calories label
+		Label totalCaloriesLabel = new Label("Total des calories brûlées: " + caloriesBurnedTotal);
+		//Will have to be changed to hbox later to be added
+
+	}
+
+
+	// Method to get the image path for a given sport
+	private String getImagePathForSport(String sport) {
+		return "/ulb/images/sport_img/" + sport + ".png";
+	}
+
+	// Add an activity to the activity history list
+	public void addActivity(Activity activity) {
+		LocalDateTime date = activity.getDate();
+		Duration duration = activity.getDuration();
+
+		// Create label with activity details
+		Label label = new Label(
+				"Date: " + activity.changeDateFormat(date) +
+						"   Activité: " + activity.getSport().toString() +
+						"   Intensité: " + activity.getIntensity().toString() +
+						"   Durée: " + activity.durationToString(duration) +
+						"   Calories brûlées: " + activity.getCaloriesBurned(Profile.load().getWeight())
+		);
+		label.setTextFill(Color.BLACK);
+
+		// Create image
+		// Get the image path for the activity's sport
+		String imagePath = getImagePathForSport(activity.getSport().toString());
+
+		URL path = getClass().getResource(imagePath);
+		Image image1 = new Image(path.toString(), 30, 30, false, false);
+		ImageView imageView = new ImageView(image1);
+
+		// Create an HBox to hold the image and text together
+		HBox hbox = new HBox();
+		hbox.setAlignment(Pos.CENTER_LEFT); // Align contents to the left
+		hbox.setSpacing(10); // Add spacing between image and text
+		hbox.getChildren().addAll(imageView, label);
+
+		// Add the HBox to the list
+		historyList.getItems().add(hbox);
+
+		// Update total calories
+		caloriesBurnedTotal += activity.getCaloriesBurned(Profile.load().getWeight());
 	}
 
 	// Set listener for communication with the controller
@@ -105,6 +120,10 @@ public class ActivityHistoryViewController implements ViewController {
 		}
 		this.listener = (Listener) listener;
 		this.addActivities(); // Add activities when listener is set
+	}
+
+	public void returnHome() {
+		this.listener.returnHome();
 	}
 
 	// Listener interface for communication with the controller
