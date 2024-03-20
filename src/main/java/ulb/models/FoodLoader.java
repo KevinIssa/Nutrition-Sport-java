@@ -22,10 +22,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
-public class FoodLoader implements Iterable<Food> {
+public class FoodLoader {
 
 	private List<Food> foods;
 
@@ -50,24 +49,5 @@ public class FoodLoader implements Iterable<Food> {
 			}
 		}
 		return result;
-	}
-
-	@Override
-	public Iterator<Food> iterator() {
-		return new FoodIterator();
-	}
-
-	private class FoodIterator implements Iterator<Food> {
-		private int currentIndex = 0;
-
-		@Override
-		public boolean hasNext() {
-			return currentIndex < foods.size();
-		}
-
-		@Override
-		public Food next() {
-			return foods.get(currentIndex++);
-		}
 	}
 }
