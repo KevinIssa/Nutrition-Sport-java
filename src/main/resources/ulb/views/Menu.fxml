@@ -29,13 +29,17 @@
 							</ImageView>
 						</StackPane>
 					</graphic>
-					<MenuItem text="profile" onAction="#openProfile"/>
-					<MenuItem text="delete profile" onAction="#deleteProfile"/>
+					<MenuItem text="Voir le profil" onAction="#openProfile"/>
+					<MenuItem text="Supprimer le profil" onAction="#deleteProfile"/>
 				</Menu>
 
-				<Menu text="Activity" >
+				<Menu text="Activité" >
 					<MenuItem text="Encoder une activité" onAction="#createActivity"/>
 					<MenuItem text="Voir les activitées enregistrées" onAction="#activityHistory"/>
+				</Menu>
+
+				<Menu text="Alimentation">
+					<MenuItem text="Suggestion d'alimentation"/>
 				</Menu>
 			</menus>
 		</MenuBar>

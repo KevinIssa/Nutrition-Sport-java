@@ -69,7 +69,6 @@ public class ActivityCreateViewController implements ViewController {
 
 	// Method to show an alert with the calculated calories
 
-
 	// Method to save the activity
 	public void saveActivity() {
 		try {
