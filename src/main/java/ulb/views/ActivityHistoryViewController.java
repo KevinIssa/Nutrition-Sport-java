@@ -77,6 +77,10 @@ public class ActivityHistoryViewController implements ViewController {
 		return "/ulb/images/sport_img/" + sport + ".png";
 	}
 
+	private String getIntensityPathForSport(String intensity) {
+		return "/ulb/images/intensity_img/" + intensity.toString() + ".png";
+	}
+
 	// Add an activity to the activity history list
 	public void addActivity(Activity activity) {
 		LocalDateTime date = activity.getDate();
@@ -85,8 +89,6 @@ public class ActivityHistoryViewController implements ViewController {
 		// Create label with activity details
 		Label label = new Label(
 				"Date: " + activity.changeDateFormat(date) +
-						"   Activité: " + activity.getSport().toString() +
-						"   Intensité: " + activity.getIntensity().toString() +
 						"   Durée: " + activity.durationToString(duration) +
 						"   Calories brûlées: " + activity.getCaloriesBurned(Profile.load().getWeight())
 		);
@@ -100,11 +102,17 @@ public class ActivityHistoryViewController implements ViewController {
 		Image image1 = new Image(path.toString(), 30, 30, false, false);
 		ImageView imageView = new ImageView(image1);
 
+		String intensityStringPath = getIntensityPathForSport(activity.getIntensity().toString()); // Specify the path for the new image
+		URL intensityPath = getClass().getResource(intensityStringPath);
+		Image intensityImage = new Image(intensityPath.toString(), 30, 30, false, false);
+		ImageView intensityImageView = new ImageView(intensityImage);
+
+
 		// Create an HBox to hold the image and text together
 		HBox hbox = new HBox();
 		hbox.setAlignment(Pos.CENTER_LEFT); // Align contents to the left
 		hbox.setSpacing(10); // Add spacing between image and text
-		hbox.getChildren().addAll(imageView, label);
+		hbox.getChildren().addAll(intensityImageView,imageView, label);
 
 		// Add the HBox to the list
 		historyList.getItems().add(hbox);
