@@ -326,7 +326,7 @@ public class MainAppController extends AppController implements MenuViewControll
 
 					private List<Food> loadFoods(String searchText) {
 
-						FoodLoader foodLoader = new FoodLoader("src/main/resources/ulb/foods.json");
+						FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json");
 						return foodLoader.getFoodsSuggestion(searchText);
 					}
 
