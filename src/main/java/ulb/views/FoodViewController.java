@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
 public class FoodViewController implements ViewController {
@@ -31,19 +32,24 @@ public class FoodViewController implements ViewController {
 
 	@FXML private ListView<String> suggestionsList;
 
+
 	private FoodViewController.Listener listener;
 
 	@FXML
 	private void suggestFoods() {
-		String searchText = searchField.getText();
-		listener.sendUserSearch(searchText);
+		String searchText = this.searchField.getText();
+		this.listener.sendUserSearch(searchText);
 	}
 
 	public void setSuggestions(List<String> foods) {
-		suggestionsList.getItems().clear();
+		this.suggestionsList.getItems().clear();
 		for (String food : foods) {
-			suggestionsList.getItems().add(food);
+			this.suggestionsList.getItems().add(food);
 		}
+	}
+
+	public void returnHome(){
+		this.listener.returnHome();
 	}
 
 	public interface Listener {
@@ -55,6 +61,7 @@ public class FoodViewController implements ViewController {
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {}
 
+	@Override
 	public void setListener(Object listener) {
 		if (listener == null) {
 			throw new IllegalArgumentException("Listener cannot be null");
