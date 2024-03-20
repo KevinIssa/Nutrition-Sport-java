@@ -64,7 +64,7 @@ public class MenuViewController implements ViewController {
 		}
 	}
 
-	public void foodSearchPage(){
+	public void foodSearchPage() {
 		this.listener.loadFoodSearchPage();
 	}
 

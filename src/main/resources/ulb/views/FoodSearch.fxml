@@ -17,11 +17,11 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="1080.0" prefWidth="1830.0">
                <children>
-                  <TextField fx:id="searchField" minHeight="-Infinity" onInputMethodTextChanged="#suggestFoods" prefHeight="50.0" prefWidth="1830.0" promptText="Entrez Nourriture">
+                  <TextField fx:id="searchField" minHeight="-Infinity" onKeyTyped="#suggestFoods" prefHeight="50.0" prefWidth="1830.0" promptText="Entrez Nourriture">
                      <font>
                         <Font size="26.0" />
                      </font></TextField>
-                  <ListView prefHeight="500.0" prefWidth="1830.0" />
+                  <ListView fx:id="suggestionsList" prefHeight="500.0" prefWidth="1830.0" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="1080.0" prefWidth="50.0">

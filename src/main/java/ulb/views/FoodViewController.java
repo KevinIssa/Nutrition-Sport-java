@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
 public class FoodViewController implements ViewController {
@@ -31,7 +30,6 @@ public class FoodViewController implements ViewController {
 	@FXML private TextField searchField;
 
 	@FXML private ListView<String> suggestionsList;
-
 
 	private FoodViewController.Listener listener;
 
@@ -48,7 +46,7 @@ public class FoodViewController implements ViewController {
 		}
 	}
 
-	public void returnHome(){
+	public void returnHome() {
 		this.listener.returnHome();
 	}
 

@@ -37,13 +37,9 @@ public class FoodLoader implements Iterable<Food> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			foods = objectMapper.readValue(new File(filename), new TypeReference<List<Food>>() {});
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException exception) {
+			exception.printStackTrace();
 		}
-	}
-
-	public List<Food> getFoods() {
-		return foods;
 	}
 
 	public List<Food> getFoodsSuggestion(String input) {

@@ -315,8 +315,9 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadFoodSearchPage() {
-		FoodViewController foodViewController = (FoodViewController) loadView("/ulb/views/FoodSearch.fxml");
-        foodViewController.setListener(
+		FoodViewController foodViewController =
+				(FoodViewController) loadView("/ulb/views/FoodSearch.fxml");
+		foodViewController.setListener(
 				new FoodViewController.Listener() {
 					@Override
 					public void returnHome() {
