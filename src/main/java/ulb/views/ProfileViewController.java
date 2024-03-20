@@ -20,15 +20,11 @@ package ulb.views;
 
 import java.awt.*;
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -102,8 +98,8 @@ public class ProfileViewController implements ViewController {
 		double desiredHeight = 15; // Desired height in pixels
 		this.pen = this.listener.getImage(relativePath, desiredWidth, desiredHeight);
 		relativePath = "images/check.png";
-		this.check  = this.listener.getImage(relativePath, desiredWidth, desiredHeight);
-        this.imageselection.setGraphic(new ImageView(pen));
+		this.check = this.listener.getImage(relativePath, desiredWidth, desiredHeight);
+		this.imageselection.setGraphic(new ImageView(pen));
 		this.firstnameswitch.setGraphic(new ImageView(pen));
 		this.lastnameswitch.setGraphic(new ImageView(pen));
 		this.birthdateswitch.setGraphic(new ImageView(pen));
@@ -119,15 +115,17 @@ public class ProfileViewController implements ViewController {
 		this.sex_label.setText(listener.getSex());
 		this.setProfileImage();
 	}
-	public void setProfileImage(){
+
+	public void setProfileImage() {
 		double desiredWidth = 200; // Desired width in pixels
 		double desiredHeight = 150; // Desired height in pixels
 		Image image = this.listener.getProfileImage(desiredWidth, desiredHeight);
-		if ((image != null)){
+		if ((image != null)) {
 			this.profileimage.setImage(image);
 		}
 	}
-	public void eventHandler(ActionEvent event){
+
+	public void eventHandler(ActionEvent event) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Image File");
 		File selectedFile = fileChooser.showOpenDialog(imageselection.getScene().getWindow());
@@ -140,18 +138,19 @@ public class ProfileViewController implements ViewController {
 			this.imagepath = selectedFile.toURI().toString();
 		}
 	}
-	public void switcher(ActionEvent event){
+
+	public void switcher(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		String id = node.getId();
 		switch (id) {
 			case "firstnameswitch":
-				if (Objects.equals(this.firstnameswitch.getText(), "Edit")){
+				if (Objects.equals(this.firstnameswitch.getText(), "Edit")) {
 					this.firstnameswitch.setText("Done");
 					this.firstnameswitch.setGraphic(new ImageView(check));
 					this.firstname_text.setVisible(true);
 					this.firstname_label.setVisible(false);
 					this.firstname_text.setText(this.firstname_label.getText());
-				}else{
+				} else {
 					this.firstnameswitch.setText("Edit");
 					this.firstnameswitch.setGraphic(new ImageView(pen));
 					this.firstname_text.setVisible(false);
@@ -160,13 +159,13 @@ public class ProfileViewController implements ViewController {
 				}
 				break;
 			case "lastnameswitch":
-				if (Objects.equals(this.lastnameswitch.getText(), "Edit")){
+				if (Objects.equals(this.lastnameswitch.getText(), "Edit")) {
 					this.lastnameswitch.setText("Done");
 					this.lastnameswitch.setGraphic(new ImageView(check));
 					this.lastname_text.setVisible(true);
 					this.lastname_label.setVisible(false);
 					this.lastname_text.setText(this.lastname_label.getText());
-				}else{
+				} else {
 					this.lastnameswitch.setText("Edit");
 					this.lastnameswitch.setGraphic(new ImageView(pen));
 					this.lastname_text.setVisible(false);
@@ -175,14 +174,17 @@ public class ProfileViewController implements ViewController {
 				}
 				break;
 			case "birthdateswitch":
-				if (Objects.equals(this.birthdateswitch.getText(), "Edit")){
+				if (Objects.equals(this.birthdateswitch.getText(), "Edit")) {
 					this.birthdateswitch.setText("Done");
 					this.birthdateswitch.setGraphic(new ImageView(check));
 					this.birthdate_text.setVisible(true);
 					this.birthdate_label.setVisible(false);
 
-					this.birthdate_text.setValue(LocalDate.parse(birthdate_label.getText(), DateTimeFormatter.ofPattern("yyyy-MM-d")));
-				}else{
+					this.birthdate_text.setValue(
+							LocalDate.parse(
+									birthdate_label.getText(),
+									DateTimeFormatter.ofPattern("yyyy-MM-d")));
+				} else {
 					this.birthdateswitch.setText("Edit");
 					this.birthdateswitch.setGraphic(new ImageView(pen));
 					this.birthdate_text.setVisible(false);
@@ -191,13 +193,13 @@ public class ProfileViewController implements ViewController {
 				}
 				break;
 			case "heightswitch":
-				if (Objects.equals(this.heightswitch.getText(), "Edit")){
+				if (Objects.equals(this.heightswitch.getText(), "Edit")) {
 					this.heightswitch.setText("Done");
 					this.heightswitch.setGraphic(new ImageView(check));
 					this.height_text.setVisible(true);
 					this.height_label.setVisible(false);
 					this.height_text.setText(this.height_label.getText());
-				}else{
+				} else {
 					this.heightswitch.setText("Edit");
 					this.heightswitch.setGraphic(new ImageView(pen));
 					this.height_text.setVisible(false);
@@ -206,13 +208,13 @@ public class ProfileViewController implements ViewController {
 				}
 				break;
 			case "weightswitch":
-				if (Objects.equals(this.weightswitch.getText(), "Edit")){
+				if (Objects.equals(this.weightswitch.getText(), "Edit")) {
 					this.weightswitch.setText("Done");
 					this.weightswitch.setGraphic(new ImageView(check));
 					this.weight_text.setVisible(true);
 					this.weight_label.setVisible(false);
 					this.weight_text.setText(this.weight_label.getText());
-				}else{
+				} else {
 					this.weightswitch.setText("Edit");
 					this.weightswitch.setGraphic(new ImageView(pen));
 					this.weight_text.setVisible(false);
@@ -221,34 +223,34 @@ public class ProfileViewController implements ViewController {
 				}
 				break;
 			case "sexswitch":
-				if (Objects.equals(this.sexswitch.getText(), "Edit")){
+				if (Objects.equals(this.sexswitch.getText(), "Edit")) {
 					this.sexswitch.setText("Done");
 					this.sexswitch.setGraphic(new ImageView(check));
 					this.maleButton.setVisible(true);
 					this.femaleButton.setVisible(true);
 					this.sex_label.setVisible(false);
-					if (Objects.equals(this.sex_label.getText(), "♂")){
+					if (Objects.equals(this.sex_label.getText(), "♂")) {
 						this.maleButton.setSelected(true);
 						this.femaleButton.setSelected(false);
-					}else {
+					} else {
 						this.maleButton.setSelected(false);
 						this.femaleButton.setSelected(true);
 					}
 
-				}else{
+				} else {
 					this.sexswitch.setText("Edit");
 					this.sexswitch.setGraphic(new ImageView(pen));
 					this.maleButton.setVisible(false);
 					this.femaleButton.setVisible(false);
 					this.sex_label.setVisible(true);
-					if (this.maleButton.isSelected()){
+					if (this.maleButton.isSelected()) {
 						this.sex_label.setText("♂");
-					}else{
+					} else {
 						this.sex_label.setText("♀");
 					}
 				}
 				break;
-			// more cases can be added as needed
+				// more cases can be added as needed
 			default:
 				// code to be executed if expression doesn't match any case
 		}
@@ -260,17 +262,14 @@ public class ProfileViewController implements ViewController {
 			String savedLastName = lastname_label.getText();
 			String savedFirstName = firstname_label.getText();
 			String savedSex = this.sex_label.getText();
-			LocalDate localDate = LocalDate.parse(birthdate_label.getText(), DateTimeFormatter.ofPattern("yyyy-MM-d"));
+			LocalDate localDate =
+					LocalDate.parse(
+							birthdate_label.getText(), DateTimeFormatter.ofPattern("yyyy-MM-d"));
 			float floatHeight = Float.parseFloat(height_label.getText());
 			float floatWeight = Float.parseFloat(weight_label.getText());
 			this.listener.saveProfile(
-					savedFirstName,
-					savedLastName,
-					savedSex,
-					localDate,
-					floatHeight,
-					floatWeight);
-			if (this.imagepath != null){
+					savedFirstName, savedLastName, savedSex, localDate, floatHeight, floatWeight);
+			if (this.imagepath != null) {
 				this.listener.saveProfileImage(this.imagepath);
 			}
 		} catch (NumberFormatException e) {
@@ -312,7 +311,9 @@ public class ProfileViewController implements ViewController {
 		float getWeight();
 
 		Image getImage(String relativePath, double width, double height);
+
 		void saveProfileImage(String imagepath);
+
 		Image getProfileImage(double width, double height);
 	}
 }

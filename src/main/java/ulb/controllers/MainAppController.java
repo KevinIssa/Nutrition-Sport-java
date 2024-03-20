@@ -17,21 +17,20 @@
  * Date : 2024
  */
 package ulb.controllers;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.*;
 import java.nio.file.Files;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.function.Supplier;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import ulb.models.Activity;
@@ -40,7 +39,6 @@ import ulb.models.enums.Intensity;
 import ulb.models.enums.Sex;
 import ulb.models.enums.Sport;
 import ulb.views.*;
-import java.nio.file.*;
 
 public class MainAppController extends AppController implements MenuViewController.Listener {
 
@@ -64,8 +62,8 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	private void loadView(String resourcePath, Supplier<Object> listenerSupplier) {
 		ViewController viewController = this.loadView(resourcePath);
-        assert viewController != null;
-        viewController.setListener(listenerSupplier.get());
+		assert viewController != null;
+		viewController.setListener(listenerSupplier.get());
 	}
 
 	@Override
@@ -111,19 +109,25 @@ public class MainAppController extends AppController implements MenuViewControll
 							public void returnHome() {
 								loadWelcomeView();
 							}
+
 							@Override
-							public void saveProfileImage(String imagepath){
-                                try {
+							public void saveProfileImage(String imagepath) {
+								try {
 									URL imageurl = new URL(imagepath);
 									URI destinationuri = new File("profile.png").toURI();
 									Path destinationpath = Paths.get(destinationuri);
-									Files.copy(imageurl.openStream(), destinationpath, StandardCopyOption.REPLACE_EXISTING);
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }
+									Files.copy(
+											imageurl.openStream(),
+											destinationpath,
+											StandardCopyOption.REPLACE_EXISTING);
+								} catch (IOException e) {
+									throw new RuntimeException(e);
+								}
+							}
 						});
-	}@Override
+	}
+
+	@Override
 	public void loadOpenProfileView() {
 		loadView(
 				"/ulb/views/Profile.fxml",
@@ -186,7 +190,8 @@ public class MainAppController extends AppController implements MenuViewControll
 							}
 
 							@Override
-							public Image getImage(String relativePath, double width, double height) {
+							public Image getImage(
+									String relativePath, double width, double height) {
 								URL path = getClass().getResource("/ulb/" + relativePath);
 								if (path == null) {
 									return null;
@@ -195,12 +200,15 @@ public class MainAppController extends AppController implements MenuViewControll
 							}
 
 							@Override
-							public void saveProfileImage(String imagepath){
+							public void saveProfileImage(String imagepath) {
 								try {
 									URL imageurl = new URL(imagepath);
 									URI destinationuri = new File("profile.png").toURI();
 									Path destinationpath = Paths.get(destinationuri);
-									Files.copy(imageurl.openStream(), destinationpath, StandardCopyOption.REPLACE_EXISTING);
+									Files.copy(
+											imageurl.openStream(),
+											destinationpath,
+											StandardCopyOption.REPLACE_EXISTING);
 								} catch (IOException e) {
 									throw new RuntimeException(e);
 								}
@@ -208,17 +216,17 @@ public class MainAppController extends AppController implements MenuViewControll
 
 							@Override
 							public Image getProfileImage(double width, double height) {
-                                try {
+								try {
 									URL path = new File("profile.png").toURL();
 									if (path == null) {
 										return null;
 									}
 									return new Image(path.toString(), width, height, true, true);
-                                } catch (MalformedURLException e) {
-                                    throw new RuntimeException(e);
-                                }
+								} catch (MalformedURLException e) {
+									throw new RuntimeException(e);
+								}
 							}
-				        });
+						});
 	}
 
 	@Override
@@ -233,14 +241,14 @@ public class MainAppController extends AppController implements MenuViewControll
 								profile.delete();
 								Activity.clearAllActivities();
 								loadCreateProfileView();
-                                try {
+								try {
 									Path filetodelete = Paths.get(".").resolve("profile.png");
-									if (Files.exists(filetodelete)){
+									if (Files.exists(filetodelete)) {
 										Files.delete(filetodelete);
 									}
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
+								} catch (IOException e) {
+									throw new RuntimeException(e);
+								}
 							}
 
 							@Override
@@ -276,7 +284,6 @@ public class MainAppController extends AppController implements MenuViewControll
 					}
 				});
 	}
-
 
 	@Override
 	public void loadActivityHistoryView() {

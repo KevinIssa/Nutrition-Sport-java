@@ -18,11 +18,21 @@
  */
 package ulb.models.enums;
 
+/**
+ * Enum representing the intensity of an activity.
+ */
 public enum Intensity {
 	SLOW,
 	MODERATE,
 	INTENSE;
 
+	/**
+	 * Converts a string representation of intensity to the corresponding enum value.
+	 *
+	 * @param selectedIntensity The string representation of intensity.
+	 * @return The enum value corresponding to the given string.
+	 * @throws IllegalArgumentException If the provided string does not match any known intensity.
+	 */
 	public static Intensity fromString(String selectedIntensity) {
 		switch (selectedIntensity) {
 			case "Slow":
@@ -36,6 +46,11 @@ public enum Intensity {
 		}
 	}
 
+	/**
+	 * Converts the enum value to its corresponding localized string representation.
+	 *
+	 * @return The localized string representation of the intensity.
+	 */
 	@Override
 	public String toString() {
 		switch (this) {

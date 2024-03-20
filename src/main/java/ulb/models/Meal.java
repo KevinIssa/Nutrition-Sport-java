@@ -30,6 +30,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Represents a Meal.
+ */
 @JsonDeserialize(using = MealDeserializer.class)
 public class Meal implements Consumable, JsonSerializable {
 
@@ -40,12 +43,25 @@ public class Meal implements Consumable, JsonSerializable {
 	@JsonSerialize(using = FoodListSerializer.class)
 	private List<Map.Entry<Food, Integer>> ingredients = new ArrayList<>();
 
+	/**
+	 * Default constructor.
+	 */
 	Meal() {}
 
+	/**
+	 * Constructor with name parameter.
+	 * @param name The name of the meal.
+	 */
 	Meal(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Checks if this meal is equal to another object.
+	 * @param o The object to compare.
+	 * @return True if the objects are equal, otherwise false.
+	 */
+	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
@@ -53,28 +69,52 @@ public class Meal implements Consumable, JsonSerializable {
 		return Objects.equals(name, meal.name) && Objects.equals(ingredients, meal.ingredients);
 	}
 
+	/**
+	 * Adds an ingredient to the meal.
+	 * @param food The food to add.
+	 * @param quantity The quantity of the food.
+	 */
 	public void addIngredient(Food food, Integer quantity) {
 		Map.Entry<Food, Integer> entry = Map.entry(food, quantity);
 		this.ingredients.add(entry);
 	}
 
+	/**
+	 * Gets the total calories consumed by the meal.
+	 * @return The total calories consumed.
+	 */
 	@Override
 	public int getCaloriesConsumed() {
 		return getCaloriesConsumedByServing(1);
 	}
 
+	/**
+	 * Gets the calories consumed by the meal for a given amount of grams.
+	 * @param grams The grams of the meal.
+	 * @return The calories consumed.
+	 */
 	@Override
 	public int getCaloriesConsumedByGrams(int grams) {
 		int totalGrams = getGramsForServing(1);
 		return getCaloriesConsumed() * grams / totalGrams;
 	}
 
-	private int getGramsForServing(int i) {
+	/**
+	 * Gets the total grams for a given serving of the meal.
+	 * @param servings The number of servings.
+	 * @return The total grams.
+	 */
+	private int getGramsForServing(int servings) {
 		int totalGrams = 0;
-		// TODO: :)
-		return totalGrams * i;
+		// TODO: Implement logic
+		return totalGrams * servings;
 	}
 
+	/**
+	 * Gets the total calories consumed by the meal for a given number of servings.
+	 * @param servings The number of servings.
+	 * @return The total calories consumed.
+	 */
 	@Override
 	public int getCaloriesConsumedByServing(int servings) {
 		int totalCalories = 0;
@@ -87,6 +127,9 @@ public class Meal implements Consumable, JsonSerializable {
 		return totalCalories * servings;
 	}
 
+	/**
+	 * Saves the meal to a file.
+	 */
 	public void save() {
 		File folder = new File(FOLDER_NAME);
 		if (!folder.exists()) {
@@ -96,10 +139,19 @@ public class Meal implements Consumable, JsonSerializable {
 		saveToFile(filename);
 	}
 
+	/**
+	 * Loads a meal from a file.
+	 * @param filename The name of the file.
+	 * @return The loaded meal.
+	 */
 	public static Meal load(String filename) {
 		return (Meal) new Meal().loadFromFile(filename);
 	}
 
+	/**
+	 * Saves the meal to a file.
+	 * @param filename The name of the file.
+	 */
 	public void saveToFile(String filename) {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -110,6 +162,11 @@ public class Meal implements Consumable, JsonSerializable {
 		}
 	}
 
+	/**
+	 * Loads a meal from a file.
+	 * @param filename The name of the file.
+	 * @return The loaded meal.
+	 */
 	public JsonSerializable loadFromFile(String filename) {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -120,28 +177,51 @@ public class Meal implements Consumable, JsonSerializable {
 		return null;
 	}
 
+	/**
+	 * Gets the name of the meal.
+	 * @return The name of the meal.
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the name of the meal.
+	 * @param name The name of the meal.
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Gets the ingredients of the meal.
+	 * @return The list of ingredients.
+	 */
 	public List<Map.Entry<Food, Integer>> getIngredients() {
 		return ingredients;
 	}
 
+	/**
+	 * Sets the ingredients of the meal.
+	 * @param ingredients The list of ingredients.
+	 */
 	public void setIngredients(List<Map.Entry<Food, Integer>> ingredients) {
 		this.ingredients = ingredients;
 	}
 
+	/**
+	 * Returns a string representation of the meal.
+	 * @return The string representation.
+	 */
 	@Override
 	public String toString() {
 		return "Meal{" + "name='" + name + '\'' + ", ingredients=" + ingredients + '}';
 	}
 }
 
+/**
+ * Serializer for Food list.
+ */
 class FoodListSerializer
 		extends com.fasterxml.jackson.databind.JsonSerializer<List<Map.Entry<Food, Integer>>> {
 	@Override
@@ -161,6 +241,9 @@ class FoodListSerializer
 	}
 }
 
+/**
+ * Deserializer for Meal.
+ */
 class MealDeserializer extends StdDeserializer<Meal> {
 	public MealDeserializer() {
 		this(null);

@@ -69,7 +69,6 @@ public class ActivityCreateViewController implements ViewController {
 
 	// Method to show an alert with the calculated calories
 
-
 	// Method to save the activity
 	public void saveActivity() {
 		try {
@@ -86,6 +85,7 @@ public class ActivityCreateViewController implements ViewController {
 	public void returnHome() {
 		this.listener.returnHome();
 	}
+
 	public static void showAlert(double calories) {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("Calcul du nombre de calories");
@@ -94,7 +94,6 @@ public class ActivityCreateViewController implements ViewController {
 		alert.setContentText(text);
 		alert.showAndWait();
 	}
-
 
 	public void setButtonDefaultColor() {
 		button_walking.setStyle("-fx-background-color: rgb(255,255,255);");

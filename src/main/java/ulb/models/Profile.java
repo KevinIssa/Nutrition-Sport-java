@@ -27,6 +27,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import ulb.models.enums.Sex;
 
+/**
+ * Represents a user profile containing personal information.
+ */
 public class Profile implements JsonSerializable {
 
 	public static final String FILENAME = "profile.json";
@@ -39,8 +42,20 @@ public class Profile implements JsonSerializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private LocalDate birthDate;
 
+	/**
+	 * Default constructor for Profile.
+	 */
 	public Profile() {}
 
+	/**
+	 * Constructs a Profile object with specified attributes.
+	 * @param firstName The first name of the user.
+	 * @param lastName The last name of the user.
+	 * @param sex The gender of the user.
+	 * @param weight The weight of the user.
+	 * @param height The height of the user.
+	 * @param birthDate The birthdate of the user.
+	 */
 	public Profile(
 			String firstName,
 			String lastName,
@@ -73,19 +88,33 @@ public class Profile implements JsonSerializable {
 				&& birthDate.equals(profile.birthDate);
 	}
 
+	/**
+	 * Checks if a profile file exists.
+	 * @return True if the profile file exists, false otherwise.
+	 */
 	public static boolean isCreated() {
 		File file = new File(FILENAME);
 		return file.exists();
 	}
 
+	/**
+	 * Saves the profile to a file.
+	 */
 	public void save() {
 		this.saveToFile(FILENAME);
 	}
 
+	/**
+	 * Loads the profile from a file.
+	 * @return The loaded profile.
+	 */
 	public static Profile load() {
 		return (Profile) new Profile().loadFromFile(FILENAME);
 	}
 
+	/**
+	 * Deletes the profile file.
+	 */
 	public void delete() {
 		File file = new File(FILENAME);
 		if (file.exists()) {
@@ -97,55 +126,106 @@ public class Profile implements JsonSerializable {
 	}
 
 	// Getters and setters for Profile properties
-
+	/**
+	 * Gets the first name of the user.
+	 * @return The first name of the user.
+	 */
 	public String getFirstName() {
 		return this.firstName;
 	}
 
+	/**
+	 * Sets the first name of the user.
+	 * @param newFirstName The new first name to set.
+	 */
 	public void setFirstName(String newFirstName) {
 		this.firstName = newFirstName;
 	}
 
+	/**
+	 * Gets the last name of the user.
+	 * @return The last name of the user.
+	 */
 	public String getLastName() {
 		return this.lastName;
 	}
 
+	/**
+	 * Sets the last name of the user.
+	 * @param newLastName The new last name to set.
+	 */
 	public void setLastName(String newLastName) {
 		this.lastName = newLastName;
 	}
 
+	/**
+	 * Gets the gender of the user.
+	 * @return The gender of the user.
+	 */
 	public Sex getSex() {
 		return this.sex;
 	}
 
+	/**
+	 * Sets the gender of the user.
+	 * @param sex The new gender to set.
+	 */
 	public void setSex(Sex sex) {
 		this.sex = sex;
 	}
 
+	/**
+	 * Gets the weight of the user.
+	 * @return The weight of the user.
+	 */
 	public float getWeight() {
 		return weight.getWeight();
 	}
 
+	/**
+	 * Sets the weight of the user.
+	 * @param weight The new weight to set.
+	 */
 	public void setWeight(float weight) {
 		this.weight = new Weight(weight);
 	}
 
+	/**
+	 * Gets the height of the user.
+	 * @return The height of the user.
+	 */
 	public float getHeight() {
 		return height.getHeight();
 	}
 
+	/**
+	 * Sets the height of the user.
+	 * @param height The new height to set.
+	 */
 	public void setHeight(float height) {
 		this.height = new Height(height);
 	}
 
+	/**
+	 * Gets the birthdate of the user.
+	 * @return The birthdate of the user.
+	 */
 	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
+	/**
+	 * Sets the birthdate of the user.
+	 * @param birthDate The new birthdate to set.
+	 */
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 
+	/**
+	 * Generates a string representation of the profile.
+	 * @return A string representation of the profile.
+	 */
 	@Override
 	public String toString() {
 		return "Profile{"
@@ -166,6 +246,10 @@ public class Profile implements JsonSerializable {
 				+ '}';
 	}
 
+	/**
+	 * Saves the profile to a file.
+	 * @param filename The name of the file to save the profile to.
+	 */
 	@Override
 	public void saveToFile(String filename) {
 		ObjectMapper mapper = new ObjectMapper();
@@ -178,6 +262,11 @@ public class Profile implements JsonSerializable {
 		}
 	}
 
+	/**
+	 * Loads the profile from a file.
+	 * @param filename The name of the file to load the profile from.
+	 * @return The loaded profile.
+	 */
 	@Override
 	public JsonSerializable loadFromFile(String filename) {
 		File file = new File(filename);

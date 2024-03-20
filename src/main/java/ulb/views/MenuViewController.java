@@ -18,24 +18,23 @@
  */
 package ulb.views;
 
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class MenuViewController implements ViewController {
-	@FXML
-	ImageView profileimage;
+	@FXML ImageView profileimage;
 
 	private MenuViewController.Listener
 			listener; // Listener interface for communication with the controller
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {}
+
 	public void openProfile() {
 		this.listener.loadOpenProfileView();
 	}
@@ -59,9 +58,10 @@ public class MenuViewController implements ViewController {
 		}
 		this.setdefault();
 	}
-	public void setdefault(){
+
+	public void setdefault() {
 		Image image = this.listener.getProfileImage(30, 30);
-		if (image != null){
+		if (image != null) {
 			this.profileimage.setImage(image);
 		}
 	}
@@ -82,7 +82,7 @@ public class MenuViewController implements ViewController {
 
 		void loadActivityHistoryView(); // Load the activity history view
 
-        default Image getProfileImage(double width, double height) {
+		default Image getProfileImage(double width, double height) {
 			try {
 				URL path = new File("profile.png").toURL();
 				if (path == null) {

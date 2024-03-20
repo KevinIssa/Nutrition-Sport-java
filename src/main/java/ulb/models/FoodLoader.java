@@ -22,17 +22,29 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 
-public class FoodLoader implements Iterable<Food> {
+/**
+ * Class to load food data from a JSON file and provide methods to access and search food items.
+ */
+public class FoodLoader {
 
 	private List<Food> foods;
 
+	/**
+	 * Constructs a FoodLoader and loads food data from the specified JSON file.
+	 *
+	 * @param filename The filename of the JSON file containing food data.
+	 */
 	public FoodLoader(String filename) {
 		loadFoods(filename);
 	}
 
+	/**
+	 * Loads food data from the specified JSON file.
+	 *
+	 * @param filename The filename of the JSON file containing food data.
+	 */
 	private void loadFoods(String filename) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
@@ -42,10 +54,21 @@ public class FoodLoader implements Iterable<Food> {
 		}
 	}
 
+	/**
+	 * Retrieves the list of loaded food items.
+	 *
+	 * @return The list of loaded food items.
+	 */
 	public List<Food> getFoods() {
 		return foods;
 	}
 
+	/**
+	 * Retrieves a list of food items that match the given input string.
+	 *
+	 * @param input The input string to match against food names.
+	 * @return A list of food items that match the input string.
+	 */
 	public List<Food> getFoodsSuggestion(String input) {
 		List<Food> result = new java.util.ArrayList<>();
 		for (Food food : foods) {
@@ -54,24 +77,5 @@ public class FoodLoader implements Iterable<Food> {
 			}
 		}
 		return result;
-	}
-
-	@Override
-	public Iterator<Food> iterator() {
-		return new FoodIterator();
-	}
-
-	private class FoodIterator implements Iterator<Food> {
-		private int currentIndex = 0;
-
-		@Override
-		public boolean hasNext() {
-			return currentIndex < foods.size();
-		}
-
-		@Override
-		public Food next() {
-			return foods.get(currentIndex++);
-		}
 	}
 }
