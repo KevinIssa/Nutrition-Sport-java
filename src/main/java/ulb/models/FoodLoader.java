@@ -49,8 +49,8 @@ public class FoodLoader {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			foods = objectMapper.readValue(new File(filename), new TypeReference<List<Food>>() {});
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException exception) {
+			exception.printStackTrace();
 		}
 	}
 

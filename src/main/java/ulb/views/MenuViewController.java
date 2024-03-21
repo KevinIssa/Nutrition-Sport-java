@@ -66,6 +66,10 @@ public class MenuViewController implements ViewController {
 		}
 	}
 
+	public void foodSearchPage() {
+		this.listener.loadFoodSearchPage();
+	}
+
 	public interface Listener {
 
 		void loadCreateActivityView(); // Load the create activity view
@@ -81,6 +85,8 @@ public class MenuViewController implements ViewController {
 		void loadWelcomeView(); // Load the welcome view
 
 		void loadActivityHistoryView(); // Load the activity history view
+
+		void loadFoodSearchPage();
 
 		default Image getProfileImage(double width, double height) {
 			try {

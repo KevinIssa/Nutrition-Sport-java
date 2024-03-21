@@ -27,6 +27,7 @@ import java.nio.file.*;
 import java.nio.file.Files;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.function.Supplier;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -34,6 +35,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import ulb.models.Activity;
+import ulb.models.Food;
+import ulb.models.FoodLoader;
 import ulb.models.Profile;
 import ulb.models.enums.Intensity;
 import ulb.models.enums.Sex;
@@ -301,5 +304,42 @@ public class MainAppController extends AppController implements MenuViewControll
 								return Activity.load(filename);
 							}
 						});
+	}
+
+	@Override
+	public void loadFoodSearchPage() {
+		FoodViewController foodViewController =
+				(FoodViewController) loadView("/ulb/views/FoodSearch.fxml");
+		foodViewController.setListener(
+				new FoodViewController.Listener() {
+					@Override
+					public void returnHome() {
+						loadWelcomeView();
+					}
+
+					private List<Food> loadFoods(String searchText) {
+
+						FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json");
+						return foodLoader.getFoodsSuggestion(searchText);
+					}
+
+					private List<String> foodToString(List<Food> foods) {
+
+						List<String> foodNames = new java.util.ArrayList<>();
+						for (Food food : foods) {
+							foodNames.add(food.getName());
+						}
+
+						return foodNames;
+					}
+
+					@Override
+					public void sendUserSearch(String searchText) {
+
+						List<Food> foods = loadFoods(searchText);
+						List<String> foodNames = foodToString(foods);
+						foodViewController.setSuggestions(foodNames);
+					}
+				});
 	}
 }
