@@ -189,7 +189,7 @@ buildNumber.properties
 profile.json
 activities/
 meals/
-
+*.png
 
 # Others
 .obsidian/

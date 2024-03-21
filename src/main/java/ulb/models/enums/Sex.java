@@ -18,10 +18,20 @@
  */
 package ulb.models.enums;
 
+/**
+ * Enum representing the biological sex of an individual.
+ */
 public enum Sex {
 	MALE,
 	FEMALE;
 
+	/**
+	 * Converts a string representation of sex symbol to the corresponding enum value.
+	 *
+	 * @param sex The string representation of sex symbol (♂ for male, ♀ for female).
+	 * @return The enum value corresponding to the given string.
+	 * @throws IllegalArgumentException If the provided string does not match any known sex symbol.
+	 */
 	public static Sex fromString(String sex) {
 		switch (sex) {
 			case "♂":
@@ -33,6 +43,11 @@ public enum Sex {
 		}
 	}
 
+	/**
+	 * Converts the enum value to its corresponding sex symbol string representation.
+	 *
+	 * @return The string representation of the sex symbol (♂ for male, ♀ for female).
+	 */
 	@Override
 	public String toString() {
 		switch (this) {

@@ -23,6 +23,9 @@ import java.util.Map;
 import ulb.models.enums.Intensity;
 import ulb.models.enums.Sport;
 
+/**
+ * Utility class to calculate calories burned during various activities.
+ */
 public class CalorieCalculator {
 
 	// Map to store MET values for different sports and intensities
@@ -49,12 +52,24 @@ public class CalorieCalculator {
 		return metMap;
 	}
 
-	// Get MET value based on sport and intensity
+	/**
+	 * Retrieves the MET (Metabolic Equivalent of Task) value based on the sport and intensity.
+	 *
+	 * @param sport     The sport of the activity.
+	 * @param intensity The intensity of the activity.
+	 * @return The MET value for the given sport and intensity.
+	 */
 	private static double getMET(Sport sport, Intensity intensity) {
 		return MET_MAP.get(Map.entry(sport, intensity));
 	}
 
-	// Compute calories burned for the activity
+	/**
+	 * Computes the calories burned during the activity.
+	 *
+	 * @param activity The activity for which calories are to be calculated.
+	 * @param weight   The weight of the person performing the activity.
+	 * @return The number of calories burned during the activity.
+	 */
 	public static double compute(Activity activity, float weight) {
 		double met = getMET(activity.getSport(), activity.getIntensity());
 		int durationInMinutes = activity.getDurationInMinutes();

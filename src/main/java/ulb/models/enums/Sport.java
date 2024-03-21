@@ -18,6 +18,9 @@
  */
 package ulb.models.enums;
 
+/**
+ * Enum representing various sports.
+ */
 public enum Sport {
 	WALKING,
 	RUNNING,
@@ -25,6 +28,13 @@ public enum Sport {
 	SWIMMING,
 	VOLLEYBALL;
 
+	/**
+	 * Converts a string representation of sport to the corresponding enum value.
+	 *
+	 * @param sport The string representation of the sport.
+	 * @return The enum value corresponding to the given string.
+	 * @throws IllegalArgumentException If the provided string does not match any known sport.
+	 */
 	public static Sport fromString(String sport) {
 		switch (sport.toLowerCase()) {
 			case "walking":
@@ -42,6 +52,11 @@ public enum Sport {
 		}
 	}
 
+	/**
+	 * Converts the enum value to its corresponding localized string representation.
+	 *
+	 * @return The localized string representation of the sport.
+	 */
 	@Override
 	public String toString() {
 		switch (this) {

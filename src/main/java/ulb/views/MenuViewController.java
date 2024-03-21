@@ -18,6 +18,8 @@
  */
 package ulb.views;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -58,7 +60,7 @@ public class MenuViewController implements ViewController {
 	}
 
 	public void setdefault() {
-		Image image = this.listener.getImage("images/profile.png", 30, 30);
+		Image image = this.listener.getProfileImage(30, 30);
 		if (image != null) {
 			this.profileimage.setImage(image);
 		}
@@ -86,12 +88,16 @@ public class MenuViewController implements ViewController {
 
 		void loadFoodSearchPage();
 
-		default Image getImage(String relativePath, double width, double height) {
-			URL path = getClass().getResource("/ulb/" + relativePath);
-			if (path == null) {
-				return null;
+		default Image getProfileImage(double width, double height) {
+			try {
+				URL path = new File("profile.png").toURL();
+				if (path == null) {
+					return null;
+				}
+				return new Image(path.toString(), width, height, true, true);
+			} catch (MalformedURLException e) {
+				throw new RuntimeException(e);
 			}
-			return new Image(path.toString(), width, height, true, true);
 		}
 	}
 }
