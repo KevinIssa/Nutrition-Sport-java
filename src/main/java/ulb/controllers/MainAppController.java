@@ -80,11 +80,13 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadMenuView() {
-		loadView("/ulb/views/Menu.fxml", () -> this);
+		this.primaryStage.setHeight(600);this.primaryStage.setWidth(800);loadView("/ulb/views/Menu.fxml", () -> this);
 	}
 
 	@Override
 	public void loadCreateProfileView() {
+		this.primaryStage.setHeight(700);
+		this.primaryStage.setWidth(750);
 		loadView(
 				"/ulb/views/ProfileCreate.fxml",
 				() ->
@@ -132,6 +134,8 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadOpenProfileView() {
+		this.primaryStage.setWidth(685);
+		this.primaryStage.setHeight(770);
 		loadView(
 				"/ulb/views/Profile.fxml",
 				() ->
@@ -220,10 +224,11 @@ public class MainAppController extends AppController implements MenuViewControll
 							@Override
 							public Image getProfileImage(double width, double height) {
 								try {
-									URL path = new File("profile.png").toURL();
-									if (path == null) {
+									File file = new File("profile.png");
+									if (!file.exists()){
 										return null;
 									}
+									URL path = file.toURL();
 									return new Image(path.toString(), width, height, true, true);
 								} catch (MalformedURLException e) {
 									throw new RuntimeException(e);

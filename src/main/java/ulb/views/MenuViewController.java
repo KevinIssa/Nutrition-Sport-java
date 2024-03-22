@@ -22,6 +22,8 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -88,12 +90,13 @@ public class MenuViewController implements ViewController {
 
 		void loadFoodSearchPage();
 
-		default Image getProfileImage(double width, double height) {
+		 default Image getProfileImage(double width, double height) {
 			try {
-				URL path = new File("profile.png").toURL();
-				if (path == null) {
+				File file = new File("profile.png");
+				if (!file.exists()){
 					return null;
 				}
+				URL path = file.toURL();
 				return new Image(path.toString(), width, height, true, true);
 			} catch (MalformedURLException e) {
 				throw new RuntimeException(e);
