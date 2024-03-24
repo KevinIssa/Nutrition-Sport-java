@@ -34,6 +34,7 @@ import ulb.models.Profile;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.geometry.Pos;
+import ulb.models.enums.Sport;
 
 public class ActivityHistoryViewController implements ViewController {
 
@@ -47,22 +48,25 @@ public class ActivityHistoryViewController implements ViewController {
 	@FXML private AnchorPane test;
 	private boolean isFilterVisible = false;
 	// Method called after FXML file has been loaded; overridden from Initializable
+
+	private Sport filteredSport = null;
+
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {}
 
 	// Add all activities to the activity history list
 	public void addActivities() {
-		historyList.getItems().clear(); // Clear existing items from the list
 		File directory = new File(FOLDERNAME); // Specify the directory path
 
-		// Get list of files in the directory
 		File[] files = directory.listFiles();
 
 		// Add activities to the list
 		if (files != null) {
 			for (File file : files) {
 				Activity activity = listener.loadActivity(file.getPath());
-				addActivity(activity); // Add each activity individually
+				if (filteredSport == null ||  activity.getSport() == filteredSport){
+					addActivity(activity); // Add each activity individually
+				}
 			}
 		}
 
@@ -71,10 +75,6 @@ public class ActivityHistoryViewController implements ViewController {
 		//Will have to be changed to hbox later to be added
 		HBox totalCalorieHBox = createTotalCalorieBox(caloriesBurnedTotal) ;
 		historyList.getItems().add(totalCalorieHBox);
-
-		test.setVisible(false);
-
-
 	}
 
 	public HBox createTotalCalorieBox(int caloriesBurnedTotal){
@@ -84,8 +84,6 @@ public class ActivityHistoryViewController implements ViewController {
 		hbox.getChildren().addAll( dateImageView,totalCalorieLabel );
 		return hbox;
 	}
-	
-	
 
 
 	// Method to get the image path for a given sport
@@ -164,35 +162,48 @@ public class ActivityHistoryViewController implements ViewController {
 		this.listener.returnHome();
 	}
 
+	public void resetActivityHistory(){
+		historyList.getItems().clear(); // Clear existing items from the list
+		caloriesBurnedTotal = 0;
+		addActivities();
+	}
 
 	public void toggleShowFilter() {
 		if (isFilterVisible) {
 			test.setVisible(false);
 			isFilterVisible = false;
+			filteredSport = null;
 		} else {
 			test.setVisible(true);
 			isFilterVisible = true;
 		}
+		resetActivityHistory();
 	}
 
+
 	public void filterRunning(){
-		System.out.println("filterRunning");
+		filteredSport = Sport.RUNNING;
+		this.resetActivityHistory();
 	}
 
 	public void filterWalking(){
-		//TODO
+		filteredSport = Sport.WALKING;
+		this.resetActivityHistory();
 	}
 
 	public void filterBiking(){
-		//TODO
+		filteredSport = Sport.BIKING;
+		this.resetActivityHistory();
 	}
 
 	public void filterSwimming(){
-		//TODO
+		filteredSport = Sport.SWIMMING;
+		this.resetActivityHistory();
 	}
 
 	public void filterVolleyball(){
-		//TODO
+		filteredSport = Sport.VOLLEYBALL;
+		this.resetActivityHistory();
 	}
 
 	// Listener interface for communication with the controller

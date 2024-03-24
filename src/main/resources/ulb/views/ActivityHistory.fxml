@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<VBox prefHeight="434.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ActivityHistoryViewController">
+<VBox prefHeight="434.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ActivityHistoryViewController">
     <children>
 	    <!-- Container for history labels -->
 	    <ListView fx:id="historyList" prefHeight="330.0" prefWidth="610.0" />
@@ -18,11 +14,11 @@
             <Button layoutX="10.0" layoutY="10.0" lineSpacing="100.0" mnemonicParsing="false" onAction="#toggleShowFilter" prefHeight="46.0" prefWidth="126.0" text="Filtrer" />
          </children>
       </HBox>
-      <AnchorPane fx:id="test" prefHeight="20.0" prefWidth="642.0">
+      <AnchorPane fx:id="test" prefHeight="20.0" prefWidth="642.0" visible="false">
          <children>
             <HBox layoutY="19.0" prefHeight="83.0" prefWidth="642.0" spacing="10.0">
                <children>
-                   <Button fx:id="button_running" onAction="#filterRunning" prefHeight="53.0" prefWidth="57.0" >
+                   <Button fx:id="button_running" onAction="#filterRunning" prefHeight="53.0" prefWidth="57.0">
                        <graphic>
                            <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                                <image>
@@ -31,7 +27,7 @@
                            </ImageView>
                        </graphic>
                    </Button>
-                   <Button fx:id="button_walking" onAction= "#filterWalking" prefHeight="53.0" prefWidth="57.0" >
+                   <Button fx:id="button_walking" onAction="#filterWalking" prefHeight="53.0" prefWidth="57.0">
                        <graphic>
                            <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                                <image>
@@ -40,7 +36,7 @@
                            </ImageView>
                        </graphic>
                    </Button>
-                   <Button fx:id="button_swimming" onAction= "#filterSwimming" prefHeight="53.0" prefWidth="57.0" >
+                   <Button fx:id="button_swimming" onAction="#filterSwimming" prefHeight="53.0" prefWidth="57.0">
                        <graphic>
                            <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                                <image>
@@ -49,7 +45,7 @@
                            </ImageView>
                        </graphic>
                    </Button>
-                   <Button fx:id="button_biking"  onAction= "#filterBiking" prefHeight="53.0" prefWidth="57.0" >
+                   <Button fx:id="button_biking" onAction="#filterBiking" prefHeight="53.0" prefWidth="57.0">
                        <graphic>
                            <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                                <image>
@@ -58,7 +54,7 @@
                            </ImageView>
                        </graphic>
                    </Button>
-                   <Button fx:id="button_volleyball" onAction= "#filterVolleyball" prefHeight="53.0" prefWidth="57.0" >
+                   <Button fx:id="button_volleyball" onAction="#filterVolleyball" prefHeight="53.0" prefWidth="57.0">
                        <graphic>
                            <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                                <image>
