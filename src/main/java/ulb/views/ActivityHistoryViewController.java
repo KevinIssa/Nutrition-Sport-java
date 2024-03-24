@@ -27,8 +27,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import ulb.models.Activity;
 import ulb.models.Profile;
 import javafx.scene.image.Image;
@@ -44,7 +44,8 @@ public class ActivityHistoryViewController implements ViewController {
 			listener; // Listener interface for communication with the controller
 
 	@FXML private ListView<HBox> historyList; // ListView to display activity history
-
+	@FXML private AnchorPane test;
+	private boolean isFilterVisible = false;
 	// Method called after FXML file has been loaded; overridden from Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {}
@@ -70,6 +71,9 @@ public class ActivityHistoryViewController implements ViewController {
 		//Will have to be changed to hbox later to be added
 		HBox totalCalorieHBox = createTotalCalorieBox(caloriesBurnedTotal) ;
 		historyList.getItems().add(totalCalorieHBox);
+
+		test.setVisible(false);
+
 
 	}
 
@@ -158,6 +162,37 @@ public class ActivityHistoryViewController implements ViewController {
 
 	public void returnHome() {
 		this.listener.returnHome();
+	}
+
+
+	public void toggleShowFilter() {
+		if (isFilterVisible) {
+			test.setVisible(false);
+			isFilterVisible = false;
+		} else {
+			test.setVisible(true);
+			isFilterVisible = true;
+		}
+	}
+
+	public void filterRunning(){
+		System.out.println("filterRunning");
+	}
+
+	public void filterWalking(){
+		//TODO
+	}
+
+	public void filterBiking(){
+		//TODO
+	}
+
+	public void filterSwimming(){
+		//TODO
+	}
+
+	public void filterVolleyball(){
+		//TODO
 	}
 
 	// Listener interface for communication with the controller

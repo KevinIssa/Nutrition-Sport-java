@@ -13,7 +13,7 @@
 
 <TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="Add Activity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ActivityCreateViewController">
 	<VBox prefHeight="348.0" prefWidth="598.0" spacing="10.0">
-	  <Label text="Ajoutez votre activitée">
+	  <Label text="Ajoutez votre activité">
 		 <font>
 			<Font name="Consolas" size="28.0" />
 		 </font>
