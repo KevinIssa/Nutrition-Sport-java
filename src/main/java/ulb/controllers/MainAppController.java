@@ -17,14 +17,20 @@
  * Date : 2024
  */
 package ulb.controllers;
-
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.function.Supplier;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import ulb.models.Activity;
 import ulb.models.Profile;
@@ -32,6 +38,7 @@ import ulb.models.enums.Intensity;
 import ulb.models.enums.Sex;
 import ulb.models.enums.Sport;
 import ulb.views.*;
+import java.nio.file.*;
 
 public class MainAppController extends AppController implements MenuViewController.Listener {
 
@@ -49,14 +56,14 @@ public class MainAppController extends AppController implements MenuViewControll
 			primaryStage.setScene(new Scene(root, 300, 200));
 			return viewController;
 		} catch (IOException e) {
-			e.printStackTrace();
 			return null;
 		}
 	}
 
 	private void loadView(String resourcePath, Supplier<Object> listenerSupplier) {
 		ViewController viewController = this.loadView(resourcePath);
-		viewController.setListener(listenerSupplier.get());
+        assert viewController != null;
+        viewController.setListener(listenerSupplier.get());
 	}
 
 	@Override
@@ -102,59 +109,25 @@ public class MainAppController extends AppController implements MenuViewControll
 							public void returnHome() {
 								loadWelcomeView();
 							}
-						});
-	}
-
-	@Override
-	public void loadConsultProfileView() {
-		loadView(
-				"/ulb/views/ProfileConsult.fxml",
-				() ->
-						new ProfileConsultViewController.Listener() {
 							@Override
-							public String getFirstName() {
-								return Profile.load().getFirstName();
-							}
-
-							@Override
-							public String getLastName() {
-								return Profile.load().getLastName();
-							}
-
-							@Override
-							public String getSex() {
-								return Profile.load().getSex().toString();
-							}
-
-							@Override
-							public java.time.LocalDate getBirthDate() {
-								return Profile.load().getBirthDate();
-							}
-
-							@Override
-							public float getHeight() {
-								return Profile.load().getHeight();
-							}
-
-							@Override
-							public float getWeight() {
-								return Profile.load().getWeight();
-							}
-
-							@Override
-							public void returnHome() {
-								loadMenuView();
+							public void saveProfileImage(String imagepath) throws IOException {
+                                try {
+									URL imageurl = new URL(imagepath);
+									URI destinationuri = new URI(Objects.requireNonNull(getClass().getResource("/ulb/")).toString());
+                                    Path destinationpath = Paths.get(destinationuri).resolve("images/profile.png");
+									Files.copy(imageurl.openStream(), destinationpath, StandardCopyOption.REPLACE_EXISTING);
+                                } catch (URISyntaxException e) {
+                                    throw new RuntimeException(e);
+                                }
 							}
 						});
-	}
-
-	@Override
-	public void loadModifyProfileView() {
+	}@Override
+	public void loadOpenProfileView() {
 		loadView(
-				"/ulb/views/ProfileModify.fxml",
+				"/ulb/views/Profile.fxml",
 				() ->
-						new ProfileModifyViewController.Listener() {
-							Profile profile = Profile.load();
+						new ProfileViewController.Listener() {
+							final Profile profile = Profile.load();
 
 							@Override
 							public void saveProfile(
@@ -209,6 +182,14 @@ public class MainAppController extends AppController implements MenuViewControll
 							public float getWeight() {
 								return profile.getWeight();
 							}
+                            @Override
+							public Image getImage(String relativePath, double width, double height){
+								URL path = getClass().getResource("/ulb/" + relativePath);
+								if (path == null){
+									return null;
+								}
+                                return new Image(path.toString(), width, height, true, true);
+							}
 						});
 	}
 
@@ -224,6 +205,15 @@ public class MainAppController extends AppController implements MenuViewControll
 								profile.delete();
 								Activity.clearAllActivities();
 								loadCreateProfileView();
+                                try {
+									URI destinationuri = new URI(Objects.requireNonNull(getClass().getResource("/ulb/")).toString());
+									Path filetodelete = Paths.get(destinationuri).resolve("images/profile.png");
+									if (Files.exists(filetodelete)){
+										Files.delete(filetodelete);
+									}
+                                } catch (URISyntaxException | IOException e) {
+                                    throw new RuntimeException(e);
+                                }
 							}
 
 							@Override
@@ -235,10 +225,7 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadCreateActivityView() {
-		ActivityCreateViewController viewController =
-				(ActivityCreateViewController) this.loadView("/ulb/views/ActivityCreate.fxml");
-		viewController.setListener(
-				new ActivityCreateViewController.Listener() {
+		loadView("/ulb/views/ActivityCreate.fxml", () ->new ActivityCreateViewController.Listener() {
 					@Override
 					public void saveActivity(
 							Sport selectedSport, String selectedIntensity, float selectedDuration) {
@@ -249,7 +236,7 @@ public class MainAppController extends AppController implements MenuViewControll
 										Duration.ofMinutes((long) selectedDuration),
 										LocalDateTime.now());
 						activity.save();
-						viewController.showAlert(
+						Tools.showAlert(
 								activity.getCaloriesBurned(Profile.load().getWeight()));
 					}
 
@@ -257,7 +244,8 @@ public class MainAppController extends AppController implements MenuViewControll
 					public void returnHome() {
 						loadMenuView();
 					}
-				});
+				}
+		);
 	}
 
 	@Override
@@ -276,5 +264,15 @@ public class MainAppController extends AppController implements MenuViewControll
 								return Activity.load(filename);
 							}
 						});
+	}
+}
+class Tools{
+	public static void showAlert(double calories) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Calcul du nombre de calories");
+		alert.setHeaderText(null);
+		String text = "Vous avez dépensé " + calories + " calories durant cette activité";
+		alert.setContentText(text);
+		alert.showAndWait();
 	}
 }
