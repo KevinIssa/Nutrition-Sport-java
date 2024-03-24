@@ -18,22 +18,23 @@
  */
 package ulb.views;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 public class MenuViewController implements ViewController {
-	@FXML
-	ImageView profileimage;
+	@FXML ImageView profileimage;
 
 	private MenuViewController.Listener
 			listener; // Listener interface for communication with the controller
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {}
+
 	public void openProfile() {
 		this.listener.loadOpenProfileView();
 	}
@@ -57,11 +58,16 @@ public class MenuViewController implements ViewController {
 		}
 		this.setdefault();
 	}
-	public void setdefault(){
-		Image image = this.listener.getImage("images/profile.png", 30, 30);
-		if (image != null){
+
+	public void setdefault() {
+		Image image = this.listener.getProfileImage(30, 30);
+		if (image != null) {
 			this.profileimage.setImage(image);
 		}
+	}
+
+	public void foodSearchPage() {
+		this.listener.loadFoodSearchPage();
 	}
 
 	public interface Listener {
@@ -79,12 +85,20 @@ public class MenuViewController implements ViewController {
 		void loadWelcomeView(); // Load the welcome view
 
 		void loadActivityHistoryView(); // Load the activity history view
-		default Image getImage(String relativePath, double width, double height){
-			URL path = getClass().getResource("/ulb/" + relativePath);
-			if (path == null){
-				return null;
+
+		void loadFoodSearchPage();
+
+		default Image getProfileImage(double width, double height) {
+			try {
+				File file = new File("profile.png");
+				if (!file.exists()) {
+					return null;
+				}
+				URL path = file.toURL();
+				return new Image(path.toString(), width, height, true, true);
+			} catch (MalformedURLException e) {
+				throw new RuntimeException(e);
 			}
-			return new Image(path.toString(), width, height, true, true);
 		}
 	}
 }

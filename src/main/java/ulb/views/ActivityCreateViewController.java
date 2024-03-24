@@ -19,14 +19,12 @@
 package ulb.views;
 
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import ulb.models.enums.Sport;
-import java.util.List;
-
 
 public class ActivityCreateViewController implements ViewController {
 	private Sport selectedSport;
@@ -71,11 +69,10 @@ public class ActivityCreateViewController implements ViewController {
 		intensitySlider.setShowTickMarks(true);
 		intensitySlider.setShowTickLabels(true);
 		intensitySlider.setMajorTickUnit(1);
-        intensity = "Moderate"; // * Default value
-		}
+		intensity = "Moderate"; // * Default value
+	}
 
 	// Method to show an alert with the calculated calories
-
 
 	// Method to save the activity
 	public void saveActivity() {
@@ -94,40 +91,55 @@ public class ActivityCreateViewController implements ViewController {
 		this.listener.returnHome();
 	}
 
-	public void setButtonDefaultColor(){
+	public void setButtonDefaultColor() {
 		String color = "-fx-background-color: rgb(255,255,255);";
-		List<Button> buttons = List.of(button_walking, button_running, button_biking, button_swimming, button_volleyball);
+		List<Button> buttons =
+				List.of(
+						button_walking,
+						button_running,
+						button_biking,
+						button_swimming,
+						button_volleyball);
 		for (Button button : buttons) {
 			button.setStyle(color);
 		}
 		selectedSport = null;
 	}
 
-	public void selectWalking(){
+	public void selectWalking() {
 		this.selectSport(this.button_walking, Sport.WALKING);
 	}
 
-	public void selectRunning(){
+	public void selectRunning() {
 		this.selectSport(this.button_running, Sport.RUNNING);
 	}
 
-	public void selectBiking(){
+	public void selectBiking() {
 		this.selectSport(this.button_biking, Sport.BIKING);
 	}
 
-	public void selectSwimming(){
+	public void selectSwimming() {
 		this.selectSport(this.button_swimming, Sport.SWIMMING);
 	}
 
-	public void selectVolleyball(){
+	public void selectVolleyball() {
 		this.selectSport(this.button_volleyball, Sport.VOLLEYBALL);
 	}
 
-	public void selectSport(Button button, Sport sport){
+	public void selectSport(Button button, Sport sport) {
 		this.setButtonDefaultColor();
 		String color = "-fx-background-color: #3c8000;";
 		button.setStyle(color);
 		selectedSport = sport;
+	}
+
+	public static void showAlert(double calories) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Calcul du nombre de calories");
+		alert.setHeaderText(null);
+		String text = "Vous avez dépensé " + calories + " calories durant cette activité";
+		alert.setContentText(text);
+		alert.showAndWait();
 	}
 
 	// Method to set the listener for communication with the controller

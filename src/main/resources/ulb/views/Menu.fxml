@@ -3,39 +3,42 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.shape.Circle?>
-<BorderPane xmlns="http://javafx.com/javafx"
-			xmlns:fx="http://javafx.com/fxml"
-			fx:controller="ulb.views.MenuViewController">
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.MenuViewController">
 
 	<top>
 		<MenuBar>
 			<menus>
 				<Menu>
 					<graphic>
-						<StackPane prefWidth="30" prefHeight="30">
+						<StackPane prefHeight="30" prefWidth="30">
 							<!-- Create a Circle shape as the clip -->
 							<clip>
-								<Circle radius="15" centerX="15" centerY="15" />
+								<Circle centerX="15" centerY="15" radius="15" />
 							</clip>
 							<!-- Create the ImageView with the image -->
 
-							<ImageView fx:id="profileimage" fitWidth="30" fitHeight="30">
+							<ImageView fx:id="profileimage" fitHeight="30" fitWidth="30">
 								<Image url="@../images/default_profile.png" />
 							</ImageView>
 						</StackPane>
 					</graphic>
-					<MenuItem text="profile" onAction="#openProfile"/>
-					<MenuItem text="delete profile" onAction="#deleteProfile"/>
+					<MenuItem onAction="#openProfile" text="Voir le profil" />
+					<MenuItem onAction="#deleteProfile" text="Supprimer le profil" />
 				</Menu>
 
-				<Menu text="Activity" >
-					<MenuItem text="Encoder une activité" onAction="#createActivity"/>
-					<MenuItem text="Voir les activitées enregistrées" onAction="#activityHistory"/>
+				<Menu text="Activité">
+					<MenuItem onAction="#createActivity" text="Encoder une activité" />
+					<MenuItem onAction="#activityHistory" text="Voir les activitées enregistrées" />
+				</Menu>
+
+				<Menu text="Alimentation">
+					<MenuItem onAction="#foodSearchPage" text="Recherche d'aliments" />
 				</Menu>
 			</menus>
 		</MenuBar>

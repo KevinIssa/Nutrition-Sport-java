@@ -1,0 +1,280 @@
+/*
+ * Ce projet est une application de santé et de bien-être développée dans le cadre du cours INFO-F-307 à l'ULB.
+ *
+ * Groupe : 06
+ * Étudiants :
+ * - Kevin ISSA
+ * - Hamza CAEYMAN
+ * - Alexandru MELNIC
+ * - Ze-Xuan XU
+ * - Bao TRAN
+ * - Hà Uyên TRAN
+ * - Hugo CHARELS
+ * - Hodo SOULEIMAN AHMED
+ * - Kevin VANDERVAEREN
+ * - Arthur INSTALLÉ
+ *
+ * Date : 2024
+ */
+package ulb.models;
+
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+
+/**
+ * Represents a Meal.
+ */
+@JsonDeserialize(using = MealDeserializer.class)
+public class Meal implements Consumable, JsonSerializable {
+
+	private static final String FOLDER_NAME = "meals";
+
+	private String name;
+
+	@JsonSerialize(using = FoodListSerializer.class)
+	private List<Map.Entry<Food, Integer>> ingredients = new ArrayList<>();
+
+	/**
+	 * Default constructor.
+	 */
+	Meal() {}
+
+	/**
+	 * Constructor with name parameter.
+	 * @param name The name of the meal.
+	 */
+	Meal(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * Checks if this meal is equal to another object.
+	 * @param o The object to compare.
+	 * @return True if the objects are equal, otherwise false.
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Meal meal = (Meal) o;
+		return Objects.equals(name, meal.name) && Objects.equals(ingredients, meal.ingredients);
+	}
+
+	/**
+	 * Adds an ingredient to the meal.
+	 * @param food The food to add.
+	 * @param quantity The quantity of the food.
+	 */
+	public void addIngredient(Food food, Integer quantity) {
+		Map.Entry<Food, Integer> entry = Map.entry(food, quantity);
+		this.ingredients.add(entry);
+	}
+
+	/**
+	 * Gets the total calories consumed by the meal.
+	 * @return The total calories consumed.
+	 */
+	@Override
+	public int getCaloriesConsumed() {
+		return getCaloriesConsumedByServing(1);
+	}
+
+	/**
+	 * Gets the calories consumed by the meal for a given amount of grams.
+	 * @param grams The grams of the meal.
+	 * @return The calories consumed.
+	 */
+	@Override
+	public int getCaloriesConsumedByGrams(int grams) {
+		int totalGrams = getGramsForServing(1);
+		return getCaloriesConsumed() * grams / totalGrams;
+	}
+
+	/**
+	 * Gets the total grams for a given serving of the meal.
+	 * @param servings The number of servings.
+	 * @return The total grams.
+	 */
+	private int getGramsForServing(int servings) {
+		int totalGrams = 0;
+		// TODO: Implement logic
+		return totalGrams * servings;
+	}
+
+	/**
+	 * Gets the total calories consumed by the meal for a given number of servings.
+	 * @param servings The number of servings.
+	 * @return The total calories consumed.
+	 */
+	@Override
+	public int getCaloriesConsumedByServing(int servings) {
+		int totalCalories = 0;
+		for (Map.Entry<Food, Integer> ingredient : ingredients) {
+			totalCalories +=
+					ingredient
+							.getKey()
+							.getCaloriesConsumedByServing(ingredient.getValue().intValue());
+		}
+		return totalCalories * servings;
+	}
+
+	/**
+	 * Saves the meal to a file.
+	 */
+	public void save() {
+		File folder = new File(FOLDER_NAME);
+		if (!folder.exists()) {
+			folder.mkdir();
+		}
+		String filename = FOLDER_NAME + "/" + name + ".json";
+		saveToFile(filename);
+	}
+
+	/**
+	 * Loads a meal from a file.
+	 * @param filename The name of the file.
+	 * @return The loaded meal.
+	 */
+	public static Meal load(String filename) {
+		return (Meal) new Meal().loadFromFile(filename);
+	}
+
+	/**
+	 * Saves the meal to a file.
+	 * @param filename The name of the file.
+	 */
+	public void saveToFile(String filename) {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		try {
+			mapper.writeValue(new File(filename), this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Loads a meal from a file.
+	 * @param filename The name of the file.
+	 * @return The loaded meal.
+	 */
+	public JsonSerializable loadFromFile(String filename) {
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(new File(filename), Meal.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * Gets the name of the meal.
+	 * @return The name of the meal.
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Sets the name of the meal.
+	 * @param name The name of the meal.
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * Gets the ingredients of the meal.
+	 * @return The list of ingredients.
+	 */
+	public List<Map.Entry<Food, Integer>> getIngredients() {
+		return ingredients;
+	}
+
+	/**
+	 * Sets the ingredients of the meal.
+	 * @param ingredients The list of ingredients.
+	 */
+	public void setIngredients(List<Map.Entry<Food, Integer>> ingredients) {
+		this.ingredients = ingredients;
+	}
+
+	/**
+	 * Returns a string representation of the meal.
+	 * @return The string representation.
+	 */
+	@Override
+	public String toString() {
+		return "Meal{" + "name='" + name + '\'' + ", ingredients=" + ingredients + '}';
+	}
+}
+
+/**
+ * Serializer for Food list.
+ */
+class FoodListSerializer
+		extends com.fasterxml.jackson.databind.JsonSerializer<List<Map.Entry<Food, Integer>>> {
+	@Override
+	public void serialize(
+			List<Map.Entry<Food, Integer>> value,
+			com.fasterxml.jackson.core.JsonGenerator gen,
+			com.fasterxml.jackson.databind.SerializerProvider serializers)
+			throws IOException {
+		gen.writeStartArray();
+		for (Map.Entry<Food, Integer> entry : value) {
+			gen.writeStartObject();
+			gen.writeObjectField("food", entry.getKey());
+			gen.writeObjectField("quantity", entry.getValue());
+			gen.writeEndObject();
+		}
+		gen.writeEndArray();
+	}
+}
+
+/**
+ * Deserializer for Meal.
+ */
+class MealDeserializer extends StdDeserializer<Meal> {
+	public MealDeserializer() {
+		this(null);
+	}
+
+	public MealDeserializer(Class<?> vc) {
+		super(vc);
+	}
+
+	@Override
+	public Meal deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
+		JsonNode mealNode = jp.getCodec().readTree(jp);
+		String name = mealNode.get("name").asText();
+		List<Map.Entry<Food, Integer>> ingredients = new ArrayList<>();
+
+		JsonNode ingredientsNode = mealNode.get("ingredients");
+		Iterator<JsonNode> iterator = ingredientsNode.elements();
+		while (iterator.hasNext()) {
+			JsonNode ingredientNode = iterator.next();
+			JsonNode foodNode = ingredientNode.get("food");
+			String foodName = foodNode.get("name").asText();
+			int caloriesPer100 = foodNode.get("caloriesPer100").asInt();
+			int caloriesPerServing = foodNode.get("caloriesPerServing").asInt();
+			String servingQuantity = foodNode.get("servingQuantity").asText();
+			Food food = new Food(foodName, caloriesPer100, caloriesPerServing, servingQuantity);
+			int quantity = ingredientNode.get("quantity").asInt();
+			ingredients.add(Map.entry(food, quantity));
+		}
+
+		Meal meal = new Meal(name);
+		meal.setIngredients(ingredients);
+		return meal;
+	}
+}

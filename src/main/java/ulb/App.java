@@ -25,7 +25,7 @@ import ulb.controllers.MainAppController;
 public class App extends Application {
 
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Fitness App");
 		primaryStage.setResizable(true);
 		primaryStage.setWidth(800);

@@ -188,7 +188,8 @@ buildNumber.properties
 # App save files
 profile.json
 activities/
-
+meals/
+*.png
 
 # Others
 .obsidian/

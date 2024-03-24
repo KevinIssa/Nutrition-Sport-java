@@ -18,22 +18,21 @@
  */
 package ulb.views;
 
-
 import java.io.File;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import ulb.models.Activity;
 import ulb.models.Profile;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.geometry.Pos;
 import ulb.models.enums.Sport;
 
 public class ActivityHistoryViewController implements ViewController {
@@ -64,7 +63,7 @@ public class ActivityHistoryViewController implements ViewController {
 		if (files != null) {
 			for (File file : files) {
 				Activity activity = listener.loadActivity(file.getPath());
-				if (filteredSport == null ||  activity.getSport() == filteredSport){
+				if (filteredSport == null || activity.getSport() == filteredSport) {
 					addActivity(activity); // Add each activity individually
 				}
 			}
@@ -72,19 +71,19 @@ public class ActivityHistoryViewController implements ViewController {
 
 		// Add total calories label
 		Label totalCaloriesLabel = new Label("Total des calories brûlées: " + caloriesBurnedTotal);
-		//Will have to be changed to hbox later to be added
-		HBox totalCalorieHBox = createTotalCalorieBox(caloriesBurnedTotal) ;
+		// Will have to be changed to hbox later to be added
+		HBox totalCalorieHBox = createTotalCalorieBox(caloriesBurnedTotal);
 		historyList.getItems().add(totalCalorieHBox);
 	}
 
-	public HBox createTotalCalorieBox(int caloriesBurnedTotal){
+	public HBox createTotalCalorieBox(int caloriesBurnedTotal) {
 		HBox hbox = createHBox();
 		Label totalCalorieLabel = createLabel(String.valueOf(caloriesBurnedTotal) + " kcal");
-		ImageView dateImageView = createImageView("/ulb/images/history_img/total_calories.png",30,30);
-		hbox.getChildren().addAll( dateImageView,totalCalorieLabel );
+		ImageView dateImageView =
+				createImageView("/ulb/images/history_img/total_calories.png", 30, 30);
+		hbox.getChildren().addAll(dateImageView, totalCalorieLabel);
 		return hbox;
 	}
-
 
 	// Method to get the image path for a given sport
 	private String getImagePathForSport(String sport) {
@@ -99,7 +98,7 @@ public class ActivityHistoryViewController implements ViewController {
 		LocalDateTime date = activity.getDate();
 		Duration duration = activity.getDuration();
 
-		HBox activityHBox = createHistoryHBox(activity, date,duration);
+		HBox activityHBox = createHistoryHBox(activity, date, duration);
 		historyList.getItems().add(activityHBox);
 
 		// Update total calories ( ! ne devrait pas être là je pense )
@@ -114,15 +113,29 @@ public class ActivityHistoryViewController implements ViewController {
 	private HBox createHistoryHBox(Activity activity, LocalDateTime date, Duration duration) {
 		ImageView intensityImageView = createIntensityImageView(activity);
 		ImageView sportImageView = createSportImageView(activity);
-		ImageView dateImageView = createImageView("/ulb/images/history_img/calendrier.png",30,30);
-		ImageView durationImageView = createImageView("/ulb/images/history_img/chronometre.png",30,30);
-		ImageView calorieImageView = createImageView("/ulb/images/history_img/calories.png",30,30);
+		ImageView dateImageView = createImageView("/ulb/images/history_img/calendrier.png", 30, 30);
+		ImageView durationImageView =
+				createImageView("/ulb/images/history_img/chronometre.png", 30, 30);
+		ImageView calorieImageView =
+				createImageView("/ulb/images/history_img/calories.png", 30, 30);
 
-		Label label_date = createLabel( activity.changeDateFormat(date).toString());
-		Label label_duration = createLabel( activity.durationToString(duration));
-		Label label_calorie = createLabel( String.valueOf(activity.getCaloriesBurned(Profile.load().getWeight()) + " kcal"));
+		Label label_date = createLabel(activity.changeDateFormat(date).toString());
+		Label label_duration = createLabel(activity.durationToString(duration));
+		Label label_calorie =
+				createLabel(
+						String.valueOf(
+								activity.getCaloriesBurned(Profile.load().getWeight()) + " kcal"));
 		HBox hbox = createHBox();
-		hbox.getChildren().addAll(sportImageView,intensityImageView, dateImageView, label_date, durationImageView, label_duration, calorieImageView, label_calorie );
+		hbox.getChildren()
+				.addAll(
+						sportImageView,
+						intensityImageView,
+						dateImageView,
+						label_date,
+						durationImageView,
+						label_duration,
+						calorieImageView,
+						label_calorie);
 		return hbox;
 	}
 
@@ -162,7 +175,7 @@ public class ActivityHistoryViewController implements ViewController {
 		this.listener.returnHome();
 	}
 
-	public void resetActivityHistory(){
+	public void resetActivityHistory() {
 		historyList.getItems().clear(); // Clear existing items from the list
 		caloriesBurnedTotal = 0;
 		addActivities();
@@ -180,28 +193,27 @@ public class ActivityHistoryViewController implements ViewController {
 		resetActivityHistory();
 	}
 
-
-	public void filterRunning(){
+	public void filterRunning() {
 		filteredSport = Sport.RUNNING;
 		this.resetActivityHistory();
 	}
 
-	public void filterWalking(){
+	public void filterWalking() {
 		filteredSport = Sport.WALKING;
 		this.resetActivityHistory();
 	}
 
-	public void filterBiking(){
+	public void filterBiking() {
 		filteredSport = Sport.BIKING;
 		this.resetActivityHistory();
 	}
 
-	public void filterSwimming(){
+	public void filterSwimming() {
 		filteredSport = Sport.SWIMMING;
 		this.resetActivityHistory();
 	}
 
-	public void filterVolleyball(){
+	public void filterVolleyball() {
 		filteredSport = Sport.VOLLEYBALL;
 		this.resetActivityHistory();
 	}
