@@ -316,12 +316,23 @@ public class MainAppController extends AppController implements MenuViewControll
 	@Override
 	public void loadFoodSearchPage() {
 		FoodViewController foodViewController =
-				(FoodViewController) loadView("/ulb/views/FoodSearch.fxml");
+				(FoodViewController) loadView("/ulb/views/AddMealMenu.fxml");
 		foodViewController.setListener(
 				new FoodViewController.Listener() {
+					
+					FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json");
+
 					@Override
 					public void returnHome() {
 						loadWelcomeView();
+					}
+					
+					@Override
+					public void addChosenFood(String userInput) {
+						Food food = foodLoader.convertStringToFood(userInput);
+						if (food != null) {
+							foodViewController.addChosenFood(userInput);
+						}
 					}
 
 					private List<Food> loadFoods(String searchText) {

@@ -31,12 +31,23 @@ public class FoodViewController implements ViewController {
 
 	@FXML private ListView<String> suggestionsList;
 
+	@FXML private ListView<String> UiChosenFood;
+
 	private FoodViewController.Listener listener;
 
 	@FXML
 	private void suggestFoods() {
 		String searchText = this.searchField.getText();
 		this.listener.sendUserSearch(searchText);
+	}
+	
+	public String getUserInput() {
+		return this.searchField.getText();
+	}
+
+	
+	public void addChosenFood(String chosenFood) {
+		this.UiChosenFood.getItems().add(chosenFood);
 	}
 
 	public void setSuggestions(List<String> foods) {
@@ -52,7 +63,7 @@ public class FoodViewController implements ViewController {
 
 	public interface Listener {
 		void sendUserSearch(String searchText);
-
+		void addChosenFood(String userInput);
 		void returnHome();
 	}
 
