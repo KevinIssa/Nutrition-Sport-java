@@ -24,6 +24,9 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 public class FoodViewController implements ViewController {
 
@@ -31,7 +34,7 @@ public class FoodViewController implements ViewController {
 
 	@FXML private ListView<String> suggestionsList;
 
-	@FXML private ListView<String> UiChosenFood;
+	@FXML private ListView<String> chosenFood;
 
 	private FoodViewController.Listener listener;
 
@@ -45,9 +48,20 @@ public class FoodViewController implements ViewController {
 		return this.searchField.getText();
 	}
 
-	
-	public void addChosenFood(String chosenFood) {
-		this.UiChosenFood.getItems().add(chosenFood);
+	public void addChosenFood(String food) {
+		this.chosenFood.getItems().add(food);
+	}
+
+	public void addChosenFoodMouse(MouseEvent event) {
+		String chosenFood = this.suggestionsList.getSelectionModel().getSelectedItem();
+		this.addChosenFood(chosenFood);
+	}
+
+	public void addChosenFoodKey(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			String chosenFood = this.suggestionsList.getSelectionModel().getSelectedItem();
+			this.addChosenFood(chosenFood);
+		}
 	}
 
 	public void setSuggestions(List<String> foods) {
@@ -63,7 +77,6 @@ public class FoodViewController implements ViewController {
 
 	public interface Listener {
 		void sendUserSearch(String searchText);
-		void addChosenFood(String userInput);
 		void returnHome();
 	}
 
