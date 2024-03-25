@@ -60,6 +60,9 @@ public class FoodViewController implements ViewController {
 	public void addChosenFoodKey(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			String chosenFood = this.suggestionsList.getSelectionModel().getSelectedItem();
+			if (chosenFood == null) {
+				chosenFood = this.suggestionsList.getItems().get(0);
+			}
 			this.addChosenFood(chosenFood);
 		}
 	}
