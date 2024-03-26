@@ -54,16 +54,22 @@ public class FoodViewController implements ViewController {
 
 	public void addChosenFoodMouse(MouseEvent event) {
 		String chosenFood = this.suggestionsList.getSelectionModel().getSelectedItem();
-		this.addChosenFood(chosenFood);
+		if (chosenFood != null) {// prevent the first element is still null
+			this.addChosenFood(chosenFood);
+		}
 	}
 
 	public void addChosenFoodKey(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			String chosenFood = this.suggestionsList.getSelectionModel().getSelectedItem();
 			if (chosenFood == null) {
-				chosenFood = this.suggestionsList.getItems().get(0);
+				if (!this.suggestionsList.getItems().isEmpty()){
+					chosenFood = this.suggestionsList.getItems().get(0);
+				}
 			}
-			this.addChosenFood(chosenFood);
+			if (chosenFood != null) {// prevent the first element is still null
+				this.addChosenFood(chosenFood);
+			}
 		}
 	}
 
