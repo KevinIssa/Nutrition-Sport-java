@@ -111,9 +111,9 @@
              <clip>
                      <Circle centerX="18" centerY="18" radius="10" />
              </clip>
-             <Button prefHeight="36.0" prefWidth="36.0" text="!" >
+             <Button prefHeight="36.0" prefWidth="36.0" text="i" >
                  <tooltip>
-                     <Tooltip text="the calories burnt are calculated based on: &#10;((activity_base_calorie_value * 3.5 * weight) / 200) * durationInMinutes;"/>
+                     <Tooltip text="la formule pour le calcule du nombre de calories brulées: &#10;(((valeur de base de l'activite) * 3.5 * poids(kg)) / 200) * durée(min)"/>
                  </tooltip>
              </Button>
          </StackPane>
