@@ -32,7 +32,7 @@
                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                   <children>
                      <Region prefHeight="200.0" prefWidth="240.0" />
-                       <ImageView fx:id="profileimage" fitHeight="125.0" fitWidth="129.0">
+                     <ImageView fx:id="profileimage" fitHeight="125.0" fitWidth="129.0">
                         <image>
                            <Image url="@../images/default_profile.png" />
                         </image>
