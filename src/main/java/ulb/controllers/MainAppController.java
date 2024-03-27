@@ -347,10 +347,18 @@ public class MainAppController extends AppController implements MenuViewControll
 
 						return foodNames;
 					}
+
+					/**
+					 * Get the class Food of the corresponding food
+					 * @param food is the name of the food
+					 * @return the Food that have as name food
+					 */
 					@Override
 					public Food getCorrespondingFood(String food) {
 						List<Food> foods = loadFoods(food);
 						if (!foods.isEmpty()){
+							// if multiple food have the same name this may not work but well the user himself doesnt know which food
+							// he is asking for when both food have the same name
 							return foods.get(0);
 						}else{
 							throw new RuntimeException("food selected not in database");

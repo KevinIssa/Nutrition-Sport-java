@@ -56,16 +56,18 @@ public class FoodViewController implements ViewController {
 	public String getUserInput() {
 		return this.searchField.getText();
 	}
+
 	/**
-	 * Get the gramme or mililiter for a food
+	 * Get the quantity of the food we want to add to our meal from the user
 	 *
 	 * @param food is the Food where we want to get values for
+	 * @return the quantity of the food in format:    "quantity g/portion"     example : "50 g" or "2 portion"
 	 */
     public String getUserData(Food food){
 		// Create a TextInputDialog
 		Dialog<String> dialog = new Dialog<>();
 		dialog.setTitle("Custom Input Dialog");
-
+        // load the window we want to use as popup
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/widgets/Food_popup.fxml"));
 		VBox box = null;
 		try {
@@ -73,13 +75,13 @@ public class FoodViewController implements ViewController {
 		} catch (IOException e) {
 			throw new RuntimeException("Food_popup file not existing");
 		}
+		// set the Textinputdialog content as our Food_popup
 		FoodPopupController controller = loader.getController();
 		controller.setServinglabel(food.getServingQuantity());
 		dialog.getDialogPane().setContent(box);
 		// Add OK and Cancel buttons to the dialog
 		dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-		// Convert result to string when OK is clicked
+		// Convert result to string when OK is clicked if return 0 then it mean not reply
 		dialog.setResultConverter(buttonType -> {
 			if (buttonType == ButtonType.OK) {
 				if (controller.getGramme() != 0){
@@ -94,8 +96,16 @@ public class FoodViewController implements ViewController {
 			}
             return "0";
         });
+		// return the answear generated based on player action in the popup
 		return dialog.showAndWait().get();
 	}
+
+	/**
+	 * Extract the first piece of int in a string
+	 *
+	 * @param input is the string were we want to extract the int    input are in format:   "int_value g/portion"
+	 * @return a int value
+	 */
 	public static int extractInt(String input) {
 		// Regular expression pattern to match digits
 		Pattern pattern = Pattern.compile("\\d+");
@@ -110,18 +120,24 @@ public class FoodViewController implements ViewController {
 		}
 	}
 	public void addChosenFood(String food){
+		// get the correspond Food with name food
 		Food selectedfood = this.listener.getCorrespondingFood(food);
+		// get player input in format: "int_value g/portion"
 		String value = getUserData(selectedfood);
+		// extract int_value from "int_value g/portion"
 		int quantity = extractInt(value);
+		// if the value is none which mean the player didnt answear so we cancel this attempt to add a food to the meal
 		if (quantity == 0){
 			return;
 		}
+		// we calculate the calories depending of the way we input value, directly by gramme or by serving
 		int calories;
 		if (value.contains("g")){
 			calories = selectedfood.getCaloriesConsumedByGrams(quantity);
 		}else{
 			calories = selectedfood.getCaloriesConsumedByServing(quantity);
 		}
+		// load the HBox used to contains the data needed to be display to the user
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/widgets/Food_item.fxml"));
 		HBox box = null;
 		try {
@@ -129,8 +145,10 @@ public class FoodViewController implements ViewController {
 		} catch (IOException e) {
 			throw new RuntimeException("Food_item file not existing");
 		}
+		// add the name of the food added
 		Label label1 = (Label) box.getChildren().get(0);
 		label1.setText(food);
+		// add the number of calories the food will add to the meal and add information about how much of this food did we add
 		Label label2 = (Label) box.getChildren().get(1);
 		if (value.contains("g")){
 			label2.setText(String.format("Calories: %d          quantites(g): %d", calories, quantity));
@@ -141,6 +159,7 @@ public class FoodViewController implements ViewController {
 				label2.setText(String.format("Calories: %d          quantites(ml): %d", calories, quantity*selectedfood.getServingQuantity_int()));
 			}
 		}
+		// add the Hbox with the information about the food added to the list of food added
 		this.chosenFood.getItems().add(box);
 	}
 

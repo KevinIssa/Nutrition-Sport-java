@@ -93,6 +93,8 @@ public class Food implements Consumable {
 	@Override
 	public int getCaloriesConsumedByGrams(int grams) {
 		return (this.caloriesPer100 * grams) / 100 ;
+		// ps I have modified this because if this.caloriesPer100 < 100 , this.caloriesPer100/100 will always return 0
+		// because an int divided by an int will always return an int
 	}
 
 	/**
@@ -185,6 +187,12 @@ public class Food implements Consumable {
 	 * @return The serving quantity of the food item.
 	 */
 	public String getServingQuantity() {return this.servingQuantity;}
+	/**
+	 * Retrieves the true serving quantity of the food item.
+	 * we dont care about the unit of the value , we just want the value
+	 *
+	 * @return The serving quantity of the food item.
+	 */
 	public int getServingQuantity_int() {
 		// Define the pattern to match digits
 		Pattern pattern = Pattern.compile("\\d+");
@@ -204,6 +212,12 @@ public class Food implements Consumable {
 			throw new RuntimeException("quantity not present in servingquantity");
 		}
 	}
+	/**
+	 * Retrieves the unit of the serving quantity of the food item.
+	 * we dont care about the quantity of the serving, we just want the unit
+	 *
+	 * @return the unit of the serving
+	 */
 	public String getServingType(){
 		int startposition = servingQuantity.indexOf("(");
 		String substring = this.servingQuantity.substring(startposition);
