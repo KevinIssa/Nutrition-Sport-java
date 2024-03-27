@@ -18,15 +18,24 @@
  */
 package ulb.views;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import ulb.models.Food;
+import ulb.widgets.FoodPopupController;
 
 public class FoodViewController implements ViewController {
 
@@ -34,7 +43,7 @@ public class FoodViewController implements ViewController {
 
 	@FXML private ListView<String> suggestionsList;
 
-	@FXML private ListView<String> chosenFood;
+	@FXML private ListView<HBox> chosenFood;
 
 	private FoodViewController.Listener listener;
 
@@ -47,9 +56,92 @@ public class FoodViewController implements ViewController {
 	public String getUserInput() {
 		return this.searchField.getText();
 	}
+	/**
+	 * Get the gramme or mililiter for a food
+	 *
+	 * @param food is the Food where we want to get values for
+	 */
+    public String getUserData(Food food){
+		// Create a TextInputDialog
+		Dialog<String> dialog = new Dialog<>();
+		dialog.setTitle("Custom Input Dialog");
 
-	public void addChosenFood(String food) {
-		this.chosenFood.getItems().add(food);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/widgets/Food_popup.fxml"));
+		VBox box = null;
+		try {
+			box = loader.load();
+		} catch (IOException e) {
+			throw new RuntimeException("Food_popup file not existing");
+		}
+		FoodPopupController controller = loader.getController();
+		controller.setServinglabel(food.getServingQuantity());
+		dialog.getDialogPane().setContent(box);
+		// Add OK and Cancel buttons to the dialog
+		dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+		// Convert result to string when OK is clicked
+		dialog.setResultConverter(buttonType -> {
+			if (buttonType == ButtonType.OK) {
+				if (controller.getGramme() != 0){
+					// return the calories by grams
+					return String.valueOf(controller.getGramme()) + " g";
+				}else if (controller.getServing() != 0){
+					// return the calories by litres
+					return String.valueOf(controller.getServing()) + " portion";
+				}
+			}else if (buttonType == ButtonType.CANCEL){
+				return "0";
+			}
+            return "0";
+        });
+		return dialog.showAndWait().get();
+	}
+	public static int extractInt(String input) {
+		// Regular expression pattern to match digits
+		Pattern pattern = Pattern.compile("\\d+");
+		Matcher matcher = pattern.matcher(input);
+
+		// Find the first match
+		if (matcher.find()) {
+			// Convert the matched string to integer
+			return Integer.parseInt(matcher.group());
+		} else {
+			throw new IllegalArgumentException("No integer found in the input string");
+		}
+	}
+	public void addChosenFood(String food){
+		Food selectedfood = this.listener.getCorrespondingFood(food);
+		String value = getUserData(selectedfood);
+		int quantity = extractInt(value);
+		if (quantity == 0){
+			return;
+		}
+		int calories;
+		if (value.contains("g")){
+			calories = selectedfood.getCaloriesConsumedByGrams(quantity);
+		}else{
+			calories = selectedfood.getCaloriesConsumedByServing(quantity);
+		}
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/widgets/Food_item.fxml"));
+		HBox box = null;
+		try {
+			box = loader.load();
+		} catch (IOException e) {
+			throw new RuntimeException("Food_item file not existing");
+		}
+		Label label1 = (Label) box.getChildren().get(0);
+		label1.setText(food);
+		Label label2 = (Label) box.getChildren().get(1);
+		if (value.contains("g")){
+			label2.setText(String.format("Calories: %d          quantites(g): %d", calories, quantity));
+		}else{
+			if (selectedfood.getServingType() == "g"){
+				label2.setText(String.format("Calories: %d          quantites(g): %d", calories, quantity*selectedfood.getServingQuantity_int()));
+			}else{
+				label2.setText(String.format("Calories: %d          quantites(ml): %d", calories, quantity*selectedfood.getServingQuantity_int()));
+			}
+		}
+		this.chosenFood.getItems().add(box);
 	}
 
 	public void addChosenFoodMouse(MouseEvent event) {
@@ -87,6 +179,7 @@ public class FoodViewController implements ViewController {
 	public interface Listener {
 		void sendUserSearch(String searchText);
 		void returnHome();
+		Food getCorrespondingFood(String food);
 	}
 
 	@Override

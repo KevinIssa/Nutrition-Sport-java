@@ -347,6 +347,16 @@ public class MainAppController extends AppController implements MenuViewControll
 
 						return foodNames;
 					}
+					@Override
+					public Food getCorrespondingFood(String food) {
+						List<Food> foods = loadFoods(food);
+						if (!foods.isEmpty()){
+							return foods.get(0);
+						}else{
+							throw new RuntimeException("food selected not in database");
+						}
+
+					}
 
 					@Override
 					public void sendUserSearch(String searchText) {
