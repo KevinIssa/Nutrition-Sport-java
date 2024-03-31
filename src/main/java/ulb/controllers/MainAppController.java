@@ -315,16 +315,16 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadFoodSearchPage() {
-		
+
 		this.primaryStage.setWidth(1020);
 		this.primaryStage.setHeight(645);
-		
+
 		FoodViewController foodViewController =
 				(FoodViewController) loadView("/ulb/views/AddMeal.fxml");
-		
+
 		foodViewController.setListener(
 				new FoodViewController.Listener() {
-					
+
 					FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json");
 
 					@Override
@@ -349,21 +349,19 @@ public class MainAppController extends AppController implements MenuViewControll
 					}
 
 					/**
-					 * Get the class Food of the corresponding food
+					 * Get the Food object of the corresponding food seleted by the user
 					 * @param food is the name of the food
 					 * @return the Food that have as name food
 					 */
 					@Override
 					public Food getCorrespondingFood(String food) {
 						List<Food> foods = loadFoods(food);
-						if (!foods.isEmpty()){
-							// if multiple food have the same name this may not work but well the user himself doesnt know which food
-							// he is asking for when both food have the same name
-							return foods.get(0);
-						}else{
+						if (!foods.isEmpty()) {
+							return foods.get(
+									0); // if multiple food have the same name this may not work
+						} else {
 							throw new RuntimeException("food selected not in database");
 						}
-
 					}
 
 					@Override

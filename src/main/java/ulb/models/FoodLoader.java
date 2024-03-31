@@ -31,13 +31,13 @@ public class FoodLoader {
 
 	private List<Food> foods;
 
-		/**
+	/**
 	 * Return the corresponding food object from the user input
 	 *
 	 * @param userInput The user input given through the user interface
 	 */
 	public Food convertStringToFood(String userInput) {
-		
+
 		for (Food food : foods) {
 			if (food.getName().equalsIgnoreCase(userInput)) {
 				return food;

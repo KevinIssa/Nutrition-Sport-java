@@ -20,12 +20,11 @@ package ulb.views;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -44,7 +43,7 @@ public class FoodViewController implements ViewController {
 	@FXML private ListView<String> suggestionsList;
 
 	@FXML private ListView<HBox> chosenFood;
-
+	private List<Food> chosenfoodsList = new ArrayList<>();
 	private FoodViewController.Listener listener;
 
 	@FXML
@@ -52,7 +51,7 @@ public class FoodViewController implements ViewController {
 		String searchText = this.searchField.getText();
 		this.listener.sendUserSearch(searchText);
 	}
-	
+
 	public String getUserInput() {
 		return this.searchField.getText();
 	}
@@ -63,41 +62,39 @@ public class FoodViewController implements ViewController {
 	 * @param food is the Food where we want to get values for
 	 * @return the quantity of the food in format:    "quantity g/portion"     example : "50 g" or "2 portion"
 	 */
-    public String getUserData(Food food){
-		// Create a TextInputDialog
+	public String getUserData(Food food) {
 		Dialog<String> dialog = new Dialog<>();
 		dialog.setTitle("Custom Input Dialog");
-        // load the window we want to use as popup
+
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/widgets/Food_popup.fxml"));
-		VBox box = null;
+		VBox box = loadPopupBox(loader);
+		FoodPopupController controller = loader.getController();
+		controller.setServinglabel(food.getServingQuantity());
+
+		dialog.getDialogPane().setContent(box);
+		dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+		dialog.setResultConverter(buttonType -> processDialogResult(buttonType, controller));
+
+		return dialog.showAndWait().get();
+	}
+
+	private VBox loadPopupBox(FXMLLoader loader) {
 		try {
-			box = loader.load();
+			return loader.load();
 		} catch (IOException e) {
 			throw new RuntimeException("Food_popup file not existing");
 		}
-		// set the Textinputdialog content as our Food_popup
-		FoodPopupController controller = loader.getController();
-		controller.setServinglabel(food.getServingQuantity());
-		dialog.getDialogPane().setContent(box);
-		// Add OK and Cancel buttons to the dialog
-		dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-		// Convert result to string when OK is clicked if return 0 then it mean not reply
-		dialog.setResultConverter(buttonType -> {
-			if (buttonType == ButtonType.OK) {
-				if (controller.getGramme() != 0){
-					// return the calories by grams
-					return String.valueOf(controller.getGramme()) + " g";
-				}else if (controller.getServing() != 0){
-					// return the calories by litres
-					return String.valueOf(controller.getServing()) + " portion";
-				}
-			}else if (buttonType == ButtonType.CANCEL){
-				return "0";
+	}
+
+	private String processDialogResult(ButtonType buttonType, FoodPopupController controller) {
+		if (buttonType == ButtonType.OK) {
+			if (controller.getGramme() != 0) {
+				return String.valueOf(controller.getGramme()) + " g";
+			} else if (controller.getServing() != 0) {
+				return String.valueOf(controller.getServing()) + " portion";
 			}
-            return "0";
-        });
-		// return the answear generated based on player action in the popup
-		return dialog.showAndWait().get();
+		}
+		return "0";
 	}
 
 	/**
@@ -119,53 +116,63 @@ public class FoodViewController implements ViewController {
 			throw new IllegalArgumentException("No integer found in the input string");
 		}
 	}
-	public void addChosenFood(String food){
-		// get the correspond Food with name food
-		Food selectedfood = this.listener.getCorrespondingFood(food);
-		// get player input in format: "int_value g/portion"
-		String value = getUserData(selectedfood);
-		// extract int_value from "int_value g/portion"
+
+	public void addChosenFood(String food) {
+		Food selectedFood = this.listener.getCorrespondingFood(food);
+		String value = getUserData(selectedFood);
 		int quantity = extractInt(value);
-		// if the value is none which mean the player didnt answear so we cancel this attempt to add a food to the meal
-		if (quantity == 0){
+
+		if (quantity == 0) {
 			return;
 		}
-		// we calculate the calories depending of the way we input value, directly by gramme or by serving
-		int calories;
-		if (value.contains("g")){
-			calories = selectedfood.getCaloriesConsumedByGrams(quantity);
-		}else{
-			calories = selectedfood.getCaloriesConsumedByServing(quantity);
-		}
-		// load the HBox used to contains the data needed to be display to the user
+
+		int calories =
+				value.contains("g")
+						? selectedFood.getCaloriesConsumedByGrams(quantity)
+						: selectedFood.getCaloriesConsumedByServing(quantity);
+
+		HBox box = loadFoodItemBox();
+		updateFoodItemBox(box, food, calories, quantity, selectedFood, value);
+		this.chosenFood.getItems().add(box);
+		this.chosenfoodsList.add(selectedFood);
+	}
+
+	private void removeChosenFood(HBox box) {
+		int index = this.chosenFood.getItems().indexOf(box);
+		this.chosenFood.getItems().remove(index);
+		this.chosenfoodsList.remove(index);
+	}
+
+	private HBox loadFoodItemBox() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/widgets/Food_item.fxml"));
-		HBox box = null;
 		try {
-			box = loader.load();
+			return loader.load();
 		} catch (IOException e) {
 			throw new RuntimeException("Food_item file not existing");
 		}
-		// add the name of the food added
+	}
+
+	private void updateFoodItemBox(
+			HBox box, String food, int calories, int quantity, Food selectedFood, String value) {
 		Label label1 = (Label) box.getChildren().get(0);
 		label1.setText(food);
-		// add the number of calories the food will add to the meal and add information about how much of this food did we add
+
 		Label label2 = (Label) box.getChildren().get(1);
-		if (value.contains("g")){
-			label2.setText(String.format("Calories: %d          quantites(g): %d", calories, quantity));
-		}else{
-			if (selectedfood.getServingType() == "g"){
-				label2.setText(String.format("Calories: %d          quantites(g): %d", calories, quantity*selectedfood.getServingQuantity_int()));
-			}else{
-				label2.setText(String.format("Calories: %d          quantites(ml): %d", calories, quantity*selectedfood.getServingQuantity_int()));
-			}
-		}
-		// add the Hbox with the information about the food added to the list of food added
-		this.chosenFood.getItems().add(box);
+		String quantityText =
+				value.contains("g")
+						? String.format(
+								"Calories: %d          quantites(g): %d", calories, quantity)
+						: String.format(
+								"Calories: %d          quantites(%s): %d",
+								calories,
+								selectedFood.getServingType(),
+								quantity * selectedFood.getServingQuantity_int());
+		label2.setText(quantityText);
 	}
 
 	public void addChosenFoodMouse(MouseEvent event) {
 		String chosenFood = this.suggestionsList.getSelectionModel().getSelectedItem();
-		if (chosenFood != null) {// prevent the first element is still null
+		if (chosenFood != null) { // prevent the first element is still null
 			this.addChosenFood(chosenFood);
 		}
 	}
@@ -174,11 +181,11 @@ public class FoodViewController implements ViewController {
 		if (event.getCode() == KeyCode.ENTER) {
 			String chosenFood = this.suggestionsList.getSelectionModel().getSelectedItem();
 			if (chosenFood == null) {
-				if (!this.suggestionsList.getItems().isEmpty()){
+				if (!this.suggestionsList.getItems().isEmpty()) {
 					chosenFood = this.suggestionsList.getItems().get(0);
 				}
 			}
-			if (chosenFood != null) {// prevent the first element is still null
+			if (chosenFood != null) { // prevent the first element is still null
 				this.addChosenFood(chosenFood);
 			}
 		}
@@ -197,7 +204,9 @@ public class FoodViewController implements ViewController {
 
 	public interface Listener {
 		void sendUserSearch(String searchText);
+
 		void returnHome();
+
 		Food getCorrespondingFood(String food);
 	}
 
