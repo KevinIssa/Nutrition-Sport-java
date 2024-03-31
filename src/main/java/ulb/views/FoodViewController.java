@@ -33,17 +33,17 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import ulb.models.ConsumedFoodSaver;
 import ulb.models.Food;
 import ulb.widgets.FoodPopupController;
 
 public class FoodViewController implements ViewController {
 
 	@FXML private TextField searchField;
-
 	@FXML private ListView<String> suggestionsList;
+	@FXML private ListView<HBox> chosenFoodView;
 
-	@FXML private ListView<HBox> chosenFood;
-	private List<Food> chosenfoodsList = new ArrayList<>();
+	private ArrayList<ArrayList<String>> consumedFoodsList = new ArrayList<>();
 	private FoodViewController.Listener listener;
 
 	@FXML
@@ -119,28 +119,35 @@ public class FoodViewController implements ViewController {
 
 	public void addChosenFood(String food) {
 		Food selectedFood = this.listener.getCorrespondingFood(food);
-		String value = getUserData(selectedFood);
-		int quantity = extractInt(value);
+		String value = getUserData(selectedFood); // ex : "50 g"
+		int quantity = extractInt(value); // ex : 50
 
 		if (quantity == 0) {
 			return;
 		}
 
 		int calories =
-				value.contains("g")
-						? selectedFood.getCaloriesConsumedByGrams(quantity)
-						: selectedFood.getCaloriesConsumedByServing(quantity);
+			value.contains("g")
+				? selectedFood.getCaloriesConsumedByGrams(quantity)
+				: selectedFood.getCaloriesConsumedByServing(quantity);
 
 		HBox box = loadFoodItemBox();
 		updateFoodItemBox(box, food, calories, quantity, selectedFood, value);
-		this.chosenFood.getItems().add(box);
-		this.chosenfoodsList.add(selectedFood);
+		if (this.chosenFoodView != null) {
+			this.chosenFoodView.getItems();
+	}
+		// // this.consumedFoodsList.add(
+		// 	new ArrayList<>(
+		// 		List.of(
+		// 			selectedFood.getName(),
+		// 			Integer.toString(quantity),
+		// 			Integer.toString(calories))));
 	}
 
 	private void removeChosenFood(HBox box) {
-		int index = this.chosenFood.getItems().indexOf(box);
-		this.chosenFood.getItems().remove(index);
-		this.chosenfoodsList.remove(index);
+		int index = this.chosenFoodView.getItems().indexOf(box);
+		this.chosenFoodView.getItems().remove(index);
+		this.consumedFoodsList.remove(index);
 	}
 
 	private HBox loadFoodItemBox() {
@@ -219,5 +226,17 @@ public class FoodViewController implements ViewController {
 			throw new IllegalArgumentException("Listener cannot be null");
 		}
 		this.listener = (Listener) listener;
+	}
+
+	public void saveConsumedFoods() {
+		ConsumedFoodSaver<ArrayList<String>> saver =
+				new ConsumedFoodSaver<>(this.consumedFoodsList);
+		saver.save();
+		cleanFoodList();
+	}
+
+	public void cleanFoodList() {
+		chosenFoodView.getItems().clear();
+		consumedFoodsList.clear();
 	}
 }
