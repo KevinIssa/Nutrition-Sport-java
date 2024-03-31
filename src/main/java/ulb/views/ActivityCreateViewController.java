@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.shape.Rectangle;
 import javafx.util.StringConverter;
 import ulb.models.enums.Sport;
 
@@ -30,6 +32,10 @@ public class ActivityCreateViewController implements ViewController {
 	private Sport selectedSport;
 	private String intensity;
 	@FXML private Slider intensitySlider;
+	@FXML private HBox rectanglePane;
+	private Rectangle greenRectangle;
+    private Rectangle yellowRectangle;
+    private Rectangle redRectangle;
 	@FXML private TextField duration;
 
 	@FXML private Button button_walking;
@@ -57,6 +63,14 @@ public class ActivityCreateViewController implements ViewController {
 							if (newValue.intValue() == 1) intensity = "Moderate";
 							if (newValue.intValue() == 2) intensity = "Intense";
 						});
+		greenRectangle = createRectangle(50, 50, "green");
+        yellowRectangle = createRectangle(50, 100, "yellow");
+        redRectangle = createRectangle(50, 150, "red");
+
+        rectanglePane.getChildren().addAll(greenRectangle, yellowRectangle, redRectangle);
+
+        intensitySlider.valueProperty().addListener((observable, oldValue, newValue) -> updateRectangles(newValue.intValue()));
+		updateRectangles(intensitySlider.valueProperty().intValue());
 	}
 
 	private void configIntensitySlider() {
@@ -70,6 +84,46 @@ public class ActivityCreateViewController implements ViewController {
 		intensitySlider.setShowTickLabels(true);
 		intensitySlider.setMajorTickUnit(1);
 		intensity = "Moderate"; // * Default value
+	private void updateRectangles(int value) {
+        switch (value) {
+			case 0:
+				greenRectangle.setVisible(true);
+				yellowRectangle.setVisible(false);
+				redRectangle.setVisible(false);
+				break;
+			case 1:
+				greenRectangle.setVisible(true);
+				yellowRectangle.setVisible(true);
+				redRectangle.setVisible(false);
+				break;
+			case 2:
+				greenRectangle.setVisible(true);
+				yellowRectangle.setVisible(true);
+				redRectangle.setVisible(true);
+				break;
+			default:
+				greenRectangle.setVisible(false);
+				yellowRectangle.setVisible(false);
+				redRectangle.setVisible(false);
+				System.out.println("Invalid value");
+				break;
+		}
+    }
+
+    private Rectangle createRectangle(double width, double height, String color) {
+        Rectangle rectangle = new Rectangle(width, height);
+        rectangle.getStyleClass().add("rectangle-" + color);
+        return rectangle;
+    }
+
+	// Method to show an alert with the calculated calories
+	public void showAlert(double calories) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Calcul du nombre de calories");
+		alert.setHeaderText(null);
+		String text = "Vous avez dépensé " + calories + " calories durant cette activité";
+		alert.setContentText(text);
+		alert.showAndWait();
 	}
 
 	// Method to show an alert with the calculated calories
