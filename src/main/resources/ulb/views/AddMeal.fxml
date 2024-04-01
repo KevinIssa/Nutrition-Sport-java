@@ -28,7 +28,7 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <ListView fx:id="chosenFood" layoutX="15.0" layoutY="436.0" prefHeight="177.0" prefWidth="986.0" />
+      <ListView fx:id="chosenFoodView" layoutX="15.0" layoutY="436.0" prefHeight="177.0" prefWidth="986.0" />
       <HBox layoutX="920.0" layoutY="374.0" prefHeight="62.0" prefWidth="84.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="92.0">

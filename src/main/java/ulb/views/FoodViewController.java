@@ -134,7 +134,7 @@ public class FoodViewController implements ViewController {
 		HBox box = loadFoodItemBox();
 		updateFoodItemBox(box, food, calories, quantity, selectedFood, value);
 		if (this.chosenFoodView != null) {
-			this.chosenFoodView.getItems();
+			this.chosenFoodView.getItems().add(box);
 	}
 		// // this.consumedFoodsList.add(
 		// 	new ArrayList<>(
