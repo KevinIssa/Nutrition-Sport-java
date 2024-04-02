@@ -23,6 +23,8 @@ import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -37,28 +39,62 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 public class ProfileViewController implements ViewController {
+	static final Image pen = new Image("/ulb/images/pen.png", 15, 15, true, true);
+	static final Image check = new Image("/ulb/images/check.png", 15, 15, true, true);
+	public class Foo { //TODO : Rename this class "this class is a container for the textfield, label and button"
+		public TextField _txtField;
+		public Label _label;
+		public Button _button;
+
+		private boolean mode = false; // folse is done, true is edit
+
+		public void setDefault() {
+			_txtField.setVisible(false);
+			_label.setVisible(true);
+		}
+
+		public void setGraphic(ImageView imageView) {
+			_button.setGraphic(imageView);
+		}
+
+		public void setLabelText(String text) {
+			_label.setText(text);
+		}
+
+		public void toggleMode() {
+            if (this.mode) {
+                this.setEditMode(); // from done to edit
+            } else {
+                this.setDoneMode(); // from edit to done
+            }
+        }
+
+		private void setEditMode() {
+			_button.setText("Done");
+			setGraphic(new ImageView(check));
+			_txtField.setVisible(true);
+			_label.setVisible(false);
+			_txtField.setText(_label.getText());
+			mode = true;
+		}
+
+		private void setDoneMode() {
+			_button.setText("Edit");
+			setGraphic(new ImageView(pen));
+			_txtField.setVisible(false);
+			_label.setVisible(true);
+			_label.setText(_txtField.getText());
+			mode = false;
+		}
+
+	}
 	@FXML private ImageView profileimage;
 	@FXML private Button imageselection;
-
-	@FXML private TextField firstname_text;
-	@FXML private Label firstname_label;
-	@FXML private Button firstnameswitch;
-
-	@FXML private TextField lastname_text;
-	@FXML private Label lastname_label;
-	@FXML private Button lastnameswitch;
-
-	@FXML private DatePicker birthdate_text;
-	@FXML private Label birthdate_label;
-	@FXML private Button birthdateswitch;
-
-	@FXML private TextField height_text;
-	@FXML private Label height_label;
-	@FXML private Button heightswitch;
-
-	@FXML private TextField weight_text;
-	@FXML private Label weight_label;
-	@FXML private Button weightswitch;
+	@FXML private Foo firstname;
+	@FXML private Foo lastname;
+	@FXML private Foo birthdate;
+	@FXML private Foo height;
+	@FXML private Foo weight;
 
 	@FXML private Label sex_label;
 	@FXML private ToggleGroup sex;
@@ -66,8 +102,8 @@ public class ProfileViewController implements ViewController {
 	@FXML private RadioButton femaleButton;
 	@FXML private Button sexswitch;
 
-	private Image pen;
-	private Image check;
+	private ArrayList<Foo> bar = new ArrayList<>(Collection.of(this.firstname, this.lastname, this.birthdate, this.height, this.weight));
+	//TODO : Rename this variable, this variable has for objective to apply the same method to all Foo objects
 	private String imagepath;
 
 	private ProfileViewController.Listener
@@ -76,42 +112,22 @@ public class ProfileViewController implements ViewController {
 	// Method called after FXML file has been loaded; overridden from Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		this.firstname_text.setVisible(false);
-		this.firstname_label.setVisible(true);
-		this.lastname_text.setVisible(false);
-		this.lastname_label.setVisible(true);
-		this.birthdate_text.setVisible(false);
-		this.birthdate_label.setVisible(true);
-		this.height_text.setVisible(false);
-		this.height_label.setVisible(true);
-		this.weight_text.setVisible(false);
-		this.weight_label.setVisible(true);
+		for (Foo foo : bar) {
+			foo.setDefault();
+		}
 		this.maleButton.setVisible(false);
 		this.femaleButton.setVisible(false);
 		this.sex_label.setVisible(true);
 	}
 
 	// Set default values from listener
-	public void setDefaultValue() {
-		String relativePath = "images/pen.png";
-		double desiredWidth = 15; // Desired width in pixels
-		double desiredHeight = 15; // Desired height in pixels
-		this.pen = this.listener.getImage(relativePath, desiredWidth, desiredHeight);
-		relativePath = "images/check.png";
-		this.check = this.listener.getImage(relativePath, desiredWidth, desiredHeight);
+	public void setDefaultValue() {;
 		this.imageselection.setGraphic(new ImageView(pen));
-		this.firstnameswitch.setGraphic(new ImageView(pen));
-		this.lastnameswitch.setGraphic(new ImageView(pen));
-		this.birthdateswitch.setGraphic(new ImageView(pen));
 		this.sexswitch.setGraphic(new ImageView(pen));
-		this.heightswitch.setGraphic(new ImageView(pen));
-		this.weightswitch.setGraphic(new ImageView(pen));
-
-		this.firstname_label.setText(listener.getFirstName());
-		this.lastname_label.setText(listener.getLastName());
-		this.birthdate_label.setText(listener.getBirthDate().toString());
-		this.height_label.setText(Float.toString(listener.getHeight()));
-		this.weight_label.setText(Float.toString(listener.getWeight()));
+		for (Foo foo : this.bar) {
+			foo.setGraphic(new ImageView(pen));
+			foo.setLabelText(...); //TODO : get the right function to get the right value
+		}
 		this.sex_label.setText(listener.getSex());
 		this.setProfileImage();
 	}
@@ -142,37 +158,12 @@ public class ProfileViewController implements ViewController {
 	public void switcher(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		String id = node.getId();
+		for (Foo foo : bar) { //* need to be optimized
+			if (Objects.equals(foo._button.getId(), id)) {
+				foo.toggleMode();
+			}
+		}
 		switch (id) {
-			case "firstnameswitch":
-				if (Objects.equals(this.firstnameswitch.getText(), "Edit")) {
-					this.firstnameswitch.setText("Done");
-					this.firstnameswitch.setGraphic(new ImageView(check));
-					this.firstname_text.setVisible(true);
-					this.firstname_label.setVisible(false);
-					this.firstname_text.setText(this.firstname_label.getText());
-				} else {
-					this.firstnameswitch.setText("Edit");
-					this.firstnameswitch.setGraphic(new ImageView(pen));
-					this.firstname_text.setVisible(false);
-					this.firstname_label.setVisible(true);
-					this.firstname_label.setText(this.firstname_text.getText());
-				}
-				break;
-			case "lastnameswitch":
-				if (Objects.equals(this.lastnameswitch.getText(), "Edit")) {
-					this.lastnameswitch.setText("Done");
-					this.lastnameswitch.setGraphic(new ImageView(check));
-					this.lastname_text.setVisible(true);
-					this.lastname_label.setVisible(false);
-					this.lastname_text.setText(this.lastname_label.getText());
-				} else {
-					this.lastnameswitch.setText("Edit");
-					this.lastnameswitch.setGraphic(new ImageView(pen));
-					this.lastname_text.setVisible(false);
-					this.lastname_label.setVisible(true);
-					this.lastname_label.setText(this.lastname_text.getText());
-				}
-				break;
 			case "birthdateswitch":
 				if (Objects.equals(this.birthdateswitch.getText(), "Edit")) {
 					this.birthdateswitch.setText("Done");
@@ -190,36 +181,6 @@ public class ProfileViewController implements ViewController {
 					this.birthdate_text.setVisible(false);
 					this.birthdate_label.setVisible(true);
 					this.birthdate_label.setText(this.birthdate_text.getValue().toString());
-				}
-				break;
-			case "heightswitch":
-				if (Objects.equals(this.heightswitch.getText(), "Edit")) {
-					this.heightswitch.setText("Done");
-					this.heightswitch.setGraphic(new ImageView(check));
-					this.height_text.setVisible(true);
-					this.height_label.setVisible(false);
-					this.height_text.setText(this.height_label.getText());
-				} else {
-					this.heightswitch.setText("Edit");
-					this.heightswitch.setGraphic(new ImageView(pen));
-					this.height_text.setVisible(false);
-					this.height_label.setVisible(true);
-					this.height_label.setText(this.height_text.getText());
-				}
-				break;
-			case "weightswitch":
-				if (Objects.equals(this.weightswitch.getText(), "Edit")) {
-					this.weightswitch.setText("Done");
-					this.weightswitch.setGraphic(new ImageView(check));
-					this.weight_text.setVisible(true);
-					this.weight_label.setVisible(false);
-					this.weight_text.setText(this.weight_label.getText());
-				} else {
-					this.weightswitch.setText("Edit");
-					this.weightswitch.setGraphic(new ImageView(pen));
-					this.weight_text.setVisible(false);
-					this.weight_label.setVisible(true);
-					this.weight_label.setText(this.weight_text.getText());
 				}
 				break;
 			case "sexswitch":
@@ -252,6 +213,7 @@ public class ProfileViewController implements ViewController {
 				break;
 				// more cases can be added as needed
 			default:
+				throw new IllegalStateException("Unexpected value: " + id);
 				// code to be executed if expression doesn't match any case
 		}
 	}

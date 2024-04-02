@@ -199,16 +199,6 @@ public class MainAppController extends AppController implements MenuViewControll
 							}
 
 							@Override
-							public Image getImage(
-									String relativePath, double width, double height) {
-								URL path = getClass().getResource("/ulb/" + relativePath);
-								if (path == null) {
-									return null;
-								}
-								return new Image(path.toString(), width, height, true, true);
-							}
-
-							@Override
 							public void saveProfileImage(String imagepath) {
 								try {
 									URL imageurl = new URL(imagepath);
