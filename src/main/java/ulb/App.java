@@ -26,13 +26,16 @@ public class App extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Fitness App");
-		primaryStage.setResizable(true);
-		primaryStage.setWidth(800);
-		primaryStage.setHeight(600);
-		MainAppController controller = new MainAppController(primaryStage);
-		controller.loadWelcomeView();
+		setupStage(primaryStage);
+		new MainAppController(primaryStage).loadWelcomeView();
 		primaryStage.show();
+	}
+
+	private void setupStage(Stage stage) {
+		stage.setTitle("Fitness App");
+		stage.setResizable(true);
+		stage.setWidth(800);
+		stage.setHeight(600);
 	}
 
 	public static void main(String[] args) {

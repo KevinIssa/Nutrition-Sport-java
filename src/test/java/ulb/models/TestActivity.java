@@ -33,26 +33,11 @@ public class TestActivity {
 
 	@Test
 	public void testActivity() {
-		Sport sport = Sport.RUNNING;
-		Intensity intensity = Intensity.INTENSE;
-		Duration duration = Duration.ofMinutes(30);
-		LocalDateTime date = LocalDateTime.now().withNano(0);
-
-		String filename =
-				"activities"
-						+ "/"
-						+ date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))
-						+ ".json";
-
-		Activity activity = new Activity(sport, intensity, duration, date);
-		activity.save();
-		Activity activity2 = Activity.load(filename);
+		Activity activity = createAndSaveActivity();
+		Activity activity2 = Activity.load(getFilename(activity.getDate()));
 
 		// Remove the file
-		File file = new File(filename);
-		if (file.exists()) {
-			file.delete();
-		}
+		new File(getFilename(activity.getDate())).delete();
 
 		// Test
 		assertEquals(activity, activity2);
@@ -70,36 +55,40 @@ public class TestActivity {
 		assertFalse(checkDummyActivityFilesExist());
 	}
 
+	private Activity createAndSaveActivity() {
+		Activity activity =
+				new Activity(
+						Sport.RUNNING,
+						Intensity.INTENSE,
+						Duration.ofMinutes(30),
+						LocalDateTime.now().withNano(0));
+		activity.save();
+		return activity;
+	}
+
 	private void createDummyActivityFiles() {
-		LocalDateTime now = LocalDateTime.now().withNano(0);
 		for (int i = 1; i <= 3; i++) {
-			// Create dummy activity files with dif timestamps and save them
-			Activity activity =
-					new Activity(
+			new Activity(
 							Sport.RUNNING,
 							Intensity.INTENSE,
 							Duration.ofMinutes(30),
-							now.minusDays(i));
-			activity.save();
+							LocalDateTime.now().withNano(0).minusDays(i))
+					.save();
 		}
 	}
 
 	private boolean checkDummyActivityFilesExist() {
-		LocalDateTime now = LocalDateTime.now().withNano(0);
-		boolean filesExist = true;
 		for (int i = 1; i <= 3; i++) {
-			// Check if the dummy activity files still exist
-			String filename =
-					"activities/"
-							+ now.minusDays(i)
-									.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))
-							+ ".json";
-			File file = new File(filename);
-			if (!file.exists()) {
-				filesExist = false;
-				break;
+			if (new File(getFilename(LocalDateTime.now().withNano(0).minusDays(i))).exists()) {
+				return true;
 			}
 		}
-		return filesExist;
+		return false;
+	}
+
+	private String getFilename(LocalDateTime date) {
+		return "activities/"
+				+ date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))
+				+ ".json";
 	}
 }

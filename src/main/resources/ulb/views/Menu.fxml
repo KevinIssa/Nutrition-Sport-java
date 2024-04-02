@@ -22,7 +22,7 @@
 								<Circle centerX="15" centerY="15" radius="15" />
 							</clip>
 							<!-- Create the ImageView with the image -->
-
+							<Circle centerX="15" centerY="15" fill="WHITE" radius="15.0" stroke="BLACK" strokeType="INSIDE" />
 							<ImageView fx:id="profileimage" fitHeight="30" fitWidth="30">
 								<Image url="@../images/default_profile.png" />
 							</ImageView>
