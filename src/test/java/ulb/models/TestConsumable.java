@@ -18,14 +18,14 @@
  */
 package ulb.models;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 public class TestConsumable {
 
 	@Test
 	public void testGetCaloriesConsumedByGrams() {
-		Food food = new Food("food", 100, 100, "100g");
-		Assert.assertEquals(100, food.getCaloriesConsumedByGrams(100), 0);
+		assertEquals(100, new Food("food", 100, 100, "100g").getCaloriesConsumedByGrams(100), 0);
 	}
 }

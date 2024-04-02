@@ -29,31 +29,22 @@ public class TestProfile {
 
 	@Test
 	public void testProfile() {
-		Profile profile =
-				new Profile(
-						"Hugo",
-						"Charels",
-						Sex.MALE,
-						new Weight(60),
-						new Height(175),
-						LocalDate.of(2003, 5, 23));
+		Profile profile = createProfile("Hugo", "Charels", 60, 175, LocalDate.of(2003, 5, 23));
 		profile.save();
-		Profile loadedProfile = Profile.load();
-		assertEquals(profile, loadedProfile);
+		assertEquals(profile, Profile.load());
 	}
 
 	@Test
 	public void testDeleteProfile() {
-		Profile profile =
-				new Profile(
-						"lucas",
-						"dubois",
-						Sex.MALE,
-						new Weight(70),
-						new Height(180),
-						java.time.LocalDate.now());
+		Profile profile = createProfile("lucas", "dubois", 70, 180, LocalDate.now());
 		profile.save();
 		profile.delete();
 		assertFalse(Profile.isCreated());
+	}
+
+	private Profile createProfile(
+			String firstName, String lastName, int weight, int height, LocalDate birthDate) {
+		return new Profile(
+				firstName, lastName, Sex.MALE, new Weight(weight), new Height(height), birthDate);
 	}
 }
