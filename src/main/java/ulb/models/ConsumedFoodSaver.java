@@ -30,8 +30,7 @@ import java.util.Map;
 
 public class ConsumedFoodSaver<T> {
 
-	private String FOLDER_NAME = "src/main/resources";
-	private String filename = "consumedFood";
+	private String FOLDER_NAME = "eaten_food";
 	private ArrayList<ArrayList<String>> consumedFoods = new ArrayList<>();
 
 	public ConsumedFoodSaver(ArrayList<ArrayList<String>> consumedFoods) {
@@ -55,11 +54,6 @@ public class ConsumedFoodSaver<T> {
 		}
 
 		return filename;
-	}
-
-	public void save(String alt_filename) {
-		filename = alt_filename;
-		save();
 	}
 
 	/**
