@@ -18,17 +18,19 @@
  */
 package ulb.models;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class TestHeight {
 
-	@Test(expected = Exception.class)
+	@Test
 	public void inAnOtherDimension() {
-		new Height(-5);
+		assertThrows(Exception.class, () -> new Height(-5));
 	}
 
-	@Test(expected = Exception.class)
+	@Test
 	public void tooHigh() {
-		new Height(500);
+		assertThrows(Exception.class, () -> new Height(500));
 	}
 }

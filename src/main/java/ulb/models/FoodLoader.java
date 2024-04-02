@@ -93,4 +93,33 @@ public class FoodLoader {
 		}
 		return result;
 	}
+
+	/**
+	 * This method is used to find a Food object by its name using binary search.
+	 * Binary search is an efficient algorithm for finding an item from a sorted list of items.
+	 * It works by repeatedly dividing in half the portion of the list that could contain the item, until you've narrowed down the possible locations to just one.
+	 *
+	 * @param name The name of the food item to be searched.
+	 * @return The Food object if it is found, null otherwise.
+	 */
+	public Food getFoodByName(String name) {
+		return binarySearch(foods, name, 0, foods.size() - 1);
+	}
+
+	private Food binarySearch(List<Food> foods, String target, int start, int end) {
+		if (start > end) {
+			return null;
+		}
+
+		int mid = start + (end - start) / 2;
+		int comparison = foods.get(mid).getName().compareToIgnoreCase(target);
+
+		if (comparison == 0) {
+			return foods.get(mid);
+		} else if (comparison < 0) {
+			return binarySearch(foods, target, mid + 1, end);
+		} else {
+			return binarySearch(foods, target, start, mid - 1);
+		}
+	}
 }

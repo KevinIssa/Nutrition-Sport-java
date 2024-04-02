@@ -25,8 +25,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -35,7 +33,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import ulb.models.ConsumedFoodSaver;
+import ulb.models.ConsumedFood;
 import ulb.models.Food;
 import ulb.widgets.FoodPopupController;
 
@@ -231,19 +229,18 @@ public class FoodViewController implements ViewController {
 	}
 
 	public void saveConsumedFoods() {
-		ConsumedFoodSaver<ArrayList<String>> saver =
-				new ConsumedFoodSaver<>(this.consumedFoodsList);
+		ConsumedFood saver = new ConsumedFood(this.consumedFoodsList);
 		saver.save();
 		cleanFoodList();
 	}
 
 	public void removeSelectedFood() {
-		
+
 		HBox selectedItem = chosenFoodView.getSelectionModel().getSelectedItem();
 		if (selectedItem != null) {
 			chosenFoodView.getItems().remove(selectedItem);
 
-      // Assuming the first child of the HBox is a Label
+			// Assuming the first child of the HBox is a Label
 			if (selectedItem.getChildren().get(0) instanceof Label) {
 				Label label = (Label) selectedItem.getChildren().get(0);
 				String selectedFoodName = label.getText();
@@ -251,9 +248,7 @@ public class FoodViewController implements ViewController {
 			}
 		}
 	}
-	
-	
-	
+
 	public void cleanFoodList() {
 		chosenFoodView.getItems().clear();
 		consumedFoodsList.clear();

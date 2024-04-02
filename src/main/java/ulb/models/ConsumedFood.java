@@ -28,13 +28,24 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ConsumedFoodSaver<T> {
+public class ConsumedFood implements JsonSerializable {
 
-	private String FOLDER_NAME = "eaten_food";
+	private static String FOLDER_NAME = "eaten_food";
 	private ArrayList<ArrayList<String>> consumedFoods = new ArrayList<>();
 
-	public ConsumedFoodSaver(ArrayList<ArrayList<String>> consumedFoods) {
+	public ConsumedFood(ArrayList<ArrayList<String>> consumedFoods) {
 		this.consumedFoods = consumedFoods;
+	}
+
+	public static void clearAllConsumedFoods() {
+		File folder = new File(FOLDER_NAME);
+		File[] files = folder.listFiles();
+
+		if (files != null) {
+			for (File file : files) {
+				file.delete();
+			}
+		}
 	}
 
 	String getFolderName() {
@@ -106,5 +117,13 @@ public class ConsumedFoodSaver<T> {
 			// Print the stack trace for any IOExceptions
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void saveToFile(String filename) {}
+
+	@Override
+	public JsonSerializable loadFromFile(String filename) {
+		return null;
 	}
 }
