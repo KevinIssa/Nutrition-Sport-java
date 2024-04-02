@@ -66,6 +66,11 @@ public class ConsumedFoodSaver<T> {
 	 * This method is responsible for saving the consumed food data to a JSON file.
 	 */
 	public void save() {
+
+		if (consumedFoods.isEmpty()) {
+			return;
+		}
+
 		// Ensure the directory exists
 		// If the directory does not exist, it is created
 		File folder = new File(FOLDER_NAME);
