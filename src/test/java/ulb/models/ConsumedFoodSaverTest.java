@@ -35,6 +35,7 @@ public class ConsumedFoodSaverTest {
 		try {
 			// String path = "src/main/resources";
 			String path = tempDir.getAbsolutePath();
+			String filename = "consumedFoodTest";
 
 			// Create an instance of ConsumedFoodSaver
 			// ConsumedFoodSaver saver = new ConsumedFoodSaver();
@@ -52,17 +53,19 @@ public class ConsumedFoodSaverTest {
 			saver.setFolderName(path);
 
 			// Call the save method
-			saver.save();
+			saver.save(filename);
 
 			// Verify that the JSON file is created in the temporary directory
-			File jsonFile = new File(path + "/consumedFood.json");
+			File jsonFile = new File(path + "/" + filename + ".json");
 			assertTrue(jsonFile.exists());
 
 			// TODO: Add additional assertions to verify the content of the JSON file if needed
+		
+			c
 
 		} finally {
 			// Clean up the temporary directory
-			deleteDirectory(tempDir);
+			// deleteDirectory(tempDir);
 		}
 	}
 

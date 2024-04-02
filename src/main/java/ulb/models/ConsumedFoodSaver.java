@@ -27,10 +27,16 @@ import java.util.ArrayList;
 public class ConsumedFoodSaver<T> {
 
 	private String FOLDER_NAME = "src/main/resources";
+	private String filename = "consumedFood";
 	private ArrayList<T> consumedFoods = new ArrayList<>();
 
 	public ConsumedFoodSaver(ArrayList<T> consumedFoods) {
 		this.consumedFoods = consumedFoods;
+	}
+
+	public void save(String alt_filename) {
+		filename = alt_filename;
+		save();
 	}
 
 	public void save() {
@@ -47,7 +53,7 @@ public class ConsumedFoodSaver<T> {
 		try {
 
 			// Write to the JSON file
-			mapper.writeValue(new File(FOLDER_NAME + "/consumedFood.json"), consumedFoods);
+			mapper.writeValue(new File(FOLDER_NAME + "/" + filename + ".json"), consumedFoods);
 
 		} catch (IOException e) {
 			e.printStackTrace();
