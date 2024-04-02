@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -152,12 +154,6 @@ public class FoodViewController implements ViewController {
 								Integer.toString(calories))));
 	}
 
-	private void removeChosenFood(HBox box) {
-		int index = this.chosenFoodView.getItems().indexOf(box);
-		this.chosenFoodView.getItems().remove(index);
-		this.consumedFoodsList.remove(index);
-	}
-
 	private HBox loadFoodItemBox() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/widgets/Food_item.fxml"));
 		try {
@@ -241,6 +237,23 @@ public class FoodViewController implements ViewController {
 		cleanFoodList();
 	}
 
+	public void removeSelectedFood() {
+		
+		HBox selectedItem = chosenFoodView.getSelectionModel().getSelectedItem();
+		if (selectedItem != null) {
+			chosenFoodView.getItems().remove(selectedItem);
+
+      // Assuming the first child of the HBox is a Label
+			if (selectedItem.getChildren().get(0) instanceof Label) {
+				Label label = (Label) selectedItem.getChildren().get(0);
+				String selectedFoodName = label.getText();
+				consumedFoodsList.removeIf(foodList -> foodList.contains(selectedFoodName));
+			}
+		}
+	}
+	
+	
+	
 	public void cleanFoodList() {
 		chosenFoodView.getItems().clear();
 		consumedFoodsList.clear();

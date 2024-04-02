@@ -29,9 +29,9 @@
          </font>
       </Label>
       <ListView fx:id="chosenFoodView" layoutX="15.0" layoutY="436.0" prefHeight="177.0" prefWidth="986.0" />
-      <HBox fx:id="RemoveButton" layoutX="920.0" layoutY="374.0" prefHeight="62.0" prefWidth="84.0">
+      <HBox layoutX="920.0" layoutY="374.0" prefHeight="62.0" prefWidth="84.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="92.0">
+            <Button fx:id="RemoveButton" mnemonicParsing="false" prefHeight="55.0" prefWidth="92.0" onAction="#removeSelectedFood">
                <graphic>
                   <ImageView fitHeight="37.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -41,9 +41,9 @@
                </graphic>
             </Button>
          </children></HBox>
-      <HBox fx:id="GoBackButton" layoutX="15.0" layoutY="637.0" prefHeight="64.0" prefWidth="106.0">
+      <HBox layoutX="15.0" layoutY="637.0" prefHeight="64.0" prefWidth="106.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#returnHome" prefHeight="55.0" prefWidth="106.0">
+            <Button fx:id="GoBackButton" mnemonicParsing="false" prefHeight="55.0" prefWidth="106.0" onAction="#returnHome">
                <graphic>
                   <ImageView fitHeight="54.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
                      <image>

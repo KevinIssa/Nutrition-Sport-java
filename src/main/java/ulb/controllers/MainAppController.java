@@ -316,8 +316,8 @@ public class MainAppController extends AppController implements MenuViewControll
 	@Override
 	public void loadFoodSearchPage() {
 
-		this.primaryStage.setWidth(1020);
-		this.primaryStage.setHeight(645);
+		this.primaryStage.setWidth(1080);
+		this.primaryStage.setHeight(720);
 
 		FoodViewController foodViewController =
 				(FoodViewController) loadView("/ulb/views/AddMeal.fxml");
