@@ -34,6 +34,10 @@ public class ConsumedFoodSaver<T> {
 		this.consumedFoods = consumedFoods;
 	}
 
+	String getFolderName() {
+		return FOLDER_NAME;
+	}
+
 	public void save(String alt_filename) {
 		filename = alt_filename;
 		save();

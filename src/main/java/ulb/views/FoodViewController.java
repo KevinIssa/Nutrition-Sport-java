@@ -136,12 +136,12 @@ public class FoodViewController implements ViewController {
 		if (this.chosenFoodView != null) {
 			this.chosenFoodView.getItems().add(box);
 	}
-		// // this.consumedFoodsList.add(
-		// 	new ArrayList<>(
-		// 		List.of(
-		// 			selectedFood.getName(),
-		// 			Integer.toString(quantity),
-		// 			Integer.toString(calories))));
+		this.consumedFoodsList.add(
+			new ArrayList<>(
+				List.of(
+					selectedFood.getName(),
+					Integer.toString(quantity),
+					Integer.toString(calories))));
 	}
 
 	private void removeChosenFood(HBox box) {
