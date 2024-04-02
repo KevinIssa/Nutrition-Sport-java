@@ -43,7 +43,7 @@ public class ConsumedFoodSaverTest {
 			assertTrue(jsonFile.exists());
 
 			// TODO: Add additional assertions to verify the content of the JSON file if needed
-		
+
 		} catch (Exception e) {
 			e.printStackTrace();
 

@@ -100,10 +100,10 @@ public class FoodViewController implements ViewController {
 	/**
 	 * Extract the first piece of int in a string
 	 *
-	 * @param input is the string were we want to extract the int    input are in format:   "int_value g/portion"
+	 * @param input is the string were we want to extract the int    input are in format:   "int_value g"
 	 * @return a int value
 	 */
-	public static int extractInt(String input) {
+	public int extractInt(String input, Food food) {
 		// Regular expression pattern to match digits
 		Pattern pattern = Pattern.compile("\\d+");
 		Matcher matcher = pattern.matcher(input);
@@ -111,7 +111,13 @@ public class FoodViewController implements ViewController {
 		// Find the first match
 		if (matcher.find()) {
 			// Convert the matched string to integer
-			return Integer.parseInt(matcher.group());
+			int quantity = Integer.parseInt(matcher.group());
+
+			// If the input string contains "portion", convert the quantity to grams
+			if (input.contains("portion")) {
+				quantity *= food.getServingQuantity_int();
+			}
+			return quantity;
 		} else {
 			throw new IllegalArgumentException("No integer found in the input string");
 		}
@@ -120,28 +126,30 @@ public class FoodViewController implements ViewController {
 	public void addChosenFood(String food) {
 		Food selectedFood = this.listener.getCorrespondingFood(food);
 		String value = getUserData(selectedFood); // ex : "50 g"
-		int quantity = extractInt(value); // ex : 50
+
+		int quantity = extractInt(value, selectedFood); // ex : 50
 
 		if (quantity == 0) {
 			return;
 		}
 
+		int tempServingQuantity = quantity / selectedFood.getServingQuantity_int();
 		int calories =
-			value.contains("g")
-				? selectedFood.getCaloriesConsumedByGrams(quantity)
-				: selectedFood.getCaloriesConsumedByServing(quantity);
+				value.contains("g")
+						? selectedFood.getCaloriesConsumedByGrams(quantity)
+						: selectedFood.getCaloriesConsumedByServing(tempServingQuantity);
 
 		HBox box = loadFoodItemBox();
 		updateFoodItemBox(box, food, calories, quantity, selectedFood, value);
 		if (this.chosenFoodView != null) {
 			this.chosenFoodView.getItems().add(box);
-	}
+		}
 		this.consumedFoodsList.add(
-			new ArrayList<>(
-				List.of(
-					selectedFood.getName(),
-					Integer.toString(quantity),
-					Integer.toString(calories))));
+				new ArrayList<>(
+						List.of(
+								selectedFood.getName(),
+								Integer.toString(quantity),
+								Integer.toString(calories))));
 	}
 
 	private void removeChosenFood(HBox box) {
@@ -171,9 +179,7 @@ public class FoodViewController implements ViewController {
 								"Calories: %d          quantites(g): %d", calories, quantity)
 						: String.format(
 								"Calories: %d          quantites(%s): %d",
-								calories,
-								selectedFood.getServingType(),
-								quantity * selectedFood.getServingQuantity_int());
+								calories, selectedFood.getServingType(), quantity);
 		label2.setText(quantityText);
 	}
 
