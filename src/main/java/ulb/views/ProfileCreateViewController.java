@@ -31,69 +31,45 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 public class ProfileCreateViewController implements ViewController {
-	private String imagepath = null;
-	// Injected fields from the FXML file
 	@FXML private ImageView image;
 	@FXML private Button imageselection;
-	@FXML private TextField firstname;
-	@FXML private TextField lastname;
+	@FXML private TextField firstname, lastname, height, weight;
 	@FXML private DatePicker birthdate;
-	@FXML private TextField height;
-	@FXML private TextField weight;
-	@FXML private ToggleGroup sex; // radio button
+	@FXML private ToggleGroup sex;
+	private String imagepath = null;
+	private Listener listener;
 
-	private ProfileCreateViewController.Listener
-			listener; // Listener interface for communication with the controller
-
-	// Method called after FXML file has been loaded; overridden from Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		this.birthdate.setValue(LocalDate.now()); // Set default birthdate to current date
+		this.birthdate.setValue(LocalDate.now());
 	}
 
 	public void eventHandler(ActionEvent event) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Open Image File");
-		File selectedFile = fileChooser.showOpenDialog(imageselection.getScene().getWindow());
+		File selectedFile = new FileChooser().showOpenDialog(imageselection.getScene().getWindow());
 		if (selectedFile != null) {
-			Image image = new Image(selectedFile.toURI().toString());
-			double desiredWidth = 200; // Desired width in pixels
-			double desiredHeight = 150; // Desired height in pixels
-			Image resizedImage = new Image(image.getUrl(), desiredWidth, desiredHeight, true, true);
-			this.image.setImage(resizedImage);
+			this.image.setImage(new Image(selectedFile.toURI().toString(), 200, 150, true, true));
 			this.imagepath = selectedFile.toURI().toString();
 		}
 	}
 
-	// Save profile information
 	public void saveProfile() {
 		try {
-			String savedLastName = this.lastname.getText();
-			String savedFirstName = this.firstname.getText();
-			String savedSex = ((RadioButton) this.sex.getSelectedToggle()).getText();
-			LocalDate selectedDate = this.birthdate.getValue();
-			float floatHeight = Float.parseFloat(this.height.getText());
-			float floatWeight = Float.parseFloat(this.weight.getText());
 			this.listener.saveProfile(
-					savedFirstName,
-					savedLastName,
-					savedSex,
-					selectedDate,
-					floatHeight,
-					floatWeight);
+					this.firstname.getText(),
+					this.lastname.getText(),
+					((RadioButton) this.sex.getSelectedToggle()).getText(),
+					this.birthdate.getValue(),
+					Float.parseFloat(this.height.getText()),
+					Float.parseFloat(this.weight.getText()));
 			if (this.imagepath != null) {
 				this.listener.saveProfileImage(this.imagepath);
 			}
-		} catch (NumberFormatException e) {
-			// If height or weight is not a valid number, do nothing
+		} catch (NumberFormatException | IOException e) {
 			return;
-		} catch (IOException e) {
-			throw new RuntimeException(e);
 		}
-		this.listener.returnHome(); // Return to the home view after saving the profile
+		this.listener.returnHome();
 	}
 
-	// Set listener for communication with the controller
 	public void setListener(Object listener) {
 		if (listener == null) {
 			throw new IllegalArgumentException("Listener cannot be null");
@@ -101,9 +77,7 @@ public class ProfileCreateViewController implements ViewController {
 		this.listener = (Listener) listener;
 	}
 
-	// Listener interface for communication with the controller
 	public interface Listener {
-		// Save profile information
 		void saveProfile(
 				String firstName,
 				String lastName,
@@ -112,7 +86,7 @@ public class ProfileCreateViewController implements ViewController {
 				float height,
 				float weight);
 
-		void returnHome(); // Return to the home view
+		void returnHome();
 
 		void saveProfileImage(String image) throws IOException;
 	}

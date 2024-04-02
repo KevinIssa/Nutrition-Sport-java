@@ -28,63 +28,60 @@ import javafx.scene.image.ImageView;
 
 public class MenuViewController implements ViewController {
 	@FXML ImageView profileimage;
-
-	private MenuViewController.Listener
-			listener; // Listener interface for communication with the controller
+	private Listener listener;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {}
 
 	public void openProfile() {
-		this.listener.loadOpenProfileView();
+		listener.loadOpenProfileView();
 	}
 
 	public void deleteProfile() {
-		this.listener.loadDeleteProfileView();
+		listener.loadDeleteProfileView();
 	}
 
 	public void createActivity() {
-		this.listener.loadCreateActivityView();
+		listener.loadCreateActivityView();
 	}
 
 	public void activityHistory() {
-		this.listener.loadActivityHistoryView();
+		listener.loadActivityHistoryView();
 	}
 
 	public void setListener(Object listener) {
-		this.listener = (Listener) listener;
 		if (listener == null) {
 			throw new IllegalArgumentException("Listener cannot be null");
 		}
-		this.setdefault();
+		this.listener = (Listener) listener;
+		setdefault();
 	}
 
-	public void setdefault() {
-		Image image = this.listener.getProfileImage(30, 30);
+	private void setdefault() {
+		Image image = listener.getProfileImage(30, 30);
 		if (image != null) {
-			this.profileimage.setImage(image);
+			profileimage.setImage(image);
 		}
 	}
 
 	public void foodSearchPage() {
-		this.listener.loadFoodSearchPage();
+		listener.loadFoodSearchPage();
 	}
 
 	public interface Listener {
+		void loadCreateActivityView();
 
-		void loadCreateActivityView(); // Load the create activity view
+		void loadOpenProfileView();
 
-		void loadOpenProfileView(); // Load the modify profile view
+		void loadDeleteProfileView();
 
-		void loadDeleteProfileView(); // Load the delete profile view
+		void loadCreateProfileView();
 
-		void loadCreateProfileView(); // Load the create profile view
+		void loadMenuView();
 
-		void loadMenuView(); // Load the menu view
+		void loadWelcomeView();
 
-		void loadWelcomeView(); // Load the welcome view
-
-		void loadActivityHistoryView(); // Load the activity history view
+		void loadActivityHistoryView();
 
 		void loadFoodSearchPage();
 
