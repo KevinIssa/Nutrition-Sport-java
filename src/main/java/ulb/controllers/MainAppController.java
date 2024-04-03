@@ -60,6 +60,8 @@ public class MainAppController extends AppController implements MenuViewControll
 			primaryStage.setScene(new Scene(root, 300, 200));
 			return viewController;
 		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(1);
 			return null;
 		}
 	}

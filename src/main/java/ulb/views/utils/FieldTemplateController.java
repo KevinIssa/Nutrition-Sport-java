@@ -1,16 +1,11 @@
 package ulb.views.utils;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-public class Foo extends FooAbstract { //TODO : Rename this class "this class is a container for the textfield, label and button"
-	public TextField infoFieldUser;
-	public Foo(TextField infoFieldUser, Label label, Button button) {
-		super(label, button);
-		this.infoFieldUser = infoFieldUser;
+public class FieldTemplateController extends AbstractFieldTemplate { //TODO : Rename this class "this class is a container for the textfield, label and button"
+	@FXML public TextField infoFieldUser;
 
-	}
 
 	@Override
 	public void setDefault() {
@@ -20,12 +15,14 @@ public class Foo extends FooAbstract { //TODO : Rename this class "this class is
 	protected void setEditMode() {
 		super.setEditMode();
 		infoFieldUser.setVisible(true);
+		System.out.println("Edit mode");
 		infoFieldUser.setText(infoUser.getText());
 	}
 
 	@Override
 	protected void setDoneMode() {
 		super.setDoneMode();
+		System.out.println("Done mode");
 		infoFieldUser.setVisible(false);
 		infoUser.setText(infoFieldUser.getText());
 	}

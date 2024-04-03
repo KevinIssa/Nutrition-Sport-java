@@ -1,32 +1,18 @@
 package ulb.views.utils;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public abstract class FooAbstract implements Initializable {
+public abstract class AbstractFieldTemplate extends AnchorPane{
 	protected Image pen;
 	protected Image check;
 
 	@FXML protected Label infoUser;
 	@FXML protected Button editButton;
-	protected boolean mode = false; // folse is done, true is edit
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		setDefault();
-	}
-
-	protected FooAbstract(Label infoUser, Button editButton) {
-		this.infoUser = infoUser;
-		this.editButton = editButton;
-	}
-
+	protected boolean mode = true;
 
 	public void setImages(Image pen, Image check){
 		this.pen = pen;
@@ -50,20 +36,21 @@ public abstract class FooAbstract implements Initializable {
 		} else {
 			this.setDoneMode(); // from edit to done
 		}
+		System.out.println("Mode toggled");
 	}
 
     protected void setEditMode() {
         editButton.setText("Done");
 		editButton.setGraphic(new ImageView(check));
 		infoUser.setVisible(false);
-		mode = true;
+		mode = false;
     }
 
     protected void setDoneMode() {
 		editButton.setText("Edit");
 		editButton.setGraphic(new ImageView(pen));
 		infoUser.setVisible(true);
-		mode = false;
+		mode = true;
 	}
 
 	public String getText(){

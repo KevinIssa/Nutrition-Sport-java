@@ -33,28 +33,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import ulb.views.utils.Foo;
-import ulb.views.utils.Foo2;
-import ulb.views.utils.FooAbstract;
+import ulb.views.utils.FieldTemplateController;
+import ulb.views.utils.AbstractFieldTemplate;
 
 public class ProfileViewController implements ViewController {
-	// the following variables are here to be able to access the textfield, label and button but for code maintenance, they should not be manipulated directly
-	@FXML private Label _firstname_label;
-	@FXML private TextField _firstname_text;
-	@FXML private Button _firstname_button;
-	@FXML private Label _lastname_label;
-	@FXML private TextField _lastname_text;
-	@FXML private Button _lastname_button;
-	@FXML private Label _birthdate_label;
-	@FXML private DatePicker _birthdate_text;
-	@FXML private Button _birthdate_button;
-	@FXML private Label _height_label;
-	@FXML private TextField _height_text;
-	@FXML private Button _height_button;
-	@FXML private Label _weight_label;
-	@FXML private TextField _weight_text;
-	@FXML private Button _weight_button;
-	// end of variables that should not be manipulated directly
 	private Image pen;
 	private Image check;
 
@@ -62,13 +44,12 @@ public class ProfileViewController implements ViewController {
 	@FXML private Button imageselection;
 
 
-	private FooAbstract firstname;
-	private FooAbstract lastname;
-	private FooAbstract birthdate;
-	private FooAbstract height;
-	private FooAbstract weight;
+	@FXML private AbstractFieldTemplate firstnameController;
+	@FXML private AbstractFieldTemplate lastnameController;
+	@FXML private AbstractFieldTemplate birthdateController;
+	@FXML private AbstractFieldTemplate heightController;
+	@FXML private AbstractFieldTemplate weightController;
 
-	@FXML Foo test;
 
 	@FXML private Label sex_label;
 	@FXML private ToggleGroup sex;
@@ -76,8 +57,6 @@ public class ProfileViewController implements ViewController {
 	@FXML private RadioButton femaleButton;
 	@FXML private Button sexswitch;
 
-	private ArrayList<FooAbstract> bar;
-	//TODO : Rename this variable, this variable has for objective to apply the same method to all FooAbstract objects
 	private String imagepath;
 
 	private ProfileViewController.Listener
@@ -87,13 +66,6 @@ public class ProfileViewController implements ViewController {
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		System.out.println("Profile view initializing");
-		this.firstname = new Foo(_firstname_text, _firstname_label, _firstname_button);
-		this.lastname = new Foo(_lastname_text, _lastname_label, _lastname_button);
-		this.birthdate = new Foo2(_birthdate_text, _birthdate_label, _birthdate_button);
-		this.height = new Foo(_height_text, _height_label, _height_button);
-		this.weight = new Foo(_weight_text, _weight_label, _weight_button);
-		bar = new ArrayList<>(Arrays.asList(this.firstname, this.lastname, this.birthdate, this.height, this.weight));
-		System.out.println("Profile view initialized");
 		this.setImages();
 		this.maleButton.setVisible(false);
 		this.femaleButton.setVisible(false);
@@ -106,11 +78,19 @@ public class ProfileViewController implements ViewController {
 		String pathcheck = this.getPath("/ulb/images/check.png");
 		this.pen = new Image(pathpen, 15, 15, true, true);
 		this.check = new Image(pathcheck, 15, 15, true, true);
+
+		this.firstnameController.setImages(pen, check);
+		this.lastnameController.setImages(pen, check);
+		this.birthdateController.setImages(pen, check);
+		this.heightController.setImages(pen, check);
+		this.weightController.setImages(pen, check);
+
 		System.out.println("Images loaded");
-		for (FooAbstract foo : this.bar) {
+		/*
+		for (AbstractFieldTemplate foo : this.bar) {
 			foo.setImages(pen, check);
 		}
-		System.out.println("Images set");
+		*/
 	}
 	private String getPath(String path){
 		URL url = this.getClass().getResource(path);
@@ -124,14 +104,17 @@ public class ProfileViewController implements ViewController {
 		this.imageselection.setGraphic(new ImageView(pen));
 		this.sexswitch.setGraphic(new ImageView(pen));
 
-		for (FooAbstract foo : this.bar) {
-			foo.setDefault();
-		}
-		this.firstname.setLabelText(this.listener.getFirstName());
-		this.lastname.setLabelText(this.listener.getLastName());
-		this.birthdate.setLabelText(this.listener.getBirthDate().toString());
-		this.height.setLabelText(Float.toString(this.listener.getHeight()));
-		this.weight.setLabelText(Float.toString(this.listener.getWeight()));
+		this.firstnameController.setDefault();
+		this.lastnameController.setDefault();
+		this.birthdateController.setDefault();
+		this.heightController.setDefault();
+		this.weightController.setDefault();
+
+		this.firstnameController.setLabelText(this.listener.getFirstName());
+		this.lastnameController.setLabelText(this.listener.getLastName());
+		this.birthdateController.setLabelText(this.listener.getBirthDate().toString());
+		this.heightController.setLabelText(Float.toString(this.listener.getHeight()));
+		this.weightController.setLabelText(Float.toString(this.listener.getWeight()));
 
 
 		this.sex_label.setText(listener.getSex());
@@ -165,7 +148,7 @@ public class ProfileViewController implements ViewController {
 		Node node = (Node) event.getSource();
 		String id = node.getId();
 		/*
-		for (FooAbstract foo : bar) { //* need to be optimized
+		for (AbstractFieldTemplate foo : bar) { //* need to be optimized
 			if (Objects.equals(foo._button.getId(), id)) {
 				foo.toggleMode();
 				break;
@@ -203,19 +186,19 @@ public class ProfileViewController implements ViewController {
 				break;
 				// more cases can be added as needed
 			case "_firstname_button":
-				this.firstname.toggleMode();
+				this.firstnameController.toggleMode();
 				break;
 			case "_lastname_button":
-				this.lastname.toggleMode();
+				this.lastnameController.toggleMode();
 				break;
 			case "_birthdate_button":
-				this.birthdate.toggleMode();
+				this.birthdateController.toggleMode();
 				break;
 			case "_height_button":
-				this.height.toggleMode();
+				this.heightController.toggleMode();
 				break;
 			case "_weight_button":
-				this.weight.toggleMode();
+				this.weightController.toggleMode();
 				break;
 			default:
 
@@ -227,12 +210,12 @@ public class ProfileViewController implements ViewController {
 	// Save profile information
 	public void saveProfile() {
 		try {
-			String savedLastName = lastname.getText();
-			String savedFirstName = firstname.getText();
+			String savedLastName = lastnameController.getText();
+			String savedFirstName = firstnameController.getText();
 			String savedSex = this.sex_label.getText();
-			LocalDate localDate = LocalDate.parse(birthdate.getText());
-			float floatHeight = Float.parseFloat(height.getText());
-			float floatWeight = Float.parseFloat(weight.getText());
+			LocalDate localDate = LocalDate.parse(birthdateController.getText());
+			float floatHeight = Float.parseFloat(heightController.getText());
+			float floatWeight = Float.parseFloat(weightController.getText());
 			this.listener.saveProfile(
 					savedFirstName, savedLastName, savedSex, localDate, floatHeight, floatWeight);
 			if (this.imagepath != null) {

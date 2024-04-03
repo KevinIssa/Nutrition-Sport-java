@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<StackPane minHeight="733.0" minWidth="685.0" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ProfileViewController">
+<StackPane minHeight="733.0" minWidth="685.0" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ProfileViewController">
    <children>
       <HBox alignment="CENTER" minHeight="733.0" minWidth="685.0" prefHeight="733.0" prefWidth="685.0">
          <children>
@@ -83,105 +73,33 @@
                            </Label>
                         </children>
                      </VBox>
-                     <StackPane prefHeight="450.0" prefWidth="300.0">
-                        <VBox alignment="TOP_CENTER" prefHeight="674.0" prefWidth="376.0" spacing="40.0" StackPane.alignment="TOP_CENTER">
-                           <children>
-                              <Label fx:id="_firstname_label" minHeight="36.0" >
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="_lastname_label" minHeight="36.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="_weight_label" minHeight="36.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="_height_label" minHeight="36.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="sex_label" minHeight="36.0">
-                                 <font>
-                                    <Font size="22.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="_birthdate_label" minHeight="36.0" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="674.0" prefWidth="376.0" spacing="40.0" StackPane.alignment="TOP_CENTER">
-                           <children>
-                              <TextField fx:id="_firstname_text" minHeight="36.0" promptText="firstname">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </TextField>
-                              <TextField fx:id="_lastname_text" minHeight="36.0" promptText="lastname">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </TextField>
-                              <TextField fx:id="_weight_text" minHeight="36.0" promptText="ex: 49">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </TextField>
-                              <TextField fx:id="_height_text" minHeight="36.0" promptText="ex: 159">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </TextField>
-                              <HBox alignment="CENTER" minHeight="36.0">
+                     <VBox maxWidth="56.0" minHeight="36.0" prefHeight="3.0" prefWidth="196.0" spacing="40.0">
+                        <children>
+                           <fx:include fx:id="firstname" source="FieldTemplate.fxml" />
+                           <fx:include fx:id="lastname" source="FieldTemplate.fxml" />
+                           <fx:include fx:id="weight" source="FieldTemplate.fxml" />
+                           <fx:include fx:id="height" source="FieldTemplate.fxml" />
+                           <HBox alignment="CENTER" minHeight="36.0">
                                  <children>
+                                    <Label fx:id="sex_label" minHeight="36.0" translateX="-80.0">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Label>
                                     <RadioButton fx:id="maleButton" mnemonicParsing="false" text="♂" translateX="-40.0">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="sex" />
                                        </toggleGroup>
                                     </RadioButton>
                                     <RadioButton fx:id="femaleButton" mnemonicParsing="false" text="♀" toggleGroup="$sex" translateX="40.0" />
+                                    <Button fx:id="sexswitch" minHeight="36.0" onAction="#switcher" text="Edit" translateX="80.0">
+                                       <graphic>
+                                          <ImageView fitHeight="15.0" fitWidth="15.0" />
+                                       </graphic>
+                                    </Button>
                                  </children>
-                              </HBox>
-                              <DatePicker fx:id="_birthdate_text" minHeight="36.0" />
-                           </children>
-                        </VBox>
-                     </StackPane>
-                     <VBox maxWidth="56.0" minHeight="36.0" prefHeight="3.0" prefWidth="196.0" spacing="40.0">
-                        <children>
-                           <Button fx:id="_firstname_button" minHeight="36.0" onAction="#switcher" text="Edit">
-                              <graphic>
-                                 <ImageView fitHeight="15.0" fitWidth="15.0" />
-                              </graphic>
-                           </Button>
-                           <Button fx:id="_lastname_button" minHeight="36.0" onAction="#switcher" text="Edit">
-                              <graphic>
-                                 <ImageView fitHeight="15.0" fitWidth="15.0" />
-                              </graphic>
-                           </Button>
-                           <Button fx:id="_weight_button" minHeight="36.0" onAction="#switcher" text="Edit">
-                              <graphic>
-                                 <ImageView fitHeight="15.0" fitWidth="15.0" />
-                              </graphic>
-                           </Button>
-                           <Button fx:id="_height_button" minHeight="36.0" onAction="#switcher" text="Edit">
-                              <graphic>
-                                 <ImageView fitHeight="15.0" fitWidth="15.0" />
-                              </graphic>
-                           </Button>
-                           <Button fx:id="sexswitch" minHeight="36.0" onAction="#switcher" text="Edit">
-                              <graphic>
-                                 <ImageView fitHeight="15.0" fitWidth="15.0" />
-                              </graphic>
-                           </Button>
-                           <Button fx:id="_birthdate_button" minHeight="36.0" onAction="#switcher" text="Edit">
-                              <graphic>
-                                 <ImageView fitHeight="15.0" fitWidth="15.0" />
-                              </graphic>
-                           </Button>
+                           </HBox>
+                           <fx:include fx:id="birthdate" source="FieldTemplate.fxml" />
                         </children>
                      </VBox>
                   </children>
@@ -196,7 +114,6 @@
                      </Button>
                   </children>
                </HBox>
-               <fx:include source="FieldTemplate.fxml" fx:id="test" />
             </VBox>
          </children>
       </HBox>

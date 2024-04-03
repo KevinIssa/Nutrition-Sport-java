@@ -1,20 +1,14 @@
 package ulb.views.utils;
 
-import javafx.scene.control.Button;
+import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Foo2 extends FooAbstract {
+public class DateFieldTemplatController extends AbstractFieldTemplate {
 
-	protected DatePicker birthdateFieldInfo;
-
-	public Foo2(DatePicker birthdateFieldInfo, Label label, Button button) {
-		super(label, button);
-		this.birthdateFieldInfo = birthdateFieldInfo;
-	}
+	@FXML protected DatePicker birthdateFieldInfo;
 
 	@Override
 	public void setDefault() {
