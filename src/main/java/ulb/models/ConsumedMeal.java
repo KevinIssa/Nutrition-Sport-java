@@ -117,6 +117,10 @@ public class ConsumedMeal implements JsonSerializable {
 	 * Saves the consumed meal data to a file.
 	 */
 	public void save() {
+		File folder = new File(FOLDER_NAME);
+		if (!folder.exists()) {
+			folder.mkdir();
+		}
 		String filename =
 				FOLDER_NAME
 						+ "/"
