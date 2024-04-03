@@ -33,7 +33,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import ulb.models.ConsumedFood;
 import ulb.models.Food;
 import ulb.widgets.FoodPopupController;
 
@@ -125,19 +124,12 @@ public class FoodViewController implements ViewController {
 
 	public void addChosenFood(String food) {
 		Food selectedFood = this.listener.getCorrespondingFood(food);
-		String value = getUserData(selectedFood); // ex : "50 g"
-
-		int quantity = extractInt(value, selectedFood); // ex : 50
-
+		String value = getUserData(selectedFood); // ex : "50 g" or "1 portion"
+		int quantity = extractInt(value, selectedFood); // ex : 50 or portion * gramPerPortion
 		if (quantity == 0) {
 			return;
 		}
-
-		int tempServingQuantity = quantity / selectedFood.getServingQuantity_int();
-		int calories =
-				value.contains("g")
-						? selectedFood.getCaloriesConsumedByGrams(quantity)
-						: selectedFood.getCaloriesConsumedByServing(tempServingQuantity);
+		int calories = this.listener.getCaloriesConsumedByGrams(food, quantity);
 
 		HBox box = loadFoodItemBox();
 		updateFoodItemBox(box, food, calories, quantity, selectedFood, value);
@@ -215,6 +207,8 @@ public class FoodViewController implements ViewController {
 		void returnHome();
 
 		Food getCorrespondingFood(String food);
+
+		int getCaloriesConsumedByGrams(String food, int quantity);
 	}
 
 	@Override
@@ -229,8 +223,8 @@ public class FoodViewController implements ViewController {
 	}
 
 	public void saveConsumedFoods() {
-		ConsumedFood saver = new ConsumedFood(this.consumedFoodsList);
-		saver.save();
+		//		ConsumedMeal saver = new ConsumedMeal(this.consumedFoodsList);
+		//		saver.save();
 		cleanFoodList();
 	}
 

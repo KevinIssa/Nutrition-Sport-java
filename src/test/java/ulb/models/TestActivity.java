@@ -20,6 +20,7 @@ package ulb.models;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.File;
 import java.time.Duration;
@@ -40,8 +41,9 @@ public class TestActivity {
 		new File(getFilename(activity.getDate())).delete();
 
 		// Test
+		assertNotNull(activity);
+		assertNotNull(activity2);
 		assertEquals(activity, activity2);
-		Activity.clearAllActivities(); // Clean up
 	}
 
 	@Test
@@ -87,7 +89,8 @@ public class TestActivity {
 	}
 
 	private String getFilename(LocalDateTime date) {
-		return "activities/"
+		return Activity.FOLDER_NAME
+				+ "/"
 				+ date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))
 				+ ".json";
 	}

@@ -246,35 +246,41 @@ class FoodListSerializer
  */
 class MealDeserializer extends StdDeserializer<Meal> {
 	public MealDeserializer() {
-		this(null);
-	}
-
-	public MealDeserializer(Class<?> vc) {
-		super(vc);
+		super(Meal.class);
 	}
 
 	@Override
 	public Meal deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
 		JsonNode mealNode = jp.getCodec().readTree(jp);
 		String name = mealNode.get("name").asText();
-		List<Map.Entry<Food, Integer>> ingredients = new ArrayList<>();
-
-		JsonNode ingredientsNode = mealNode.get("ingredients");
-		Iterator<JsonNode> iterator = ingredientsNode.elements();
-		while (iterator.hasNext()) {
-			JsonNode ingredientNode = iterator.next();
-			JsonNode foodNode = ingredientNode.get("food");
-			String foodName = foodNode.get("name").asText();
-			int caloriesPer100 = foodNode.get("caloriesPer100").asInt();
-			int caloriesPerServing = foodNode.get("caloriesPerServing").asInt();
-			String servingQuantity = foodNode.get("servingQuantity").asText();
-			Food food = new Food(foodName, caloriesPer100, caloriesPerServing, servingQuantity);
-			int quantity = ingredientNode.get("quantity").asInt();
-			ingredients.add(Map.entry(food, quantity));
-		}
+		List<Map.Entry<Food, Integer>> ingredients = getIngredients(mealNode);
 
 		Meal meal = new Meal(name);
 		meal.setIngredients(ingredients);
 		return meal;
+	}
+
+	private List<Map.Entry<Food, Integer>> getIngredients(JsonNode mealNode) {
+		List<Map.Entry<Food, Integer>> ingredients = new ArrayList<>();
+		JsonNode ingredientsNode = mealNode.get("ingredients");
+		Iterator<JsonNode> iterator = ingredientsNode.elements();
+		while (iterator.hasNext()) {
+			ingredients.add(getIngredient(iterator.next()));
+		}
+		return ingredients;
+	}
+
+	private Map.Entry<Food, Integer> getIngredient(JsonNode ingredientNode) {
+		Food food = getFood(ingredientNode.get("food"));
+		int quantity = ingredientNode.get("quantity").asInt();
+		return Map.entry(food, quantity);
+	}
+
+	private Food getFood(JsonNode foodNode) {
+		String foodName = foodNode.get("name").asText();
+		int caloriesPer100 = foodNode.get("caloriesPer100").asInt();
+		int caloriesPerServing = foodNode.get("caloriesPerServing").asInt();
+		String servingQuantity = foodNode.get("servingQuantity").asText();
+		return new Food(foodName, caloriesPer100, caloriesPerServing, servingQuantity);
 	}
 }

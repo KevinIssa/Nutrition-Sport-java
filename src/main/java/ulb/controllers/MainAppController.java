@@ -365,6 +365,12 @@ public class MainAppController extends AppController implements MenuViewControll
 					}
 
 					@Override
+					public int getCaloriesConsumedByGrams(String food, int quantity) {
+						Food foodObject = new FoodLoader().getFoodByName(food);
+						return foodObject.getCaloriesConsumedByGrams(quantity);
+					}
+
+					@Override
 					public void sendUserSearch(String searchText) {
 
 						List<Food> foods = loadFoods(searchText);

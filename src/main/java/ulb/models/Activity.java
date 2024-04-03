@@ -36,7 +36,7 @@ import ulb.models.enums.Sport;
  */
 public class Activity implements JsonSerializable {
 
-	private static final String FOLDER_NAME = "activities";
+	public static final String FOLDER_NAME = "activities";
 
 	private Sport sport;
 	private Intensity intensity = Intensity.MODERATE;
@@ -82,8 +82,6 @@ public class Activity implements JsonSerializable {
 				&& duration.equals(activity.duration)
 				&& date.equals(activity.date);
 	}
-
-	// hashCode method can also be overridden for consistency with equals method.
 
 	/**
 	 * Saves the activity data to a JSON file.

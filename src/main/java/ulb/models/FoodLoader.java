@@ -31,19 +31,8 @@ public class FoodLoader {
 
 	private List<Food> foods;
 
-	/**
-	 * Return the corresponding food object from the user input
-	 *
-	 * @param userInput The user input given through the user interface
-	 */
-	public Food convertStringToFood(String userInput) {
-
-		for (Food food : foods) {
-			if (food.getName().equalsIgnoreCase(userInput)) {
-				return food;
-			}
-		}
-		return null;
+	public FoodLoader() {
+		loadFoods("src/main/resources/food.json");
 	}
 
 	/**
@@ -63,10 +52,25 @@ public class FoodLoader {
 	private void loadFoods(String filename) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			foods = objectMapper.readValue(new File(filename), new TypeReference<List<Food>>() {});
+			foods = objectMapper.readValue(new File(filename), new TypeReference<>() {});
 		} catch (IOException exception) {
 			exception.printStackTrace();
 		}
+	}
+
+	/**
+	 * Return the corresponding food object from the user input
+	 *
+	 * @param userInput The user input given through the user interface
+	 */
+	public Food convertStringToFood(String userInput) {
+
+		for (Food food : foods) {
+			if (food.getName().equalsIgnoreCase(userInput)) {
+				return food;
+			}
+		}
+		return null;
 	}
 
 	/**
