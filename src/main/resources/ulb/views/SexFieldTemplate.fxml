@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import javafx.scene.control.RadioButton?>
+
+<?import javafx.scene.control.ToggleGroup?>
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.utils.SexFieldTemplateController">
+   <children>
+      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="530.0">
+         <children>
+            <StackPane prefHeight="84.0" prefWidth="302.0">
+               <children>
+                  <Label fx:id="infoUser" prefHeight="18.0" prefWidth="450.0" text="Label" />
+                   <RadioButton fx:id="maleButton" mnemonicParsing="false" text="♂" translateX="-40.0" >
+                      <toggleGroup>
+                        <ToggleGroup fx:id="sex" />
+                     </toggleGroup>
+                  </RadioButton>
+                    <RadioButton fx:id="femaleButton" mnemonicParsing="false" text="♀" toggleGroup="$sex" translateX="40.0" />
+               </children>
+            </StackPane>
+            <Button fx:id="editButton" onAction="#toggleMode" mnemonicParsing="false" prefHeight="37.0" prefWidth="104.0" text="Edit" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

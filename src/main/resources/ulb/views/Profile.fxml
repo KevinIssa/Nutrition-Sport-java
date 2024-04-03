@@ -79,27 +79,8 @@
                            <fx:include fx:id="lastname" source="FieldTemplate.fxml" />
                            <fx:include fx:id="weight" source="FieldTemplate.fxml" />
                            <fx:include fx:id="height" source="FieldTemplate.fxml" />
-                           <HBox alignment="CENTER" minHeight="36.0">
-                                 <children>
-                                    <Label fx:id="sex_label" minHeight="36.0" translateX="-80.0">
-                                       <font>
-                                          <Font size="22.0" />
-                                       </font>
-                                    </Label>
-                                    <RadioButton fx:id="maleButton" mnemonicParsing="false" text="♂" translateX="-40.0">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="sex" />
-                                       </toggleGroup>
-                                    </RadioButton>
-                                    <RadioButton fx:id="femaleButton" mnemonicParsing="false" text="♀" toggleGroup="$sex" translateX="40.0" />
-                                    <Button fx:id="sexswitch" minHeight="36.0" onAction="#switcher" text="Edit" translateX="80.0">
-                                       <graphic>
-                                          <ImageView fitHeight="15.0" fitWidth="15.0" />
-                                       </graphic>
-                                    </Button>
-                                 </children>
-                           </HBox>
-                           <fx:include fx:id="birthdate" source="FieldTemplate.fxml" />
+                            <fx:include fx:id="sex" source="SexFieldTemplate.fxml" />
+                           <fx:include fx:id="birthdate" source="DateFieldTemplate.fxml" />
                         </children>
                      </VBox>
                   </children>
