@@ -34,10 +34,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import ulb.models.Activity;
-import ulb.models.Food;
-import ulb.models.FoodLoader;
-import ulb.models.Profile;
+import ulb.models.*;
 import ulb.models.enums.Intensity;
 import ulb.models.enums.Sex;
 import ulb.models.enums.Sport;
@@ -357,6 +354,7 @@ public class MainAppController extends AppController implements MenuViewControll
 					public Food getCorrespondingFood(String food) {
 						List<Food> foods = loadFoods(food);
 						if (!foods.isEmpty()) {
+
 							return foods.get(
 									0); // if multiple food have the same name this may not work
 						} else {
@@ -376,6 +374,10 @@ public class MainAppController extends AppController implements MenuViewControll
 						List<Food> foods = loadFoods(searchText);
 						List<String> foodNames = foodToString(foods);
 						foodViewController.setSuggestions(foodNames);
+					}
+
+					public void saveConsumedFoods(ConsumedMeal consumedMeal) {
+						consumedMeal.save();
 					}
 				});
 	}

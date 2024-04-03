@@ -33,6 +33,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import ulb.models.ConsumedMeal;
 import ulb.models.Food;
 import ulb.widgets.FoodPopupController;
 
@@ -209,6 +210,8 @@ public class FoodViewController implements ViewController {
 		Food getCorrespondingFood(String food);
 
 		int getCaloriesConsumedByGrams(String food, int quantity);
+
+		void saveConsumedFoods(ConsumedMeal consumedMeal);
 	}
 
 	@Override
@@ -223,6 +226,7 @@ public class FoodViewController implements ViewController {
 	}
 
 	public void saveConsumedFoods() {
+
 		//		ConsumedMeal saver = new ConsumedMeal(this.consumedFoodsList);
 		//		saver.save();
 		cleanFoodList();
