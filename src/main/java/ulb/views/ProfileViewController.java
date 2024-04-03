@@ -18,15 +18,11 @@
  */
 package ulb.views;
 
-import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -39,62 +35,35 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 public class ProfileViewController implements ViewController {
+	// the following variables are here to be able to access the textfield, label and button but for code maintenance, they should not be manipulated directly
+	@FXML private Label _firstname_label;
+	@FXML private TextField _firstname_text;
+	@FXML private Button _firstname_button;
+	@FXML private Label _lastname_label;
+	@FXML private TextField _lastname_text;
+	@FXML private Button _lastname_button;
+	@FXML private Label _birthdate_label;
+	@FXML private DatePicker _birthdate_text;
+	@FXML private Button _birthdate_button;
+	@FXML private Label _height_label;
+	@FXML private TextField _height_text;
+	@FXML private Button _height_button;
+	@FXML private Label _weight_label;
+	@FXML private TextField _weight_text;
+	@FXML private Button _weight_button;
+	// end of variables that should not be manipulated directly
 	static final Image pen = new Image("/ulb/images/pen.png", 15, 15, true, true);
 	static final Image check = new Image("/ulb/images/check.png", 15, 15, true, true);
-	public class Foo { //TODO : Rename this class "this class is a container for the textfield, label and button"
-		public TextField _txtField;
-		public Label _label;
-		public Button _button;
 
-		private boolean mode = false; // folse is done, true is edit
-
-		public void setDefault() {
-			_txtField.setVisible(false);
-			_label.setVisible(true);
-		}
-
-		public void setGraphic(ImageView imageView) {
-			_button.setGraphic(imageView);
-		}
-
-		public void setLabelText(String text) {
-			_label.setText(text);
-		}
-
-		public void toggleMode() {
-            if (this.mode) {
-                this.setEditMode(); // from done to edit
-            } else {
-                this.setDoneMode(); // from edit to done
-            }
-        }
-
-		private void setEditMode() {
-			_button.setText("Done");
-			setGraphic(new ImageView(check));
-			_txtField.setVisible(true);
-			_label.setVisible(false);
-			_txtField.setText(_label.getText());
-			mode = true;
-		}
-
-		private void setDoneMode() {
-			_button.setText("Edit");
-			setGraphic(new ImageView(pen));
-			_txtField.setVisible(false);
-			_label.setVisible(true);
-			_label.setText(_txtField.getText());
-			mode = false;
-		}
-
-	}
 	@FXML private ImageView profileimage;
 	@FXML private Button imageselection;
-	@FXML private Foo firstname;
-	@FXML private Foo lastname;
-	@FXML private Foo birthdate;
-	@FXML private Foo height;
-	@FXML private Foo weight;
+
+
+	private FooAbstract firstname;
+	private FooAbstract lastname;
+	private FooAbstract birthdate;
+	private FooAbstract height;
+	private FooAbstract weight;
 
 	@FXML private Label sex_label;
 	@FXML private ToggleGroup sex;
@@ -102,8 +71,8 @@ public class ProfileViewController implements ViewController {
 	@FXML private RadioButton femaleButton;
 	@FXML private Button sexswitch;
 
-	private ArrayList<Foo> bar = new ArrayList<>(Collection.of(this.firstname, this.lastname, this.birthdate, this.height, this.weight));
-	//TODO : Rename this variable, this variable has for objective to apply the same method to all Foo objects
+	private ArrayList<FooAbstract> bar = new ArrayList<>(Arrays.asList(this.firstname, this.lastname, this.birthdate, this.height, this.weight));
+	//TODO : Rename this variable, this variable has for objective to apply the same method to all FooAbstract objects
 	private String imagepath;
 
 	private ProfileViewController.Listener
@@ -112,9 +81,12 @@ public class ProfileViewController implements ViewController {
 	// Method called after FXML file has been loaded; overridden from Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		for (Foo foo : bar) {
-			foo.setDefault();
-		}
+		this.firstname = new Foo(_firstname_text, _firstname_label, _firstname_button);
+		this.lastname = new Foo(_lastname_text, _lastname_label, _lastname_button);
+		this.birthdate = new Foo2(_birthdate_text, _birthdate_label, _birthdate_button);
+		this.height = new Foo(_height_text, _height_label, _height_button);
+		this.weight = new Foo(_weight_text, _weight_label, _weight_button);
+
 		this.maleButton.setVisible(false);
 		this.femaleButton.setVisible(false);
 		this.sex_label.setVisible(true);
@@ -124,10 +96,17 @@ public class ProfileViewController implements ViewController {
 	public void setDefaultValue() {;
 		this.imageselection.setGraphic(new ImageView(pen));
 		this.sexswitch.setGraphic(new ImageView(pen));
-		for (Foo foo : this.bar) {
-			foo.setGraphic(new ImageView(pen));
-			foo.setLabelText(...); //TODO : get the right function to get the right value
+
+		for (FooAbstract foo : this.bar) {
+			foo.setDefault();
 		}
+		this.firstname.setLabelText(this.listener.getFirstName());
+		this.lastname.setLabelText(this.listener.getLastName());
+		this.birthdate.setLabelText(this.listener.getBirthDate().toString());
+		this.height.setLabelText(Float.toString(this.listener.getHeight()));
+		this.weight.setLabelText(Float.toString(this.listener.getWeight()));
+
+
 		this.sex_label.setText(listener.getSex());
 		this.setProfileImage();
 	}
@@ -158,31 +137,15 @@ public class ProfileViewController implements ViewController {
 	public void switcher(ActionEvent event) {
 		Node node = (Node) event.getSource();
 		String id = node.getId();
-		for (Foo foo : bar) { //* need to be optimized
+		/*
+		for (FooAbstract foo : bar) { //* need to be optimized
 			if (Objects.equals(foo._button.getId(), id)) {
 				foo.toggleMode();
+				break;
 			}
 		}
+		*/
 		switch (id) {
-			case "birthdateswitch":
-				if (Objects.equals(this.birthdateswitch.getText(), "Edit")) {
-					this.birthdateswitch.setText("Done");
-					this.birthdateswitch.setGraphic(new ImageView(check));
-					this.birthdate_text.setVisible(true);
-					this.birthdate_label.setVisible(false);
-
-					this.birthdate_text.setValue(
-							LocalDate.parse(
-									birthdate_label.getText(),
-									DateTimeFormatter.ofPattern("yyyy-MM-d")));
-				} else {
-					this.birthdateswitch.setText("Edit");
-					this.birthdateswitch.setGraphic(new ImageView(pen));
-					this.birthdate_text.setVisible(false);
-					this.birthdate_label.setVisible(true);
-					this.birthdate_label.setText(this.birthdate_text.getValue().toString());
-				}
-				break;
 			case "sexswitch":
 				if (Objects.equals(this.sexswitch.getText(), "Edit")) {
 					this.sexswitch.setText("Done");
@@ -212,7 +175,23 @@ public class ProfileViewController implements ViewController {
 				}
 				break;
 				// more cases can be added as needed
+			case "firstname_button":
+				this.firstname.toggleMode();
+				break;
+			case "lastname_button":
+				this.lastname.toggleMode();
+				break;
+			case "birthdate_button":
+				this.birthdate.toggleMode();
+				break;
+			case "height_button":
+				this.height.toggleMode();
+				break;
+			case "weight_button":
+				this.weight.toggleMode();
+				break;
 			default:
+
 				throw new IllegalStateException("Unexpected value: " + id);
 				// code to be executed if expression doesn't match any case
 		}
@@ -221,12 +200,11 @@ public class ProfileViewController implements ViewController {
 	// Save profile information
 	public void saveProfile() {
 		try {
-			String savedLastName = lastname_label.getText();
-			String savedFirstName = firstname_label.getText();
+
+			String savedLastName = lastname.getText();
+			String savedFirstName = firstname.getText();
 			String savedSex = this.sex_label.getText();
-			LocalDate localDate =
-					LocalDate.parse(
-							birthdate_label.getText(), DateTimeFormatter.ofPattern("yyyy-MM-d"));
+			LocalDate localDate = birthdate.getText();
 			float floatHeight = Float.parseFloat(height_label.getText());
 			float floatWeight = Float.parseFloat(weight_label.getText());
 			this.listener.saveProfile(
@@ -271,8 +249,6 @@ public class ProfileViewController implements ViewController {
 		float getHeight();
 
 		float getWeight();
-
-		Image getImage(String relativePath, double width, double height);
 
 		void saveProfileImage(String imagepath);
 

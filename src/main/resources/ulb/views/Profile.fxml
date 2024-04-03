@@ -86,7 +86,7 @@
                      <StackPane prefHeight="450.0" prefWidth="300.0">
                         <VBox alignment="TOP_CENTER" prefHeight="674.0" prefWidth="376.0" spacing="40.0" StackPane.alignment="TOP_CENTER">
                            <children>
-                              <Label fx:id="firstname_label" minHeight="36.0">
+                              <Label fx:id="_textField" minHeight="36.0" >
                                  <font>
                                     <Font size="15.0" />
                                  </font>
