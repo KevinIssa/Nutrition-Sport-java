@@ -1,5 +1,6 @@
 package ulb.views.utils;
 
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -7,7 +8,7 @@ import javafx.scene.image.ImageView;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public abstract class FooAbstract {
+public abstract class FooAbstract implements Initializable {
 	protected Image pen;
 	protected Image check;
 

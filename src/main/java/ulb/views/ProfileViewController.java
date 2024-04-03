@@ -74,7 +74,7 @@ public class ProfileViewController implements ViewController {
 	@FXML private RadioButton femaleButton;
 	@FXML private Button sexswitch;
 
-	private ArrayList<FooAbstract> bar = new ArrayList<>(Arrays.asList(this.firstname, this.lastname, this.birthdate, this.height, this.weight));
+	private ArrayList<FooAbstract> bar;
 	//TODO : Rename this variable, this variable has for objective to apply the same method to all FooAbstract objects
 	private String imagepath;
 
@@ -89,10 +89,12 @@ public class ProfileViewController implements ViewController {
 		this.birthdate = new Foo2(_birthdate_text, _birthdate_label, _birthdate_button);
 		this.height = new Foo(_height_text, _height_label, _height_button);
 		this.weight = new Foo(_weight_text, _weight_label, _weight_button);
+		bar = new ArrayList<>(Arrays.asList(this.firstname, this.lastname, this.birthdate, this.height, this.weight));
 		this.setImages();
 		this.maleButton.setVisible(false);
 		this.femaleButton.setVisible(false);
 		this.sex_label.setVisible(true);
+		System.out.println("Profile view initialized");
 	}
 
 	private void setImages() {
@@ -100,9 +102,11 @@ public class ProfileViewController implements ViewController {
 		String pathcheck = this.getPath("/ulb/images/check.png");
 		this.pen = new Image(pathpen, 15, 15, true, true);
 		this.check = new Image(pathcheck, 15, 15, true, true);
+		System.out.println("Images loaded");
 		for (FooAbstract foo : this.bar) {
 			foo.setImages(pen, check);
 		}
+		System.out.println("Images set");
 	}
 	private String getPath(String path){
 		URL url = this.getClass().getResource(path);
@@ -194,19 +198,19 @@ public class ProfileViewController implements ViewController {
 				}
 				break;
 				// more cases can be added as needed
-			case "firstname_button":
+			case "_firstname_button":
 				this.firstname.toggleMode();
 				break;
-			case "lastname_button":
+			case "_lastname_button":
 				this.lastname.toggleMode();
 				break;
-			case "birthdate_button":
+			case "_birthdate_button":
 				this.birthdate.toggleMode();
 				break;
-			case "height_button":
+			case "_height_button":
 				this.height.toggleMode();
 				break;
-			case "weight_button":
+			case "_weight_button":
 				this.weight.toggleMode();
 				break;
 			default:
