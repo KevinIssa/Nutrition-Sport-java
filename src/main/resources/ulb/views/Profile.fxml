@@ -196,6 +196,7 @@
                      </Button>
                   </children>
                </HBox>
+               <fx:include source="FieldTemplate.fxml" fx:id="test" />
             </VBox>
          </children>
       </HBox>

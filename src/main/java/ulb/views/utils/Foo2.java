@@ -9,34 +9,34 @@ import java.time.format.DateTimeFormatter;
 
 public class Foo2 extends FooAbstract {
 
-	protected DatePicker datePicker;
+	protected DatePicker birthdateFieldInfo;
 
-	public Foo2(DatePicker datePicker, Label label, Button button) {
+	public Foo2(DatePicker birthdateFieldInfo, Label label, Button button) {
 		super(label, button);
-		this.datePicker = datePicker;
+		this.birthdateFieldInfo = birthdateFieldInfo;
 	}
 
 	@Override
 	public void setDefault() {
-		super.setDefault(datePicker);
+		super.setDefault(birthdateFieldInfo);
 	}
 
 	@Override
 	protected void setEditMode() {
 		super.setEditMode();
-		datePicker.setVisible(true);
-		datePicker.setValue(getFormattedDate());
+		birthdateFieldInfo.setVisible(true);
+		birthdateFieldInfo.setValue(getFormattedDate());
 	}
 
 	@Override
 	protected void setDoneMode() {
 		super.setDoneMode();
-		datePicker.setVisible(false);
-		label.setText(datePicker.getValue().toString());
+		birthdateFieldInfo.setVisible(false);
+		infoUser.setText(birthdateFieldInfo.getValue().toString());
 	}
 
 	private LocalDate getFormattedDate() {
-		return LocalDate.parse(label.getText(), DateTimeFormatter.ofPattern("yyyy-MM-d"));
+		return LocalDate.parse(infoUser.getText(), DateTimeFormatter.ofPattern("yyyy-MM-d"));
 	}
 	@Override
 	public String getText(){

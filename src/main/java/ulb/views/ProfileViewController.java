@@ -68,6 +68,8 @@ public class ProfileViewController implements ViewController {
 	private FooAbstract height;
 	private FooAbstract weight;
 
+	@FXML Foo test;
+
 	@FXML private Label sex_label;
 	@FXML private ToggleGroup sex;
 	@FXML private RadioButton maleButton;
@@ -84,12 +86,14 @@ public class ProfileViewController implements ViewController {
 	// Method called after FXML file has been loaded; overridden from Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
+		System.out.println("Profile view initializing");
 		this.firstname = new Foo(_firstname_text, _firstname_label, _firstname_button);
 		this.lastname = new Foo(_lastname_text, _lastname_label, _lastname_button);
 		this.birthdate = new Foo2(_birthdate_text, _birthdate_label, _birthdate_button);
 		this.height = new Foo(_height_text, _height_label, _height_button);
 		this.weight = new Foo(_weight_text, _weight_label, _weight_button);
 		bar = new ArrayList<>(Arrays.asList(this.firstname, this.lastname, this.birthdate, this.height, this.weight));
+		System.out.println("Profile view initialized");
 		this.setImages();
 		this.maleButton.setVisible(false);
 		this.femaleButton.setVisible(false);

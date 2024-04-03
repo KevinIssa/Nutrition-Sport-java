@@ -1,41 +1,49 @@
 package ulb.views.utils;
 
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public abstract class FooAbstract implements Initializable {
 	protected Image pen;
 	protected Image check;
 
-	protected Label label;
-	protected Button button;
-
+	@FXML protected Label infoUser;
+	@FXML protected Button editButton;
 	protected boolean mode = false; // folse is done, true is edit
-	protected FooAbstract(Label label, Button button) {
-		this.label = label;
-		this.button = button;
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		setDefault();
 	}
+
+	protected FooAbstract(Label infoUser, Button editButton) {
+		this.infoUser = infoUser;
+		this.editButton = editButton;
+	}
+
 
 	public void setImages(Image pen, Image check){
 		this.pen = pen;
 		this.check = check;
 	}
 	protected void setDefault(Control field){ // common parents of TextField and DatePicker need checking of possible issues
-		label.setVisible(true);
+		infoUser.setVisible(true);
 		field.setVisible(false);
 		if (pen == null || check == null) throw new NullPointerException("Images not set");
-		button.setGraphic(new ImageView(pen));
+		editButton.setGraphic(new ImageView(pen));
 	}
 
 	public abstract void setDefault();
 	public void setLabelText(String text){ // TODO : change to protected if possible
-		label.setText(text);
+		infoUser.setText(text);
 	}
+	@FXML
 	public void toggleMode(){
 		if (this.mode) {
 			this.setEditMode(); // from done to edit
@@ -45,20 +53,20 @@ public abstract class FooAbstract implements Initializable {
 	}
 
     protected void setEditMode() {
-        button.setText("Done");
-		button.setGraphic(new ImageView(check));
-		label.setVisible(false);
+        editButton.setText("Done");
+		editButton.setGraphic(new ImageView(check));
+		infoUser.setVisible(false);
 		mode = true;
     }
 
     protected void setDoneMode() {
-		button.setText("Edit");
-		button.setGraphic(new ImageView(pen));
-		label.setVisible(true);
+		editButton.setText("Edit");
+		editButton.setGraphic(new ImageView(pen));
+		infoUser.setVisible(true);
 		mode = false;
 	}
 
 	public String getText(){
-		return label.getText();
+		return infoUser.getText();
 	}
 }

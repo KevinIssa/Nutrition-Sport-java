@@ -56,6 +56,7 @@ public class MainAppController extends AppController implements MenuViewControll
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(resourcePath));
 			Parent root = loader.load();
 			ViewController viewController = loader.getController();
+			System.out.println(viewController);
 			primaryStage.setScene(new Scene(root, 300, 200));
 			return viewController;
 		} catch (IOException e) {
