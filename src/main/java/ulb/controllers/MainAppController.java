@@ -27,6 +27,7 @@ import java.nio.file.*;
 import java.nio.file.Files;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 import javafx.fxml.FXMLLoader;
@@ -369,15 +370,23 @@ public class MainAppController extends AppController implements MenuViewControll
 					}
 
 					@Override
+					public void saveConsumedFoods(ArrayList<ArrayList<String>> consumedFoodsList) {
+						ConsumedMeal consumedMeal = new ConsumedMeal();
+						for (List<String> consumedFood : consumedFoodsList) {
+							String food = consumedFood.get(0);
+							int quantity = Integer.parseInt(consumedFood.get(1));
+							int calories = Integer.parseInt(consumedFood.get(2));
+							consumedMeal.addConsumedFood(food, quantity, calories);
+						}
+						consumedMeal.save();
+					}
+
+					@Override
 					public void sendUserSearch(String searchText) {
 
 						List<Food> foods = loadFoods(searchText);
 						List<String> foodNames = foodToString(foods);
 						foodViewController.setSuggestions(foodNames);
-					}
-
-					public void saveConsumedFoods(ConsumedMeal consumedMeal) {
-						consumedMeal.save();
 					}
 				});
 	}

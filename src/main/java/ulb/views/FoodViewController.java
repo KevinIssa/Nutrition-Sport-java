@@ -33,7 +33,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import ulb.models.ConsumedMeal;
 import ulb.models.Food;
 import ulb.widgets.FoodPopupController;
 
@@ -46,74 +45,134 @@ public class FoodViewController implements ViewController {
 	private ArrayList<ArrayList<String>> consumedFoodsList = new ArrayList<>();
 	private FoodViewController.Listener listener;
 
+	@Override
+	public void initialize(URL url, ResourceBundle resourceBundle) {}
+
+	@Override
+	public void setListener(Object listener) {
+		if (listener == null) {
+			throw new IllegalArgumentException("Listener cannot be null");
+		}
+		this.listener = (Listener) listener;
+	}
+
+	// Action event handlers
+
 	@FXML
 	private void suggestFoods() {
-		String searchText = this.searchField.getText();
-		this.listener.sendUserSearch(searchText);
+		String searchText = searchField.getText();
+		listener.sendUserSearch(searchText);
 	}
 
-	public String getUserInput() {
-		return this.searchField.getText();
+	@FXML
+	public void addChosenFoodMouse(MouseEvent event) {
+		String chosenFood = suggestionsList.getSelectionModel().getSelectedItem();
+		if (chosenFood != null) {
+			addChosenFood(chosenFood);
+		}
 	}
 
-	/**
-	 * Get the quantity of the food we want to add to our meal from the user
-	 *
-	 * @param food is the Food where we want to get values for
-	 * @return the quantity of the food in format:    "quantity g/portion"     example : "50 g" or "2 portion"
-	 */
-	public String getUserData(Food food) {
+	@FXML
+	public void addChosenFoodKey(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			String chosenFood = suggestionsList.getSelectionModel().getSelectedItem();
+			if (chosenFood == null && !suggestionsList.getItems().isEmpty()) {
+				chosenFood = suggestionsList.getItems().get(0);
+			}
+			if (chosenFood != null) {
+				addChosenFood(chosenFood);
+			}
+		}
+	}
+
+	@FXML
+	public void saveConsumedFoods() {
+		if (consumedFoodsList.isEmpty()) {
+			return;
+		}
+		this.listener.saveConsumedFoods(consumedFoodsList);
+		cleanFoodList();
+	}
+
+	@FXML
+	public void removeSelectedFood() {
+		HBox selectedItem = chosenFoodView.getSelectionModel().getSelectedItem();
+		if (selectedItem != null) {
+			chosenFoodView.getItems().remove(selectedItem);
+			if (selectedItem.getChildren().get(0) instanceof Label) {
+				Label label = (Label) selectedItem.getChildren().get(0);
+				String selectedFoodName = label.getText();
+				consumedFoodsList.removeIf(foodList -> foodList.contains(selectedFoodName));
+			}
+		}
+	}
+
+	// Helper methods
+
+	public void setSuggestions(List<String> foods) {
+		suggestionsList.getItems().setAll(foods);
+	}
+
+	public void returnHome() {
+		listener.returnHome();
+	}
+
+	public void addChosenFood(String food) {
+		Food selectedFood = listener.getCorrespondingFood(food);
+		String value = getUserData(selectedFood);
+		int quantity = extractInt(value, selectedFood);
+		if (quantity == 0) {
+			return;
+		}
+		int calories = listener.getCaloriesConsumedByGrams(food, quantity);
+		HBox box = loadFoodItemBox();
+		updateFoodItemBox(box, food, calories, quantity, selectedFood, value);
+		chosenFoodView.getItems().add(box);
+		consumedFoodsList.add(
+				new ArrayList<>(
+						List.of(
+								selectedFood.getName(),
+								Integer.toString(quantity),
+								Integer.toString(calories))));
+	}
+
+	private String getUserData(Food food) {
 		Dialog<String> dialog = new Dialog<>();
 		dialog.setTitle("Custom Input Dialog");
-
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/widgets/Food_popup.fxml"));
 		VBox box = loadPopupBox(loader);
 		FoodPopupController controller = loader.getController();
 		controller.setServinglabel(food.getServingQuantity());
-
 		dialog.getDialogPane().setContent(box);
 		dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 		dialog.setResultConverter(buttonType -> processDialogResult(buttonType, controller));
-
-		return dialog.showAndWait().get();
+		return dialog.showAndWait().orElse("0");
 	}
 
 	private VBox loadPopupBox(FXMLLoader loader) {
 		try {
 			return loader.load();
 		} catch (IOException e) {
-			throw new RuntimeException("Food_popup file not existing");
+			throw new RuntimeException("Food_popup file not existing", e);
 		}
 	}
 
 	private String processDialogResult(ButtonType buttonType, FoodPopupController controller) {
 		if (buttonType == ButtonType.OK) {
 			if (controller.getGramme() != 0) {
-				return String.valueOf(controller.getGramme()) + " g";
+				return controller.getGramme() + " g";
 			} else if (controller.getServing() != 0) {
-				return String.valueOf(controller.getServing()) + " portion";
+				return controller.getServing() + " portion";
 			}
 		}
 		return "0";
 	}
 
-	/**
-	 * Extract the first piece of int in a string
-	 *
-	 * @param input is the string were we want to extract the int    input are in format:   "int_value g"
-	 * @return a int value
-	 */
-	public int extractInt(String input, Food food) {
-		// Regular expression pattern to match digits
+	private int extractInt(String input, Food food) {
 		Pattern pattern = Pattern.compile("\\d+");
 		Matcher matcher = pattern.matcher(input);
-
-		// Find the first match
 		if (matcher.find()) {
-			// Convert the matched string to integer
 			int quantity = Integer.parseInt(matcher.group());
-
-			// If the input string contains "portion", convert the quantity to grams
 			if (input.contains("portion")) {
 				quantity *= food.getServingQuantity_int();
 			}
@@ -123,34 +182,12 @@ public class FoodViewController implements ViewController {
 		}
 	}
 
-	public void addChosenFood(String food) {
-		Food selectedFood = this.listener.getCorrespondingFood(food);
-		String value = getUserData(selectedFood); // ex : "50 g" or "1 portion"
-		int quantity = extractInt(value, selectedFood); // ex : 50 or portion * gramPerPortion
-		if (quantity == 0) {
-			return;
-		}
-		int calories = this.listener.getCaloriesConsumedByGrams(food, quantity);
-
-		HBox box = loadFoodItemBox();
-		updateFoodItemBox(box, food, calories, quantity, selectedFood, value);
-		if (this.chosenFoodView != null) {
-			this.chosenFoodView.getItems().add(box);
-		}
-		this.consumedFoodsList.add(
-				new ArrayList<>(
-						List.of(
-								selectedFood.getName(),
-								Integer.toString(quantity),
-								Integer.toString(calories))));
-	}
-
 	private HBox loadFoodItemBox() {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/widgets/Food_item.fxml"));
 		try {
 			return loader.load();
 		} catch (IOException e) {
-			throw new RuntimeException("Food_item file not existing");
+			throw new RuntimeException("Food_item file not existing", e);
 		}
 	}
 
@@ -170,36 +207,9 @@ public class FoodViewController implements ViewController {
 		label2.setText(quantityText);
 	}
 
-	public void addChosenFoodMouse(MouseEvent event) {
-		String chosenFood = this.suggestionsList.getSelectionModel().getSelectedItem();
-		if (chosenFood != null) { // prevent the first element is still null
-			this.addChosenFood(chosenFood);
-		}
-	}
-
-	public void addChosenFoodKey(KeyEvent event) {
-		if (event.getCode() == KeyCode.ENTER) {
-			String chosenFood = this.suggestionsList.getSelectionModel().getSelectedItem();
-			if (chosenFood == null) {
-				if (!this.suggestionsList.getItems().isEmpty()) {
-					chosenFood = this.suggestionsList.getItems().get(0);
-				}
-			}
-			if (chosenFood != null) { // prevent the first element is still null
-				this.addChosenFood(chosenFood);
-			}
-		}
-	}
-
-	public void setSuggestions(List<String> foods) {
-		this.suggestionsList.getItems().clear();
-		for (String food : foods) {
-			this.suggestionsList.getItems().add(food);
-		}
-	}
-
-	public void returnHome() {
-		this.listener.returnHome();
+	public void cleanFoodList() {
+		chosenFoodView.getItems().clear();
+		consumedFoodsList.clear();
 	}
 
 	public interface Listener {
@@ -211,44 +221,6 @@ public class FoodViewController implements ViewController {
 
 		int getCaloriesConsumedByGrams(String food, int quantity);
 
-		void saveConsumedFoods(ConsumedMeal consumedMeal);
-	}
-
-	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {}
-
-	@Override
-	public void setListener(Object listener) {
-		if (listener == null) {
-			throw new IllegalArgumentException("Listener cannot be null");
-		}
-		this.listener = (Listener) listener;
-	}
-
-	public void saveConsumedFoods() {
-
-		//		ConsumedMeal saver = new ConsumedMeal(this.consumedFoodsList);
-		//		saver.save();
-		cleanFoodList();
-	}
-
-	public void removeSelectedFood() {
-
-		HBox selectedItem = chosenFoodView.getSelectionModel().getSelectedItem();
-		if (selectedItem != null) {
-			chosenFoodView.getItems().remove(selectedItem);
-
-			// Assuming the first child of the HBox is a Label
-			if (selectedItem.getChildren().get(0) instanceof Label) {
-				Label label = (Label) selectedItem.getChildren().get(0);
-				String selectedFoodName = label.getText();
-				consumedFoodsList.removeIf(foodList -> foodList.contains(selectedFoodName));
-			}
-		}
-	}
-
-	public void cleanFoodList() {
-		chosenFoodView.getItems().clear();
-		consumedFoodsList.clear();
+		void saveConsumedFoods(ArrayList<ArrayList<String>> consumedFoodsList);
 	}
 }
