@@ -33,6 +33,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import ulb.views.utils.Foo;
+import ulb.views.utils.Foo2;
+import ulb.views.utils.FooAbstract;
 
 public class ProfileViewController implements ViewController {
 	// the following variables are here to be able to access the textfield, label and button but for code maintenance, they should not be manipulated directly
@@ -52,8 +55,8 @@ public class ProfileViewController implements ViewController {
 	@FXML private TextField _weight_text;
 	@FXML private Button _weight_button;
 	// end of variables that should not be manipulated directly
-	static final Image pen = new Image("/ulb/images/pen.png", 15, 15, true, true);
-	static final Image check = new Image("/ulb/images/check.png", 15, 15, true, true);
+	private Image pen;
+	private Image check;
 
 	@FXML private ImageView profileimage;
 	@FXML private Button imageselection;
@@ -86,12 +89,28 @@ public class ProfileViewController implements ViewController {
 		this.birthdate = new Foo2(_birthdate_text, _birthdate_label, _birthdate_button);
 		this.height = new Foo(_height_text, _height_label, _height_button);
 		this.weight = new Foo(_weight_text, _weight_label, _weight_button);
-
+		this.setImages();
 		this.maleButton.setVisible(false);
 		this.femaleButton.setVisible(false);
 		this.sex_label.setVisible(true);
 	}
 
+	private void setImages() {
+		String  pathpen = this.getPath("/ulb/images/pen.png");
+		String pathcheck = this.getPath("/ulb/images/check.png");
+		this.pen = new Image(pathpen, 15, 15, true, true);
+		this.check = new Image(pathcheck, 15, 15, true, true);
+		for (FooAbstract foo : this.bar) {
+			foo.setImages(pen, check);
+		}
+	}
+	private String getPath(String path){
+		URL url = this.getClass().getResource(path);
+		if (url == null) {
+			throw new NullPointerException("Image not found");
+		}
+		return url.toString();
+	}
 	// Set default values from listener
 	public void setDefaultValue() {;
 		this.imageselection.setGraphic(new ImageView(pen));
@@ -200,13 +219,12 @@ public class ProfileViewController implements ViewController {
 	// Save profile information
 	public void saveProfile() {
 		try {
-
 			String savedLastName = lastname.getText();
 			String savedFirstName = firstname.getText();
 			String savedSex = this.sex_label.getText();
-			LocalDate localDate = birthdate.getText();
-			float floatHeight = Float.parseFloat(height_label.getText());
-			float floatWeight = Float.parseFloat(weight_label.getText());
+			LocalDate localDate = LocalDate.parse(birthdate.getText());
+			float floatHeight = Float.parseFloat(height.getText());
+			float floatWeight = Float.parseFloat(weight.getText());
 			this.listener.saveProfile(
 					savedFirstName, savedLastName, savedSex, localDate, floatHeight, floatWeight);
 			if (this.imagepath != null) {

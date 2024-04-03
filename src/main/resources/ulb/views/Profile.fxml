@@ -86,22 +86,22 @@
                      <StackPane prefHeight="450.0" prefWidth="300.0">
                         <VBox alignment="TOP_CENTER" prefHeight="674.0" prefWidth="376.0" spacing="40.0" StackPane.alignment="TOP_CENTER">
                            <children>
-                              <Label fx:id="_textField" minHeight="36.0" >
+                              <Label fx:id="_firstname_label" minHeight="36.0" >
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lastname_label" minHeight="36.0">
+                              <Label fx:id="_lastname_label" minHeight="36.0">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="weight_label" minHeight="36.0">
+                              <Label fx:id="_weight_label" minHeight="36.0">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="height_label" minHeight="36.0">
+                              <Label fx:id="_height_label" minHeight="36.0">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -111,27 +111,27 @@
                                     <Font size="22.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="birthdate_label" minHeight="36.0" />
+                              <Label fx:id="_birthdate_label" minHeight="36.0" />
                            </children>
                         </VBox>
                         <VBox alignment="TOP_CENTER" prefHeight="674.0" prefWidth="376.0" spacing="40.0" StackPane.alignment="TOP_CENTER">
                            <children>
-                              <TextField fx:id="firstname_text" minHeight="36.0" promptText="firstname">
+                              <TextField fx:id="_firstname_text" minHeight="36.0" promptText="firstname">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="lastname_text" minHeight="36.0" promptText="lastname">
+                              <TextField fx:id="_lastname_text" minHeight="36.0" promptText="lastname">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="weight_text" minHeight="36.0" promptText="ex: 49">
+                              <TextField fx:id="_weight_text" minHeight="36.0" promptText="ex: 49">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="height_text" minHeight="36.0" promptText="ex: 159">
+                              <TextField fx:id="_height_text" minHeight="36.0" promptText="ex: 159">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
@@ -146,28 +146,28 @@
                                     <RadioButton fx:id="femaleButton" mnemonicParsing="false" text="♀" toggleGroup="$sex" translateX="40.0" />
                                  </children>
                               </HBox>
-                              <DatePicker fx:id="birthdate_text" minHeight="36.0" />
+                              <DatePicker fx:id="_birthdate_text" minHeight="36.0" />
                            </children>
                         </VBox>
                      </StackPane>
                      <VBox maxWidth="56.0" minHeight="36.0" prefHeight="3.0" prefWidth="196.0" spacing="40.0">
                         <children>
-                           <Button fx:id="firstnameswitch" minHeight="36.0" onAction="#switcher" text="Edit">
+                           <Button fx:id="_firstname_button" minHeight="36.0" onAction="#switcher" text="Edit">
                               <graphic>
                                  <ImageView fitHeight="15.0" fitWidth="15.0" />
                               </graphic>
                            </Button>
-                           <Button fx:id="lastnameswitch" minHeight="36.0" onAction="#switcher" text="Edit">
+                           <Button fx:id="_lastname_button" minHeight="36.0" onAction="#switcher" text="Edit">
                               <graphic>
                                  <ImageView fitHeight="15.0" fitWidth="15.0" />
                               </graphic>
                            </Button>
-                           <Button fx:id="weightswitch" minHeight="36.0" onAction="#switcher" text="Edit">
+                           <Button fx:id="_weight_button" minHeight="36.0" onAction="#switcher" text="Edit">
                               <graphic>
                                  <ImageView fitHeight="15.0" fitWidth="15.0" />
                               </graphic>
                            </Button>
-                           <Button fx:id="heightswitch" minHeight="36.0" onAction="#switcher" text="Edit">
+                           <Button fx:id="_height_button" minHeight="36.0" onAction="#switcher" text="Edit">
                               <graphic>
                                  <ImageView fitHeight="15.0" fitWidth="15.0" />
                               </graphic>
@@ -177,7 +177,7 @@
                                  <ImageView fitHeight="15.0" fitWidth="15.0" />
                               </graphic>
                            </Button>
-                           <Button fx:id="birthdateswitch" minHeight="36.0" onAction="#switcher" text="Edit">
+                           <Button fx:id="_birthdate_button" minHeight="36.0" onAction="#switcher" text="Edit">
                               <graphic>
                                  <ImageView fitHeight="15.0" fitWidth="15.0" />
                               </graphic>
