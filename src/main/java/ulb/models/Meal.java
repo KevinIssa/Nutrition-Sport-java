@@ -243,12 +243,23 @@ class FoodListSerializer
 
 /**
  * Deserializer for Meal.
+ * This class is responsible for converting JSON data into a Meal object.
  */
 class MealDeserializer extends StdDeserializer<Meal> {
+
+	/**
+	 * Default constructor specifying the type to be deserialized.
+	 */
 	public MealDeserializer() {
 		super(Meal.class);
 	}
 
+	/**
+	 * Deserializes the JSON content into a Meal object.
+	 * @param jp JsonParser object used for reading JSON content
+	 * @param ctxt DeserializationContext object used for accessing contextual information during deserialization
+	 * @return Meal object containing the deserialized data
+	 */
 	@Override
 	public Meal deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
 		JsonNode mealNode = jp.getCodec().readTree(jp);
@@ -260,6 +271,11 @@ class MealDeserializer extends StdDeserializer<Meal> {
 		return meal;
 	}
 
+	/**
+	 * Extracts the ingredients from the JSON node and returns them as a list of Map.Entry objects.
+	 * @param mealNode JsonNode object containing the meal data
+	 * @return List of Map.Entry objects where each entry represents a food and its quantity
+	 */
 	private List<Map.Entry<Food, Integer>> getIngredients(JsonNode mealNode) {
 		List<Map.Entry<Food, Integer>> ingredients = new ArrayList<>();
 		JsonNode ingredientsNode = mealNode.get("ingredients");
@@ -270,12 +286,22 @@ class MealDeserializer extends StdDeserializer<Meal> {
 		return ingredients;
 	}
 
+	/**
+	 * Extracts a single ingredient from the JSON node and returns it as a Map.Entry object.
+	 * @param ingredientNode JsonNode object containing the ingredient data
+	 * @return Map.Entry object where the key is a Food object and the value is the quantity
+	 */
 	private Map.Entry<Food, Integer> getIngredient(JsonNode ingredientNode) {
 		Food food = getFood(ingredientNode.get("food"));
 		int quantity = ingredientNode.get("quantity").asInt();
 		return Map.entry(food, quantity);
 	}
 
+	/**
+	 * Extracts the food data from the JSON node and returns it as a Food object.
+	 * @param foodNode JsonNode object containing the food data
+	 * @return Food object containing the extracted data
+	 */
 	private Food getFood(JsonNode foodNode) {
 		String foodName = foodNode.get("name").asText();
 		int caloriesPer100 = foodNode.get("caloriesPer100").asInt();
