@@ -18,22 +18,40 @@
  */
 package ulb.models;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class TestFoodLoader {
+	private FoodLoader foodLoader;
 
-	@Test
-	public void testFoodLoader() {
-		FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json");
+	@BeforeEach
+	public void setup() {
+		this.foodLoader = new FoodLoader("src/main/resources/food.json");
 	}
 
 	@Test
-	public void testGetFoods() {
-		FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json");
-		List<Food> foods = foodLoader.getFoodsSuggestion("apple");
-		for (Food food : foods) {
-			assert (food.getName().toLowerCase().startsWith("apple"));
-		}
+	public void testFoodLoader() {
+		assertNotNull(foodLoader);
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = {"apple", "banana", "orange"})
+	public void testGetFoods(String foodName) {
+		List<Food> foods = foodLoader.getFoodsSuggestion(foodName);
+		foods.forEach(food -> assertTrue(food.getName().toLowerCase().startsWith(foodName)));
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = {"apple", "banana", "orange"})
+	public void testGetFoodByName(String foodName) {
+		Food food = foodLoader.getFoodByName(foodName);
+		assertNotNull(food);
+		assertTrue(food.getName().equalsIgnoreCase(foodName));
 	}
 }

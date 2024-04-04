@@ -18,28 +18,19 @@
  */
 package ulb.models;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
 
 public class TestWeight {
 
-	@Test
+	@Test()
 	public void inAnOtherDimension() {
-		try {
-			Weight weight = new Weight(-5);
-			Assert.fail();
-		} catch (Exception e) {
-			//
-		}
+		assertThrows(Exception.class, () -> new Weight(-5));
 	}
 
-	@Test
+	@Test()
 	public void tooFat() {
-		try {
-			Weight weight = new Weight(1000);
-			Assert.fail();
-		} catch (Exception e) {
-			//
-		}
+		assertThrows(Exception.class, () -> new Weight(1000));
 	}
 }

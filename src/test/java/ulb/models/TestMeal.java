@@ -18,19 +18,24 @@
  */
 package ulb.models;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class TestMeal {
+
 	@Test
 	public void testMeal() {
-		Meal customMeal = new Meal("Omelette aux poivrons");
-		Food egg = new Food("Egg", 97, 58, "1 egg (60 g)");
-		Food pepper = new Food("Pepper", 27, 20, "1 pepper (75 g)");
-		customMeal.addIngredient(egg, 3);
-		customMeal.addIngredient(pepper, 1);
-		customMeal.save();
+		Meal customMeal = createCustomMeal();
 		Meal loadedMeal = Meal.load("meals/Omelette aux poivrons.json");
-		Assert.assertEquals(customMeal, loadedMeal);
+		assertEquals(customMeal, loadedMeal);
+	}
+
+	private Meal createCustomMeal() {
+		Meal customMeal = new Meal("Omelette aux poivrons");
+		customMeal.addIngredient(new Food("Egg", 97, 58, "1 egg (60 g)"), 3);
+		customMeal.addIngredient(new Food("Pepper", 27, 20, "1 pepper (75 g)"), 1);
+		customMeal.save();
+		return customMeal;
 	}
 }

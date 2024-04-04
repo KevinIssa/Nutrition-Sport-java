@@ -24,10 +24,16 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import ulb.models.Activity;
 import ulb.models.Profile;
+import ulb.models.enums.Sport;
 
 public class ActivityHistoryViewController implements ViewController {
 
@@ -37,56 +43,123 @@ public class ActivityHistoryViewController implements ViewController {
 	private ActivityHistoryViewController.Listener
 			listener; // Listener interface for communication with the controller
 
-	@FXML private ListView<Label> historyList; // ListView to display activity history
-
+	@FXML private ListView<HBox> historyList; // ListView to display activity history
+	@FXML private AnchorPane test;
+	private boolean isFilterVisible = false;
 	// Method called after FXML file has been loaded; overridden from Initializable
+
+	private Sport filteredSport = null;
+
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {}
 
-	// Add an activity to the activity history list
-	public void addActivity(Activity activity) {
-		LocalDateTime date = activity.getDate();
-		Duration duration = activity.getDuration();
-
-		Label label =
-				new Label(
-						"Date: "
-								+ activity.changeDateFormat(date)
-								+ "   Activité: "
-								+ activity.getSport().toString()
-								+ "   Intensité: "
-								+ activity.getIntensity().toString()
-								+ "   Durée: "
-								+ activity.durationToString(duration)
-								+ "   Calories brûlées: "
-								+ activity.getCaloriesBurned(Profile.load().getWeight()));
-		caloriesBurnedTotal += activity.getCaloriesBurned(Profile.load().getWeight());
-		historyList.getItems().add(label);
-	}
-
-	// Return to the home view
-	public void returnHome() {
-		this.listener.returnHome();
-	}
-
 	// Add all activities to the activity history list
 	public void addActivities() {
-		historyList.getItems().clear(); // Clear existing items from the list
 		File directory = new File(FOLDERNAME); // Specify the directory path
 
-		// Get list of files in the directory
 		File[] files = directory.listFiles();
 
 		// Add activities to the list
 		if (files != null) {
 			for (File file : files) {
-				this.addActivity(
-						listener.loadActivity(
-								file.getPath())); // Load activity from file and add it to the list
+				Activity activity = listener.loadActivity(file.getPath());
+				if (filteredSport == null || activity.getSport() == filteredSport) {
+					addActivity(activity); // Add each activity individually
+				}
 			}
 		}
-		Label label = new Label("Total des calories brûlées: " + caloriesBurnedTotal);
-		historyList.getItems().add(label);
+
+		// Add total calories label
+		Label totalCaloriesLabel = new Label("Total des calories brûlées: " + caloriesBurnedTotal);
+		// Will have to be changed to hbox later to be added
+		HBox totalCalorieHBox = createTotalCalorieBox(caloriesBurnedTotal);
+		historyList.getItems().add(totalCalorieHBox);
+	}
+
+	public HBox createTotalCalorieBox(int caloriesBurnedTotal) {
+		HBox hbox = createHBox();
+		Label totalCalorieLabel = createLabel(String.valueOf(caloriesBurnedTotal) + " kcal");
+		ImageView dateImageView =
+				createImageView("/ulb/images/history_img/total_calories.png", 30, 30);
+		hbox.getChildren().addAll(dateImageView, totalCalorieLabel);
+		return hbox;
+	}
+
+	// Method to get the image path for a given sport
+	private String getImagePathForSport(String sport) {
+		return "/ulb/images/sport_img/" + sport + ".png";
+	}
+
+	private String getIntensityPathForSport(String intensity) {
+		return "/ulb/images/intensity_img/" + intensity.toString() + ".png";
+	}
+
+	public void addActivity(Activity activity) {
+		LocalDateTime date = activity.getDate();
+		Duration duration = activity.getDuration();
+
+		HBox activityHBox = createHistoryHBox(activity, date, duration);
+		historyList.getItems().add(activityHBox);
+
+		// Update total calories ( ! ne devrait pas être là je pense )
+		caloriesBurnedTotal += activity.getCaloriesBurned(Profile.load().getWeight());
+	}
+
+	private Label createLabel(String text) {
+		Label label = new Label(text);
+		return label;
+	}
+
+	private HBox createHistoryHBox(Activity activity, LocalDateTime date, Duration duration) {
+		ImageView intensityImageView = createIntensityImageView(activity);
+		ImageView sportImageView = createSportImageView(activity);
+		ImageView dateImageView = createImageView("/ulb/images/history_img/calendrier.png", 30, 30);
+		ImageView durationImageView =
+				createImageView("/ulb/images/history_img/chronometre.png", 30, 30);
+		ImageView calorieImageView =
+				createImageView("/ulb/images/history_img/calories.png", 30, 30);
+
+		Label label_date = createLabel(activity.changeDateFormat(date).toString());
+		Label label_duration = createLabel(activity.durationToString(duration));
+		Label label_calorie =
+				createLabel(
+						String.valueOf(
+								activity.getCaloriesBurned(Profile.load().getWeight()) + " kcal"));
+		HBox hbox = createHBox();
+		hbox.getChildren()
+				.addAll(
+						sportImageView,
+						intensityImageView,
+						dateImageView,
+						label_date,
+						durationImageView,
+						label_duration,
+						calorieImageView,
+						label_calorie);
+		return hbox;
+	}
+
+	private static HBox createHBox() {
+		HBox hbox = new HBox();
+		hbox.setAlignment(Pos.CENTER_LEFT);
+		hbox.setSpacing(10);
+		return hbox;
+	}
+
+	private ImageView createImageView(String imagePath, int width, int height) {
+		URL path = getClass().getResource(imagePath);
+		Image image = new Image(path.toString(), width, height, false, false);
+		return new ImageView(image);
+	}
+
+	private ImageView createIntensityImageView(Activity activity) {
+		String intensityStringPath = getIntensityPathForSport(activity.getIntensity().toString());
+		return createImageView(intensityStringPath, 30, 30);
+	}
+
+	private ImageView createSportImageView(Activity activity) {
+		String imagePath = getImagePathForSport(activity.getSport().toString());
+		return createImageView(imagePath, 30, 30);
 	}
 
 	// Set listener for communication with the controller
@@ -96,6 +169,53 @@ public class ActivityHistoryViewController implements ViewController {
 		}
 		this.listener = (Listener) listener;
 		this.addActivities(); // Add activities when listener is set
+	}
+
+	public void returnHome() {
+		this.listener.returnHome();
+	}
+
+	public void resetActivityHistory() {
+		historyList.getItems().clear(); // Clear existing items from the list
+		caloriesBurnedTotal = 0;
+		addActivities();
+	}
+
+	public void toggleShowFilter() {
+		if (isFilterVisible) {
+			test.setVisible(false);
+			isFilterVisible = false;
+			filteredSport = null;
+		} else {
+			test.setVisible(true);
+			isFilterVisible = true;
+		}
+		resetActivityHistory();
+	}
+
+	public void filterRunning() {
+		filteredSport = Sport.RUNNING;
+		this.resetActivityHistory();
+	}
+
+	public void filterWalking() {
+		filteredSport = Sport.WALKING;
+		this.resetActivityHistory();
+	}
+
+	public void filterBiking() {
+		filteredSport = Sport.BIKING;
+		this.resetActivityHistory();
+	}
+
+	public void filterSwimming() {
+		filteredSport = Sport.SWIMMING;
+		this.resetActivityHistory();
+	}
+
+	public void filterVolleyball() {
+		filteredSport = Sport.VOLLEYBALL;
+		this.resetActivityHistory();
 	}
 
 	// Listener interface for communication with the controller

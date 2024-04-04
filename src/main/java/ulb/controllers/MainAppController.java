@@ -27,14 +27,15 @@ import java.nio.file.*;
 import java.nio.file.Files;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import ulb.models.Activity;
-import ulb.models.Profile;
+import ulb.models.*;
 import ulb.models.enums.Intensity;
 import ulb.models.enums.Sex;
 import ulb.models.enums.Sport;
@@ -56,6 +57,8 @@ public class MainAppController extends AppController implements MenuViewControll
 			primaryStage.setScene(new Scene(root, 300, 200));
 			return viewController;
 		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(1);
 			return null;
 		}
 	}
@@ -77,11 +80,15 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadMenuView() {
+		this.primaryStage.setHeight(600);
+		this.primaryStage.setWidth(800);
 		loadView("/ulb/views/Menu.fxml", () -> this);
 	}
 
 	@Override
 	public void loadCreateProfileView() {
+		this.primaryStage.setHeight(700);
+		this.primaryStage.setWidth(750);
 		loadView(
 				"/ulb/views/ProfileCreate.fxml",
 				() ->
@@ -129,6 +136,8 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadOpenProfileView() {
+		this.primaryStage.setWidth(700);
+		this.primaryStage.setHeight(770);
 		loadView(
 				"/ulb/views/Profile.fxml",
 				() ->
@@ -190,16 +199,6 @@ public class MainAppController extends AppController implements MenuViewControll
 							}
 
 							@Override
-							public Image getImage(
-									String relativePath, double width, double height) {
-								URL path = getClass().getResource("/ulb/" + relativePath);
-								if (path == null) {
-									return null;
-								}
-								return new Image(path.toString(), width, height, true, true);
-							}
-
-							@Override
 							public void saveProfileImage(String imagepath) {
 								try {
 									URL imageurl = new URL(imagepath);
@@ -217,10 +216,11 @@ public class MainAppController extends AppController implements MenuViewControll
 							@Override
 							public Image getProfileImage(double width, double height) {
 								try {
-									URL path = new File("profile.png").toURL();
-									if (path == null) {
+									File file = new File("profile.png");
+									if (!file.exists()) {
 										return null;
 									}
+									URL path = file.toURL();
 									return new Image(path.toString(), width, height, true, true);
 								} catch (MalformedURLException e) {
 									throw new RuntimeException(e);
@@ -301,5 +301,83 @@ public class MainAppController extends AppController implements MenuViewControll
 								return Activity.load(filename);
 							}
 						});
+	}
+
+	@Override
+	public void loadFoodSearchPage() {
+
+		this.primaryStage.setWidth(1080);
+		this.primaryStage.setHeight(720);
+
+		FoodViewController foodViewController =
+				(FoodViewController) loadView("/ulb/views/AddMeal.fxml");
+
+		foodViewController.setListener(
+				new FoodViewController.Listener() {
+
+					FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json");
+
+					@Override
+					public void returnHome() {
+						loadWelcomeView();
+					}
+
+					private List<Food> loadFoods(String searchText) {
+
+						FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json");
+						return foodLoader.getFoodsSuggestion(searchText);
+					}
+
+					private List<String> foodToString(List<Food> foods) {
+
+						List<String> foodNames = new java.util.ArrayList<>();
+						for (Food food : foods) {
+							foodNames.add(food.getName());
+						}
+
+						return foodNames;
+					}
+
+					@Override
+					public int getCaloriesConsumedByGrams(String food, int quantity) {
+						Food foodObject = new FoodLoader().getFoodByName(food);
+						return foodObject.getCaloriesConsumedByGrams(quantity);
+					}
+
+					@Override
+					public void saveConsumedFoods(ArrayList<ArrayList<String>> consumedFoodsList) {
+						ConsumedMeal consumedMeal = new ConsumedMeal();
+						for (List<String> consumedFood : consumedFoodsList) {
+							String food = consumedFood.get(0);
+							int quantity = Integer.parseInt(consumedFood.get(1));
+							int calories = Integer.parseInt(consumedFood.get(2));
+							consumedMeal.addConsumedFood(food, quantity, calories);
+						}
+						consumedMeal.save();
+					}
+
+					@Override
+					public String getFoodServingQuantity(String food) {
+						return foodLoader.getFoodByName(food).getServingQuantity();
+					}
+
+					@Override
+					public int extractServingQuantityValue(String food) {
+						return foodLoader.getFoodByName(food).extractServingQuantityValue();
+					}
+
+					@Override
+					public String getFoodServingType(String food) {
+						return foodLoader.getFoodByName(food).getServingType();
+					}
+
+					@Override
+					public void sendUserSearch(String searchText) {
+
+						List<Food> foods = loadFoods(searchText);
+						List<String> foodNames = foodToString(foods);
+						foodViewController.setSuggestions(foodNames);
+					}
+				});
 	}
 }

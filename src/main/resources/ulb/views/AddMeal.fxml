@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1018.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.FoodViewController">
+   <children>
+      <ListView fx:id="suggestionsList" layoutX="15.0" layoutY="178.0" onKeyPressed="#addChosenFoodKey" onMouseClicked="#addChosenFoodMouse" prefHeight="177.0" prefWidth="986.0" />
+      <TextField fx:id="searchField" layoutX="14.0" layoutY="130.0" minHeight="-Infinity" onKeyPressed="#addChosenFoodKey" onKeyTyped="#suggestFoods" prefHeight="48.0" prefWidth="987.0" promptText="ex: apple">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </TextField>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" prefHeight="96.0" prefWidth="725.0" text="Ajoutez un plat" textAlignment="CENTER">
+         <font>
+            <Font size="49.0" />
+         </font>
+      </Label>
+      <Label layoutX="59.0" layoutY="388.0" prefHeight="48.0" prefWidth="212.0" text="Aliments choisis">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <ListView fx:id="chosenFoodView" layoutX="15.0" layoutY="436.0" prefHeight="177.0" prefWidth="986.0" />
+      <HBox layoutX="920.0" layoutY="374.0" prefHeight="62.0" prefWidth="84.0">
+         <children>
+            <Button fx:id="RemoveButton" mnemonicParsing="false" onAction="#removeSelectedFood" prefHeight="55.0" prefWidth="92.0">
+               <graphic>
+                  <ImageView fitHeight="37.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/remove.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children></HBox>
+      <HBox layoutX="15.0" layoutY="637.0" prefHeight="64.0" prefWidth="106.0">
+         <children>
+            <Button fx:id="GoBackButton" mnemonicParsing="false" onAction="#returnHome" prefHeight="55.0" prefWidth="106.0">
+               <graphic>
+                  <ImageView fitHeight="54.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/go_back_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+      <Button fx:id="SaveButton" layoutX="895.0" layoutY="638.0" mnemonicParsing="false" onMouseClicked="#saveConsumedFoods" prefHeight="63.0" prefWidth="106.0">
+         <graphic>
+            <ImageView fitHeight="49.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/save.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="796.0" layoutY="374.0" mnemonicParsing="false" onMouseClicked="#cleanFoodList" prefHeight="55.0" prefWidth="84.0">
+         <graphic>
+            <ImageView fitHeight="49.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/trash.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</Pane>

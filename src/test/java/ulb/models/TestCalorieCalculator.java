@@ -18,10 +18,11 @@
  */
 package ulb.models;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import ulb.models.enums.Intensity;
 import ulb.models.enums.Sport;
 
@@ -29,79 +30,34 @@ public class TestCalorieCalculator {
 
 	@Test
 	public void computeRunning() {
-		Activity activity =
-				new Activity(
-						Sport.RUNNING,
-						Intensity.INTENSE,
-						Duration.ofMinutes(15),
-						LocalDateTime.now());
-		Assert.assertEquals(137, activity.getCaloriesBurned(40), 1);
-		activity =
-				new Activity(
-						Sport.RUNNING, Intensity.SLOW, Duration.ofHours(1), LocalDateTime.now());
-		Assert.assertEquals(672, activity.getCaloriesBurned(80), 1);
+		testActivity(Sport.RUNNING, 137, 672);
 	}
 
 	@Test
 	public void computeVolleyball() {
-		Activity activity =
-				new Activity(
-						Sport.VOLLEYBALL,
-						Intensity.INTENSE,
-						Duration.ofMinutes(15),
-						LocalDateTime.now());
-		Assert.assertEquals(47, activity.getCaloriesBurned(40), 1);
-		activity =
-				new Activity(
-						Sport.VOLLEYBALL, Intensity.SLOW, Duration.ofHours(1), LocalDateTime.now());
-		Assert.assertEquals(252, activity.getCaloriesBurned(80), 1);
+		testActivity(Sport.VOLLEYBALL, 47, 252);
 	}
 
 	@Test
 	public void computeWalking() {
-		Activity activity =
-				new Activity(
-						Sport.WALKING,
-						Intensity.INTENSE,
-						Duration.ofMinutes(15),
-						LocalDateTime.now());
-		Assert.assertEquals(47, activity.getCaloriesBurned(40), 1);
-		activity =
-				new Activity(
-						Sport.WALKING, Intensity.SLOW, Duration.ofHours(1), LocalDateTime.now());
-		Assert.assertEquals(252, activity.getCaloriesBurned(80), 1);
+		testActivity(Sport.WALKING, 47, 252);
 	}
 
 	@Test
 	public void computeBiking() {
-		Activity activity =
-				new Activity(
-						Sport.BIKING,
-						Intensity.INTENSE,
-						Duration.ofMinutes(15),
-						LocalDateTime.now());
-		Assert.assertEquals(105, activity.getCaloriesBurned(40), 1);
-		activity =
-				new Activity(
-						Sport.BIKING, Intensity.SLOW, Duration.ofHours(1), LocalDateTime.now());
-		Assert.assertEquals(336, activity.getCaloriesBurned(80), 1);
+		testActivity(Sport.BIKING, 105, 336);
 	}
 
 	@Test
 	public void computeSwimming() {
+		testActivity(Sport.SWIMMING, 105, 504);
+	}
+
+	private void testActivity(Sport sport, int intenseCalories, int slowCalories) {
 		Activity activity =
-				new Activity(
-						Sport.SWIMMING,
-						Intensity.INTENSE,
-						Duration.ofMinutes(15),
-						LocalDateTime.now());
-		Assert.assertEquals(105, activity.getCaloriesBurned(40), 1);
-		activity =
-				new Activity(
-						Sport.SWIMMING,
-						Intensity.MODERATE,
-						Duration.ofHours(1),
-						LocalDateTime.now());
-		Assert.assertEquals(672, activity.getCaloriesBurned(80), 1);
+				new Activity(sport, Intensity.INTENSE, Duration.ofMinutes(15), LocalDateTime.now());
+		assertEquals(intenseCalories, activity.getCaloriesBurned(40), 1);
+		activity = new Activity(sport, Intensity.SLOW, Duration.ofHours(1), LocalDateTime.now());
+		assertEquals(slowCalories, activity.getCaloriesBurned(80), 1);
 	}
 }
