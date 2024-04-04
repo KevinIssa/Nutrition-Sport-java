@@ -346,23 +346,6 @@ public class MainAppController extends AppController implements MenuViewControll
 						return foodNames;
 					}
 
-					/**
-					 * Get the Food object of the corresponding food seleted by the user
-					 * @param food is the name of the food
-					 * @return the Food that have as name food
-					 */
-					@Override
-					public Food getCorrespondingFood(String food) {
-						List<Food> foods = loadFoods(food);
-						if (!foods.isEmpty()) {
-
-							return foods.get(
-									0); // if multiple food have the same name this may not work
-						} else {
-							throw new RuntimeException("food selected not in database");
-						}
-					}
-
 					@Override
 					public int getCaloriesConsumedByGrams(String food, int quantity) {
 						Food foodObject = new FoodLoader().getFoodByName(food);
@@ -379,6 +362,21 @@ public class MainAppController extends AppController implements MenuViewControll
 							consumedMeal.addConsumedFood(food, quantity, calories);
 						}
 						consumedMeal.save();
+					}
+
+					@Override
+					public String getFoodServingQuantity(String food) {
+						return foodLoader.getFoodByName(food).getServingQuantity();
+					}
+
+					@Override
+					public int extractServingQuantityValue(String food) {
+						return foodLoader.getFoodByName(food).extractServingQuantityValue();
+					}
+
+					@Override
+					public String getFoodServingType(String food) {
+						return foodLoader.getFoodByName(food).getServingType();
 					}
 
 					@Override

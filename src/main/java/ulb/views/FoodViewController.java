@@ -33,7 +33,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import ulb.models.Food;
 import ulb.widgets.FoodPopupController;
 
 public class FoodViewController implements ViewController {
@@ -118,34 +117,37 @@ public class FoodViewController implements ViewController {
 	}
 
 	public void addChosenFood(String food) {
-		Food selectedFood = listener.getCorrespondingFood(food);
-		String value = getUserData(selectedFood);
-		int quantity = extractInt(value, selectedFood);
+		String value = getUserData(food);
+		int quantity = extractQuantity(value, food);
 		if (quantity == 0) {
 			return;
 		}
+
 		int calories = listener.getCaloriesConsumedByGrams(food, quantity);
 		HBox box = loadFoodItemBox();
-		updateFoodItemBox(box, food, calories, quantity, selectedFood, value);
+		String servingType = listener.getFoodServingType(food);
+		updateFoodItemBox(box, food, calories, quantity, servingType, value);
 		chosenFoodView.getItems().add(box);
+
 		consumedFoodsList.add(
 				new ArrayList<>(
-						List.of(
-								selectedFood.getName(),
-								Integer.toString(quantity),
-								Integer.toString(calories))));
+						List.of(food, Integer.toString(quantity), Integer.toString(calories))));
 	}
 
-	private String getUserData(Food food) {
+	private String getUserData(String food) {
 		Dialog<String> dialog = new Dialog<>();
 		dialog.setTitle("Custom Input Dialog");
+
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/widgets/Food_popup.fxml"));
 		VBox box = loadPopupBox(loader);
+
 		FoodPopupController controller = loader.getController();
-		controller.setServinglabel(food.getServingQuantity());
+		controller.setServinglabel(listener.getFoodServingQuantity(food));
+
 		dialog.getDialogPane().setContent(box);
 		dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 		dialog.setResultConverter(buttonType -> processDialogResult(buttonType, controller));
+
 		return dialog.showAndWait().orElse("0");
 	}
 
@@ -159,8 +161,10 @@ public class FoodViewController implements ViewController {
 
 	private String processDialogResult(ButtonType buttonType, FoodPopupController controller) {
 		if (buttonType == ButtonType.OK) {
+
 			if (controller.getGramme() != 0) {
 				return controller.getGramme() + " g";
+
 			} else if (controller.getServing() != 0) {
 				return controller.getServing() + " portion";
 			}
@@ -168,15 +172,18 @@ public class FoodViewController implements ViewController {
 		return "0";
 	}
 
-	private int extractInt(String input, Food food) {
+	private int extractQuantity(String input, String food) {
 		Pattern pattern = Pattern.compile("\\d+");
 		Matcher matcher = pattern.matcher(input);
+
 		if (matcher.find()) {
+
 			int quantity = Integer.parseInt(matcher.group());
 			if (input.contains("portion")) {
-				quantity *= food.getServingQuantity_int();
+				quantity *= listener.extractServingQuantityValue(food);
 			}
 			return quantity;
+
 		} else {
 			throw new IllegalArgumentException("No integer found in the input string");
 		}
@@ -192,7 +199,8 @@ public class FoodViewController implements ViewController {
 	}
 
 	private void updateFoodItemBox(
-			HBox box, String food, int calories, int quantity, Food selectedFood, String value) {
+			HBox box, String food, int calories, int quantity, String servingType, String value) {
+
 		Label label1 = (Label) box.getChildren().get(0);
 		label1.setText(food);
 
@@ -203,7 +211,7 @@ public class FoodViewController implements ViewController {
 								"Calories: %d          quantites(g): %d", calories, quantity)
 						: String.format(
 								"Calories: %d          quantites(%s): %d",
-								calories, selectedFood.getServingType(), quantity);
+								calories, servingType, quantity);
 		label2.setText(quantityText);
 	}
 
@@ -217,10 +225,14 @@ public class FoodViewController implements ViewController {
 
 		void returnHome();
 
-		Food getCorrespondingFood(String food);
-
 		int getCaloriesConsumedByGrams(String food, int quantity);
 
 		void saveConsumedFoods(ArrayList<ArrayList<String>> consumedFoodsList);
+
+		String getFoodServingQuantity(String food);
+
+		int extractServingQuantityValue(String food);
+
+		String getFoodServingType(String food);
 	}
 }

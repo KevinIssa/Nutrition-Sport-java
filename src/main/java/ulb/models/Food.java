@@ -197,21 +197,20 @@ public class Food implements Consumable {
 	 *
 	 * @return The serving quantity of the food item.
 	 */
-	public int getServingQuantity_int() {
+	public int extractServingQuantityValue() {
 		// Define the pattern to match digits
 		Pattern pattern = Pattern.compile("\\d+");
 
 		// Create a matcher to find the pattern in the input string
 
-		int startposition = servingQuantity.indexOf("(");
-		String substring = this.servingQuantity.substring(startposition);
+		int startPosition = servingQuantity.indexOf("(");
+		String substring = this.servingQuantity.substring(startPosition);
 		Matcher matcher = pattern.matcher(substring);
 
 		// Find the first match
 		if (matcher.find()) {
 			// Extract the matched digits and convert to an integer
-			int integer_value = Integer.parseInt(matcher.group());
-			return integer_value;
+			return Integer.parseInt(matcher.group());
 		} else {
 			throw new RuntimeException("quantity not present in servingquantity");
 		}

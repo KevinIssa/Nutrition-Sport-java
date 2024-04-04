@@ -50,7 +50,7 @@ public class ConsumedMeal implements JsonSerializable {
 	private List<ConsumedFood> consumedFoods;
 
 	// Date and time when the meal was consumed
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd-HH-mm-ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy-HH-mm-ss")
 	private LocalDateTime date;
 
 	/**
@@ -248,7 +248,7 @@ class ConsumedMealDeserializer extends StdDeserializer<ConsumedMeal> {
 			}
 		}
 		String date = node.get("date").asText();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy-HH-mm-ss");
 		meal.setDate(LocalDateTime.parse(date, formatter));
 		return meal;
 	}
