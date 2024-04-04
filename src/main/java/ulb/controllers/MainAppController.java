@@ -138,7 +138,7 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadOpenProfileView() {
-		this.primaryStage.setWidth(685);
+		this.primaryStage.setWidth(700);
 		this.primaryStage.setHeight(770);
 		loadView(
 				"/ulb/views/Profile.fxml",
