@@ -4,9 +4,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
@@ -14,110 +15,117 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.Tooltip?>
-<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="Add Activity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ActivityCreateViewController">
-	<VBox prefHeight="348.0" prefWidth="598.0" spacing="10.0">
-	  <Label text="Ajoutez votre activité">
-		 <font>
-			<Font name="Consolas" size="28.0" />
-		 </font>
-	  </Label>
-	   <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="578.0" spacing="10.0">
-         <children>
-			 <Button fx:id="button_running" onAction="#selectRunning" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #FFFFFF;">
-				 <graphic>
-					 <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
-						 <image>
-							 <Image url="@../images/sport_img/Course à pied.png" /> <!-- Replace icon.png with your icon file name -->
-						 </image>
-					 </ImageView>
-				 </graphic>
-			 </Button>
-            <Button fx:id="button_walking" onAction="#selectWalking" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #FFFFFF;">
-               <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/sport_img/Marche.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="button_swimming" onAction="#selectSwimming" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #FFFFFF;">
-               <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/sport_img/Natation.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="button_biking" onAction="#selectBiking" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #FFFFFF;">
-               <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/sport_img/Vélo.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="button_volleyball" onAction="#selectVolleyball" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #FFFFFF;">
-               <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/sport_img/Volleyball.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
-	   </HBox>
-	   <HBox alignment="CENTER_LEFT" prefHeight="250.0" prefWidth="578.0">
-         <children>
-			 <Label text="Intensité" textAlignment="CENTER" translateX="30.0">
-				 <font>
-					 <Font size="22.0" />
-				 </font>
-			 </Label>
-            <Slider fx:id="intensitySlider" prefWidth="200.0" translateX="50" />
-         </children>
-	   </HBox>
-	  <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="600.0">
-		 <children>
-			<Label text="Durée (en minutes)" textAlignment="CENTER" translateX="30.0">
-			   <font>
-				  <Font size="22.0" />
-			   </font>
-			</Label>
-			<TextField fx:id="duration" translateX="80.0">
-			   <font>
-				  <Font size="15.0" />
-			   </font>
-			</TextField>
-		 </children>
-	  </HBox>
-			  <HBox alignment="CENTER" prefHeight="200.0" prefWidth="600.0">
-   		<Button mnemonicParsing="false" onAction="#returnHome" prefHeight="34.0" prefWidth="99.0" text="Retour">
-         <font>
-            <Font size="19.0" />
-         </font>
-		</Button>
-         <Region prefHeight="58.0" prefWidth="315.0" />
-	   <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#saveActivity" text="OK" textAlignment="RIGHT">
-		   <font>
-			   <Font size="19.0" />
-		   </font>
-	   </Button>
-         <StackPane maxHeight="36.0" maxWidth="36.0" prefHeight="36.0" prefWidth="36.0">
-             <clip>
-                     <Circle centerX="18" centerY="18" radius="10" />
-             </clip>
-             <Button prefHeight="36.0" prefWidth="36.0" text="i" >
-                 <tooltip>
-                     <Tooltip text="la formule pour le calcule du nombre de calories brulées: &#10;(((valeur de base de l'activite) * 3.5 * poids(kg)) / 200) * durée(min)"/>
-                 </tooltip>
-             </Button>
-         </StackPane>
-	</HBox>
-	</VBox>
 
-</TitledPane>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ActivityCreateViewController">
+   <children>
+      <VBox layoutX="10.0" layoutY="10.0" prefHeight="348.0" prefWidth="598.0" spacing="10.0">
+         <children>
+            <Label text="Ajoutez votre activité">
+               <font>
+                  <Font name="Consolas" size="28.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="578.0" spacing="10.0">
+               <children>
+                  <Button fx:id="button_running" onAction="#selectRunning" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #FFFFFF;">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/sport_img/Course à pied.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="button_walking" onAction="#selectWalking" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #FFFFFF;">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/sport_img/Marche.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="button_swimming" onAction="#selectSwimming" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #FFFFFF;">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/sport_img/Natation.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="button_biking" onAction="#selectBiking" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #FFFFFF;">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/sport_img/Vélo.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="button_volleyball" onAction="#selectVolleyball" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #FFFFFF;">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/sport_img/Volleyball.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="250.0" prefWidth="578.0">
+               <children>
+                  <Label text="Intensité" textAlignment="CENTER" translateX="30.0">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="intensitySlider" prefWidth="200.0" translateX="50" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="600.0">
+               <children>
+                  <Label text="Durée (en minutes)" textAlignment="CENTER" translateX="30.0">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="duration" translateX="80.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="200.0" prefWidth="600.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#returnHome" prefHeight="34.0" prefWidth="99.0" text="Retour">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Button>
+                  <Region prefHeight="58.0" prefWidth="315.0" />
+                  <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#saveActivity" text="OK" textAlignment="RIGHT">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                  </Button>
+                  <StackPane maxHeight="36.0" maxWidth="36.0" prefHeight="36.0" prefWidth="36.0">
+                     <clip>
+                        <Circle centerX="18" centerY="18" radius="10" />
+                     </clip>
+                     <children>
+                        <Button prefHeight="36.0" prefWidth="36.0" text="i">
+                           <tooltip>
+                              <Tooltip text="la formule pour le calcule du nombre de calories brulées: &#10;(((valeur de base de l'activite) * 3.5 * poids(kg)) / 200) * durée(min)" />
+                           </tooltip>
+                        </Button>
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
