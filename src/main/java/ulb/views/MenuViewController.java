@@ -25,10 +25,20 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.control.*;
 
 public class MenuViewController implements ViewController {
 	@FXML ImageView profileimage;
 	private Listener listener;
+
+	@FXML private Button addButton;
+	@FXML private Button addActivityButton;
+	@FXML private Button addFoodButton;
+
+	public void handleButtonPress(){
+		addActivityButton.setVisible(!addActivityButton.isVisible());
+		addFoodButton.setVisible(!addFoodButton.isVisible());
+	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {}

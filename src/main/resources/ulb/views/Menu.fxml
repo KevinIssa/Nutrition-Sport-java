@@ -6,44 +6,77 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.MenuViewController">
-
-	<top>
-		<MenuBar>
-			<menus>
-				<Menu>
-					<graphic>
-						<StackPane prefHeight="30" prefWidth="30">
-							<!-- Create a Circle shape as the clip -->
-							<clip>
-								<Circle centerX="15" centerY="15" radius="15" />
-							</clip>
-							<!-- Create the ImageView with the image -->
-							<Circle centerX="15" centerY="15" fill="WHITE" radius="15.0" stroke="BLACK" strokeType="INSIDE" />
-							<ImageView fx:id="profileimage" fitHeight="30" fitWidth="30">
-								<Image url="@../images/default_profile.png" />
-							</ImageView>
-						</StackPane>
-					</graphic>
-					<MenuItem onAction="#openProfile" text="Voir le profil" />
-					<MenuItem onAction="#deleteProfile" text="Supprimer le profil" />
-				</Menu>
-
-				<Menu text="Activité">
-					<MenuItem onAction="#createActivity" text="Encoder une activité" />
-					<MenuItem onAction="#activityHistory" text="Voir les activitées enregistrées" />
-				</Menu>
-
-				<Menu text="Alimentation">
-					<MenuItem onAction="#foodSearchPage" text="Recherche d'aliments" />
-				</Menu>
-			</menus>
-		</MenuBar>
-	</top>
-
-</BorderPane>
+<AnchorPane prefHeight="406.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.MenuViewController">
+   <children>
+      <BorderPane>
+      
+      	<top>
+      		<MenuBar prefHeight="38.0" prefWidth="714.0">
+      			<menus>
+      				<Menu>
+      					<graphic>
+      						<StackPane prefHeight="30" prefWidth="30">
+      							<!-- Create a Circle shape as the clip -->
+      							<clip>
+      								<Circle centerX="15" centerY="15" radius="15" />
+      							</clip>
+      							<!-- Create the ImageView with the image -->
+      							<Circle centerX="15" centerY="15" fill="WHITE" radius="15.0" stroke="BLACK" strokeType="INSIDE" />
+      							<ImageView fx:id="profileimage" fitHeight="30" fitWidth="30">
+      								<Image url="@../images/default_profile.png" />
+      							</ImageView>
+      						</StackPane>
+      					</graphic>
+      					<MenuItem onAction="#openProfile" text="Voir le profil" />
+      					<MenuItem onAction="#deleteProfile" text="Supprimer le profil" />
+      				</Menu>
+      
+      				<Menu text="Activité">
+      					<MenuItem onAction="#createActivity" text="Encoder une activité" />
+      					<MenuItem onAction="#activityHistory" text="Voir les activitées enregistrées" />
+      				</Menu>
+      
+      				<Menu text="Alimentation">
+      					<MenuItem onAction="#foodSearchPage" text="Recherche d'aliments" />
+      				</Menu>
+      			</menus>
+      		</MenuBar>
+      	</top>
+      
+      </BorderPane>
+      <Button fx:id="addButton" layoutX="644.0" layoutY="335.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="37.0" text="+" onAction="#handleButtonPress">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="addFoodButton" onAction="#foodSearchPage" layoutX="644.0" layoutY="276.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="37.0" visible="false">
+         <font>
+            <Font size="17.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="23.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/default_profile.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="addActivityButton" onAction="#createActivity" layoutX="643.0" layoutY="227.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="37.0" visible="false">
+         <font>
+            <Font size="17.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="23.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/sport_img/Course%20à%20pied.png" />
+               </image></ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>
