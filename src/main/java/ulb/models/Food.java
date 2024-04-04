@@ -24,6 +24,8 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Represents a food item that can be consumed.
@@ -90,7 +92,10 @@ public class Food implements Consumable {
 	 */
 	@Override
 	public int getCaloriesConsumedByGrams(int grams) {
-		return (this.caloriesPer100 / 100) * grams;
+		return (this.caloriesPer100 * grams) / 100;
+		// ps I have modified this because if this.caloriesPer100 < 100 , this.caloriesPer100/100
+		// will always return 0
+		// because an int divided by an int will always return an int
 	}
 
 	/**
@@ -183,7 +188,48 @@ public class Food implements Consumable {
 	 * @return The serving quantity of the food item.
 	 */
 	public String getServingQuantity() {
-		return servingQuantity;
+		return this.servingQuantity;
+	}
+
+	/**
+	 * Retrieves the true serving quantity of the food item.
+	 * we dont care about the unit of the value , we just want the value
+	 *
+	 * @return The serving quantity of the food item.
+	 */
+	public int extractServingQuantityValue() {
+		// Define the pattern to match digits
+		Pattern pattern = Pattern.compile("\\d+");
+
+		// Create a matcher to find the pattern in the input string
+
+		int startPosition = servingQuantity.indexOf("(");
+		String substring = this.servingQuantity.substring(startPosition);
+		Matcher matcher = pattern.matcher(substring);
+
+		// Find the first match
+		if (matcher.find()) {
+			// Extract the matched digits and convert to an integer
+			return Integer.parseInt(matcher.group());
+		} else {
+			throw new RuntimeException("quantity not present in servingquantity");
+		}
+	}
+
+	/**
+	 * Retrieves the unit of the serving quantity of the food item.
+	 * we dont care about the quantity of the serving, we just want the unit
+	 *
+	 * @return the unit of the serving
+	 */
+	public String getServingType() {
+		int startposition = servingQuantity.indexOf("(");
+		String substring = this.servingQuantity.substring(startposition);
+		if (substring.contains("ml")) {
+			return "ml";
+		} else {
+			return "g";
+		}
 	}
 
 	/**

@@ -27,6 +27,7 @@ import java.nio.file.*;
 import java.nio.file.Files;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 import javafx.fxml.FXMLLoader;
@@ -34,10 +35,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import ulb.models.Activity;
-import ulb.models.Food;
-import ulb.models.FoodLoader;
-import ulb.models.Profile;
+import ulb.models.*;
 import ulb.models.enums.Intensity;
 import ulb.models.enums.Sex;
 import ulb.models.enums.Sport;
@@ -307,10 +305,18 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadFoodSearchPage() {
+
+		this.primaryStage.setWidth(1080);
+		this.primaryStage.setHeight(720);
+
 		FoodViewController foodViewController =
-				(FoodViewController) loadView("/ulb/views/FoodSearch.fxml");
+				(FoodViewController) loadView("/ulb/views/AddMeal.fxml");
+
 		foodViewController.setListener(
 				new FoodViewController.Listener() {
+
+					FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json");
+
 					@Override
 					public void returnHome() {
 						loadWelcomeView();
@@ -330,6 +336,39 @@ public class MainAppController extends AppController implements MenuViewControll
 						}
 
 						return foodNames;
+					}
+
+					@Override
+					public int getCaloriesConsumedByGrams(String food, int quantity) {
+						Food foodObject = new FoodLoader().getFoodByName(food);
+						return foodObject.getCaloriesConsumedByGrams(quantity);
+					}
+
+					@Override
+					public void saveConsumedFoods(ArrayList<ArrayList<String>> consumedFoodsList) {
+						ConsumedMeal consumedMeal = new ConsumedMeal();
+						for (List<String> consumedFood : consumedFoodsList) {
+							String food = consumedFood.get(0);
+							int quantity = Integer.parseInt(consumedFood.get(1));
+							int calories = Integer.parseInt(consumedFood.get(2));
+							consumedMeal.addConsumedFood(food, quantity, calories);
+						}
+						consumedMeal.save();
+					}
+
+					@Override
+					public String getFoodServingQuantity(String food) {
+						return foodLoader.getFoodByName(food).getServingQuantity();
+					}
+
+					@Override
+					public int extractServingQuantityValue(String food) {
+						return foodLoader.getFoodByName(food).extractServingQuantityValue();
+					}
+
+					@Override
+					public String getFoodServingType(String food) {
+						return foodLoader.getFoodByName(food).getServingType();
 					}
 
 					@Override
