@@ -138,6 +138,8 @@ public class ConsumedMeal implements JsonSerializable {
 		return (ConsumedMeal) new ConsumedMeal().loadFromFile(filename);
 	}
 
+	public List<ConsumedFood> getConsumedFoods(){ return consumedFoods;}
+
 	/**
 	 * Getter for the date field.
 	 * @return Date and time when the meal was consumed
@@ -152,6 +154,11 @@ public class ConsumedMeal implements JsonSerializable {
 	 */
 	public void setDate(LocalDateTime date) {
 		this.date = date;
+	}
+
+	public String changeDateFormat(LocalDateTime date) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm");
+		return date.format(formatter);
 	}
 
 	/**

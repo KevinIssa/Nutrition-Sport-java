@@ -32,6 +32,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import ulb.models.Activity;
+import ulb.models.ConsumedMeal;
 import ulb.models.Profile;
 import ulb.models.enums.Sport;
 
@@ -44,7 +45,7 @@ public class ActivityHistoryViewController implements ViewController {
 			listener; // Listener interface for communication with the controller
 
 	@FXML private ListView<HBox> historyList; // ListView to display activity history
-	@FXML private AnchorPane test;
+	@FXML private AnchorPane filterPane;
 	private boolean isFilterVisible = false;
 	// Method called after FXML file has been loaded; overridden from Initializable
 
@@ -183,11 +184,11 @@ public class ActivityHistoryViewController implements ViewController {
 
 	public void toggleShowFilter() {
 		if (isFilterVisible) {
-			test.setVisible(false);
+			filterPane.setVisible(false);
 			isFilterVisible = false;
 			filteredSport = null;
 		} else {
-			test.setVisible(true);
+			filterPane.setVisible(true);
 			isFilterVisible = true;
 		}
 		resetActivityHistory();
@@ -224,5 +225,6 @@ public class ActivityHistoryViewController implements ViewController {
 		Activity loadActivity(String filename); // Load activity from file
 
 		void returnHome(); // Return to the home view
+
 	}
 }

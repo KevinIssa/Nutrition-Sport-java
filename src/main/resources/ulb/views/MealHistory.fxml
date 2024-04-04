@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<VBox prefHeight="434.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.MealHistoryViewController">
+    <children>
+        <!-- Container for history labels -->
+        <ListView fx:id="historyList" prefHeight="330.0" prefWidth="610.0">
+         <effect>
+            <DropShadow>
+               <color>
+                  <Color red="0.9473684430122375" />
+               </color>
+            </DropShadow>
+         </effect>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin></ListView>
+        <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#returnHome" prefHeight="46.0" prefWidth="126.0" text="Return" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

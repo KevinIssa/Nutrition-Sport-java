@@ -303,6 +303,24 @@ public class MainAppController extends AppController implements MenuViewControll
 						});
 	}
 
+
+	@Override
+	public void loadMealHistoryView() {
+		loadView(
+				"/ulb/views/MealHistory.fxml",
+				() ->
+						new MealHistoryViewController.Listener() {
+							@Override
+							public void returnHome() {
+								loadWelcomeView();
+							}
+
+							@Override
+							public ConsumedMeal loadMeal(String filename) {
+								return ConsumedMeal.load(filename);
+							}
+						});
+	}
 	@Override
 	public void loadFoodSearchPage() {
 

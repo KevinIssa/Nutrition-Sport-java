@@ -49,6 +49,10 @@ public class MenuViewController implements ViewController {
 		listener.loadActivityHistoryView();
 	}
 
+	public void mealHistory(){
+		listener.loadMealHistoryView();
+	}
+
 	public void setListener(Object listener) {
 		if (listener == null) {
 			throw new IllegalArgumentException("Listener cannot be null");
@@ -82,6 +86,8 @@ public class MenuViewController implements ViewController {
 		void loadWelcomeView();
 
 		void loadActivityHistoryView();
+
+		void loadMealHistoryView();
 
 		void loadFoodSearchPage();
 
