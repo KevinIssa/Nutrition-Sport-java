@@ -59,6 +59,8 @@ public class MainAppController extends AppController implements MenuViewControll
 			primaryStage.setScene(new Scene(root, 300, 200));
 			return viewController;
 		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(1);
 			return null;
 		}
 	}
@@ -136,7 +138,7 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadOpenProfileView() {
-		this.primaryStage.setWidth(685);
+		this.primaryStage.setWidth(700);
 		this.primaryStage.setHeight(770);
 		loadView(
 				"/ulb/views/Profile.fxml",
@@ -196,16 +198,6 @@ public class MainAppController extends AppController implements MenuViewControll
 							@Override
 							public float getWeight() {
 								return profile.getWeight();
-							}
-
-							@Override
-							public Image getImage(
-									String relativePath, double width, double height) {
-								URL path = getClass().getResource("/ulb/" + relativePath);
-								if (path == null) {
-									return null;
-								}
-								return new Image(path.toString(), width, height, true, true);
 							}
 
 							@Override

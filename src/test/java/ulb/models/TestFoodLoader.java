@@ -18,6 +18,8 @@
  */
 package ulb.models;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 import org.junit.Test;
 
@@ -25,15 +27,13 @@ public class TestFoodLoader {
 
 	@Test
 	public void testFoodLoader() {
-		FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json");
+		new FoodLoader("src/main/resources/food.json");
 	}
 
 	@Test
 	public void testGetFoods() {
-		FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json");
-		List<Food> foods = foodLoader.getFoodsSuggestion("apple");
-		for (Food food : foods) {
-			assert (food.getName().toLowerCase().startsWith("apple"));
-		}
+		List<Food> foods =
+				new FoodLoader("src/main/resources/food.json").getFoodsSuggestion("apple");
+		foods.forEach(food -> assertTrue(food.getName().toLowerCase().startsWith("apple")));
 	}
 }

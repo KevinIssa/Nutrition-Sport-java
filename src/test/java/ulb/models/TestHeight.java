@@ -18,28 +18,17 @@
  */
 package ulb.models;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 public class TestHeight {
 
-	@Test
+	@Test(expected = Exception.class)
 	public void inAnOtherDimension() {
-		try {
-			Height height = new Height(-5);
-			Assert.fail();
-		} catch (Exception e) {
-			//
-		}
+		new Height(-5);
 	}
 
-	@Test
+	@Test(expected = Exception.class)
 	public void tooHigh() {
-		try {
-			Height height = new Height(500);
-			Assert.fail();
-		} catch (Exception e) {
-			//
-		}
+		new Height(500);
 	}
 }

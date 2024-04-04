@@ -18,28 +18,17 @@
  */
 package ulb.models;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 public class TestWeight {
 
-	@Test
+	@Test(expected = Exception.class)
 	public void inAnOtherDimension() {
-		try {
-			Weight weight = new Weight(-5);
-			Assert.fail();
-		} catch (Exception e) {
-			//
-		}
+		new Weight(-5);
 	}
 
-	@Test
+	@Test(expected = Exception.class)
 	public void tooFat() {
-		try {
-			Weight weight = new Weight(1000);
-			Assert.fail();
-		} catch (Exception e) {
-			//
-		}
+		new Weight(1000);
 	}
 }

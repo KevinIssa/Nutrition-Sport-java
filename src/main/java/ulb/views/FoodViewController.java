@@ -28,36 +28,24 @@ import javafx.scene.control.TextField;
 public class FoodViewController implements ViewController {
 
 	@FXML private TextField searchField;
-
 	@FXML private ListView<String> suggestionsList;
-
-	private FoodViewController.Listener listener;
-
-	@FXML
-	private void suggestFoods() {
-		String searchText = this.searchField.getText();
-		this.listener.sendUserSearch(searchText);
-	}
-
-	public void setSuggestions(List<String> foods) {
-		this.suggestionsList.getItems().clear();
-		for (String food : foods) {
-			this.suggestionsList.getItems().add(food);
-		}
-	}
-
-	public void returnHome() {
-		this.listener.returnHome();
-	}
-
-	public interface Listener {
-		void sendUserSearch(String searchText);
-
-		void returnHome();
-	}
+	private Listener listener;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {}
+
+	@FXML
+	private void suggestFoods() {
+		listener.sendUserSearch(searchField.getText());
+	}
+
+	public void setSuggestions(List<String> foods) {
+		suggestionsList.getItems().setAll(foods);
+	}
+
+	public void returnHome() {
+		listener.returnHome();
+	}
 
 	@Override
 	public void setListener(Object listener) {
@@ -65,5 +53,11 @@ public class FoodViewController implements ViewController {
 			throw new IllegalArgumentException("Listener cannot be null");
 		}
 		this.listener = (Listener) listener;
+	}
+
+	public interface Listener {
+		void sendUserSearch(String searchText);
+
+		void returnHome();
 	}
 }

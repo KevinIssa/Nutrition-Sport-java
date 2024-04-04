@@ -19,4 +19,9 @@ module ulb {
 			javafx.fxml;
 	opens ulb.controllers to
 			javafx.fxml;
+
+	exports ulb.views.utils;
+
+	opens ulb.views.utils to
+			javafx.fxml;
 }
