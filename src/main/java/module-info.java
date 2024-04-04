@@ -11,6 +11,8 @@ module ulb {
 	exports ulb.models.enums;
 	exports ulb.views;
 	exports ulb.controllers;
+	exports ulb.views.utils;
+	exports ulb.widgets;
 
 	opens ulb.models to
 			javafx.fxml,
@@ -19,9 +21,8 @@ module ulb {
 			javafx.fxml;
 	opens ulb.controllers to
 			javafx.fxml;
-
-	exports ulb.widgets;
-
 	opens ulb.widgets to
+			javafx.fxml;
+	opens ulb.views.utils to
 			javafx.fxml;
 }
