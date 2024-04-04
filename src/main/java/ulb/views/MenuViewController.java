@@ -23,9 +23,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.*;
 
 public class MenuViewController implements ViewController {
 	@FXML ImageView profileimage;
@@ -35,7 +35,7 @@ public class MenuViewController implements ViewController {
 	@FXML private Button addActivityButton;
 	@FXML private Button addFoodButton;
 
-	public void handleButtonPress(){
+	public void handleButtonPress() {
 		addActivityButton.setVisible(!addActivityButton.isVisible());
 		addFoodButton.setVisible(!addFoodButton.isVisible());
 	}
