@@ -151,6 +151,10 @@ public class ProfileViewController implements ViewController {
 		this.listener.returnHome();
 	}
 
+	public void deleteProfile() {
+		listener.deleteProfileView();
+	}
+
 	// Set listener for communication with the controller
 	public void setListener(Object listener) {
 		this.listener = (ProfileViewController.Listener) listener;
@@ -166,6 +170,8 @@ public class ProfileViewController implements ViewController {
 				LocalDate birthDate,
 				float height,
 				float weight);
+
+		void deleteProfileView();
 
 		void returnHome();
 

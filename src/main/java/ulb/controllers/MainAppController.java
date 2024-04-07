@@ -71,6 +71,11 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadWelcomeView() {
+		this.primaryStage.setMinWidth(1170);
+		this.primaryStage.setMaxWidth(1170);
+
+		this.primaryStage.setMinHeight(800);
+		this.primaryStage.setMaxHeight(800);
 		if (Profile.isCreated()) {
 			loadMenuView();
 		} else {
@@ -80,15 +85,12 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadMenuView() {
-		this.primaryStage.setHeight(600);
-		this.primaryStage.setWidth(800);
 		loadView("/ulb/views/Menu.fxml", () -> this);
 	}
 
 	@Override
 	public void loadCreateProfileView() {
-		this.primaryStage.setHeight(700);
-		this.primaryStage.setWidth(750);
+
 		loadView(
 				"/ulb/views/ProfileCreate.fxml",
 				() ->
@@ -136,8 +138,9 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadOpenProfileView() {
-		this.primaryStage.setWidth(700);
-		this.primaryStage.setHeight(770);
+
+
+
 		loadView(
 				"/ulb/views/Profile.fxml",
 				() ->
@@ -161,6 +164,12 @@ public class MainAppController extends AppController implements MenuViewControll
 												new ulb.models.Height(height),
 												birthDate);
 								profile.save();
+							}
+
+							@Override
+							public void deleteProfileView() {
+								loadDeleteProfileView();
+
 							}
 
 							@Override
@@ -213,6 +222,7 @@ public class MainAppController extends AppController implements MenuViewControll
 								}
 							}
 
+
 							@Override
 							public Image getProfileImage(double width, double height) {
 								try {
@@ -229,7 +239,7 @@ public class MainAppController extends AppController implements MenuViewControll
 						});
 	}
 
-	@Override
+
 	public void loadDeleteProfileView() {
 		loadView(
 				"/ulb/views/ProfileDeleteConfirm.fxml",
@@ -324,8 +334,6 @@ public class MainAppController extends AppController implements MenuViewControll
 	@Override
 	public void loadFoodSearchPage() {
 
-		this.primaryStage.setWidth(1080);
-		this.primaryStage.setHeight(720);
 
 		FoodViewController foodViewController =
 				(FoodViewController) loadView("/ulb/views/AddMeal.fxml");
