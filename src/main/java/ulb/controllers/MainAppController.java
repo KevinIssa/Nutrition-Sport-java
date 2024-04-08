@@ -375,9 +375,28 @@ public class MainAppController extends AppController implements MenuViewControll
 						}
 						consumedMeal.save();
 					}
-                    @Override
+					@Override
+					public Food getCorrespondingFood(String food) {
+						List<Food> foods = loadFoods(food);
+						if (!foods.isEmpty()){
+							return foods.get(0);
+						}else{
+							throw new RuntimeException("food selected not in database");
+						}
+
+					}
+
+					@Override
 					public void saveMeal(String mealname, ArrayList<ArrayList<String>> consumedFoodsList){
 						Meal meal = new Meal(mealname);
+						for (List<String> consumedFood : consumedFoodsList) {
+							String food = consumedFood.get(0);
+							int quantity = Integer.parseInt(consumedFood.get(1));
+							int calories = Integer.parseInt(consumedFood.get(2));
+							String type = consumedFood.get(3);
+							meal.addIngredient(getCorrespondingFood(food), quantity);
+							meal.save();
+						}
 					}
 					@Override
 					public String getFoodServingQuantity(String food) {

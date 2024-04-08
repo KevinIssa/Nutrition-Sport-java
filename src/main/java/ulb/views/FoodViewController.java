@@ -35,6 +35,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
+import ulb.models.Food;
 import ulb.widgets.FoodPopupController;
 
 public class FoodViewController implements ViewController {
@@ -281,6 +282,7 @@ public class FoodViewController implements ViewController {
 		int extractServingQuantityValue(String food);
 
 		String getFoodServingType(String food);
+		Food getCorrespondingFood(String food);
 	}
 	private static class SliderLabel extends StringConverter<Double> {
 		@Override
