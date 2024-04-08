@@ -52,7 +52,7 @@ public class Meal implements Consumable, JsonSerializable {
 	 * Constructor with name parameter.
 	 * @param name The name of the meal.
 	 */
-	Meal(String name) {
+	public Meal(String name) {
 		this.name = name;
 	}
 

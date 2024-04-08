@@ -177,7 +177,7 @@ public class FoodViewController implements ViewController {
 
 		consumedFoodsList.add(
 				new ArrayList<>(
-						List.of(food, Integer.toString(quantity), Integer.toString(calories))));
+						List.of(food, Integer.toString(quantity), Integer.toString(calories), servingType)));
 	}
 
 	private String getUserData(String food) {

@@ -42,8 +42,8 @@ public class TestConsumedMeal {
 
 	private ConsumedMeal createAndSaveConsumedFood() {
 		ConsumedMeal consumedMeal = new ConsumedMeal();
-		consumedMeal.addConsumedFood("Banana", 100, 100);
-		consumedMeal.addConsumedFood("Apple", 100, 200);
+		consumedMeal.addConsumedFood("Banana", 100, 100, "g");
+		consumedMeal.addConsumedFood("Apple", 100, 200, "g");
 		consumedMeal.save();
 		return consumedMeal;
 	}

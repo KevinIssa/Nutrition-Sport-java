@@ -39,6 +39,7 @@ import ulb.models.*;
 import ulb.models.enums.Intensity;
 import ulb.models.enums.Sex;
 import ulb.models.enums.Sport;
+import ulb.models.Meal;
 import ulb.views.*;
 
 public class MainAppController extends AppController implements MenuViewController.Listener {
@@ -369,13 +370,14 @@ public class MainAppController extends AppController implements MenuViewControll
 							String food = consumedFood.get(0);
 							int quantity = Integer.parseInt(consumedFood.get(1));
 							int calories = Integer.parseInt(consumedFood.get(2));
-							consumedMeal.addConsumedFood(food, quantity, calories);
+							String type = consumedFood.get(3);
+							consumedMeal.addConsumedFood(food, quantity, calories, type);
 						}
 						consumedMeal.save();
 					}
                     @Override
 					public void saveMeal(String mealname, ArrayList<ArrayList<String>> consumedFoodsList){
-						// TODO add function to save the meal
+						Meal meal = new Meal(mealname);
 					}
 					@Override
 					public String getFoodServingQuantity(String food) {
