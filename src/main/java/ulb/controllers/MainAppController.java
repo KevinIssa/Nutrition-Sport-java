@@ -250,6 +250,7 @@ public class MainAppController extends AppController implements MenuViewControll
 								Profile profile = Profile.load();
 								profile.delete();
 								Activity.clearAllActivities();
+								ConsumedMeal.clearAllConsumedMeals();
 								loadCreateProfileView();
 								try {
 									Path filetodelete = Paths.get(".").resolve("profile.png");
