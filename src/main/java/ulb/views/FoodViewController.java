@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,6 +34,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.StringConverter;
 import ulb.widgets.FoodPopupController;
 
 public class FoodViewController implements ViewController {
@@ -40,13 +42,51 @@ public class FoodViewController implements ViewController {
 	@FXML private TextField searchField;
 	@FXML private ListView<String> suggestionsList;
 	@FXML private ListView<HBox> chosenFoodView;
+	@FXML private Slider slider;
+	@FXML private Label title;
+	@FXML private Label name;
+	@FXML private TextField namefield;
+	private Boolean mode;
 
 	private ArrayList<ArrayList<String>> consumedFoodsList = new ArrayList<>();
 	private FoodViewController.Listener listener;
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {}
-
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		name.setVisible(false);
+		namefield.setVisible(false);
+		configSlider();
+		// Listen for changes in slider value and update intensity text field accordingly
+		slider.valueProperty().addListener(
+						(observable, oldValue, newValue) -> {
+							if (newValue.intValue() == 0) mode = false;
+							if (newValue.intValue() == 1) mode = true;
+						});
+	}
+	private void configSlider() {
+		slider.setLabelFormatter(new SliderLabel());
+		slider.setMin(0);
+		slider.setMax(1);
+		slider.setValue(0);
+		slider.setMinorTickCount(0);
+		slider.setSnapToTicks(true);
+		slider.setShowTickMarks(true);
+		slider.setShowTickLabels(true);
+		slider.setMajorTickUnit(1);
+		mode = false; // * Default value
+	}
+	public void changeMode(){
+		if (mode){
+			title.setText("Ajoutez un plat");
+			name.setVisible(true);
+			namefield.setVisible(true);
+			namefield.setText("");
+		}else{
+			title.setText("Ajoutez les aliments consommés");
+			name.setVisible(false);
+			namefield.setVisible(false);
+		}
+	}
 	@Override
 	public void setListener(Object listener) {
 		if (listener == null) {
@@ -89,7 +129,13 @@ public class FoodViewController implements ViewController {
 		if (consumedFoodsList.isEmpty()) {
 			return;
 		}
-		this.listener.saveConsumedFoods(consumedFoodsList);
+		if (mode){
+			if (!Objects.equals(namefield.getText(), "")){
+				this.listener.saveMeal(namefield.getText(), consumedFoodsList);
+			}
+		}else{
+			this.listener.saveConsumedFoods(consumedFoodsList);
+		}
 		cleanFoodList();
 	}
 
@@ -228,11 +274,32 @@ public class FoodViewController implements ViewController {
 		int getCaloriesConsumedByGrams(String food, int quantity);
 
 		void saveConsumedFoods(ArrayList<ArrayList<String>> consumedFoodsList);
+		void saveMeal(String mealname, ArrayList<ArrayList<String>> consumedFoodsList);
 
 		String getFoodServingQuantity(String food);
 
 		int extractServingQuantityValue(String food);
 
 		String getFoodServingType(String food);
+	}
+	private static class SliderLabel extends StringConverter<Double> {
+		@Override
+		public String toString(Double aDouble) {
+			if (aDouble < 0.5) return "consommer des aliments";
+			if (aDouble <= 1) return "creer un plat";
+			return "consommer des aliments";
+		}
+
+		@Override
+		public Double fromString(String mode) {
+			switch (mode) {
+				case "consommer des aliments":
+					return 0d;
+				case "creer un plat":
+					return 1d;
+				default:
+					return 0d;
+			}
+		}
 	}
 }

@@ -373,7 +373,10 @@ public class MainAppController extends AppController implements MenuViewControll
 						}
 						consumedMeal.save();
 					}
-
+                    @Override
+					public void saveMeal(String mealname, ArrayList<ArrayList<String>> consumedFoodsList){
+						// TODO add function to save the meal
+					}
 					@Override
 					public String getFoodServingQuantity(String food) {
 						return foodLoader.getFoodByName(food).getServingQuantity();
