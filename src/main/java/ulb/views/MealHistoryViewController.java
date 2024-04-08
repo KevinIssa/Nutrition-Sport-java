@@ -2,17 +2,24 @@ package ulb.views;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import ulb.models.Activity;
 import ulb.models.ConsumedFood;
 import ulb.models.ConsumedMeal;
+import ulb.models.Profile;
 
 
 import java.io.File;
 import java.net.URL;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class MealHistoryViewController implements ViewController{
@@ -38,6 +45,7 @@ public class MealHistoryViewController implements ViewController{
         this.listener = (MealHistoryViewController.Listener) listener;
         this.addMeals(); // Add activities when listener is set
     }
+
     public void addMeals() {
         File directory = new File(FOLDERNAME); // Specify the directory path
 
@@ -62,25 +70,47 @@ public class MealHistoryViewController implements ViewController{
     }
 
     private HBox createHistoryHBox(ConsumedFood food, String date) {
+        HBox hbox = createHBox();
+        setIconInHBox(hbox);
+        setTextInHBox(food, date,hbox);
+        setButtonInHBox(food, hbox);
+        return hbox;
+    }
+
+
+    private void setIconInHBox( HBox hbox){
         ImageView dateImageView = createImageView("/ulb/images/history_img/calendrier.png", 30, 30);
         ImageView quantityImageView = createImageView("/ulb/images/history_img/quantite.png", 30, 30);
         ImageView calorieImageView = createImageView("/ulb/images/history_img/calories_consumed.png", 30, 30);
+        hbox.getChildren().addAll(
+                quantityImageView,
+                dateImageView,
+                calorieImageView);
+    }
 
+    private void setTextInHBox(ConsumedFood food, String date, HBox hbox){
+        Label LabelMealName = createLabel(food.getName(), 100);
+        Label LabelQuantity = createLabel( Integer.toString(food.getQuantity()), 40 );
+        Label LabelDate = createLabel(date,120);
+        Label LabelCalorie = createLabel(String.valueOf(food.getCalories() + " kcal"),50);
+        hbox.getChildren().add(0,LabelMealName);
+        hbox.getChildren().add(2,LabelQuantity);
+        hbox.getChildren().add(4,LabelDate);
+        hbox.getChildren().add(6,LabelCalorie);
+    }
+    private void setButtonInHBox(ConsumedFood food, HBox hbox){
+        ImageView imageDelete = createImageView("/ulb/images/poubelle.png", 30, 30);
+        Button deleteActivityButton =  new Button("");
+        deleteActivityButton.setGraphic(imageDelete);
+        deleteActivityButton.setOnAction(e -> deleteFoodInHistory(food));
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        hbox.getChildren().addAll(spacer, deleteActivityButton);
+    }
 
-        Label label_meal_name = createLabel(food.getName(), 100);
-        Label label_quantity = createLabel( Integer.toString(food.getQuantity()), 40 );
-        Label label_date = createLabel(date,120);
-        Label label_calorie = createLabel(String.valueOf(food.getCalories() + " kcal"),50);
-        HBox hbox = createHBox();
-        hbox.getChildren()
-                .addAll(label_meal_name,
-                        quantityImageView,
-                        label_quantity,
-                        dateImageView,
-                        label_date,
-                        calorieImageView,
-                        label_calorie);
-        return hbox;
+    private void deleteFoodInHistory( ConsumedFood food){
+        //delete food in model and controller
+        System.out.println("C pas fait ");
     }
 
     private static HBox createHBox() {

@@ -97,7 +97,7 @@
                         <graphic>
                            <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                               <image>
-                                 <Image url="@../images/poubelle-de-recyclage.png" />
+                                 <Image url="@../images/poubelle.png" />
                               </image>
                            </ImageView>
                         </graphic>
