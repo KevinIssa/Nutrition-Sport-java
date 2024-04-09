@@ -47,7 +47,6 @@ public class MenuViewController implements ViewController {
 		listener.loadOpenProfileView();
 	}
 
-
 	public void createActivity() {
 		listener.loadCreateActivityView();
 	}
@@ -56,7 +55,7 @@ public class MenuViewController implements ViewController {
 		listener.loadActivityHistoryView();
 	}
 
-	public void mealHistory(){
+	public void mealHistory() {
 		listener.loadMealHistoryView();
 	}
 
