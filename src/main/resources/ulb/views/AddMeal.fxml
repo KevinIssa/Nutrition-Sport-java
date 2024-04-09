@@ -73,8 +73,9 @@
             </ImageView>
          </graphic>
       </Button>
-      <Slider fx:id="slider" layoutX="439.0" layoutY="75.0" onDragDone="#changeMode" prefHeight="21.0" prefWidth="158.0" />
+      <Slider fx:id="slider" layoutX="466.0" layoutY="76.0" onDragDone="#changeMode" prefHeight="21.0" prefWidth="106.0" />
       <TextField fx:id="namefield" layoutX="722.0" layoutY="653.0" prefHeight="33.0" prefWidth="149.0" />
       <Label fx:id="name" layoutX="638.0" layoutY="649.0" prefHeight="42.0" prefWidth="84.0" text="Nom du plat: " />
+      <Label fx:id="statuslabel" alignment="CENTER" layoutX="444.0" layoutY="86.0" prefHeight="21.0" prefWidth="149.0" text="aliments" />
    </children>
 </Pane>

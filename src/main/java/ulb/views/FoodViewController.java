@@ -47,6 +47,7 @@ public class FoodViewController implements ViewController {
 	@FXML private Label title;
 	@FXML private Label name;
 	@FXML private TextField namefield;
+	@FXML private Label statuslabel;
 	private Boolean mode;
 
 	private ArrayList<ArrayList<String>> consumedFoodsList = new ArrayList<>();
@@ -57,15 +58,16 @@ public class FoodViewController implements ViewController {
 		name.setVisible(false);
 		namefield.setVisible(false);
 		configSlider();
-		// Listen for changes in slider value and update intensity text field accordingly
-		slider.valueProperty().addListener(
-						(observable, oldValue, newValue) -> {
-							if (newValue.intValue() == 0) mode = false;
-							if (newValue.intValue() == 1) mode = true;
-						});
+		slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+			// Update the boolean variable based on slider value
+			mode = newValue.intValue() == 1;
+			// Update the status label
+			statuslabel.setText(mode ? "plats" : "aliments");
+			// Call function whenever the slider is modified
+			changeMode();
+		});
 	}
 	private void configSlider() {
-		slider.setLabelFormatter(new SliderLabel());
 		slider.setMin(0);
 		slider.setMax(1);
 		slider.setValue(0);
@@ -82,10 +84,12 @@ public class FoodViewController implements ViewController {
 			name.setVisible(true);
 			namefield.setVisible(true);
 			namefield.setText("");
+			consumedFoodsList.clear();
 		}else{
 			title.setText("Ajoutez les aliments consommés");
 			name.setVisible(false);
 			namefield.setVisible(false);
+			consumedFoodsList.clear();
 		}
 	}
 	@Override
@@ -283,25 +287,5 @@ public class FoodViewController implements ViewController {
 
 		String getFoodServingType(String food);
 		Food getCorrespondingFood(String food);
-	}
-	private static class SliderLabel extends StringConverter<Double> {
-		@Override
-		public String toString(Double aDouble) {
-			if (aDouble < 0.5) return "consommer des aliments";
-			if (aDouble <= 1) return "creer un plat";
-			return "consommer des aliments";
-		}
-
-		@Override
-		public Double fromString(String mode) {
-			switch (mode) {
-				case "consommer des aliments":
-					return 0d;
-				case "creer un plat":
-					return 1d;
-				default:
-					return 0d;
-			}
-		}
 	}
 }

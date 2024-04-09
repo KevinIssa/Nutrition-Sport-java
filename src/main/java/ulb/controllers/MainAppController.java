@@ -388,15 +388,13 @@ public class MainAppController extends AppController implements MenuViewControll
 
 					@Override
 					public void saveMeal(String mealname, ArrayList<ArrayList<String>> consumedFoodsList){
-						Meal meal = new Meal(mealname);
+						Meal newmeal = new Meal(mealname);
 						for (List<String> consumedFood : consumedFoodsList) {
 							String food = consumedFood.get(0);
 							int quantity = Integer.parseInt(consumedFood.get(1));
-							int calories = Integer.parseInt(consumedFood.get(2));
-							String type = consumedFood.get(3);
-							meal.addIngredient(getCorrespondingFood(food), quantity);
-							meal.save();
+							newmeal.addIngredient(getCorrespondingFood(food), quantity);
 						}
+						newmeal.save();
 					}
 					@Override
 					public String getFoodServingQuantity(String food) {
