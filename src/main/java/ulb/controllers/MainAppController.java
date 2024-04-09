@@ -71,11 +71,6 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadWelcomeView() {
-		this.primaryStage.setMinWidth(1170);
-		this.primaryStage.setMaxWidth(1170);
-
-		this.primaryStage.setMinHeight(800);
-		this.primaryStage.setMaxHeight(800);
 		if (Profile.isCreated()) {
 			loadMenuView();
 		} else {
@@ -139,8 +134,6 @@ public class MainAppController extends AppController implements MenuViewControll
 	@Override
 	public void loadOpenProfileView() {
 
-
-
 		loadView(
 				"/ulb/views/Profile.fxml",
 				() ->
@@ -169,7 +162,6 @@ public class MainAppController extends AppController implements MenuViewControll
 							@Override
 							public void deleteProfileView() {
 								loadDeleteProfileView();
-
 							}
 
 							@Override
@@ -222,7 +214,6 @@ public class MainAppController extends AppController implements MenuViewControll
 								}
 							}
 
-
 							@Override
 							public Image getProfileImage(double width, double height) {
 								try {
@@ -238,7 +229,6 @@ public class MainAppController extends AppController implements MenuViewControll
 							}
 						});
 	}
-
 
 	public void loadDeleteProfileView() {
 		loadView(
@@ -314,7 +304,6 @@ public class MainAppController extends AppController implements MenuViewControll
 						});
 	}
 
-
 	@Override
 	public void loadMealHistoryView() {
 		loadView(
@@ -332,9 +321,9 @@ public class MainAppController extends AppController implements MenuViewControll
 							}
 						});
 	}
+
 	@Override
 	public void loadFoodSearchPage() {
-
 
 		FoodViewController foodViewController =
 				(FoodViewController) loadView("/ulb/views/AddMeal.fxml");
