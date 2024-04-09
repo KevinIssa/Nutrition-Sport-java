@@ -22,6 +22,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -81,7 +83,11 @@ public class FoodLoader {
 	public List<Food> getFoods() {
 		return foods;
 	}
-
+	public FoodLoader extend(List<Food> foods) {
+		this.foods.addAll(foods);
+		Collections.sort(this.foods);
+		return this;
+	}
 	/**
 	 * Retrieves a list of food items that match the given input string.
 	 *

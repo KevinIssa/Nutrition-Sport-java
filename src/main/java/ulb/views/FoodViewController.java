@@ -177,12 +177,12 @@ public class FoodViewController implements ViewController {
 		int calories = listener.getCaloriesConsumedByGrams(food, quantity);
 		HBox box = loadFoodItemBox();
 		String servingType = listener.getFoodServingType(food);
-		updateFoodItemBox(box, food, calories, quantity, servingType, value);
+		updateFoodItemBox(box, food, calories, quantity, servingType,  value);
 		chosenFoodView.getItems().add(box);
 
 		consumedFoodsList.add(
 				new ArrayList<>(
-						List.of(food, Integer.toString(quantity), Integer.toString(calories), servingType)));
+						List.of(food, Integer.toString(quantity), Integer.toString(calories), value.contains("g") ? "g":servingType)));
 	}
 
 	private String getUserData(String food) {

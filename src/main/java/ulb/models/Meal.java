@@ -104,7 +104,7 @@ public class Meal implements Consumable, JsonSerializable {
 	 * @param servings The number of servings.
 	 * @return The total grams.
 	 */
-	private int getGramsForServing(int servings) {
+	public int getGramsForServing(int servings) {
 		int totalGrams = 0;
 		for (Map.Entry<Food, Integer> ingredient: ingredients){
 			totalGrams += ingredient.getValue();
