@@ -85,11 +85,13 @@ public class FoodViewController implements ViewController {
 			namefield.setVisible(true);
 			namefield.setText("");
 			consumedFoodsList.clear();
+			chosenFoodView.getItems().clear();
 		}else{
 			title.setText("Ajoutez les aliments consommés");
 			name.setVisible(false);
 			namefield.setVisible(false);
 			consumedFoodsList.clear();
+			chosenFoodView.getItems().clear();
 		}
 	}
 	@Override
@@ -138,6 +140,7 @@ public class FoodViewController implements ViewController {
 			if (!Objects.equals(namefield.getText(), "")){
 				this.listener.saveMeal(namefield.getText(), consumedFoodsList);
 			}
+			this.listener.reload();
 		}else{
 			this.listener.saveConsumedFoods(consumedFoodsList);
 		}
@@ -287,5 +290,6 @@ public class FoodViewController implements ViewController {
 
 		String getFoodServingType(String food);
 		Food getCorrespondingFood(String food);
+		void reload();
 	}
 }

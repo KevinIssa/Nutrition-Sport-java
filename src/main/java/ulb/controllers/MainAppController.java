@@ -334,7 +334,7 @@ public class MainAppController extends AppController implements MenuViewControll
 		foodViewController.setListener(
 				new FoodViewController.Listener() {
 
-					final FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json").extend(loadMeals());
+					FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json").extend(loadMeals());
 
 					@Override
 					public void returnHome() {
@@ -346,6 +346,9 @@ public class MainAppController extends AppController implements MenuViewControll
 						FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json");
 						foodLoader.extend(loadMeals());
 						return foodLoader.getFoodsSuggestion(searchText);
+					}
+					public void reload(){
+						this.foodLoader = new FoodLoader("src/main/resources/food.json").extend(loadMeals());
 					}
 					private Food convertMealToFood(Meal meal){
 						return new Food(meal.getName(), meal.getCaloriesConsumedByGrams(100), meal.getCaloriesConsumed(),String.format("1 serving (%d g)",meal.getGramsForServing(1)));
