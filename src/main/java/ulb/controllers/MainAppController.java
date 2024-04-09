@@ -52,34 +52,35 @@ public class MainAppController extends AppController implements MenuViewControll
 	}
 
 	private ViewController loadView(String resourcePath) {
-		return this.loadView(resourcePath, this.primaryStage);
+		return loadView(resourcePath, this.primaryStage);
+	}
+
+	private ViewController loadPopupView(String resourcePath) {
+		return loadView(resourcePath, this.popupStage);
+	}
+
+	private void loadView(String resourcePath, Supplier<Object> listenerSupplier) {
+		loadView(resourcePath).setListener(listenerSupplier.get());
+	}
+
+	private void loadPopupView(String resourcePath, Supplier<Object> listenerSupplier) {
+		this.popupStage = new Stage();
+		loadPopupView(resourcePath).setListener(listenerSupplier.get());
+		this.popupStage.initModality(Modality.APPLICATION_MODAL);
+		this.popupStage.showAndWait();
 	}
 
 	private ViewController loadView(String resourcePath, Stage stage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(resourcePath));
 			Parent root = loader.load();
-			ViewController viewController = loader.getController();
 			stage.setScene(new Scene(root));
-			return viewController;
+			return loader.getController();
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(1);
-			return null;
 		}
-	}
-
-	private void loadPopupView(String resourcePath, Supplier<Object> listenerSupplier) {
-		this.popupStage = new Stage();
-		ViewController viewController = this.loadView(resourcePath, this.popupStage);
-		viewController.setListener(listenerSupplier.get());
-		this.popupStage.initModality(Modality.APPLICATION_MODAL);
-		this.popupStage.showAndWait();
-	}
-
-	private void loadView(String resourcePath, Supplier<Object> listenerSupplier) {
-		ViewController viewController = this.loadView(resourcePath);
-		viewController.setListener(listenerSupplier.get());
+		return null;
 	}
 
 	@Override
@@ -272,7 +273,6 @@ public class MainAppController extends AppController implements MenuViewControll
 
 							@Override
 							public void returnHome() {
-								loadMenuView();
 								popupStage.close();
 							}
 						});
@@ -282,8 +282,7 @@ public class MainAppController extends AppController implements MenuViewControll
 	public void loadCreateActivityView() {
 		this.popupStage = new Stage();
 		ActivityCreateViewController viewController =
-				(ActivityCreateViewController)
-						this.loadView("/ulb/views/ActivityCreate.fxml", this.popupStage);
+				(ActivityCreateViewController) this.loadPopupView("/ulb/views/ActivityCreate.fxml");
 		viewController.setListener(
 				new ActivityCreateViewController.Listener() {
 					@Override
@@ -349,7 +348,7 @@ public class MainAppController extends AppController implements MenuViewControll
 	public void loadFoodSearchPage() {
 		this.popupStage = new Stage();
 		FoodViewController foodViewController =
-				(FoodViewController) loadView("/ulb/views/AddMeal.fxml", this.popupStage);
+				(FoodViewController) loadPopupView("/ulb/views/AddMeal.fxml");
 
 		foodViewController.setListener(
 				new FoodViewController.Listener() {
