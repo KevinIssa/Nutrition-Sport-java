@@ -138,7 +138,9 @@ public class ConsumedMeal implements JsonSerializable {
 		return (ConsumedMeal) new ConsumedMeal().loadFromFile(filename);
 	}
 
-	public List<ConsumedFood> getConsumedFoods(){ return consumedFoods;}
+	public List<ConsumedFood> getConsumedFoods() {
+		return consumedFoods;
+	}
 
 	/**
 	 * Getter for the date field.

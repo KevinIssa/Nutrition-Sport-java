@@ -25,15 +25,15 @@ import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import ulb.models.Activity;
 import ulb.models.Profile;
 import ulb.models.enums.Sport;
@@ -115,12 +115,12 @@ public class ActivityHistoryViewController implements ViewController {
 	private HBox createHistoryHBox(Activity activity, LocalDateTime date, Duration duration) {
 		HBox hbox = createHBox();
 		setIconInHBox(activity, hbox);
-		setTextInHBox(activity, date,duration,hbox);
+		setTextInHBox(activity, date, duration, hbox);
 		setButtonInHBox(activity, hbox);
 		return hbox;
 	}
 
-	private void setIconInHBox(Activity activity, HBox hbox){
+	private void setIconInHBox(Activity activity, HBox hbox) {
 		ImageView intensityImageView = createIntensityImageView(activity);
 		ImageView sportImageView = createSportImageView(activity);
 		ImageView dateImageView = createImageView("/ulb/images/history_img/calendrier.png", 30, 30);
@@ -128,27 +128,31 @@ public class ActivityHistoryViewController implements ViewController {
 				createImageView("/ulb/images/history_img/chronometre.png", 30, 30);
 		ImageView calorieImageView =
 				createImageView("/ulb/images/history_img/calories.png", 30, 30);
-		hbox.getChildren().addAll(sportImageView,
-				intensityImageView,
-				dateImageView,
-				durationImageView,
-				calorieImageView);
+		hbox.getChildren()
+				.addAll(
+						sportImageView,
+						intensityImageView,
+						dateImageView,
+						durationImageView,
+						calorieImageView);
 	}
 
-	private void setTextInHBox(Activity activity, LocalDateTime date, Duration duration, HBox hbox){
+	private void setTextInHBox(
+			Activity activity, LocalDateTime date, Duration duration, HBox hbox) {
 		Label labelDate = createLabel(activity.changeDateFormat(date).toString());
 		Label labelDuration = createLabel(activity.durationToString(duration));
 		Label labelCalorie =
 				createLabel(
 						String.valueOf(
 								activity.getCaloriesBurned(Profile.load().getWeight()) + " kcal"));
-		hbox.getChildren().add(3,labelDate);
-		hbox.getChildren().add(5,labelDuration);
-		hbox.getChildren().add(7,labelCalorie);
+		hbox.getChildren().add(3, labelDate);
+		hbox.getChildren().add(5, labelDuration);
+		hbox.getChildren().add(7, labelCalorie);
 	}
-	private void setButtonInHBox(Activity activity, HBox hbox){
+
+	private void setButtonInHBox(Activity activity, HBox hbox) {
 		ImageView imageDelete = createImageView("/ulb/images/poubelle.png", 30, 30);
-		Button deleteActivityButton =  new Button("");
+		Button deleteActivityButton = new Button("");
 		deleteActivityButton.setGraphic(imageDelete);
 		deleteActivityButton.setOnAction(e -> deleteActivityInHistory(activity));
 		Region spacer = new Region();
@@ -156,8 +160,8 @@ public class ActivityHistoryViewController implements ViewController {
 		hbox.getChildren().addAll(spacer, deleteActivityButton);
 	}
 
-	private void deleteActivityInHistory(Activity activity){
-		//à connecter avec le controller et la modèle
+	private void deleteActivityInHistory(Activity activity) {
+		// à connecter avec le controller et la modèle
 		System.out.println("C pas fait ");
 	}
 
@@ -246,6 +250,5 @@ public class ActivityHistoryViewController implements ViewController {
 		Activity loadActivity(String filename); // Load activity from file
 
 		void returnHome(); // Return to the home view
-
 	}
 }
