@@ -13,12 +13,12 @@
 
 <AnchorPane prefHeight="800" prefWidth="1200" style="-fx-background-color: #040b35;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.MenuViewController">
    <children>
-      <Button fx:id="addButton" layoutX="1000.0" layoutY="612.0" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="38.0" prefWidth="37.0" style="-fx-background-color: #656ff9; -fx-background-radius: 30;">
+      <Button fx:id="addButton" layoutX="1002.0" layoutY="613.0" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="38.0" prefWidth="118.0" style="-fx-background-color: #656ff9; -fx-background-radius: 50;">
          <font>
             <Font size="17.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="130.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="101.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/menu_img/add.png" />
                </image>
@@ -28,12 +28,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="addFoodButton" layoutX="1000.0" layoutY="442.0" mnemonicParsing="false" onAction="#foodSearchPage" prefHeight="132.0" prefWidth="141.0" style="-fx-background-color: #fdbd07; -fx-background-radius: 50;">
+      <Button fx:id="addFoodButton" layoutX="1000.0" layoutY="461.0" mnemonicParsing="false" onAction="#foodSearchPage" prefHeight="113.0" prefWidth="118.0" style="-fx-background-color: #fdbd07; -fx-background-radius: 50;" visible="false">
          <font>
             <Font size="17.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="105.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="91.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/menu_img/addFood.png" />
                </image>
@@ -43,12 +43,12 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="addActivityButton" layoutX="1000.0" layoutY="285.0" mnemonicParsing="false" onAction="#createActivity" prefHeight="138.0" prefWidth="141.0" style="-fx-background-color: #9a62f4; -fx-background-radius: 50;">
+      <Button fx:id="addActivityButton" layoutX="1000.0" layoutY="309.0" mnemonicParsing="false" onAction="#createActivity" prefHeight="114.0" prefWidth="118.0" style="-fx-background-color: #9a62f4; -fx-background-radius: 50;" visible="false">
          <font>
             <Font size="17.0" />
          </font>
          <graphic>
-            <ImageView fitHeight="105.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="82.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/sport_img/Course à pied.png" />
                </image>
