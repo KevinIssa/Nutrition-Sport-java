@@ -96,7 +96,7 @@
                         <Font size="22.0" />
                      </font>
                   </Label>
-                  <Slider fx:id="intensitySlider" prefWidth="200.0" translateX="50" />
+                  <Slider fx:id="intensitySlider" majorTickUnit="1" max="2" minorTickCount="0" prefWidth="200.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" stylesheets="@intensity_slider_style.css" translateX="50" value="1" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="600.0">

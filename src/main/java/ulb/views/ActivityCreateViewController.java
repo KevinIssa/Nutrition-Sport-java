@@ -28,7 +28,7 @@ import ulb.models.enums.Sport;
 
 public class ActivityCreateViewController implements ViewController {
 	private Sport selectedSport;
-	private String intensity;
+	private String intensity = "Moderate"; // * Default value
 	@FXML private Slider intensitySlider;
 	@FXML private TextField duration;
 
@@ -45,9 +45,7 @@ public class ActivityCreateViewController implements ViewController {
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		// Populate ComboBox with sports
-
-		// Set up intensity slider
-		configIntensitySlider();
+		intensitySlider.setLabelFormatter(new IntensityStringConverter());
 		// Listen for changes in slider value and update intensity text field accordingly
 		intensitySlider
 				.valueProperty()
@@ -57,19 +55,6 @@ public class ActivityCreateViewController implements ViewController {
 							if (newValue.intValue() == 1) intensity = "Moderate";
 							if (newValue.intValue() == 2) intensity = "Intense";
 						});
-	}
-
-	private void configIntensitySlider() {
-		intensitySlider.setLabelFormatter(new IntensityStringConverter());
-		intensitySlider.setMin(0);
-		intensitySlider.setMax(2);
-		intensitySlider.setValue(1);
-		intensitySlider.setMinorTickCount(0);
-		intensitySlider.setSnapToTicks(true);
-		intensitySlider.setShowTickMarks(true);
-		intensitySlider.setShowTickLabels(true);
-		intensitySlider.setMajorTickUnit(1);
-		intensity = "Moderate"; // * Default value
 	}
 
 	// Method to show an alert with the calculated calories
