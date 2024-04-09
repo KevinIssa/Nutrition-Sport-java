@@ -26,7 +26,9 @@ import java.net.URL;
 import java.nio.file.*;
 import java.nio.file.Files;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
@@ -383,7 +385,7 @@ public class MainAppController extends AppController implements MenuViewControll
 					}
 
 					@Override
-					public void saveConsumedFoods(ArrayList<ArrayList<String>> consumedFoodsList) {
+					public void saveConsumedFoods(ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealdate) {
 						ConsumedMeal consumedMeal = new ConsumedMeal();
 						for (List<String> consumedFood : consumedFoodsList) {
 							String food = consumedFood.get(0);
@@ -391,6 +393,8 @@ public class MainAppController extends AppController implements MenuViewControll
 							int calories = Integer.parseInt(consumedFood.get(2));
 							consumedMeal.addConsumedFood(food, quantity, calories);
 						}
+
+						consumedMeal.setDate(mealdate);
 						consumedMeal.save();
 					}
 

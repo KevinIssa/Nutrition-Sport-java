@@ -20,6 +20,9 @@ package ulb.views;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -33,6 +36,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import ulb.models.Food;
 import ulb.widgets.FoodPopupController;
 
 public class FoodViewController implements ViewController {
@@ -40,12 +44,19 @@ public class FoodViewController implements ViewController {
 	@FXML private TextField searchField;
 	@FXML private ListView<String> suggestionsList;
 	@FXML private ListView<HBox> chosenFoodView;
+	@FXML private DatePicker mealdate;
+	@FXML private TextField hour;
+	@FXML private TextField minutes;
 
 	private ArrayList<ArrayList<String>> consumedFoodsList = new ArrayList<>();
 	private FoodViewController.Listener listener;
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {}
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		hour.setText(String.valueOf(LocalTime.now().getHour()));
+		minutes.setText(String.valueOf(LocalTime.now().getMinute()));
+		mealdate.setValue(LocalDate.now());
+	}
 
 	@Override
 	public void setListener(Object listener) {
@@ -55,8 +66,8 @@ public class FoodViewController implements ViewController {
 		this.listener = (Listener) listener;
 	}
 
-	// Action event handlers
 
+	// Action event handlers
 	@FXML
 	private void suggestFoods() {
 		String searchText = searchField.getText();
@@ -84,12 +95,20 @@ public class FoodViewController implements ViewController {
 		}
 	}
 
+	public LocalTime getmealtime(){
+		LocalTime time = LocalTime.of(Integer.parseInt(hour.getText()), Integer.parseInt(minutes.getText()));
+		return time;
+	}
+	public LocalDateTime getmealdate(){
+		LocalDateTime mealdatetime = LocalDateTime.of(mealdate.getValue(), getmealtime());
+		return mealdatetime;
+	}
 	@FXML
 	public void saveConsumedFoods() {
 		if (consumedFoodsList.isEmpty()) {
 			return;
 		}
-		this.listener.saveConsumedFoods(consumedFoodsList);
+		this.listener.saveConsumedFoods(consumedFoodsList,getmealdate());
 		cleanFoodList();
 	}
 
@@ -227,7 +246,7 @@ public class FoodViewController implements ViewController {
 
 		int getCaloriesConsumedByGrams(String food, int quantity);
 
-		void saveConsumedFoods(ArrayList<ArrayList<String>> consumedFoodsList);
+		void saveConsumedFoods(ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealdate);
 
 		String getFoodServingQuantity(String food);
 
