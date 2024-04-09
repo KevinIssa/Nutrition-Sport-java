@@ -34,6 +34,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ulb.models.*;
 import ulb.models.enums.Intensity;
@@ -44,17 +45,22 @@ import ulb.views.*;
 public class MainAppController extends AppController implements MenuViewController.Listener {
 
 	private final Stage primaryStage;
+	private Stage popupStage;
 
 	public MainAppController(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 	}
 
 	private ViewController loadView(String resourcePath) {
+		return this.loadView(resourcePath, this.primaryStage);
+	}
+
+	private ViewController loadView(String resourcePath, Stage stage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(resourcePath));
 			Parent root = loader.load();
 			ViewController viewController = loader.getController();
-			primaryStage.setScene(new Scene(root, 300, 200));
+			stage.setScene(new Scene(root));
 			return viewController;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -63,9 +69,16 @@ public class MainAppController extends AppController implements MenuViewControll
 		}
 	}
 
+	private void loadPopupView(String resourcePath, Supplier<Object> listenerSupplier) {
+		this.popupStage = new Stage();
+		ViewController viewController = this.loadView(resourcePath, this.popupStage);
+		viewController.setListener(listenerSupplier.get());
+		this.popupStage.initModality(Modality.APPLICATION_MODAL);
+		this.popupStage.showAndWait();
+	}
+
 	private void loadView(String resourcePath, Supplier<Object> listenerSupplier) {
 		ViewController viewController = this.loadView(resourcePath);
-		assert viewController != null;
 		viewController.setListener(listenerSupplier.get());
 	}
 
@@ -139,8 +152,6 @@ public class MainAppController extends AppController implements MenuViewControll
 	@Override
 	public void loadOpenProfileView() {
 
-
-
 		loadView(
 				"/ulb/views/Profile.fxml",
 				() ->
@@ -169,7 +180,6 @@ public class MainAppController extends AppController implements MenuViewControll
 							@Override
 							public void deleteProfileView() {
 								loadDeleteProfileView();
-
 							}
 
 							@Override
@@ -222,7 +232,6 @@ public class MainAppController extends AppController implements MenuViewControll
 								}
 							}
 
-
 							@Override
 							public Image getProfileImage(double width, double height) {
 								try {
@@ -239,9 +248,8 @@ public class MainAppController extends AppController implements MenuViewControll
 						});
 	}
 
-
 	public void loadDeleteProfileView() {
-		loadView(
+		loadPopupView(
 				"/ulb/views/ProfileDeleteConfirm.fxml",
 				() ->
 						new ProfileDeleteConfirmViewController.Listener() {
@@ -265,14 +273,17 @@ public class MainAppController extends AppController implements MenuViewControll
 							@Override
 							public void returnHome() {
 								loadMenuView();
+								popupStage.close();
 							}
 						});
 	}
 
 	@Override
 	public void loadCreateActivityView() {
+		this.popupStage = new Stage();
 		ActivityCreateViewController viewController =
-				(ActivityCreateViewController) this.loadView("/ulb/views/ActivityCreate.fxml");
+				(ActivityCreateViewController)
+						this.loadView("/ulb/views/ActivityCreate.fxml", this.popupStage);
 		viewController.setListener(
 				new ActivityCreateViewController.Listener() {
 					@Override
@@ -291,9 +302,11 @@ public class MainAppController extends AppController implements MenuViewControll
 
 					@Override
 					public void returnHome() {
-						loadMenuView();
+						popupStage.close();
 					}
 				});
+		this.popupStage.initModality(Modality.APPLICATION_MODAL);
+		this.popupStage.showAndWait();
 	}
 
 	@Override
@@ -314,7 +327,6 @@ public class MainAppController extends AppController implements MenuViewControll
 						});
 	}
 
-
 	@Override
 	public void loadMealHistoryView() {
 		loadView(
@@ -332,12 +344,12 @@ public class MainAppController extends AppController implements MenuViewControll
 							}
 						});
 	}
+
 	@Override
 	public void loadFoodSearchPage() {
-
-
+		this.popupStage = new Stage();
 		FoodViewController foodViewController =
-				(FoodViewController) loadView("/ulb/views/AddMeal.fxml");
+				(FoodViewController) loadView("/ulb/views/AddMeal.fxml", this.popupStage);
 
 		foodViewController.setListener(
 				new FoodViewController.Listener() {
@@ -346,7 +358,7 @@ public class MainAppController extends AppController implements MenuViewControll
 
 					@Override
 					public void returnHome() {
-						loadWelcomeView();
+						popupStage.close();
 					}
 
 					private List<Food> loadFoods(String searchText) {
@@ -406,5 +418,7 @@ public class MainAppController extends AppController implements MenuViewControll
 						foodViewController.setSuggestions(foodNames);
 					}
 				});
+		this.popupStage.initModality(Modality.APPLICATION_MODAL);
+		this.popupStage.showAndWait();
 	}
 }
