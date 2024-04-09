@@ -48,6 +48,7 @@ public class ActivityCreateViewController implements ViewController {
 
 		// Set up intensity slider
 		configIntensitySlider();
+
 		// Listen for changes in slider value and update intensity text field accordingly
 		intensitySlider
 				.valueProperty()
@@ -60,6 +61,7 @@ public class ActivityCreateViewController implements ViewController {
 	}
 
 	private void configIntensitySlider() {
+
 		intensitySlider.setLabelFormatter(new IntensityStringConverter());
 		intensitySlider.setMin(0);
 		intensitySlider.setMax(2);
@@ -70,6 +72,7 @@ public class ActivityCreateViewController implements ViewController {
 		intensitySlider.setShowTickLabels(true);
 		intensitySlider.setMajorTickUnit(1);
 		intensity = "Moderate"; // * Default value
+
 	}
 
 	// Method to show an alert with the calculated calories
@@ -92,7 +95,7 @@ public class ActivityCreateViewController implements ViewController {
 	}
 
 	public void setButtonDefaultColor() {
-		String color = "-fx-background-color: rgb(255,255,255);";
+		String color = "-fx-background-color: #9960f2;";
 		List<Button> buttons =
 				List.of(
 						button_walking,
@@ -128,7 +131,7 @@ public class ActivityCreateViewController implements ViewController {
 
 	public void selectSport(Button button, Sport sport) {
 		this.setButtonDefaultColor();
-		String color = "-fx-background-color: #3c8000;";
+		String color = "-fx-background-color: #b7ed65;";
 		button.setStyle(color);
 		selectedSport = sport;
 	}

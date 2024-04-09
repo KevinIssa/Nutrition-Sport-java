@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.utils.SexFieldTemplateController">
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.utils.SexFieldTemplateController">
    <children>
       <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
          <children>
             <StackPane>
                <children>
-                  <Label fx:id="infoUser" alignment="CENTER" minHeight="36.0" prefWidth="376.0" text="Label" />
-                   <RadioButton fx:id="maleButton" mnemonicParsing="false" text="♂" translateX="-40.0">
+                  <Label fx:id="infoUser" alignment="CENTER" minHeight="36.0" prefWidth="376.0" text="Label" textFill="#f3fbfb" />
+                   <RadioButton fx:id="maleButton" mnemonicParsing="false" text="♂" textFill="#f3fbfb" translateX="-40.0">
                       <toggleGroup>
                         <ToggleGroup fx:id="sex" />
                      </toggleGroup>
                   </RadioButton>
-                    <RadioButton fx:id="femaleButton" mnemonicParsing="false" text="♀" toggleGroup="$sex" translateX="40.0" />
+                    <RadioButton fx:id="femaleButton" mnemonicParsing="false" text="♀" textFill="#f3fbfb" toggleGroup="$sex" translateX="40.0" />
                </children>
             </StackPane>
-            <Button fx:id="editButton" maxWidth="56.0" mnemonicParsing="false" onAction="#toggleMode" prefHeight="36.0" prefWidth="196.0" text="Edit" />
+            <Button fx:id="editButton" maxWidth="56.0" mnemonicParsing="false" onAction="#toggleMode" prefHeight="36.0" prefWidth="196.0" style="-fx-background-color: #fd9c2d; -fx-background-radius: 10;" textFill="#f3fbfb">
+               <graphic>
+                  <ImageView fitHeight="37.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/pen.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust brightness="1.0" />
+                     </effect></ImageView>
+               </graphic></Button>
          </children>
       </HBox>
    </children>

@@ -62,14 +62,12 @@ public abstract class AbstractFieldTemplate extends AnchorPane {
 	}
 
 	protected void setEditMode() {
-		editButton.setText("Done");
 		editButton.setGraphic(new ImageView(check));
 		infoUser.setVisible(false);
 		mode = false;
 	}
 
 	protected void setDoneMode() {
-		editButton.setText("Edit");
 		editButton.setGraphic(new ImageView(pen));
 		infoUser.setVisible(true);
 		mode = true;
