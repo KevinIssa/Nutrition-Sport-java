@@ -29,7 +29,7 @@ public class TestProfile {
 
 	@Test
 	public void testProfile() {
-		Profile profile = createProfile("Hugo", "Charels", 60, 175, LocalDate.of(2003, 5, 23));
+		Profile profile = createProfile("Hugo", "Charels", 59, 175, LocalDate.of(2003, 5, 23));
 		profile.save();
 		assertEquals(profile, Profile.load());
 	}

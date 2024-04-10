@@ -32,7 +32,7 @@ public class TestFoodLoader {
 
 	@BeforeEach
 	public void setup() {
-		this.foodLoader = new FoodLoader("src/main/resources/food.json");
+		this.foodLoader = new FoodLoader();
 	}
 
 	@Test

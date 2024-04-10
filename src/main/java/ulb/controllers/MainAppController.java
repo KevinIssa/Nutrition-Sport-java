@@ -295,7 +295,7 @@ public class MainAppController extends AppController implements MenuViewControll
 								new Activity(
 										selectedSport,
 										Intensity.fromString(selectedIntensity),
-										Duration.ofMinutes((long) selectedDuration),
+										Duration.ofMinutes(Long.parseLong(selectedDuration)),
 										LocalDateTime.now());
 						activity.save();
 						viewController.showAlert(
@@ -356,8 +356,7 @@ public class MainAppController extends AppController implements MenuViewControll
 		foodViewController.setListener(
 				new FoodViewController.Listener() {
 
-					FoodLoader foodLoader =
-							new FoodLoader("src/main/resources/food.json").extend(loadMeals());
+					FoodLoader foodLoader = new FoodLoader().extend(loadMeals());
 
 					@Override
 					public void returnHome() {
@@ -366,14 +365,13 @@ public class MainAppController extends AppController implements MenuViewControll
 
 					private List<Food> loadFoods(String searchText) {
 
-						FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json");
+						FoodLoader foodLoader = new FoodLoader();
 						foodLoader.extend(loadMeals());
 						return foodLoader.getFoodsSuggestion(searchText);
 					}
 
 					public void reload() {
-						this.foodLoader =
-								new FoodLoader("src/main/resources/food.json").extend(loadMeals());
+						this.foodLoader = new FoodLoader().extend(loadMeals());
 					}
 
 					private Food convertMealToFood(Meal meal) {

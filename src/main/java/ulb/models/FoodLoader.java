@@ -30,19 +30,14 @@ import java.util.List;
  */
 public class FoodLoader {
 
+	private static final String FOOD_FILE = "/ulb/jsons/food.json";
 	private List<Food> foods;
 
-	public FoodLoader() {
-		loadFoods("src/main/resources/food.json");
-	}
-
 	/**
-	 * Constructs a FoodLoader and loads food data from the specified JSON file.
-	 *
-	 * @param filename The filename of the JSON file containing food data.
+	 * Constructs a FoodLoader and loads food data from a JSON file.
 	 */
-	public FoodLoader(String filename) {
-		loadFoods(filename);
+	public FoodLoader() {
+		loadFoods(this.getClass().getResource(FOOD_FILE).getPath());
 	}
 
 	/**
