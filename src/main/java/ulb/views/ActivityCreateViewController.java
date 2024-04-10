@@ -79,7 +79,9 @@ public class ActivityCreateViewController implements ViewController {
 		try {
 			String selectedIntensity = intensity;
 			float selectedDuration = Float.parseFloat(duration.getText());
-			this.listener.saveActivity(selectedSport, selectedIntensity, selectedDuration);
+			if (selectedSport != null) {
+                this.listener.saveActivity(selectedSport, selectedIntensity, selectedDuration);
+            }
 		} catch (NumberFormatException e) {
 			System.out.println("Invalid duration");
 			return;

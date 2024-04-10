@@ -419,7 +419,8 @@ public class MainAppController extends AppController implements MenuViewControll
 					}
 					@Override
 					public String getFoodServingQuantity(String food) {
-						return foodLoader.getFoodByName(food).getServingQuantity();
+						Food selectedfood = foodLoader.getFoodByName(food);
+						return selectedfood.getServingQuantity();
 					}
 
 					@Override

@@ -242,7 +242,7 @@ public class Food implements Consumable, Comparable<Food>{
 	}
 	@Override
 	public int compareTo(Food food){
-		return this.getName().compareTo(food.getName());
+		return this.getName().toLowerCase().compareTo(food.getName().toLowerCase());
 	}
 }
 
