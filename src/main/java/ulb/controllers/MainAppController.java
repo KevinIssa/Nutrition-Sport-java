@@ -86,11 +86,6 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadWelcomeView() {
-		this.primaryStage.setMinWidth(1170);
-		this.primaryStage.setMaxWidth(1170);
-
-		this.primaryStage.setMinHeight(800);
-		this.primaryStage.setMaxHeight(800);
 		if (Profile.isCreated()) {
 			loadMenuView();
 		} else {

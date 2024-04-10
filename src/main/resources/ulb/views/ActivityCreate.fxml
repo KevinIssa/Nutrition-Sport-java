@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,60 +16,74 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ActivityCreateViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2e4398;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ActivityCreateViewController">
    <children>
       <VBox layoutX="10.0" layoutY="10.0" prefHeight="348.0" prefWidth="598.0" spacing="10.0">
          <children>
-            <Label text="Ajoutez votre activité">
+            <Label text="Ajoutez votre activité" textFill="#f3fbfb">
                <font>
                   <Font name="Consolas" size="28.0" />
                </font>
             </Label>
             <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="578.0" spacing="10.0">
                <children>
-                  <Button fx:id="button_running" onAction="#selectRunning" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #FFFFFF;">
+                  <Button fx:id="button_running" onAction="#selectRunning" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #9960f2;">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                            <image>
                               <Image url="@../images/sport_img/running.png" />
                            </image>
+                           <effect>
+                              <ColorAdjust brightness="1.0" />
+                           </effect>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="button_walking" onAction="#selectWalking" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #FFFFFF;">
+                  <Button fx:id="button_walking" onAction="#selectWalking" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #9960f2;">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                            <image>
                               <Image url="@../images/sport_img/walking.png" />
                            </image>
+                           <effect>
+                              <ColorAdjust brightness="1.0" />
+                           </effect>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="button_swimming" onAction="#selectSwimming" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #FFFFFF;">
+                  <Button fx:id="button_swimming" onAction="#selectSwimming" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #9960f2;">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                            <image>
                               <Image url="@../images/sport_img/swimming.png" />
                            </image>
+                           <effect>
+                              <ColorAdjust brightness="1.0" />
+                           </effect>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="button_biking" onAction="#selectBiking" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #FFFFFF;">
+                  <Button fx:id="button_biking" onAction="#selectBiking" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #9960f2;">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                            <image>
                               <Image url="@../images/sport_img/biking.png" />
                            </image>
+                           <effect>
+                              <ColorAdjust brightness="1.0" />
+                           </effect>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="button_volleyball" onAction="#selectVolleyball" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #FFFFFF;">
+                  <Button fx:id="button_volleyball" onAction="#selectVolleyball" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #9960f2;">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                            <image>
                               <Image url="@../images/sport_img/volleyball.png" />
                            </image>
+                           <effect>
+                              <ColorAdjust brightness="1.0" />
+                           </effect>
                         </ImageView>
                      </graphic>
                   </Button>
@@ -76,17 +91,17 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="250.0" prefWidth="578.0">
                <children>
-                  <Label text="Intensité" textAlignment="CENTER" translateX="30.0">
+                  <Label text="Intensité" textAlignment="CENTER" textFill="#f3fbfb" translateX="30.0">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Label>
-                  <Slider fx:id="intensitySlider" prefWidth="200.0" translateX="50" />
+                  <Slider fx:id="intensitySlider" majorTickUnit="1" max="2" minorTickCount="0" prefWidth="200.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" stylesheets="@intensity_slider_style.css" translateX="50" value="1" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="600.0">
                <children>
-                  <Label text="Durée (en minutes)" textAlignment="CENTER" translateX="30.0">
+                  <Label text="Durée (en minutes)" textAlignment="CENTER" textFill="#f3fbfb" translateX="30.0">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -100,23 +115,43 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="200.0" prefWidth="600.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#returnHome" prefHeight="34.0" prefWidth="99.0" text="Retour">
+                  <Button mnemonicParsing="false" onAction="#returnHome" prefHeight="42.0" prefWidth="51.0" style="-fx-background-color: #fd9c2d; -fx-background-radius: 10;" textFill="#f3fbfb">
                      <font>
                         <Font size="19.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="29.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/go_back_icon.png" />
+                           </image>
+                           <effect>
+                              <ColorAdjust brightness="1.0" />
+                           </effect>
+                        </ImageView>
+                     </graphic>
                   </Button>
                   <Region prefHeight="58.0" prefWidth="315.0" />
-                  <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#saveActivity" text="OK" textAlignment="RIGHT">
+                  <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#saveActivity" style="-fx-background-color: #2dd798; -fx-background-radius: 10;" textAlignment="RIGHT" textFill="#f3fbfb">
                      <font>
                         <Font size="19.0" />
                      </font>
+                     <graphic>
+                        <ImageView fitHeight="26.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/save.png" />
+                           </image>
+                           <effect>
+                              <ColorAdjust brightness="1.0" />
+                           </effect>
+                        </ImageView>
+                     </graphic>
                   </Button>
                   <StackPane maxHeight="36.0" maxWidth="36.0" prefHeight="36.0" prefWidth="36.0">
                      <clip>
                         <Circle centerX="18" centerY="18" radius="10" />
                      </clip>
                      <children>
-                        <Button prefHeight="36.0" prefWidth="36.0" text="i">
+                        <Button prefHeight="36.0" prefWidth="36.0" style="-fx-background-color: #656ff9;" text="i" textFill="#f3fbfb">
                            <tooltip>
                               <Tooltip text="la formule pour le calcule du nombre de calories brulées: &#10;(((valeur de base de l'activite) * 3.5 * poids(kg)) / 200) * durée(min)" />
                            </tooltip>

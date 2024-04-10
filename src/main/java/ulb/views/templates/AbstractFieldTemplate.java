@@ -20,6 +20,7 @@ package ulb.views.templates;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -43,7 +44,11 @@ public abstract class AbstractFieldTemplate extends AnchorPane {
 		infoUser.setVisible(true);
 		field.setVisible(false);
 		if (pen == null || check == null) throw new NullPointerException("Images not set");
-		editButton.setGraphic(new ImageView(pen));
+		ImageView penView = new ImageView(pen);
+		ColorAdjust colorAdjust = new ColorAdjust();
+		colorAdjust.setBrightness(1);
+		penView.setEffect(colorAdjust);
+		editButton.setGraphic(penView);
 	}
 
 	public abstract void setDefault();
@@ -62,15 +67,17 @@ public abstract class AbstractFieldTemplate extends AnchorPane {
 	}
 
 	protected void setEditMode() {
-		editButton.setText("Done");
 		editButton.setGraphic(new ImageView(check));
 		infoUser.setVisible(false);
 		mode = false;
 	}
 
 	protected void setDoneMode() {
-		editButton.setText("Edit");
-		editButton.setGraphic(new ImageView(pen));
+		ImageView penView = new ImageView(pen);
+		ColorAdjust colorAdjust = new ColorAdjust();
+		colorAdjust.setBrightness(1);
+		penView.setEffect(colorAdjust);
+		editButton.setGraphic(penView);
 		infoUser.setVisible(true);
 		mode = true;
 	}

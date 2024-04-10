@@ -34,8 +34,12 @@ public class App extends Application {
 	private void setupStage(Stage stage) {
 		stage.setTitle("Fitness App");
 		stage.setResizable(true);
-		stage.setWidth(800);
-		stage.setHeight(600);
+		stage.setWidth(1200);
+		stage.setHeight(800);
+		stage.setMinWidth(1200);
+		stage.setMaxWidth(1200);
+		stage.setMinHeight(800);
+		stage.setMaxHeight(800);
 	}
 
 	public static void main(String[] args) {

@@ -1,0 +1,3 @@
+.slider .tick-mark {
+    -fx-text-fill: red; /* Couleur des ticks */
+}

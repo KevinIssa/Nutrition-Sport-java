@@ -25,6 +25,7 @@ import java.util.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -65,7 +66,6 @@ public class ProfileViewController implements ViewController {
 								weightController,
 								sexController));
 		this.setImages();
-		System.out.println("Profile view initialized");
 	}
 
 	private void setImages() {
@@ -77,7 +77,6 @@ public class ProfileViewController implements ViewController {
 		for (AbstractFieldTemplate foo : this.bar) {
 			foo.setImages(pen, check);
 		}
-		System.out.println("Images loaded");
 	}
 
 	private String getPath(String path) {
@@ -90,7 +89,11 @@ public class ProfileViewController implements ViewController {
 
 	// Set default values from listener
 	public void setDefaultValue() {
-		this.imageselection.setGraphic(new ImageView(pen));
+		ImageView penView = new ImageView(pen);
+		ColorAdjust colorAdjust = new ColorAdjust();
+		colorAdjust.setBrightness(1);
+		penView.setEffect(colorAdjust);
+		this.imageselection.setGraphic(penView);
 
 		for (AbstractFieldTemplate foo : bar) {
 			foo.setDefault();
