@@ -190,7 +190,7 @@ profile.json
 activities/
 consumed_meals/
 meals/
-*.png
+profile.png
 
 # Others
 .obsidian/
