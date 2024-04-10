@@ -52,7 +52,7 @@ public class Meal implements Consumable, JsonSerializable {
 	 * Constructor with name parameter.
 	 * @param name The name of the meal.
 	 */
-	Meal(String name) {
+	public Meal(String name) {
 		this.name = name;
 	}
 
@@ -72,7 +72,7 @@ public class Meal implements Consumable, JsonSerializable {
 	/**
 	 * Adds an ingredient to the meal.
 	 * @param food The food to add.
-	 * @param quantity The quantity of the food.
+	 * @param quantity The quantity in gramme of the food.
 	 */
 	public void addIngredient(Food food, Integer quantity) {
 		Map.Entry<Food, Integer> entry = Map.entry(food, quantity);
@@ -104,9 +104,11 @@ public class Meal implements Consumable, JsonSerializable {
 	 * @param servings The number of servings.
 	 * @return The total grams.
 	 */
-	private int getGramsForServing(int servings) {
+	public int getGramsForServing(int servings) {
 		int totalGrams = 0;
-		// TODO: Implement logic
+		for (Map.Entry<Food, Integer> ingredient : ingredients) {
+			totalGrams += ingredient.getValue();
+		}
 		return totalGrams * servings;
 	}
 
@@ -119,10 +121,7 @@ public class Meal implements Consumable, JsonSerializable {
 	public int getCaloriesConsumedByServing(int servings) {
 		int totalCalories = 0;
 		for (Map.Entry<Food, Integer> ingredient : ingredients) {
-			totalCalories +=
-					ingredient
-							.getKey()
-							.getCaloriesConsumedByServing(ingredient.getValue().intValue());
+			totalCalories += ingredient.getKey().getCaloriesConsumedByGrams(ingredient.getValue());
 		}
 		return totalCalories * servings;
 	}

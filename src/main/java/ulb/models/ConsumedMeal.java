@@ -87,8 +87,8 @@ public class ConsumedMeal implements JsonSerializable {
 	 * @param quantity Quantity of the food consumed
 	 * @param calories Calories of the food consumed
 	 */
-	public void addConsumedFood(String name, int quantity, int calories) {
-		consumedFoods.add(new ConsumedFood(name, quantity, calories));
+	public void addConsumedFood(String name, int quantity, int calories, String type) {
+		consumedFoods.add(new ConsumedFood(name, quantity, calories, type));
 	}
 
 	/**
@@ -218,6 +218,7 @@ class ConsumedFoodListSerializer extends JsonSerializer<List<ConsumedFood>> {
 			jsonGenerator.writeStringField("name", consumedFood.getName());
 			jsonGenerator.writeNumberField("quantity", consumedFood.getQuantity());
 			jsonGenerator.writeNumberField("calories", consumedFood.getCalories());
+			jsonGenerator.writeStringField("type", consumedFood.getType());
 			jsonGenerator.writeEndObject();
 		}
 		jsonGenerator.writeEndArray();
@@ -253,7 +254,8 @@ class ConsumedMealDeserializer extends StdDeserializer<ConsumedMeal> {
 				String name = element.get("name").asText();
 				int quantity = element.get("quantity").asInt();
 				int calories = element.get("calories").asInt();
-				meal.addConsumedFood(name, quantity, calories);
+				String text = element.get("type").asText();
+				meal.addConsumedFood(name, quantity, calories, text);
 			}
 		}
 		String date = node.get("date").asText();

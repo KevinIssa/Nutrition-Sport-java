@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
  * Represents a food item that can be consumed.
  */
 @JsonSerialize(using = FoodSerializer.class)
-public class Food implements Consumable {
+public class Food implements Consumable, Comparable<Food> {
 
 	private String name;
 	private int caloriesPer100;
@@ -239,6 +239,11 @@ public class Food implements Consumable {
 	 */
 	public void setServingQuantity(String servingQuantity) {
 		this.servingQuantity = servingQuantity;
+	}
+
+	@Override
+	public int compareTo(Food food) {
+		return this.getName().toLowerCase().compareTo(food.getName().toLowerCase());
 	}
 }
 

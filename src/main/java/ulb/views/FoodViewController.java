@@ -25,17 +25,20 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import ulb.models.Food;
 import ulb.widgets.FoodPopupController;
 
 public class FoodViewController implements ViewController {
@@ -43,18 +46,70 @@ public class FoodViewController implements ViewController {
 	@FXML private TextField searchField;
 	@FXML private ListView<String> suggestionsList;
 	@FXML private ListView<HBox> chosenFoodView;
+	@FXML private Slider slider;
+	@FXML private Label title;
+	@FXML private Label name;
+	@FXML private TextField namefield;
+	@FXML private Label statuslabel;
+	private Boolean mode;
 	@FXML private DatePicker mealdate;
 	@FXML private TextField hour;
 	@FXML private TextField minutes;
+	@FXML private Group date;
 
 	private ArrayList<ArrayList<String>> consumedFoodsList = new ArrayList<>();
 	private FoodViewController.Listener listener;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
+
 		hour.setText(String.valueOf(LocalTime.now().getHour()));
 		minutes.setText(String.valueOf(LocalTime.now().getMinute()));
 		mealdate.setValue(LocalDate.now());
+		name.setVisible(false);
+		namefield.setVisible(false);
+		configSlider();
+		slider.valueProperty()
+				.addListener(
+						(observable, oldValue, newValue) -> {
+							// Update the boolean variable based on slider value
+							mode = newValue.intValue() == 1;
+							// Update the status label
+							statuslabel.setText(mode ? "plats" : "aliments");
+							// Call function whenever the slider is modified
+							changeMode();
+						});
+	}
+
+	private void configSlider() {
+		slider.setMin(0);
+		slider.setMax(1);
+		slider.setValue(0);
+		slider.setMinorTickCount(0);
+		slider.setSnapToTicks(true);
+		slider.setShowTickMarks(true);
+		slider.setShowTickLabels(true);
+		slider.setMajorTickUnit(1);
+		mode = false; // * Default value
+	}
+
+	public void changeMode() {
+		if (mode) {
+			title.setText("Ajoutez un plat");
+			name.setVisible(true);
+			namefield.setVisible(true);
+			date.setVisible(false);
+			namefield.setText("");
+			consumedFoodsList.clear();
+			chosenFoodView.getItems().clear();
+		} else {
+			title.setText("Ajoutez les aliments consommés");
+			name.setVisible(false);
+			namefield.setVisible(false);
+			date.setVisible(true);
+			consumedFoodsList.clear();
+			chosenFoodView.getItems().clear();
+		}
 	}
 
 	@Override
@@ -109,7 +164,14 @@ public class FoodViewController implements ViewController {
 		if (consumedFoodsList.isEmpty()) {
 			return;
 		}
-		this.listener.saveConsumedFoods(consumedFoodsList, getmealdate());
+		if (mode) {
+			if (!Objects.equals(namefield.getText(), "")) {
+				this.listener.saveMeal(namefield.getText(), consumedFoodsList);
+			}
+			this.listener.reload();
+		} else {
+			this.listener.saveConsumedFoods(consumedFoodsList, getmealdate());
+		}
 		cleanFoodList();
 	}
 
@@ -151,7 +213,11 @@ public class FoodViewController implements ViewController {
 
 		consumedFoodsList.add(
 				new ArrayList<>(
-						List.of(food, Integer.toString(quantity), Integer.toString(calories))));
+						List.of(
+								food,
+								Integer.toString(quantity),
+								Integer.toString(calories),
+								value.contains("g") ? "g" : servingType)));
 	}
 
 	private String getUserData(String food) {
@@ -247,6 +313,8 @@ public class FoodViewController implements ViewController {
 
 		int getCaloriesConsumedByGrams(String food, int quantity);
 
+		void saveMeal(String mealname, ArrayList<ArrayList<String>> consumedFoodsList);
+
 		void saveConsumedFoods(
 				ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealdate);
 
@@ -255,5 +323,9 @@ public class FoodViewController implements ViewController {
 		int extractServingQuantityValue(String food);
 
 		String getFoodServingType(String food);
+
+		Food getCorrespondingFood(String food);
+
+		void reload();
 	}
 }

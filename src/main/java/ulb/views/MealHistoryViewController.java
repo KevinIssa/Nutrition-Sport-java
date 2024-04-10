@@ -95,7 +95,8 @@ public class MealHistoryViewController implements ViewController {
 
 	private void setTextInHBox(ConsumedFood food, String date, HBox hbox) {
 		Label LabelMealName = createLabel(food.getName(), 100);
-		Label LabelQuantity = createLabel(Integer.toString(food.getQuantity()), 40);
+		Label LabelQuantity =
+				createLabel(Integer.toString(food.getQuantity()) + " " + food.getType(), 40);
 		Label LabelDate = createLabel(date, 120);
 		Label LabelCalorie = createLabel(String.valueOf(food.getCalories() + " kcal"), 50);
 		hbox.getChildren().add(0, LabelMealName);

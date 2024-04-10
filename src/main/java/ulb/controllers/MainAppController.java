@@ -37,6 +37,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ulb.models.*;
+import ulb.models.Meal;
 import ulb.models.enums.Intensity;
 import ulb.models.enums.Sex;
 import ulb.models.enums.Sport;
@@ -355,7 +356,8 @@ public class MainAppController extends AppController implements MenuViewControll
 		foodViewController.setListener(
 				new FoodViewController.Listener() {
 
-					FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json");
+					FoodLoader foodLoader =
+							new FoodLoader("src/main/resources/food.json").extend(loadMeals());
 
 					@Override
 					public void returnHome() {
@@ -365,7 +367,36 @@ public class MainAppController extends AppController implements MenuViewControll
 					private List<Food> loadFoods(String searchText) {
 
 						FoodLoader foodLoader = new FoodLoader("src/main/resources/food.json");
+						foodLoader.extend(loadMeals());
 						return foodLoader.getFoodsSuggestion(searchText);
+					}
+
+					public void reload() {
+						this.foodLoader =
+								new FoodLoader("src/main/resources/food.json").extend(loadMeals());
+					}
+
+					private Food convertMealToFood(Meal meal) {
+						return new Food(
+								meal.getName(),
+								meal.getCaloriesConsumedByGrams(100),
+								meal.getCaloriesConsumed(),
+								String.format("1 serving (%d g)", meal.getGramsForServing(1)));
+					}
+
+					private List<Food> loadMeals() {
+						File directory = new File("meals"); // Specify the directory path
+						File[] files = directory.listFiles();
+						// Add Meals to the list
+						List<Food> result = new java.util.ArrayList<>();
+						if (files != null) {
+							for (File file : files) {
+								Meal meal = Meal.load(file.getPath());
+								Food food = convertMealToFood(meal);
+								result.add(food);
+							}
+						}
+						return result;
 					}
 
 					private List<String> foodToString(List<Food> foods) {
@@ -380,7 +411,7 @@ public class MainAppController extends AppController implements MenuViewControll
 
 					@Override
 					public int getCaloriesConsumedByGrams(String food, int quantity) {
-						Food foodObject = new FoodLoader().getFoodByName(food);
+						Food foodObject = foodLoader.getFoodByName(food);
 						return foodObject.getCaloriesConsumedByGrams(quantity);
 					}
 
@@ -393,7 +424,8 @@ public class MainAppController extends AppController implements MenuViewControll
 							String food = consumedFood.get(0);
 							int quantity = Integer.parseInt(consumedFood.get(1));
 							int calories = Integer.parseInt(consumedFood.get(2));
-							consumedMeal.addConsumedFood(food, quantity, calories);
+							String type = consumedFood.get(3);
+							consumedMeal.addConsumedFood(food, quantity, calories, type);
 						}
 
 						consumedMeal.setDate(mealdate);
@@ -401,8 +433,31 @@ public class MainAppController extends AppController implements MenuViewControll
 					}
 
 					@Override
+					public Food getCorrespondingFood(String food) {
+						List<Food> foods = loadFoods(food);
+						if (!foods.isEmpty()) {
+							return foods.get(0);
+						} else {
+							throw new RuntimeException("food selected not in database");
+						}
+					}
+
+					@Override
+					public void saveMeal(
+							String mealname, ArrayList<ArrayList<String>> consumedFoodsList) {
+						Meal newmeal = new Meal(mealname);
+						for (List<String> consumedFood : consumedFoodsList) {
+							String food = consumedFood.get(0);
+							int quantity = Integer.parseInt(consumedFood.get(1));
+							newmeal.addIngredient(getCorrespondingFood(food), quantity);
+						}
+						newmeal.save();
+					}
+
+					@Override
 					public String getFoodServingQuantity(String food) {
-						return foodLoader.getFoodByName(food).getServingQuantity();
+						Food selectedfood = foodLoader.getFoodByName(food);
+						return selectedfood.getServingQuantity();
 					}
 
 					@Override

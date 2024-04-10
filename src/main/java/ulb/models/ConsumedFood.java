@@ -29,6 +29,7 @@ public class ConsumedFood {
 	private int quantity;
 	// Calories of the consumed food
 	private int calories;
+	private String type;
 
 	/**
 	 * Constructor initializing the name, quantity, and calories of the consumed food.
@@ -36,10 +37,11 @@ public class ConsumedFood {
 	 * @param quantity Quantity of the consumed food
 	 * @param calories Calories of the consumed food
 	 */
-	public ConsumedFood(String name, int quantity, int calories) {
+	public ConsumedFood(String name, int quantity, int calories, String type) {
 		this.name = name;
 		this.quantity = quantity;
 		this.calories = calories;
+		this.type = type;
 	}
 
 	/**
@@ -101,5 +103,13 @@ public class ConsumedFood {
 	 */
 	public int getCalories() {
 		return calories;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getType() {
+		return type;
 	}
 }
