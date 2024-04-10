@@ -29,10 +29,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -45,43 +41,12 @@ import ulb.views.*;
 
 public class MainAppController extends AppController implements MenuViewController.Listener {
 
+	private final ViewLoader viewLoader = new ViewLoader();
 	private final Stage primaryStage;
 	private Stage popupStage;
 
 	public MainAppController(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-	}
-
-	private ViewController loadView(String resourcePath) {
-		return loadView(resourcePath, this.primaryStage);
-	}
-
-	private ViewController loadPopupView(String resourcePath) {
-		return loadView(resourcePath, this.popupStage);
-	}
-
-	private void loadView(String resourcePath, Supplier<Object> listenerSupplier) {
-		loadView(resourcePath).setListener(listenerSupplier.get());
-	}
-
-	private void loadPopupView(String resourcePath, Supplier<Object> listenerSupplier) {
-		this.popupStage = new Stage();
-		loadPopupView(resourcePath).setListener(listenerSupplier.get());
-		this.popupStage.initModality(Modality.APPLICATION_MODAL);
-		this.popupStage.showAndWait();
-	}
-
-	private ViewController loadView(String resourcePath, Stage stage) {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(resourcePath));
-			Parent root = loader.load();
-			stage.setScene(new Scene(root));
-			return loader.getController();
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(1);
-		}
-		return null;
 	}
 
 	@Override
@@ -95,14 +60,13 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadMenuView() {
-		loadView("/ulb/views/Menu.fxml", () -> this);
+		viewLoader.loadMenu(this.primaryStage, () -> this);
 	}
 
 	@Override
 	public void loadCreateProfileView() {
-
-		loadView(
-				"/ulb/views/ProfileCreate.fxml",
+		viewLoader.loadCreateProfile(
+				this.primaryStage,
 				() ->
 						new ProfileCreateViewController.Listener() {
 							@Override
@@ -149,8 +113,8 @@ public class MainAppController extends AppController implements MenuViewControll
 	@Override
 	public void loadOpenProfileView() {
 
-		loadView(
-				"/ulb/views/Profile.fxml",
+		viewLoader.loadProfile(
+				this.primaryStage,
 				() ->
 						new ProfileViewController.Listener() {
 							final Profile profile = Profile.load();
@@ -246,8 +210,9 @@ public class MainAppController extends AppController implements MenuViewControll
 	}
 
 	public void loadDeleteProfileView() {
-		loadPopupView(
-				"/ulb/views/ProfileDeleteConfirm.fxml",
+		this.popupStage = new Stage();
+		viewLoader.loadDeleteProfile(
+				this.popupStage,
 				() ->
 						new ProfileDeleteConfirmViewController.Listener() {
 							@Override
@@ -272,13 +237,15 @@ public class MainAppController extends AppController implements MenuViewControll
 								popupStage.close();
 							}
 						});
+		this.popupStage.initModality(Modality.APPLICATION_MODAL);
+		this.popupStage.showAndWait();
 	}
 
 	@Override
 	public void loadCreateActivityView() {
 		this.popupStage = new Stage();
 		ActivityCreateViewController viewController =
-				(ActivityCreateViewController) this.loadPopupView("/ulb/views/ActivityCreate.fxml");
+				(ActivityCreateViewController) viewLoader.loadCreateActivity(this.popupStage);
 		viewController.setListener(
 				new ActivityCreateViewController.Listener() {
 					@Override
@@ -308,8 +275,8 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadActivityHistoryView() {
-		loadView(
-				"/ulb/views/ActivityHistory.fxml",
+		viewLoader.loadActivityHistory(
+				this.primaryStage,
 				() ->
 						new ActivityHistoryViewController.Listener() {
 							@Override
@@ -326,8 +293,8 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadMealHistoryView() {
-		loadView(
-				"/ulb/views/MealHistory.fxml",
+		viewLoader.loadMealHistory(
+				this.primaryStage,
 				() ->
 						new MealHistoryViewController.Listener() {
 							@Override
@@ -346,7 +313,7 @@ public class MainAppController extends AppController implements MenuViewControll
 	public void loadFoodSearchPage() {
 		this.popupStage = new Stage();
 		FoodViewController foodViewController =
-				(FoodViewController) loadPopupView("/ulb/views/AddMeal.fxml");
+				(FoodViewController) viewLoader.loadAddMeal(this.popupStage);
 
 		foodViewController.setListener(
 				new FoodViewController.Listener() {
