@@ -26,6 +26,19 @@ public enum Intensity {
 	MODERATE,
 	INTENSE;
 
+	public static Intensity fromInt(int number) {
+		switch (number) {
+			case 0:
+				return SLOW;
+			case 1:
+				return MODERATE;
+			case 2:
+				return INTENSE;
+			default:
+				throw new IllegalArgumentException("Invalid intensity : " + number);
+		}
+	}
+
 	/**
 	 * Converts a string representation of intensity to the corresponding enum value.
 	 *
@@ -42,7 +55,7 @@ public enum Intensity {
 			case "Intense":
 				return INTENSE;
 			default:
-				throw new IllegalArgumentException("Invalid intensity: " + selectedIntensity);
+				throw new IllegalArgumentException("Invalid intensity : " + selectedIntensity);
 		}
 	}
 

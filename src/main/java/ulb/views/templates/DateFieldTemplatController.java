@@ -16,7 +16,7 @@
  *
  * Date : 2024
  */
-package ulb.views.utils;
+package ulb.views.templates;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

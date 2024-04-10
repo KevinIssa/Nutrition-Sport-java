@@ -26,9 +26,7 @@ import java.net.URL;
 import java.nio.file.*;
 import java.nio.file.Files;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
@@ -289,7 +287,9 @@ public class MainAppController extends AppController implements MenuViewControll
 				new ActivityCreateViewController.Listener() {
 					@Override
 					public void saveActivity(
-							Sport selectedSport, String selectedIntensity, float selectedDuration) {
+							Sport selectedSport,
+							String selectedIntensity,
+							String selectedDuration) {
 						Activity activity =
 								new Activity(
 										selectedSport,
@@ -385,7 +385,9 @@ public class MainAppController extends AppController implements MenuViewControll
 					}
 
 					@Override
-					public void saveConsumedFoods(ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealdate) {
+					public void saveConsumedFoods(
+							ArrayList<ArrayList<String>> consumedFoodsList,
+							LocalDateTime mealdate) {
 						ConsumedMeal consumedMeal = new ConsumedMeal();
 						for (List<String> consumedFood : consumedFoodsList) {
 							String food = consumedFood.get(0);

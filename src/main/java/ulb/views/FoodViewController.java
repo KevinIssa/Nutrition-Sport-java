@@ -36,7 +36,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import ulb.models.Food;
 import ulb.widgets.FoodPopupController;
 
 public class FoodViewController implements ViewController {
@@ -66,7 +65,6 @@ public class FoodViewController implements ViewController {
 		this.listener = (Listener) listener;
 	}
 
-
 	// Action event handlers
 	@FXML
 	private void suggestFoods() {
@@ -95,20 +93,23 @@ public class FoodViewController implements ViewController {
 		}
 	}
 
-	public LocalTime getmealtime(){
-		LocalTime time = LocalTime.of(Integer.parseInt(hour.getText()), Integer.parseInt(minutes.getText()));
+	public LocalTime getmealtime() {
+		LocalTime time =
+				LocalTime.of(Integer.parseInt(hour.getText()), Integer.parseInt(minutes.getText()));
 		return time;
 	}
-	public LocalDateTime getmealdate(){
+
+	public LocalDateTime getmealdate() {
 		LocalDateTime mealdatetime = LocalDateTime.of(mealdate.getValue(), getmealtime());
 		return mealdatetime;
 	}
+
 	@FXML
 	public void saveConsumedFoods() {
 		if (consumedFoodsList.isEmpty()) {
 			return;
 		}
-		this.listener.saveConsumedFoods(consumedFoodsList,getmealdate());
+		this.listener.saveConsumedFoods(consumedFoodsList, getmealdate());
 		cleanFoodList();
 	}
 
@@ -246,7 +247,8 @@ public class FoodViewController implements ViewController {
 
 		int getCaloriesConsumedByGrams(String food, int quantity);
 
-		void saveConsumedFoods(ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealdate);
+		void saveConsumedFoods(
+				ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealdate);
 
 		String getFoodServingQuantity(String food);
 

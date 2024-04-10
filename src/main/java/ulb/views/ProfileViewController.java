@@ -24,12 +24,11 @@ import java.time.LocalDate;
 import java.util.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import ulb.views.utils.AbstractFieldTemplate;
+import ulb.views.templates.AbstractFieldTemplate;
 
 public class ProfileViewController implements ViewController {
 	private Image pen;

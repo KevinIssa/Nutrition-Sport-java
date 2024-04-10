@@ -19,7 +19,6 @@
 package ulb.views;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -28,15 +27,14 @@ import ulb.models.enums.Sport;
 
 public class ActivityCreateViewController implements ViewController {
 	private Sport selectedSport;
-	private String intensity;
 	@FXML private Slider intensitySlider;
 	@FXML private TextField duration;
-
 	@FXML private Button button_walking;
 	@FXML private Button button_running;
 	@FXML private Button button_biking;
 	@FXML private Button button_swimming;
 	@FXML private Button button_volleyball;
+	private Button selectedButton = button_walking;
 
 	private ActivityCreateViewController.Listener
 			listener; // Listener interface for communication with the controller
@@ -47,43 +45,25 @@ public class ActivityCreateViewController implements ViewController {
 		// Populate ComboBox with sports
 
 		// Set up intensity slider
-		configIntensitySlider();
-		// Listen for changes in slider value and update intensity text field accordingly
-		intensitySlider
-				.valueProperty()
-				.addListener(
-						(observable, oldValue, newValue) -> {
-							if (newValue.intValue() == 0) intensity = "Slow";
-							if (newValue.intValue() == 1) intensity = "Moderate";
-							if (newValue.intValue() == 2) intensity = "Intense";
-						});
+		this.configIntensitySlider();
 	}
 
 	private void configIntensitySlider() {
-		intensitySlider.setLabelFormatter(new IntensityStringConverter());
-		intensitySlider.setMin(0);
-		intensitySlider.setMax(2);
-		intensitySlider.setValue(1);
-		intensitySlider.setMinorTickCount(0);
-		intensitySlider.setSnapToTicks(true);
-		intensitySlider.setShowTickMarks(true);
-		intensitySlider.setShowTickLabels(true);
-		intensitySlider.setMajorTickUnit(1);
-		intensity = "Moderate"; // * Default value
+		this.intensitySlider.setLabelFormatter(new IntensityStringConverter());
+		this.intensitySlider.setMin(0);
+		this.intensitySlider.setMax(2);
+		this.intensitySlider.setValue(1);
+		this.intensitySlider.setMinorTickCount(0);
+		this.intensitySlider.setSnapToTicks(true);
+		this.intensitySlider.setShowTickMarks(true);
+		this.intensitySlider.setShowTickLabels(true);
+		this.intensitySlider.setMajorTickUnit(1);
 	}
-
-	// Method to show an alert with the calculated calories
 
 	// Method to save the activity
 	public void saveActivity() {
-		try {
-			String selectedIntensity = intensity;
-			float selectedDuration = Float.parseFloat(duration.getText());
-			this.listener.saveActivity(selectedSport, selectedIntensity, selectedDuration);
-		} catch (NumberFormatException e) {
-			System.out.println("Invalid duration");
-			return;
-		}
+		String selectedIntensity = Double.toString(this.intensitySlider.getValue());
+		this.listener.saveActivity(this.selectedSport, selectedIntensity, this.duration.getText());
 		this.listener.returnHome();
 	}
 
@@ -91,48 +71,36 @@ public class ActivityCreateViewController implements ViewController {
 		this.listener.returnHome();
 	}
 
-	public void setButtonDefaultColor() {
+	public void clickedButton(Button button, Sport sport) {
 		String color = "-fx-background-color: rgb(255,255,255);";
-		List<Button> buttons =
-				List.of(
-						button_walking,
-						button_running,
-						button_biking,
-						button_swimming,
-						button_volleyball);
-		for (Button button : buttons) {
-			button.setStyle(color);
-		}
-		selectedSport = null;
+		selectedButton.setStyle(color);
+		color = "-fx-background-color: #3c8000;";
+		button.setStyle(color);
+		selectedSport = sport;
+		selectedButton = button;
 	}
 
 	public void selectWalking() {
-		this.selectSport(this.button_walking, Sport.WALKING);
+		this.clickedButton(this.button_walking, Sport.WALKING);
 	}
 
 	public void selectRunning() {
-		this.selectSport(this.button_running, Sport.RUNNING);
+		this.clickedButton(this.button_running, Sport.RUNNING);
 	}
 
 	public void selectBiking() {
-		this.selectSport(this.button_biking, Sport.BIKING);
+		this.clickedButton(this.button_biking, Sport.BIKING);
 	}
 
 	public void selectSwimming() {
-		this.selectSport(this.button_swimming, Sport.SWIMMING);
+		this.clickedButton(this.button_swimming, Sport.SWIMMING);
 	}
 
 	public void selectVolleyball() {
-		this.selectSport(this.button_volleyball, Sport.VOLLEYBALL);
+		this.clickedButton(this.button_volleyball, Sport.VOLLEYBALL);
 	}
 
-	public void selectSport(Button button, Sport sport) {
-		this.setButtonDefaultColor();
-		String color = "-fx-background-color: #3c8000;";
-		button.setStyle(color);
-		selectedSport = sport;
-	}
-
+	// TODO Move that to other class !
 	public static void showAlert(double calories) {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("Calcul du nombre de calories");
@@ -152,7 +120,7 @@ public class ActivityCreateViewController implements ViewController {
 
 	// Listener interface for communication with the controller
 	public interface Listener {
-		void saveActivity(Sport selectedSport, String selectedIntensity, float selectedDuration);
+		void saveActivity(Sport selectedSport, String selectedIntensity, String selectedDuration);
 
 		void returnHome();
 	}

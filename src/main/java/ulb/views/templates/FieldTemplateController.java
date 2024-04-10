@@ -16,7 +16,7 @@
  *
  * Date : 2024
  */
-package ulb.views.utils;
+package ulb.views.templates;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
