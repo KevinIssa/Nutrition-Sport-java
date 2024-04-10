@@ -91,8 +91,17 @@
                   </children>
                </HBox>
                <Region prefHeight="36.0" prefWidth="672.0" />
-               <HBox alignment="CENTER_RIGHT">
+               <HBox alignment="CENTER_RIGHT" spacing="500.0">
                   <children>
+                     <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteProfile" textAlignment="CENTER">
+                        <graphic>
+                           <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
+                              <image>
+                                 <Image url="@../images/poubelle.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
                      <Button alignment="CENTER" mnemonicParsing="false" onAction="#saveProfile" text="OK" textAlignment="CENTER">
                         <font>
                            <Font size="21.0" />

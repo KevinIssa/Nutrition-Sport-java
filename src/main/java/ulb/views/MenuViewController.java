@@ -47,10 +47,6 @@ public class MenuViewController implements ViewController {
 		listener.loadOpenProfileView();
 	}
 
-	public void deleteProfile() {
-		listener.loadDeleteProfileView();
-	}
-
 	public void createActivity() {
 		listener.loadCreateActivityView();
 	}
@@ -59,7 +55,7 @@ public class MenuViewController implements ViewController {
 		listener.loadActivityHistoryView();
 	}
 
-	public void mealHistory(){
+	public void mealHistory() {
 		listener.loadMealHistoryView();
 	}
 
@@ -86,8 +82,6 @@ public class MenuViewController implements ViewController {
 		void loadCreateActivityView();
 
 		void loadOpenProfileView();
-
-		void loadDeleteProfileView();
 
 		void loadCreateProfileView();
 
