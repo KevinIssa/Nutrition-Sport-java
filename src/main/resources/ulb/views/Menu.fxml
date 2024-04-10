@@ -58,7 +58,7 @@
          <graphic>
             <ImageView fitHeight="36.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/menu_img/add.png" />
+                  <Image url="@../images/menu_img/plus.png" />
                </image>
             </ImageView>
          </graphic>
@@ -70,7 +70,7 @@
          <graphic>
             <ImageView fitHeight="23.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/menu_img/addFood.png" />
+                  <Image url="@../images/menu_img/cookie.png" />
                </image>
             </ImageView>
          </graphic>
@@ -82,7 +82,7 @@
          <graphic>
             <ImageView fitHeight="23.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/sport_img/Course à pied.png" />
+                  <Image url="@../images/sport_img/running.png" />
                </image></ImageView>
          </graphic>
       </Button>

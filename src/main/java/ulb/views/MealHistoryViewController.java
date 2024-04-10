@@ -85,9 +85,9 @@ public class MealHistoryViewController implements ViewController {
 	}
 
 	private void setIconInHBox(HBox hbox) {
-		ImageView dateImageView = createImageView("/ulb/images/history_img/calendrier.png", 30, 30);
+		ImageView dateImageView = createImageView("/ulb/images/history_img/calendar.png", 30, 30);
 		ImageView quantityImageView =
-				createImageView("/ulb/images/history_img/quantite.png", 30, 30);
+				createImageView("/ulb/images/history_img/quantity.png", 30, 30);
 		ImageView calorieImageView =
 				createImageView("/ulb/images/history_img/calories_consumed.png", 30, 30);
 		hbox.getChildren().addAll(quantityImageView, dateImageView, calorieImageView);
@@ -105,7 +105,7 @@ public class MealHistoryViewController implements ViewController {
 	}
 
 	private void setButtonInHBox(ConsumedFood food, HBox hbox) {
-		ImageView imageDelete = createImageView("/ulb/images/poubelle.png", 30, 30);
+		ImageView imageDelete = createImageView("/ulb/images/trash.png", 30, 30);
 		Button deleteActivityButton = new Button("");
 		deleteActivityButton.setGraphic(imageDelete);
 		deleteActivityButton.setOnAction(e -> deleteFoodInHistory(food));

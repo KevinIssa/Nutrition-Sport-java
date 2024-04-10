@@ -123,9 +123,9 @@ public class ActivityHistoryViewController implements ViewController {
 	private void setIconInHBox(Activity activity, HBox hbox) {
 		ImageView intensityImageView = createIntensityImageView(activity);
 		ImageView sportImageView = createSportImageView(activity);
-		ImageView dateImageView = createImageView("/ulb/images/history_img/calendrier.png", 30, 30);
+		ImageView dateImageView = createImageView("/ulb/images/history_img/calendar.png", 30, 30);
 		ImageView durationImageView =
-				createImageView("/ulb/images/history_img/chronometre.png", 30, 30);
+				createImageView("/ulb/images/history_img/chronometer.png", 30, 30);
 		ImageView calorieImageView =
 				createImageView("/ulb/images/history_img/calories.png", 30, 30);
 		hbox.getChildren()
@@ -151,7 +151,7 @@ public class ActivityHistoryViewController implements ViewController {
 	}
 
 	private void setButtonInHBox(Activity activity, HBox hbox) {
-		ImageView imageDelete = createImageView("/ulb/images/poubelle.png", 30, 30);
+		ImageView imageDelete = createImageView("/ulb/images/trash.png", 30, 30);
 		Button deleteActivityButton = new Button("");
 		deleteActivityButton.setGraphic(imageDelete);
 		deleteActivityButton.setOnAction(e -> deleteActivityInHistory(activity));

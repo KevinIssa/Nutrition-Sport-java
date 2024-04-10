@@ -57,7 +57,7 @@
          <graphic>
             <ImageView fitHeight="49.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/trash.png" />
+                  <Image url="@../images/trash_cross.png" />
                </image>
             </ImageView>
          </graphic>
@@ -66,7 +66,7 @@
          <graphic>
             <ImageView fitHeight="37.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/remove.png" />
+                  <Image url="@../images/cross.png" />
                </image>
             </ImageView>
          </graphic>
