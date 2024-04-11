@@ -11,6 +11,7 @@ module ulb {
 	exports ulb.models.enums;
 	exports ulb.views;
 	exports ulb.controllers;
+	exports ulb.controllers.dtos;
 	exports ulb.views.templates;
 	exports ulb.widgets;
 
