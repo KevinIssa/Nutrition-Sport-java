@@ -18,27 +18,43 @@
  */
 package ulb.widgets;
 
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
+
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import ulb.views.ViewController;
 
-public class FoodPopupController {
+
+public class FoodPopupController implements ViewController {
 	@FXML TextField gramme;
 	@FXML TextField serving;
 	@FXML Label servinglabel;
 
 	public int getGramme() {
-		if (!gramme.isDisable()) {
-			return Integer.parseInt(gramme.getText());
-		}
-		return 0;
+		return handleInput(gramme, "grammes", 4000);
 	}
 
 	public int getServing() {
-		if (!serving.isDisable()) {
-			return Integer.parseInt(serving.getText());
+		return handleInput(serving, "portions", 100);
+	}
+
+	private int handleInput(TextField inputField, String unit, int max) {
+		if (!inputField.isDisable()) {
+			try {
+				int value = Integer.parseInt(inputField.getText());
+				if (value > max) {
+					showAlert("Quantité excessive", "Le maximum autorisé est de " + max + " " + unit + ".");
+					return 0;
+				}
+				return value;
+			} catch (NumberFormatException e) {
+				showAlert("Valeur invalide", "Veuillez entrer une valeur valide pour les " + unit + ".");
+				return 0;
+			}
 		}
 		return 0;
 	}
@@ -59,5 +75,15 @@ public class FoodPopupController {
 		} else {
 			serving.setDisable(false);
 		}
+	}
+
+	@Override
+	public void setListener(Object listener) {
+
+	}
+
+	@Override
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+
 	}
 }

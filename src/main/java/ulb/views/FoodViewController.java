@@ -148,13 +148,42 @@ public class FoodViewController implements ViewController {
 		}
 	}
 
+
+
 	public LocalTime getmealtime() {
+		try {
+		int intHour = Integer.parseInt(hour.getText());
+		int intMinutes = Integer.parseInt(minutes.getText());
+
+		if (intHour < 0 || intHour > 23 || intMinutes < 0 || intMinutes > 59) {
+			showAlert("Heure invalide", "L'heure doit être comprise entre 0 et 23 et les minutes entre 0 et 59");
+			return null;
+		}
+
 		LocalTime time =
 				LocalTime.of(Integer.parseInt(hour.getText()), Integer.parseInt(minutes.getText()));
 		return time;
+		}
+		catch (NumberFormatException e) {
+			showAlert("Heure invalide", "L'heure doit être un nombre");
+			return null;
+		}
+	}
+
+
+	public boolean isDateInFuture(LocalDate date1, LocalDate date2) {
+		return date1.compareTo(date2) > 0;
 	}
 
 	public LocalDateTime getmealdate() {
+
+		LocalDate currentDate = LocalDate.now();
+		if (isDateInFuture(mealdate.getValue(), currentDate)) {
+			showAlert("Date invalide", "La date ne peut pas être dans le futur");
+			return null;
+		}
+
+
 		LocalDateTime mealdatetime = LocalDateTime.of(mealdate.getValue(), getmealtime());
 		return mealdatetime;
 	}
@@ -170,7 +199,19 @@ public class FoodViewController implements ViewController {
 			}
 			this.listener.reload();
 		} else {
-			this.listener.saveConsumedFoods(consumedFoodsList, getmealdate());
+			try {
+				LocalDateTime mealDate = getmealdate();
+				if (mealDate == null) {
+					throw new NullPointerException();
+				}
+				this.listener.saveConsumedFoods(consumedFoodsList, mealDate);
+
+			}
+
+			catch (NullPointerException e) {
+
+				return;
+			}
 		}
 		cleanFoodList();
 	}

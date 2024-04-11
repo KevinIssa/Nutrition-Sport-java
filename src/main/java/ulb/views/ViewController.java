@@ -19,6 +19,8 @@
 package ulb.views;
 
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  * A common interface for view controllers in the application.
@@ -33,4 +35,19 @@ public interface ViewController extends Initializable {
 	 * @param listener The listener object to be set for communication with the controller.
 	 */
 	void setListener(Object listener);
+
+	/**
+	 * Displays an alert message.
+	 *
+	 * @param title   The title of the alert.
+	 * @param content The content of the alert.
+	 */
+
+	default void showAlert(String title, String content) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle(title);
+		alert.setHeaderText(null);
+		alert.setContentText(content);
+		alert.showAndWait();
+	}
 }
