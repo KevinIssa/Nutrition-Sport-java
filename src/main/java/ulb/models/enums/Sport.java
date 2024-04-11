@@ -61,6 +61,23 @@ public enum Sport {
 	public String toString() {
 		switch (this) {
 			case WALKING:
+				return "walking";
+			case RUNNING:
+				return "running";
+			case BIKING:
+				return "biking";
+			case SWIMMING:
+				return "swimming";
+			case VOLLEYBALL:
+				return "volleyball";
+			default:
+				throw new IllegalStateException("Unexpected value: " + this);
+		}
+	}
+
+	public String toFrench() {
+		switch (this) {
+			case WALKING:
 				return "Marche";
 			case RUNNING:
 				return "Course à pied";
