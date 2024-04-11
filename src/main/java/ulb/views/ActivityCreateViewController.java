@@ -27,7 +27,6 @@ import ulb.models.enums.Sport;
 
 public class ActivityCreateViewController implements ViewController {
 	private Sport selectedSport;
-	private String intensity = "Moderate"; // * Default value
 	@FXML private Slider intensitySlider;
 	@FXML private TextField duration;
 	@FXML private Button buttonWalking;
@@ -46,15 +45,6 @@ public class ActivityCreateViewController implements ViewController {
 		selectedButton = buttonWalking;
 		// Populate ComboBox with sports
 		intensitySlider.setLabelFormatter(new IntensityStringConverter());
-		// Listen for changes in slider value and update intensity text field accordingly
-		intensitySlider
-				.valueProperty()
-				.addListener(
-						(observable, oldValue, newValue) -> {
-							if (newValue.intValue() == 0) intensity = "Slow";
-							if (newValue.intValue() == 1) intensity = "Moderate";
-							if (newValue.intValue() == 2) intensity = "Intense";
-						});
 	}
 
 	// Method to save the activity
