@@ -56,8 +56,8 @@ public class HistoryBox extends HBox {
 	private void setIcons(ActivityDTO activity) {
 		this.getChildren()
 				.addAll(
-						this.createIntensityImageView(activity),
 						this.createSportImageView(activity),
+						this.createIntensityImageView(activity),
 						this.createImageView(CALENDAR_IMG_PATH),
 						this.createImageView(CHRONOMETER_IMG_PATH),
 						this.createImageView(CALORIES_IMG_PATH));

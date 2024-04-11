@@ -28,7 +28,7 @@ public class ActivityDTO {
 	public final String sport;
 	public final String duration;
 
-	public ActivityDTO(Activity activity, Profile profile) {
+	public ActivityDTO(Activity activity) {
 		date = activity.changeDateFormat(activity.getDate());
 		burnedCalories = String.valueOf(activity.getCaloriesBurned(Profile.load().getWeight()));
 		intensity = activity.getIntensity().toString();

@@ -29,9 +29,11 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ulb.controllers.dtos.ActivityDTO;
 import ulb.models.*;
 import ulb.models.Meal;
 import ulb.models.enums.Intensity;
@@ -282,8 +284,22 @@ public class MainAppController extends AppController implements MenuViewControll
 							}
 
 							@Override
-							public List<Activity> getActivities(String filename) {
-								return Activity.load(filename);
+							public List<ActivityDTO> getActivities(Sport filter) {
+								File folder = new File("activities");
+								List<ActivityDTO> list = new ArrayList<>();
+								File[] files = folder.listFiles();
+								try {
+									Objects.requireNonNull(files);
+								} catch (NullPointerException e) {
+									return list;
+								}
+								for (File file : files) {
+									Activity activity = Activity.load(file.getPath());
+									if (filter == null || activity.getSport() == filter) {
+										list.add(new ActivityDTO(activity));
+									}
+								}
+								return list;
 							}
 						});
 	}
