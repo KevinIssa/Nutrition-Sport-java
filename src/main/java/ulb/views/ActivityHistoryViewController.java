@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import ulb.controllers.dtos.ActivityDTO;
 import ulb.models.enums.Sport;
 
@@ -32,8 +32,7 @@ public class ActivityHistoryViewController implements ViewController {
 	private ActivityHistoryViewController.Listener
 			listener; // Listener interface for communication with the controller
 	@FXML private ListView<HistoryBox> historyList; // ListView to display activity history
-	@FXML private AnchorPane filterPane;
-	private boolean isFilterVisible = false;
+	@FXML private HBox filters;
 	private Sport filteredSport = null;
 
 	@Override
@@ -74,14 +73,12 @@ public class ActivityHistoryViewController implements ViewController {
 	}
 
 	public void toggleShowFilter() {
-		if (isFilterVisible) {
-			filterPane.setVisible(false);
-			isFilterVisible = false;
-		} else {
-			filterPane.setVisible(true);
-			isFilterVisible = true;
+		if (filters.isVisible()) {
+			filters.setVisible(false);
 			filteredSport = null;
 			setActivities();
+		} else {
+			filters.setVisible(true);
 		}
 	}
 
