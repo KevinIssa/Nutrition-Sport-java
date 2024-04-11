@@ -43,7 +43,6 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	private final ViewLoader viewLoader = new ViewLoader();
 	private final Stage primaryStage;
-	private Stage popupStage;
 
 	public MainAppController(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -210,9 +209,9 @@ public class MainAppController extends AppController implements MenuViewControll
 	}
 
 	public void loadDeleteProfileView() {
-		this.popupStage = new Stage();
+		Stage popupStage = new Stage();
 		viewLoader.loadDeleteProfile(
-				this.popupStage,
+				popupStage,
 				() ->
 						new ProfileDeleteConfirmViewController.Listener() {
 							@Override
@@ -237,26 +236,24 @@ public class MainAppController extends AppController implements MenuViewControll
 								popupStage.close();
 							}
 						});
-		this.popupStage.initModality(Modality.APPLICATION_MODAL);
-		this.popupStage.showAndWait();
+		popupStage.initModality(Modality.APPLICATION_MODAL);
+		popupStage.showAndWait();
 	}
 
 	@Override
 	public void loadCreateActivityView() {
-		this.popupStage = new Stage();
+		Stage popupStage = new Stage();
 		ActivityCreateViewController viewController =
-				(ActivityCreateViewController) viewLoader.loadCreateActivity(this.popupStage);
+				(ActivityCreateViewController) viewLoader.loadCreateActivity(popupStage);
 		viewController.setListener(
 				new ActivityCreateViewController.Listener() {
 					@Override
 					public void saveActivity(
-							Sport selectedSport,
-							String selectedIntensity,
-							String selectedDuration) {
+							Sport selectedSport, int selectedIntensity, String selectedDuration) {
 						Activity activity =
 								new Activity(
 										selectedSport,
-										Intensity.fromString(selectedIntensity),
+										Intensity.fromInt(selectedIntensity),
 										Duration.ofMinutes(Long.parseLong(selectedDuration)),
 										LocalDateTime.now());
 						activity.save();
@@ -269,8 +266,8 @@ public class MainAppController extends AppController implements MenuViewControll
 						popupStage.close();
 					}
 				});
-		this.popupStage.initModality(Modality.APPLICATION_MODAL);
-		this.popupStage.showAndWait();
+		popupStage.initModality(Modality.APPLICATION_MODAL);
+		popupStage.showAndWait();
 	}
 
 	@Override
@@ -311,9 +308,9 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadFoodSearchPage() {
-		this.popupStage = new Stage();
+		Stage popupStage = new Stage();
 		FoodViewController foodViewController =
-				(FoodViewController) viewLoader.loadAddMeal(this.popupStage);
+				(FoodViewController) viewLoader.loadAddMeal(popupStage);
 
 		foodViewController.setListener(
 				new FoodViewController.Listener() {
@@ -438,7 +435,7 @@ public class MainAppController extends AppController implements MenuViewControll
 						foodViewController.setSuggestions(foodNames);
 					}
 				});
-		this.popupStage.initModality(Modality.APPLICATION_MODAL);
-		this.popupStage.showAndWait();
+		popupStage.initModality(Modality.APPLICATION_MODAL);
+		popupStage.showAndWait();
 	}
 }

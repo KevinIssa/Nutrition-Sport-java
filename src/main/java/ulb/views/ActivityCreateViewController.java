@@ -30,12 +30,12 @@ public class ActivityCreateViewController implements ViewController {
 	private String intensity = "Moderate"; // * Default value
 	@FXML private Slider intensitySlider;
 	@FXML private TextField duration;
-	@FXML private Button button_walking;
-	@FXML private Button button_running;
-	@FXML private Button button_biking;
-	@FXML private Button button_swimming;
-	@FXML private Button button_volleyball;
-	private Button selectedButton = button_walking;
+	@FXML private Button buttonWalking;
+	@FXML private Button buttonRunning;
+	@FXML private Button buttonBiking;
+	@FXML private Button buttonSwimming;
+	@FXML private Button buttonVolleyball;
+	private Button selectedButton;
 
 	private ActivityCreateViewController.Listener
 			listener; // Listener interface for communication with the controller
@@ -43,6 +43,7 @@ public class ActivityCreateViewController implements ViewController {
 	// Initialize method called after FXML file has been loaded
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
+		selectedButton = buttonWalking;
 		// Populate ComboBox with sports
 		intensitySlider.setLabelFormatter(new IntensityStringConverter());
 		// Listen for changes in slider value and update intensity text field accordingly
@@ -58,8 +59,8 @@ public class ActivityCreateViewController implements ViewController {
 
 	// Method to save the activity
 	public void saveActivity() {
-		String selectedIntensity = Double.toString(this.intensitySlider.getValue());
-		this.listener.saveActivity(this.selectedSport, selectedIntensity, this.duration.getText());
+		this.listener.saveActivity(
+				this.selectedSport, (int) intensitySlider.getValue(), this.duration.getText());
 		this.listener.returnHome();
 	}
 
@@ -68,32 +69,32 @@ public class ActivityCreateViewController implements ViewController {
 	}
 
 	public void clickedButton(Button button, Sport sport) {
-		String color = "-fx-background-color: rgb(255,255,255);";
+		String color = "-fx-background-color: #9960f2;";
 		selectedButton.setStyle(color);
-		color = "-fx-background-color: #3c8000;";
+		color = "-fx-background-color: #b7ed65;";
 		button.setStyle(color);
 		selectedSport = sport;
 		selectedButton = button;
 	}
 
 	public void selectWalking() {
-		this.clickedButton(this.button_walking, Sport.WALKING);
+		this.clickedButton(this.buttonWalking, Sport.WALKING);
 	}
 
 	public void selectRunning() {
-		this.clickedButton(this.button_running, Sport.RUNNING);
+		this.clickedButton(this.buttonRunning, Sport.RUNNING);
 	}
 
 	public void selectBiking() {
-		this.clickedButton(this.button_biking, Sport.BIKING);
+		this.clickedButton(this.buttonBiking, Sport.BIKING);
 	}
 
 	public void selectSwimming() {
-		this.clickedButton(this.button_swimming, Sport.SWIMMING);
+		this.clickedButton(this.buttonSwimming, Sport.SWIMMING);
 	}
 
 	public void selectVolleyball() {
-		this.clickedButton(this.button_volleyball, Sport.VOLLEYBALL);
+		this.clickedButton(this.buttonVolleyball, Sport.VOLLEYBALL);
 	}
 
 	// TODO Move that to other class !
@@ -116,7 +117,7 @@ public class ActivityCreateViewController implements ViewController {
 
 	// Listener interface for communication with the controller
 	public interface Listener {
-		void saveActivity(Sport selectedSport, String selectedIntensity, String selectedDuration);
+		void saveActivity(Sport selectedSport, int selectedIntensity, String selectedDuration);
 
 		void returnHome();
 	}
