@@ -18,168 +18,44 @@
  */
 package ulb.views;
 
-import java.io.File;
 import java.net.URL;
-import java.time.Duration;
-import java.time.LocalDateTime;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import ulb.models.Activity;
-import ulb.models.Profile;
+import ulb.controllers.dtos.ActivityDTO;
 import ulb.models.enums.Sport;
 
 public class ActivityHistoryViewController implements ViewController {
-
-	// Folder name where activity files are stored
-	private static final String FOLDERNAME = "activities";
-	private int caloriesBurnedTotal = 0;
 	private ActivityHistoryViewController.Listener
 			listener; // Listener interface for communication with the controller
-
-	@FXML private ListView<HBox> historyList; // ListView to display activity history
+	@FXML private ListView<HistoryBox> historyList; // ListView to display activity history
 	@FXML private AnchorPane filterPane;
 	private boolean isFilterVisible = false;
-	// Method called after FXML file has been loaded; overridden from Initializable
-
 	private Sport filteredSport = null;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {}
 
-	private static HBox createHBox() {
-		HBox hbox = new HBox();
-		hbox.setAlignment(Pos.CENTER_LEFT);
-		hbox.setSpacing(10);
-		return hbox;
-	}
+	public void addActivity(ActivityDTO activity) {
+		Button deleteActivityButton = new Button();
+		deleteActivityButton.setOnAction(e -> deleteActivityInHistory(activity));
+		HistoryBox activityHistoryBox = new HistoryBox(activity, deleteActivityButton);
 
-	private HBox createHistoryHBox(Activity activity, LocalDateTime date, Duration duration) {
-		HBox hbox = createHBox();
-		setIconInHBox(activity, hbox);
-		setTextInHBox(activity, date, duration, hbox);
-		setButtonInHBox(activity, hbox);
-		return hbox;
-	}
-
-	public void addActivity(Activity activity) {
-		LocalDateTime date = activity.getDate();
-		Duration duration = activity.getDuration();
-
-		HBox activityHBox = createHistoryHBox(activity, date, duration);
-		historyList.getItems().add(activityHBox);
-
-		// Update total calories ( ! ne devrait pas être là je pense )
-		caloriesBurnedTotal += activity.getCaloriesBurned(Profile.load().getWeight());
+		historyList.getItems().add(activityHistoryBox);
 	}
 
 	// Add all activities to the activity history list
-	public void addActivities() {
-		File directory = new File(FOLDERNAME); // Specify the directory path
-
-		File[] files = directory.listFiles();
-
-		// Add activities to the list
-		if (files != null) {
-			for (File file : files) {
-				Activity activity = listener.loadActivity(file.getPath());
-				if (filteredSport == null || activity.getSport() == filteredSport) {
-					addActivity(activity); // Add each activity individually
-				}
-			}
+	public void setActivities() {
+		historyList.getItems().clear();
+		for (ActivityDTO activity : listener.getActivities(filteredSport)) {
+			this.addActivity(activity);
 		}
-
-		// Add total calories label
-		// Will have to be changed to hbox later to be added
-		HBox totalCalorieHBox = createTotalCalorieBox(caloriesBurnedTotal);
-		historyList.getItems().add(totalCalorieHBox);
 	}
 
-	private Label createLabel(String text) {
-		Label label = new Label(text);
-		return label;
-	}
-
-	private ImageView createImageView(String imagePath, int width, int height) {
-		URL path = getClass().getResource(imagePath);
-		Image image = new Image(path.toString(), width, height, false, false);
-		return new ImageView(image);
-	}
-
-	public HBox createTotalCalorieBox(int caloriesBurnedTotal) {
-		HBox hbox = createHBox();
-		Label totalCalorieLabel = createLabel(String.valueOf(caloriesBurnedTotal) + " kcal");
-		ImageView dateImageView =
-				createImageView("/ulb/images/history_img/total_calories.png", 30, 30);
-		hbox.getChildren().addAll(dateImageView, totalCalorieLabel);
-		return hbox;
-	}
-
-	// Method to get the image path for a given sport
-	private String getImagePathForSport(String sport) {
-		return "/ulb/images/sport_img/" + sport + ".png";
-	}
-
-	private String getIntensityPathForSport(String intensity) {
-		return "/ulb/images/intensity_img/" + intensity + ".png";
-	}
-
-	private ImageView createIntensityImageView(Activity activity) {
-		String intensityStringPath = getIntensityPathForSport(activity.getIntensity().toString());
-		return createImageView(intensityStringPath, 30, 30);
-	}
-
-	private ImageView createSportImageView(Activity activity) {
-		String imagePath = getImagePathForSport(activity.getSport().toString());
-		return createImageView(imagePath, 30, 30);
-	}
-
-	private void setIconInHBox(Activity activity, HBox hbox) {
-		ImageView intensityImageView = createIntensityImageView(activity);
-		ImageView sportImageView = createSportImageView(activity);
-		ImageView dateImageView = createImageView("/ulb/images/history_img/calendar.png", 30, 30);
-		ImageView durationImageView =
-				createImageView("/ulb/images/history_img/chronometer.png", 30, 30);
-		ImageView calorieImageView =
-				createImageView("/ulb/images/history_img/calories.png", 30, 30);
-		hbox.getChildren()
-				.addAll(
-						sportImageView,
-						intensityImageView,
-						dateImageView,
-						durationImageView,
-						calorieImageView);
-	}
-
-	private void setTextInHBox(Activity activity, LocalDateTime date, Duration duration, HBox hbox) {
-		Label labelDate = createLabel(activity.changeDateFormat(date));
-		Label labelDuration = createLabel(activity.durationToString(duration));
-		Label labelCalorie = createLabel(activity.getCaloriesBurned(Profile.load().getWeight()) + " kcal");
-		hbox.getChildren().add(3, labelDate);
-		hbox.getChildren().add(5, labelDuration);
-		hbox.getChildren().add(7, labelCalorie);
-	}
-
-	private void setButtonInHBox(Activity activity, HBox hbox) {
-		ImageView imageDelete = createImageView("/ulb/images/trash.png", 30, 30);
-		Button deleteActivityButton = new Button("");
-		deleteActivityButton.setGraphic(imageDelete);
-		deleteActivityButton.setOnAction(e -> deleteActivityInHistory(activity));
-		Region spacer = new Region();
-		HBox.setHgrow(spacer, Priority.ALWAYS);
-		hbox.getChildren().addAll(spacer, deleteActivityButton);
-	}
-
-	private void deleteActivityInHistory(Activity activity) {
+	private void deleteActivityInHistory(ActivityDTO activity) {
 		// à connecter avec le controller et la modèle
 		System.out.println("C pas fait ");
 	}
@@ -190,60 +66,54 @@ public class ActivityHistoryViewController implements ViewController {
 			throw new IllegalArgumentException("Listener cannot be null");
 		}
 		this.listener = (Listener) listener;
-		this.addActivities(); // Add activities when listener is set
+		this.setActivities(); // Add activities when listener is set
 	}
 
 	public void returnHome() {
 		this.listener.returnHome();
 	}
 
-	public void resetActivityHistory() {
-		historyList.getItems().clear(); // Clear existing items from the list
-		caloriesBurnedTotal = 0;
-		addActivities();
-	}
-
 	public void toggleShowFilter() {
 		if (isFilterVisible) {
 			filterPane.setVisible(false);
 			isFilterVisible = false;
-			filteredSport = null;
 		} else {
 			filterPane.setVisible(true);
 			isFilterVisible = true;
+			filteredSport = null;
+			setActivities();
 		}
-		resetActivityHistory();
 	}
 
 	public void filterRunning() {
 		filteredSport = Sport.RUNNING;
-		this.resetActivityHistory();
+		this.setActivities();
 	}
 
 	public void filterWalking() {
 		filteredSport = Sport.WALKING;
-		this.resetActivityHistory();
+		this.setActivities();
 	}
 
 	public void filterBiking() {
 		filteredSport = Sport.BIKING;
-		this.resetActivityHistory();
+		this.setActivities();
 	}
 
 	public void filterSwimming() {
 		filteredSport = Sport.SWIMMING;
-		this.resetActivityHistory();
+		this.setActivities();
 	}
 
 	public void filterVolleyball() {
 		filteredSport = Sport.VOLLEYBALL;
-		this.resetActivityHistory();
+		this.setActivities();
 	}
 
 	// Listener interface for communication with the controller
 	public interface Listener {
 
-		Activity loadActivity(String filename); // Load activity from file
+		List<ActivityDTO> getActivities(Sport filter); // Load activity from file
 
 		void returnHome(); // Return to the home view
 	}

@@ -282,7 +282,7 @@ public class MainAppController extends AppController implements MenuViewControll
 							}
 
 							@Override
-							public Activity loadActivity(String filename) {
+							public List<Activity> getActivities(String filename) {
 								return Activity.load(filename);
 							}
 						});
