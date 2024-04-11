@@ -21,13 +21,11 @@ package ulb.widgets;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
-
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import ulb.views.ViewController;
-
 
 public class FoodPopupController implements ViewController {
 	@FXML TextField gramme;
@@ -47,12 +45,16 @@ public class FoodPopupController implements ViewController {
 			try {
 				int value = Integer.parseInt(inputField.getText());
 				if (value > max) {
-					showAlert("Quantité excessive", "Le maximum autorisé est de " + max + " " + unit + ".");
+					showAlert(
+							"Quantité excessive",
+							"Le maximum autorisé est de " + max + " " + unit + ".");
 					return 0;
 				}
 				return value;
 			} catch (NumberFormatException e) {
-				showAlert("Valeur invalide", "Veuillez entrer une valeur valide pour les " + unit + ".");
+				showAlert(
+						"Valeur invalide",
+						"Veuillez entrer une valeur valide pour les " + unit + ".");
 				return 0;
 			}
 		}
@@ -78,12 +80,8 @@ public class FoodPopupController implements ViewController {
 	}
 
 	@Override
-	public void setListener(Object listener) {
-
-	}
+	public void setListener(Object listener) {}
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {
-
-	}
+	public void initialize(URL url, ResourceBundle resourceBundle) {}
 }

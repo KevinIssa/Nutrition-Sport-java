@@ -42,7 +42,6 @@ public interface ViewController extends Initializable {
 	 * @param title   The title of the alert.
 	 * @param content The content of the alert.
 	 */
-
 	default void showAlert(String title, String content) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle(title);
