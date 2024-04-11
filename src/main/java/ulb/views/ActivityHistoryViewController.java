@@ -89,7 +89,8 @@ public class ActivityHistoryViewController implements ViewController {
 
 	// Method to get the image path for a given sport
 	private String getImagePathForSport(String sport) {
-		return "/ulb/images/sport_img/" + sport + ".png";
+		System.out.println(sport);
+		return "/ulb/images/sport_img/" + sport.toString() + ".png";
 	}
 
 	private String getIntensityPathForSport(String intensity) {

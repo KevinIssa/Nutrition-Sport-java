@@ -68,6 +68,19 @@ public enum Intensity {
 	public String toString() {
 		switch (this) {
 			case SLOW:
+				return "slow";
+			case MODERATE:
+				return "moderate";
+			case INTENSE:
+				return "intense";
+			default:
+				throw new IllegalStateException("Unexpected value: " + this);
+		}
+	}
+
+	public String toFrench() {
+		switch (this) {
+			case SLOW:
 				return "Lent";
 			case MODERATE:
 				return "Modéré";
