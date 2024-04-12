@@ -64,26 +64,27 @@ public class ActivityCreateViewController implements ViewController {
 	}
 
 	public LocalTime getActivityTime() {
-		try {
+		/*try {*/
 			int intHour = Integer.parseInt(hour.getText());
 			int intMinutes = Integer.parseInt(minutes.getText());
 			int intSeconds = Integer.parseInt(seconds.getText());
 
+			/*
 			if (intHour < 0 || intHour > 23 || intMinutes < 0 || intMinutes > 59) {
 				showAlert(
 						"Heure invalide",
 						"L'heure doit être comprise entre 0 et 23 et les minutes entre 0 et 59");
 				return null;
-			}
+			}*/
 
 			LocalTime time =
 					LocalTime.of(
 							Integer.parseInt(hour.getText()), Integer.parseInt(minutes.getText()),Integer.parseInt(seconds.getText()) );
 			return time;
-		} catch (NumberFormatException e) {
+		/*} catch (NumberFormatException e) {
 			showAlert("Heure invalide", "L'heure doit être un nombre");
 			return null;
-		}
+		}*/
 	}
 
 
@@ -96,10 +97,10 @@ public class ActivityCreateViewController implements ViewController {
 
 
 		LocalDate currentDate = LocalDate.now();
-		if (isDateInFuture(activityDate.getValue(), currentDate)) {
+		/*if (isDateInFuture(activityDate.getValue(), currentDate)) {
 			showAlert("Date invalide", "La date ne peut pas être dans le futur");
 			return null;
-		}
+		}*/
 
 		LocalDateTime activityDateTime = LocalDateTime.of(activityDate.getValue(), getActivityTime());
 		return activityDateTime;
