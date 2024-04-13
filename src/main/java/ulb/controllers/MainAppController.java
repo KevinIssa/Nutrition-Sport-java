@@ -355,7 +355,7 @@ public class MainAppController extends AppController implements MenuViewControll
 					private Food convertMealToFood(Meal meal) {
 						return new Food(
 								meal.getName(),
-								meal.getCaloriesConsumedByGrams(100),
+								meal.getCaloriesConsumedByServing(1),
 								meal.getCaloriesConsumed(),
 								String.format("1 serving (%d g)", meal.getGramsForServing(1)));
 					}

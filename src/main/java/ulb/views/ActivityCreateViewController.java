@@ -81,11 +81,7 @@ public class ActivityCreateViewController implements ViewController {
 			return null;
 		}*/
 
-		LocalTime time =
-				LocalTime.of(
-						intHour,
-						intMinutes,
-						intSeconds);
+		LocalTime time = LocalTime.of(intHour, intMinutes, intSeconds);
 		return time;
 		/*} catch (NumberFormatException e) {
 			showAlert("Heure invalide", "L'heure doit être un nombre");
@@ -98,7 +94,6 @@ public class ActivityCreateViewController implements ViewController {
 	}*/
 
 	public LocalDateTime getActivityDate() {
-
 
 		/*if (isDateInFuture(activityDate.getValue(), currentDate)) {
 			showAlert("Date invalide", "La date ne peut pas être dans le futur");
