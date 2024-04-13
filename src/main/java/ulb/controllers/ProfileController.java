@@ -20,23 +20,24 @@ package ulb.controllers;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDate;
+import javafx.scene.image.Image;
 import ulb.models.Profile;
 import ulb.models.enums.Sex;
-import ulb.views.ProfileCreateViewController;
+import ulb.views.ProfileViewController;
 
-public class ProfileCreateController
-		implements AppController, ProfileCreateViewController.Listener {
+public class ProfileController implements AppController, ProfileViewController.Listener {
 
-	private final ProfileCreateController.Listener listener;
+	private final Profile profile = Profile.load();
+	private final ProfileController.Listener listener;
 
-	public ProfileCreateController(ProfileCreateController.Listener listener) {
+	public ProfileController(ProfileController.Listener listener) {
 		this.listener = listener;
 	}
 
@@ -45,7 +46,7 @@ public class ProfileCreateController
 			String firstName,
 			String lastName,
 			String sex,
-			LocalDate birthDate,
+			java.time.LocalDate birthDate,
 			float height,
 			float weight) {
 		Profile profile =
@@ -60,14 +61,49 @@ public class ProfileCreateController
 	}
 
 	@Override
+	public void deleteProfileView() {
+		this.listener.deleteProfile();
+	}
+
+	@Override
 	public void returnHome() {
 		this.listener.returnHome();
 	}
 
 	@Override
-	public void saveProfileImage(String imagePath) throws IOException {
+	public String getFirstName() {
+		return profile.getFirstName();
+	}
+
+	@Override
+	public String getLastName() {
+		return profile.getLastName();
+	}
+
+	@Override
+	public String getSex() {
+		return profile.getSex().toString();
+	}
+
+	@Override
+	public java.time.LocalDate getBirthDate() {
+		return profile.getBirthDate();
+	}
+
+	@Override
+	public float getHeight() {
+		return profile.getHeight();
+	}
+
+	@Override
+	public float getWeight() {
+		return profile.getWeight();
+	}
+
+	@Override
+	public void saveProfileImage(String imagepath) {
 		try {
-			URL imageurl = new URL(imagePath);
+			URL imageurl = new URL(imagepath);
 			URI destinationuri = new File("profile.png").toURI();
 			Path destinationpath = Paths.get(destinationuri);
 			Files.copy(imageurl.openStream(), destinationpath, StandardCopyOption.REPLACE_EXISTING);
@@ -76,7 +112,22 @@ public class ProfileCreateController
 		}
 	}
 
+	@Override
+	public Image getProfileImage(double width, double height) {
+		try {
+			File file = new File("profile.png");
+			if (!file.exists()) {
+				return null;
+			}
+			URL path = file.toURL();
+			return new Image(path.toString(), width, height, true, true);
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	public interface Listener {
+		void deleteProfile();
 
 		void returnHome();
 	}

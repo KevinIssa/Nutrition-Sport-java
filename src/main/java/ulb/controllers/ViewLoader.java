@@ -79,8 +79,8 @@ public class ViewLoader {
 		this.load(6, stage, controller);
 	}
 
-	public void loadProfile(Stage stage, Supplier<Object> listenerSupplier) {
-		this.load(5, stage, listenerSupplier);
+	public void loadProfile(Stage stage, ProfileController controller) {
+		this.load(5, stage, controller);
 	}
 
 	public void loadDeleteProfile(Stage stage, Supplier<Object> listenerSupplier) {
