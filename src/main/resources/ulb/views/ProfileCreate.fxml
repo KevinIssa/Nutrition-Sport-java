@@ -14,14 +14,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="660.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ProfileCreateViewController">
+<StackPane prefHeight="660.0" prefWidth="750.0" style="-fx-background-color: #040b35;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ProfileCreateViewController">
    <children>
       <HBox alignment="CENTER">
          <children>
             <VBox alignment="CENTER">
                <HBox alignment="CENTER" prefHeight="100.0">
                   <children>
-                     <Label text="Créez votre profil">
+                     <Label text="Créez votre profil" textFill="#f3fbfb">
                         <font>
                            <Font name="Consolas" size="28.0" />
                         </font>
@@ -38,8 +38,8 @@
                      </ImageView>
                      <HBox alignment="BOTTOM_LEFT" prefHeight="148.0" prefWidth="342.0" translateX="50.0">
                         <children>
-                           <Label text="Choisissez votre image de Profil : " />
-                           <Button fx:id="imageselection" onAction="#eventHandler" text="Rechercher..." />
+                           <Label text="Choisissez votre image de profil : " textFill="#f3fbfb" />
+                           <Button fx:id="imageselection" onAction="#eventHandler" style="-fx-background-color: #fd9c2d;" text="Rechercher..." textFill="#f3fbfb" />
                         </children>
                      </HBox>
                   </children>
@@ -48,32 +48,32 @@
                   <children>
                      <VBox alignment="CENTER_LEFT" prefHeight="158.0" prefWidth="356.0" spacing="20.0">
                         <children>
-                           <Label text="Votre prénom" textAlignment="CENTER">
+                           <Label text="Votre prénom" textAlignment="CENTER" textFill="#f3fbfb">
                               <font>
                                  <Font size="22.0" />
                               </font>
                            </Label>
-                           <Label text="Votre nom" textAlignment="CENTER">
+                           <Label text="Votre nom" textAlignment="CENTER" textFill="#f3fbfb">
                               <font>
                                  <Font size="22.0" />
                               </font>
                            </Label>
-                           <Label text="Votre poids (en kg)" textAlignment="CENTER">
+                           <Label text="Votre poids (en kg)" textAlignment="CENTER" textFill="#f3fbfb">
                               <font>
                                  <Font size="22.0" />
                               </font>
                            </Label>
-                           <Label text="Votre taille (en cm)" textAlignment="CENTER">
+                           <Label text="Votre taille (en cm)" textAlignment="CENTER" textFill="#f3fbfb">
                               <font>
                                  <Font size="22.0" />
                               </font>
                            </Label>
-                           <Label text="Votre sexe" textAlignment="CENTER">
+                           <Label text="Votre sexe" textAlignment="CENTER" textFill="#f3fbfb">
                               <font>
                                  <Font size="22.0" />
                               </font>
                            </Label>
-                           <Label text="Votre date de naissance" textAlignment="CENTER">
+                           <Label text="Votre date de naissance" textAlignment="CENTER" textFill="#f3fbfb">
                               <font>
                                  <Font size="22.0" />
                               </font>
@@ -104,12 +104,12 @@
                            </TextField>
                            <HBox alignment="CENTER" prefHeight="18.0" prefWidth="227.0">
                               <children>
-                                 <RadioButton mnemonicParsing="false" text="♂" translateX="-50.0">
+                                 <RadioButton mnemonicParsing="false" text="♂" textFill="#f3fbfb" translateX="-50.0">
                                     <toggleGroup>
                                        <ToggleGroup fx:id="sex" />
                                     </toggleGroup>
                                  </RadioButton>
-                                 <RadioButton layoutX="112.0" layoutY="29.0" mnemonicParsing="false" text="♀" toggleGroup="$sex" translateX="50.0" />
+                                 <RadioButton layoutX="112.0" layoutY="29.0" mnemonicParsing="false" text="♀" textFill="#f3fbfb" toggleGroup="$sex" translateX="50.0" />
                               </children>
                            </HBox>
                            <DatePicker fx:id="birthdate" prefHeight="27.0" prefWidth="237.0" />
@@ -120,7 +120,7 @@
                <Region prefHeight="27.0" prefWidth="671.0" />
                <HBox alignment="CENTER_RIGHT" prefHeight="62.0" prefWidth="712.0">
                   <children>
-                     <Button alignment="CENTER" mnemonicParsing="false" onAction="#saveProfile" text="OK" textAlignment="CENTER">
+                     <Button alignment="CENTER" mnemonicParsing="false" onAction="#saveProfile" style="-fx-background-color: #2dd798; -fx-background-radius: 10;" text="OK" textAlignment="CENTER" textFill="#f3fbfb">
                         <font>
                            <Font size="21.0" />
                         </font>

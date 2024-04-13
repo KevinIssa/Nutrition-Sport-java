@@ -1,63 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="434.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ActivityHistoryViewController">
+<VBox prefHeight="434.0" prefWidth="642.0" style="-fx-background-color: #040b35;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ActivityHistoryViewController">
     <children>
 	    <!-- Container for history labels -->
-	    <ListView fx:id="historyList" prefHeight="330.0" prefWidth="610.0" />
-      <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+	    <ListView fx:id="historyList" prefHeight="330.0" prefWidth="610.0" style="-fx-background-color: #222745;" />
+      <HBox prefHeight="100.0" prefWidth="570.0" spacing="10.0">
          <children>
-      		<Button mnemonicParsing="false" onAction="#returnHome" prefHeight="46.0" prefWidth="126.0" text="Return" />
-            <Button layoutX="10.0" layoutY="10.0" lineSpacing="100.0" mnemonicParsing="false" onAction="#toggleShowFilter" prefHeight="46.0" prefWidth="126.0" text="Filtrer" />
+      		<Button mnemonicParsing="false" onAction="#returnHome" prefHeight="46.0" prefWidth="77.0" style="-fx-background-color: #fd9c2d; -fx-background-radius: 10;" translateX="10.0">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/go_back_icon.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust brightness="1.0" />
+                     </effect>
+                  </ImageView>
+               </graphic></Button>
+            <Button layoutX="10.0" layoutY="10.0" lineSpacing="100.0" mnemonicParsing="false" onAction="#toggleShowFilter" prefHeight="46.0" prefWidth="126.0" style="-fx-background-color: #fd9c2d; -fx-background-radius: 10;" text="Filtrer par activité" textFill="#f3fbfb" translateX="10.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Button>
          </children>
       </HBox>
       <HBox fx:id="filters" prefHeight="83.0" prefWidth="642.0" spacing="10.0" visible="false">
          <children>
-             <Button fx:id="button_running" onAction="#filterRunning" prefHeight="53.0" prefWidth="57.0">
+             <Button fx:id="button_running" onAction="#filterRunning" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #9960f2;">
                  <graphic>
                      <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                          <image>
                              <Image url="@../images/sport_img/running.png" /> <!-- Replace icon.png with your icon file name -->
                          </image>
+                     <effect>
+                        <ColorAdjust brightness="1.0" />
+                     </effect>
                      </ImageView>
                  </graphic>
              </Button>
-             <Button fx:id="button_walking" onAction="#filterWalking" prefHeight="53.0" prefWidth="57.0">
+             <Button fx:id="button_walking" onAction="#filterWalking" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #9960f2;">
                  <graphic>
                      <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                          <image>
                              <Image url="@../images/sport_img/walking.png" />
                          </image>
+                     <effect>
+                        <ColorAdjust brightness="1.0" />
+                     </effect>
                      </ImageView>
                    </graphic>
              </Button>
-             <Button fx:id="button_swimming" onAction="#filterSwimming" prefHeight="53.0" prefWidth="57.0">
+             <Button fx:id="button_swimming" onAction="#filterSwimming" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #9960f2;">
                  <graphic>
                      <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                          <image>
                              <Image url="@../images/sport_img/swimming.png" />
                          </image>
+                     <effect>
+                        <ColorAdjust brightness="1.0" />
+                     </effect>
                      </ImageView>
                  </graphic>
              </Button>
-             <Button fx:id="button_biking" onAction="#filterBiking" prefHeight="53.0" prefWidth="57.0">
+             <Button fx:id="button_biking" onAction="#filterBiking" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #9960f2;">
                  <graphic>
                      <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                          <image>
                              <Image url="@../images/sport_img/biking.png" />
                          </image>
+                     <effect>
+                        <ColorAdjust brightness="1.0" />
+                     </effect>
                      </ImageView>
                  </graphic>
              </Button>
-             <Button fx:id="button_volleyball" onAction="#filterVolleyball" prefHeight="53.0" prefWidth="57.0">
+             <Button fx:id="button_volleyball" onAction="#filterVolleyball" prefHeight="53.0" prefWidth="57.0" style="-fx-background-color: #9960f2;">
                  <graphic>
                      <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
                          <image>
                              <Image url="@../images/sport_img/volleyball.png" />
                          </image>
+                     <effect>
+                        <ColorAdjust brightness="1.0" />
+                     </effect>
                      </ImageView>
                  </graphic>
              </Button>

@@ -5,16 +5,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ProfileDeleteConfirmViewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #172e8c;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ProfileDeleteConfirmViewController">
    <children>
-      <Label layoutX="156.0" layoutY="46.0" prefHeight="118.0" prefWidth="288.0" text="Voulez-vous vraiment supprimer votre profil ?">
+      <Label contentDisplay="CENTER" layoutX="109.0" layoutY="56.0" prefHeight="118.0" prefWidth="437.0" text="Voulez-vous vraiment supprimer votre profil ?" textFill="#f3fbfb">
          <font>
-            <Font size="14.0" />
+            <Font size="20.0" />
          </font>
       </Label>
       <Label layoutX="-196.0" layoutY="-73.0" text="Label" />
-      <Button onAction="#setYesButton" layoutX="130.0" layoutY="174.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="120.0" text="Oui" />
-      <Button onAction="#setNoButton" layoutX="350.0" layoutY="174.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="120.0" text="Non" />
+      <Button layoutX="130.0" layoutY="174.0" mnemonicParsing="false" onAction="#setYesButton" prefHeight="51.0" prefWidth="120.0" style="-fx-background-color: #2dd798; -fx-background-radius: 10;" text="Oui" textFill="#f3fbfb" />
+      <Button layoutX="350.0" layoutY="174.0" mnemonicParsing="false" onAction="#setNoButton" prefHeight="51.0" prefWidth="120.0" style="-fx-background-color: #f44343; -fx-background-radius: 10;" text="Non" textFill="#f3fbfb" />
    </children>
 </AnchorPane>
