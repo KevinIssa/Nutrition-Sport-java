@@ -9,11 +9,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="800" prefWidth="1200" style="-fx-background-color: #040b35;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.MenuViewController">
    <children>
-      <Button fx:id="addButton" layoutX="1002.0" layoutY="613.0" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="38.0" prefWidth="118.0" style="-fx-background-color: #656ff9; -fx-background-radius: 50;">
+      <Button fx:id="addButton" layoutX="1002.0" layoutY="611.0" mnemonicParsing="false" onAction="#handleButtonPress" prefHeight="99.0" prefWidth="106.0" style="-fx-background-color: #656ff9; -fx-background-radius: 50;">
          <font>
             <Font size="17.0" />
          </font>
@@ -57,23 +60,57 @@
                </effect></ImageView>
          </graphic>
       </Button>
+      <VBox layoutX="326.0" layoutY="168.0" prefHeight="405.0" prefWidth="534.0">
+         <children>
+            <ImageView fitHeight="389.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/menu_img/temp_graph2.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
       <HBox prefHeight="100.0" prefWidth="1185" style="-fx-background-color: #656ff988; -fx-background-radius: 45;">
          <children>
             <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#openProfile" prefHeight="104.0" prefWidth="102.0" style="-fx-background-color: transparent;">
                <graphic>
-            							<ImageView fx:id="profileimage" fitHeight="88.0" fitWidth="90.0">
-            								<Image url="@../images/default_profile.png" />
-            							</ImageView>
+                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                     <children>
+                        <Circle fill="#1f93ff00" radius="50.0" stroke="BLACK" strokeType="INSIDE" />
+                  							<ImageView fx:id="profileimage" fitHeight="88.0" fitWidth="90.0">
+                  								<Image url="@../images/default_profile.png" />
+                  							</ImageView>
+                     </children>
+                  </StackPane>
                </graphic>
             </Button>
-            <MenuButton mnemonicParsing="false" prefHeight="99.0" prefWidth="118.0" style="-fx-background-color: transparent;">
+            <VBox prefHeight="100.0" prefWidth="187.0">
+               <children>
+                  <Label />
+                  <Label text="50 kg" textFill="#fd9c2d">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="34.0" prefWidth="196.0" text="1321 kcal brûlées" textFill="#fd9c2d">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <Label alignment="CENTER" text="NutriSport" textFill="#f3fbfb" translateX="100.0">
+               <font>
+                  <Font name="Consolas" size="69.0" />
+               </font>
+            </Label>
+            <MenuButton mnemonicParsing="false" prefHeight="99.0" prefWidth="118.0" style="-fx-background-color: transparent;" translateX="380.0">
                <graphic>
                   <ImageView fitHeight="87.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/menu_img/bouton-dhorloge-historique.png" />
                      </image>
                      <effect>
-                        <ColorAdjust brightness="1.0" />
+                        <ColorAdjust brightness="1.0" hue="0.04" />
                      </effect>
                   </ImageView>
                </graphic>
@@ -82,15 +119,13 @@
                   <MenuItem mnemonicParsing="false" onAction="#mealHistory" text="Des repas" />
                </items>
             </MenuButton>
-            <Label alignment="CENTER" text="NutriSport" textFill="#f3fbfb" translateX="400.0">
-               <font>
-                  <Font name="Arial Nova" size="69.0" />
-               </font>
-            </Label>
          </children>
          <effect>
             <ColorAdjust />
          </effect>
       </HBox>
    </children>
+   <effect>
+      <ColorAdjust />
+   </effect>
 </AnchorPane>
