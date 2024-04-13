@@ -23,13 +23,10 @@ import java.nio.file.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ulb.controllers.dtos.ActivityDTO;
 import ulb.models.*;
 import ulb.models.Meal;
-import ulb.models.enums.Sport;
 import ulb.views.*;
 
 public class MenuController implements AppController, MenuViewController.Listener {
@@ -129,50 +126,26 @@ public class MenuController implements AppController, MenuViewController.Listene
 	public void loadActivityHistoryView() {
 		viewLoader.loadActivityHistory(
 				this.primaryStage,
-				() ->
-						new ActivityHistoryViewController.Listener() {
+				new ActivityHistoryController(
+						new ActivityHistoryController.Listener() {
 							@Override
 							public void returnHome() {
-								loadWelcomeView();
+								loadMenuView();
 							}
-
-							@Override
-							public List<ActivityDTO> getActivities(Sport filter) {
-								File folder = new File("activities");
-								List<ActivityDTO> list = new ArrayList<>();
-								File[] files = folder.listFiles();
-								try {
-									Objects.requireNonNull(files);
-								} catch (NullPointerException e) {
-									return list;
-								}
-								for (File file : files) {
-									Activity activity = Activity.load(file.getPath());
-									if (filter == null || activity.getSport() == filter) {
-										list.add(new ActivityDTO(activity));
-									}
-								}
-								return list;
-							}
-						});
+						}));
 	}
 
 	@Override
 	public void loadMealHistoryView() {
 		viewLoader.loadMealHistory(
 				this.primaryStage,
-				() ->
-						new MealHistoryViewController.Listener() {
+				new MealHistoryController(
+						new MealHistoryController.Listener() {
 							@Override
 							public void returnHome() {
-								loadWelcomeView();
+								loadMenuView();
 							}
-
-							@Override
-							public ConsumedMeal loadMeal(String filename) {
-								return ConsumedMeal.load(filename);
-							}
-						});
+						}));
 	}
 
 	@Override

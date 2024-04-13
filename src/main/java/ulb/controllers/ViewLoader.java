@@ -91,12 +91,12 @@ public class ViewLoader {
 		this.load(0, stage, controller);
 	}
 
-	public void loadActivityHistory(Stage stage, Supplier<Object> listenerSupplier) {
-		this.load(1, stage, listenerSupplier);
+	public void loadActivityHistory(Stage stage, ActivityHistoryController controller) {
+		this.load(1, stage, controller);
 	}
 
-	public void loadMealHistory(Stage stage, Supplier<Object> listenerSupplier) {
-		this.load(3, stage, listenerSupplier);
+	public void loadMealHistory(Stage stage, MealHistoryController controller) {
+		this.load(3, stage, controller);
 	}
 
 	public ViewController loadAddMeal(Stage stage) {
