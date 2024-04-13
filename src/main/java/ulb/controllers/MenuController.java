@@ -20,7 +20,6 @@ package ulb.controllers;
 
 import java.io.File;
 import java.nio.file.*;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,6 @@ import javafx.stage.Stage;
 import ulb.controllers.dtos.ActivityDTO;
 import ulb.models.*;
 import ulb.models.Meal;
-import ulb.models.enums.Intensity;
 import ulb.models.enums.Sport;
 import ulb.views.*;
 
@@ -113,32 +111,16 @@ public class MenuController implements AppController, MenuViewController.Listene
 	@Override
 	public void loadCreateActivityView() {
 		Stage popupStage = new Stage();
-		ActivityCreateViewController viewController =
-				(ActivityCreateViewController) viewLoader.loadCreateActivity(popupStage);
-		viewController.setListener(
-				new ActivityCreateViewController.Listener() {
-					@Override
-					public void saveActivity(
-							Sport selectedSport,
-							int selectedIntensity,
-							String selectedDuration,
-							LocalDateTime activityDateTime) {
-						Activity activity =
-								new Activity(
-										selectedSport,
-										Intensity.fromInt(selectedIntensity),
-										Duration.ofMinutes(Long.parseLong(selectedDuration)),
-										activityDateTime);
-						activity.save();
-						viewController.showAlert(
-								activity.getCaloriesBurned(Profile.load().getWeight()));
-					}
-
-					@Override
-					public void returnHome() {
-						popupStage.close();
-					}
-				});
+		viewLoader.loadCreateActivity(
+				popupStage,
+				new ActivityCreateController(
+						new ActivityCreateController.Listener() {
+							@Override
+							public void returnHome() {
+								loadMenuView();
+								popupStage.close();
+							}
+						}));
 		popupStage.initModality(Modality.APPLICATION_MODAL);
 		popupStage.showAndWait();
 	}

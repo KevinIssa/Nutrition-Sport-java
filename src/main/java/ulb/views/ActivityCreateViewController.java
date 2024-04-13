@@ -77,24 +77,24 @@ public class ActivityCreateViewController implements ViewController {
 	 */
 	public LocalTime getActivityTime() {
 		try {
-		// Get the current time
-		LocalTime currentTime = LocalTime.now();
+			// Get the current time
+			LocalTime currentTime = LocalTime.now();
 
-		// Extract seconds from the current time
+			// Extract seconds from the current time
 
-		int intHour = Integer.parseInt(hour.getText());
-		int intMinutes = Integer.parseInt(minutes.getText());
-		int intSeconds = currentTime.getSecond();
+			int intHour = Integer.parseInt(hour.getText());
+			int intMinutes = Integer.parseInt(minutes.getText());
+			int intSeconds = currentTime.getSecond();
 
-		if (intHour < 0 || intHour > 23 || intMinutes < 0 || intMinutes > 59) {
-			showAlert(
-					"Heure invalide",
-					"L'heure doit être comprise entre 0 et 23 et les minutes entre 0 et 59");
-			return null;
-		}
+			if (intHour < 0 || intHour > 23 || intMinutes < 0 || intMinutes > 59) {
+				showAlert(
+						"Heure invalide",
+						"L'heure doit être comprise entre 0 et 23 et les minutes entre 0 et 59");
+				return null;
+			}
 
-		LocalTime time = LocalTime.of(intHour, intMinutes, intSeconds);
-		return time;
+			LocalTime time = LocalTime.of(intHour, intMinutes, intSeconds);
+			return time;
 		} catch (NumberFormatException e) {
 			showAlert("Heure invalide", "L'heure doit être un nombre");
 			return null;

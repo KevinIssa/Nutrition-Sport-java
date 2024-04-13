@@ -87,8 +87,8 @@ public class ViewLoader {
 		this.load(7, stage, controller);
 	}
 
-	public ViewController loadCreateActivity(Stage stage) {
-		return this.load(0, stage);
+	public void loadCreateActivity(Stage stage, ActivityCreateController controller) {
+		this.load(0, stage, controller);
 	}
 
 	public void loadActivityHistory(Stage stage, Supplier<Object> listenerSupplier) {
