@@ -58,6 +58,8 @@ https://www.kaggle.com/datasets/syedjaferk/calories-in-food-items-per-100gm-ounc
 - Hugo CHARELS
 - Hodo SOULEIMAN AHMED
 - Kevin VANDERVAEREN
-- Arthur INSTALLÉ
+- Arthur INSTALLÉ  
 
+### Burndown chart
+https://docs.google.com/spreadsheets/d/1WcszClvR-LAXreGe6kIjvUXlaHZTCAJVgDmgL4fkKvc/edit?usp=sharing 
 
