@@ -251,13 +251,16 @@ public class MainAppController extends AppController implements MenuViewControll
 				new ActivityCreateViewController.Listener() {
 					@Override
 					public void saveActivity(
-							Sport selectedSport, int selectedIntensity, String selectedDuration) {
+							Sport selectedSport,
+							int selectedIntensity,
+							String selectedDuration,
+							LocalDateTime activityDateTime) {
 						Activity activity =
 								new Activity(
 										selectedSport,
 										Intensity.fromInt(selectedIntensity),
 										Duration.ofMinutes(Long.parseLong(selectedDuration)),
-										LocalDateTime.now());
+										activityDateTime);
 						activity.save();
 						viewController.showAlert(
 								activity.getCaloriesBurned(Profile.load().getWeight()));

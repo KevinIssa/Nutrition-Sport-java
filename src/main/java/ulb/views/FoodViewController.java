@@ -148,7 +148,7 @@ public class FoodViewController implements ViewController {
 		}
 	}
 
-	public LocalTime getmealtime() {
+	public LocalTime getMealTime() {
 		try {
 			int intHour = Integer.parseInt(hour.getText());
 			int intMinutes = Integer.parseInt(minutes.getText());
@@ -174,7 +174,7 @@ public class FoodViewController implements ViewController {
 		return date1.compareTo(date2) > 0;
 	}
 
-	public LocalDateTime getmealdate() {
+	public LocalDateTime getMealDateTime() {
 
 		LocalDate currentDate = LocalDate.now();
 		if (isDateInFuture(mealdate.getValue(), currentDate)) {
@@ -182,7 +182,7 @@ public class FoodViewController implements ViewController {
 			return null;
 		}
 
-		LocalDateTime mealdatetime = LocalDateTime.of(mealdate.getValue(), getmealtime());
+		LocalDateTime mealdatetime = LocalDateTime.of(mealdate.getValue(), getMealTime());
 		return mealdatetime;
 	}
 
@@ -198,7 +198,7 @@ public class FoodViewController implements ViewController {
 			this.listener.reload();
 		} else {
 			try {
-				LocalDateTime mealDate = getmealdate();
+				LocalDateTime mealDate = getMealDateTime();
 				if (mealDate == null) {
 					throw new NullPointerException();
 				}

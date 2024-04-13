@@ -19,6 +19,9 @@
 package ulb.views;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -34,6 +37,11 @@ public class ActivityCreateViewController implements ViewController {
 	@FXML private Button buttonBiking;
 	@FXML private Button buttonSwimming;
 	@FXML private Button buttonVolleyball;
+
+	@FXML private DatePicker activityDate;
+	@FXML private TextField hour;
+	@FXML private TextField minutes;
+	@FXML private TextField seconds;
 	private Button selectedButton;
 
 	private ActivityCreateViewController.Listener
@@ -45,12 +53,66 @@ public class ActivityCreateViewController implements ViewController {
 		selectedButton = buttonWalking;
 		// Populate ComboBox with sports
 		intensitySlider.setLabelFormatter(new IntensityStringConverter());
+		this.initTime();
+	}
+
+	private void initTime() {
+		activityDate.setValue(LocalDate.now());
+		hour.setText(String.valueOf(LocalTime.now().getHour()));
+		minutes.setText(String.valueOf(LocalTime.now().getMinute()));
+		seconds.setText(String.valueOf(LocalTime.now().getSecond()));
+	}
+
+	public LocalTime getActivityTime() {
+		/*try {*/
+		int intHour = Integer.parseInt(hour.getText());
+		int intMinutes = Integer.parseInt(minutes.getText());
+		int intSeconds = Integer.parseInt(seconds.getText());
+
+		/*
+		if (intHour < 0 || intHour > 23 || intMinutes < 0 || intMinutes > 59) {
+			showAlert(
+					"Heure invalide",
+					"L'heure doit être comprise entre 0 et 23 et les minutes entre 0 et 59");
+			return null;
+		}*/
+
+		LocalTime time =
+				LocalTime.of(
+						Integer.parseInt(hour.getText()),
+						Integer.parseInt(minutes.getText()),
+						Integer.parseInt(seconds.getText()));
+		return time;
+		/*} catch (NumberFormatException e) {
+			showAlert("Heure invalide", "L'heure doit être un nombre");
+			return null;
+		}*/
+	}
+
+	public boolean isDateInFuture(LocalDate date1, LocalDate date2) {
+		return date1.compareTo(date2) > 0;
+	}
+
+	public LocalDateTime getActivityDate() {
+
+		LocalDate currentDate = LocalDate.now();
+		/*if (isDateInFuture(activityDate.getValue(), currentDate)) {
+			showAlert("Date invalide", "La date ne peut pas être dans le futur");
+			return null;
+		}*/
+
+		LocalDateTime activityDateTime =
+				LocalDateTime.of(activityDate.getValue(), getActivityTime());
+		return activityDateTime;
 	}
 
 	// Method to save the activity
 	public void saveActivity() {
 		this.listener.saveActivity(
-				this.selectedSport, (int) intensitySlider.getValue(), this.duration.getText());
+				this.selectedSport,
+				(int) intensitySlider.getValue(),
+				this.duration.getText(),
+				this.getActivityDate());
 		this.listener.returnHome();
 	}
 
@@ -107,7 +169,11 @@ public class ActivityCreateViewController implements ViewController {
 
 	// Listener interface for communication with the controller
 	public interface Listener {
-		void saveActivity(Sport selectedSport, int selectedIntensity, String selectedDuration);
+		void saveActivity(
+				Sport selectedSport,
+				int selectedIntensity,
+				String selectedDuration,
+				LocalDateTime activityDateTime);
 
 		void returnHome();
 	}
