@@ -19,7 +19,6 @@
 package ulb.controllers;
 
 import java.io.IOException;
-import java.util.function.Supplier;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -48,15 +47,6 @@ public class ViewLoader {
 		} catch (IOException e) {
 			throw new RuntimeException("Failed to load resource: " + resourcePath, e);
 		}
-	}
-
-	private void loadWithListener(
-			String resourcePath, Stage stage, Supplier<Object> listenerSupplier) {
-		this.load(resourcePath, stage).setListener(listenerSupplier.get());
-	}
-
-	public void load(int pathIndex, Stage stage, Supplier<Object> listenerSupplier) {
-		this.loadWithListener(PATHS[pathIndex], stage, listenerSupplier);
 	}
 
 	private void loadWithListener(String resourcePath, Stage stage, AppController controller) {
