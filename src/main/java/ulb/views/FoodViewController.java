@@ -62,13 +62,17 @@ public class FoodViewController implements ViewController {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-
+		// Set the current time
 		hour.setText(String.valueOf(LocalTime.now().getHour()));
 		minutes.setText(String.valueOf(LocalTime.now().getMinute()));
+		// Set the current date
 		mealdate.setValue(LocalDate.now());
+		// Hide the name label and text field
 		name.setVisible(false);
 		namefield.setVisible(false);
+		// Configure the slider
 		configSlider();
+		// Add a listener to the slider value property
 		slider.valueProperty()
 				.addListener(
 						(observable, oldValue, newValue) -> {
@@ -93,6 +97,11 @@ public class FoodViewController implements ViewController {
 		mode = false; // * Default value
 	}
 
+	/**
+	 * This method changes the mode of the view.
+	 * If the mode is true, it switches to meal mode.
+	 * If the mode is false, it switches to food mode.
+	 */
 	public void changeMode() {
 		if (mode) {
 			title.setText("Ajoutez un plat");
@@ -120,13 +129,16 @@ public class FoodViewController implements ViewController {
 		this.listener = (Listener) listener;
 	}
 
-	// Action event handlers
 	@FXML
 	private void suggestFoods() {
 		String searchText = searchField.getText();
 		listener.sendUserSearch(searchText);
 	}
 
+	/**
+	 * This method adds the chosen food to the list when the user clicks on it.
+	 * @param event The mouse event.
+	 */
 	@FXML
 	public void addChosenFoodMouse(MouseEvent event) {
 		String chosenFood = suggestionsList.getSelectionModel().getSelectedItem();
@@ -135,6 +147,10 @@ public class FoodViewController implements ViewController {
 		}
 	}
 
+	/**
+	 * This method adds the chosen food to the list when the user presses the enter key.
+	 * @param event The key event.
+	 */
 	@FXML
 	public void addChosenFoodKey(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
@@ -148,6 +164,10 @@ public class FoodViewController implements ViewController {
 		}
 	}
 
+	/**
+	 * This method returns the time of the meal entered by the user and handles the exceptions in case of an invalid input.
+	 * @return The time of the meal.
+	 */
 	public LocalTime getMealTime() {
 		try {
 			int intHour = Integer.parseInt(hour.getText());
@@ -174,6 +194,10 @@ public class FoodViewController implements ViewController {
 		return date1.compareTo(date2) > 0;
 	}
 
+	/**
+	 * This method returns the date and time of the meal entered by the user.
+	 * @return The date and time of the meal.
+	 */
 	public LocalDateTime getMealDateTime() {
 
 		LocalDate currentDate = LocalDate.now();
@@ -186,6 +210,14 @@ public class FoodViewController implements ViewController {
 		return mealdatetime;
 	}
 
+	/**
+	 * This method saves the consumed foods selected.
+	 * If the consumedFoodsList is empty, it returns without doing anything.
+	 * If the mode is true (meal mode), it saves the meal if the name field is not empty and then reloads the view.
+	 * If the mode is false (food mode), it tries to get the meal date and time. If it is null, it returns without doing anything.
+	 * Otherwise, it saves the consumed foods with the meal date and time.
+	 * Finally, it cleans the food list.
+	 */
 	@FXML
 	public void saveConsumedFoods() {
 		if (consumedFoodsList.isEmpty()) {
@@ -212,6 +244,14 @@ public class FoodViewController implements ViewController {
 		cleanFoodList();
 	}
 
+	/**
+	 * This method removes the selected food from the list when the user select an item and click on the cross.
+	 * It first gets the selected item from the chosenFoodView.
+	 * If the selected item is not null, it removes the item from the chosenFoodView.
+	 * It then checks if the first child of the selected item is a Label.
+	 * If it is, it gets the text of the label (which is the name of the selected food),
+	 * and removes all food lists from consumedFoodsList that contain the selected food name.
+	 */
 	@FXML
 	public void removeSelectedFood() {
 		HBox selectedItem = chosenFoodView.getSelectionModel().getSelectedItem();
@@ -235,6 +275,15 @@ public class FoodViewController implements ViewController {
 		listener.returnHome();
 	}
 
+	/**
+	 * This method adds the chosen food to the list.
+	 * It first gets the user data for the food, and extracts the quantity from it.
+	 * If the quantity is 0, it returns without doing anything.
+	 * Otherwise, it gets the calories consumed by the quantity of the food, and loads the food item box.
+	 * It then gets the serving type of the food, and updates the food item box with the food, calories, quantity, serving type, and value.
+	 * It adds the box to the chosenFoodView, and adds a list of the food, quantity, calories, and serving type (or "g" if the value contains "g") to the consumedFoodsList.
+	 * @param food The chosen food.
+	 */
 	public void addChosenFood(String food) {
 		String value = getUserData(food);
 		int quantity = extractQuantity(value, food);
@@ -257,6 +306,16 @@ public class FoodViewController implements ViewController {
 								value.contains("g") ? "g" : servingType)));
 	}
 
+	/**
+	 * This method gets the user data for a food.
+	 * It creates a dialog with a custom input dialog title, and loads the popup box for the food.
+	 * It sets the serving label of the controller with the food serving quantity, and sets the content of the dialog pane with the box.
+	 * It adds OK and Cancel buttons to the dialog pane, and sets the result converter of the dialog with the processDialogResult method.
+	 * It then shows the dialog and waits for the user to input a value or cancel the dialog.
+	 * If the user inputs a value, it returns the value. Otherwise, it returns "0".
+	 * @param food The food.
+	 * @return The user data.
+	 */
 	private String getUserData(String food) {
 		Dialog<String> dialog = new Dialog<>();
 		dialog.setTitle("Custom Input Dialog");
@@ -295,6 +354,9 @@ public class FoodViewController implements ViewController {
 		return "0";
 	}
 
+	/**
+	 * Extracts the quantity from the the food selected by the user.
+	 */
 	private int extractQuantity(String input, String food) {
 		Pattern pattern = Pattern.compile("\\d+");
 		Matcher matcher = pattern.matcher(input);

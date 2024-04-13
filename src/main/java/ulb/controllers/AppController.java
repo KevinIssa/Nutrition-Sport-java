@@ -18,4 +18,4 @@
  */
 package ulb.controllers;
 
-public abstract class AppController {}
+public interface AppController {}

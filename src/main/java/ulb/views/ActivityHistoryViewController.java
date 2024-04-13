@@ -28,6 +28,10 @@ import javafx.scene.layout.HBox;
 import ulb.controllers.dtos.ActivityDTO;
 import ulb.models.enums.Sport;
 
+/**
+ * This class is a controller for the ActivityHistory view. It implements the ViewController interface.
+ * It is responsible for handling the user interactions with the activity history view in the application.
+ */
 public class ActivityHistoryViewController implements ViewController {
 	private ActivityHistoryViewController.Listener
 			listener; // Listener interface for communication with the controller
@@ -46,7 +50,11 @@ public class ActivityHistoryViewController implements ViewController {
 		historyList.getItems().add(activityHistoryBox);
 	}
 
-	// Add all activities to the activity history list
+	/**
+	 * This method sets the activities to be displayed in the activity history list.
+	 * It first clears the current items in the list, then retrieves the activities from the listener,
+	 * filtering them by the currently selected sport if any. Each activity is then added to the list.
+	 */
 	public void setActivities() {
 		historyList.getItems().clear();
 		for (ActivityDTO activity : listener.getActivities(filteredSport)) {

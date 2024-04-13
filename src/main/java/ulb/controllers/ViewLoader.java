@@ -19,7 +19,6 @@
 package ulb.controllers;
 
 import java.io.IOException;
-import java.util.function.Supplier;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -50,45 +49,44 @@ public class ViewLoader {
 		}
 	}
 
-	private void loadWithListener(
-			String resourcePath, Stage stage, Supplier<Object> listenerSupplier) {
-		this.load(resourcePath, stage).setListener(listenerSupplier.get());
+	private void loadWithListener(String resourcePath, Stage stage, AppController controller) {
+		this.load(resourcePath, stage).setListener(controller);
 	}
 
-	public void load(int pathIndex, Stage stage, Supplier<Object> listenerSupplier) {
-		this.loadWithListener(PATHS[pathIndex], stage, listenerSupplier);
+	public void load(int pathIndex, Stage stage, AppController controller) {
+		this.loadWithListener(PATHS[pathIndex], stage, controller);
 	}
 
 	public ViewController load(int pathIndex, Stage stage) {
 		return this.load(PATHS[pathIndex], stage);
 	}
 
-	public void loadMenu(Stage stage, Supplier<Object> listenerSupplier) {
-		this.load(4, stage, listenerSupplier);
+	public void loadMenu(Stage stage, MenuController controller) {
+		this.load(4, stage, controller);
 	}
 
-	public void loadCreateProfile(Stage stage, Supplier<Object> listenerSupplier) {
-		this.load(6, stage, listenerSupplier);
+	public void loadCreateProfile(Stage stage, ProfileCreateController controller) {
+		this.load(6, stage, controller);
 	}
 
-	public void loadProfile(Stage stage, Supplier<Object> listenerSupplier) {
-		this.load(5, stage, listenerSupplier);
+	public void loadProfile(Stage stage, ProfileController controller) {
+		this.load(5, stage, controller);
 	}
 
-	public void loadDeleteProfile(Stage stage, Supplier<Object> listenerSupplier) {
-		this.load(7, stage, listenerSupplier);
+	public void loadDeleteProfile(Stage stage, ProfileDeleteController controller) {
+		this.load(7, stage, controller);
 	}
 
-	public ViewController loadCreateActivity(Stage stage) {
-		return this.load(0, stage);
+	public void loadCreateActivity(Stage stage, ActivityCreateController controller) {
+		this.load(0, stage, controller);
 	}
 
-	public void loadActivityHistory(Stage stage, Supplier<Object> listenerSupplier) {
-		this.load(1, stage, listenerSupplier);
+	public void loadActivityHistory(Stage stage, ActivityHistoryController controller) {
+		this.load(1, stage, controller);
 	}
 
-	public void loadMealHistory(Stage stage, Supplier<Object> listenerSupplier) {
-		this.load(3, stage, listenerSupplier);
+	public void loadMealHistory(Stage stage, MealHistoryController controller) {
+		this.load(3, stage, controller);
 	}
 
 	public ViewController loadAddMeal(Stage stage) {
