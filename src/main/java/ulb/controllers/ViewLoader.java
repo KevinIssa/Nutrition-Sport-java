@@ -59,16 +59,24 @@ public class ViewLoader {
 		this.loadWithListener(PATHS[pathIndex], stage, listenerSupplier);
 	}
 
+	private void loadWithListener(String resourcePath, Stage stage, AppController controller) {
+		this.load(resourcePath, stage).setListener(controller);
+	}
+
+	public void load(int pathIndex, Stage stage, AppController controller) {
+		this.loadWithListener(PATHS[pathIndex], stage, controller);
+	}
+
 	public ViewController load(int pathIndex, Stage stage) {
 		return this.load(PATHS[pathIndex], stage);
 	}
 
-	public void loadMenu(Stage stage, Supplier<Object> listenerSupplier) {
-		this.load(4, stage, listenerSupplier);
+	public void loadMenu(Stage stage, MenuController controller) {
+		this.load(4, stage, controller);
 	}
 
-	public void loadCreateProfile(Stage stage, Supplier<Object> listenerSupplier) {
-		this.load(6, stage, listenerSupplier);
+	public void loadCreateProfile(Stage stage, ProfileCreateController controller) {
+		this.load(6, stage, controller);
 	}
 
 	public void loadProfile(Stage stage, Supplier<Object> listenerSupplier) {

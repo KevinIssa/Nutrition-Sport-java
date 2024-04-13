@@ -20,14 +20,14 @@ package ulb;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import ulb.controllers.MainAppController;
+import ulb.controllers.MenuController;
 
 public class App extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
 		setupStage(primaryStage);
-		new MainAppController(primaryStage).loadWelcomeView();
+		new MenuController(primaryStage).loadWelcomeView();
 		primaryStage.show();
 	}
 

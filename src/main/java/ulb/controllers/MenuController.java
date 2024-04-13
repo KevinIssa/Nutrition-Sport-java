@@ -41,12 +41,12 @@ import ulb.models.enums.Sex;
 import ulb.models.enums.Sport;
 import ulb.views.*;
 
-public class MainAppController extends AppController implements MenuViewController.Listener {
+public class MenuController implements AppController, MenuViewController.Listener {
 
 	private final ViewLoader viewLoader = new ViewLoader();
 	private final Stage primaryStage;
 
-	public MainAppController(Stage primaryStage) {
+	public MenuController(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 	}
 
@@ -61,54 +61,13 @@ public class MainAppController extends AppController implements MenuViewControll
 
 	@Override
 	public void loadMenuView() {
-		viewLoader.loadMenu(this.primaryStage, () -> this);
+		viewLoader.loadMenu(this.primaryStage, this);
 	}
 
 	@Override
 	public void loadCreateProfileView() {
 		viewLoader.loadCreateProfile(
-				this.primaryStage,
-				() ->
-						new ProfileCreateViewController.Listener() {
-							@Override
-							public void saveProfile(
-									String firstName,
-									String lastName,
-									String sex,
-									java.time.LocalDate birthDate,
-									float height,
-									float weight) {
-								Profile profile =
-										new Profile(
-												firstName,
-												lastName,
-												Sex.fromString(sex),
-												new ulb.models.Weight(weight),
-												new ulb.models.Height(height),
-												birthDate);
-								profile.save();
-							}
-
-							@Override
-							public void returnHome() {
-								loadWelcomeView();
-							}
-
-							@Override
-							public void saveProfileImage(String imagepath) {
-								try {
-									URL imageurl = new URL(imagepath);
-									URI destinationuri = new File("profile.png").toURI();
-									Path destinationpath = Paths.get(destinationuri);
-									Files.copy(
-											imageurl.openStream(),
-											destinationpath,
-											StandardCopyOption.REPLACE_EXISTING);
-								} catch (IOException e) {
-									throw new RuntimeException(e);
-								}
-							}
-						});
+				this.primaryStage, new ProfileCreateController(this::loadWelcomeView));
 	}
 
 	@Override
