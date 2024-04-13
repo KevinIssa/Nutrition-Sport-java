@@ -26,6 +26,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ulb.views.ViewController;
 
+/**
+ * The ViewLoader class is responsible for loading different views in the application.
+ * It uses the JavaFX FXMLLoader to load the FXML files associated with each view.
+ * It also sets the listener for each view controller.
+ * The paths to the FXML files are stored in a string array.
+ */
 public class ViewLoader {
 
 	private static final String[] PATHS = {

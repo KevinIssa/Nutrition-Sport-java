@@ -22,6 +22,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 
+/**
+ * The DateFieldTemplatController class extends the AbstractFieldTemplate class.
+ * It is a controller for a date field in the application's user interface.
+ * It overrides the setDefault, setEditMode, setDoneMode, and getText methods from the AbstractFieldTemplate class.
+ */
 public class SexFieldTemplateController extends AbstractFieldTemplate {
 	@FXML private RadioButton maleButton;
 	@FXML private RadioButton femaleButton;

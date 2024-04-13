@@ -28,6 +28,10 @@ import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import ulb.models.enums.Sport;
 
+/**
+ * This class is a controller to create activites in the UI. It implements the ViewController interface.
+ * It is responsible for handling the user interactions with the activity creation view.
+ */
 public class ActivityCreateViewController implements ViewController {
 	private Sport selectedSport;
 	@FXML private Slider intensitySlider;
@@ -47,7 +51,10 @@ public class ActivityCreateViewController implements ViewController {
 	private ActivityCreateViewController.Listener
 			listener; // Listener interface for communication with the controller
 
-	// Initialize method called after FXML file has been loaded
+	/**
+	 * This method is called after the FXML file has been loaded.
+	 * It initializes the view with the current date and time.
+	 */
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		selectedButton = buttonWalking;
@@ -56,6 +63,9 @@ public class ActivityCreateViewController implements ViewController {
 		this.initTime();
 	}
 
+	/**
+	 * This method initializes the date picker and time fields with the current date and time.
+	 */
 	private void initTime() {
 		activityDate.setValue(LocalDate.now());
 		hour.setText(String.valueOf(LocalTime.now().getHour()));
@@ -63,43 +73,49 @@ public class ActivityCreateViewController implements ViewController {
 		seconds.setText(String.valueOf(LocalTime.now().getSecond()));
 	}
 
+	/**
+	 * This method returns the time of the activity entered by the user and rise a pop up if the time entered is not valid.
+	 */
 	public LocalTime getActivityTime() {
-		/*try {*/
-		int intHour = Integer.parseInt(hour.getText());
-		int intMinutes = Integer.parseInt(minutes.getText());
-		int intSeconds = Integer.parseInt(seconds.getText());
+		try {
 
-		/*
-		if (intHour < 0 || intHour > 23 || intMinutes < 0 || intMinutes > 59) {
-			showAlert(
-					"Heure invalide",
-					"L'heure doit être comprise entre 0 et 23 et les minutes entre 0 et 59");
-			return null;
-		}*/
+			int intHour = Integer.parseInt(hour.getText());
+			int intMinutes = Integer.parseInt(minutes.getText());
+			int intSeconds = Integer.parseInt(seconds.getText());
 
-		LocalTime time =
-				LocalTime.of(
-						Integer.parseInt(hour.getText()),
-						Integer.parseInt(minutes.getText()),
-						Integer.parseInt(seconds.getText()));
-		return time;
-		/*} catch (NumberFormatException e) {
+			if (intHour < 0 || intHour > 23 || intMinutes < 0 || intMinutes > 59) {
+				showAlert(
+						"Heure invalide",
+						"L'heure doit être comprise entre 0 et 23 et les minutes entre 0 et 59");
+				return null;
+			}
+
+			LocalTime time =
+					LocalTime.of(
+							Integer.parseInt(hour.getText()),
+							Integer.parseInt(minutes.getText()),
+							Integer.parseInt(seconds.getText()));
+			return time;
+		} catch (NumberFormatException e) {
 			showAlert("Heure invalide", "L'heure doit être un nombre");
 			return null;
-		}*/
+		}
 	}
 
 	public boolean isDateInFuture(LocalDate date1, LocalDate date2) {
 		return date1.compareTo(date2) > 0;
 	}
 
+	/**
+	 * This method returns the date and time of the activity entered by the user and rise a pop up if the date is not valid.
+	 */
 	public LocalDateTime getActivityDate() {
 
 		LocalDate currentDate = LocalDate.now();
-		/*if (isDateInFuture(activityDate.getValue(), currentDate)) {
+		if (isDateInFuture(activityDate.getValue(), currentDate)) {
 			showAlert("Date invalide", "La date ne peut pas être dans le futur");
 			return null;
-		}*/
+		}
 
 		LocalDateTime activityDateTime =
 				LocalDateTime.of(activityDate.getValue(), getActivityTime());
@@ -120,6 +136,9 @@ public class ActivityCreateViewController implements ViewController {
 		this.listener.returnHome();
 	}
 
+	/**
+	 * This method changes the selected sport and updates the UI accordingly.
+	 */
 	public void clickedButton(Button button, Sport sport) {
 		String color = "-fx-background-color: #9960f2;";
 		selectedButton.setStyle(color);
@@ -150,6 +169,10 @@ public class ActivityCreateViewController implements ViewController {
 	}
 
 	// TODO Move that to other class !
+
+	/**
+	 * This method shows an alert with the number of calories burned during the activity and is a base code for the others pop up.
+	 */
 	public static void showAlert(double calories) {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("Calcul du nombre de calories");

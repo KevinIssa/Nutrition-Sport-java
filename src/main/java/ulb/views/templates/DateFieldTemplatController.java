@@ -23,6 +23,11 @@ import java.time.format.DateTimeFormatter;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 
+/**
+ * The DateFieldTemplatController class extends the AbstractFieldTemplate class.
+ * It is a controller for a date field in the application's user interface.
+ * It overrides the setDefault, setEditMode, setDoneMode, and getText methods from the AbstractFieldTemplate class.
+ */
 public class DateFieldTemplatController extends AbstractFieldTemplate {
 
 	@FXML protected DatePicker birthdateFieldInfo;

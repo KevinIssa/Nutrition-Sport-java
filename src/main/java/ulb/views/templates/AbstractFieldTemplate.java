@@ -25,6 +25,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * Provides a template for fields in the application's user interface.
+ * It contains methods for setting images, default settings, label text, and toggling modes.
+ */
 public abstract class AbstractFieldTemplate extends AnchorPane {
 	protected Image pen;
 	protected Image check;
