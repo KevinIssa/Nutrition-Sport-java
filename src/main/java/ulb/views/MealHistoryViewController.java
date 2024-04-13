@@ -54,19 +54,21 @@ public class MealHistoryViewController implements ViewController {
 		this.addMeals(); // Add activities when listener is set
 	}
 
+	/**
+	 * This method adds meals consumed to the history list.
+	 * For each file, it loads the meal from the file, and for each food in the meal, it adds the food to the history list with the date of the meal.
+	 */
 	public void addMeals() {
 		File directory = new File(FOLDERNAME); // Specify the directory path
 
 		File[] files = directory.listFiles();
 
-		// Add activities to the list
 		if (files != null) {
 			for (File file : files) {
 				ConsumedMeal meal = listener.loadMeal(file.getPath());
 				for (ConsumedFood food : meal.getConsumedFoods()) {
 					addFood(food, meal.changeDateFormat(meal.getDate()));
 				}
-				// Add each activity individually
 			}
 		}
 	}

@@ -44,6 +44,13 @@ public class ProfileCreateViewController implements ViewController {
 		this.birthdate.setValue(LocalDate.now());
 	}
 
+	/**
+	 * Handles the event when a user interacts with the image selection button.
+	 * Opens a file chooser dialog for the user to select an image file.
+	 * If a file is selected, it sets the image view with the selected image and stores the image path.
+	 *
+	 * @param event The action event triggered by the user interaction.
+	 */
 	public void eventHandler(ActionEvent event) {
 		File selectedFile = new FileChooser().showOpenDialog(imageselection.getScene().getWindow());
 		if (selectedFile != null) {
@@ -52,6 +59,10 @@ public class ProfileCreateViewController implements ViewController {
 		}
 	}
 
+	/**
+	 * Saves the profile information entered by the user.
+	 * After successfully saving the profile, it make the user return to the home view.
+	 */
 	public void saveProfile() {
 		try {
 			this.listener.saveProfile(
