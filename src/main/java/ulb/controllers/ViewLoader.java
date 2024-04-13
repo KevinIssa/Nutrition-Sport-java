@@ -83,8 +83,8 @@ public class ViewLoader {
 		this.load(5, stage, controller);
 	}
 
-	public void loadDeleteProfile(Stage stage, Supplier<Object> listenerSupplier) {
-		this.load(7, stage, listenerSupplier);
+	public void loadDeleteProfile(Stage stage, ProfileDeleteController controller) {
+		this.load(7, stage, controller);
 	}
 
 	public ViewController loadCreateActivity(Stage stage) {

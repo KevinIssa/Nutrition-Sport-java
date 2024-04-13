@@ -19,9 +19,7 @@
 package ulb.controllers;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.*;
-import java.nio.file.Files;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -67,7 +65,7 @@ public class MenuController implements AppController, MenuViewController.Listene
 						new ProfileCreateController.Listener() {
 							@Override
 							public void returnHome() {
-								loadWelcomeView();
+								loadMenuView();
 							}
 						}));
 	}
@@ -94,30 +92,20 @@ public class MenuController implements AppController, MenuViewController.Listene
 		Stage popupStage = new Stage();
 		viewLoader.loadDeleteProfile(
 				popupStage,
-				() ->
-						new ProfileDeleteConfirmViewController.Listener() {
+				new ProfileDeleteController(
+						new ProfileDeleteController.Listener() {
 							@Override
-							public void deleteProfile() {
-								Profile profile = Profile.load();
-								profile.delete();
-								Activity.clearAllActivities();
-								ConsumedMeal.clearAllConsumedMeals();
-								loadCreateProfileView();
-								try {
-									Path filetodelete = Paths.get(".").resolve("profile.png");
-									if (Files.exists(filetodelete)) {
-										Files.delete(filetodelete);
-									}
-								} catch (IOException e) {
-									throw new RuntimeException(e);
-								}
+							public void returnHome() {
+								loadMenuView();
+								popupStage.close();
 							}
 
 							@Override
-							public void returnHome() {
+							public void createProfile() {
+								loadCreateProfileView();
 								popupStage.close();
 							}
-						});
+						}));
 		popupStage.initModality(Modality.APPLICATION_MODAL);
 		popupStage.showAndWait();
 	}
