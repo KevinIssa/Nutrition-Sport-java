@@ -20,7 +20,6 @@ package ulb.models;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +36,7 @@ public class FoodLoader {
 	 * Constructs a FoodLoader and loads food data from a JSON file.
 	 */
 	public FoodLoader() {
-		loadFoods(this.getClass().getResource(FOOD_FILE).getPath());
+		loadFoods(FOOD_FILE);
 	}
 
 	/**
@@ -48,9 +47,13 @@ public class FoodLoader {
 	private void loadFoods(String filename) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			foods = objectMapper.readValue(new File(filename), new TypeReference<>() {});
-		} catch (IOException exception) {
-			exception.printStackTrace();
+			foods =
+					objectMapper.readValue(
+							getClass().getResourceAsStream(filename), new TypeReference<>() {});
+		} catch (IOException e) {
+			System.out.println("Error loading food data from file: " + filename);
+			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 
