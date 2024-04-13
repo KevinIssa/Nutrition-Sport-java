@@ -251,7 +251,10 @@ public class MainAppController extends AppController implements MenuViewControll
 				new ActivityCreateViewController.Listener() {
 					@Override
 					public void saveActivity(
-							Sport selectedSport, int selectedIntensity, String selectedDuration, LocalDateTime activityDateTime) {
+							Sport selectedSport,
+							int selectedIntensity,
+							String selectedDuration,
+							LocalDateTime activityDateTime) {
 						Activity activity =
 								new Activity(
 										selectedSport,
