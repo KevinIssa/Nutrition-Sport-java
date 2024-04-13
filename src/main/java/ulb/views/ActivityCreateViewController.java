@@ -44,10 +44,17 @@ public class ActivityCreateViewController implements ViewController {
 
 	private Button selectedButton;
 
+	/**
+	 * This class is a controller to create activites in the UI. It implements the ViewController interface.
+	 * It is responsible for handling the user interactions with the activity creation view.
+	 */
 	private ActivityCreateViewController.Listener
 			listener; // Listener interface for communication with the controller
 
-	// Initialize method called after FXML file has been loaded
+	/**
+	 * This method is called after the FXML file has been loaded.
+	 * It initializes the view with the current date and time.
+	 */
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		selectedButton = buttonWalking;
@@ -56,14 +63,20 @@ public class ActivityCreateViewController implements ViewController {
 		this.initTime();
 	}
 
+	/**
+	 * This method initializes the date picker and time fields with the current date and time.
+	 */
 	private void initTime() {
 		activityDate.setValue(LocalDate.now());
 		hour.setText(String.valueOf(LocalTime.now().getHour()));
 		minutes.setText(String.valueOf(LocalTime.now().getMinute()));
 	}
 
+	/**
+	 * This method returns the time of the activity entered by the user and rise a pop up if the time entered is not valid.
+	 */
 	public LocalTime getActivityTime() {
-		/*try {*/
+		try {
 		// Get the current time
 		LocalTime currentTime = LocalTime.now();
 
@@ -73,20 +86,19 @@ public class ActivityCreateViewController implements ViewController {
 		int intMinutes = Integer.parseInt(minutes.getText());
 		int intSeconds = currentTime.getSecond();
 
-		/*
 		if (intHour < 0 || intHour > 23 || intMinutes < 0 || intMinutes > 59) {
 			showAlert(
 					"Heure invalide",
 					"L'heure doit être comprise entre 0 et 23 et les minutes entre 0 et 59");
 			return null;
-		}*/
+		}
 
 		LocalTime time = LocalTime.of(intHour, intMinutes, intSeconds);
 		return time;
-		/*} catch (NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			showAlert("Heure invalide", "L'heure doit être un nombre");
 			return null;
-		}*/
+		}
 	}
 
 	/*public boolean isDateInFuture(LocalDate date1, LocalDate date2) {
@@ -119,6 +131,9 @@ public class ActivityCreateViewController implements ViewController {
 		this.listener.returnHome();
 	}
 
+	/**
+	 * This method changes the selected sport and updates the UI accordingly.
+	 */
 	public void clickedButton(Button button, Sport sport) {
 		String color = "-fx-background-color: #9960f2;";
 		selectedButton.setStyle(color);
@@ -149,6 +164,9 @@ public class ActivityCreateViewController implements ViewController {
 	}
 
 	// TODO Move that to other class !
+	/**
+	 * This method shows an alert with the number of calories burned during the activity and is a base code for the others pop up.
+	 */
 	public static void showAlert(double calories) {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setTitle("Calcul du nombre de calories");

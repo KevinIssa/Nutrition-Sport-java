@@ -29,6 +29,9 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import ulb.controllers.dtos.ActivityDTO;
 
+
+
+//This class is used to create a custom HBox for displaying activity history in the application.
 public class HistoryBox extends HBox {
 	private static final String CALENDAR_IMG_PATH = "/ulb/images/history_img/calendar.png";
 	public static final String CHRONOMETER_IMG_PATH = "/ulb/images/history_img/chronometer.png";
@@ -37,6 +40,7 @@ public class HistoryBox extends HBox {
 	public static final String INTENSITY_IMGS_PATH = "/ulb/images/intensity_img/";
 	public static final String TRASH_IMG_PATH = "/ulb/images/trash.png";
 
+	//constructor of the class
 	public HistoryBox(ActivityDTO activity, Button button) {
 		this.settings();
 		this.fill(activity, button);
@@ -47,6 +51,12 @@ public class HistoryBox extends HBox {
 		this.setSpacing(10);
 	}
 
+	/**
+	 * This method fills the HBox with the activity data and button.
+	 * It sets the icons, labels, and button in the HBox.
+	 * @param activity The activity data transfer object (DTO) containing the activity data.
+	 * @param button The button to be added to the HBox.
+	 */
 	private void fill(ActivityDTO activity, Button button) {
 		this.setIcons(activity);
 		this.setLabels(activity);
