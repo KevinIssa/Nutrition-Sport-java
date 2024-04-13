@@ -41,14 +41,14 @@ public class TestFoodLoader {
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = {"apple", "banana", "orange"})
+	@ValueSource(strings = {"pomme", "la", "r"})
 	public void testGetFoods(String foodName) {
 		List<Food> foods = foodLoader.getFoodsSuggestion(foodName);
 		foods.forEach(food -> assertTrue(food.getName().toLowerCase().startsWith(foodName)));
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = {"apple", "banana", "orange"})
+	@ValueSource(strings = {"pomme", "Macaronis au fromage", "Soupe aux nouilles"})
 	public void testGetFoodByName(String foodName) {
 		Food food = foodLoader.getFoodByName(foodName);
 		assertNotNull(food);

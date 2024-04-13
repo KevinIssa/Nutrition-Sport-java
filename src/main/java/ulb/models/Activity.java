@@ -94,7 +94,8 @@ public class Activity implements JsonSerializable {
 		String filename =
 				FOLDER_NAME
 						+ "/"
-						+ date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))
+						+ LocalDateTime.now()
+								.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))
 						+ ".json";
 		saveToFile(filename);
 	}
