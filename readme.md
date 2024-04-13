@@ -34,7 +34,7 @@ Listez les différentes configurations possibles pour votre projet.
 
 - Java version 21.0.1
 - Maven version 3.9.5
-- JUnit version 4.11
+- JUnit version 5.10.2
 - JavaFX version 21.0.2
 - Jackson version 2.16.0
 - JAXB version 2.3.1
