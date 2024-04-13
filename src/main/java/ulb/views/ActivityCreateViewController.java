@@ -41,7 +41,7 @@ public class ActivityCreateViewController implements ViewController {
 	@FXML private DatePicker activityDate;
 	@FXML private TextField hour;
 	@FXML private TextField minutes;
-	@FXML private TextField seconds;
+
 	private Button selectedButton;
 
 	private ActivityCreateViewController.Listener
@@ -60,14 +60,18 @@ public class ActivityCreateViewController implements ViewController {
 		activityDate.setValue(LocalDate.now());
 		hour.setText(String.valueOf(LocalTime.now().getHour()));
 		minutes.setText(String.valueOf(LocalTime.now().getMinute()));
-		seconds.setText(String.valueOf(LocalTime.now().getSecond()));
 	}
 
 	public LocalTime getActivityTime() {
 		/*try {*/
+		// Get the current time
+		LocalTime currentTime = LocalTime.now();
+
+		// Extract seconds from the current time
+
 		int intHour = Integer.parseInt(hour.getText());
 		int intMinutes = Integer.parseInt(minutes.getText());
-		int intSeconds = Integer.parseInt(seconds.getText());
+		int intSeconds = currentTime.getSecond();
 
 		/*
 		if (intHour < 0 || intHour > 23 || intMinutes < 0 || intMinutes > 59) {
@@ -77,11 +81,7 @@ public class ActivityCreateViewController implements ViewController {
 			return null;
 		}*/
 
-		LocalTime time =
-				LocalTime.of(
-						Integer.parseInt(hour.getText()),
-						Integer.parseInt(minutes.getText()),
-						Integer.parseInt(seconds.getText()));
+		LocalTime time = LocalTime.of(intHour, intMinutes, intSeconds);
 		return time;
 		/*} catch (NumberFormatException e) {
 			showAlert("Heure invalide", "L'heure doit être un nombre");
@@ -89,13 +89,12 @@ public class ActivityCreateViewController implements ViewController {
 		}*/
 	}
 
-	public boolean isDateInFuture(LocalDate date1, LocalDate date2) {
+	/*public boolean isDateInFuture(LocalDate date1, LocalDate date2) {
 		return date1.compareTo(date2) > 0;
-	}
+	}*/
 
 	public LocalDateTime getActivityDate() {
 
-		LocalDate currentDate = LocalDate.now();
 		/*if (isDateInFuture(activityDate.getValue(), currentDate)) {
 			showAlert("Date invalide", "La date ne peut pas être dans le futur");
 			return null;
