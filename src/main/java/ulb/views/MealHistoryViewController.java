@@ -82,7 +82,7 @@ public class MealHistoryViewController implements ViewController {
 		HBox hbox = createHBox();
 		setIconInHBox(hbox);
 		setTextInHBox(food, date, hbox);
-		setButtonInHBox(food, hbox);
+		setButtonInHBox(hbox);
 		return hbox;
 	}
 
@@ -107,19 +107,20 @@ public class MealHistoryViewController implements ViewController {
 		hbox.getChildren().add(6, LabelCalorie);
 	}
 
-	private void setButtonInHBox(ConsumedFood food, HBox hbox) {
+	private void setButtonInHBox(HBox hbox) {
 		ImageView imageDelete = createImageView("/ulb/images/trash.png", 30, 30);
 		Button deleteActivityButton = new Button("");
 		deleteActivityButton.setGraphic(imageDelete);
-		deleteActivityButton.setOnAction(e -> deleteFoodInHistory(food));
+		deleteActivityButton.setOnAction(e -> deleteFoodInHistory(hbox));
 		Region spacer = new Region();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
 		hbox.getChildren().addAll(spacer, deleteActivityButton);
 	}
 
-	private void deleteFoodInHistory(ConsumedFood food) {
+	private void deleteFoodInHistory(HBox foodBox) {
 		// delete food in model and controller
-		System.out.println("C pas fait ");
+
+		historyList.getItems().remove(foodBox);
 	}
 
 	private static HBox createHBox() {
