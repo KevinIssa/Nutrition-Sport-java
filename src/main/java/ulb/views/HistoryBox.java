@@ -60,11 +60,9 @@ public class HistoryBox extends HBox {
 	}
 
 	private void setLabels(ActivityDTO activity) {
-		this.getChildren()
-				.addAll(
-						new Label(activity.date),
-						new Label(activity.duration),
-						new Label(activity.burnedCalories + " kcal"));
+		this.getChildren().add(3, new Label(activity.date));
+		this.getChildren().add(5, new Label(activity.duration));
+		this.getChildren().add(7, new Label(activity.burnedCalories + " kcal"));
 	}
 
 	private void setButtonInHBox(Button button) {
