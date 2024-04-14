@@ -30,6 +30,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.models.enums.Intensity;
 import ulb.models.enums.Sport;
 
@@ -37,7 +39,7 @@ import ulb.models.enums.Sport;
  * Represents an activity performed by a user.
  */
 public class Activity implements JsonSerializable {
-
+	public static final Logger logger = LoggerFactory.getLogger(Activity.class);
 	public static final String FOLDER_NAME = "activities";
 
 	private Sport sport;
@@ -65,6 +67,7 @@ public class Activity implements JsonSerializable {
 		this.intensity = intensity;
 		this.duration = duration;
 		this.date = date;
+		logger.trace("Creating activity: {} ", this);
 	}
 
 	/**
@@ -91,6 +94,7 @@ public class Activity implements JsonSerializable {
 	public void save() {
 		File folder = new File(FOLDER_NAME);
 		if (!folder.exists()) {
+			logger.info("Creating activities folder");
 			folder.mkdir();
 		}
 		String filename =
@@ -116,6 +120,7 @@ public class Activity implements JsonSerializable {
 		File[] files = folder.listFiles();
 		List<Activity> activities = new ArrayList<>();
 		if (files != null) {
+			logger.info("Loading all activities");
 			for (File file : files) {
 				if (!file.isDirectory()) {
 					activities.add(load(file.getPath()));
@@ -132,6 +137,7 @@ public class Activity implements JsonSerializable {
 		File folder = new File(FOLDER_NAME);
 		File[] files = folder.listFiles();
 		if (files != null) {
+			logger.info("Deleting all activities");
 			for (File file : files) {
 				if (!file.isDirectory()) {
 					file.delete();
@@ -206,9 +212,10 @@ public class Activity implements JsonSerializable {
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		mapper.registerModule(new JavaTimeModule());
 		try {
+			logger.info("Saving activity:{} to {} ", this, filename);
 			mapper.writeValue(new File(filename), this);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Error saving activity to file", e);
 		}
 	}
 
@@ -224,9 +231,10 @@ public class Activity implements JsonSerializable {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new JavaTimeModule());
 		try {
+			logger.info("Loading activity from file: {}", filename);
 			return mapper.readValue(file, Activity.class);
 		} catch (IOException e) {
-			System.out.println("No activity found");
+			logger.warn("No activity found");
 			return null;
 		}
 	}

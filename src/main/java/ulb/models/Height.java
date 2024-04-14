@@ -34,7 +34,7 @@ public class Height {
 	 * @param height The height value in centimeters.
 	 * @throws IllegalArgumentException If the provided height is not within the allowed range.
 	 */
-	public Height(float height) {
+	public Height(float height) throws IllegalArgumentException {
 		validateHeight(height);
 		this.height = height;
 	}
@@ -45,7 +45,7 @@ public class Height {
 	 * @param height The height value to validate.
 	 * @throws IllegalArgumentException If the provided height is not within the allowed range.
 	 */
-	private void validateHeight(float height) {
+	private void validateHeight(float height) throws IllegalArgumentException {
 		if (height <= MIN_HEIGHT) {
 			throw new IllegalArgumentException("Height must be greater than " + MIN_HEIGHT);
 		} else if (height > MAX_HEIGHT) {
@@ -68,7 +68,7 @@ public class Height {
 	 * @param height The height value to set in centimeters.
 	 * @throws IllegalArgumentException If the provided height is not within the allowed range.
 	 */
-	public void setHeight(float height) {
+	public void setHeight(float height) throws IllegalArgumentException {
 		validateHeight(height);
 		this.height = height;
 	}

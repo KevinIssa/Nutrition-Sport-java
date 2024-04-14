@@ -37,11 +37,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.models.Food;
 import ulb.widgets.FoodPopupController;
 
 public class FoodViewController implements ViewController {
-
+	private static final Logger logger = LoggerFactory.getLogger(FoodViewController.class);
 	@FXML private TextField searchField;
 	@FXML private ListView<String> suggestionsList;
 	@FXML private ListView<HBox> chosenFoodView;
@@ -100,7 +102,8 @@ public class FoodViewController implements ViewController {
 	@Override
 	public void setListener(Object listener) {
 		if (listener == null) {
-			throw new IllegalArgumentException("Listener cannot be null");
+			logger.error("Listener is null");
+			System.exit(1);
 		}
 		this.listener = (Listener) listener;
 	}
@@ -299,7 +302,9 @@ public class FoodViewController implements ViewController {
 		try {
 			return loader.load();
 		} catch (IOException e) {
-			throw new RuntimeException("Food_popup file not existing", e);
+			logger.error("Food_popup file not existing", e);
+			System.exit(1);
+			return null; // Unreachable
 		}
 	}
 
@@ -332,7 +337,8 @@ public class FoodViewController implements ViewController {
 			return quantity;
 
 		} else {
-			throw new IllegalArgumentException("No integer found in the input string");
+			logger.error("No match found in serving quantity {} for food {}", input, food);
+			return 0;
 		}
 	}
 
@@ -341,7 +347,9 @@ public class FoodViewController implements ViewController {
 		try {
 			return loader.load();
 		} catch (IOException e) {
-			throw new RuntimeException("Food_item file not existing", e);
+			logger.error("Food_item file not existing", e);
+			System.exit(1);
+			return null; // Unreachable
 		}
 	}
 

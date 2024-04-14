@@ -29,13 +29,15 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents a Meal.
  */
 @JsonDeserialize(using = MealDeserializer.class)
 public class Meal implements Consumable, JsonSerializable {
-
+	private static final Logger logger = LoggerFactory.getLogger(Meal.class);
 	public static final String FOLDER_NAME = "meals";
 
 	private String name;
@@ -80,6 +82,7 @@ public class Meal implements Consumable, JsonSerializable {
 	public void addIngredient(Food food, Integer quantity) {
 		Map.Entry<Food, Integer> entry = Map.entry(food, quantity);
 		this.ingredients.add(entry);
+		logger.trace("Added ingredient: {}", entry);
 	}
 
 	/**
@@ -140,6 +143,7 @@ public class Meal implements Consumable, JsonSerializable {
 		File folder = new File(FOLDER_NAME);
 		if (!folder.exists()) {
 			folder.mkdir();
+			logger.info("Created folder: {}", FOLDER_NAME);
 		}
 		String filename = FOLDER_NAME + "/" + name + ".json";
 		saveToFile(filename);
@@ -178,7 +182,7 @@ public class Meal implements Consumable, JsonSerializable {
 		try {
 			mapper.writeValue(new File(filename), this);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Error saving meal to file: {} meal: {}", filename, this);
 		}
 	}
 
@@ -193,7 +197,7 @@ public class Meal implements Consumable, JsonSerializable {
 		try {
 			return mapper.readValue(new File(filename), Meal.class);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Error loading meal from file: {} meal {}", filename, this);
 		}
 		return null;
 	}
@@ -245,6 +249,11 @@ public class Meal implements Consumable, JsonSerializable {
 	}
 
 	public Food toFood() {
+		logger.trace(
+				"Converting meal to food: {}, {}, {}",
+				name,
+				getCaloriesConsumed(),
+				getGramsForServing(1));
 		return new Food(
 				this.name,
 				this.getCaloriesConsumedByServing(1),

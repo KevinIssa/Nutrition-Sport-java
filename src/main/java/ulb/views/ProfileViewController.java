@@ -30,9 +30,15 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ulb.exceptions.IllegalImageFormatException;
+import ulb.exceptions.ImageException;
+import ulb.exceptions.InvalidImageException;
 import ulb.views.templates.AbstractFieldTemplate;
 
 public class ProfileViewController implements ViewController {
+	private static final Logger logger = LoggerFactory.getLogger(ProfileViewController.class);
 	@FXML private ImageView profileImage;
 	@FXML private Button imageSelection;
 	@FXML private AbstractFieldTemplate firstnameController;
@@ -101,7 +107,8 @@ public class ProfileViewController implements ViewController {
 			Image image = loadImage(new File(listener.getProfileImagePath()).toURL(), 200, 150);
 			this.profileImage.setImage(image);
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			logger.error("Error loading profile image due to malformed URL {}", e.getMessage());
+			System.exit(1);
 		}
 	}
 
@@ -113,7 +120,8 @@ public class ProfileViewController implements ViewController {
 				this.profileImage.setImage(loadImage(selectedFile.toURL(), 129, 125));
 				this.imagePath = selectedFile.toURI().toString();
 			} catch (MalformedURLException e) {
-				throw new RuntimeException(e);
+				logger.error("Error loading profile image due to malformed URL {}", e.getMessage());
+				System.exit(1);
 			}
 		}
 	}
@@ -131,7 +139,17 @@ public class ProfileViewController implements ViewController {
 				this.listener.saveProfileImage(this.imagePath);
 			}
 		} catch (NumberFormatException e) {
-			System.err.println("Height and weight must be numbers");
+			logger.warn("Height and weight must be positive numbers");
+		} catch (IllegalArgumentException | NullPointerException e) {
+			logger.warn("All fields must be filled");
+		} catch (IllegalImageFormatException e) {
+			logger.warn("Image format not supported");
+		} catch (InvalidImageException e) {
+			logger.warn("Failed to save image");
+		} catch (
+				ImageException
+						e) { // this should not be caught it should be caught in catch block above
+			logger.warn("error while saving image");
 		}
 		this.listener.returnHome();
 	}
@@ -154,7 +172,8 @@ public class ProfileViewController implements ViewController {
 				String sex,
 				LocalDate birthDate,
 				float height,
-				float weight);
+				float weight)
+				throws IllegalArgumentException;
 
 		void deleteProfileView();
 
@@ -172,7 +191,7 @@ public class ProfileViewController implements ViewController {
 
 		float getWeight();
 
-		void saveProfileImage(String imagePath);
+		void saveProfileImage(String imagePath) throws ImageException;
 
 		String getProfileImagePath();
 	}

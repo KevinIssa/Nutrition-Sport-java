@@ -28,12 +28,18 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ulb.exceptions.IllegalImageFormatException;
+import ulb.exceptions.ImageException;
+import ulb.exceptions.InvalidImageException;
 import ulb.models.enums.Sex;
 
 /**
  * Represents a user profile containing personal information.
  */
 public class Profile implements JsonSerializable {
+	private static final Logger logger = LoggerFactory.getLogger(Profile.class);
 
 	public static final String FILE_NAME = "profile.json";
 	public static final String IMAGE_PATH = "profile.png";
@@ -135,14 +141,20 @@ public class Profile implements JsonSerializable {
 	 * @param imagePath The URL of the image to save.
 	 * @throws RuntimeException If an IOException occurs during the operation.
 	 */
-	public static void saveImage(String imagePath) {
+	public static void saveImage(String imagePath) throws ImageException {
+		if (!(imagePath.endsWith(".png") || imagePath.endsWith(".jpg"))) {
+			logger.warn("Only PNG and JPG images are supported: {}", imagePath);
+			throw new IllegalImageFormatException("Only PNG and JPG images are supported");
+		}
+
 		try {
 			Files.copy(
 					new URL(imagePath).openStream(),
-					Paths.get("profile.png"),
+					Paths.get(IMAGE_PATH),
 					java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			logger.error("Failed to save image", e);
+			throw new InvalidImageException("Failed to save image");
 		}
 	}
 
@@ -182,7 +194,15 @@ public class Profile implements JsonSerializable {
 		try {
 			mapper.writeValue(new File(filename), this);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error(
+					"Error saving profile to file: {} with value : {}, {}, {}, {}, {}, {}",
+					filename,
+					this.firstName,
+					this.lastName,
+					this.birthDate,
+					this.sex,
+					this.weight,
+					this.height);
 		}
 	}
 
@@ -199,7 +219,7 @@ public class Profile implements JsonSerializable {
 		try {
 			return mapper.readValue(file, Profile.class);
 		} catch (IOException e) {
-			System.out.println("No valid profile found");
+			logger.error("Error loading profile from file: {}", filename);
 			return null;
 		}
 	}
@@ -265,7 +285,7 @@ public class Profile implements JsonSerializable {
 	 * Sets the weight of the user.
 	 * @param weight The new weight to set.
 	 */
-	public void setWeight(float weight) {
+	public void setWeight(float weight) throws IllegalArgumentException {
 		this.weight = new Weight(weight);
 	}
 

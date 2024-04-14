@@ -26,8 +26,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MenuViewController implements ViewController {
+	private static final Logger logger = LoggerFactory.getLogger(MenuViewController.class);
 	@FXML ImageView profileImage;
 	@FXML private Button addActivityButton;
 	@FXML private Button addFoodButton;
@@ -49,7 +52,8 @@ public class MenuViewController implements ViewController {
 							false);
 			this.profileImage.setImage(image);
 		} catch (MalformedURLException e) {
-			throw new RuntimeException(e);
+			logger.error("Error loading profile image due to malformed URL {}", e.getMessage());
+			System.exit(1);
 		}
 	}
 
@@ -80,7 +84,8 @@ public class MenuViewController implements ViewController {
 
 	public void setListener(Object listener) {
 		if (listener == null) {
-			throw new IllegalArgumentException("Listener cannot be null");
+			logger.error("Listener is null");
+			System.exit(1);
 		}
 		this.listener = (Listener) listener;
 		this.initialize(null, null);

@@ -22,6 +22,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.models.ConsumedMeal;
 import ulb.models.Food;
 import ulb.models.FoodLoader;
@@ -33,6 +35,7 @@ import ulb.views.FoodViewController;
  */
 public class FoodController implements AppController, FoodViewController.Listener {
 
+	private static final Logger logger = LoggerFactory.getLogger(FoodController.class);
 	// Listener for the FoodController
 	private final FoodController.Listener listener;
 	// ViewController for the FoodController

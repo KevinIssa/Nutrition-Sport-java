@@ -19,6 +19,7 @@
 		<jackson.version>2.16.0</jackson.version>
 		<jaxb.version>2.3.1</jaxb.version>
 		<spotless.version>2.42.0</spotless.version>
+		<logger.version>1.4.12</logger.version>
 	</properties>
 
 	<dependencies>
@@ -83,6 +84,14 @@
 			<artifactId>spotless-maven-plugin</artifactId>
 			<version>${spotless.version}</version>
 		</dependency>
+
+		<!-- loggers -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logger.version}</version>
+		</dependency>
+
 
 	</dependencies>
 

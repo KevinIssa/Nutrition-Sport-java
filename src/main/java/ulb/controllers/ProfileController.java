@@ -19,6 +19,7 @@
 package ulb.controllers;
 
 import java.time.LocalDate;
+import ulb.exceptions.ImageException;
 import ulb.models.Height;
 import ulb.models.Profile;
 import ulb.models.Weight;
@@ -50,7 +51,8 @@ public class ProfileController implements AppController, ProfileViewController.L
 			String sex,
 			java.time.LocalDate birthDate,
 			float height,
-			float weight) {
+			float weight)
+			throws IllegalArgumentException {
 		Profile profile =
 				new Profile(
 						firstName,
@@ -103,7 +105,7 @@ public class ProfileController implements AppController, ProfileViewController.L
 	}
 
 	@Override
-	public void saveProfileImage(String imagePath) {
+	public void saveProfileImage(String imagePath) throws ImageException {
 		Profile.saveImage(imagePath);
 	}
 

@@ -23,11 +23,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import org.slf4j.Logger;
 
 /**
  * Class to load food data from a JSON file and provide methods to access and search food items.
  */
 public class FoodLoader {
+
+	private static final Logger logger = org.slf4j.LoggerFactory.getLogger(FoodLoader.class);
 
 	private static final String FOOD_FILE = "/ulb/jsons/food.json";
 	private List<Food> foods;
@@ -51,8 +54,7 @@ public class FoodLoader {
 					objectMapper.readValue(
 							getClass().getResourceAsStream(filename), new TypeReference<>() {});
 		} catch (IOException e) {
-			System.out.println("Error loading food data from file: " + filename);
-			e.printStackTrace();
+			logger.error("Error loading food data from file: {}", filename);
 			System.exit(1);
 		}
 	}
@@ -66,6 +68,7 @@ public class FoodLoader {
 
 		for (Food food : foods) {
 			if (food.getName().equalsIgnoreCase(userInput)) {
+				logger.trace("Food found: {}", food.getName());
 				return food;
 			}
 		}

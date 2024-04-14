@@ -5,6 +5,7 @@ module ulb {
 	requires com.fasterxml.jackson.databind;
 	requires com.fasterxml.jackson.datatype.jsr310;
 	requires java.desktop;
+	requires org.slf4j;
 
 	exports ulb;
 	exports ulb.models;
@@ -14,6 +15,7 @@ module ulb {
 	exports ulb.controllers.dtos;
 	exports ulb.views.templates;
 	exports ulb.widgets;
+	exports ulb.exceptions;
 
 	opens ulb.models to
 			javafx.fxml,
