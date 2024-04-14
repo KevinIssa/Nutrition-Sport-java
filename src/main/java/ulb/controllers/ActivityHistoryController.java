@@ -25,6 +25,10 @@ import ulb.models.Activity;
 import ulb.models.enums.Sport;
 import ulb.views.ActivityHistoryViewController;
 
+/**
+ * The ActivityHistoryController class is responsible for handling the history of activities.
+ * It implements the AppController interface and the ActivityHistoryViewController.Listener interface.
+ */
 public class ActivityHistoryController
 		implements AppController, ActivityHistoryViewController.Listener {
 
@@ -39,6 +43,13 @@ public class ActivityHistoryController
 		this.listener.returnHome();
 	}
 
+	/**
+	 * This method is used to get a list of activities.
+	 * It filters the activities based on the provided sport filter.
+	 * If the filter is null, it returns all activities.
+	 * @param filter The sport filter. If null, all activities are returned.
+	 * @return A list of ActivityDTO objects representing the filtered activities.
+	 */
 	@Override
 	public List<ActivityDTO> getActivities(Sport filter) {
 		return Activity.loadAll().stream()

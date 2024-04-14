@@ -25,8 +25,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ulb.views.ViewController;
 
+/**
+ * The ViewLoader class is responsible for loading the views.
+ */
 public class ViewLoader {
 
+	/**
+	 * An array of paths to the FXML files for the views.
+	 */
 	private static final String[] PATHS = {
 		"/ulb/views/ActivityCreate.fxml", // 0
 		"/ulb/views/ActivityHistory.fxml", // 1
@@ -38,6 +44,12 @@ public class ViewLoader {
 		"/ulb/views/ProfileDeleteConfirm.fxml" // 7
 	};
 
+	/**
+	 * Loads a view from a given resource path and sets it as the scene of the given stage.
+	 * @param resourcePath The path to the FXML file for the view.
+	 * @param stage The stage to set the scene of.
+	 * @return The controller for the loaded view.
+	 */
 	private ViewController load(String resourcePath, Stage stage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(resourcePath));
@@ -60,6 +72,11 @@ public class ViewLoader {
 		}
 	}
 
+	/**
+	 * Returns the index in the PATHS array corresponding to the given controller.
+	 * @param controller The controller to get the path index for.
+	 * @return The index in the PATHS array corresponding to the given controller, or null if no such index exists.
+	 */
 	private Integer getPathIndex(AppController controller) {
 		if (controller instanceof MenuController) {
 			return 4;
