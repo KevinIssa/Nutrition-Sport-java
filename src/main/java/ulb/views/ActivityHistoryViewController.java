@@ -44,9 +44,10 @@ public class ActivityHistoryViewController implements ViewController {
 
 	public void addActivity(ActivityDTO activity) {
 		Button deleteActivityButton = new Button();
-		deleteActivityButton.setOnAction(e -> deleteActivityInHistory(activity));
 		HistoryBox activityHistoryBox = new HistoryBox(activity, deleteActivityButton);
+		deleteActivityButton.setOnAction(e -> deleteActivityInHistory(activityHistoryBox));
 		historyList.getItems().add(activityHistoryBox);
+
 	}
 
 	/**
@@ -59,9 +60,8 @@ public class ActivityHistoryViewController implements ViewController {
 		listener.getActivities(filteredSport).forEach(this::addActivity);
 	}
 
-	private void deleteActivityInHistory(ActivityDTO activity) {
-		// TODO : Implement delete activity in history
-		System.out.println("Not implemented yet");
+	private void deleteActivityInHistory(HistoryBox activityBox) {
+		historyList.getItems().remove(activityBox);
 	}
 
 	// Set listener for communication with the controller
