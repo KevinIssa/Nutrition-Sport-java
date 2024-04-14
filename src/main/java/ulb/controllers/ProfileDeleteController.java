@@ -40,7 +40,7 @@ public class ProfileDeleteController
 	public void deleteProfile() {
 		Profile profile = Profile.load();
 		profile.delete();
-		Activity.clearAllActivities();
+		Activity.clearAll();
 		ConsumedMeal.clearAllConsumedMeals();
 		deleteProfileImage();
 		this.listener.createProfile();

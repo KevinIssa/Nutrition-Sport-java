@@ -18,6 +18,8 @@
  */
 package ulb.models;
 
+import java.io.File;
+
 /**
  * This interface defines methods for saving and loading objects to and from JSON files.
  */
@@ -36,4 +38,11 @@ public interface JsonSerializable {
 	 * @return the loaded object
 	 */
 	JsonSerializable loadFromFile(String filename);
+
+	/**
+	 * Deletes the file associated with the implementing object.
+	 */
+	static void deleteFile(String filename) {
+		new File(filename).delete();
+	}
 }

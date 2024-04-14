@@ -18,9 +18,8 @@
  */
 package ulb.controllers;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import ulb.controllers.dtos.ActivityDTO;
 import ulb.models.Activity;
 import ulb.models.enums.Sport;
@@ -42,18 +41,10 @@ public class ActivityHistoryController
 
 	@Override
 	public List<ActivityDTO> getActivities(Sport filter) {
-		File folder = new File("activities");
-		List<ActivityDTO> list = new ArrayList<>();
-		File[] files = folder.listFiles();
-		if (files != null) {
-			for (File file : files) {
-				Activity activity = Activity.load(file.getPath());
-				if (filter == null || activity.getSport() == filter) {
-					list.add(new ActivityDTO(activity));
-				}
-			}
-		}
-		return list;
+		return Activity.loadAll().stream()
+				.filter(activity -> filter == null || activity.getSport() == filter)
+				.map(ActivityDTO::new)
+				.collect(Collectors.toList());
 	}
 
 	public interface Listener {

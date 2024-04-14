@@ -29,10 +29,10 @@ public class ActivityDTO {
 	public final String duration;
 
 	public ActivityDTO(Activity activity) {
-		date = activity.changeDateFormat(activity.getDate());
+		date = activity.getDateToString();
 		burnedCalories = String.valueOf(activity.getCaloriesBurned(Profile.load().getWeight()));
 		intensity = activity.getIntensity().toString();
 		sport = activity.getSport().toString();
-		duration = activity.durationToString(activity.getDuration());
+		duration = activity.getDurationToString();
 	}
 }

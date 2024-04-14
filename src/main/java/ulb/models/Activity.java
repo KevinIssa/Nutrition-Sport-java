@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import ulb.models.enums.Intensity;
 import ulb.models.enums.Sport;
 
@@ -101,9 +103,32 @@ public class Activity implements JsonSerializable {
 	}
 
 	/**
+	 * Retrieves all saved activities from the file system.
+	 * <p>
+	 * This method scans the directory specified by FOLDER_NAME for JSON files, each representing an Activity.
+	 * Each file is loaded into an Activity object and added to a list.
+	 * The list of all loaded activities is then returned.
+	 *
+	 * @return A list of all saved activities. If no activities are saved, an empty list is returned.
+	 */
+	public static List<Activity> loadAll() {
+		File folder = new File(FOLDER_NAME);
+		File[] files = folder.listFiles();
+		List<Activity> activities = new ArrayList<>();
+		if (files != null) {
+			for (File file : files) {
+				if (!file.isDirectory()) {
+					activities.add(load(file.getPath()));
+				}
+			}
+		}
+		return activities;
+	}
+
+	/**
 	 * Clears all saved activity data.
 	 */
-	public static void clearAllActivities() {
+	public static void clearAll() {
 		File folder = new File(FOLDER_NAME);
 		File[] files = folder.listFiles();
 		if (files != null) {
@@ -123,6 +148,87 @@ public class Activity implements JsonSerializable {
 	 */
 	public static Activity load(String filename) {
 		return (Activity) new Activity().loadFromFile(filename);
+	}
+
+	// Utility methods.
+
+	/**
+	 * Gets the duration of the activity in minutes.
+	 *
+	 * @return The duration of the activity in minutes.
+	 */
+	@JsonIgnore
+	public int getDurationInMinutes() {
+		return (int) duration.toMinutes();
+	}
+
+	/**
+	 * Calculates the calories burned during the activity based on user weight.
+	 *
+	 * @param weight The weight of the user.
+	 * @return The calories burned during the activity.
+	 */
+	public int getCaloriesBurned(float weight) {
+		return (int) CalorieCalculator.compute(this, weight);
+	}
+
+	/**
+	 * Converts the activity duration to a string format.
+	 *
+	 * @return The duration of the activity as a string (e.g., "2h30m").
+	 */
+	@JsonIgnore
+	public String getDurationToString() {
+		long hours = duration.toHours();
+		long minutes = duration.minusHours(hours).toMinutes();
+		return hours + "h" + minutes + "m";
+	}
+
+	/**
+	 * Converts the date to a formatted string.
+	 *
+	 * @return The formatted date string.
+	 */
+	@JsonIgnore
+	public String getDateToString() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm");
+		return date.format(formatter);
+	}
+
+	/**
+	 * Saves the activity data to a JSON file.
+	 *
+	 * @param filename The name of the file to save the activity data.
+	 */
+	@Override
+	public void saveToFile(String filename) {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.registerModule(new JavaTimeModule());
+		try {
+			mapper.writeValue(new File(filename), this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Loads the activity data from a JSON file.
+	 *
+	 * @param filename The name of the file containing the activity data.
+	 * @return The loaded Activity object.
+	 */
+	@Override
+	public JsonSerializable loadFromFile(String filename) {
+		File file = new File(filename);
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JavaTimeModule());
+		try {
+			return mapper.readValue(file, Activity.class);
+		} catch (IOException e) {
+			System.out.println("No activity found");
+			return null;
+		}
 	}
 
 	// Getters and setters for class attributes.
@@ -197,86 +303,5 @@ public class Activity implements JsonSerializable {
 	 */
 	public void setDate(LocalDateTime date) {
 		this.date = date;
-	}
-
-	// Utility methods.
-
-	/**
-	 * Gets the duration of the activity in minutes.
-	 *
-	 * @return The duration of the activity in minutes.
-	 */
-	@JsonIgnore
-	public int getDurationInMinutes() {
-		return (int) duration.toMinutes();
-	}
-
-	/**
-	 * Calculates the calories burned during the activity based on user weight.
-	 *
-	 * @param weight The weight of the user.
-	 * @return The calories burned during the activity.
-	 */
-	public int getCaloriesBurned(float weight) {
-		return (int) CalorieCalculator.compute(this, weight);
-	}
-
-	/**
-	 * Converts the activity duration to a string format.
-	 *
-	 * @param duration The duration of the activity.
-	 * @return The duration of the activity as a string (e.g., "2h30m").
-	 */
-	public String durationToString(Duration duration) {
-		long hours = duration.toHours();
-		long minutes = duration.minusHours(hours).toMinutes();
-		return hours + "h" + minutes + "m";
-	}
-
-	/**
-	 * Converts the date to a formatted string.
-	 *
-	 * @param date The date to be formatted.
-	 * @return The formatted date string.
-	 */
-	public String changeDateFormat(LocalDateTime date) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm");
-		return date.format(formatter);
-	}
-
-	/**
-	 * Saves the activity data to a JSON file.
-	 *
-	 * @param filename The name of the file to save the activity data.
-	 */
-	@Override
-	public void saveToFile(String filename) {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		mapper.registerModule(new JavaTimeModule());
-		try {
-			mapper.writeValue(new File(filename), this);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Loads the activity data from a JSON file.
-	 *
-	 * @param filename The name of the file containing the activity data.
-	 * @return The loaded Activity object.
-	 */
-	@Override
-	public JsonSerializable loadFromFile(String filename) {
-		File file = new File(filename);
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new JavaTimeModule());
-		try {
-			return mapper.readValue(file, Activity.class);
-		} catch (IOException e) {
-			System.out.println("No activity found");
-			return null;
-		}
 	}
 }

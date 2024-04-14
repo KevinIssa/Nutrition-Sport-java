@@ -51,7 +51,7 @@ public class TestActivity {
 		// Create dummy activity files
 		createDummyActivityFiles();
 
-		Activity.clearAllActivities();
+		Activity.clearAll();
 
 		// Check if the files were deleted
 		assertFalse(checkDummyActivityFilesExist());
