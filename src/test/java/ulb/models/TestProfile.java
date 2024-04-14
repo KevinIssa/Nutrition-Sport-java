@@ -38,7 +38,7 @@ public class TestProfile {
 	public void testDeleteProfile() {
 		Profile profile = createProfile("lucas", "dubois", 70, 180, LocalDate.now());
 		profile.save();
-		profile.delete();
+		Profile.delete();
 		assertFalse(Profile.isCreated());
 	}
 

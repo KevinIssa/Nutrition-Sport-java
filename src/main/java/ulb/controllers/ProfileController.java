@@ -18,16 +18,10 @@
  */
 package ulb.controllers;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import javafx.scene.image.Image;
+import java.time.LocalDate;
+import ulb.models.Height;
 import ulb.models.Profile;
+import ulb.models.Weight;
 import ulb.models.enums.Sex;
 import ulb.views.ProfileViewController;
 
@@ -53,8 +47,8 @@ public class ProfileController implements AppController, ProfileViewController.L
 						firstName,
 						lastName,
 						Sex.fromString(sex),
-						new ulb.models.Weight(weight),
-						new ulb.models.Height(height),
+						new Weight(weight),
+						new Height(height),
 						birthDate);
 		profile.save();
 	}
@@ -85,7 +79,7 @@ public class ProfileController implements AppController, ProfileViewController.L
 	}
 
 	@Override
-	public java.time.LocalDate getBirthDate() {
+	public LocalDate getBirthDate() {
 		return profile.getBirthDate();
 	}
 
@@ -101,35 +95,12 @@ public class ProfileController implements AppController, ProfileViewController.L
 
 	@Override
 	public void saveProfileImage(String imagePath) {
-		copyImage(imagePath, "profile.png");
+		Profile.saveImage(imagePath);
 	}
 
 	@Override
-	public Image getProfileImage(double width, double height) {
-		return loadImage("profile.png", width, height);
-	}
-
-	private void copyImage(String sourceUrl, String destinationFile) {
-		try {
-			URL imageUrl = new URL(sourceUrl);
-			Path destinationPath = Paths.get(new File(destinationFile).toURI());
-			Files.copy(imageUrl.openStream(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	private Image loadImage(String filePath, double width, double height) {
-		try {
-			File file = new File(filePath);
-			if (!file.exists()) {
-				return null;
-			}
-			URL path = file.toURL();
-			return new Image(path.toString(), width, height, true, true);
-		} catch (MalformedURLException e) {
-			throw new RuntimeException(e);
-		}
+	public String getProfileImagePath() {
+		return Profile.IMAGE_PATH;
 	}
 
 	public interface Listener {

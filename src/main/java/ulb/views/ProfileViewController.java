@@ -19,6 +19,7 @@
 package ulb.views;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
@@ -111,9 +112,23 @@ public class ProfileViewController implements ViewController {
 	public void setProfileImage() {
 		double desiredWidth = 200; // Desired width in pixels
 		double desiredHeight = 150; // Desired height in pixels
-		Image image = this.listener.getProfileImage(desiredWidth, desiredHeight);
+		Image image =
+				this.loadImage(this.listener.getProfileImagePath(), desiredWidth, desiredHeight);
 		if ((image != null)) {
 			this.profileimage.setImage(image);
+		}
+	}
+
+	private Image loadImage(String filePath, double width, double height) {
+		try {
+			File file = new File(filePath);
+			if (!file.exists()) {
+				return null;
+			}
+			URL path = file.toURL();
+			return new Image(path.toString(), width, height, true, true);
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -189,8 +204,8 @@ public class ProfileViewController implements ViewController {
 
 		float getWeight();
 
-		void saveProfileImage(String imagepath);
+		void saveProfileImage(String imagePath);
 
-		Image getProfileImage(double width, double height);
+		String getProfileImagePath();
 	}
 }

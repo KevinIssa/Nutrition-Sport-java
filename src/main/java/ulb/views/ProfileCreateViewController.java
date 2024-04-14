@@ -19,7 +19,6 @@
 package ulb.views;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -75,7 +74,7 @@ public class ProfileCreateViewController implements ViewController {
 			if (this.imagepath != null) {
 				this.listener.saveProfileImage(this.imagepath);
 			}
-		} catch (NumberFormatException | IOException e) {
+		} catch (NumberFormatException e) {
 			return;
 		}
 		this.listener.returnHome();
@@ -99,6 +98,6 @@ public class ProfileCreateViewController implements ViewController {
 
 		void returnHome();
 
-		void saveProfileImage(String image) throws IOException;
+		void saveProfileImage(String image);
 	}
 }

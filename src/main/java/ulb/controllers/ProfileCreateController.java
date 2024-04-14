@@ -18,10 +18,6 @@
  */
 package ulb.controllers;
 
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import ulb.models.Height;
 import ulb.models.Profile;
@@ -56,15 +52,14 @@ public class ProfileCreateController
 		profile.save();
 	}
 
+	@Override
 	public void returnHome() {
 		this.listener.returnHome();
 	}
 
-	public void saveProfileImage(String imagePath) throws IOException {
-		Files.copy(
-				new URL(imagePath).openStream(),
-				Paths.get("profile.png"),
-				java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+	@Override
+	public void saveProfileImage(String imagePath) {
+		Profile.saveImage(imagePath);
 	}
 
 	public interface Listener {
