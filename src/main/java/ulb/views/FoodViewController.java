@@ -25,7 +25,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -49,52 +48,29 @@ public class FoodViewController implements ViewController {
 	@FXML private Slider slider;
 	@FXML private Label title;
 	@FXML private Label name;
-	@FXML private TextField namefield;
-	@FXML private Label statuslabel;
-	private Boolean mode;
-	@FXML private DatePicker mealdate;
+	@FXML private TextField textField;
+	@FXML private DatePicker mealDate;
 	@FXML private TextField hour;
 	@FXML private TextField minutes;
 	@FXML private Group date;
-
-	private ArrayList<ArrayList<String>> consumedFoodsList = new ArrayList<>();
+	private boolean mode = false;
+	private final ArrayList<ArrayList<String>> consumedFoodsList = new ArrayList<>();
 	private FoodViewController.Listener listener;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		// Set the current time
-		hour.setText(String.valueOf(LocalTime.now().getHour()));
-		minutes.setText(String.valueOf(LocalTime.now().getMinute()));
-		// Set the current date
-		mealdate.setValue(LocalDate.now());
-		// Hide the name label and text field
-		name.setVisible(false);
-		namefield.setVisible(false);
-		// Configure the slider
-		configSlider();
-		// Add a listener to the slider value property
-		slider.valueProperty()
+		this.hour.setText(String.valueOf(LocalTime.now().getHour()));
+		this.minutes.setText(String.valueOf(LocalTime.now().getMinute()));
+		this.mealDate.setValue(LocalDate.now());
+		this.name.setVisible(false);
+		this.textField.setVisible(false);
+		this.slider
+				.valueProperty()
 				.addListener(
 						(observable, oldValue, newValue) -> {
-							// Update the boolean variable based on slider value
-							mode = newValue.intValue() == 1;
-							// Update the status label
-							statuslabel.setText(mode ? "plats" : "aliments");
-							// Call function whenever the slider is modified
+							this.mode = newValue.intValue() == 1;
 							changeMode();
 						});
-	}
-
-	private void configSlider() {
-		slider.setMin(0);
-		slider.setMax(1);
-		slider.setValue(0);
-		slider.setMinorTickCount(0);
-		slider.setSnapToTicks(true);
-		slider.setShowTickMarks(true);
-		slider.setShowTickLabels(true);
-		slider.setMajorTickUnit(1);
-		mode = false; // * Default value
 	}
 
 	/**
@@ -106,15 +82,15 @@ public class FoodViewController implements ViewController {
 		if (mode) {
 			title.setText("Ajoutez un plat");
 			name.setVisible(true);
-			namefield.setVisible(true);
+			textField.setVisible(true);
 			date.setVisible(false);
-			namefield.setText("");
+			textField.setText("");
 			consumedFoodsList.clear();
 			chosenFoodView.getItems().clear();
 		} else {
 			title.setText("Ajoutez les aliments consommés");
 			name.setVisible(false);
-			namefield.setVisible(false);
+			textField.setVisible(false);
 			date.setVisible(true);
 			consumedFoodsList.clear();
 			chosenFoodView.getItems().clear();
@@ -180,34 +156,21 @@ public class FoodViewController implements ViewController {
 				return null;
 			}
 
-			LocalTime time =
-					LocalTime.of(
-							Integer.parseInt(hour.getText()), Integer.parseInt(minutes.getText()));
-			return time;
+			return LocalTime.of(intHour, intMinutes);
 		} catch (NumberFormatException e) {
 			showAlert("Heure invalide", "L'heure doit être un nombre");
 			return null;
 		}
 	}
 
-	public boolean isDateInFuture(LocalDate date1, LocalDate date2) {
-		return date1.compareTo(date2) > 0;
-	}
-
-	/**
-	 * This method returns the date and time of the meal entered by the user.
-	 * @return The date and time of the meal.
-	 */
 	public LocalDateTime getMealDateTime() {
-
 		LocalDate currentDate = LocalDate.now();
-		if (isDateInFuture(mealdate.getValue(), currentDate)) {
+		if (mealDate.getValue().isAfter(currentDate)) {
 			showAlert("Date invalide", "La date ne peut pas être dans le futur");
 			return null;
 		}
 
-		LocalDateTime mealdatetime = LocalDateTime.of(mealdate.getValue(), getMealTime());
-		return mealdatetime;
+		return LocalDateTime.of(mealDate.getValue(), getMealTime());
 	}
 
 	/**
@@ -224,8 +187,8 @@ public class FoodViewController implements ViewController {
 			return;
 		}
 		if (mode) {
-			if (!Objects.equals(namefield.getText(), "")) {
-				this.listener.saveMeal(namefield.getText(), consumedFoodsList);
+			if (!textField.getText().isEmpty()) {
+				this.listener.saveMeal(textField.getText(), consumedFoodsList);
 			}
 			this.listener.reload();
 		} else {
@@ -237,7 +200,6 @@ public class FoodViewController implements ViewController {
 				this.listener.saveConsumedFoods(consumedFoodsList, mealDate);
 
 			} catch (NullPointerException e) {
-
 				return;
 			}
 		}

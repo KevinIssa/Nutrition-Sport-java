@@ -111,7 +111,7 @@ public class ProfileViewController implements ViewController {
 		if (selectedFile != null) {
 			try {
 				this.profileImage.setImage(loadImage(selectedFile.toURL(), 129, 125));
-				this.imagePath = selectedFile.toURI().toURL().toString();
+				this.imagePath = selectedFile.toURI().toString();
 			} catch (MalformedURLException e) {
 				throw new RuntimeException(e);
 			}
@@ -127,7 +127,9 @@ public class ProfileViewController implements ViewController {
 					LocalDate.parse(this.birthdateController.getText()),
 					Float.parseFloat(this.heightController.getText()),
 					Float.parseFloat(this.weightController.getText()));
-			this.listener.saveProfileImage(this.imagePath);
+			if (this.imagePath != null) {
+				this.listener.saveProfileImage(this.imagePath);
+			}
 		} catch (NumberFormatException e) {
 			System.err.println("Height and weight must be numbers");
 		}
