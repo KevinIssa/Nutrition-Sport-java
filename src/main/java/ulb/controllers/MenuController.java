@@ -131,6 +131,11 @@ public class MenuController implements AppController, MenuViewController.Listene
 		popupStage.showAndWait();
 	}
 
+	@Override
+	public String getProfileImagePath() {
+		return Profile.IMAGE_PATH;
+	}
+
 	private void loadViewWithController(AppController controller) {
 		viewLoader.loadView(this.primaryStage, controller);
 	}
