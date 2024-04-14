@@ -42,20 +42,24 @@ public class ProfileDeleteController
 		profile.delete();
 		Activity.clearAllActivities();
 		ConsumedMeal.clearAllConsumedMeals();
-		try {
-			Path fileToDelete = Paths.get(".").resolve("profile.png");
-			if (Files.exists(fileToDelete)) {
-				Files.delete(fileToDelete);
-			}
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		deleteProfileImage();
 		this.listener.createProfile();
 	}
 
 	@Override
 	public void returnHome() {
 		this.listener.returnHome();
+	}
+
+	private void deleteProfileImage() {
+		Path fileToDelete = Paths.get(".").resolve("profile.png");
+		try {
+			if (Files.exists(fileToDelete)) {
+				Files.delete(fileToDelete);
+			}
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public interface Listener {

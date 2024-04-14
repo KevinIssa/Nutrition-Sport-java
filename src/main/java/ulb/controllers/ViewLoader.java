@@ -53,43 +53,33 @@ public class ViewLoader {
 		this.load(resourcePath, stage).setListener(controller);
 	}
 
-	public void load(int pathIndex, Stage stage, AppController controller) {
-		this.loadWithListener(PATHS[pathIndex], stage, controller);
+	public void loadView(Stage stage, AppController controller) {
+		Integer pathIndex = this.getPathIndex(controller);
+		if (pathIndex != null) {
+			this.loadWithListener(PATHS[pathIndex], stage, controller);
+		}
 	}
 
-	public ViewController load(int pathIndex, Stage stage) {
-		return this.load(PATHS[pathIndex], stage);
-	}
-
-	public void loadMenu(Stage stage, MenuController controller) {
-		this.load(4, stage, controller);
-	}
-
-	public void loadCreateProfile(Stage stage, ProfileCreateController controller) {
-		this.load(6, stage, controller);
-	}
-
-	public void loadProfile(Stage stage, ProfileController controller) {
-		this.load(5, stage, controller);
-	}
-
-	public void loadDeleteProfile(Stage stage, ProfileDeleteController controller) {
-		this.load(7, stage, controller);
-	}
-
-	public void loadCreateActivity(Stage stage, ActivityCreateController controller) {
-		this.load(0, stage, controller);
-	}
-
-	public void loadActivityHistory(Stage stage, ActivityHistoryController controller) {
-		this.load(1, stage, controller);
-	}
-
-	public void loadMealHistory(Stage stage, MealHistoryController controller) {
-		this.load(3, stage, controller);
+	private Integer getPathIndex(AppController controller) {
+		if (controller instanceof MenuController) {
+			return 4;
+		} else if (controller instanceof ProfileCreateController) {
+			return 6;
+		} else if (controller instanceof ProfileController) {
+			return 5;
+		} else if (controller instanceof ProfileDeleteController) {
+			return 7;
+		} else if (controller instanceof ActivityCreateController) {
+			return 0;
+		} else if (controller instanceof ActivityHistoryController) {
+			return 1;
+		} else if (controller instanceof MealHistoryController) {
+			return 3;
+		}
+		return null;
 	}
 
 	public ViewController loadAddMeal(Stage stage) {
-		return this.load(2, stage);
+		return this.load(PATHS[2], stage);
 	}
 }

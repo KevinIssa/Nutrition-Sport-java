@@ -21,7 +21,6 @@ package ulb.controllers;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -101,21 +100,28 @@ public class ProfileController implements AppController, ProfileViewController.L
 	}
 
 	@Override
-	public void saveProfileImage(String imagepath) {
+	public void saveProfileImage(String imagePath) {
+		copyImage(imagePath, "profile.png");
+	}
+
+	@Override
+	public Image getProfileImage(double width, double height) {
+		return loadImage("profile.png", width, height);
+	}
+
+	private void copyImage(String sourceUrl, String destinationFile) {
 		try {
-			URL imageurl = new URL(imagepath);
-			URI destinationuri = new File("profile.png").toURI();
-			Path destinationpath = Paths.get(destinationuri);
-			Files.copy(imageurl.openStream(), destinationpath, StandardCopyOption.REPLACE_EXISTING);
+			URL imageUrl = new URL(sourceUrl);
+			Path destinationPath = Paths.get(new File(destinationFile).toURI());
+			Files.copy(imageUrl.openStream(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	@Override
-	public Image getProfileImage(double width, double height) {
+	private Image loadImage(String filePath, double width, double height) {
 		try {
-			File file = new File("profile.png");
+			File file = new File(filePath);
 			if (!file.exists()) {
 				return null;
 			}

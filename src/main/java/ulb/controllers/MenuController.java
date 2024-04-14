@@ -18,7 +18,6 @@
  */
 package ulb.controllers;
 
-import java.nio.file.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ulb.models.*;
@@ -44,26 +43,17 @@ public class MenuController implements AppController, MenuViewController.Listene
 
 	@Override
 	public void loadMenuView() {
-		viewLoader.loadMenu(this.primaryStage, this);
+		viewLoader.loadView(this.primaryStage, this);
 	}
 
 	@Override
 	public void loadCreateProfileView() {
-		viewLoader.loadCreateProfile(
-				this.primaryStage,
-				new ProfileCreateController(
-						new ProfileCreateController.Listener() {
-							@Override
-							public void returnHome() {
-								loadMenuView();
-							}
-						}));
+		loadViewWithController(new ProfileCreateController(this::loadMenuView));
 	}
 
 	@Override
 	public void loadOpenProfileView() {
-		viewLoader.loadProfile(
-				this.primaryStage,
+		loadViewWithController(
 				new ProfileController(
 						new ProfileController.Listener() {
 							@Override
@@ -80,13 +70,12 @@ public class MenuController implements AppController, MenuViewController.Listene
 
 	public void loadDeleteProfileView() {
 		Stage popupStage = new Stage();
-		viewLoader.loadDeleteProfile(
+		viewLoader.loadView(
 				popupStage,
 				new ProfileDeleteController(
 						new ProfileDeleteController.Listener() {
 							@Override
 							public void returnHome() {
-								loadMenuView();
 								popupStage.close();
 							}
 
@@ -103,15 +92,12 @@ public class MenuController implements AppController, MenuViewController.Listene
 	@Override
 	public void loadCreateActivityView() {
 		Stage popupStage = new Stage();
-		viewLoader.loadCreateActivity(
+		viewLoader.loadView(
 				popupStage,
 				new ActivityCreateController(
-						new ActivityCreateController.Listener() {
-							@Override
-							public void returnHome() {
-								loadMenuView();
-								popupStage.close();
-							}
+						() -> {
+							loadMenuView();
+							popupStage.close();
 						}));
 		popupStage.initModality(Modality.APPLICATION_MODAL);
 		popupStage.showAndWait();
@@ -119,28 +105,12 @@ public class MenuController implements AppController, MenuViewController.Listene
 
 	@Override
 	public void loadActivityHistoryView() {
-		viewLoader.loadActivityHistory(
-				this.primaryStage,
-				new ActivityHistoryController(
-						new ActivityHistoryController.Listener() {
-							@Override
-							public void returnHome() {
-								loadMenuView();
-							}
-						}));
+		loadViewWithController(new ActivityHistoryController(this::loadMenuView));
 	}
 
 	@Override
 	public void loadMealHistoryView() {
-		viewLoader.loadMealHistory(
-				this.primaryStage,
-				new MealHistoryController(
-						new MealHistoryController.Listener() {
-							@Override
-							public void returnHome() {
-								loadMenuView();
-							}
-						}));
+		loadViewWithController(new MealHistoryController(this::loadMenuView));
 	}
 
 	@Override
@@ -148,18 +118,18 @@ public class MenuController implements AppController, MenuViewController.Listene
 		Stage popupStage = new Stage();
 		FoodViewController foodViewController =
 				(FoodViewController) viewLoader.loadAddMeal(popupStage);
-
 		foodViewController.setListener(
 				new FoodController(
-						new FoodController.Listener() {
-							@Override
-							public void returnHome() {
-								loadMenuView();
-								popupStage.close();
-							}
+						() -> {
+							loadMenuView();
+							popupStage.close();
 						},
 						foodViewController));
 		popupStage.initModality(Modality.APPLICATION_MODAL);
 		popupStage.showAndWait();
+	}
+
+	private void loadViewWithController(AppController controller) {
+		viewLoader.loadView(this.primaryStage, controller);
 	}
 }

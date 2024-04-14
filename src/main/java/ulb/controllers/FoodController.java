@@ -22,6 +22,7 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import ulb.models.ConsumedMeal;
 import ulb.models.Food;
 import ulb.models.FoodLoader;
@@ -32,27 +33,27 @@ public class FoodController implements AppController, FoodViewController.Listene
 
 	private final FoodController.Listener listener;
 	private final FoodViewController viewController;
+	private FoodLoader foodLoader;
 
 	public FoodController(FoodController.Listener listener, FoodViewController viewController) {
 		this.listener = listener;
 		this.viewController = viewController;
+		this.foodLoader = loadFoods();
 	}
-
-	FoodLoader foodLoader = new FoodLoader().extend(loadMeals());
 
 	@Override
 	public void returnHome() {
 		this.listener.returnHome();
 	}
 
-	private List<Food> loadFoods(String searchText) {
+	private FoodLoader loadFoods() {
 		FoodLoader foodLoader = new FoodLoader();
 		foodLoader.extend(loadMeals());
-		return foodLoader.getFoodsSuggestion(searchText);
+		return foodLoader;
 	}
 
 	public void reload() {
-		this.foodLoader = new FoodLoader().extend(loadMeals());
+		this.foodLoader = loadFoods();
 	}
 
 	private Food convertMealToFood(Meal meal) {
@@ -64,10 +65,9 @@ public class FoodController implements AppController, FoodViewController.Listene
 	}
 
 	private List<Food> loadMeals() {
-		File directory = new File("meals"); // Specify the directory path
+		File directory = new File("meals");
 		File[] files = directory.listFiles();
-		// Add Meals to the list
-		List<Food> result = new java.util.ArrayList<>();
+		List<Food> result = new ArrayList<>();
 		if (files != null) {
 			for (File file : files) {
 				Meal meal = Meal.load(file.getPath());
@@ -79,19 +79,12 @@ public class FoodController implements AppController, FoodViewController.Listene
 	}
 
 	private List<String> foodToString(List<Food> foods) {
-
-		List<String> foodNames = new java.util.ArrayList<>();
-		for (Food food : foods) {
-			foodNames.add(food.getName());
-		}
-
-		return foodNames;
+		return foods.stream().map(Food::getName).collect(Collectors.toList());
 	}
 
 	@Override
 	public int getCaloriesConsumedByGrams(String food, int quantity) {
-		Food foodObject = foodLoader.getFoodByName(food);
-		return foodObject.getCaloriesConsumedByGrams(quantity);
+		return foodLoader.getFoodByName(food).getCaloriesConsumedByGrams(quantity);
 	}
 
 	@Override
@@ -99,42 +92,37 @@ public class FoodController implements AppController, FoodViewController.Listene
 			ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealdate) {
 		ConsumedMeal consumedMeal = new ConsumedMeal();
 		for (List<String> consumedFood : consumedFoodsList) {
-			String food = consumedFood.get(0);
-			int quantity = Integer.parseInt(consumedFood.get(1));
-			int calories = Integer.parseInt(consumedFood.get(2));
-			String type = consumedFood.get(3);
-			consumedMeal.addConsumedFood(food, quantity, calories, type);
+			consumedMeal.addConsumedFood(
+					consumedFood.get(0),
+					Integer.parseInt(consumedFood.get(1)),
+					Integer.parseInt(consumedFood.get(2)),
+					consumedFood.get(3));
 		}
-
 		consumedMeal.setDate(mealdate);
 		consumedMeal.save();
 	}
 
 	@Override
 	public Food getCorrespondingFood(String food) {
-		List<Food> foods = loadFoods(food);
-		if (!foods.isEmpty()) {
-			return foods.get(0);
-		} else {
-			throw new RuntimeException("food selected not in database");
-		}
+		return foodLoader.getFoodsSuggestion(food).stream()
+				.findFirst()
+				.orElseThrow(() -> new RuntimeException("food selected not in database"));
 	}
 
 	@Override
 	public void saveMeal(String mealname, ArrayList<ArrayList<String>> consumedFoodsList) {
 		Meal newmeal = new Meal(mealname);
 		for (List<String> consumedFood : consumedFoodsList) {
-			String food = consumedFood.get(0);
-			int quantity = Integer.parseInt(consumedFood.get(1));
-			newmeal.addIngredient(getCorrespondingFood(food), quantity);
+			newmeal.addIngredient(
+					getCorrespondingFood(consumedFood.get(0)),
+					Integer.parseInt(consumedFood.get(1)));
 		}
 		newmeal.save();
 	}
 
 	@Override
 	public String getFoodServingQuantity(String food) {
-		Food selectedfood = foodLoader.getFoodByName(food);
-		return selectedfood.getServingQuantity();
+		return foodLoader.getFoodByName(food).getServingQuantity();
 	}
 
 	@Override
@@ -149,10 +137,7 @@ public class FoodController implements AppController, FoodViewController.Listene
 
 	@Override
 	public void sendUserSearch(String searchText) {
-
-		List<Food> foods = loadFoods(searchText);
-		List<String> foodNames = foodToString(foods);
-		this.viewController.setSuggestions(foodNames);
+		this.viewController.setSuggestions(foodToString(foodLoader.getFoodsSuggestion(searchText)));
 	}
 
 	public interface Listener {

@@ -36,17 +36,13 @@ public class ActivityCreateController
 	}
 
 	@Override
-	public void saveActivity(
-			Sport selectedSport,
-			int selectedIntensity,
-			String selectedDuration,
-			LocalDateTime activityDateTime) {
+	public void saveActivity(Sport sport, int intensity, String duration, LocalDateTime dateTime) {
 		Activity activity =
 				new Activity(
-						selectedSport,
-						Intensity.fromInt(selectedIntensity),
-						Duration.ofMinutes(Long.parseLong(selectedDuration)),
-						activityDateTime);
+						sport,
+						Intensity.fromInt(intensity),
+						Duration.ofMinutes(Long.parseLong(duration)),
+						dateTime);
 		activity.save();
 		ActivityCreateViewController.showAlert(
 				activity.getCaloriesBurned(Profile.load().getWeight()));

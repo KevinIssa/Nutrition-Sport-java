@@ -18,16 +18,14 @@
  */
 package ulb.controllers;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import ulb.models.Height;
 import ulb.models.Profile;
+import ulb.models.Weight;
 import ulb.models.enums.Sex;
 import ulb.views.ProfileCreateViewController;
 
@@ -40,7 +38,6 @@ public class ProfileCreateController
 		this.listener = listener;
 	}
 
-	@Override
 	public void saveProfile(
 			String firstName,
 			String lastName,
@@ -53,27 +50,21 @@ public class ProfileCreateController
 						firstName,
 						lastName,
 						Sex.fromString(sex),
-						new ulb.models.Weight(weight),
-						new ulb.models.Height(height),
+						new Weight(weight),
+						new Height(height),
 						birthDate);
 		profile.save();
 	}
 
-	@Override
 	public void returnHome() {
 		this.listener.returnHome();
 	}
 
-	@Override
 	public void saveProfileImage(String imagePath) throws IOException {
-		try {
-			URL imageurl = new URL(imagePath);
-			URI destinationuri = new File("profile.png").toURI();
-			Path destinationpath = Paths.get(destinationuri);
-			Files.copy(imageurl.openStream(), destinationpath, StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		Files.copy(
+				new URL(imagePath).openStream(),
+				Paths.get("profile.png"),
+				java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 	}
 
 	public interface Listener {
