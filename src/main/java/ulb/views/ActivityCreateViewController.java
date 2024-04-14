@@ -42,18 +42,18 @@ public class ActivityCreateViewController implements ViewController {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		selectedButton = buttonWalking;
-		intensitySlider.setLabelFormatter(new IntensityStringConverter());
-		initTime();
+		this.selectedButton = this.buttonWalking;
+		this.intensitySlider.setLabelFormatter(new IntensityStringConverter());
+		this.initTime();
 	}
 
 	/**
 	 * This method initializes the date picker and time fields with the current date and time.
 	 */
 	private void initTime() {
-		activityDate.setValue(LocalDate.now());
-		hour.setText(String.valueOf(LocalTime.now().getHour()));
-		minutes.setText(String.valueOf(LocalTime.now().getMinute()));
+		this.activityDate.setValue(LocalDate.now());
+		this.hour.setText(String.valueOf(LocalTime.now().getHour()));
+		this.minutes.setText(String.valueOf(LocalTime.now().getMinute()));
 	}
 
 	/**
@@ -61,12 +61,12 @@ public class ActivityCreateViewController implements ViewController {
 	 */
 	public LocalTime getActivityTime() {
 		try {
-			int intHour = Integer.parseInt(hour.getText());
-			int intMinutes = Integer.parseInt(minutes.getText());
+			int intHour = Integer.parseInt(this.hour.getText());
+			int intMinutes = Integer.parseInt(this.minutes.getText());
 			int intSeconds = LocalTime.now().getSecond();
 
 			if (intHour < 0 || intHour > 23 || intMinutes < 0 || intMinutes > 59) {
-				showAlert(
+				this.showAlert(
 						"Heure invalide",
 						"L'heure doit être comprise entre 0 et 23 et les minutes entre 0 et 59");
 				return null;
@@ -74,13 +74,13 @@ public class ActivityCreateViewController implements ViewController {
 
 			return LocalTime.of(intHour, intMinutes, intSeconds);
 		} catch (NumberFormatException e) {
-			showAlert("Heure invalide", "L'heure doit être un nombre");
+			this.showAlert("Heure invalide", "L'heure doit être un nombre");
 			return null;
 		}
 	}
 
 	public LocalDateTime getActivityDate() {
-		return LocalDateTime.of(activityDate.getValue(), getActivityTime());
+		return LocalDateTime.of(this.activityDate.getValue(), this.getActivityTime());
 	}
 
 	// Method to save the activity
@@ -101,10 +101,10 @@ public class ActivityCreateViewController implements ViewController {
 	 * This method changes the selected sport and updates the UI accordingly.
 	 */
 	public void clickedButton(Button button, Sport sport) {
-		selectedButton.setStyle("-fx-background-color: #9960f2;");
+		this.selectedButton.setStyle("-fx-background-color: #9960f2;");
 		button.setStyle("-fx-background-color: #b7ed65;");
-		selectedSport = sport;
-		selectedButton = button;
+		this.selectedSport = sport;
+		this.selectedButton = button;
 	}
 
 	public void selectWalking() {

@@ -46,7 +46,6 @@ public class ActivityHistoryViewController implements ViewController {
 		Button deleteActivityButton = new Button();
 		deleteActivityButton.setOnAction(e -> deleteActivityInHistory(activity));
 		HistoryBox activityHistoryBox = new HistoryBox(activity, deleteActivityButton);
-
 		historyList.getItems().add(activityHistoryBox);
 	}
 
@@ -57,14 +56,12 @@ public class ActivityHistoryViewController implements ViewController {
 	 */
 	public void setActivities() {
 		historyList.getItems().clear();
-		for (ActivityDTO activity : listener.getActivities(filteredSport)) {
-			this.addActivity(activity);
-		}
+		listener.getActivities(filteredSport).forEach(this::addActivity);
 	}
 
 	private void deleteActivityInHistory(ActivityDTO activity) {
-		// à connecter avec le controller et la modèle
-		System.out.println("C pas fait ");
+		// TODO : Implement delete activity in history
+		System.out.println("Not implemented yet");
 	}
 
 	// Set listener for communication with the controller
@@ -81,12 +78,10 @@ public class ActivityHistoryViewController implements ViewController {
 	}
 
 	public void toggleShowFilter() {
-		if (filters.isVisible()) {
-			filters.setVisible(false);
+		filters.setVisible(!filters.isVisible());
+		if (!filters.isVisible()) {
 			filteredSport = null;
 			setActivities();
-		} else {
-			filters.setVisible(true);
 		}
 	}
 

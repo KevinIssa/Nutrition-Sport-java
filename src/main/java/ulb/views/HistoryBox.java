@@ -18,7 +18,6 @@
  */
 package ulb.views;
 
-import java.net.URL;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,32 +28,21 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import ulb.controllers.dtos.ActivityDTO;
 
-// This class is used to create a custom HBox for displaying activity history in the application.
 public class HistoryBox extends HBox {
-	private static final String CALENDAR_IMG_PATH = "/ulb/images/history_img/calendar.png";
-	public static final String CHRONOMETER_IMG_PATH = "/ulb/images/history_img/chronometer.png";
-	public static final String CALORIES_IMG_PATH = "/ulb/images/history_img/calories.png";
-	public static final String SPORT_IMGS_PATH = "/ulb/images/sport_img/";
-	public static final String INTENSITY_IMGS_PATH = "/ulb/images/intensity_img/";
-	public static final String TRASH_IMG_PATH = "/ulb/images/trash.png";
+	private static final String IMG_PATH = "/ulb/images/";
+	private static final String[] ICONS = {
+		"history_img/calendar.png",
+		"history_img/chronometer.png",
+		"history_img/calories.png",
+		"trash.png"
+	};
 
-	// constructor of the class
 	public HistoryBox(ActivityDTO activity, Button button) {
-		this.settings();
+		this.setAlignment(Pos.CENTER_LEFT);
+		this.setSpacing(10);
 		this.fill(activity, button);
 	}
 
-	private void settings() {
-		this.setAlignment(Pos.CENTER_LEFT);
-		this.setSpacing(10);
-	}
-
-	/**
-	 * This method fills the HBox with the activity data and button.
-	 * It sets the icons, labels, and button in the HBox.
-	 * @param activity The activity data transfer object (DTO) containing the activity data.
-	 * @param button The button to be added to the HBox.
-	 */
 	private void fill(ActivityDTO activity, Button button) {
 		this.setIcons(activity);
 		this.setLabels(activity);
@@ -64,48 +52,36 @@ public class HistoryBox extends HBox {
 	private void setIcons(ActivityDTO activity) {
 		this.getChildren()
 				.addAll(
-						this.createSportImageView(activity),
-						this.createIntensityImageView(activity),
-						this.createImageView(CALENDAR_IMG_PATH),
-						this.createImageView(CHRONOMETER_IMG_PATH),
-						this.createImageView(CALORIES_IMG_PATH));
+						createImageView("sport_img/" + activity.sport + ".png"),
+						createImageView("intensity_img/" + activity.intensity + ".png"),
+						createImageView(ICONS[0]),
+						createImageView(ICONS[1]),
+						createImageView(ICONS[2]));
 	}
 
 	private void setLabels(ActivityDTO activity) {
-		this.getChildren().add(3, new Label(activity.date));
-		this.getChildren().add(5, new Label(activity.duration));
-		this.getChildren().add(7, new Label(activity.burnedCalories + " kcal"));
+		this.getChildren()
+				.addAll(
+						new Label(activity.date),
+						new Label(activity.duration),
+						new Label(activity.burnedCalories + " kcal"));
 	}
 
 	private void setButtonInHBox(Button button) {
-		ImageView imageDelete = createImageView(TRASH_IMG_PATH);
-		button.setGraphic(imageDelete);
+		button.setGraphic(createImageView(ICONS[3]));
 		Region spacer = new Region();
-		setHgrow(spacer, Priority.ALWAYS);
+		HBox.setHgrow(spacer, Priority.ALWAYS);
 		this.getChildren().addAll(spacer, button);
 	}
 
-	private String getImagePathForSport(String sport) {
-		return SPORT_IMGS_PATH + sport + ".png";
-	}
-
-	private String getIntensityPathForSport(String intensity) {
-		return INTENSITY_IMGS_PATH + intensity + ".png";
-	}
-
-	private ImageView createIntensityImageView(ActivityDTO activity) {
-		String intensityStringPath = getIntensityPathForSport(activity.intensity);
-		return createImageView(intensityStringPath);
-	}
-
-	private ImageView createSportImageView(ActivityDTO activity) {
-		String imagePath = getImagePathForSport(activity.sport);
-		return createImageView(imagePath);
-	}
-
 	private ImageView createImageView(String imagePath) {
-		URL path = getClass().getResource(imagePath);
-		Image image = new Image(path.toString(), 30, 30, false, false);
+		Image image =
+				new Image(
+						getClass().getResource(IMG_PATH + imagePath).toString(),
+						30,
+						30,
+						false,
+						false);
 		return new ImageView(image);
 	}
 }
