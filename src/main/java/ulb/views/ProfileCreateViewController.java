@@ -31,12 +31,13 @@ import javafx.stage.FileChooser;
 
 public class ProfileCreateViewController implements ViewController {
 	@FXML private ImageView image;
-	@FXML private Button imageselection;
+	@FXML private Button imageSelection;
 	@FXML private TextField firstname, lastname, height, weight;
 	@FXML private DatePicker birthdate;
 	@FXML private ToggleGroup sex;
-	private String imagepath = null;
-	private Listener listener;
+
+	private String imagePath = null;
+	private ProfileCreateViewController.Listener listener;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -51,10 +52,10 @@ public class ProfileCreateViewController implements ViewController {
 	 * @param event The action event triggered by the user interaction.
 	 */
 	public void eventHandler(ActionEvent event) {
-		File selectedFile = new FileChooser().showOpenDialog(imageselection.getScene().getWindow());
+		File selectedFile = new FileChooser().showOpenDialog(imageSelection.getScene().getWindow());
 		if (selectedFile != null) {
 			this.image.setImage(new Image(selectedFile.toURI().toString(), 200, 150, true, true));
-			this.imagepath = selectedFile.toURI().toString();
+			this.imagePath = selectedFile.toURI().toString();
 		}
 	}
 
@@ -71,8 +72,8 @@ public class ProfileCreateViewController implements ViewController {
 					this.birthdate.getValue(),
 					Float.parseFloat(this.height.getText()),
 					Float.parseFloat(this.weight.getText()));
-			if (this.imagepath != null) {
-				this.listener.saveProfileImage(this.imagepath);
+			if (this.imagePath != null) {
+				this.listener.saveProfileImage(this.imagePath);
 			}
 		} catch (NumberFormatException e) {
 			return;

@@ -47,7 +47,6 @@ public class ActivityHistoryViewController implements ViewController {
 		HistoryBox activityHistoryBox = new HistoryBox(activity, deleteActivityButton);
 		deleteActivityButton.setOnAction(e -> deleteActivityInHistory(activityHistoryBox));
 		historyList.getItems().add(activityHistoryBox);
-
 	}
 
 	/**

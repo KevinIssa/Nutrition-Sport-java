@@ -33,12 +33,8 @@ import javafx.stage.FileChooser;
 import ulb.views.templates.AbstractFieldTemplate;
 
 public class ProfileViewController implements ViewController {
-	private Image pen;
-	private Image check;
-
-	@FXML private ImageView profileimage;
-	@FXML private Button imageselection;
-
+	@FXML private ImageView profileImage;
+	@FXML private Button imageSelection;
 	@FXML private AbstractFieldTemplate firstnameController;
 	@FXML private AbstractFieldTemplate lastnameController;
 	@FXML private AbstractFieldTemplate birthdateController;
@@ -46,18 +42,15 @@ public class ProfileViewController implements ViewController {
 	@FXML private AbstractFieldTemplate weightController;
 	@FXML private AbstractFieldTemplate sexController;
 
-	private List<AbstractFieldTemplate> bar;
-
-	private String imagepath;
-
+	private List<AbstractFieldTemplate> fields;
+	private String imagePath;
 	private ProfileViewController.Listener
 			listener; // Listener interface for communication with the controller
 
 	// Method called after FXML file has been loaded; overridden from Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		System.out.println("Profile view initializing");
-		this.bar =
+		this.fields =
 				new ArrayList<>(
 						Arrays.asList(
 								firstnameController,
@@ -70,106 +63,79 @@ public class ProfileViewController implements ViewController {
 	}
 
 	private void setImages() {
-		String pathpen = this.getPath("/ulb/images/pen.png");
-		String pathcheck = this.getPath("/ulb/images/check.png");
-		this.pen = new Image(pathpen, 15, 15, true, true);
-		this.check = new Image(pathcheck, 15, 15, true, true);
-
-		for (AbstractFieldTemplate foo : this.bar) {
-			foo.setImages(pen, check);
-		}
+		Image pen = loadImage(this.getURL("/ulb/images/pen.png"), 15, 15);
+		Image check = loadImage(this.getURL("/ulb/images/check.png"), 15, 15);
+		this.fields.forEach(field -> field.setImages(pen, check));
 	}
 
-	private String getPath(String path) {
-		URL url = this.getClass().getResource(path);
-		if (url == null) {
-			throw new NullPointerException("Image not found");
-		}
-		return url.toString();
+	private URL getURL(String path) {
+		return this.getClass().getResource(path);
 	}
 
-	// Set default values from listener
+	private Image loadImage(URL url, double width, double height) {
+		return new Image(url.toString(), width, height, true, true);
+	}
+
 	public void setDefaultValue() {
-		ImageView penView = new ImageView(pen);
+		ImageView penView = new ImageView(loadImage(this.getURL("/ulb/images/pen.png"), 15, 15));
 		ColorAdjust colorAdjust = new ColorAdjust();
 		colorAdjust.setBrightness(1);
 		penView.setEffect(colorAdjust);
-		this.imageselection.setGraphic(penView);
+		this.imageSelection.setGraphic(penView);
+		this.fields.forEach(AbstractFieldTemplate::setDefault);
+		this.setProfileData();
+		this.setProfileImage();
+	}
 
-		for (AbstractFieldTemplate foo : bar) {
-			foo.setDefault();
-		}
-
+	private void setProfileData() {
 		this.firstnameController.setLabelText(this.listener.getFirstName());
 		this.lastnameController.setLabelText(this.listener.getLastName());
 		this.birthdateController.setLabelText(this.listener.getBirthDate().toString());
 		this.heightController.setLabelText(Float.toString(this.listener.getHeight()));
 		this.weightController.setLabelText(Float.toString(this.listener.getWeight()));
 		this.sexController.setLabelText(this.listener.getSex());
-		this.setProfileImage();
 	}
 
 	public void setProfileImage() {
-		double desiredWidth = 200; // Desired width in pixels
-		double desiredHeight = 150; // Desired height in pixels
-		Image image =
-				this.loadImage(this.listener.getProfileImagePath(), desiredWidth, desiredHeight);
-		if ((image != null)) {
-			this.profileimage.setImage(image);
-		}
-	}
-
-	private Image loadImage(String filePath, double width, double height) {
 		try {
-			File file = new File(filePath);
-			if (!file.exists()) {
-				return null;
-			}
-			URL path = file.toURL();
-			return new Image(path.toString(), width, height, true, true);
+			Image image = loadImage(new File(listener.getProfileImagePath()).toURL(), 200, 150);
+			this.profileImage.setImage(image);
 		} catch (MalformedURLException e) {
-			throw new RuntimeException(e);
+			e.printStackTrace();
 		}
 	}
 
 	public void eventHandler(ActionEvent event) {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Open Image File");
-		File selectedFile = fileChooser.showOpenDialog(imageselection.getScene().getWindow());
+		File selectedFile =
+				new FileChooser().showOpenDialog(this.imageSelection.getScene().getWindow());
 		if (selectedFile != null) {
-			Image image = new Image(selectedFile.toURI().toString());
-			double desiredWidth = 129; // Desired width in pixels
-			double desiredHeight = 125; // Desired height in pixels
-			Image resizedImage = new Image(image.getUrl(), desiredWidth, desiredHeight, true, true);
-			this.profileimage.setImage(resizedImage);
-			this.imagepath = selectedFile.toURI().toString();
+			try {
+				this.profileImage.setImage(loadImage(selectedFile.toURL(), 129, 125));
+				this.imagePath = selectedFile.toURI().toURL().toString();
+			} catch (MalformedURLException e) {
+				throw new RuntimeException(e);
+			}
 		}
 	}
 
-	// Save profile information
 	public void saveProfile() {
 		try {
-			String savedLastName = lastnameController.getText();
-			String savedFirstName = firstnameController.getText();
-			String savedSex = this.sexController.getText();
-			LocalDate localDate = LocalDate.parse(birthdateController.getText());
-			float floatHeight = Float.parseFloat(heightController.getText());
-			float floatWeight = Float.parseFloat(weightController.getText());
 			this.listener.saveProfile(
-					savedFirstName, savedLastName, savedSex, localDate, floatHeight, floatWeight);
-			if (this.imagepath != null) {
-				this.listener.saveProfileImage(this.imagepath);
-			}
+					this.firstnameController.getText(),
+					this.lastnameController.getText(),
+					this.sexController.getText(),
+					LocalDate.parse(this.birthdateController.getText()),
+					Float.parseFloat(this.heightController.getText()),
+					Float.parseFloat(this.weightController.getText()));
+			this.listener.saveProfileImage(this.imagePath);
 		} catch (NumberFormatException e) {
-			// Log error if height and weight are not numbers
 			System.err.println("Height and weight must be numbers");
-			return;
 		}
 		this.listener.returnHome();
 	}
 
 	public void deleteProfile() {
-		listener.deleteProfileView();
+		this.listener.deleteProfileView();
 	}
 
 	// Set listener for communication with the controller
