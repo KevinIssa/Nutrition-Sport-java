@@ -32,6 +32,11 @@ public class ProfileDeleteController
 		this.listener = listener;
 	}
 
+	/**
+	 * Delete the profile.
+	 * It deletes the profile, clears all activities and consumed meals.
+	 * Then, it calls the createProfile method of the listener.
+	 */
 	@Override
 	public void deleteProfile() {
 		Profile.delete();

@@ -28,12 +28,23 @@ import ulb.models.FoodLoader;
 import ulb.models.Meal;
 import ulb.views.FoodViewController;
 
+/**
+ * The FoodController class is responsible for handling the food-related operations.
+ */
 public class FoodController implements AppController, FoodViewController.Listener {
 
+	// Listener for the FoodController
 	private final FoodController.Listener listener;
+	// ViewController for the FoodController
 	private final FoodViewController viewController;
+	// FoodLoader for the FoodController
 	private FoodLoader foodLoader;
 
+	/**
+	 * Constructor for the FoodController class.
+	 * @param listener Listener for the FoodController
+	 * @param viewController ViewController for the FoodController
+	 */
 	public FoodController(FoodController.Listener listener, FoodViewController viewController) {
 		this.listener = listener;
 		this.viewController = viewController;
@@ -45,6 +56,10 @@ public class FoodController implements AppController, FoodViewController.Listene
 		this.listener.returnHome();
 	}
 
+	/**
+	 * This method is used to load foods from the database.
+	 * @return A FoodLoader object
+	 */
 	private FoodLoader loadFoods() {
 		FoodLoader foodLoader = new FoodLoader();
 		foodLoader.extend(loadMeals());
@@ -64,6 +79,11 @@ public class FoodController implements AppController, FoodViewController.Listene
 		return this.foodLoader.getFoodByName(food).getCaloriesConsumedByGrams(quantity);
 	}
 
+	/**
+	 * Save the foods consumed by the user.
+	 * It creates a new FoodLoader object, extends it with meals and returns it.
+	 * @return A FoodLoader object
+	 */
 	@Override
 	public void saveConsumedFoods(
 			ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealDate) {
@@ -79,6 +99,12 @@ public class FoodController implements AppController, FoodViewController.Listene
 		consumedMeal.save();
 	}
 
+	/**
+	 * This method is used to get the corresponding food in the database from a given name.
+	 * It retrieves the foods suggestion for the given name, gets the first one and returns it.
+	 * @param food The name of the food
+	 * @return The corresponding Food object
+	 */
 	@Override
 	public Food getCorrespondingFood(String food) {
 		return foodLoader.getFoodsSuggestion(food).stream()
@@ -112,6 +138,14 @@ public class FoodController implements AppController, FoodViewController.Listene
 		return this.foodLoader.getFoodByName(food).getServingType();
 	}
 
+	/**
+	 * This method is used to send the user's search to the viewController.
+	 * It retrieves the foods suggestion for the search text from the foodLoader.
+	 * Then, it extracts the name of each food and collects them into a list.
+	 * Finally, it sets the suggestions in the viewController with this list.
+	 *
+	 * @param searchText The search text entered by the user.
+	 */
 	@Override
 	public void sendUserSearch(String searchText) {
 		this.viewController.setSuggestions(

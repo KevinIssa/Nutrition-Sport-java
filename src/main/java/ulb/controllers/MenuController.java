@@ -23,8 +23,12 @@ import javafx.stage.Stage;
 import ulb.models.*;
 import ulb.views.*;
 
+/**
+ * The MenuController class is responsible for handling the menu operations.
+ */
 public class MenuController implements AppController, MenuViewController.Listener {
 
+	// ViewLoader for the MenuController
 	private final ViewLoader viewLoader = new ViewLoader();
 	private final Stage primaryStage;
 
@@ -32,6 +36,11 @@ public class MenuController implements AppController, MenuViewController.Listene
 		this.primaryStage = primaryStage;
 	}
 
+	/**
+	 * This method is used to load the welcome view.
+	 * If a profile is created, it loads the menu view.
+	 * Otherwise, it loads the create profile view.
+	 */
 	@Override
 	public void loadWelcomeView() {
 		if (Profile.isCreated()) {
@@ -85,7 +94,12 @@ public class MenuController implements AppController, MenuViewController.Listene
 								popupStage.close();
 							}
 						}));
+
+		// This line sets the modality of the popup stage to APPLICATION_MODAL.
+		// This means that while the popup stage is showing, it blocks user interaction with all
+		// other stages of the application.
 		popupStage.initModality(Modality.APPLICATION_MODAL);
+
 		popupStage.showAndWait();
 	}
 
@@ -101,7 +115,12 @@ public class MenuController implements AppController, MenuViewController.Listene
 							popupStage.close();
 						},
 						viewController));
+
+		// This line sets the modality of the popup stage to APPLICATION_MODAL.
+		// This means that while the popup stage is showing, it blocks user interaction with all
+		// other stages of the application.
 		popupStage.initModality(Modality.APPLICATION_MODAL);
+
 		popupStage.showAndWait();
 	}
 
@@ -127,7 +146,12 @@ public class MenuController implements AppController, MenuViewController.Listene
 							popupStage.close();
 						},
 						foodViewController));
+
+		// This line sets the modality of the popup stage to APPLICATION_MODAL.
+		// This means that while the popup stage is showing, it blocks user interaction with all
+		// other stages of the application.
 		popupStage.initModality(Modality.APPLICATION_MODAL);
+
 		popupStage.showAndWait();
 	}
 

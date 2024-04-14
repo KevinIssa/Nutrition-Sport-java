@@ -26,12 +26,21 @@ import ulb.models.enums.Intensity;
 import ulb.models.enums.Sport;
 import ulb.views.ActivityCreateViewController;
 
+/**
+ * The ActivityCreateController class is responsible for handling the creation of new activities.
+ * It implements the AppController interface and the ActivityCreateViewController.Listener interface.
+ */
 public class ActivityCreateController
 		implements AppController, ActivityCreateViewController.Listener {
 
 	private final ActivityCreateController.Listener listener;
 	private final ActivityCreateViewController viewController;
 
+	/**
+	 * Constructor for the ActivityCreateController class.
+	 * @param listener Listener for the ActivityCreateController
+	 * @param viewController ViewController for the ActivityCreateController
+	 */
 	public ActivityCreateController(
 			ActivityCreateController.Listener listener,
 			ActivityCreateViewController viewController) {
@@ -39,6 +48,14 @@ public class ActivityCreateController
 		this.viewController = viewController;
 	}
 
+	/**
+	 *Creates a new activity with the given parameters and saves it to the database.
+	 * It also updates the view to show the calories consumed by the activity.
+	 * @param sport The sport of the activity
+	 * @param intensity The intensity of the activity
+	 * @param duration The duration of the activity
+	 * @param dateTime The date and time of the activity
+	 */
 	@Override
 	public void saveActivity(Sport sport, int intensity, String duration, LocalDateTime dateTime) {
 		Activity activity =
@@ -52,6 +69,10 @@ public class ActivityCreateController
 				activity.getCaloriesBurned(Profile.load().getWeight()));
 	}
 
+	/**
+	 * This method is used to return to the home screen.
+	 * It calls the returnHome method of the listener.
+	 */
 	@Override
 	public void returnHome() {
 		this.listener.returnHome();
