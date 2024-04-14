@@ -21,29 +21,43 @@ package ulb.models;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ulb.models.enums.Intensity;
 import ulb.models.enums.Sport;
 
 public class TestActivity {
 
-	@Test
-	public void testActivity() {
-		Activity activity = createAndSaveActivity();
-		Activity activity2 = Activity.load(getFilename(activity.getDate()));
+	private Activity activity;
 
-		// Remove the file
+	@BeforeEach
+	public void setUp() {
+		activity = createAndSaveActivity();
+	}
+
+	@AfterEach
+	public void tearDown() {
+		// Remove the file after each test
 		new File(getFilename(activity.getDate())).delete();
+	}
 
-		// Test
+	@Test
+	public void testActivityCreation() {
 		assertNotNull(activity);
-		assertNotNull(activity2);
-		assertEquals(activity, activity2);
+	}
+
+	@Test
+	public void testActivityLoading() {
+		Activity loadedActivity = Activity.load(getFilename(activity.getDate()));
+		assertEquals(activity, loadedActivity);
 	}
 
 	@Test
@@ -57,25 +71,44 @@ public class TestActivity {
 		assertFalse(checkDummyActivityFilesExist());
 	}
 
+	@Test
+	public void testGetDurationInMinutes() {
+		int expectedDurationInMinutes = 30;
+		assertEquals(expectedDurationInMinutes, activity.getDurationInMinutes());
+	}
+
+	@Test
+	public void testGetDurationToString() {
+		String expectedDurationString = "0h30m";
+		assertEquals(expectedDurationString, activity.getDurationToString());
+	}
+
+	@Test
+	public void testGetDateToString() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm");
+		String expectedDateString = activity.getDate().format(formatter);
+		assertEquals(expectedDateString, activity.getDateToString());
+	}
+
+	@Test
+	public void testLoadAllActivities() {
+		List<Activity> activities = Activity.loadAll();
+		assertNotNull(activities);
+		assertTrue(activities.contains(activity));
+	}
+
 	private Activity createAndSaveActivity() {
+		LocalDateTime now = LocalDateTime.now().withNano(0);
 		Activity activity =
-				new Activity(
-						Sport.RUNNING,
-						Intensity.INTENSE,
-						Duration.ofMinutes(30),
-						LocalDateTime.now().withNano(0));
+				new Activity(Sport.RUNNING, Intensity.INTENSE, Duration.ofMinutes(30), now);
 		activity.save();
 		return activity;
 	}
 
 	private void createDummyActivityFiles() {
 		for (int i = 1; i <= 3; i++) {
-			new Activity(
-							Sport.RUNNING,
-							Intensity.INTENSE,
-							Duration.ofMinutes(30),
-							LocalDateTime.now().withNano(0).minusDays(i))
-					.save();
+			LocalDateTime dateTime = LocalDateTime.now().withNano(0).minusDays(i);
+			new Activity(Sport.RUNNING, Intensity.INTENSE, Duration.ofMinutes(30), dateTime).save();
 		}
 	}
 

@@ -58,21 +58,6 @@ public class FoodLoader {
 	}
 
 	/**
-	 * Return the corresponding food object from the user input
-	 *
-	 * @param userInput The user input given through the user interface
-	 */
-	public Food convertStringToFood(String userInput) {
-
-		for (Food food : foods) {
-			if (food.getName().equalsIgnoreCase(userInput)) {
-				return food;
-			}
-		}
-		return null;
-	}
-
-	/**
 	 * Retrieves the list of loaded food items.
 	 *
 	 * @return The list of loaded food items.
