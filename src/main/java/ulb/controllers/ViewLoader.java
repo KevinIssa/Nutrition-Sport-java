@@ -69,8 +69,6 @@ public class ViewLoader {
 			return 5;
 		} else if (controller instanceof ProfileDeleteController) {
 			return 7;
-		} else if (controller instanceof ActivityCreateController) {
-			return 0;
 		} else if (controller instanceof ActivityHistoryController) {
 			return 1;
 		} else if (controller instanceof MealHistoryController) {
@@ -81,5 +79,9 @@ public class ViewLoader {
 
 	public ViewController loadAddMeal(Stage stage) {
 		return this.load(PATHS[2], stage);
+	}
+
+	public ViewController loadActivityCreate(Stage stage) {
+		return this.load(PATHS[0], stage);
 	}
 }

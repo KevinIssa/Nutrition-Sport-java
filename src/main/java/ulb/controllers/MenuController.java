@@ -92,13 +92,15 @@ public class MenuController implements AppController, MenuViewController.Listene
 	@Override
 	public void loadCreateActivityView() {
 		Stage popupStage = new Stage();
-		viewLoader.loadView(
-				popupStage,
+		ActivityCreateViewController viewController =
+				(ActivityCreateViewController) viewLoader.loadActivityCreate(popupStage);
+		viewController.setListener(
 				new ActivityCreateController(
 						() -> {
 							loadMenuView();
 							popupStage.close();
-						}));
+						},
+						viewController));
 		popupStage.initModality(Modality.APPLICATION_MODAL);
 		popupStage.showAndWait();
 	}

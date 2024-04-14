@@ -29,38 +29,22 @@ import javafx.util.StringConverter;
 import ulb.models.enums.Sport;
 
 public class ActivityCreateViewController implements ViewController {
-	private Sport selectedSport;
 	@FXML private Slider intensitySlider;
 	@FXML private TextField duration;
-	@FXML private Button buttonWalking;
-	@FXML private Button buttonRunning;
-	@FXML private Button buttonBiking;
-	@FXML private Button buttonSwimming;
-	@FXML private Button buttonVolleyball;
-
+	@FXML
+	private Button buttonWalking, buttonRunning, buttonBiking, buttonSwimming, buttonVolleyball;
 	@FXML private DatePicker activityDate;
-	@FXML private TextField hour;
-	@FXML private TextField minutes;
+	@FXML private TextField hour, minutes;
 
+	private Sport selectedSport = Sport.WALKING;
 	private Button selectedButton;
+	private Listener listener;
 
-	/**
-	 * This class is a controller to create activites in the UI. It implements the ViewController interface.
-	 * It is responsible for handling the user interactions with the activity creation view.
-	 */
-	private ActivityCreateViewController.Listener
-			listener; // Listener interface for communication with the controller
-
-	/**
-	 * This method is called after the FXML file has been loaded.
-	 * It initializes the view with the current date and time.
-	 */
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		selectedButton = buttonWalking;
-		// Populate ComboBox with sports
 		intensitySlider.setLabelFormatter(new IntensityStringConverter());
-		this.initTime();
+		initTime();
 	}
 
 	/**
@@ -77,14 +61,9 @@ public class ActivityCreateViewController implements ViewController {
 	 */
 	public LocalTime getActivityTime() {
 		try {
-			// Get the current time
-			LocalTime currentTime = LocalTime.now();
-
-			// Extract seconds from the current time
-
 			int intHour = Integer.parseInt(hour.getText());
 			int intMinutes = Integer.parseInt(minutes.getText());
-			int intSeconds = currentTime.getSecond();
+			int intSeconds = LocalTime.now().getSecond();
 
 			if (intHour < 0 || intHour > 23 || intMinutes < 0 || intMinutes > 59) {
 				showAlert(
@@ -93,28 +72,15 @@ public class ActivityCreateViewController implements ViewController {
 				return null;
 			}
 
-			LocalTime time = LocalTime.of(intHour, intMinutes, intSeconds);
-			return time;
+			return LocalTime.of(intHour, intMinutes, intSeconds);
 		} catch (NumberFormatException e) {
 			showAlert("Heure invalide", "L'heure doit être un nombre");
 			return null;
 		}
 	}
 
-	/*public boolean isDateInFuture(LocalDate date1, LocalDate date2) {
-		return date1.compareTo(date2) > 0;
-	}*/
-
 	public LocalDateTime getActivityDate() {
-
-		/*if (isDateInFuture(activityDate.getValue(), currentDate)) {
-			showAlert("Date invalide", "La date ne peut pas être dans le futur");
-			return null;
-		}*/
-
-		LocalDateTime activityDateTime =
-				LocalDateTime.of(activityDate.getValue(), getActivityTime());
-		return activityDateTime;
+		return LocalDateTime.of(activityDate.getValue(), getActivityTime());
 	}
 
 	// Method to save the activity
@@ -135,10 +101,8 @@ public class ActivityCreateViewController implements ViewController {
 	 * This method changes the selected sport and updates the UI accordingly.
 	 */
 	public void clickedButton(Button button, Sport sport) {
-		String color = "-fx-background-color: #9960f2;";
-		selectedButton.setStyle(color);
-		color = "-fx-background-color: #b7ed65;";
-		button.setStyle(color);
+		selectedButton.setStyle("-fx-background-color: #9960f2;");
+		button.setStyle("-fx-background-color: #b7ed65;");
 		selectedSport = sport;
 		selectedButton = button;
 	}
@@ -163,17 +127,10 @@ public class ActivityCreateViewController implements ViewController {
 		this.clickedButton(this.buttonVolleyball, Sport.VOLLEYBALL);
 	}
 
-	// TODO Move that to other class !
-	/**
-	 * This method shows an alert with the number of calories burned during the activity and is a base code for the others pop up.
-	 */
-	public static void showAlert(double calories) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle("Calcul du nombre de calories");
-		alert.setHeaderText(null);
-		String text = "Vous avez dépensé " + calories + " calories durant cette activité";
-		alert.setContentText(text);
-		alert.showAndWait();
+	public void showCaloriesConsumed(double calories) {
+		this.showAlert(
+				"Calcul du nombre de calories",
+				"Vous avez dépensé " + calories + " calories durant cette activité");
 	}
 
 	// Method to set the listener for communication with the controller

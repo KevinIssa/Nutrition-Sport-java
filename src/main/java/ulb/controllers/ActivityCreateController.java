@@ -30,9 +30,13 @@ public class ActivityCreateController
 		implements AppController, ActivityCreateViewController.Listener {
 
 	private final ActivityCreateController.Listener listener;
+	private final ActivityCreateViewController viewController;
 
-	public ActivityCreateController(ActivityCreateController.Listener listener) {
+	public ActivityCreateController(
+			ActivityCreateController.Listener listener,
+			ActivityCreateViewController viewController) {
 		this.listener = listener;
+		this.viewController = viewController;
 	}
 
 	@Override
@@ -44,7 +48,7 @@ public class ActivityCreateController
 						Duration.ofMinutes(Long.parseLong(duration)),
 						dateTime);
 		activity.save();
-		ActivityCreateViewController.showAlert(
+		this.viewController.showCaloriesConsumed(
 				activity.getCaloriesBurned(Profile.load().getWeight()));
 	}
 
