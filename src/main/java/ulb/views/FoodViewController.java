@@ -412,10 +412,10 @@ public class FoodViewController implements ViewController {
 
 		int getCaloriesConsumedByGrams(String food, int quantity);
 
-		void saveMeal(String mealname, ArrayList<ArrayList<String>> consumedFoodsList);
+		void saveMeal(String mealName, ArrayList<ArrayList<String>> consumedFoodsList);
 
 		void saveConsumedFoods(
-				ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealdate);
+				ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealDate);
 
 		String getFoodServingQuantity(String food);
 

@@ -36,7 +36,7 @@ import java.util.*;
 @JsonDeserialize(using = MealDeserializer.class)
 public class Meal implements Consumable, JsonSerializable {
 
-	private static final String FOLDER_NAME = "meals";
+	public static final String FOLDER_NAME = "meals";
 
 	private String name;
 
@@ -50,6 +50,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Constructor with name parameter.
+	 *
 	 * @param name The name of the meal.
 	 */
 	public Meal(String name) {
@@ -58,6 +59,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Checks if this meal is equal to another object.
+	 *
 	 * @param o The object to compare.
 	 * @return True if the objects are equal, otherwise false.
 	 */
@@ -71,7 +73,8 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Adds an ingredient to the meal.
-	 * @param food The food to add.
+	 *
+	 * @param food     The food to add.
 	 * @param quantity The quantity in gramme of the food.
 	 */
 	public void addIngredient(Food food, Integer quantity) {
@@ -81,6 +84,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Gets the total calories consumed by the meal.
+	 *
 	 * @return The total calories consumed.
 	 */
 	@Override
@@ -90,6 +94,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Gets the calories consumed by the meal for a given amount of grams.
+	 *
 	 * @param grams The grams of the meal.
 	 * @return The calories consumed.
 	 */
@@ -101,6 +106,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Gets the total grams for a given serving of the meal.
+	 *
 	 * @param servings The number of servings.
 	 * @return The total grams.
 	 */
@@ -114,6 +120,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Gets the total calories consumed by the meal for a given number of servings.
+	 *
 	 * @param servings The number of servings.
 	 * @return The total calories consumed.
 	 */
@@ -140,6 +147,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Loads a meal from a file.
+	 *
 	 * @param filename The name of the file.
 	 * @return The loaded meal.
 	 */
@@ -147,8 +155,21 @@ public class Meal implements Consumable, JsonSerializable {
 		return (Meal) new Meal().loadFromFile(filename);
 	}
 
+	public static List<Meal> loadAll() {
+		File folder = new File(FOLDER_NAME);
+		File[] files = folder.listFiles();
+		List<Meal> meals = new ArrayList<>();
+		if (files != null) {
+			for (File file : files) {
+				meals.add(load(file.getPath()));
+			}
+		}
+		return meals;
+	}
+
 	/**
 	 * Saves the meal to a file.
+	 *
 	 * @param filename The name of the file.
 	 */
 	public void saveToFile(String filename) {
@@ -163,6 +184,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Loads a meal from a file.
+	 *
 	 * @param filename The name of the file.
 	 * @return The loaded meal.
 	 */
@@ -178,6 +200,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Gets the name of the meal.
+	 *
 	 * @return The name of the meal.
 	 */
 	public String getName() {
@@ -186,6 +209,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Sets the name of the meal.
+	 *
 	 * @param name The name of the meal.
 	 */
 	public void setName(String name) {
@@ -194,6 +218,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Gets the ingredients of the meal.
+	 *
 	 * @return The list of ingredients.
 	 */
 	public List<Map.Entry<Food, Integer>> getIngredients() {
@@ -202,6 +227,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Sets the ingredients of the meal.
+	 *
 	 * @param ingredients The list of ingredients.
 	 */
 	public void setIngredients(List<Map.Entry<Food, Integer>> ingredients) {
@@ -210,11 +236,20 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Returns a string representation of the meal.
+	 *
 	 * @return The string representation.
 	 */
 	@Override
 	public String toString() {
 		return "Meal{" + "name='" + name + '\'' + ", ingredients=" + ingredients + '}';
+	}
+
+	public Food toFood() {
+		return new Food(
+				this.name,
+				this.getCaloriesConsumedByServing(1),
+				this.getCaloriesConsumed(),
+				String.format("1 serving (%d g)", this.getGramsForServing(1)));
 	}
 }
 

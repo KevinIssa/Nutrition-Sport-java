@@ -18,7 +18,6 @@
  */
 package ulb.controllers;
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,40 +55,18 @@ public class FoodController implements AppController, FoodViewController.Listene
 		this.foodLoader = loadFoods();
 	}
 
-	private Food convertMealToFood(Meal meal) {
-		return new Food(
-				meal.getName(),
-				meal.getCaloriesConsumedByServing(1),
-				meal.getCaloriesConsumed(),
-				String.format("1 serving (%d g)", meal.getGramsForServing(1)));
-	}
-
 	private List<Food> loadMeals() {
-		File directory = new File("meals");
-		File[] files = directory.listFiles();
-		List<Food> result = new ArrayList<>();
-		if (files != null) {
-			for (File file : files) {
-				Meal meal = Meal.load(file.getPath());
-				Food food = convertMealToFood(meal);
-				result.add(food);
-			}
-		}
-		return result;
-	}
-
-	private List<String> foodToString(List<Food> foods) {
-		return foods.stream().map(Food::getName).collect(Collectors.toList());
+		return Meal.loadAll().stream().map(Meal::toFood).collect(Collectors.toList());
 	}
 
 	@Override
 	public int getCaloriesConsumedByGrams(String food, int quantity) {
-		return foodLoader.getFoodByName(food).getCaloriesConsumedByGrams(quantity);
+		return this.foodLoader.getFoodByName(food).getCaloriesConsumedByGrams(quantity);
 	}
 
 	@Override
 	public void saveConsumedFoods(
-			ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealdate) {
+			ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealDate) {
 		ConsumedMeal consumedMeal = new ConsumedMeal();
 		for (List<String> consumedFood : consumedFoodsList) {
 			consumedMeal.addConsumedFood(
@@ -98,7 +75,7 @@ public class FoodController implements AppController, FoodViewController.Listene
 					Integer.parseInt(consumedFood.get(2)),
 					consumedFood.get(3));
 		}
-		consumedMeal.setDate(mealdate);
+		consumedMeal.setDate(mealDate);
 		consumedMeal.save();
 	}
 
@@ -110,8 +87,8 @@ public class FoodController implements AppController, FoodViewController.Listene
 	}
 
 	@Override
-	public void saveMeal(String mealname, ArrayList<ArrayList<String>> consumedFoodsList) {
-		Meal newmeal = new Meal(mealname);
+	public void saveMeal(String mealName, ArrayList<ArrayList<String>> consumedFoodsList) {
+		Meal newmeal = new Meal(mealName);
 		for (List<String> consumedFood : consumedFoodsList) {
 			newmeal.addIngredient(
 					getCorrespondingFood(consumedFood.get(0)),
@@ -122,22 +99,25 @@ public class FoodController implements AppController, FoodViewController.Listene
 
 	@Override
 	public String getFoodServingQuantity(String food) {
-		return foodLoader.getFoodByName(food).getServingQuantity();
+		return this.foodLoader.getFoodByName(food).getServingQuantity();
 	}
 
 	@Override
 	public int extractServingQuantityValue(String food) {
-		return foodLoader.getFoodByName(food).extractServingQuantityValue();
+		return this.foodLoader.getFoodByName(food).extractServingQuantityValue();
 	}
 
 	@Override
 	public String getFoodServingType(String food) {
-		return foodLoader.getFoodByName(food).getServingType();
+		return this.foodLoader.getFoodByName(food).getServingType();
 	}
 
 	@Override
 	public void sendUserSearch(String searchText) {
-		this.viewController.setSuggestions(foodToString(foodLoader.getFoodsSuggestion(searchText)));
+		this.viewController.setSuggestions(
+				this.foodLoader.getFoodsSuggestion(searchText).stream()
+						.map(Food::getName)
+						.collect(Collectors.toList()));
 	}
 
 	public interface Listener {
