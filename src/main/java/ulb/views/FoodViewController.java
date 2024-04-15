@@ -112,6 +112,7 @@ public class FoodViewController implements ViewController {
 	private void suggestFoods() {
 		String searchText = searchField.getText();
 		listener.sendUserSearch(searchText);
+		suggestionsList.getSelectionModel().selectFirst();
 	}
 
 	/**
