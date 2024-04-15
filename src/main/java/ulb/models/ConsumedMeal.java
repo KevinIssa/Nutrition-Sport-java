@@ -97,7 +97,7 @@ public class ConsumedMeal implements JsonSerializable {
 	/**
 	 * Deletes all the consumed meals data from the storage.
 	 */
-	public static void clearAllConsumedMeals() {
+	public static void clearAll() {
 		File folder = new File(FOLDER_NAME);
 		File[] files = folder.listFiles();
 		if (files != null) {

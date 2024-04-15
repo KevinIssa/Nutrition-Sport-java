@@ -18,7 +18,17 @@
  */
 package ulb.exceptions;
 
+/**
+ * The InvalidRessourcesException class is a custom exception class that extends the Exception class.
+ * This exception is thrown when a resource does not meet the expected requirements or constraints.
+ */
 public class InvalidRessourcesException extends Exception {
+
+	/**
+	 * This constructor initializes the InvalidRessourcesException object with a specific error message.
+	 *
+	 * @param message The specific error message for this exception.
+	 */
 	public InvalidRessourcesException(String message) {
 		super(message);
 	}

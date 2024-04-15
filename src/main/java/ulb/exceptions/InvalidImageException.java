@@ -18,7 +18,17 @@
  */
 package ulb.exceptions;
 
+/**
+ * The InvalidImageException class is a custom exception class that extends the ImageException class.
+ * This exception is thrown when an image does not meet the expected requirements or constraints.
+ */
 public class InvalidImageException extends ImageException {
+
+	/**
+	 * This constructor initializes the InvalidImageException object with a specific error message.
+	 *
+	 * @param message The specific error message for this exception.
+	 */
 	public InvalidImageException(String message) {
 		super(message);
 	}

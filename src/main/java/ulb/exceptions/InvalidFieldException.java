@@ -18,7 +18,17 @@
  */
 package ulb.exceptions;
 
+/**
+ * The InvalidFieldException class is a custom exception class that extends the Exception class.
+ * This exception is thrown when a field does not meet the expected requirements or constraints.
+ */
 public class InvalidFieldException extends Exception {
+
+	/**
+	 * This constructor initializes the InvalidFieldException object with a specific error message.
+	 *
+	 * @param message The specific error message for this exception.
+	 */
 	public InvalidFieldException(String message) {
 		super(message);
 	}

@@ -48,7 +48,7 @@ public class TestConsumedMeal {
 	@Test
 	public void clearAllConsumedMealsShouldDeleteAllFiles() {
 		consumedMeal.save();
-		ConsumedMeal.clearAllConsumedMeals();
+		ConsumedMeal.clearAll();
 		File folder = new File(ConsumedMeal.FOLDER_NAME);
 		assertEquals(0, Objects.requireNonNull(folder.listFiles()).length);
 	}

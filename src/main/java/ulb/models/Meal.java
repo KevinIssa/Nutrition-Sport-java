@@ -62,14 +62,14 @@ public class Meal implements Consumable, JsonSerializable {
 	/**
 	 * Checks if this meal is equal to another object.
 	 *
-	 * @param o The object to compare.
+	 * @param obj The object to compare.
 	 * @return True if the objects are equal, otherwise false.
 	 */
 	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Meal meal = (Meal) o;
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		Meal meal = (Meal) obj;
 		return Objects.equals(name, meal.name) && Objects.equals(ingredients, meal.ingredients);
 	}
 
@@ -201,6 +201,9 @@ public class Meal implements Consumable, JsonSerializable {
 		}
 		return null;
 	}
+
+	// Getters and setters for class attributes.
+	// These are used by Jackson to serialize and deserialize JSON data.
 
 	/**
 	 * Gets the name of the meal.

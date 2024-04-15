@@ -18,7 +18,17 @@
  */
 package ulb.exceptions;
 
+/**
+ * The IllegalImageFormatException class is a custom exception class that extends the ImageException class.
+ * This exception is thrown when an image does not meet the expected format requirements.
+ */
 public class IllegalImageFormatException extends ImageException {
+
+	/**
+	 * This constructor initializes the IllegalImageFormatException object with a specific error message.
+	 *
+	 * @param message The specific error message for this exception.
+	 */
 	public IllegalImageFormatException(String message) {
 		super(message);
 	}

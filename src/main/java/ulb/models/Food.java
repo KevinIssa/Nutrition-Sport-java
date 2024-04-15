@@ -39,9 +39,9 @@ public class Food implements Consumable, Comparable<Food> {
 	private static final Logger logger = LoggerFactory.getLogger(Food.class);
 
 	private String name;
-	private int caloriesPer100;
+	private int caloriesPer100; // grams or ml
 	private int caloriesPerServing;
-	private String servingQuantity;
+	private String servingQuantity; // number of grams or ml per serving
 
 	/**
 	 * Default constructor for the Food class.
@@ -66,13 +66,13 @@ public class Food implements Consumable, Comparable<Food> {
 	/**
 	 * Checks if this food item is equal to another object.
 	 *
-	 * @param o The object to compare with this food item.
+	 * @param obj The object to compare with this food item.
 	 * @return True if the objects are equal, false otherwise.
 	 */
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Food food = (Food) o;
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		Food food = (Food) obj;
 		return caloriesPer100 == food.caloriesPer100
 				&& name.equals(food.name)
 				&& servingQuantity.equals(food.servingQuantity);
@@ -98,9 +98,6 @@ public class Food implements Consumable, Comparable<Food> {
 	@Override
 	public int getCaloriesConsumedByGrams(int grams) {
 		return (this.caloriesPer100 * grams) / 100;
-		// ps I have modified this because if this.caloriesPer100 < 100 , this.caloriesPer100/100
-		// will always return 0
-		// because an int divided by an int will always return an int
 	}
 
 	/**
@@ -132,6 +129,7 @@ public class Food implements Consumable, Comparable<Food> {
 	}
 
 	// Getters and setters for class attributes.
+	// These are used by Jackson to serialize and deserialize JSON data.
 
 	/**
 	 * Retrieves the name of the food item.
@@ -233,8 +231,8 @@ public class Food implements Consumable, Comparable<Food> {
 	 * @return the unit of the serving
 	 */
 	public String getServingType() {
-		int startposition = servingQuantity.indexOf("(");
-		String substring = this.servingQuantity.substring(startposition);
+		int startPosition = servingQuantity.indexOf("(");
+		String substring = this.servingQuantity.substring(startPosition);
 		if (substring.contains("ml")) {
 			return "ml";
 		} else {
@@ -251,6 +249,13 @@ public class Food implements Consumable, Comparable<Food> {
 		this.servingQuantity = servingQuantity;
 	}
 
+	/**
+	 * Compares this Food object with another Food object based on their names.
+	 * The comparison is case-insensitive.
+	 *
+	 * @param food The Food object to compare with.
+	 * @return A negative integer, zero, or a positive integer as this name is less than, equal to, or greater than the specified name.
+	 */
 	@Override
 	public int compareTo(Food food) {
 		return this.getName().toLowerCase().compareTo(food.getName().toLowerCase());

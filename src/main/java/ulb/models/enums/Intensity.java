@@ -19,13 +19,21 @@
 package ulb.models.enums;
 
 /**
- * Enum representing the intensity of an activity.
+ * The Intensity enum represents the intensity levels of a certain activity or condition.
+ * It has three levels: SLOW, MODERATE, and INTENSE.
  */
 public enum Intensity {
 	SLOW,
 	MODERATE,
 	INTENSE;
 
+	/**
+	 * Converts an integer to its corresponding Intensity enum value.
+	 *
+	 * @param number The integer to be converted.
+	 * @return The corresponding Intensity enum value.
+	 * @throws IllegalArgumentException If the integer does not correspond to any Intensity enum value.
+	 */
 	public static Intensity fromInt(int number) {
 		switch (number) {
 			case 0:
@@ -40,11 +48,11 @@ public enum Intensity {
 	}
 
 	/**
-	 * Converts a string representation of intensity to the corresponding enum value.
+	 * Converts a string to its corresponding Intensity enum value.
 	 *
-	 * @param selectedIntensity The string representation of intensity.
-	 * @return The enum value corresponding to the given string.
-	 * @throws IllegalArgumentException If the provided string does not match any known intensity.
+	 * @param selectedIntensity The string to be converted.
+	 * @return The corresponding Intensity enum value.
+	 * @throws IllegalArgumentException If the string does not correspond to any Intensity enum value.
 	 */
 	public static Intensity fromString(String selectedIntensity) {
 		switch (selectedIntensity) {
@@ -60,9 +68,10 @@ public enum Intensity {
 	}
 
 	/**
-	 * Converts the enum value to its corresponding localized string representation.
+	 * Converts the enum value to its corresponding string representation.
 	 *
-	 * @return The localized string representation of the intensity.
+	 * @return The string representation of the intensity.
+	 * @throws IllegalStateException If the enum value is not recognized.
 	 */
 	@Override
 	public String toString() {
@@ -73,19 +82,6 @@ public enum Intensity {
 				return "moderate";
 			case INTENSE:
 				return "intense";
-			default:
-				throw new IllegalStateException("Unexpected value: " + this);
-		}
-	}
-
-	public String toFrench() {
-		switch (this) {
-			case SLOW:
-				return "Lent";
-			case MODERATE:
-				return "Modéré";
-			case INTENSE:
-				return "Intense";
 			default:
 				throw new IllegalStateException("Unexpected value: " + this);
 		}

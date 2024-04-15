@@ -240,6 +240,7 @@ public class Activity implements JsonSerializable {
 	}
 
 	// Getters and setters for class attributes.
+	// These are used by Jackson to serialize and deserialize JSON data.
 
 	/**
 	 * Gets the sport of the activity.

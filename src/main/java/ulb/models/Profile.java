@@ -226,7 +226,9 @@ public class Profile implements JsonSerializable {
 		}
 	}
 
-	// Getters and setters for Profile properties
+	// Getters and setters for class attributes.
+	// These are used by Jackson to serialize and deserialize JSON data.
+
 	/**
 	 * Gets the first name of the user.
 	 * @return The first name of the user.
