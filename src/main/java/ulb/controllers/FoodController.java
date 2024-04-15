@@ -31,7 +31,10 @@ import ulb.models.Meal;
 import ulb.views.FoodViewController;
 
 /**
- * The FoodController class is responsible for handling the food-related operations.
+ * The FoodController class is responsible for managing the interactions between the FoodViewController and the model classes related to food and meals.
+ * It implements the AppController interface and the Listener interface from the FoodViewController.
+ * This class handles the loading of foods from the database, the calculation of calories consumed by a certain quantity of food, the saving of consumed foods and meals, and the retrieval of food details.
+ * It also handles the user's search for foods and the return to the home screen of the application.
  */
 public class FoodController implements AppController, FoodViewController.Listener {
 

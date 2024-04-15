@@ -21,6 +21,11 @@ package ulb.controllers;
 import ulb.models.ConsumedMeal;
 import ulb.views.MealHistoryViewController;
 
+/**
+ * This class is the controller for the meal history screen of the application.
+ * It is responsible for handling the logic of the meal history screen, such as loading a meal from a file.
+ * It also listens to events from the MealHistoryViewController and notifies the listener when the user wants to return to the home screen.
+ */
 public class MealHistoryController implements AppController, MealHistoryViewController.Listener {
 
 	private final MealHistoryController.Listener listener;

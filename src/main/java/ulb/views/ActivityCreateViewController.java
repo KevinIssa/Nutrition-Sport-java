@@ -129,7 +129,8 @@ public class ActivityCreateViewController implements ViewController {
 					activityDateTime);
 			returnHome();
 		} catch (Exception e) {
-			showAlert("Erreur", "Une erreur s'est produite lors de l'enregistrement de l'activité.");
+			showAlert(
+					"Erreur", "Une erreur s'est produite lors de l'enregistrement de l'activité.");
 		}
 	}
 
@@ -159,7 +160,9 @@ public class ActivityCreateViewController implements ViewController {
 		try {
 			int duration = Integer.parseInt(durationText);
 			if (duration < 0 || duration > 500) {
-				showAlert("Erreur", "La durée doit être un nombre valide et ne peut pas dépasser 500.");
+				showAlert(
+						"Erreur",
+						"La durée doit être un nombre valide et ne peut pas dépasser 500.");
 				return false;
 			}
 			return true;

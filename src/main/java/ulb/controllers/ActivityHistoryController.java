@@ -26,8 +26,9 @@ import ulb.models.enums.Sport;
 import ulb.views.ActivityHistoryViewController;
 
 /**
- * The ActivityHistoryController class is responsible for handling the history of activities.
- * It implements the AppController interface and the ActivityHistoryViewController.Listener interface.
+ * The ActivityHistoryController class is responsible for managing the interactions between the ActivityHistoryViewController and the model classes related to activities.
+ * It implements the AppController interface and the Listener interface from the ActivityHistoryViewController.
+ * This class handles the loading of activities from the database and the return to the home screen of the application.
  */
 public class ActivityHistoryController
 		implements AppController, ActivityHistoryViewController.Listener {
