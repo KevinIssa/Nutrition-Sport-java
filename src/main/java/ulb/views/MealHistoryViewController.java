@@ -31,11 +31,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.models.ConsumedFood;
 import ulb.models.ConsumedMeal;
 
 public class MealHistoryViewController implements ViewController {
-
+	private static final Logger logger = LoggerFactory.getLogger(MealHistoryViewController.class);
 	private static final String FOLDERNAME = "consumed_meals";
 
 	private MealHistoryViewController.Listener
@@ -48,7 +50,8 @@ public class MealHistoryViewController implements ViewController {
 
 	public void setListener(Object listener) {
 		if (listener == null) {
-			throw new IllegalArgumentException("Listener cannot be null");
+			logger.error("Listener is null");
+			System.exit(1);
 		}
 		this.listener = (MealHistoryViewController.Listener) listener;
 		this.addMeals(); // Add activities when listener is set

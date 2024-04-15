@@ -23,12 +23,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.views.ViewController;
 
 /**
  * The ViewLoader class is responsible for loading the views.
  */
 public class ViewLoader {
+	private static final Logger logger = LoggerFactory.getLogger(ViewLoader.class);
 
 	/**
 	 * An array of paths to the FXML files for the views.
@@ -57,7 +60,9 @@ public class ViewLoader {
 			stage.setScene(new Scene(root));
 			return loader.getController();
 		} catch (IOException e) {
-			throw new RuntimeException("Failed to load resource: " + resourcePath, e);
+			logger.error("Failed to load view resources", e);
+			System.exit(1);
+			return null; // Unreachable
 		}
 	}
 

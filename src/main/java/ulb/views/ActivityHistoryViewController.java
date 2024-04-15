@@ -25,6 +25,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.controllers.dtos.ActivityDTO;
 import ulb.models.enums.Sport;
 
@@ -33,6 +35,8 @@ import ulb.models.enums.Sport;
  * It is responsible for handling the user interactions with the activity history view in the application.
  */
 public class ActivityHistoryViewController implements ViewController {
+	private static final Logger logger =
+			LoggerFactory.getLogger(ActivityHistoryViewController.class);
 	private ActivityHistoryViewController.Listener
 			listener; // Listener interface for communication with the controller
 	@FXML private ListView<HistoryBox> historyList; // ListView to display activity history
@@ -66,7 +70,8 @@ public class ActivityHistoryViewController implements ViewController {
 	// Set listener for communication with the controller
 	public void setListener(Object listener) {
 		if (listener == null) {
-			throw new IllegalArgumentException("Listener cannot be null");
+			logger.error("Listener is null");
+			System.exit(1);
 		}
 		this.listener = (Listener) listener;
 		this.setActivities(); // Add activities when listener is set

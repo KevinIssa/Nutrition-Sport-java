@@ -18,6 +18,8 @@
  */
 package ulb.models;
 
+import static java.lang.System.exit;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -26,12 +28,15 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents a food item that can be consumed.
  */
 @JsonSerialize(using = FoodSerializer.class)
 public class Food implements Consumable, Comparable<Food> {
+	private static final Logger logger = LoggerFactory.getLogger(Food.class);
 
 	private String name;
 	private int caloriesPer100;
@@ -212,7 +217,12 @@ public class Food implements Consumable, Comparable<Food> {
 			// Extract the matched digits and convert to an integer
 			return Integer.parseInt(matcher.group());
 		} else {
-			throw new RuntimeException("quantity not present in servingquantity");
+			logger.error(
+					"No match found in serving quantity {} for food {} match {}",
+					servingQuantity,
+					name,
+					substring);
+			return 0;
 		}
 	}
 
@@ -251,6 +261,7 @@ public class Food implements Consumable, Comparable<Food> {
  * Serializer class to serialize Food objects to JSON format.
  */
 class FoodSerializer extends JsonSerializer<Food> {
+	private static final Logger logger = LoggerFactory.getLogger(FoodSerializer.class);
 
 	/**
 	 * Serializes a Food object to JSON format.
@@ -258,17 +269,20 @@ class FoodSerializer extends JsonSerializer<Food> {
 	 * @param food             The Food object to serialize.
 	 * @param jsonGenerator    The JSON generator used for serialization.
 	 * @param serializerProvider The serializer provider.
-	 * @throws IOException If an I/O error occurs during serialization.
 	 */
 	@Override
 	public void serialize(
-			Food food, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
-			throws IOException {
-		jsonGenerator.writeStartObject();
-		jsonGenerator.writeStringField("name", food.getName());
-		jsonGenerator.writeNumberField("caloriesPer100", food.getCaloriesPer100());
-		jsonGenerator.writeNumberField("caloriesPerServing", food.getCaloriesPerServing());
-		jsonGenerator.writeStringField("servingQuantity", food.getServingQuantity());
-		jsonGenerator.writeEndObject();
+			Food food, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
+		try {
+			jsonGenerator.writeStartObject();
+			jsonGenerator.writeStringField("name", food.getName());
+			jsonGenerator.writeNumberField("caloriesPer100", food.getCaloriesPer100());
+			jsonGenerator.writeNumberField("caloriesPerServing", food.getCaloriesPerServing());
+			jsonGenerator.writeStringField("servingQuantity", food.getServingQuantity());
+			jsonGenerator.writeEndObject();
+		} catch (IOException e) {
+			logger.error("Error serializing food object", e);
+			exit(1);
+		}
 	}
 }

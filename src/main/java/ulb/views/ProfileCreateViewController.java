@@ -28,6 +28,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import ulb.exceptions.IllegalImageFormatException;
+import ulb.exceptions.ImageException;
+import ulb.exceptions.InvalidImageException;
 
 public class ProfileCreateViewController implements ViewController {
 	@FXML private ImageView image;
@@ -77,6 +80,16 @@ public class ProfileCreateViewController implements ViewController {
 			}
 		} catch (NumberFormatException e) {
 			return;
+		} catch (IllegalImageFormatException e) {
+			return;
+		} catch (IllegalArgumentException e) {
+			return;
+		} catch (InvalidImageException e) {
+			return;
+		} catch (
+				ImageException
+						e) { // this should not be caught it should be caught in catch block above
+			return;
 		}
 		this.listener.returnHome();
 	}
@@ -95,10 +108,11 @@ public class ProfileCreateViewController implements ViewController {
 				String sex,
 				LocalDate birthDate,
 				float height,
-				float weight);
+				float weight)
+				throws IllegalArgumentException;
 
 		void returnHome();
 
-		void saveProfileImage(String image);
+		void saveProfileImage(String image) throws ImageException;
 	}
 }

@@ -18,11 +18,15 @@
  */
 package ulb.models;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Represents a food item that has been consumed.
  * This class is responsible for managing the consumed food data.
  */
 public class ConsumedFood {
+	private static final Logger log = LoggerFactory.getLogger(ConsumedFood.class);
 	// Name of the consumed food
 	private String name;
 	// Quantity of the consumed food
@@ -42,6 +46,12 @@ public class ConsumedFood {
 		this.quantity = quantity;
 		this.calories = calories;
 		this.type = type;
+		log.info(
+				"ConsumedFood object created with name: {}, quantity: {}, calories: {} of type: {}",
+				name,
+				quantity,
+				calories,
+				type);
 	}
 
 	/**

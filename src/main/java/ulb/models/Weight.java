@@ -33,7 +33,7 @@ public class Weight {
 	 * @param weight The weight value in kilograms.
 	 * @throws IllegalArgumentException if the weight is less than or equal to MIN_WEIGHT or greater than MAX_WEIGHT.
 	 */
-	public Weight(float weight) {
+	public Weight(float weight) throws IllegalArgumentException {
 		validateWeight(weight);
 		this.weight = weight;
 	}
@@ -45,7 +45,7 @@ public class Weight {
 	 * @param weight The weight value to validate.
 	 * @throws IllegalArgumentException if the weight is out of the allowed range.
 	 */
-	private void validateWeight(float weight) {
+	private void validateWeight(float weight) throws IllegalArgumentException {
 		if (weight <= MIN_WEIGHT) {
 			throw new IllegalArgumentException("Weight must be greater than " + MIN_WEIGHT);
 		} else if (weight > MAX_WEIGHT) {
@@ -66,7 +66,7 @@ public class Weight {
 	 * @param weight The new weight value to set in kilograms.
 	 * @throws IllegalArgumentException if the new weight is out of the allowed range.
 	 */
-	public void setWeight(float weight) {
+	public void setWeight(float weight) throws IllegalArgumentException {
 		validateWeight(weight);
 		this.weight = weight;
 	}

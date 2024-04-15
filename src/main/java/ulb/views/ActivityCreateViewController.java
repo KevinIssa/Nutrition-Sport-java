@@ -26,9 +26,13 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.models.enums.Sport;
 
 public class ActivityCreateViewController implements ViewController {
+	private static final Logger logger =
+			LoggerFactory.getLogger(ActivityCreateViewController.class);
 	@FXML private Slider intensitySlider;
 	@FXML private TextField duration;
 	@FXML
@@ -69,12 +73,20 @@ public class ActivityCreateViewController implements ViewController {
 				this.showAlert(
 						"Heure invalide",
 						"L'heure doit être comprise entre 0 et 23 et les minutes entre 0 et 59");
+				logger.warn(
+						"Invalid time entered by the user, hour: {}, minutes: {}",
+						intHour,
+						intMinutes);
 				return null;
 			}
 
 			return LocalTime.of(intHour, intMinutes, intSeconds);
 		} catch (NumberFormatException e) {
 			this.showAlert("Heure invalide", "L'heure doit être un nombre");
+			logger.warn(
+					"Invalid time entered by the user, hour: {}, minutes: {}",
+					this.hour.getText(),
+					this.minutes.getText());
 			return null;
 		}
 	}
@@ -136,7 +148,8 @@ public class ActivityCreateViewController implements ViewController {
 	// Method to set the listener for communication with the controller
 	public void setListener(Object listener) {
 		if (listener == null) {
-			throw new IllegalArgumentException("Listener cannot be null");
+			logger.error("Listener is null");
+			System.exit(1);
 		}
 		this.listener = (Listener) listener;
 	}

@@ -24,6 +24,7 @@ import java.io.File;
 import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ulb.exceptions.ImageException;
 import ulb.models.enums.Sex;
 
 public class TestProfile {
@@ -85,7 +86,7 @@ public class TestProfile {
 	}
 
 	@Test
-	public void profileImageCanBeSaved() {
+	public void profileImageCanBeSaved() throws ImageException {
 		String imagePath =
 				"https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg";
 		Profile.saveImage(imagePath);
