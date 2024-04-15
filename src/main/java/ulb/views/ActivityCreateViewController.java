@@ -19,6 +19,7 @@
 package ulb.views;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -65,44 +66,107 @@ public class ActivityCreateViewController implements ViewController {
 	 */
 	public LocalTime getActivityTime() {
 		try {
-			int intHour = Integer.parseInt(this.hour.getText());
-			int intMinutes = Integer.parseInt(this.minutes.getText());
-			int intSeconds = LocalTime.now().getSecond();
+			String hourText = hour.getText();
+			String minutesText = minutes.getText();
 
-			if (intHour < 0 || intHour > 23 || intMinutes < 0 || intMinutes > 59) {
-				this.showAlert(
-						"Heure invalide",
-						"L'heure doit être comprise entre 0 et 23 et les minutes entre 0 et 59");
-				logger.warn(
-						"Invalid time entered by the user, hour: {}, minutes: {}",
-						intHour,
-						intMinutes);
+			if (hourText == null || minutesText == null) {
+				showAlert("Erreur", "Veuillez entrer une heure valide.");
 				return null;
 			}
 
-			return LocalTime.of(intHour, intMinutes, intSeconds);
+			int intHour = Integer.parseInt(hourText);
+			int intMinutes = Integer.parseInt(minutesText);
+
+			if (intHour < 0 || intHour > 23 || intMinutes < 0 || intMinutes > 59) {
+				showAlert(
+						"Heure invalide",
+						"L'heure doit être comprise entre 0 et 23 et les minutes entre 0 et 59");
+				return null;
+			}
+
+			return LocalTime.of(intHour, intMinutes);
 		} catch (NumberFormatException e) {
-			this.showAlert("Heure invalide", "L'heure doit être un nombre");
-			logger.warn(
-					"Invalid time entered by the user, hour: {}, minutes: {}",
-					this.hour.getText(),
-					this.minutes.getText());
+			showAlert("Heure invalide", "L'heure doit être un nombre");
 			return null;
 		}
 	}
 
+	/**
+	 * This method returns the date and time of the activity entered by the user.
+	 */
 	public LocalDateTime getActivityDate() {
-		return LocalDateTime.of(this.activityDate.getValue(), this.getActivityTime());
+		LocalDate currentDate = LocalDate.now();
+		if (isDateInFuture(activityDate.getValue(), currentDate)) {
+			showAlert("Date invalide", "La date ne peut pas être dans le futur");
+			return null;
+		}
+
+		LocalTime activityTime = getActivityTime();
+		if (activityTime == null) {
+			return null; // An error occurred, return null
+		}
+
+		return LocalDateTime.of(activityDate.getValue(), activityTime);
 	}
 
-	// Method to save the activity
+	/**
+	 * This method saves the activity.
+	 */
 	public void saveActivity() {
-		this.listener.saveActivity(
-				this.selectedSport,
-				(int) intensitySlider.getValue(),
-				this.duration.getText(),
-				this.getActivityDate());
-		this.listener.returnHome();
+		LocalDateTime activityDateTime = getActivityDate();
+		String durationText = this.duration.getText();
+
+		if (!isActivityDateValid(activityDateTime) || !isDurationValid(durationText)) {
+			return;
+		}
+
+		// Attempt to save the activity
+		try {
+			this.listener.saveActivity(
+					this.selectedSport,
+					(int) intensitySlider.getValue(),
+					durationText,
+					activityDateTime);
+			returnHome();
+		} catch (Exception e) {
+			showAlert("Erreur", "Une erreur s'est produite lors de l'enregistrement de l'activité.");
+		}
+	}
+
+	/**
+	 * This method checks if a date is in the future.
+	 */
+	public boolean isDateInFuture(LocalDate date1, LocalDate date2) {
+		return date1.compareTo(date2) > 0;
+	}
+
+	/**
+	 * Checks if the provided activity date and time is valid.
+	 * Displays an error message if the date and time are not valid.
+	 */
+	private boolean isActivityDateValid(LocalDateTime activityDateTime) {
+		if (activityDateTime == null) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Checks if the provided duration text is valid.
+	 * Displays an error message if the duration is not valid.
+	 */
+	private boolean isDurationValid(String durationText) {
+		try {
+			int duration = Integer.parseInt(durationText);
+			if (duration < 0 || duration > 500) {
+				showAlert("Erreur", "La durée doit être un nombre valide et ne peut pas dépasser 500.");
+				return false;
+			}
+			return true;
+		} catch (NumberFormatException e) {
+			showAlert("Erreur", "La durée doit être un nombre valide.");
+			return false;
+		}
 	}
 
 	public void returnHome() {
