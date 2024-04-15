@@ -18,40 +18,49 @@
  */
 package ulb.models;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 public class TestFoodLoader {
+
 	private FoodLoader foodLoader;
 
 	@BeforeEach
 	public void setup() {
-		this.foodLoader = new FoodLoader();
+		foodLoader = new FoodLoader();
 	}
 
 	@Test
-	public void testFoodLoader() {
-		assertNotNull(foodLoader);
+	public void loadFoodsShouldNotReturnNull() {
+		assertNotNull(foodLoader.getFoods());
 	}
 
-	@ParameterizedTest
-	@ValueSource(strings = {"pomme", "la", "r"})
-	public void testGetFoods(String foodName) {
-		List<Food> foods = foodLoader.getFoodsSuggestion(foodName);
-		foods.forEach(food -> assertTrue(food.getName().toLowerCase().startsWith(foodName)));
+	@Test
+	public void getFoodsSuggestionShouldReturnCorrectSuggestions() {
+		List<Food> foods = foodLoader.getFoodsSuggestion("Ban");
+		assertFalse(foods.isEmpty());
+		assertTrue(foods.stream().allMatch(food -> food.getName().startsWith("Ban")));
 	}
 
-	@ParameterizedTest
-	@ValueSource(strings = {"pomme", "Macaronis au fromage", "Soupe aux nouilles"})
-	public void testGetFoodByName(String foodName) {
-		Food food = foodLoader.getFoodByName(foodName);
+	@Test
+	public void getFoodsSuggestionShouldReturnEmptyListForUnknownFood() {
+		List<Food> foods = foodLoader.getFoodsSuggestion("UnknownFood");
+		assertTrue(foods.isEmpty());
+	}
+
+	@Test
+	public void getFoodByNameShouldReturnCorrectFood() {
+		Food food = foodLoader.getFoodByName("7up");
 		assertNotNull(food);
-		assertTrue(food.getName().equalsIgnoreCase(foodName));
+		assertEquals("7up", food.getName());
+	}
+
+	@Test
+	public void getFoodByNameShouldReturnNullForUnknownFood() {
+		Food food = foodLoader.getFoodByName("UnknownFood");
+		assertNull(food);
 	}
 }

@@ -3,7 +3,7 @@ import json
 
 
 def csv_to_json(csv_file, output_file):
-    with open(csv_file, "r") as csvfile:
+    with open(csv_file, "r", encoding='utf-8') as csvfile:
         data = sorted(
             [
                 {
@@ -28,7 +28,7 @@ def csv_to_json(csv_file, output_file):
         )
 
     with open(output_file, "w") as jsonfile:
-        json.dump(data, jsonfile, indent=4)
+        json.dump(data, jsonfile, indent=4, ensure_ascii=False)
 
 
 csv_to_json(
