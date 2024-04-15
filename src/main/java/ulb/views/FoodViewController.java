@@ -32,9 +32,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
@@ -87,17 +85,15 @@ public class FoodViewController implements ViewController {
 			textField.setVisible(true);
 			date.setVisible(false);
 			textField.setText("");
-			consumedFoodsList.clear();
-			chosenFoodView.getItems().clear();
-		} else {
+        } else {
 			title.setText("Ajoutez les aliments consommés");
 			name.setVisible(false);
 			textField.setVisible(false);
 			date.setVisible(true);
-			consumedFoodsList.clear();
-			chosenFoodView.getItems().clear();
-		}
-	}
+        }
+        consumedFoodsList.clear();
+        chosenFoodView.getItems().clear();
+    }
 
 	@Override
 	public void setListener(Object listener) {
@@ -117,10 +113,9 @@ public class FoodViewController implements ViewController {
 
 	/**
 	 * This method adds the chosen food to the list when the user clicks on it.
-	 * @param event The mouse event.
 	 */
 	@FXML
-	public void addChosenFoodMouse(MouseEvent event) {
+	public void addChosenFoodMouse() {
 		String chosenFood = suggestionsList.getSelectionModel().getSelectedItem();
 		if (chosenFood != null) {
 			addChosenFood(chosenFood);
@@ -132,15 +127,49 @@ public class FoodViewController implements ViewController {
 	 * @param event The key event.
 	 */
 	@FXML
-	public void addChosenFoodKey(KeyEvent event) {
-		if (event.getCode() == KeyCode.ENTER) {
-			String chosenFood = suggestionsList.getSelectionModel().getSelectedItem();
-			if (chosenFood == null && !suggestionsList.getItems().isEmpty()) {
-				chosenFood = suggestionsList.getItems().get(0);
-			}
-			if (chosenFood != null) {
-				addChosenFood(chosenFood);
-			}
+	public void keyPress(KeyEvent event) {
+		switch (event.getCode()) {
+			case ENTER:
+				this.onEnterPress();
+				break;
+			case DOWN:
+				this.onDownPress();
+				break;
+			case UP:
+				this.onUpPress();
+		}
+	}
+
+	private void onUpPress() {
+		if (this.suggestionsList.getSelectionModel().getSelectedIndex() != 0) {
+			this.suggestionsList.getSelectionModel().selectPrevious();
+		}
+		this.searchField.setText(this.suggestionsList.getSelectionModel().getSelectedItem());
+		int index = this.suggestionsList.getSelectionModel().getSelectedIndex();
+		if(index-3 <= this.suggestionsList.getItems().size() - 1){
+			this.suggestionsList.scrollTo(index-3);
+		}
+	}
+
+	private void onDownPress() {
+		if (this.suggestionsList.getSelectionModel().getSelectedIndex()
+				!= this.suggestionsList.getItems().size() - 1) {
+			this.suggestionsList.getSelectionModel().selectNext();
+		}
+		this.searchField.setText(this.suggestionsList.getSelectionModel().getSelectedItem());
+		int index = this.suggestionsList.getSelectionModel().getSelectedIndex();
+		if(index-4 >= 0){
+			this.suggestionsList.scrollTo(index-4);
+		}
+	}
+
+	private void onEnterPress() {
+		String chosenFood = suggestionsList.getSelectionModel().getSelectedItem();
+		if (chosenFood == null && !suggestionsList.getItems().isEmpty()) {
+			chosenFood = suggestionsList.getItems().get(0);
+		}
+		if (chosenFood != null) {
+			addChosenFood(chosenFood);
 		}
 	}
 
