@@ -26,6 +26,11 @@ import ulb.models.Weight;
 import ulb.models.enums.Sex;
 import ulb.views.ProfileViewController;
 
+/**
+ * This class is the controller for the profile screen of the application.
+ * It is responsible for handling the logic of the profile screen, such as saving the user's profile information.
+ * It also listens to events from the ProfileViewController and notifies the listener when the user wants to delete their profile or return to the home screen.
+ */
 public class ProfileController implements AppController, ProfileViewController.Listener {
 
 	private final Profile profile = Profile.load();

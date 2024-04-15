@@ -28,7 +28,8 @@ import org.slf4j.LoggerFactory;
 import ulb.views.ViewController;
 
 /**
- * The ViewLoader class is responsible for loading the views.
+ * This class is used to load views and set controllers as listeners for the loaded views.
+ * It contains a constant array of paths to the FXML files for the views.
  */
 public class ViewLoader {
 	private static final Logger logger = LoggerFactory.getLogger(ViewLoader.class);
@@ -118,10 +119,26 @@ public class ViewLoader {
 		return null;
 	}
 
+	/**
+	 * This method is used to load the 'AddMeal' view.
+	 * It calls the load method with the path to the 'AddMeal' view FXML file and the provided stage.
+	 * The load method returns a ViewController instance for the loaded view.
+	 *
+	 * @param stage The stage to set the scene of.
+	 * @return The controller for the loaded 'AddMeal' view.
+	 */
 	public ViewController loadAddMeal(Stage stage) {
 		return this.load(PATHS[2], stage);
 	}
 
+	/**
+	 * This method is used to load the 'ActivityCreate' view.
+	 * It calls the load method with the path to the 'ActivityCreate' view FXML file and the provided stage.
+	 * The load method returns a ViewController instance for the loaded view.
+	 *
+	 * @param stage The stage to set the scene of.
+	 * @return The controller for the loaded 'ActivityCreate' view.
+	 */
 	public ViewController loadActivityCreate(Stage stage) {
 		return this.load(PATHS[0], stage);
 	}

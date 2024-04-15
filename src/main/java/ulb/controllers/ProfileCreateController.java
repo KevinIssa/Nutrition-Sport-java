@@ -26,6 +26,11 @@ import ulb.models.Weight;
 import ulb.models.enums.Sex;
 import ulb.views.ProfileCreateViewController;
 
+/**
+ * This class is the controller for the profile creation screen of the application.
+ * It is responsible for handling the logic of the profile creation screen, such as saving the user's profile information.
+ * It also listens to events from the ProfileCreateViewController and notifies the listener when the user wants to return to the home screen.
+ */
 public class ProfileCreateController
 		implements AppController, ProfileCreateViewController.Listener {
 

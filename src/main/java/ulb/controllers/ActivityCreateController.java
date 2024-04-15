@@ -27,8 +27,9 @@ import ulb.models.enums.Sport;
 import ulb.views.ActivityCreateViewController;
 
 /**
- * The ActivityCreateController class is responsible for handling the creation of new activities.
- * It implements the AppController interface and the ActivityCreateViewController.Listener interface.
+ * The ActivityCreateController class is responsible for managing the interactions between the ActivityCreateViewController and the model classes related to activities.
+ * It implements the AppController interface and the Listener interface from the ActivityCreateViewController.
+ * This class handles the saving of activities, the calculation of calories burned by an activity, and the return to the home screen of the application.
  */
 public class ActivityCreateController
 		implements AppController, ActivityCreateViewController.Listener {

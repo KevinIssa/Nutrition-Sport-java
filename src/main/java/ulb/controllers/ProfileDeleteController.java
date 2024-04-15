@@ -23,6 +23,12 @@ import ulb.models.ConsumedMeal;
 import ulb.models.Profile;
 import ulb.views.ProfileDeleteConfirmViewController;
 
+/**
+ * This class is a controller for the profile delete view.
+ * It is responsible for deleting the profile and all the data associated with it.
+ * It implements the AppController interface and the ProfileDeleteConfirmViewController.Listener interface.
+ * It has a listener that must implement the ProfileDeleteController.Listener interface.
+ */
 public class ProfileDeleteController
 		implements AppController, ProfileDeleteConfirmViewController.Listener {
 
