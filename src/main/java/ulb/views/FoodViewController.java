@@ -85,15 +85,15 @@ public class FoodViewController implements ViewController {
 			textField.setVisible(true);
 			date.setVisible(false);
 			textField.setText("");
-        } else {
+		} else {
 			title.setText("Ajoutez les aliments consommés");
 			name.setVisible(false);
 			textField.setVisible(false);
 			date.setVisible(true);
-        }
-        consumedFoodsList.clear();
-        chosenFoodView.getItems().clear();
-    }
+		}
+		consumedFoodsList.clear();
+		chosenFoodView.getItems().clear();
+	}
 
 	@Override
 	public void setListener(Object listener) {
@@ -146,8 +146,8 @@ public class FoodViewController implements ViewController {
 		}
 		this.searchField.setText(this.suggestionsList.getSelectionModel().getSelectedItem());
 		int index = this.suggestionsList.getSelectionModel().getSelectedIndex();
-		if(index-3 <= this.suggestionsList.getItems().size() - 1){
-			this.suggestionsList.scrollTo(index-3);
+		if (index - 3 <= this.suggestionsList.getItems().size() - 1) {
+			this.suggestionsList.scrollTo(index - 3);
 		}
 	}
 
@@ -158,8 +158,8 @@ public class FoodViewController implements ViewController {
 		}
 		this.searchField.setText(this.suggestionsList.getSelectionModel().getSelectedItem());
 		int index = this.suggestionsList.getSelectionModel().getSelectedIndex();
-		if(index-4 >= 0){
-			this.suggestionsList.scrollTo(index-4);
+		if (index - 4 >= 0) {
+			this.suggestionsList.scrollTo(index - 4);
 		}
 	}
 
