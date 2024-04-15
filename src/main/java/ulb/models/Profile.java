@@ -142,7 +142,9 @@ public class Profile implements JsonSerializable {
 	 * @throws RuntimeException If an IOException occurs during the operation.
 	 */
 	public static void saveImage(String imagePath) throws ImageException {
-		if (!(imagePath.endsWith(".png") || imagePath.endsWith(".jpg"))) {
+		if (!(imagePath.endsWith(".png")
+				|| imagePath.endsWith(".jpg")
+				|| imagePath.endsWith(".jpeg"))) {
 			logger.warn("Only PNG and JPG images are supported: {}", imagePath);
 			throw new IllegalImageFormatException("Only PNG and JPG images are supported");
 		}
