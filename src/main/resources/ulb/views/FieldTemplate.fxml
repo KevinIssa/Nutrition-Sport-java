@@ -17,7 +17,7 @@
             <StackPane>
                <children>
                   <Label fx:id="infoUser" alignment="CENTER" minHeight="36.0" prefWidth="376.0" text="Label" textFill="#f3fbfb" />
-                  <TextField fx:id="infoFieldUser" minHeight="36.0" prefWidth="376.0" />
+                  <TextField fx:id="infoFieldUser" onAction="#toggleMode" minHeight="36.0" prefWidth="376.0" />
                </children>
             </StackPane>
             <Button fx:id="editButton" maxWidth="56.0" mnemonicParsing="false" onAction="#toggleMode" prefHeight="36.0" prefWidth="33.0" style="-fx-background-color: #fd9c2d; -fx-background-radius: 10;">
