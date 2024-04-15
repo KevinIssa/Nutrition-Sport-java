@@ -19,6 +19,7 @@
 package ulb.controllers;
 
 import java.io.IOException;
+import java.util.Map;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,25 +29,24 @@ import org.slf4j.LoggerFactory;
 import ulb.views.ViewController;
 
 /**
- * This class is used to load views and set controllers as listeners for the loaded views.
- * It contains a constant array of paths to the FXML files for the views.
+ * This class is used to load views from FXML files and set them as the scene of a stage.
  */
 public class ViewLoader {
 	private static final Logger logger = LoggerFactory.getLogger(ViewLoader.class);
 
 	/**
-	 * An array of paths to the FXML files for the views.
+	 * A map that associates each controller class with the path to its corresponding FXML file.
+	 * This map is used to load the appropriate view for each controller.
+	 * The keys are Class objects representing the controller classes, and the values are strings representing the paths to the FXML files.
 	 */
-	private static final String[] PATHS = {
-		"/ulb/views/ActivityCreate.fxml", // 0
-		"/ulb/views/ActivityHistory.fxml", // 1
-		"/ulb/views/AddMeal.fxml", // 2
-		"/ulb/views/MealHistory.fxml", // 3
-		"/ulb/views/Menu.fxml", // 4
-		"/ulb/views/Profile.fxml", // 5
-		"/ulb/views/ProfileCreate.fxml", // 6
-		"/ulb/views/ProfileDeleteConfirm.fxml" // 7
-	};
+	private static final Map<Class<? extends AppController>, String> controllerToFxmlPath =
+			Map.of(
+					MenuController.class, "/ulb/views/Menu.fxml",
+					ProfileCreateController.class, "/ulb/views/ProfileCreate.fxml",
+					ProfileController.class, "/ulb/views/Profile.fxml",
+					ProfileDeleteController.class, "/ulb/views/ProfileDeleteConfirm.fxml",
+					ActivityHistoryController.class, "/ulb/views/ActivityHistory.fxml",
+					MealHistoryController.class, "/ulb/views/MealHistory.fxml");
 
 	/**
 	 * Loads a view from a given resource path and sets it as the scene of the given stage.
@@ -82,41 +82,19 @@ public class ViewLoader {
 	}
 
 	/**
-	 * This method is used to load a view associated with a given controller.
-	 * It first retrieves the index of the path to the FXML file for the view associated with the controller by calling the getPathIndex method.
-	 * If the index is not null, it calls the loadWithListener method with the path at the retrieved index, the provided stage, and the provided controller.
-	 * This effectively loads the view and sets the controller as the listener for the loaded view.
+	 * This method is used to load a view associated with a given controller and set it as the scene of a given stage.
+	 * It first retrieves the path to the FXML file for the view associated with the controller's class from the controllerToFxmlPath map.
+	 * If such a path exists, it calls the loadWithListener method with the path, the stage, and the controller.
+	 * This effectively loads the view from the FXML file, sets it as the scene of the stage, and sets the controller as the listener for the view.
 	 *
 	 * @param stage The stage to set the scene of.
-	 * @param controller The controller to set as the listener for the loaded view and to get the path index for.
+	 * @param controller The controller associated with the view to load.
 	 */
 	public void loadView(Stage stage, AppController controller) {
-		Integer pathIndex = this.getPathIndex(controller);
-		if (pathIndex != null) {
-			this.loadWithListener(PATHS[pathIndex], stage, controller);
+		String fxmlPath = controllerToFxmlPath.get(controller.getClass());
+		if (fxmlPath != null) {
+			this.loadWithListener(fxmlPath, stage, controller);
 		}
-	}
-
-	/**
-	 * Returns the index in the PATHS array corresponding to the given controller.
-	 * @param controller The controller to get the path index for.
-	 * @return The index in the PATHS array corresponding to the given controller, or null if no such index exists.
-	 */
-	private Integer getPathIndex(AppController controller) {
-		if (controller instanceof MenuController) {
-			return 4;
-		} else if (controller instanceof ProfileCreateController) {
-			return 6;
-		} else if (controller instanceof ProfileController) {
-			return 5;
-		} else if (controller instanceof ProfileDeleteController) {
-			return 7;
-		} else if (controller instanceof ActivityHistoryController) {
-			return 1;
-		} else if (controller instanceof MealHistoryController) {
-			return 3;
-		}
-		return null;
 	}
 
 	/**
@@ -128,7 +106,7 @@ public class ViewLoader {
 	 * @return The controller for the loaded 'AddMeal' view.
 	 */
 	public ViewController loadAddMeal(Stage stage) {
-		return this.load(PATHS[2], stage);
+		return this.load("/ulb/views/AddMeal.fxml", stage);
 	}
 
 	/**
@@ -140,6 +118,6 @@ public class ViewLoader {
 	 * @return The controller for the loaded 'ActivityCreate' view.
 	 */
 	public ViewController loadActivityCreate(Stage stage) {
-		return this.load(PATHS[0], stage);
+		return this.load("/ulb/views/ActivityCreate.fxml", stage);
 	}
 }
