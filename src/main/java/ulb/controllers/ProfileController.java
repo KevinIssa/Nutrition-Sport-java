@@ -35,15 +35,6 @@ public class ProfileController implements AppController, ProfileViewController.L
 		this.listener = listener;
 	}
 
-	/**
-	 * This method is used to load the create activity view.
-	 * It creates a new Stage object for the popup stage.
-	 * Then, it loads the activity create view with the popup stage and assigns the returned ViewController to a new ActivityCreateViewController object.
-	 * It sets the listener of the ViewController with a new instance of the ActivityCreateController.
-	 * The listener is set with a lambda function that loads the menu view and closes the popup stage when called.
-	 * Then, it sets the modality of the popup stage to APPLICATION_MODAL, which means that while the popup stage is showing, it blocks user interaction with all other stages of the application.
-	 * Finally, it shows the popup stage and waits for it to be hidden (closed) before returning to the caller.
-	 */
 	@Override
 	public void saveProfile(
 			String firstName,
@@ -114,9 +105,25 @@ public class ProfileController implements AppController, ProfileViewController.L
 		return Profile.IMAGE_PATH;
 	}
 
+	/**
+	 * This is an interface for the listener in the ProfileController class.
+	 * It defines two methods that must be implemented by any class that uses this interface.
+	 * The methods are deleteProfile and returnHome.
+	 * <p>
+	 * The deleteProfile method is called when the user wants to delete their profile.
+	 * The returnHome method is called when the user wants to return to the home view.
+	 */
 	public interface Listener {
+		/**
+		 * This method is called when the user wants to delete their profile.
+		 * It should contain the logic for deleting the user's profile.
+		 */
 		void deleteProfile();
 
+		/**
+		 * This method is called when the user wants to return to the home view.
+		 * It should contain the logic for returning to the home view.
+		 */
 		void returnHome();
 	}
 }

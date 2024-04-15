@@ -35,15 +35,6 @@ public class ProfileCreateController
 		this.listener = listener;
 	}
 
-	/**
-	 * This method is used to load the create activity view.
-	 * It creates a new Stage object for the popup stage.
-	 * Then, it loads the activity create view with the popup stage and assigns the returned ViewController to a new ActivityCreateViewController object.
-	 * It sets the listener of the ViewController with a new instance of the ActivityCreateController.
-	 * The listener is set with a lambda function that loads the menu view and closes the popup stage when called.
-	 * Then, it sets the modality of the popup stage to APPLICATION_MODAL, which means that while the popup stage is showing, it blocks user interaction with all other stages of the application.
-	 * Finally, it shows the popup stage and waits for it to be hidden (closed) before returning to the caller.
-	 */
 	public void saveProfile(
 			String firstName,
 			String lastName,
@@ -73,8 +64,18 @@ public class ProfileCreateController
 		Profile.saveImage(imagePath);
 	}
 
+	/**
+	 * This is an interface for the Listener within the ProfileCreateController class.
+	 * It is used to define the contract for the Listener, which is expected to be implemented by any class that wants to listen to events from the ProfileCreateController.
+	 * <p>
+	 * Currently, it has a single method, returnHome, which is expected to be called when the user wants to return to the home screen of the application.
+	 */
 	public interface Listener {
 
+		/**
+		 * This method is called when the user wants to return to the home screen of the application.
+		 * The implementing class should define the behavior that occurs when this event happens.
+		 */
 		void returnHome();
 	}
 }

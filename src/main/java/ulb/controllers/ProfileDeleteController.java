@@ -32,11 +32,6 @@ public class ProfileDeleteController
 		this.listener = listener;
 	}
 
-	/**
-	 * Delete the profile.
-	 * It deletes the profile, clears all activities and consumed meals.
-	 * Then, it calls the createProfile method of the listener.
-	 */
 	@Override
 	public void deleteProfile() {
 		Profile.delete();
@@ -50,9 +45,29 @@ public class ProfileDeleteController
 		this.listener.returnHome();
 	}
 
+	/**
+	 * This is an interface for the listener in the ProfileDeleteController class.
+	 * It defines two methods that must be implemented by any class that uses this interface.
+	 * The methods are returnHome and createProfile.
+	 * <p>
+	 * The returnHome method is called when the user wants to return to the home view.
+	 * It should contain the logic for returning to the home view.
+	 * <p>
+	 * The createProfile method is called when the user wants to create a new profile.
+	 * It should contain the logic for creating a new profile.
+	 */
 	public interface Listener {
+
+		/**
+		 * This method is called when the user wants to return to the home view.
+		 * It should contain the logic for returning to the home view.
+		 */
 		void returnHome();
 
+		/**
+		 * This method is called when the user wants to create a new profile.
+		 * It should contain the logic for creating a new profile.
+		 */
 		void createProfile();
 	}
 }

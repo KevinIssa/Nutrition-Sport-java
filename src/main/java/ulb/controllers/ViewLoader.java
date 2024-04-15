@@ -66,10 +66,29 @@ public class ViewLoader {
 		}
 	}
 
+	/**
+	 * This method is used to load a view with a specified listener.
+	 * It first calls the load method with the provided resource path and stage.
+	 * The load method returns a ViewController instance, on which the setListener method is called with the provided controller.
+	 * This effectively sets the controller as the listener for the loaded view.
+	 *
+	 * @param resourcePath The path to the FXML file for the view.
+	 * @param stage The stage to set the scene of.
+	 * @param controller The controller to set as the listener for the loaded view.
+	 */
 	private void loadWithListener(String resourcePath, Stage stage, AppController controller) {
 		this.load(resourcePath, stage).setListener(controller);
 	}
 
+	/**
+	 * This method is used to load a view associated with a given controller.
+	 * It first retrieves the index of the path to the FXML file for the view associated with the controller by calling the getPathIndex method.
+	 * If the index is not null, it calls the loadWithListener method with the path at the retrieved index, the provided stage, and the provided controller.
+	 * This effectively loads the view and sets the controller as the listener for the loaded view.
+	 *
+	 * @param stage The stage to set the scene of.
+	 * @param controller The controller to set as the listener for the loaded view and to get the path index for.
+	 */
 	public void loadView(Stage stage, AppController controller) {
 		Integer pathIndex = this.getPathIndex(controller);
 		if (pathIndex != null) {
