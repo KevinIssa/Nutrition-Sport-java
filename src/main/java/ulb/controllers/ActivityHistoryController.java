@@ -43,13 +43,6 @@ public class ActivityHistoryController
 		this.listener.returnHome();
 	}
 
-	/**
-	 * This method is used to get a list of activities.
-	 * It filters the activities based on the provided sport filter.
-	 * If the filter is null, it returns all activities.
-	 * @param filter The sport filter. If null, all activities are returned.
-	 * @return A list of ActivityDTO objects representing the filtered activities.
-	 */
 	@Override
 	public List<ActivityDTO> getActivities(Sport filter) {
 		return Activity.loadAll().stream()
@@ -58,7 +51,18 @@ public class ActivityHistoryController
 				.collect(Collectors.toList());
 	}
 
+	/**
+	 * This is an interface for the Listener within the ActivityHistoryController class.
+	 * It is used to define the contract for the Listener, which is expected to be implemented by any class that wants to listen to events from the ActivityHistoryController.
+	 * <p>
+	 * Currently, it has a single method, returnHome, which is expected to be called when the user wants to return to the home screen of the application.
+	 */
 	public interface Listener {
+
+		/**
+		 * This method is called when the user wants to return to the home screen of the application.
+		 * The implementing class should define the behavior that occurs when this event happens.
+		 */
 		void returnHome();
 	}
 }

@@ -19,7 +19,6 @@
 package ulb.views;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -55,9 +54,10 @@ public class ActivityCreateViewController implements ViewController {
 	 * This method initializes the date picker and time fields with the current date and time.
 	 */
 	private void initTime() {
-		this.activityDate.setValue(LocalDate.now());
-		this.hour.setText(String.valueOf(LocalTime.now().getHour()));
-		this.minutes.setText(String.valueOf(LocalTime.now().getMinute()));
+		LocalDateTime now = LocalDateTime.now();
+		this.activityDate.setValue(now.toLocalDate());
+		this.hour.setText(String.valueOf(now.getHour()));
+		this.minutes.setText(String.valueOf(now.getMinute()));
 	}
 
 	/**

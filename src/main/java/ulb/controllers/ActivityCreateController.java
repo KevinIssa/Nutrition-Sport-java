@@ -48,14 +48,6 @@ public class ActivityCreateController
 		this.viewController = viewController;
 	}
 
-	/**
-	 *Creates a new activity with the given parameters and saves it to the database.
-	 * It also updates the view to show the calories consumed by the activity.
-	 * @param sport The sport of the activity
-	 * @param intensity The intensity of the activity
-	 * @param duration The duration of the activity
-	 * @param dateTime The date and time of the activity
-	 */
 	@Override
 	public void saveActivity(Sport sport, int intensity, String duration, LocalDateTime dateTime) {
 		Activity activity =
@@ -69,16 +61,23 @@ public class ActivityCreateController
 				activity.getCaloriesBurned(Profile.load().getWeight()));
 	}
 
-	/**
-	 * This method is used to return to the home screen.
-	 * It calls the returnHome method of the listener.
-	 */
 	@Override
 	public void returnHome() {
 		this.listener.returnHome();
 	}
 
+	/**
+	 * This is an interface for the Listener within the ActivityCreateController class.
+	 * It is used to define the contract for the Listener, which is expected to be implemented by any class that wants to listen to events from the ActivityCreateController.
+	 * <p>
+	 * Currently, it has a single method, returnHome, which is expected to be called when the user wants to return to the home screen of the application.
+	 */
 	public interface Listener {
+
+		/**
+		 * This method is called when the user wants to return to the home screen of the application.
+		 * The implementing class should define the behavior that occurs when this event happens.
+		 */
 		void returnHome();
 	}
 }
