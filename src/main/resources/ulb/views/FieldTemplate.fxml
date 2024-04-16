@@ -20,7 +20,7 @@
                   <TextField fx:id="infoFieldUser" minHeight="36.0" prefWidth="376.0" />
                </children>
             </StackPane>
-            <Button fx:id="editButton" maxWidth="56.0" mnemonicParsing="false" onAction="#toggleMode" prefHeight="36.0" prefWidth="33.0" style="-fx-background-color: #fd9c2d; -fx-background-radius: 10;">
+            <Button fx:id="editButton" minHeight="36.0" minWidth="43.0" mnemonicParsing="false" onAction="#toggleMode" style="-fx-background-color: #fd9c2d; -fx-background-radius: 10;">
                <graphic>
                   <ImageView fitHeight="27.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
