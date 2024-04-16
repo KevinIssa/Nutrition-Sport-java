@@ -19,7 +19,8 @@
 package ulb.models.enums;
 
 /**
- * Enum representing various sports.
+ * The Sport enum represents different types of sports.
+ * It has five values: WALKING, RUNNING, BIKING, SWIMMING, and VOLLEYBALL.
  */
 public enum Sport {
 	WALKING,
@@ -29,11 +30,11 @@ public enum Sport {
 	VOLLEYBALL;
 
 	/**
-	 * Converts a string representation of sport to the corresponding enum value.
+	 * Converts a string to its corresponding Sport enum value.
 	 *
-	 * @param sport The string representation of the sport.
-	 * @return The enum value corresponding to the given string.
-	 * @throws IllegalArgumentException If the provided string does not match any known sport.
+	 * @param sport The string to be converted.
+	 * @return The corresponding Sport enum value.
+	 * @throws IllegalArgumentException If the string does not correspond to any Sport enum value.
 	 */
 	public static Sport fromString(String sport) {
 		switch (sport.toLowerCase()) {
@@ -53,9 +54,10 @@ public enum Sport {
 	}
 
 	/**
-	 * Converts the enum value to its corresponding localized string representation.
+	 * Converts the enum value to its corresponding string representation.
 	 *
-	 * @return The localized string representation of the sport.
+	 * @return The string representation of the sport.
+	 * @throws IllegalStateException If the enum value is not recognized.
 	 */
 	@Override
 	public String toString() {
@@ -70,23 +72,6 @@ public enum Sport {
 				return "swimming";
 			case VOLLEYBALL:
 				return "volleyball";
-			default:
-				throw new IllegalStateException("Unexpected value: " + this);
-		}
-	}
-
-	public String toFrench() {
-		switch (this) {
-			case WALKING:
-				return "Marche";
-			case RUNNING:
-				return "Course à pied";
-			case BIKING:
-				return "Vélo";
-			case SWIMMING:
-				return "Natation";
-			case VOLLEYBALL:
-				return "Volleyball";
 			default:
 				throw new IllegalStateException("Unexpected value: " + this);
 		}

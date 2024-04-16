@@ -26,29 +26,39 @@ import ulb.models.enums.Intensity;
 import ulb.models.enums.Sport;
 import ulb.views.ActivityCreateViewController;
 
+/**
+ * The ActivityCreateController class is responsible for managing the interactions between the ActivityCreateViewController and the model classes related to activities.
+ * It implements the AppController interface and the Listener interface from the ActivityCreateViewController.
+ * This class handles the saving of activities, the calculation of calories burned by an activity, and the return to the home screen of the application.
+ */
 public class ActivityCreateController
 		implements AppController, ActivityCreateViewController.Listener {
 
 	private final ActivityCreateController.Listener listener;
+	private final ActivityCreateViewController viewController;
 
-	public ActivityCreateController(ActivityCreateController.Listener listener) {
+	/**
+	 * Constructor for the ActivityCreateController class.
+	 * @param listener Listener for the ActivityCreateController
+	 * @param viewController ViewController for the ActivityCreateController
+	 */
+	public ActivityCreateController(
+			ActivityCreateController.Listener listener,
+			ActivityCreateViewController viewController) {
 		this.listener = listener;
+		this.viewController = viewController;
 	}
 
 	@Override
-	public void saveActivity(
-			Sport selectedSport,
-			int selectedIntensity,
-			String selectedDuration,
-			LocalDateTime activityDateTime) {
+	public void saveActivity(Sport sport, int intensity, String duration, LocalDateTime dateTime) {
 		Activity activity =
 				new Activity(
-						selectedSport,
-						Intensity.fromInt(selectedIntensity),
-						Duration.ofMinutes(Long.parseLong(selectedDuration)),
-						activityDateTime);
+						sport,
+						Intensity.fromInt(intensity),
+						Duration.ofMinutes(Long.parseLong(duration)),
+						dateTime);
 		activity.save();
-		ActivityCreateViewController.showAlert(
+		this.viewController.showCaloriesConsumed(
 				activity.getCaloriesBurned(Profile.load().getWeight()));
 	}
 
@@ -57,7 +67,18 @@ public class ActivityCreateController
 		this.listener.returnHome();
 	}
 
+	/**
+	 * This is an interface for the Listener within the ActivityCreateController class.
+	 * It is used to define the contract for the Listener, which is expected to be implemented by any class that wants to listen to events from the ActivityCreateController.
+	 * <p>
+	 * Currently, it has a single method, returnHome, which is expected to be called when the user wants to return to the home screen of the application.
+	 */
 	public interface Listener {
+
+		/**
+		 * This method is called when the user wants to return to the home screen of the application.
+		 * The implementing class should define the behavior that occurs when this event happens.
+		 */
 		void returnHome();
 	}
 }

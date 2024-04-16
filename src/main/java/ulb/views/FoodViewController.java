@@ -25,7 +25,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,68 +32,45 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.models.Food;
 import ulb.widgets.FoodPopupController;
 
 public class FoodViewController implements ViewController {
-
+	private static final Logger logger = LoggerFactory.getLogger(FoodViewController.class);
 	@FXML private TextField searchField;
 	@FXML private ListView<String> suggestionsList;
 	@FXML private ListView<HBox> chosenFoodView;
 	@FXML private Slider slider;
 	@FXML private Label title;
 	@FXML private Label name;
-	@FXML private TextField namefield;
-	@FXML private Label statuslabel;
-	private Boolean mode;
-	@FXML private DatePicker mealdate;
+	@FXML private TextField textField;
+	@FXML private DatePicker mealDate;
 	@FXML private TextField hour;
 	@FXML private TextField minutes;
 	@FXML private Group date;
-
-	private ArrayList<ArrayList<String>> consumedFoodsList = new ArrayList<>();
+	private boolean mode = false;
+	private final ArrayList<ArrayList<String>> consumedFoodsList = new ArrayList<>();
 	private FoodViewController.Listener listener;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		// Set the current time
-		hour.setText(String.valueOf(LocalTime.now().getHour()));
-		minutes.setText(String.valueOf(LocalTime.now().getMinute()));
-		// Set the current date
-		mealdate.setValue(LocalDate.now());
-		// Hide the name label and text field
-		name.setVisible(false);
-		namefield.setVisible(false);
-		// Configure the slider
-		configSlider();
-		// Add a listener to the slider value property
-		slider.valueProperty()
+		this.hour.setText(String.valueOf(LocalTime.now().getHour()));
+		this.minutes.setText(String.valueOf(LocalTime.now().getMinute()));
+		this.mealDate.setValue(LocalDate.now());
+		this.name.setVisible(false);
+		this.textField.setVisible(false);
+		this.slider
+				.valueProperty()
 				.addListener(
 						(observable, oldValue, newValue) -> {
-							// Update the boolean variable based on slider value
-							mode = newValue.intValue() == 1;
-							// Update the status label
-							statuslabel.setText(mode ? "plats" : "aliments");
-							// Call function whenever the slider is modified
+							this.mode = newValue.intValue() == 1;
 							changeMode();
 						});
-	}
-
-	private void configSlider() {
-		slider.setMin(0);
-		slider.setMax(1);
-		slider.setValue(0);
-		slider.setMinorTickCount(0);
-		slider.setSnapToTicks(true);
-		slider.setShowTickMarks(true);
-		slider.setShowTickLabels(true);
-		slider.setMajorTickUnit(1);
-		mode = false; // * Default value
 	}
 
 	/**
@@ -106,25 +82,24 @@ public class FoodViewController implements ViewController {
 		if (mode) {
 			title.setText("Ajoutez un plat");
 			name.setVisible(true);
-			namefield.setVisible(true);
+			textField.setVisible(true);
 			date.setVisible(false);
-			namefield.setText("");
-			consumedFoodsList.clear();
-			chosenFoodView.getItems().clear();
+			textField.setText("");
 		} else {
 			title.setText("Ajoutez les aliments consommés");
 			name.setVisible(false);
-			namefield.setVisible(false);
+			textField.setVisible(false);
 			date.setVisible(true);
-			consumedFoodsList.clear();
-			chosenFoodView.getItems().clear();
 		}
+		consumedFoodsList.clear();
+		chosenFoodView.getItems().clear();
 	}
 
 	@Override
 	public void setListener(Object listener) {
 		if (listener == null) {
-			throw new IllegalArgumentException("Listener cannot be null");
+			logger.error("Listener is null");
+			System.exit(1);
 		}
 		this.listener = (Listener) listener;
 	}
@@ -133,14 +108,14 @@ public class FoodViewController implements ViewController {
 	private void suggestFoods() {
 		String searchText = searchField.getText();
 		listener.sendUserSearch(searchText);
+		suggestionsList.getSelectionModel().selectFirst();
 	}
 
 	/**
 	 * This method adds the chosen food to the list when the user clicks on it.
-	 * @param event The mouse event.
 	 */
 	@FXML
-	public void addChosenFoodMouse(MouseEvent event) {
+	public void addChosenFoodMouse() {
 		String chosenFood = suggestionsList.getSelectionModel().getSelectedItem();
 		if (chosenFood != null) {
 			addChosenFood(chosenFood);
@@ -152,15 +127,49 @@ public class FoodViewController implements ViewController {
 	 * @param event The key event.
 	 */
 	@FXML
-	public void addChosenFoodKey(KeyEvent event) {
-		if (event.getCode() == KeyCode.ENTER) {
-			String chosenFood = suggestionsList.getSelectionModel().getSelectedItem();
-			if (chosenFood == null && !suggestionsList.getItems().isEmpty()) {
-				chosenFood = suggestionsList.getItems().get(0);
-			}
-			if (chosenFood != null) {
-				addChosenFood(chosenFood);
-			}
+	public void keyPress(KeyEvent event) {
+		switch (event.getCode()) {
+			case ENTER:
+				this.onEnterPress();
+				break;
+			case DOWN:
+				this.onDownPress();
+				break;
+			case UP:
+				this.onUpPress();
+		}
+	}
+
+	private void onUpPress() {
+		if (this.suggestionsList.getSelectionModel().getSelectedIndex() != 0) {
+			this.suggestionsList.getSelectionModel().selectPrevious();
+		}
+		this.searchField.setText(this.suggestionsList.getSelectionModel().getSelectedItem());
+		int index = this.suggestionsList.getSelectionModel().getSelectedIndex();
+		if (index - 3 <= this.suggestionsList.getItems().size() - 1) {
+			this.suggestionsList.scrollTo(index - 3);
+		}
+	}
+
+	private void onDownPress() {
+		if (this.suggestionsList.getSelectionModel().getSelectedIndex()
+				!= this.suggestionsList.getItems().size() - 1) {
+			this.suggestionsList.getSelectionModel().selectNext();
+		}
+		this.searchField.setText(this.suggestionsList.getSelectionModel().getSelectedItem());
+		int index = this.suggestionsList.getSelectionModel().getSelectedIndex();
+		if (index - 4 >= 0) {
+			this.suggestionsList.scrollTo(index - 4);
+		}
+	}
+
+	private void onEnterPress() {
+		String chosenFood = suggestionsList.getSelectionModel().getSelectedItem();
+		if (chosenFood == null && !suggestionsList.getItems().isEmpty()) {
+			chosenFood = suggestionsList.getItems().get(0);
+		}
+		if (chosenFood != null) {
+			addChosenFood(chosenFood);
 		}
 	}
 
@@ -180,34 +189,21 @@ public class FoodViewController implements ViewController {
 				return null;
 			}
 
-			LocalTime time =
-					LocalTime.of(
-							Integer.parseInt(hour.getText()), Integer.parseInt(minutes.getText()));
-			return time;
+			return LocalTime.of(intHour, intMinutes);
 		} catch (NumberFormatException e) {
 			showAlert("Heure invalide", "L'heure doit être un nombre");
 			return null;
 		}
 	}
 
-	public boolean isDateInFuture(LocalDate date1, LocalDate date2) {
-		return date1.compareTo(date2) > 0;
-	}
-
-	/**
-	 * This method returns the date and time of the meal entered by the user.
-	 * @return The date and time of the meal.
-	 */
 	public LocalDateTime getMealDateTime() {
-
 		LocalDate currentDate = LocalDate.now();
-		if (isDateInFuture(mealdate.getValue(), currentDate)) {
+		if (mealDate.getValue().isAfter(currentDate)) {
 			showAlert("Date invalide", "La date ne peut pas être dans le futur");
 			return null;
 		}
 
-		LocalDateTime mealdatetime = LocalDateTime.of(mealdate.getValue(), getMealTime());
-		return mealdatetime;
+		return LocalDateTime.of(mealDate.getValue(), getMealTime());
 	}
 
 	/**
@@ -224,8 +220,8 @@ public class FoodViewController implements ViewController {
 			return;
 		}
 		if (mode) {
-			if (!Objects.equals(namefield.getText(), "")) {
-				this.listener.saveMeal(namefield.getText(), consumedFoodsList);
+			if (!textField.getText().isEmpty()) {
+				this.listener.saveMeal(textField.getText(), consumedFoodsList);
 			}
 			this.listener.reload();
 		} else {
@@ -237,7 +233,6 @@ public class FoodViewController implements ViewController {
 				this.listener.saveConsumedFoods(consumedFoodsList, mealDate);
 
 			} catch (NullPointerException e) {
-
 				return;
 			}
 		}
@@ -337,7 +332,9 @@ public class FoodViewController implements ViewController {
 		try {
 			return loader.load();
 		} catch (IOException e) {
-			throw new RuntimeException("Food_popup file not existing", e);
+			logger.error("Food_popup file not existing", e);
+			System.exit(1);
+			return null; // Unreachable
 		}
 	}
 
@@ -370,7 +367,8 @@ public class FoodViewController implements ViewController {
 			return quantity;
 
 		} else {
-			throw new IllegalArgumentException("No integer found in the input string");
+			logger.error("No match found in serving quantity {} for food {}", input, food);
+			return 0;
 		}
 	}
 
@@ -379,7 +377,9 @@ public class FoodViewController implements ViewController {
 		try {
 			return loader.load();
 		} catch (IOException e) {
-			throw new RuntimeException("Food_item file not existing", e);
+			logger.error("Food_item file not existing", e);
+			System.exit(1);
+			return null; // Unreachable
 		}
 	}
 
@@ -412,10 +412,10 @@ public class FoodViewController implements ViewController {
 
 		int getCaloriesConsumedByGrams(String food, int quantity);
 
-		void saveMeal(String mealname, ArrayList<ArrayList<String>> consumedFoodsList);
+		void saveMeal(String mealName, ArrayList<ArrayList<String>> consumedFoodsList);
 
 		void saveConsumedFoods(
-				ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealdate);
+				ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealDate);
 
 		String getFoodServingQuantity(String food);
 

@@ -18,19 +18,19 @@
  */
 package ulb.controllers;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import ulb.exceptions.ImageException;
+import ulb.models.Height;
 import ulb.models.Profile;
+import ulb.models.Weight;
 import ulb.models.enums.Sex;
 import ulb.views.ProfileCreateViewController;
 
+/**
+ * This class is the controller for the profile creation screen of the application.
+ * It is responsible for handling the logic of the profile creation screen, such as saving the user's profile information.
+ * It also listens to events from the ProfileCreateViewController and notifies the listener when the user wants to return to the home screen.
+ */
 public class ProfileCreateController
 		implements AppController, ProfileCreateViewController.Listener {
 
@@ -40,21 +40,21 @@ public class ProfileCreateController
 		this.listener = listener;
 	}
 
-	@Override
 	public void saveProfile(
 			String firstName,
 			String lastName,
 			String sex,
 			LocalDate birthDate,
 			float height,
-			float weight) {
+			float weight)
+			throws IllegalArgumentException {
 		Profile profile =
 				new Profile(
 						firstName,
 						lastName,
 						Sex.fromString(sex),
-						new ulb.models.Weight(weight),
-						new ulb.models.Height(height),
+						new Weight(weight),
+						new Height(height),
 						birthDate);
 		profile.save();
 	}
@@ -65,19 +65,22 @@ public class ProfileCreateController
 	}
 
 	@Override
-	public void saveProfileImage(String imagePath) throws IOException {
-		try {
-			URL imageurl = new URL(imagePath);
-			URI destinationuri = new File("profile.png").toURI();
-			Path destinationpath = Paths.get(destinationuri);
-			Files.copy(imageurl.openStream(), destinationpath, StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+	public void saveProfileImage(String imagePath) throws ImageException {
+		Profile.saveImage(imagePath);
 	}
 
+	/**
+	 * This is an interface for the Listener within the ProfileCreateController class.
+	 * It is used to define the contract for the Listener, which is expected to be implemented by any class that wants to listen to events from the ProfileCreateController.
+	 * <p>
+	 * Currently, it has a single method, returnHome, which is expected to be called when the user wants to return to the home screen of the application.
+	 */
 	public interface Listener {
 
+		/**
+		 * This method is called when the user wants to return to the home screen of the application.
+		 * The implementing class should define the behavior that occurs when this event happens.
+		 */
 		void returnHome();
 	}
 }

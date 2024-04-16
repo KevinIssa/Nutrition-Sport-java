@@ -33,6 +33,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents a meal consumed by a user.
@@ -41,7 +43,7 @@ import java.util.List;
  */
 @JsonDeserialize(using = ConsumedMealDeserializer.class)
 public class ConsumedMeal implements JsonSerializable {
-
+	private static final Logger logger = LoggerFactory.getLogger(ConsumedMeal.class);
 	// Folder name where the consumed meals data will be stored
 	public static final String FOLDER_NAME = "consumed_meals";
 
@@ -89,15 +91,17 @@ public class ConsumedMeal implements JsonSerializable {
 	 */
 	public void addConsumedFood(String name, int quantity, int calories, String type) {
 		consumedFoods.add(new ConsumedFood(name, quantity, calories, type));
+		logger.info("Added food: {} qty: {} cal: {} type: {}", name, quantity, calories, type);
 	}
 
 	/**
 	 * Deletes all the consumed meals data from the storage.
 	 */
-	public static void clearAllConsumedMeals() {
+	public static void clearAll() {
 		File folder = new File(FOLDER_NAME);
 		File[] files = folder.listFiles();
 		if (files != null) {
+			logger.info("Deleting all consumed meals");
 			for (File file : files) {
 				file.delete();
 			}
@@ -119,6 +123,7 @@ public class ConsumedMeal implements JsonSerializable {
 	public void save() {
 		File folder = new File(FOLDER_NAME);
 		if (!folder.exists()) {
+			logger.info("Creating consumed meals folder");
 			folder.mkdir();
 		}
 		String filename =
@@ -173,9 +178,10 @@ public class ConsumedMeal implements JsonSerializable {
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		mapper.registerModule(new JavaTimeModule());
 		try {
+			logger.info("Saving consumed meal:{} to {} ", this, filename);
 			mapper.writeValue(new File(filename), this);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Error saving consumed meal to file", e);
 		}
 	}
 
@@ -189,8 +195,10 @@ public class ConsumedMeal implements JsonSerializable {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new JavaTimeModule());
 		try {
+			logger.info("Loading consumed meal from file: {}", filename);
 			return mapper.readValue(file, ConsumedMeal.class);
 		} catch (IOException e) {
+			logger.warn("No consumed meal found");
 			return null;
 		}
 	}

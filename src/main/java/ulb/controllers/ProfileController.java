@@ -18,20 +18,19 @@
  */
 package ulb.controllers;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import javafx.scene.image.Image;
+import java.time.LocalDate;
+import ulb.exceptions.ImageException;
+import ulb.models.Height;
 import ulb.models.Profile;
+import ulb.models.Weight;
 import ulb.models.enums.Sex;
 import ulb.views.ProfileViewController;
 
+/**
+ * This class is the controller for the profile screen of the application.
+ * It is responsible for handling the logic of the profile screen, such as saving the user's profile information.
+ * It also listens to events from the ProfileViewController and notifies the listener when the user wants to delete their profile or return to the home screen.
+ */
 public class ProfileController implements AppController, ProfileViewController.Listener {
 
 	private final Profile profile = Profile.load();
@@ -48,14 +47,15 @@ public class ProfileController implements AppController, ProfileViewController.L
 			String sex,
 			java.time.LocalDate birthDate,
 			float height,
-			float weight) {
+			float weight)
+			throws IllegalArgumentException {
 		Profile profile =
 				new Profile(
 						firstName,
 						lastName,
 						Sex.fromString(sex),
-						new ulb.models.Weight(weight),
-						new ulb.models.Height(height),
+						new Weight(weight),
+						new Height(height),
 						birthDate);
 		profile.save();
 	}
@@ -86,7 +86,7 @@ public class ProfileController implements AppController, ProfileViewController.L
 	}
 
 	@Override
-	public java.time.LocalDate getBirthDate() {
+	public LocalDate getBirthDate() {
 		return profile.getBirthDate();
 	}
 
@@ -101,34 +101,34 @@ public class ProfileController implements AppController, ProfileViewController.L
 	}
 
 	@Override
-	public void saveProfileImage(String imagepath) {
-		try {
-			URL imageurl = new URL(imagepath);
-			URI destinationuri = new File("profile.png").toURI();
-			Path destinationpath = Paths.get(destinationuri);
-			Files.copy(imageurl.openStream(), destinationpath, StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+	public void saveProfileImage(String imagePath) throws ImageException {
+		Profile.saveImage(imagePath);
 	}
 
 	@Override
-	public Image getProfileImage(double width, double height) {
-		try {
-			File file = new File("profile.png");
-			if (!file.exists()) {
-				return null;
-			}
-			URL path = file.toURL();
-			return new Image(path.toString(), width, height, true, true);
-		} catch (MalformedURLException e) {
-			throw new RuntimeException(e);
-		}
+	public String getProfileImagePath() {
+		return Profile.IMAGE_PATH;
 	}
 
+	/**
+	 * This is an interface for the listener in the ProfileController class.
+	 * It defines two methods that must be implemented by any class that uses this interface.
+	 * The methods are deleteProfile and returnHome.
+	 * <p>
+	 * The deleteProfile method is called when the user wants to delete their profile.
+	 * The returnHome method is called when the user wants to return to the home view.
+	 */
 	public interface Listener {
+		/**
+		 * This method is called when the user wants to delete their profile.
+		 * It should contain the logic for deleting the user's profile.
+		 */
 		void deleteProfile();
 
+		/**
+		 * This method is called when the user wants to return to the home view.
+		 * It should contain the logic for returning to the home view.
+		 */
 		void returnHome();
 	}
 }

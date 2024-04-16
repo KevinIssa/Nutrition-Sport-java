@@ -18,33 +18,80 @@
  */
 package ulb.models;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
 import java.time.LocalDate;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ulb.exceptions.ImageException;
 import ulb.models.enums.Sex;
 
 public class TestProfile {
+	private Profile profile;
 
-	@Test
-	public void testProfile() {
-		Profile profile = createProfile("Hugo", "Charels", 59, 175, LocalDate.of(2003, 5, 23));
-		profile.save();
-		assertEquals(profile, Profile.load());
+	@BeforeEach
+	public void setUp() {
+		profile =
+				new Profile(
+						"John",
+						"Doe",
+						Sex.MALE,
+						new Weight(70),
+						new Height(180),
+						LocalDate.of(1990, 1, 1));
 	}
 
 	@Test
-	public void testDeleteProfile() {
-		Profile profile = createProfile("lucas", "dubois", 70, 180, LocalDate.now());
+	public void profileAttributesAreCorrectAfterCreation() {
+		assertEquals("John", profile.getFirstName());
+		assertEquals("Doe", profile.getLastName());
+		assertEquals(Sex.MALE, profile.getSex());
+		assertEquals(70, profile.getWeight());
+		assertEquals(180, profile.getHeight());
+		assertEquals(LocalDate.of(1990, 1, 1), profile.getBirthDate());
+	}
+
+	@Test
+	public void profileAttributesCanBeUpdated() {
+		profile.setFirstName("Jane");
+		profile.setLastName("Smith");
+		profile.setSex(Sex.FEMALE);
+		profile.setWeight(60);
+		profile.setHeight(170);
+		profile.setBirthDate(LocalDate.of(1995, 1, 1));
+
+		assertEquals("Jane", profile.getFirstName());
+		assertEquals("Smith", profile.getLastName());
+		assertEquals(Sex.FEMALE, profile.getSex());
+		assertEquals(60, profile.getWeight());
+		assertEquals(170, profile.getHeight());
+		assertEquals(LocalDate.of(1995, 1, 1), profile.getBirthDate());
+	}
+
+	@Test
+	public void profileCanBeSavedAndLoaded() {
 		profile.save();
-		profile.delete();
+		Profile loadedProfile = Profile.load();
+
+		assertEquals(profile, loadedProfile);
+	}
+
+	@Test
+	public void profileCanBeDeleted() {
+		profile.save();
+		Profile.delete();
+
 		assertFalse(Profile.isCreated());
 	}
 
-	private Profile createProfile(
-			String firstName, String lastName, int weight, int height, LocalDate birthDate) {
-		return new Profile(
-				firstName, lastName, Sex.MALE, new Weight(weight), new Height(height), birthDate);
+	@Test
+	public void profileImageCanBeSaved() throws ImageException {
+		String imagePath =
+				"https://t3.ftcdn.net/jpg/03/53/11/00/360_F_353110097_nbpmfn9iHlxef4EDIhXB1tdTD0lcWhG9.jpg";
+		Profile.saveImage(imagePath);
+
+		File imageFile = new File(Profile.IMAGE_PATH);
+		assertTrue(imageFile.exists());
 	}
 }

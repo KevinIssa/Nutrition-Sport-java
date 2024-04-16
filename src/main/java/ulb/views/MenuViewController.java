@@ -26,22 +26,41 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MenuViewController implements ViewController {
-	@FXML ImageView profileimage;
-	private Listener listener;
-
-	@FXML private Button addButton;
+	private static final Logger logger = LoggerFactory.getLogger(MenuViewController.class);
+	@FXML ImageView profileImage;
 	@FXML private Button addActivityButton;
 	@FXML private Button addFoodButton;
 
-	public void handleButtonPress() {
-		addActivityButton.setVisible(!addActivityButton.isVisible());
-		addFoodButton.setVisible(!addFoodButton.isVisible());
-	}
+	private MenuViewController.Listener listener;
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {}
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		if (this.listener == null) {
+			return;
+		}
+		try {
+			Image image =
+					new Image(
+							String.valueOf(new File(this.listener.getProfileImagePath()).toURL()),
+							30,
+							30,
+							false,
+							false);
+			this.profileImage.setImage(image);
+		} catch (MalformedURLException e) {
+			logger.error("Error loading profile image due to malformed URL {}", e.getMessage());
+			System.exit(1);
+		}
+	}
+
+	public void showAddButtons() {
+		this.addActivityButton.setVisible(!this.addActivityButton.isVisible());
+		this.addFoodButton.setVisible(!this.addFoodButton.isVisible());
+	}
 
 	public void openProfile() {
 		listener.loadOpenProfileView();
@@ -51,31 +70,25 @@ public class MenuViewController implements ViewController {
 		listener.loadCreateActivityView();
 	}
 
+	public void createConsumedFood() {
+		listener.loadFoodSearchPage();
+	}
+
 	public void activityHistory() {
 		listener.loadActivityHistoryView();
 	}
 
-	public void mealHistory() {
+	public void consumedFoodHistory() {
 		listener.loadMealHistoryView();
 	}
 
 	public void setListener(Object listener) {
 		if (listener == null) {
-			throw new IllegalArgumentException("Listener cannot be null");
+			logger.error("Listener is null");
+			System.exit(1);
 		}
 		this.listener = (Listener) listener;
-		setdefault();
-	}
-
-	private void setdefault() {
-		Image image = listener.getProfileImage(30, 30);
-		if (image != null) {
-			profileimage.setImage(image);
-		}
-	}
-
-	public void foodSearchPage() {
-		listener.loadFoodSearchPage();
+		this.initialize(null, null);
 	}
 
 	public interface Listener {
@@ -95,17 +108,6 @@ public class MenuViewController implements ViewController {
 
 		void loadFoodSearchPage();
 
-		default Image getProfileImage(double width, double height) {
-			try {
-				File file = new File("profile.png");
-				if (!file.exists()) {
-					return null;
-				}
-				URL path = file.toURL();
-				return new Image(path.toString(), width, height, true, true);
-			} catch (MalformedURLException e) {
-				throw new RuntimeException(e);
-			}
-		}
+		String getProfileImagePath();
 	}
 }

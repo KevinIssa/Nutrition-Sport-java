@@ -29,14 +29,16 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Represents a Meal.
  */
 @JsonDeserialize(using = MealDeserializer.class)
 public class Meal implements Consumable, JsonSerializable {
-
-	private static final String FOLDER_NAME = "meals";
+	private static final Logger logger = LoggerFactory.getLogger(Meal.class);
+	public static final String FOLDER_NAME = "meals";
 
 	private String name;
 
@@ -50,6 +52,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Constructor with name parameter.
+	 *
 	 * @param name The name of the meal.
 	 */
 	public Meal(String name) {
@@ -58,29 +61,33 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Checks if this meal is equal to another object.
-	 * @param o The object to compare.
+	 *
+	 * @param obj The object to compare.
 	 * @return True if the objects are equal, otherwise false.
 	 */
 	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Meal meal = (Meal) o;
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		Meal meal = (Meal) obj;
 		return Objects.equals(name, meal.name) && Objects.equals(ingredients, meal.ingredients);
 	}
 
 	/**
 	 * Adds an ingredient to the meal.
-	 * @param food The food to add.
+	 *
+	 * @param food     The food to add.
 	 * @param quantity The quantity in gramme of the food.
 	 */
 	public void addIngredient(Food food, Integer quantity) {
 		Map.Entry<Food, Integer> entry = Map.entry(food, quantity);
 		this.ingredients.add(entry);
+		logger.trace("Added ingredient: {}", entry);
 	}
 
 	/**
 	 * Gets the total calories consumed by the meal.
+	 *
 	 * @return The total calories consumed.
 	 */
 	@Override
@@ -90,6 +97,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Gets the calories consumed by the meal for a given amount of grams.
+	 *
 	 * @param grams The grams of the meal.
 	 * @return The calories consumed.
 	 */
@@ -101,6 +109,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Gets the total grams for a given serving of the meal.
+	 *
 	 * @param servings The number of servings.
 	 * @return The total grams.
 	 */
@@ -114,6 +123,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Gets the total calories consumed by the meal for a given number of servings.
+	 *
 	 * @param servings The number of servings.
 	 * @return The total calories consumed.
 	 */
@@ -133,6 +143,7 @@ public class Meal implements Consumable, JsonSerializable {
 		File folder = new File(FOLDER_NAME);
 		if (!folder.exists()) {
 			folder.mkdir();
+			logger.info("Created folder: {}", FOLDER_NAME);
 		}
 		String filename = FOLDER_NAME + "/" + name + ".json";
 		saveToFile(filename);
@@ -140,6 +151,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Loads a meal from a file.
+	 *
 	 * @param filename The name of the file.
 	 * @return The loaded meal.
 	 */
@@ -147,8 +159,21 @@ public class Meal implements Consumable, JsonSerializable {
 		return (Meal) new Meal().loadFromFile(filename);
 	}
 
+	public static List<Meal> loadAll() {
+		File folder = new File(FOLDER_NAME);
+		File[] files = folder.listFiles();
+		List<Meal> meals = new ArrayList<>();
+		if (files != null) {
+			for (File file : files) {
+				meals.add(load(file.getPath()));
+			}
+		}
+		return meals;
+	}
+
 	/**
 	 * Saves the meal to a file.
+	 *
 	 * @param filename The name of the file.
 	 */
 	public void saveToFile(String filename) {
@@ -157,12 +182,13 @@ public class Meal implements Consumable, JsonSerializable {
 		try {
 			mapper.writeValue(new File(filename), this);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Error saving meal to file: {} meal: {}", filename, this);
 		}
 	}
 
 	/**
 	 * Loads a meal from a file.
+	 *
 	 * @param filename The name of the file.
 	 * @return The loaded meal.
 	 */
@@ -171,13 +197,17 @@ public class Meal implements Consumable, JsonSerializable {
 		try {
 			return mapper.readValue(new File(filename), Meal.class);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Error loading meal from file: {} meal {}", filename, this);
 		}
 		return null;
 	}
 
+	// Getters and setters for class attributes.
+	// These are used by Jackson to serialize and deserialize JSON data.
+
 	/**
 	 * Gets the name of the meal.
+	 *
 	 * @return The name of the meal.
 	 */
 	public String getName() {
@@ -186,6 +216,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Sets the name of the meal.
+	 *
 	 * @param name The name of the meal.
 	 */
 	public void setName(String name) {
@@ -194,6 +225,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Gets the ingredients of the meal.
+	 *
 	 * @return The list of ingredients.
 	 */
 	public List<Map.Entry<Food, Integer>> getIngredients() {
@@ -202,6 +234,7 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Sets the ingredients of the meal.
+	 *
 	 * @param ingredients The list of ingredients.
 	 */
 	public void setIngredients(List<Map.Entry<Food, Integer>> ingredients) {
@@ -210,11 +243,25 @@ public class Meal implements Consumable, JsonSerializable {
 
 	/**
 	 * Returns a string representation of the meal.
+	 *
 	 * @return The string representation.
 	 */
 	@Override
 	public String toString() {
 		return "Meal{" + "name='" + name + '\'' + ", ingredients=" + ingredients + '}';
+	}
+
+	public Food toFood() {
+		logger.trace(
+				"Converting meal to food: {}, {}, {}",
+				name,
+				getCaloriesConsumed(),
+				getGramsForServing(1));
+		return new Food(
+				this.name,
+				this.getCaloriesConsumedByServing(1),
+				this.getCaloriesConsumed(),
+				String.format("1 serving (%d g)", this.getGramsForServing(1)));
 	}
 }
 

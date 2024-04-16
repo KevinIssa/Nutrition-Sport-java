@@ -28,9 +28,7 @@ public class ProfileDeleteConfirmViewController implements ViewController {
 			listener; // Listener interface for communication with the controller
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {
-		// Auto-generated method stub
-	}
+	public void initialize(URL url, ResourceBundle resourceBundle) {}
 
 	// Action when "Yes" button is clicked
 	public void setYesButton() throws IOException {

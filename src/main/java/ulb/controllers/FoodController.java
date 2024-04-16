@@ -18,144 +18,142 @@
  */
 package ulb.controllers;
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.models.ConsumedMeal;
 import ulb.models.Food;
 import ulb.models.FoodLoader;
 import ulb.models.Meal;
 import ulb.views.FoodViewController;
 
+/**
+ * The FoodController class is responsible for managing the interactions between the FoodViewController and the model classes related to food and meals.
+ * It implements the AppController interface and the Listener interface from the FoodViewController.
+ * This class handles the loading of foods from the database, the calculation of calories consumed by a certain quantity of food, the saving of consumed foods and meals, and the retrieval of food details.
+ * It also handles the user's search for foods and the return to the home screen of the application.
+ */
 public class FoodController implements AppController, FoodViewController.Listener {
 
+	private static final Logger logger = LoggerFactory.getLogger(FoodController.class);
+	// Listener for the FoodController
 	private final FoodController.Listener listener;
+	// ViewController for the FoodController
 	private final FoodViewController viewController;
+	// FoodLoader for the FoodController
+	private FoodLoader foodLoader;
 
+	/**
+	 * Constructor for the FoodController class.
+	 * @param listener Listener for the FoodController
+	 * @param viewController ViewController for the FoodController
+	 */
 	public FoodController(FoodController.Listener listener, FoodViewController viewController) {
 		this.listener = listener;
 		this.viewController = viewController;
+		this.foodLoader = loadFoods();
 	}
 
-	FoodLoader foodLoader = new FoodLoader().extend(loadMeals());
+	/**
+	 * This method is used to load foods from the database.
+	 * @return A FoodLoader object
+	 */
+	private FoodLoader loadFoods() {
+		FoodLoader foodLoader = new FoodLoader();
+		foodLoader.extend(loadMeals());
+		return foodLoader;
+	}
+
+	private List<Food> loadMeals() {
+		return Meal.loadAll().stream().map(Meal::toFood).collect(Collectors.toList());
+	}
 
 	@Override
 	public void returnHome() {
 		this.listener.returnHome();
 	}
 
-	private List<Food> loadFoods(String searchText) {
-		FoodLoader foodLoader = new FoodLoader();
-		foodLoader.extend(loadMeals());
-		return foodLoader.getFoodsSuggestion(searchText);
-	}
-
+	@Override
 	public void reload() {
-		this.foodLoader = new FoodLoader().extend(loadMeals());
-	}
-
-	private Food convertMealToFood(Meal meal) {
-		return new Food(
-				meal.getName(),
-				meal.getCaloriesConsumedByServing(1),
-				meal.getCaloriesConsumed(),
-				String.format("1 serving (%d g)", meal.getGramsForServing(1)));
-	}
-
-	private List<Food> loadMeals() {
-		File directory = new File("meals"); // Specify the directory path
-		File[] files = directory.listFiles();
-		// Add Meals to the list
-		List<Food> result = new java.util.ArrayList<>();
-		if (files != null) {
-			for (File file : files) {
-				Meal meal = Meal.load(file.getPath());
-				Food food = convertMealToFood(meal);
-				result.add(food);
-			}
-		}
-		return result;
-	}
-
-	private List<String> foodToString(List<Food> foods) {
-
-		List<String> foodNames = new java.util.ArrayList<>();
-		for (Food food : foods) {
-			foodNames.add(food.getName());
-		}
-
-		return foodNames;
+		this.foodLoader = loadFoods();
 	}
 
 	@Override
 	public int getCaloriesConsumedByGrams(String food, int quantity) {
-		Food foodObject = foodLoader.getFoodByName(food);
-		return foodObject.getCaloriesConsumedByGrams(quantity);
+		return this.foodLoader.getFoodByName(food).getCaloriesConsumedByGrams(quantity);
 	}
 
 	@Override
 	public void saveConsumedFoods(
-			ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealdate) {
+			ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealDate) {
 		ConsumedMeal consumedMeal = new ConsumedMeal();
 		for (List<String> consumedFood : consumedFoodsList) {
-			String food = consumedFood.get(0);
-			int quantity = Integer.parseInt(consumedFood.get(1));
-			int calories = Integer.parseInt(consumedFood.get(2));
-			String type = consumedFood.get(3);
-			consumedMeal.addConsumedFood(food, quantity, calories, type);
+			consumedMeal.addConsumedFood(
+					consumedFood.get(0),
+					Integer.parseInt(consumedFood.get(1)),
+					Integer.parseInt(consumedFood.get(2)),
+					consumedFood.get(3));
 		}
-
-		consumedMeal.setDate(mealdate);
+		consumedMeal.setDate(mealDate);
 		consumedMeal.save();
 	}
 
 	@Override
 	public Food getCorrespondingFood(String food) {
-		List<Food> foods = loadFoods(food);
-		if (!foods.isEmpty()) {
-			return foods.get(0);
-		} else {
-			throw new RuntimeException("food selected not in database");
-		}
+		return foodLoader.getFoodsSuggestion(food).stream()
+				.findFirst()
+				.orElseThrow(() -> new RuntimeException("food selected not in database"));
 	}
 
 	@Override
-	public void saveMeal(String mealname, ArrayList<ArrayList<String>> consumedFoodsList) {
-		Meal newmeal = new Meal(mealname);
+	public void saveMeal(String mealName, ArrayList<ArrayList<String>> consumedFoodsList) {
+		Meal newmeal = new Meal(mealName);
 		for (List<String> consumedFood : consumedFoodsList) {
-			String food = consumedFood.get(0);
-			int quantity = Integer.parseInt(consumedFood.get(1));
-			newmeal.addIngredient(getCorrespondingFood(food), quantity);
+			newmeal.addIngredient(
+					getCorrespondingFood(consumedFood.get(0)),
+					Integer.parseInt(consumedFood.get(1)));
 		}
 		newmeal.save();
 	}
 
 	@Override
 	public String getFoodServingQuantity(String food) {
-		Food selectedfood = foodLoader.getFoodByName(food);
-		return selectedfood.getServingQuantity();
+		return this.foodLoader.getFoodByName(food).getServingQuantity();
 	}
 
 	@Override
 	public int extractServingQuantityValue(String food) {
-		return foodLoader.getFoodByName(food).extractServingQuantityValue();
+		return this.foodLoader.getFoodByName(food).extractServingQuantityValue();
 	}
 
 	@Override
 	public String getFoodServingType(String food) {
-		return foodLoader.getFoodByName(food).getServingType();
+		return this.foodLoader.getFoodByName(food).getServingType();
 	}
 
 	@Override
 	public void sendUserSearch(String searchText) {
-
-		List<Food> foods = loadFoods(searchText);
-		List<String> foodNames = foodToString(foods);
-		this.viewController.setSuggestions(foodNames);
+		this.viewController.setSuggestions(
+				this.foodLoader.getFoodsSuggestion(searchText).stream()
+						.map(Food::getName)
+						.collect(Collectors.toList()));
 	}
 
+	/**
+	 * This is an interface for the Listener within the FoodController class.
+	 * It is used to define the contract for the Listener, which is expected to be implemented by any class that wants to listen to events from the FoodController.
+	 * <p>
+	 * Currently, it has a single method, returnHome, which is expected to be called when the user wants to return to the home screen of the application.
+	 */
 	public interface Listener {
+
+		/**
+		 * This method is called when the user wants to return to the home screen of the application.
+		 * The implementing class should define the behavior that occurs when this event happens.
+		 */
 		void returnHome();
 	}
 }

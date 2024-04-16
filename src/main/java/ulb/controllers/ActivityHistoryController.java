@@ -18,15 +18,18 @@
  */
 package ulb.controllers;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 import ulb.controllers.dtos.ActivityDTO;
 import ulb.models.Activity;
 import ulb.models.enums.Sport;
 import ulb.views.ActivityHistoryViewController;
 
+/**
+ * The ActivityHistoryController class is responsible for managing the interactions between the ActivityHistoryViewController and the model classes related to activities.
+ * It implements the AppController interface and the Listener interface from the ActivityHistoryViewController.
+ * This class handles the loading of activities from the database and the return to the home screen of the application.
+ */
 public class ActivityHistoryController
 		implements AppController, ActivityHistoryViewController.Listener {
 
@@ -43,24 +46,24 @@ public class ActivityHistoryController
 
 	@Override
 	public List<ActivityDTO> getActivities(Sport filter) {
-		File folder = new File("activities");
-		List<ActivityDTO> list = new ArrayList<>();
-		File[] files = folder.listFiles();
-		try {
-			Objects.requireNonNull(files);
-		} catch (NullPointerException e) {
-			return list;
-		}
-		for (File file : files) {
-			Activity activity = Activity.load(file.getPath());
-			if (filter == null || activity.getSport() == filter) {
-				list.add(new ActivityDTO(activity));
-			}
-		}
-		return list;
+		return Activity.loadAll().stream()
+				.filter(activity -> filter == null || activity.getSport() == filter)
+				.map(ActivityDTO::new)
+				.collect(Collectors.toList());
 	}
 
+	/**
+	 * This is an interface for the Listener within the ActivityHistoryController class.
+	 * It is used to define the contract for the Listener, which is expected to be implemented by any class that wants to listen to events from the ActivityHistoryController.
+	 * <p>
+	 * Currently, it has a single method, returnHome, which is expected to be called when the user wants to return to the home screen of the application.
+	 */
 	public interface Listener {
+
+		/**
+		 * This method is called when the user wants to return to the home screen of the application.
+		 * The implementing class should define the behavior that occurs when this event happens.
+		 */
 		void returnHome();
 	}
 }

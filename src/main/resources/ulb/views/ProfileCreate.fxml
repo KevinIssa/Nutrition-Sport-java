@@ -39,7 +39,7 @@
                      <HBox alignment="BOTTOM_LEFT" prefHeight="148.0" prefWidth="342.0" translateX="50.0">
                         <children>
                            <Label text="Choisissez votre image de profil : " textFill="#f3fbfb" />
-                           <Button fx:id="imageselection" onAction="#eventHandler" style="-fx-background-color: #fd9c2d;" text="Rechercher..." textFill="#f3fbfb" />
+                           <Button fx:id="imageSelection" onAction="#eventHandler" style="-fx-background-color: #fd9c2d;" text="Rechercher..." textFill="#f3fbfb" />
                         </children>
                      </HBox>
                   </children>

@@ -18,18 +18,19 @@
  */
 package ulb.models;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Represents a food item that has been consumed.
  * This class is responsible for managing the consumed food data.
  */
 public class ConsumedFood {
-	// Name of the consumed food
+	private static final Logger log = LoggerFactory.getLogger(ConsumedFood.class);
 	private String name;
-	// Quantity of the consumed food
-	private int quantity;
-	// Calories of the consumed food
-	private int calories;
-	private String type;
+	private int quantity; // in grams
+	private int calories; // consumed
+	private String type; // g or ml
 
 	/**
 	 * Constructor initializing the name, quantity, and calories of the consumed food.
@@ -42,6 +43,12 @@ public class ConsumedFood {
 		this.quantity = quantity;
 		this.calories = calories;
 		this.type = type;
+		log.info(
+				"ConsumedFood object created with name: {}, quantity: {}, calories: {} of type: {}",
+				name,
+				quantity,
+				calories,
+				type);
 	}
 
 	/**
@@ -57,13 +64,8 @@ public class ConsumedFood {
 		return food.name.equals(name) && food.quantity == quantity && food.calories == calories;
 	}
 
-	/**
-	 * Setter for the name field.
-	 * @param name Name of the consumed food
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+	// Getters and setters for class attributes.
+	// These are used by Jackson to serialize and deserialize JSON data.
 
 	/**
 	 * Getter for the name field.
@@ -74,11 +76,11 @@ public class ConsumedFood {
 	}
 
 	/**
-	 * Setter for the quantity field.
-	 * @param quantity Quantity of the consumed food
+	 * Setter for the name field.
+	 * @param name Name of the consumed food
 	 */
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**
@@ -90,11 +92,11 @@ public class ConsumedFood {
 	}
 
 	/**
-	 * Setter for the calories field.
-	 * @param calories Calories of the consumed food
+	 * Setter for the quantity field.
+	 * @param quantity Quantity of the consumed food
 	 */
-	public void setCalories(int calories) {
-		this.calories = calories;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	/**
@@ -105,11 +107,27 @@ public class ConsumedFood {
 		return calories;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	/**
+	 * Setter for the calories field.
+	 * @param calories Calories of the consumed food
+	 */
+	public void setCalories(int calories) {
+		this.calories = calories;
 	}
 
+	/**
+	 * Getter for the type field.
+	 * @return Type of the consumed food
+	 */
 	public String getType() {
 		return type;
+	}
+
+	/**
+	 * Setter for the type field.
+	 * @param type Type of the consumed food
+	 */
+	public void setType(String type) {
+		this.type = type;
 	}
 }

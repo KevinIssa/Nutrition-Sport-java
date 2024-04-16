@@ -18,15 +18,17 @@
  */
 package ulb.controllers;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import ulb.models.Activity;
 import ulb.models.ConsumedMeal;
 import ulb.models.Profile;
 import ulb.views.ProfileDeleteConfirmViewController;
 
+/**
+ * This class is a controller for the profile delete view.
+ * It is responsible for deleting the profile and all the data associated with it.
+ * It implements the AppController interface and the ProfileDeleteConfirmViewController.Listener interface.
+ * It has a listener that must implement the ProfileDeleteController.Listener interface.
+ */
 public class ProfileDeleteController
 		implements AppController, ProfileDeleteConfirmViewController.Listener {
 
@@ -38,18 +40,9 @@ public class ProfileDeleteController
 
 	@Override
 	public void deleteProfile() {
-		Profile profile = Profile.load();
-		profile.delete();
-		Activity.clearAllActivities();
-		ConsumedMeal.clearAllConsumedMeals();
-		try {
-			Path fileToDelete = Paths.get(".").resolve("profile.png");
-			if (Files.exists(fileToDelete)) {
-				Files.delete(fileToDelete);
-			}
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+		Profile.delete();
+		Activity.clearAll();
+		ConsumedMeal.clearAll();
 		this.listener.createProfile();
 	}
 
@@ -58,9 +51,29 @@ public class ProfileDeleteController
 		this.listener.returnHome();
 	}
 
+	/**
+	 * This is an interface for the listener in the ProfileDeleteController class.
+	 * It defines two methods that must be implemented by any class that uses this interface.
+	 * The methods are returnHome and createProfile.
+	 * <p>
+	 * The returnHome method is called when the user wants to return to the home view.
+	 * It should contain the logic for returning to the home view.
+	 * <p>
+	 * The createProfile method is called when the user wants to create a new profile.
+	 * It should contain the logic for creating a new profile.
+	 */
 	public interface Listener {
+
+		/**
+		 * This method is called when the user wants to return to the home view.
+		 * It should contain the logic for returning to the home view.
+		 */
 		void returnHome();
 
+		/**
+		 * This method is called when the user wants to create a new profile.
+		 * It should contain the logic for creating a new profile.
+		 */
 		void createProfile();
 	}
 }

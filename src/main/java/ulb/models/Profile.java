@@ -24,15 +24,26 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ulb.exceptions.IllegalImageFormatException;
+import ulb.exceptions.ImageException;
+import ulb.exceptions.InvalidImageException;
 import ulb.models.enums.Sex;
 
 /**
  * Represents a user profile containing personal information.
  */
 public class Profile implements JsonSerializable {
+	private static final Logger logger = LoggerFactory.getLogger(Profile.class);
 
-	public static final String FILENAME = "profile.json";
+	public static final String FILE_NAME = "profile.json";
+	public static final String IMAGE_PATH = "profile.png";
+
 	private String firstName;
 	private String lastName;
 	private Sex sex;
@@ -93,7 +104,7 @@ public class Profile implements JsonSerializable {
 	 * @return True if the profile file exists, false otherwise.
 	 */
 	public static boolean isCreated() {
-		File file = new File(FILENAME);
+		File file = new File(FILE_NAME);
 		return file.exists();
 	}
 
@@ -101,7 +112,7 @@ public class Profile implements JsonSerializable {
 	 * Saves the profile to a file.
 	 */
 	public void save() {
-		this.saveToFile(FILENAME);
+		this.saveToFile(FILE_NAME);
 	}
 
 	/**
@@ -109,23 +120,115 @@ public class Profile implements JsonSerializable {
 	 * @return The loaded profile.
 	 */
 	public static Profile load() {
-		return (Profile) new Profile().loadFromFile(FILENAME);
+		return (Profile) new Profile().loadFromFile(FILE_NAME);
 	}
 
 	/**
-	 * Deletes the profile file.
+	 * Deletes the profile files.
 	 */
-	public void delete() {
-		File file = new File(FILENAME);
-		if (file.exists()) {
-			boolean deleted = file.delete();
-			if (!deleted) {
-				System.err.println("Failed to delete the file: " + FILENAME);
-			}
+	public static void delete() {
+		JsonSerializable.deleteFile(FILE_NAME);
+		JsonSerializable.deleteFile(IMAGE_PATH);
+	}
+
+	/**
+	 * Saves an image from a given URL to a local file named "profile.png".
+	 * <p>
+	 * This method creates a URL object from the provided image path, opens a stream to the URL,
+	 * and copies the contents of the stream to a local file named "profile.png". If a file with
+	 * the same name already exists, it is replaced.
+	 *
+	 * @param imagePath The URL of the image to save.
+	 * @throws RuntimeException If an IOException occurs during the operation.
+	 */
+	public static void saveImage(String imagePath) throws ImageException {
+		if (!(imagePath.endsWith(".png")
+				|| imagePath.endsWith(".jpg")
+				|| imagePath.endsWith(".jpeg"))) {
+			logger.warn("Only PNG and JPG images are supported: {}", imagePath);
+			throw new IllegalImageFormatException("Only PNG and JPG images are supported");
+		}
+
+		try {
+			Files.copy(
+					new URL(imagePath).openStream(),
+					Paths.get(IMAGE_PATH),
+					java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			logger.error("Failed to save image", e);
+			throw new InvalidImageException("Failed to save image");
 		}
 	}
 
-	// Getters and setters for Profile properties
+	/**
+	 * Generates a string representation of the profile.
+	 * @return A string representation of the profile.
+	 */
+	@Override
+	public String toString() {
+		return "Profile{"
+				+ "firstName='"
+				+ firstName
+				+ '\''
+				+ ", lastName='"
+				+ lastName
+				+ '\''
+				+ ", sex="
+				+ sex
+				+ ", weight="
+				+ weight.getWeight()
+				+ ", height="
+				+ height.getHeight()
+				+ ", birthDate="
+				+ birthDate
+				+ '}';
+	}
+
+	/**
+	 * Saves the profile to a file.
+	 * @param filename The name of the file to save the profile to.
+	 */
+	@Override
+	public void saveToFile(String filename) {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.registerModule(new JavaTimeModule());
+		try {
+			mapper.writeValue(new File(filename), this);
+		} catch (IOException e) {
+			logger.error(
+					"Error saving profile to file: {} with value : {}, {}, {}, {}, {}, {}",
+					filename,
+					this.firstName,
+					this.lastName,
+					this.birthDate,
+					this.sex,
+					this.weight,
+					this.height);
+		}
+	}
+
+	/**
+	 * Loads the profile from a file.
+	 * @param filename The name of the file to load the profile from.
+	 * @return The loaded profile.
+	 */
+	@Override
+	public JsonSerializable loadFromFile(String filename) {
+		File file = new File(filename);
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JavaTimeModule());
+		try {
+			return mapper.readValue(file, Profile.class);
+		} catch (IOException e) {
+			logger.error("Error loading profile from file: {}", filename);
+			return null;
+		}
+	}
+
+	// Getters and setters for class attributes.
+	// These are used by Jackson to serialize and deserialize JSON data.
+
 	/**
 	 * Gets the first name of the user.
 	 * @return The first name of the user.
@@ -186,7 +289,7 @@ public class Profile implements JsonSerializable {
 	 * Sets the weight of the user.
 	 * @param weight The new weight to set.
 	 */
-	public void setWeight(float weight) {
+	public void setWeight(float weight) throws IllegalArgumentException {
 		this.weight = new Weight(weight);
 	}
 
@@ -220,63 +323,5 @@ public class Profile implements JsonSerializable {
 	 */
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
-	}
-
-	/**
-	 * Generates a string representation of the profile.
-	 * @return A string representation of the profile.
-	 */
-	@Override
-	public String toString() {
-		return "Profile{"
-				+ "firstName='"
-				+ firstName
-				+ '\''
-				+ ", lastName='"
-				+ lastName
-				+ '\''
-				+ ", sex="
-				+ sex
-				+ ", weight="
-				+ weight.getWeight()
-				+ ", height="
-				+ height.getHeight()
-				+ ", birthDate="
-				+ birthDate
-				+ '}';
-	}
-
-	/**
-	 * Saves the profile to a file.
-	 * @param filename The name of the file to save the profile to.
-	 */
-	@Override
-	public void saveToFile(String filename) {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		mapper.registerModule(new JavaTimeModule());
-		try {
-			mapper.writeValue(new File(filename), this);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Loads the profile from a file.
-	 * @param filename The name of the file to load the profile from.
-	 * @return The loaded profile.
-	 */
-	@Override
-	public JsonSerializable loadFromFile(String filename) {
-		File file = new File(filename);
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new JavaTimeModule());
-		try {
-			return mapper.readValue(file, Profile.class);
-		} catch (IOException e) {
-			System.out.println("No valid profile found");
-			return null;
-		}
 	}
 }

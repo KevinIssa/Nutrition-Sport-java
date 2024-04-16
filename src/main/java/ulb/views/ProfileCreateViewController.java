@@ -19,7 +19,6 @@
 package ulb.views;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -29,15 +28,19 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import ulb.exceptions.IllegalImageFormatException;
+import ulb.exceptions.ImageException;
+import ulb.exceptions.InvalidImageException;
 
 public class ProfileCreateViewController implements ViewController {
 	@FXML private ImageView image;
-	@FXML private Button imageselection;
+	@FXML private Button imageSelection;
 	@FXML private TextField firstname, lastname, height, weight;
 	@FXML private DatePicker birthdate;
 	@FXML private ToggleGroup sex;
-	private String imagepath = null;
-	private Listener listener;
+
+	private String imagePath = null;
+	private ProfileCreateViewController.Listener listener;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -52,10 +55,10 @@ public class ProfileCreateViewController implements ViewController {
 	 * @param event The action event triggered by the user interaction.
 	 */
 	public void eventHandler(ActionEvent event) {
-		File selectedFile = new FileChooser().showOpenDialog(imageselection.getScene().getWindow());
+		File selectedFile = new FileChooser().showOpenDialog(imageSelection.getScene().getWindow());
 		if (selectedFile != null) {
 			this.image.setImage(new Image(selectedFile.toURI().toString(), 200, 150, true, true));
-			this.imagepath = selectedFile.toURI().toString();
+			this.imagePath = selectedFile.toURI().toString();
 		}
 	}
 
@@ -72,10 +75,20 @@ public class ProfileCreateViewController implements ViewController {
 					this.birthdate.getValue(),
 					Float.parseFloat(this.height.getText()),
 					Float.parseFloat(this.weight.getText()));
-			if (this.imagepath != null) {
-				this.listener.saveProfileImage(this.imagepath);
+			if (this.imagePath != null) {
+				this.listener.saveProfileImage(this.imagePath);
 			}
-		} catch (NumberFormatException | IOException e) {
+		} catch (NumberFormatException e) {
+			return;
+		} catch (IllegalImageFormatException e) {
+			return;
+		} catch (IllegalArgumentException e) {
+			return;
+		} catch (InvalidImageException e) {
+			return;
+		} catch (
+				ImageException
+						e) { // this should not be caught it should be caught in catch block above
 			return;
 		}
 		this.listener.returnHome();
@@ -95,10 +108,11 @@ public class ProfileCreateViewController implements ViewController {
 				String sex,
 				LocalDate birthDate,
 				float height,
-				float weight);
+				float weight)
+				throws IllegalArgumentException;
 
 		void returnHome();
 
-		void saveProfileImage(String image) throws IOException;
+		void saveProfileImage(String image) throws ImageException;
 	}
 }

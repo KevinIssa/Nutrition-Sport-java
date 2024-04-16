@@ -31,11 +31,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.models.ConsumedFood;
 import ulb.models.ConsumedMeal;
 
 public class MealHistoryViewController implements ViewController {
-
+	private static final Logger logger = LoggerFactory.getLogger(MealHistoryViewController.class);
 	private static final String FOLDERNAME = "consumed_meals";
 
 	private MealHistoryViewController.Listener
@@ -48,7 +50,8 @@ public class MealHistoryViewController implements ViewController {
 
 	public void setListener(Object listener) {
 		if (listener == null) {
-			throw new IllegalArgumentException("Listener cannot be null");
+			logger.error("Listener is null");
+			System.exit(1);
 		}
 		this.listener = (MealHistoryViewController.Listener) listener;
 		this.addMeals(); // Add activities when listener is set
@@ -82,7 +85,7 @@ public class MealHistoryViewController implements ViewController {
 		HBox hbox = createHBox();
 		setIconInHBox(hbox);
 		setTextInHBox(food, date, hbox);
-		setButtonInHBox(food, hbox);
+		setButtonInHBox(hbox);
 		return hbox;
 	}
 
@@ -107,19 +110,20 @@ public class MealHistoryViewController implements ViewController {
 		hbox.getChildren().add(6, LabelCalorie);
 	}
 
-	private void setButtonInHBox(ConsumedFood food, HBox hbox) {
+	private void setButtonInHBox(HBox hbox) {
 		ImageView imageDelete = createImageView("/ulb/images/trash.png", 30, 30);
 		Button deleteActivityButton = new Button("");
 		deleteActivityButton.setGraphic(imageDelete);
-		deleteActivityButton.setOnAction(e -> deleteFoodInHistory(food));
+		deleteActivityButton.setOnAction(e -> deleteFoodInHistory(hbox));
 		Region spacer = new Region();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
 		hbox.getChildren().addAll(spacer, deleteActivityButton);
 	}
 
-	private void deleteFoodInHistory(ConsumedFood food) {
+	private void deleteFoodInHistory(HBox foodBox) {
 		// delete food in model and controller
-		System.out.println("C pas fait ");
+
+		historyList.getItems().remove(foodBox);
 	}
 
 	private static HBox createHBox() {
