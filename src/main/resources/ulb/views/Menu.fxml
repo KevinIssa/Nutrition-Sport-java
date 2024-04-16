@@ -69,60 +69,60 @@
             </ImageView>
          </children>
       </VBox>
-      <HBox prefHeight="100.0" prefWidth="1185" style="-fx-background-color: #656ff988; -fx-background-radius: 45;">
-         <children>
-            <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#openProfile" prefHeight="104.0" prefWidth="102.0" style="-fx-background-color: transparent;">
-               <graphic>
-                  <StackPane prefHeight="150.0" prefWidth="200.0">
-                     <children>
-                        <Circle fill="#1f93ff00" radius="50.0" stroke="BLACK" strokeType="INSIDE" />
-                  							<ImageView fx:id="profileImage" fitHeight="88.0" fitWidth="90.0">
-                  								<Image url="@../images/default_profile.png" />
-                  							</ImageView>
-                     </children>
-                  </StackPane>
-               </graphic>
-            </Button>
-            <VBox prefHeight="100.0" prefWidth="187.0">
-               <children>
-                  <Label />
-                  <Label text="50 kg" textFill="#fd9c2d">
-                     <font>
-                        <Font size="23.0" />
-                     </font>
-                  </Label>
-                  <Label prefHeight="34.0" prefWidth="196.0" text="1321 kcal brûlées" textFill="#fd9c2d">
-                     <font>
-                        <Font size="23.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-            <Label alignment="CENTER" text="NutriSport" textFill="#f3fbfb" translateX="100.0">
-               <font>
-                  <Font name="Consolas" size="69.0" />
-               </font>
-            </Label>
-            <MenuButton mnemonicParsing="false" prefHeight="99.0" prefWidth="118.0" style="-fx-background-color: transparent;" translateX="380.0">
-               <graphic>
-                  <ImageView fitHeight="87.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/menu_img/bouton-dhorloge-historique.png" />
-                     </image>
-                     <effect>
-                        <ColorAdjust brightness="1.0" hue="0.04" />
-                     </effect>
-                  </ImageView>
-               </graphic>
-               <items>
-   					<MenuItem onAction="#activityHistory" text="Des activités" />
-                  <MenuItem mnemonicParsing="false" onAction="#consumedFoodHistory" text="Des repas" />
-               </items>
-            </MenuButton>
-         </children>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="1185" style="-fx-background-color: #656ff988; -fx-background-radius: 45;">
          <effect>
             <ColorAdjust />
          </effect>
+            <Button alignment="CENTER" contentDisplay="TOP" maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" mnemonicParsing="false" onAction="#openProfile" style="-fx-background-color: transparent;">
+               <graphic>
+                  <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0">
+                     <clip>
+                        <Circle centerX="50" centerY="50" radius="40.0" />
+                     </clip>
+                     <Circle fill="WHITE" radius="40.0" />
+                     <Circle fill="#1f93ff00" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
+                     <ImageView fx:id="profileImage" fitHeight="88.0" fitWidth="90.0">
+                           <Image url="@../images/default_profile.png" />
+                        </ImageView>
+                  </StackPane>
+               </graphic>
+            </Button>
+         <VBox prefHeight="100.0" prefWidth="187.0">
+            <children>
+               <Label />
+               <Label text="50 kg" textFill="#fd9c2d">
+                  <font>
+                     <Font size="23.0" />
+                  </font>
+               </Label>
+               <Label prefHeight="34.0" prefWidth="196.0" text="1321 kcal brûlées" textFill="#fd9c2d">
+                  <font>
+                     <Font size="23.0" />
+                  </font>
+               </Label>
+            </children>
+         </VBox>
+         <Label alignment="CENTER" text="NutriSport" textFill="#f3fbfb" translateX="100.0">
+            <font>
+               <Font name="Consolas" size="69.0" />
+            </font>
+         </Label>
+         <MenuButton mnemonicParsing="false" prefHeight="99.0" prefWidth="118.0" style="-fx-background-color: transparent;" translateX="380.0">
+            <graphic>
+               <ImageView fitHeight="87.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/menu_img/bouton-dhorloge-historique.png" />
+                  </image>
+                  <effect>
+                     <ColorAdjust brightness="1.0" hue="0.04" />
+                  </effect>
+               </ImageView>
+            </graphic>
+            <items>
+               <MenuItem onAction="#activityHistory" text="Des activités" />
+               <MenuItem mnemonicParsing="false" onAction="#consumedFoodHistory" text="Des repas" />
+            </items>
+         </MenuButton>
       </HBox>
    </children>
    <effect>
