@@ -50,12 +50,12 @@ public class ActivityCreateController
 	}
 
 	@Override
-	public void saveActivity(Sport sport, int intensity, String duration, LocalDateTime dateTime) {
+	public void saveActivity(Sport sport, int intensity, int duration, LocalDateTime dateTime) {
 		Activity activity =
 				new Activity(
 						sport,
 						Intensity.fromInt(intensity),
-						Duration.ofMinutes(Long.parseLong(duration)),
+						Duration.ofMinutes(duration),
 						dateTime);
 		activity.save();
 		this.viewController.showCaloriesConsumed(
