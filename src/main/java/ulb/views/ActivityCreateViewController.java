@@ -33,14 +33,16 @@ import ulb.models.enums.Sport;
 public class ActivityCreateViewController implements ViewController {
 	@FXML private Slider intensitySlider;
 	@FXML private TextField duration;
-	@FXML private Button buttonWalking, buttonRunning, buttonBiking, buttonSwimming, buttonVolleyball;
+	@FXML
+	private Button buttonWalking, buttonRunning, buttonBiking, buttonSwimming, buttonVolleyball;
 	@FXML private DatePicker activityDate;
 	@FXML private TextField hour, minute;
 
 	private NumberField durationNumber;
 	private NumberField hourNumber;
 	private NumberField minuteNumber;
-	private static final Logger logger = LoggerFactory.getLogger(ActivityCreateViewController.class);
+	private static final Logger logger =
+			LoggerFactory.getLogger(ActivityCreateViewController.class);
 	private Sport selectedSport = Sport.WALKING;
 	private Button selectedButton;
 	private Listener listener;
@@ -72,16 +74,18 @@ public class ActivityCreateViewController implements ViewController {
 		int hourValue = hourNumber.getValue();
 		int minuteValue = minuteNumber.getValue();
 		return LocalTime.of(hourValue, minuteValue);
-
 	}
 
-	private void checkTime(){
-		if (this.hourNumber.getValue() < 0 || this.hourNumber.getValue() > 23 || this.minuteNumber.getValue() < 0 || this.minuteNumber.getValue() > 59) {
+	private void checkTime() {
+		if (this.hourNumber.getValue() < 0
+				|| this.hourNumber.getValue() > 23
+				|| this.minuteNumber.getValue() < 0
+				|| this.minuteNumber.getValue() > 59) {
 			throw new NumberFormatException();
 		}
 	}
 
-	private void checkDate(){
+	private void checkDate() {
 		LocalDate now = LocalDate.now();
 		LocalDate activityDate = this.activityDate.getValue();
 		if (activityDate.isAfter(now)) {
@@ -113,13 +117,13 @@ public class ActivityCreateViewController implements ViewController {
 					durationValue,
 					activityDateTime);
 			returnHome();
-		} catch(NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			showAlert("Erreur", "Veuillez entrer une heure valide.");
 		} catch (IllegalArgumentException e) {
 			showAlert("Erreur", e.getMessage());
-		}  catch (Exception e) {
+		} catch (Exception e) {
 			showAlert(
-			"Erreur", "Une erreur s'est produite lors de l'enregistrement de l'activité.");
+					"Erreur", "Une erreur s'est produite lors de l'enregistrement de l'activité.");
 		}
 	}
 
