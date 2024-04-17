@@ -18,8 +18,13 @@
  */
 package ulb.controllers;
 
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import ulb.models.ConsumedFood;
 import ulb.models.ConsumedMeal;
 import ulb.views.MealHistoryViewController;
+
+import java.io.File;
 
 /**
  * This class is the controller for the meal history screen of the application.
@@ -34,9 +39,55 @@ public class MealHistoryController implements AppController, MealHistoryViewCont
 		this.listener = listener;
 	}
 
+	private static final String FOLDERNAME = "consumed_meals";
+
 	@Override
 	public void returnHome() {
 		this.listener.returnHome();
+	}
+
+	@Override
+	public void deleteFood(HBox foodBox) {
+		String date_in_string = ((Label) foodBox.getChildren().get(4)).getText();
+		File directory = new File(FOLDERNAME); // Specify the directory path
+		File[] files = directory.listFiles();
+		boolean isDeleted = false;
+		if (files == null) {
+			return;
+		}
+		for (File file : files) {
+			ConsumedMeal meal = this.loadMeal(file.getPath());
+			if (meal.changeDateFormat(meal.getDate()).equals(date_in_string)) {
+				for (ConsumedFood food : meal.getConsumedFoods()) {
+					if (isSameFood(food, foodBox)) {
+						meal.getConsumedFoods().remove(food);
+						isDeleted = true;
+						break;
+					}
+				}
+			}
+			if (meal.getConsumedFoods().isEmpty() && isDeleted) {
+				file.delete();
+				break;
+			} else if (isDeleted) {
+				file.delete();
+				meal.save();
+				break;
+			}
+		}
+
+	}
+
+	private boolean isSameFood(ConsumedFood food, HBox foodBox) {
+		return food.getName().equals(((Label) foodBox.getChildren().get(0)).getText())
+				&& food.getQuantity()
+				== Integer.parseInt(
+				((Label) foodBox.getChildren().get(2)).getText().split(" ")[0])
+				&& food.getCalories()
+				== Integer.parseInt(
+				((Label) foodBox.getChildren().get(6)).getText().split(" ")[0])
+				&& food.getType()
+				.equals(((Label) foodBox.getChildren().get(2)).getText().split(" ")[1]);
 	}
 
 	@Override
@@ -51,7 +102,6 @@ public class MealHistoryController implements AppController, MealHistoryViewCont
 	 * Currently, it has a single method, returnHome, which is expected to be called when the user wants to return to the home screen of the application.
 	 */
 	public interface Listener {
-
 		/**
 		 * This method is called when the user wants to return to the home screen of the application.
 		 * The implementing class should define the behavior that occurs when this event happens.
