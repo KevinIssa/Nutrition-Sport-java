@@ -122,10 +122,41 @@ public class MealHistoryViewController implements ViewController {
 
 	private void deleteFoodInHistory(HBox foodBox) {
 		// delete food in model and controller
+		String date_in_string = ((Label) foodBox.getChildren().get(4)).getText();
+		File directory = new File(FOLDERNAME); // Specify the directory path
+
+		File[] files = directory.listFiles();
+		boolean isDeleted = false;
+		if (files != null) {
+			for (File file : files) {
+				ConsumedMeal meal = listener.loadMeal(file.getPath());
+				if(meal.changeDateFormat(meal.getDate()).equals(date_in_string)){
+					for (ConsumedFood food : meal.getConsumedFoods()) {
+						if (isSameFood(food, foodBox)){
+							meal.getConsumedFoods().remove(food);
+							isDeleted = true;
+							break;}
+					}
+				}
+				if(meal.getConsumedFoods().isEmpty() && isDeleted) {
+					file.delete();
+					break;}
+				else if(isDeleted){
+					file.delete();
+					meal.save();
+					break;}
+			}
+		}
 
 		historyList.getItems().remove(foodBox);
 	}
 
+	private boolean isSameFood(ConsumedFood food, HBox foodBox) {
+		return food.getName().equals(((Label) foodBox.getChildren().get(0)).getText()) &&
+				food.getQuantity() == Integer.parseInt(((Label) foodBox.getChildren().get(2)).getText().split(" ")[0]) &&
+				food.getCalories() == Integer.parseInt(((Label) foodBox.getChildren().get(6)).getText().split(" ")[0]) &&
+				food.getType().equals(((Label) foodBox.getChildren().get(2)).getText().split(" ")[1]);
+	}
 	private static HBox createHBox() {
 		HBox hbox = new HBox();
 		hbox.setAlignment(Pos.CENTER_LEFT);
