@@ -31,15 +31,18 @@ import org.slf4j.LoggerFactory;
 import ulb.models.enums.Sport;
 
 public class ActivityCreateViewController implements ViewController {
-	private static final Logger logger =
-			LoggerFactory.getLogger(ActivityCreateViewController.class);
 	@FXML private Slider intensitySlider;
 	@FXML private TextField duration;
 	@FXML
 	private Button buttonWalking, buttonRunning, buttonBiking, buttonSwimming, buttonVolleyball;
 	@FXML private DatePicker activityDate;
-	@FXML private TextField hour, minutes;
+	@FXML private TextField hour, minute;
 
+	private NumberField durationNumber;
+	private NumberField hourNumber;
+	private NumberField minuteNumber;
+	private static final Logger logger =
+			LoggerFactory.getLogger(ActivityCreateViewController.class);
 	private Sport selectedSport = Sport.WALKING;
 	private Button selectedButton;
 	private Listener listener;
@@ -48,6 +51,9 @@ public class ActivityCreateViewController implements ViewController {
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		this.selectedButton = this.buttonWalking;
 		this.intensitySlider.setLabelFormatter(new IntensityStringConverter());
+		this.durationNumber = new NumberField(this.duration);
+		this.hourNumber = new NumberField(this.hour);
+		this.minuteNumber = new NumberField(this.minute);
 		this.initTime();
 	}
 
@@ -57,55 +63,41 @@ public class ActivityCreateViewController implements ViewController {
 	private void initTime() {
 		LocalDateTime now = LocalDateTime.now();
 		this.activityDate.setValue(now.toLocalDate());
-		this.hour.setText(String.valueOf(now.getHour()));
-		this.minutes.setText(String.valueOf(now.getMinute()));
+		this.hourNumber.setValue(now.getHour());
+		this.minuteNumber.setValue(now.getMinute());
 	}
 
 	/**
 	 * This method returns the time of the activity entered by the user and rise a pop up if the time entered is not valid.
 	 */
 	public LocalTime getActivityTime() {
-		try {
-			String hourText = hour.getText();
-			String minutesText = minutes.getText();
+		int hourValue = hourNumber.getValue();
+		int minuteValue = minuteNumber.getValue();
+		return LocalTime.of(hourValue, minuteValue);
+	}
 
-			if (hourText == null || minutesText == null) {
-				showAlert("Erreur", "Veuillez entrer une heure valide.");
-				return null;
-			}
+	private void checkTime() {
+		if (this.hourNumber.getValue() < 0
+				|| this.hourNumber.getValue() > 23
+				|| this.minuteNumber.getValue() < 0
+				|| this.minuteNumber.getValue() > 59) {
+			throw new NumberFormatException();
+		}
+	}
 
-			int intHour = Integer.parseInt(hourText);
-			int intMinutes = Integer.parseInt(minutesText);
-
-			if (intHour < 0 || intHour > 23 || intMinutes < 0 || intMinutes > 59) {
-				showAlert(
-						"Heure invalide",
-						"L'heure doit être comprise entre 0 et 23 et les minutes entre 0 et 59");
-				return null;
-			}
-
-			return LocalTime.of(intHour, intMinutes);
-		} catch (NumberFormatException e) {
-			showAlert("Heure invalide", "L'heure doit être un nombre");
-			return null;
+	private void checkDate() {
+		LocalDate now = LocalDate.now();
+		LocalDate activityDate = this.activityDate.getValue();
+		if (activityDate.isAfter(now)) {
+			throw new IllegalArgumentException("La date ne peut pas être dans le futur");
 		}
 	}
 
 	/**
 	 * This method returns the date and time of the activity entered by the user.
 	 */
-	public LocalDateTime getActivityDate() {
-		LocalDate currentDate = LocalDate.now();
-		if (isDateInFuture(activityDate.getValue(), currentDate)) {
-			showAlert("Date invalide", "La date ne peut pas être dans le futur");
-			return null;
-		}
-
+	public LocalDateTime getDateTime() {
 		LocalTime activityTime = getActivityTime();
-		if (activityTime == null) {
-			return null; // An error occurred, return null
-		}
-
 		return LocalDateTime.of(activityDate.getValue(), activityTime);
 	}
 
@@ -113,62 +105,25 @@ public class ActivityCreateViewController implements ViewController {
 	 * This method saves the activity.
 	 */
 	public void saveActivity() {
-		LocalDateTime activityDateTime = getActivityDate();
-		String durationText = this.duration.getText();
-
-		if (!isActivityDateValid(activityDateTime) || !isDurationValid(durationText)) {
-			return;
-		}
-
-		// Attempt to save the activity
 		try {
+			this.checkDate();
+			this.checkTime();
+			LocalDateTime activityDateTime = getDateTime();
+			int durationValue = this.durationNumber.getValue();
+
 			this.listener.saveActivity(
 					this.selectedSport,
 					(int) intensitySlider.getValue(),
-					durationText,
+					durationValue,
 					activityDateTime);
 			returnHome();
+		} catch (NumberFormatException e) {
+			showAlert("Erreur", "Veuillez entrer une heure valide.");
+		} catch (IllegalArgumentException e) {
+			showAlert("Erreur", e.getMessage());
 		} catch (Exception e) {
 			showAlert(
 					"Erreur", "Une erreur s'est produite lors de l'enregistrement de l'activité.");
-		}
-	}
-
-	/**
-	 * This method checks if a date is in the future.
-	 */
-	public boolean isDateInFuture(LocalDate date1, LocalDate date2) {
-		return date1.compareTo(date2) > 0;
-	}
-
-	/**
-	 * Checks if the provided activity date and time is valid.
-	 * Displays an error message if the date and time are not valid.
-	 */
-	private boolean isActivityDateValid(LocalDateTime activityDateTime) {
-		if (activityDateTime == null) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * Checks if the provided duration text is valid.
-	 * Displays an error message if the duration is not valid.
-	 */
-	private boolean isDurationValid(String durationText) {
-		try {
-			int duration = Integer.parseInt(durationText);
-			if (duration < 0 || duration > 500) {
-				showAlert(
-						"Erreur",
-						"La durée doit être un nombre valide et ne peut pas dépasser 500.");
-				return false;
-			}
-			return true;
-		} catch (NumberFormatException e) {
-			showAlert("Erreur", "La durée doit être un nombre valide.");
-			return false;
 		}
 	}
 
@@ -226,7 +181,7 @@ public class ActivityCreateViewController implements ViewController {
 		void saveActivity(
 				Sport selectedSport,
 				int selectedIntensity,
-				String selectedDuration,
+				int selectedDuration,
 				LocalDateTime activityDateTime);
 
 		void returnHome();
