@@ -18,13 +18,12 @@
  */
 package ulb.controllers;
 
+import java.io.File;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import ulb.models.ConsumedFood;
 import ulb.models.ConsumedMeal;
 import ulb.views.MealHistoryViewController;
-
-import java.io.File;
 
 /**
  * This class is the controller for the meal history screen of the application.
@@ -75,19 +74,18 @@ public class MealHistoryController implements AppController, MealHistoryViewCont
 				break;
 			}
 		}
-
 	}
 
 	private boolean isSameFood(ConsumedFood food, HBox foodBox) {
 		return food.getName().equals(((Label) foodBox.getChildren().get(0)).getText())
 				&& food.getQuantity()
-				== Integer.parseInt(
-				((Label) foodBox.getChildren().get(2)).getText().split(" ")[0])
+						== Integer.parseInt(
+								((Label) foodBox.getChildren().get(2)).getText().split(" ")[0])
 				&& food.getCalories()
-				== Integer.parseInt(
-				((Label) foodBox.getChildren().get(6)).getText().split(" ")[0])
+						== Integer.parseInt(
+								((Label) foodBox.getChildren().get(6)).getText().split(" ")[0])
 				&& food.getType()
-				.equals(((Label) foodBox.getChildren().get(2)).getText().split(" ")[1]);
+						.equals(((Label) foodBox.getChildren().get(2)).getText().split(" ")[1]);
 	}
 
 	@Override

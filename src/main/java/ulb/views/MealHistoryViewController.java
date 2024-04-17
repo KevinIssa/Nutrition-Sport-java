@@ -128,7 +128,6 @@ public class MealHistoryViewController implements ViewController {
 		historyList.getItems().remove(foodBox);
 	}
 
-
 	private static HBox createHBox() {
 		HBox hbox = new HBox();
 		hbox.setAlignment(Pos.CENTER_LEFT);
