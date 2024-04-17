@@ -64,6 +64,7 @@ public class ActivityHistoryViewController implements ViewController {
 	}
 
 	private void deleteActivityInHistory(HistoryBox activityBox) {
+		listener.deleteActivity(activityBox);
 		historyList.getItems().remove(activityBox);
 	}
 
@@ -120,5 +121,7 @@ public class ActivityHistoryViewController implements ViewController {
 		List<ActivityDTO> getActivities(Sport filter); // Load activity from file
 
 		void returnHome(); // Return to the home view
+
+		void deleteActivity(HistoryBox activityBox); // Delete activity from file
 	}
 }

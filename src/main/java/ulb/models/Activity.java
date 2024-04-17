@@ -70,6 +70,7 @@ public class Activity implements JsonSerializable {
 		logger.trace("Creating activity: {} ", this);
 	}
 
+
 	/**
 	 * Checks if this activity is equal to another object.
 	 *

@@ -18,12 +18,19 @@
  */
 package ulb.controllers;
 
+import java.awt.*;
+import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import ulb.controllers.dtos.ActivityDTO;
 import ulb.models.Activity;
+import ulb.models.enums.Intensity;
 import ulb.models.enums.Sport;
 import ulb.views.ActivityHistoryViewController;
+import ulb.views.HistoryBox;
 
 /**
  * The ActivityHistoryController class is responsible for managing the interactions between the ActivityHistoryViewController and the model classes related to activities.
@@ -34,7 +41,7 @@ public class ActivityHistoryController
 		implements AppController, ActivityHistoryViewController.Listener {
 
 	private final ActivityHistoryController.Listener listener;
-
+	public static final String FOLDER_NAME = "activities";
 	public ActivityHistoryController(ActivityHistoryController.Listener listener) {
 		this.listener = listener;
 	}
@@ -42,6 +49,31 @@ public class ActivityHistoryController
 	@Override
 	public void returnHome() {
 		this.listener.returnHome();
+	}
+
+	@Override
+	public void deleteActivity(HistoryBox activityBox) {
+		File folder = new File(FOLDER_NAME);
+		File[] files = folder.listFiles();
+		if (files == null) {
+			return;
+		}
+		for (File file : files) {
+			Activity activity = Activity.load(file.getPath());
+			if (isSameActivity(activity, activityBox)) {
+				file.delete();
+				break;
+			}
+
+		}
+	}
+	private boolean isSameActivity(Activity activity, HistoryBox activityBox) {
+		ActivityDTO activityDTO = new ActivityDTO(activity);
+		return activityDTO.sport.equals(activityBox.getActivity().sport)
+				&& activityDTO.date.equals(activityBox.getActivity().date)
+				&& activityDTO.duration.equals(activityBox.getActivity().duration)
+				&& activityDTO.intensity.equals(activityBox.getActivity().intensity)
+				&& activityDTO.burnedCalories.equals(activityBox.getActivity().burnedCalories);
 	}
 
 	@Override
