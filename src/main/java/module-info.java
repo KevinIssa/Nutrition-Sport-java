@@ -13,7 +13,6 @@ module ulb {
 	exports ulb.views;
 	exports ulb.controllers;
 	exports ulb.controllers.dtos;
-	exports ulb.views.templates;
 	exports ulb.widgets;
 	exports ulb.exceptions;
 
@@ -25,7 +24,5 @@ module ulb {
 	opens ulb.controllers to
 			javafx.fxml;
 	opens ulb.widgets to
-			javafx.fxml;
-	opens ulb.views.templates to
 			javafx.fxml;
 }

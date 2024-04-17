@@ -106,7 +106,7 @@ public class ViewLoader {
 	 * @return The controller for the loaded 'AddMeal' view.
 	 */
 	public ViewController loadAddMeal(Stage stage) {
-		return this.load("/ulb/views/AddMeal.fxml", stage);
+		return this.load("/ulb/views/AddFood.fxml", stage);
 	}
 
 	/**

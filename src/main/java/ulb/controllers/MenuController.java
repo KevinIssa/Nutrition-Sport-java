@@ -204,8 +204,8 @@ public class MenuController implements AppController, MenuViewController.Listene
 	@Override
 	public void loadFoodSearchPage() {
 		Stage popupStage = new Stage();
-		FoodViewController foodViewController =
-				(FoodViewController) viewLoader.loadAddMeal(popupStage);
+		AddFoodViewController foodViewController =
+				(AddFoodViewController) viewLoader.loadAddMeal(popupStage);
 		foodViewController.setListener(
 				new FoodController(
 						() -> {

@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 import ulb.exceptions.IllegalImageFormatException;
 import ulb.exceptions.ImageException;
 import ulb.exceptions.InvalidImageException;
-import ulb.views.templates.AbstractFieldTemplate;
+import ulb.widgets.AbstractFieldTemplate;
 
 public class ProfileViewController implements ViewController {
 	private static final Logger logger = LoggerFactory.getLogger(ProfileViewController.class);

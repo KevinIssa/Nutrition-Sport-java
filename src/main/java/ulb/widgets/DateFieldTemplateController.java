@@ -16,14 +16,14 @@
  *
  * Date : 2024
  */
-package ulb.views.templates;
+package ulb.widgets;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 
-public class DateFieldTemplatController extends AbstractFieldTemplate {
+public class DateFieldTemplateController extends AbstractFieldTemplate {
 
 	@FXML protected DatePicker birthdateFieldInfo;
 
