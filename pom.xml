@@ -213,6 +213,9 @@
 				<version>3.8.0</version>
 				<configuration>
 					<release>21</release>
+					<source>21</source>
+					<target>21</target>
+					<compilerArgs>--enable-preview</compilerArgs>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -235,7 +238,7 @@
 
 						<!-- apply a specific flavor of google-java-format and reflow long strings -->
 						<googleJavaFormat>
-							<version>1.17.0</version>
+							<version>1.19.2</version>
 							<style>AOSP</style>
 							<reflowLongStrings>true</reflowLongStrings>
 							<formatJavadoc>false</formatJavadoc>

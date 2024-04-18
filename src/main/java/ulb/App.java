@@ -24,7 +24,6 @@ import ulb.controllers.MenuController;
 import ulb.repositories.JSONProfileRepository;
 import ulb.repositories.ProfileRepository;
 import ulb.services.ProfileService;
-import ulb.services.ProfileServiceImpl;
 
 public class App extends Application {
 
@@ -32,7 +31,7 @@ public class App extends Application {
 	public void start(Stage primaryStage) {
 		this.setupStage(primaryStage);
 		ProfileRepository profileRepository = new JSONProfileRepository();
-		ProfileService profileService = new ProfileServiceImpl(profileRepository);
+		ProfileService profileService = new ProfileService(profileRepository);
 		MenuController menuController = new MenuController();
 		menuController.setProfileService(profileService);
 		menuController.show(primaryStage);

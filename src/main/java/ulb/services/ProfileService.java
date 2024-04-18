@@ -19,41 +19,58 @@
 package ulb.services;
 
 import ulb.dtos.ProfileDTO;
+import ulb.enums.Sex;
+import ulb.models.Profile;
+import ulb.repositories.ProfileRepository;
 
-public interface ProfileService {
+public class ProfileService {
+	private final ProfileRepository profileRepository;
 
-	/**
-	 * Saves a ProfileDTO object.
-	 *
-	 * @param profileDTO the ProfileDTO object to be saved
-	 */
-	void saveProfile(ProfileDTO profileDTO);
+	public ProfileService(ProfileRepository profileRepository) {
+		this.profileRepository = profileRepository;
+	}
 
-	/**
-	 * Loads a ProfileDTO object.
-	 *
-	 * @return the loaded ProfileDTO object
-	 */
-	ProfileDTO loadProfile();
+	public void saveProfile(ProfileDTO profileDTO) {
+		this.profileRepository.save(this.convertToProfile(profileDTO));
+		this.profileRepository.saveProfileImage(profileDTO.imagePath());
+	}
 
-	/**
-	 * Updates a ProfileDTO object.
-	 *
-	 * @param profileDTO the ProfileDTO object to be updated
-	 */
-	void updateProfile(ProfileDTO profileDTO);
+	public ProfileDTO loadProfile() {
+		return this.convertToProfileDTO(this.profileRepository.load());
+	}
 
-	/**
-	 * Checks if a ProfileDTO object has been created.
-	 *
-	 * @return true if a ProfileDTO object has been created, false otherwise
-	 */
-	boolean isProfileCreated();
+	public void updateProfile(ProfileDTO profileDTO) {
+		this.profileRepository.update(this.convertToProfile(profileDTO));
+	}
 
-	/**
-	 * Deletes a ProfileDTO object.
-	 */
-	void deleteProfile();
+	public boolean isProfileCreated() {
+		return this.profileRepository.isCreated();
+	}
 
-	String getProfileImagePath();
+	public void deleteProfile() {}
+
+	public String getProfileImagePath() {
+		return this.profileRepository.getImagePath();
+	}
+
+	private Profile convertToProfile(ProfileDTO profileDTO) {
+		return new Profile(
+				profileDTO.firstName(),
+				profileDTO.lastName(),
+				Sex.fromString(profileDTO.sex()),
+				profileDTO.weight(),
+				profileDTO.height(),
+				profileDTO.birthDate());
+	}
+
+	private ProfileDTO convertToProfileDTO(Profile profile) {
+		return new ProfileDTO(
+				profile.getFirstName(),
+				profile.getLastName(),
+				profile.getSex().toString(),
+				profile.getWeight(),
+				profile.getHeight(),
+				profile.getBirthDate(),
+				this.profileRepository.getImagePath());
+	}
 }

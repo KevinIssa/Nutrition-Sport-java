@@ -34,6 +34,7 @@ public class ProfileDeleteController extends AppController
 		implements ProfileDeleteConfirmViewController.Listener {
 
 	private final ProfileService profileService;
+
 	private final ProfileDeleteController.Listener listener;
 
 	public ProfileDeleteController(

@@ -16,9 +16,19 @@
  *
  * Date : 2024
  */
-package ulb.dtos;
+package ulb.repositories;
 
-import java.time.LocalDateTime;
-import ulb.enums.Sport;
+import java.util.List;
+import ulb.models.Activity;
 
-public record ActivityDTO(Sport sport, int intensity, int duration, LocalDateTime date) {}
+public interface ActivityRepository {
+	void save(Activity activity);
+
+	Activity load();
+
+	List<Activity> loadAll();
+
+	void delete(Activity activity);
+
+	void deleteAll();
+}

@@ -20,16 +20,9 @@ package ulb.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import java.io.File;
-import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.enums.Intensity;
@@ -38,7 +31,7 @@ import ulb.enums.Sport;
 /**
  * Represents an activity performed by a user.
  */
-public class Activity implements JsonSerializable {
+public class Activity {
 	public static final Logger logger = LoggerFactory.getLogger(Activity.class);
 	public static final String FOLDER_NAME = "activities";
 
@@ -88,74 +81,6 @@ public class Activity implements JsonSerializable {
 				&& date.equals(activity.date);
 	}
 
-	/**
-	 * Saves the activity data to a JSON file.
-	 */
-	public void save() {
-		File folder = new File(FOLDER_NAME);
-		if (!folder.exists()) {
-			logger.info("Creating activities folder");
-			folder.mkdir();
-		}
-		String filename =
-				FOLDER_NAME
-						+ "/"
-						+ LocalDateTime.now()
-								.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))
-						+ ".json";
-		saveToFile(filename);
-	}
-
-	/**
-	 * Retrieves all saved activities from the file system.
-	 * <p>
-	 * This method scans the directory specified by FOLDER_NAME for JSON files, each representing an Activity.
-	 * Each file is loaded into an Activity object and added to a list.
-	 * The list of all loaded activities is then returned.
-	 *
-	 * @return A list of all saved activities. If no activities are saved, an empty list is returned.
-	 */
-	public static List<Activity> loadAll() {
-		File folder = new File(FOLDER_NAME);
-		File[] files = folder.listFiles();
-		List<Activity> activities = new ArrayList<>();
-		if (files != null) {
-			logger.info("Loading all activities");
-			for (File file : files) {
-				if (!file.isDirectory()) {
-					activities.add(load(file.getPath()));
-				}
-			}
-		}
-		return activities;
-	}
-
-	/**
-	 * Clears all saved activity data.
-	 */
-	public static void clearAll() {
-		File folder = new File(FOLDER_NAME);
-		File[] files = folder.listFiles();
-		if (files != null) {
-			logger.info("Deleting all activities");
-			for (File file : files) {
-				if (!file.isDirectory()) {
-					file.delete();
-				}
-			}
-		}
-	}
-
-	/**
-	 * Loads an activity from a JSON file.
-	 *
-	 * @param filename The name of the file containing activity data.
-	 * @return The loaded activity.
-	 */
-	public static Activity load(String filename) {
-		return (Activity) new Activity().loadFromFile(filename);
-	}
-
 	// Utility methods.
 
 	/**
@@ -199,44 +124,6 @@ public class Activity implements JsonSerializable {
 	public String getDateToString() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm");
 		return date.format(formatter);
-	}
-
-	/**
-	 * Saves the activity data to a JSON file.
-	 *
-	 * @param filename The name of the file to save the activity data.
-	 */
-	@Override
-	public void saveToFile(String filename) {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		mapper.registerModule(new JavaTimeModule());
-		try {
-			logger.info("Saving activity:{} to {} ", this, filename);
-			mapper.writeValue(new File(filename), this);
-		} catch (IOException e) {
-			logger.error("Error saving activity to file", e);
-		}
-	}
-
-	/**
-	 * Loads the activity data from a JSON file.
-	 *
-	 * @param filename The name of the file containing the activity data.
-	 * @return The loaded Activity object.
-	 */
-	@Override
-	public JsonSerializable loadFromFile(String filename) {
-		File file = new File(filename);
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new JavaTimeModule());
-		try {
-			logger.info("Loading activity from file: {}", filename);
-			return mapper.readValue(file, Activity.class);
-		} catch (IOException e) {
-			logger.warn("No activity found");
-			return null;
-		}
 	}
 
 	// Getters and setters for class attributes.
