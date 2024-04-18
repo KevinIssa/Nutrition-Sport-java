@@ -26,7 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import ulb.controllers.dtos.ActivityDTO;
+import ulb.dtos.ActivityDTO;
 
 public class HistoryBox extends HBox {
 	private static final String IMG_PATH = "/ulb/images/";

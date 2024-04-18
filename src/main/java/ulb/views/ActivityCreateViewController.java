@@ -28,7 +28,7 @@ import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulb.models.enums.Sport;
+import ulb.enums.Sport;
 
 public class ActivityCreateViewController implements ViewController {
 	@FXML private Slider intensitySlider;

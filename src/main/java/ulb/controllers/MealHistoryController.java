@@ -21,6 +21,7 @@ package ulb.controllers;
 import java.io.File;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import ulb.models.ConsumedFood;
 import ulb.models.ConsumedMeal;
 import ulb.views.MealHistoryViewController;
@@ -30,7 +31,8 @@ import ulb.views.MealHistoryViewController;
  * It is responsible for handling the logic of the meal history screen, such as loading a meal from a file.
  * It also listens to events from the MealHistoryViewController and notifies the listener when the user wants to return to the home screen.
  */
-public class MealHistoryController implements AppController, MealHistoryViewController.Listener {
+public class MealHistoryController extends AppController
+		implements MealHistoryViewController.Listener {
 
 	private final MealHistoryController.Listener listener;
 
@@ -39,6 +41,12 @@ public class MealHistoryController implements AppController, MealHistoryViewCont
 	}
 
 	private static final String FOLDERNAME = "consumed_meals";
+
+	@Override
+	public void show(Stage stage) {
+		this.loadView("/ulb/views/MealHistory.fxml", stage);
+		this.viewController.setListener(this);
+	}
 
 	@Override
 	public void returnHome() {

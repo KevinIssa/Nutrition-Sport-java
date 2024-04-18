@@ -20,10 +20,10 @@ package ulb.controllers;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import javafx.stage.Stage;
+import ulb.enums.Intensity;
+import ulb.enums.Sport;
 import ulb.models.Activity;
-import ulb.models.Profile;
-import ulb.models.enums.Intensity;
-import ulb.models.enums.Sport;
 import ulb.views.ActivityCreateViewController;
 
 /**
@@ -31,22 +31,24 @@ import ulb.views.ActivityCreateViewController;
  * It implements the AppController interface and the Listener interface from the ActivityCreateViewController.
  * This class handles the saving of activities, the calculation of calories burned by an activity, and the return to the home screen of the application.
  */
-public class ActivityCreateController
-		implements AppController, ActivityCreateViewController.Listener {
+public class ActivityCreateController extends AppController
+		implements ActivityCreateViewController.Listener {
 
 	private final ActivityCreateController.Listener listener;
-	private final ActivityCreateViewController viewController;
 
 	/**
 	 * Constructor for the ActivityCreateController class.
+	 *
 	 * @param listener Listener for the ActivityCreateController
-	 * @param viewController ViewController for the ActivityCreateController
 	 */
-	public ActivityCreateController(
-			ActivityCreateController.Listener listener,
-			ActivityCreateViewController viewController) {
+	public ActivityCreateController(Listener listener) {
 		this.listener = listener;
-		this.viewController = viewController;
+	}
+
+	@Override
+	public void show(Stage stage) {
+		this.loadView("/ulb/views/ActivityCreate.fxml", stage);
+		this.viewController.setListener(this);
 	}
 
 	@Override
@@ -58,8 +60,10 @@ public class ActivityCreateController
 						Duration.ofMinutes(duration),
 						dateTime);
 		activity.save();
-		this.viewController.showCaloriesConsumed(
-				activity.getCaloriesBurned(Profile.load().getWeight()));
+		//		this.viewController.showCaloriesConsumed(
+		//				activity.getCaloriesBurned(Profile.load().getWeight()));
+		((ActivityCreateViewController) this.viewController)
+				.showCaloriesConsumed(activity.getCaloriesBurned(0));
 	}
 
 	@Override

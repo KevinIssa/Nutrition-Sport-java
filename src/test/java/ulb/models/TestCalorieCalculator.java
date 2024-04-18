@@ -23,8 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
-import ulb.models.enums.Intensity;
-import ulb.models.enums.Sport;
+import ulb.enums.Intensity;
+import ulb.enums.Sport;
 
 public class TestCalorieCalculator {
 

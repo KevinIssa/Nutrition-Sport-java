@@ -18,17 +18,13 @@
  */
 package ulb.controllers;
 
-import java.awt.*;
 import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import ulb.controllers.dtos.ActivityDTO;
+import javafx.stage.Stage;
+import ulb.dtos.ActivityDTO;
+import ulb.enums.Sport;
 import ulb.models.Activity;
-import ulb.models.enums.Intensity;
-import ulb.models.enums.Sport;
 import ulb.views.ActivityHistoryViewController;
 import ulb.views.HistoryBox;
 
@@ -37,13 +33,20 @@ import ulb.views.HistoryBox;
  * It implements the AppController interface and the Listener interface from the ActivityHistoryViewController.
  * This class handles the loading of activities from the database and the return to the home screen of the application.
  */
-public class ActivityHistoryController
-		implements AppController, ActivityHistoryViewController.Listener {
+public class ActivityHistoryController extends AppController
+		implements ActivityHistoryViewController.Listener {
 
 	private final ActivityHistoryController.Listener listener;
 	public static final String FOLDER_NAME = "activities";
+
 	public ActivityHistoryController(ActivityHistoryController.Listener listener) {
 		this.listener = listener;
+	}
+
+	@Override
+	public void show(Stage stage) {
+		this.loadView("/ulb/views/ActivityHistory.fxml", stage);
+		this.viewController.setListener(this);
 	}
 
 	@Override
@@ -64,9 +67,9 @@ public class ActivityHistoryController
 				file.delete();
 				break;
 			}
-
 		}
 	}
+
 	private boolean isSameActivity(Activity activity, HistoryBox activityBox) {
 		ActivityDTO activityDTO = new ActivityDTO(activity);
 		return activityDTO.sport.equals(activityBox.getActivity().sport)

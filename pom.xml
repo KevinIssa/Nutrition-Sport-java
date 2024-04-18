@@ -11,13 +11,12 @@
 	<properties>
 		<mainClass>ulb.Launcher</mainClass>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.7</maven.compiler.source>
-		<maven.compiler.target>1.7</maven.compiler.target>
+		<maven.compiler.source>21</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
 		<junit.version>5.10.2</junit.version>
 		<javafx.version>21.0.2</javafx.version>
 		<fxml.version>21</fxml.version>
 		<jackson.version>2.16.0</jackson.version>
-		<jaxb.version>2.3.1</jaxb.version>
 		<spotless.version>2.42.0</spotless.version>
 		<logger.version>1.4.12</logger.version>
 	</properties>
@@ -54,6 +53,7 @@
 			<artifactId>javafx-fxml</artifactId>
 			<version>${fxml.version}</version>
 		</dependency>
+
 		<!-- Jackson -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -69,13 +69,6 @@
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
 			<version>${jackson.version}</version>
-		</dependency>
-
-		<!-- JAXB -->
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>${jaxb.version}</version>
 		</dependency>
 
 		<!-- Spotless -->
@@ -219,7 +212,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
 				<configuration>
-					<release>11</release>
+					<release>21</release>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -236,15 +229,6 @@
 				<groupId>com.diffplug.spotless</groupId>
 				<artifactId>spotless-maven-plugin</artifactId>
 				<version>${spotless.version}</version>
-				<executions>
-					<execution>
-						<id>java</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
 				<configuration>
 					<java>
 						<!-- no need to specify files, inferred automatically, but you can if you want -->

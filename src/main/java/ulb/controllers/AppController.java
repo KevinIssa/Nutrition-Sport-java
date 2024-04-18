@@ -18,6 +18,13 @@
  */
 package ulb.controllers;
 
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import ulb.views.ViewController;
+
 /**
  * The AppController interface is a part of the application's controller layer.
  * It is an empty interface used as a marker for all controllers in the application.
@@ -28,4 +35,21 @@ package ulb.controllers;
  * <p>
  * This interface is a part of the application's architecture and is crucial for maintaining a clean and organized codebase.
  */
-public interface AppController {}
+public abstract class AppController {
+
+	protected ViewController viewController;
+
+	public abstract void show(Stage stage);
+
+	protected void loadView(String resourcePath, Stage stage) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(resourcePath));
+			Parent root = loader.load();
+			this.viewController = loader.getController();
+			stage.setScene(new Scene(root));
+		} catch (IOException e) {
+			//			logger.error("Failed to load view resources", e);
+			System.exit(1);
+		}
+	}
+}

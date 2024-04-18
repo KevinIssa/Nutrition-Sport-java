@@ -32,8 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulb.models.enums.Intensity;
-import ulb.models.enums.Sport;
+import ulb.enums.Intensity;
+import ulb.enums.Sport;
 
 /**
  * Represents an activity performed by a user.
@@ -69,7 +69,6 @@ public class Activity implements JsonSerializable {
 		this.date = date;
 		logger.trace("Creating activity: {} ", this);
 	}
-
 
 	/**
 	 * Checks if this activity is equal to another object.

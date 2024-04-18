@@ -27,8 +27,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulb.controllers.dtos.ActivityDTO;
-import ulb.models.enums.Sport;
+import ulb.dtos.ActivityDTO;
+import ulb.enums.Sport;
 
 /**
  * This class is a controller for the ActivityHistory view. It implements the ViewController interface.

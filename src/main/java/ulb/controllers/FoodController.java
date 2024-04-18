@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.models.ConsumedMeal;
@@ -36,25 +37,26 @@ import ulb.views.FoodViewController;
  * This class handles the loading of foods from the database, the calculation of calories consumed by a certain quantity of food, the saving of consumed foods and meals, and the retrieval of food details.
  * It also handles the user's search for foods and the return to the home screen of the application.
  */
-public class FoodController implements AppController, FoodViewController.Listener {
+public class FoodController extends AppController implements FoodViewController.Listener {
 
 	private static final Logger logger = LoggerFactory.getLogger(FoodController.class);
-	// Listener for the FoodController
 	private final FoodController.Listener listener;
-	// ViewController for the FoodController
-	private final FoodViewController viewController;
-	// FoodLoader for the FoodController
 	private FoodLoader foodLoader;
 
 	/**
 	 * Constructor for the FoodController class.
+	 *
 	 * @param listener Listener for the FoodController
-	 * @param viewController ViewController for the FoodController
 	 */
-	public FoodController(FoodController.Listener listener, FoodViewController viewController) {
+	public FoodController(Listener listener) {
 		this.listener = listener;
-		this.viewController = viewController;
 		this.foodLoader = loadFoods();
+	}
+
+	@Override
+	public void show(Stage stage) {
+		this.loadView("/ulb/views/AddMeal.fxml", stage);
+		this.viewController.setListener(this);
 	}
 
 	/**
@@ -136,10 +138,11 @@ public class FoodController implements AppController, FoodViewController.Listene
 
 	@Override
 	public void sendUserSearch(String searchText) {
-		this.viewController.setSuggestions(
-				this.foodLoader.getFoodsSuggestion(searchText).stream()
-						.map(Food::getName)
-						.collect(Collectors.toList()));
+		((FoodViewController) this.viewController)
+				.setSuggestions(
+						this.foodLoader.getFoodsSuggestion(searchText).stream()
+								.map(Food::getName)
+								.collect(Collectors.toList()));
 	}
 
 	/**

@@ -8,14 +8,16 @@ module ulb {
 	requires org.slf4j;
 
 	exports ulb;
-	exports ulb.models;
-	exports ulb.models.enums;
-	exports ulb.views;
 	exports ulb.controllers;
-	exports ulb.controllers.dtos;
+	exports ulb.dtos;
+	exports ulb.enums;
+	exports ulb.exceptions;
+	exports ulb.models;
+	exports ulb.repositories;
+	exports ulb.services;
+	exports ulb.views;
 	exports ulb.views.templates;
 	exports ulb.widgets;
-	exports ulb.exceptions;
 
 	opens ulb.models to
 			javafx.fxml,

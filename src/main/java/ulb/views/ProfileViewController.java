@@ -32,9 +32,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulb.exceptions.IllegalImageFormatException;
-import ulb.exceptions.ImageException;
-import ulb.exceptions.InvalidImageException;
+import ulb.dtos.ProfileDTO;
 import ulb.views.templates.AbstractFieldTemplate;
 
 public class ProfileViewController implements ViewController {
@@ -94,12 +92,13 @@ public class ProfileViewController implements ViewController {
 	}
 
 	private void setProfileData() {
-		this.firstnameController.setLabelText(this.listener.getFirstName());
-		this.lastnameController.setLabelText(this.listener.getLastName());
-		this.birthdateController.setLabelText(this.listener.getBirthDate().toString());
-		this.heightController.setLabelText(Float.toString(this.listener.getHeight()));
-		this.weightController.setLabelText(Float.toString(this.listener.getWeight()));
-		this.sexController.setLabelText(this.listener.getSex());
+		ProfileDTO profileDTO = this.listener.getProfile();
+		this.firstnameController.setLabelText(profileDTO.firstName());
+		this.lastnameController.setLabelText(profileDTO.lastName());
+		this.birthdateController.setLabelText(profileDTO.birthDate().toString());
+		this.heightController.setLabelText(Float.toString(profileDTO.height()));
+		this.weightController.setLabelText(Float.toString(profileDTO.weight()));
+		this.sexController.setLabelText(profileDTO.sex());
 	}
 
 	public void setProfileImage() {
@@ -128,28 +127,28 @@ public class ProfileViewController implements ViewController {
 
 	public void saveProfile() {
 		try {
-			this.listener.saveProfile(
-					this.firstnameController.getText(),
-					this.lastnameController.getText(),
-					this.sexController.getText(),
-					LocalDate.parse(this.birthdateController.getText()),
-					Float.parseFloat(this.heightController.getText()),
-					Float.parseFloat(this.weightController.getText()));
-			if (this.imagePath != null) {
-				this.listener.saveProfileImage(this.imagePath);
-			}
+			ProfileDTO profileDTO =
+					new ProfileDTO(
+							this.firstnameController.getText(),
+							this.lastnameController.getText(),
+							this.sexController.getText(),
+							Float.parseFloat(this.heightController.getText()),
+							Float.parseFloat(this.weightController.getText()),
+							LocalDate.parse(this.birthdateController.getText()),
+							this.imagePath);
+			this.listener.saveProfile(profileDTO);
 		} catch (NumberFormatException e) {
 			logger.warn("Height and weight must be positive numbers");
 		} catch (IllegalArgumentException | NullPointerException e) {
 			logger.warn("All fields must be filled");
-		} catch (IllegalImageFormatException e) {
-			logger.warn("Image format not supported");
-		} catch (InvalidImageException e) {
-			logger.warn("Failed to save image");
-		} catch (
-				ImageException
-						e) { // this should not be caught it should be caught in catch block above
-			logger.warn("error while saving image");
+			//		} catch (IllegalImageFormatException e) {
+			//			logger.warn("Image format not supported");
+			//		} catch (InvalidImageException e) {
+			//			logger.warn("Failed to save image");
+			//		} catch (
+			//				ImageException
+			//						e) { // this should not be caught it should be caught in catch block above
+			//			logger.warn("error while saving image");
 		}
 		this.listener.returnHome();
 	}
@@ -166,33 +165,14 @@ public class ProfileViewController implements ViewController {
 
 	// Listener interface for communication with the controller
 	public interface Listener {
-		void saveProfile(
-				String firstName,
-				String lastName,
-				String sex,
-				LocalDate birthDate,
-				float height,
-				float weight)
-				throws IllegalArgumentException;
+		void saveProfile(ProfileDTO profileDTO);
+
+		ProfileDTO getProfile();
+
+		String getProfileImagePath();
 
 		void deleteProfileView();
 
 		void returnHome();
-
-		String getFirstName();
-
-		String getLastName();
-
-		String getSex();
-
-		LocalDate getBirthDate();
-
-		float getHeight();
-
-		float getWeight();
-
-		void saveProfileImage(String imagePath) throws ImageException;
-
-		String getProfileImagePath();
 	}
 }

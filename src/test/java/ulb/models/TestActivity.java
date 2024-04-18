@@ -31,8 +31,8 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ulb.models.enums.Intensity;
-import ulb.models.enums.Sport;
+import ulb.enums.Intensity;
+import ulb.enums.Sport;
 
 public class TestActivity {
 
