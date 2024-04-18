@@ -19,8 +19,11 @@
 package ulb.widgets;
 
 import javafx.collections.ObservableList;
+import javafx.scene.layout.HBox;
 
-public class FoodBox {
+public class FoodBox extends HBox {
 
-	public ObservableList<String> getItems() {}
+	public ObservableList<String> getItems() {
+		return null;
+	}
 }

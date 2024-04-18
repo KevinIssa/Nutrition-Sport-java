@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
@@ -145,9 +146,10 @@ public class FoodController extends AppController implements AddFoodViewControll
 	public void sendUserSearch(String searchText) {
 		((AddFoodViewController) this.viewController)
 				.setSuggestions(
-						this.foodLoader.getFoodsSuggestion(searchText).stream()
-								.map(Food::getName)
-								.collect(Collectors.toList()));
+						FXCollections.observableArrayList(
+								this.foodLoader.getFoodsSuggestion(searchText).stream()
+										.map(Food::getName)
+										.collect(Collectors.toList())));
 	}
 
 	/**

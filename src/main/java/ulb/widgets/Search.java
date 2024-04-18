@@ -38,23 +38,23 @@ public class Search extends VBox {
 	// TODO onClickEvent
 
 	private void onUpPress() {
-		if (this.searchController.getSelectedIndex() != 0) {
-			this.searchController.selectPrevious();
-		}
-		int index = this.searchController.getSelectedIndex();
-		if (index - 3 <= this.searchController.size() - 1) {
-			this.searchController.scrollTo(index - 3);
-		}
+		//		if (this.searchController.getSelectedIndex() != 0) {
+		//			this.searchController.selectPrevious();
+		//		}
+		//		int index = this.searchController.getSelectedIndex();
+		//		if (index - 3 <= this.searchController.size() - 1) {
+		//			this.searchController.scrollTo(index - 3);
+		//		}
 	}
 
 	private void onDownPress() {
-		if (this.searchController.getSelectedIndex() != this.searchController.size() - 1) {
-			this.searchController.selectNext();
-		}
-		int index = this.searchController.getSelectedIndex();
-		if (index - 4 >= 0) {
-			this.searchController.scrollTo(index - 4);
-		}
+		//		if (this.searchController.getSelectedIndex() != this.searchController.size() - 1) {
+		//			this.searchController.selectNext();
+		//		}
+		//		int index = this.searchController.getSelectedIndex();
+		//		if (index - 4 >= 0) {
+		//			this.searchController.scrollTo(index - 4);
+		//		}
 	}
 
 	public String getSelectedItem() {

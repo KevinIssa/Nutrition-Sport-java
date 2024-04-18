@@ -26,7 +26,7 @@ import ulb.dtos.ActivityDTO;
 import ulb.enums.Sport;
 import ulb.models.Activity;
 import ulb.views.ActivityHistoryViewController;
-import ulb.views.HistoryBox;
+import ulb.widgets.HistoryBox;
 
 /**
  * The ActivityHistoryController class is responsible for managing the interactions between the ActivityHistoryViewController and the model classes related to activities.

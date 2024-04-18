@@ -24,7 +24,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -219,13 +218,13 @@ public class AddFoodViewController implements ViewController {
 		updateFoodItemBox(box, food, calories, quantity, servingType, value);
 		chosenFoodList.getItems().add(box);
 
-		consumedFoodsList.add(
-				new ArrayList<>(
-						List.of(
-								food,
-								Integer.toString(quantity),
-								Integer.toString(calories),
-								value.contains("g") ? "g" : servingType)));
+		//		this.chosenFoodList.getItems().add(
+		//			new ArrayList<>(
+		//				List.of(
+		//					food,
+		//					Integer.toString(quantity),
+		//					Integer.toString(calories),
+		//					value.contains("g") ? "g" : servingType)));
 	}
 
 	/**
