@@ -18,12 +18,9 @@
  */
 package ulb.controllers;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import javafx.stage.Stage;
-import ulb.enums.Intensity;
-import ulb.enums.Sport;
-import ulb.models.Activity;
+import ulb.dtos.ActivityDTO;
+import ulb.services.ActivityService;
 import ulb.views.ActivityCreateViewController;
 
 /**
@@ -33,7 +30,7 @@ import ulb.views.ActivityCreateViewController;
  */
 public class ActivityCreateController extends AppController
 		implements ActivityCreateViewController.Listener {
-
+	private final ActivityService activityService;
 	private final ActivityCreateController.Listener listener;
 
 	/**
@@ -41,7 +38,8 @@ public class ActivityCreateController extends AppController
 	 *
 	 * @param listener Listener for the ActivityCreateController
 	 */
-	public ActivityCreateController(Listener listener) {
+	public ActivityCreateController(ActivityService activityService, Listener listener) {
+		this.activityService = activityService;
 		this.listener = listener;
 	}
 
@@ -52,18 +50,8 @@ public class ActivityCreateController extends AppController
 	}
 
 	@Override
-	public void saveActivity(Sport sport, int intensity, int duration, LocalDateTime dateTime) {
-		Activity activity =
-				new Activity(
-						sport,
-						Intensity.fromInt(intensity),
-						Duration.ofMinutes(duration),
-						dateTime);
-		activity.save();
-		//		this.viewController.showCaloriesConsumed(
-		//				activity.getCaloriesBurned(Profile.load().getWeight()));
-		((ActivityCreateViewController) this.viewController)
-				.showCaloriesConsumed(activity.getCaloriesBurned(0));
+	public void saveActivity(ActivityDTO activityDTO) {
+		this.activityService.saveActivity(activityDTO);
 	}
 
 	@Override

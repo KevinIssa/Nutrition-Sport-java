@@ -55,16 +55,14 @@ public class JSONActivityRepository implements ActivityRepository {
 		}
 	}
 
-	@Override
-	public Activity load() {
-		File file = new File(filename);
+	private Activity load(File file) {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new JavaTimeModule());
 		try {
-			// logger.info("Loading activity from file: {}", filename);
+			// logger.info("Loading activity from file: {}", file);
 			return mapper.readValue(file, Activity.class);
 		} catch (IOException e) {
-			// logger.warn("No activity found");
+			// logger.error("Error loading activity from file", e);
 			return null;
 		}
 	}
@@ -78,7 +76,7 @@ public class JSONActivityRepository implements ActivityRepository {
 			// logger.info("Loading all activities");
 			for (File file : files) {
 				if (!file.isDirectory()) {
-					activities.add(load());
+					activities.add(load(file));
 				}
 			}
 		}
@@ -92,7 +90,7 @@ public class JSONActivityRepository implements ActivityRepository {
 		if (files != null) {
 			// logger.info("Deleting all activities");
 			for (File file : files) {
-				Activity loadedActivity = load();
+				Activity loadedActivity = load(file);
 				if (loadedActivity.equals(activity)) {
 					file.delete();
 				}

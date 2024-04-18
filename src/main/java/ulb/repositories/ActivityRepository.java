@@ -24,8 +24,6 @@ import ulb.models.Activity;
 public interface ActivityRepository {
 	void save(Activity activity);
 
-	Activity load();
-
 	List<Activity> loadAll();
 
 	void delete(Activity activity);

@@ -18,15 +18,13 @@
  */
 package ulb.controllers;
 
-import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.stage.Stage;
 import ulb.dtos.ActivityDTO;
 import ulb.enums.Sport;
-import ulb.models.Activity;
+import ulb.services.ActivityService;
 import ulb.views.ActivityHistoryViewController;
-import ulb.widgets.HistoryBox;
 
 /**
  * The ActivityHistoryController class is responsible for managing the interactions between the ActivityHistoryViewController and the model classes related to activities.
@@ -35,11 +33,13 @@ import ulb.widgets.HistoryBox;
  */
 public class ActivityHistoryController extends AppController
 		implements ActivityHistoryViewController.Listener {
-
+	private final ActivityService activityService;
 	private final ActivityHistoryController.Listener listener;
 	public static final String FOLDER_NAME = "activities";
 
-	public ActivityHistoryController(ActivityHistoryController.Listener listener) {
+	public ActivityHistoryController(
+			ActivityService activityService, ActivityHistoryController.Listener listener) {
+		this.activityService = activityService;
 		this.listener = listener;
 	}
 
@@ -50,41 +50,20 @@ public class ActivityHistoryController extends AppController
 	}
 
 	@Override
+	public List<ActivityDTO> getActivities(Sport filter) {
+		return this.activityService.loadActivities().stream()
+				.filter(activity -> filter == null || activity.sport() == filter)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public void deleteActivity(ActivityDTO activityDTO) {
+		this.activityService.deleteActivity(activityDTO);
+	}
+
+	@Override
 	public void returnHome() {
 		this.listener.returnHome();
-	}
-
-	@Override
-	public void deleteActivity(HistoryBox activityBox) {
-		File folder = new File(FOLDER_NAME);
-		File[] files = folder.listFiles();
-		if (files == null) {
-			return;
-		}
-		for (File file : files) {
-			Activity activity = Activity.load(file.getPath());
-			if (isSameActivity(activity, activityBox)) {
-				file.delete();
-				break;
-			}
-		}
-	}
-
-	private boolean isSameActivity(Activity activity, HistoryBox activityBox) {
-		ActivityDTO activityDTO = new ActivityDTO(activity);
-		return activityDTO.sport.equals(activityBox.getActivity().sport)
-				&& activityDTO.date.equals(activityBox.getActivity().date)
-				&& activityDTO.duration.equals(activityBox.getActivity().duration)
-				&& activityDTO.intensity.equals(activityBox.getActivity().intensity)
-				&& activityDTO.burnedCalories.equals(activityBox.getActivity().burnedCalories);
-	}
-
-	@Override
-	public List<ActivityDTO> getActivities(Sport filter) {
-		return Activity.loadAll().stream()
-				.filter(activity -> filter == null || activity.getSport() == filter)
-				.map(ActivityDTO::new)
-				.collect(Collectors.toList());
 	}
 
 	/**

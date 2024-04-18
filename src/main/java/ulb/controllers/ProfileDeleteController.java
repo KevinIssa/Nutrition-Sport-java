@@ -52,8 +52,8 @@ public class ProfileDeleteController extends AppController
 	@Override
 	public void deleteProfile() {
 		this.profileService.deleteProfile();
-		Activity.clearAll();
-		ConsumedMeal.clearAll();
+//		Activity.clearAll();
+//		ConsumedMeal.clearAll();
 		this.listener.createProfile();
 	}
 

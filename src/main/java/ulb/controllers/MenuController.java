@@ -21,6 +21,9 @@ package ulb.controllers;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ulb.models.*;
+import ulb.repositories.ActivityRepository;
+import ulb.repositories.JSONActivityRepository;
+import ulb.services.ActivityService;
 import ulb.services.ProfileService;
 import ulb.views.*;
 
@@ -158,8 +161,11 @@ public class MenuController extends AppController implements MenuViewController.
 	@Override
 	public void loadCreateActivityView() {
 		Stage popupStage = new Stage();
+		ActivityRepository activityRepository = new JSONActivityRepository();
+		ActivityService activityService = new ActivityService(activityRepository);
 		AppController controller =
 				new ActivityCreateController(
+						activityService,
 						() -> {
 							loadMenuView();
 							popupStage.close();
@@ -180,7 +186,10 @@ public class MenuController extends AppController implements MenuViewController.
 	 */
 	@Override
 	public void loadActivityHistoryView() {
-		AppController controller = new ActivityHistoryController(this::loadMenuView);
+		ActivityRepository activityRepository = new JSONActivityRepository();
+		ActivityService activityService = new ActivityService(activityRepository);
+		AppController controller =
+				new ActivityHistoryController(activityService, this::loadMenuView);
 		controller.show(this.primaryStage);
 	}
 
