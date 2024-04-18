@@ -29,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.ActivityDTO;
 import ulb.enums.Sport;
+import ulb.widgets.HistoryBox;
 
 /**
  * This class is a controller for the ActivityHistory view. It implements the ViewController interface.

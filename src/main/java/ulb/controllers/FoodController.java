@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +30,8 @@ import ulb.models.ConsumedMeal;
 import ulb.models.Food;
 import ulb.models.FoodLoader;
 import ulb.models.Meal;
-import ulb.views.FoodViewController;
+import ulb.views.AddFoodViewController;
+import ulb.widgets.FoodBox;
 
 /**
  * The FoodController class is responsible for managing the interactions between the FoodViewController and the model classes related to food and meals.
@@ -37,7 +39,7 @@ import ulb.views.FoodViewController;
  * This class handles the loading of foods from the database, the calculation of calories consumed by a certain quantity of food, the saving of consumed foods and meals, and the retrieval of food details.
  * It also handles the user's search for foods and the return to the home screen of the application.
  */
-public class FoodController extends AppController implements FoodViewController.Listener {
+public class FoodController extends AppController implements AddFoodViewController.Listener {
 
 	private static final Logger logger = LoggerFactory.getLogger(FoodController.class);
 	private final FoodController.Listener listener;
@@ -79,6 +81,9 @@ public class FoodController extends AppController implements FoodViewController.
 	}
 
 	@Override
+	public void deleteFood(FoodBox selectedItem) {}
+
+	@Override
 	public void reload() {
 		this.foodLoader = loadFoods();
 	}
@@ -90,7 +95,7 @@ public class FoodController extends AppController implements FoodViewController.
 
 	@Override
 	public void saveConsumedFoods(
-			ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealDate) {
+			ArrayList<ObservableList<String>> consumedFoodsList, LocalDateTime mealDate) {
 		ConsumedMeal consumedMeal = new ConsumedMeal();
 		for (List<String> consumedFood : consumedFoodsList) {
 			consumedMeal.addConsumedFood(
@@ -138,7 +143,7 @@ public class FoodController extends AppController implements FoodViewController.
 
 	@Override
 	public void sendUserSearch(String searchText) {
-		((FoodViewController) this.viewController)
+		((AddFoodViewController) this.viewController)
 				.setSuggestions(
 						this.foodLoader.getFoodsSuggestion(searchText).stream()
 								.map(Food::getName)

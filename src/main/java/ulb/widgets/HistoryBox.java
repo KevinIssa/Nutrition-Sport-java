@@ -16,7 +16,7 @@
  *
  * Date : 2024
  */
-package ulb.views;
+package ulb.widgets;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

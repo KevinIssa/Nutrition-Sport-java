@@ -16,7 +16,7 @@
  *
  * Date : 2024
  */
-package ulb.views.templates;
+package ulb.widgets;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;

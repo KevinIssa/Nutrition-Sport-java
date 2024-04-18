@@ -14,14 +14,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1018.0" style="-fx-background-color: #172e8c;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.FoodViewController">
+<Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1018.0" style="-fx-background-color: #172e8c;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.AddFoodViewController">
    <children>
-      <ListView fx:id="suggestionsList" layoutX="15.0" layoutY="178.0" onKeyPressed="#keyPress" onMouseClicked="#addChosenFoodMouse" prefHeight="177.0" prefWidth="986.0" style="-fx-background-color: #a0aeeb;" />
-      <TextField fx:id="searchField" layoutX="14.0" layoutY="130.0" minHeight="-Infinity" onKeyPressed="#keyPress" onMouseClicked="#suggestFoods" onKeyTyped="#suggestFoods" prefHeight="48.0" prefWidth="987.0" promptText="ex: pomme" style="-fx-background-color: #c9d1f0;">
-         <font>
-            <Font size="26.0" />
-         </font>
-      </TextField>
+
       <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" prefHeight="96.0" prefWidth="744.0" text="Ajoutez les aliments consommés" textAlignment="CENTER" textFill="#f3fbfb">
          <font>
             <Font name="Consolas" size="41.0" />
@@ -32,7 +27,7 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <ListView fx:id="chosenFoodView" layoutX="15.0" layoutY="436.0" prefHeight="177.0" prefWidth="637.0" style="-fx-background-color: #a0aeeb;" />
+      <ListView fx:id="chosenFoodList" layoutX="15.0" layoutY="436.0" prefHeight="177.0" prefWidth="637.0" style="-fx-background-color: #a0aeeb;" />
       <HBox layoutX="920.0" layoutY="374.0" prefHeight="62.0" prefWidth="84.0" />
       <HBox layoutX="15.0" layoutY="637.0" prefHeight="64.0" prefWidth="106.0">
          <children>
@@ -75,7 +70,7 @@
          </graphic>
       </Button>
       <Slider fx:id="slider" layoutX="498.0" layoutY="79.0" majorTickUnit="1" max="1" minorTickCount="0" onDragDone="#changeMode" prefHeight="11.0" prefWidth="20.0" snapToTicks="true" />
-      <TextField fx:id="textField" layoutX="796.0" layoutY="509.0" prefHeight="33.0" prefWidth="149.0" visible="false" />
+      <TextField fx:id="mealName" layoutX="796.0" layoutY="509.0" prefHeight="33.0" prefWidth="149.0" visible="false" />
       <Label fx:id="name" layoutX="698.0" layoutY="503.0" prefHeight="42.0" prefWidth="84.0" text="Nom du plat: " textFill="#f3fbfb" visible="false">
          <font>
             <Font size="13.0" />
@@ -99,13 +94,13 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <DatePicker fx:id="mealDate" layoutX="692.0" layoutY="438.0" prefHeight="59.0" prefWidth="267.0" />
+            <DatePicker fx:id="date" layoutX="692.0" layoutY="438.0" prefHeight="59.0" prefWidth="267.0" />
             <TextField fx:id="hour" layoutX="710.0" layoutY="544.0" minHeight="-Infinity" onKeyPressed="#keyPress" onKeyTyped="#suggestFoods" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #c9d1f0;">
                <font>
                   <Font size="26.0" />
                </font>
             </TextField>
-            <TextField fx:id="minutes" layoutX="853.0" layoutY="543.0" minHeight="-Infinity" onKeyPressed="#keyPress" onKeyTyped="#suggestFoods" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #c9d1f0;">
+            <TextField fx:id="minute" layoutX="853.0" layoutY="543.0" minHeight="-Infinity" onKeyPressed="#keyPress" onKeyTyped="#suggestFoods" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #c9d1f0;">
                <font>
                   <Font size="26.0" />
                </font>
@@ -122,5 +117,8 @@
             </Label>
          </children>
       </Group>
+      <Pane layoutX="34.0" layoutY="116.0" prefHeight="246.0" prefWidth="960.0" >
+         <fx:include source="search.fxml" fx:id="searchController" />
+      </Pane>
    </children>
 </Pane>

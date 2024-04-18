@@ -16,7 +16,6 @@ module ulb {
 	exports ulb.repositories;
 	exports ulb.services;
 	exports ulb.views;
-	exports ulb.views.templates;
 	exports ulb.widgets;
 
 	opens ulb.models to
@@ -27,7 +26,5 @@ module ulb {
 	opens ulb.controllers to
 			javafx.fxml;
 	opens ulb.widgets to
-			javafx.fxml;
-	opens ulb.views.templates to
 			javafx.fxml;
 }
