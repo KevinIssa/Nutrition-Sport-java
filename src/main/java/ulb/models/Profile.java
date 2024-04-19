@@ -23,10 +23,7 @@ import java.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.enums.Sex;
-import ulb.exceptions.BadBirthDateException;
-import ulb.exceptions.BadHeightException;
-import ulb.exceptions.BadNameException;
-import ulb.exceptions.BadWeightException;
+import ulb.exceptions.*;
 
 public class Profile {
 	private static final Logger logger = LoggerFactory.getLogger(Profile.class);
@@ -58,7 +55,7 @@ public class Profile {
 			float weight,
 			float height,
 			LocalDate birthDate)
-			throws BadNameException, BadWeightException, BadHeightException, BadBirthDateException {
+			throws ValueObjectException {
 		this.firstName = new Name(firstName);
 		this.lastName = new Name(lastName);
 		this.sex = sex;
@@ -109,14 +106,14 @@ public class Profile {
 	 * @return The first name of the user.
 	 */
 	public String getFirstName() {
-		return this.firstName.getName();
+		return this.firstName.getValue();
 	}
 
 	/**
 	 * Sets the first name of the user.
 	 * @param newFirstName The new first name to set.
 	 */
-	public void setFirstName(String newFirstName) throws BadNameException {
+	public void setFirstName(String newFirstName) throws ValueObjectException {
 		this.firstName = new Name(newFirstName);
 	}
 
@@ -125,14 +122,14 @@ public class Profile {
 	 * @return The last name of the user.
 	 */
 	public String getLastName() {
-		return this.lastName.getName();
+		return this.lastName.getValue();
 	}
 
 	/**
 	 * Sets the last name of the user.
 	 * @param newLastName The new last name to set.
 	 */
-	public void setLastName(String newLastName) throws BadNameException {
+	public void setLastName(String newLastName) throws ValueObjectException {
 		this.lastName = new Name(newLastName);
 	}
 
@@ -157,14 +154,14 @@ public class Profile {
 	 * @return The weight of the user.
 	 */
 	public float getWeight() {
-		return weight.getWeight();
+		return weight.getValue();
 	}
 
 	/**
 	 * Sets the weight of the user.
 	 * @param weight The new weight to set.
 	 */
-	public void setWeight(float weight) throws BadWeightException {
+	public void setWeight(float weight) throws ValueObjectException {
 		this.weight = new Weight(weight);
 	}
 
@@ -173,14 +170,14 @@ public class Profile {
 	 * @return The height of the user.
 	 */
 	public float getHeight() {
-		return height.getHeight();
+		return height.getValue();
 	}
 
 	/**
 	 * Sets the height of the user.
 	 * @param height The new height to set.
 	 */
-	public void setHeight(float height) throws BadHeightException {
+	public void setHeight(float height) throws ValueObjectException {
 		this.height = new Height(height);
 	}
 
@@ -196,7 +193,7 @@ public class Profile {
 	 * Sets the birthdate of the user.
 	 * @param birthDate The new birthdate to set.
 	 */
-	public void setBirthDate(LocalDate birthDate) throws BadBirthDateException {
+	public void setBirthDate(LocalDate birthDate) throws ValueObjectException {
 		this.birthDate = new BirthDate(birthDate);
 	}
 }

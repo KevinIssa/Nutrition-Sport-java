@@ -19,50 +19,28 @@
 package ulb.models;
 
 import ulb.exceptions.BadNameException;
+import ulb.exceptions.ValueObjectException;
 
-public class Name {
+public class Name extends ValueObject<String> {
 
-	private String name;
-
-	public Name() {}
-
-	public Name(String name) throws BadNameException {
-		this.checkValidity(name);
-		this.name = name;
+	public Name() {
+		super();
 	}
 
-	private void checkValidity(String name) throws BadNameException {
+	public Name(String name) throws ValueObjectException {
+		super(name);
+	}
+
+	protected void checkValidity(String name) throws BadNameException {
 		if (name == null || name.isEmpty()) {
-			throw new IllegalArgumentException("Name cannot be null or empty.");
-		}
-		if (!name.matches("^[a-zA-Z- ]+$")) {
+			throw new BadNameException("Name cannot be null or empty.");
+		} else if (!name.matches("^[a-zA-Z- ]+$")) {
 			throw new BadNameException("Name can only contain letters, - and spaces.");
 		}
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null || this.getClass() != obj.getClass()) {
-			return false;
-		}
-		Name name = (Name) obj;
-		return this.name.equals(name.name);
-	}
-
-	@Override
 	public String toString() {
-		return name;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) throws BadNameException {
-		this.checkValidity(name);
-		this.name = name;
+		return this.value;
 	}
 }

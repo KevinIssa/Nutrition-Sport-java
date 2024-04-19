@@ -32,12 +32,7 @@ public class ProfileService {
 	}
 
 	public void saveProfile(ProfileDTO profileDTO)
-			throws BadHeightException,
-					BadNameException,
-					BadBirthDateException,
-					BadWeightException,
-					IllegalImageFormatException,
-					InvalidImageException {
+			throws ValueObjectException, IllegalImageFormatException, InvalidImageException {
 		this.profileRepository.save(this.convertToProfile(profileDTO));
 		this.profileRepository.saveProfileImage(profileDTO.imagePath());
 	}
@@ -46,8 +41,7 @@ public class ProfileService {
 		return this.convertToProfileDTO(this.profileRepository.load());
 	}
 
-	public void updateProfile(ProfileDTO profileDTO)
-			throws BadHeightException, BadNameException, BadBirthDateException, BadWeightException {
+	public void updateProfile(ProfileDTO profileDTO) throws ValueObjectException {
 		this.profileRepository.update(this.convertToProfile(profileDTO));
 	}
 
@@ -65,8 +59,7 @@ public class ProfileService {
 		return this.profileRepository.getWeight();
 	}
 
-	private Profile convertToProfile(ProfileDTO profileDTO)
-			throws BadNameException, BadHeightException, BadWeightException, BadBirthDateException {
+	private Profile convertToProfile(ProfileDTO profileDTO) throws ValueObjectException {
 		return new Profile(
 				profileDTO.firstName(),
 				profileDTO.lastName(),

@@ -24,10 +24,12 @@ public abstract class ValueObject<Type> {
 
 	protected Type value;
 
-	//	public ValueObject(Type value) throws ValueObjectException {
-	//		this.checkValidity(value);
-	//		this.value = value;
-	//	}
+	public ValueObject() {}
+
+	public ValueObject(Type value) throws ValueObjectException {
+		this.checkValidity(value);
+		this.value = value;
+	}
 
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -49,7 +51,7 @@ public abstract class ValueObject<Type> {
 		return value;
 	}
 
-	public void setValue(Type value) throws Exception {
+	public void setValue(Type value) throws ValueObjectException {
 		this.checkValidity(value);
 		this.value = value;
 	}

@@ -20,12 +20,16 @@ package ulb.models;
 
 import java.time.LocalDate;
 import ulb.exceptions.BadBirthDateException;
+import ulb.exceptions.ValueObjectException;
 
 public class BirthDate extends ValueObject<LocalDate> {
 
-	public BirthDate(LocalDate value) throws BadBirthDateException {
-		this.checkValidity(value);
-		this.value = value;
+	public BirthDate() {
+		super();
+	}
+
+	public BirthDate(LocalDate value) throws ValueObjectException {
+		super(value);
 	}
 
 	@Override
