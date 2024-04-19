@@ -18,7 +18,7 @@
  */
 package ulb.exceptions;
 
-public class BadNameException extends Exception {
+public class BadNameException extends ValueObjectException {
 	public BadNameException(String message) {
 		super(message);
 	}

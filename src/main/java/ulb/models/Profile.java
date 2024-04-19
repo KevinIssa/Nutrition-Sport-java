@@ -189,7 +189,7 @@ public class Profile {
 	 * @return The birthdate of the user.
 	 */
 	public LocalDate getBirthDate() {
-		return birthDate.getBirthDate();
+		return birthDate.getValue();
 	}
 
 	/**

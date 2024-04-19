@@ -18,7 +18,7 @@
  */
 package ulb.exceptions;
 
-public class BadBirthDateException extends Exception {
+public class BadBirthDateException extends ValueObjectException {
 
 	public BadBirthDateException(String message) {
 		super(message);

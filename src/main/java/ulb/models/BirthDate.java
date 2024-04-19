@@ -21,18 +21,15 @@ package ulb.models;
 import java.time.LocalDate;
 import ulb.exceptions.BadBirthDateException;
 
-public class BirthDate {
+public class BirthDate extends ValueObject<LocalDate> {
 
-	private LocalDate birthDate;
-
-	public BirthDate() {}
-
-	public BirthDate(LocalDate birthDate) throws BadBirthDateException {
-		this.checkValidity(birthDate);
-		this.birthDate = birthDate;
+	public BirthDate(LocalDate value) throws BadBirthDateException {
+		this.checkValidity(value);
+		this.value = value;
 	}
 
-	private void checkValidity(LocalDate birthDate) throws BadBirthDateException {
+	@Override
+	protected void checkValidity(LocalDate birthDate) throws BadBirthDateException {
 		LocalDate now = LocalDate.now();
 		if (birthDate.isAfter(now)) {
 			throw new BadBirthDateException("Birthdate cannot be in the future.");
@@ -40,28 +37,7 @@ public class BirthDate {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null || this.getClass() != obj.getClass()) {
-			return false;
-		}
-		BirthDate birthDate = (BirthDate) obj;
-		return this.birthDate.equals(birthDate.birthDate);
-	}
-
-	@Override
 	public String toString() {
-		return birthDate.toString();
-	}
-
-	public LocalDate getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(LocalDate birthDate) throws BadBirthDateException {
-		this.checkValidity(birthDate);
-		this.birthDate = birthDate;
+		return this.value.toString();
 	}
 }

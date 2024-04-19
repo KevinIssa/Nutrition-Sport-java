@@ -18,7 +18,7 @@
  */
 package ulb.exceptions;
 
-public class BadWeightException extends Exception {
+public class BadWeightException extends ValueObjectException {
 
 	public BadWeightException(String message) {
 		super(message);

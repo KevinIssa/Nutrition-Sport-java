@@ -18,9 +18,16 @@
  */
 package ulb.exceptions;
 
-public class BadHeightException extends ValueObjectException {
-
-	public BadHeightException(String message) {
+public abstract class ValueObjectException extends Exception {
+	public ValueObjectException(String message) {
 		super(message);
+	}
+
+	public ValueObjectException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public ValueObjectException(Throwable cause) {
+		super(cause);
 	}
 }
