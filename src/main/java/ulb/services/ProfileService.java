@@ -20,6 +20,7 @@ package ulb.services;
 
 import ulb.dtos.ProfileDTO;
 import ulb.enums.Sex;
+import ulb.exceptions.*;
 import ulb.models.Profile;
 import ulb.repositories.ProfileRepository;
 
@@ -30,7 +31,13 @@ public class ProfileService {
 		this.profileRepository = profileRepository;
 	}
 
-	public void saveProfile(ProfileDTO profileDTO) {
+	public void saveProfile(ProfileDTO profileDTO)
+			throws BadHeightException,
+					BadNameException,
+					BadBirthDateException,
+					BadWeightException,
+					IllegalImageFormatException,
+					InvalidImageException {
 		this.profileRepository.save(this.convertToProfile(profileDTO));
 		this.profileRepository.saveProfileImage(profileDTO.imagePath());
 	}
@@ -39,7 +46,8 @@ public class ProfileService {
 		return this.convertToProfileDTO(this.profileRepository.load());
 	}
 
-	public void updateProfile(ProfileDTO profileDTO) {
+	public void updateProfile(ProfileDTO profileDTO)
+			throws BadHeightException, BadNameException, BadBirthDateException, BadWeightException {
 		this.profileRepository.update(this.convertToProfile(profileDTO));
 	}
 
@@ -57,7 +65,8 @@ public class ProfileService {
 		return this.profileRepository.getWeight();
 	}
 
-	private Profile convertToProfile(ProfileDTO profileDTO) {
+	private Profile convertToProfile(ProfileDTO profileDTO)
+			throws BadNameException, BadHeightException, BadWeightException, BadBirthDateException {
 		return new Profile(
 				profileDTO.firstName(),
 				profileDTO.lastName(),

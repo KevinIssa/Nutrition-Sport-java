@@ -27,6 +27,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Optional;
+import ulb.exceptions.IllegalImageFormatException;
+import ulb.exceptions.InvalidImageException;
 import ulb.models.Profile;
 
 public class JSONProfileRepository implements ProfileRepository {
@@ -41,31 +43,30 @@ public class JSONProfileRepository implements ProfileRepository {
 		try {
 			mapper.writeValue(new File(FILE_NAME), profile);
 		} catch (IOException e) {
-			// TODO: Implement
+			// TODO: Handle exception
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void saveProfileImage(String imagePath) {
+	public void saveProfileImage(String imagePath)
+			throws InvalidImageException, IllegalImageFormatException {
 		if (!(imagePath.endsWith(".png")
 				|| imagePath.endsWith(".jpg")
 				|| imagePath.endsWith(".jpeg"))) {
-			// TODO: Implement
+			// TODO: Handle exception
 			// logger.warn("Only PNG and JPG images are supported: {}", imagePath);
-			// throw new IllegalImageFormatException("Only PNG and JPG images are supported");
+			throw new IllegalImageFormatException("Only PNG and JPG images are supported");
 		}
-
 		try {
 			Files.copy(
 					new URL(imagePath).openStream(),
 					Paths.get(IMAGE_PATH),
 					java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
-			// TODO: Implement
+			// TODO: Handle exception
 			// logger.error("Failed to save image", e);
-			// throw new InvalidImageException("Failed to save image");
-			e.printStackTrace();
+			throw new InvalidImageException("Failed to save image");
 		}
 	}
 
@@ -77,6 +78,7 @@ public class JSONProfileRepository implements ProfileRepository {
 		try {
 			return mapper.readValue(file, Profile.class);
 		} catch (IOException e) {
+			// TODO: Handle exception
 			// logger.error("Error loading profile from file: {}", FILE_NAME);
 			return null;
 		}
@@ -84,7 +86,6 @@ public class JSONProfileRepository implements ProfileRepository {
 
 	@Override
 	public void update(Profile profile) {
-		System.out.println(profile.toString());
 		this.save(profile);
 	}
 

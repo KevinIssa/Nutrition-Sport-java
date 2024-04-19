@@ -71,8 +71,8 @@ public class ProfileCreateViewController implements ViewController {
 							this.firstname.getText(),
 							this.lastname.getText(),
 							((RadioButton) this.sex.getSelectedToggle()).getText(),
-							Float.parseFloat(this.height.getText()),
 							Float.parseFloat(this.weight.getText()),
+							Float.parseFloat(this.height.getText()),
 							this.birthdate.getValue(),
 							this.imagePath);
 			this.listener.saveProfile(profile);

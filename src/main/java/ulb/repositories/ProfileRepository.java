@@ -18,6 +18,8 @@
  */
 package ulb.repositories;
 
+import ulb.exceptions.IllegalImageFormatException;
+import ulb.exceptions.InvalidImageException;
 import ulb.models.Profile;
 
 /**
@@ -38,7 +40,8 @@ public interface ProfileRepository {
 	 *
 	 * @param imagePath the path to the image
 	 */
-	void saveProfileImage(String imagePath);
+	void saveProfileImage(String imagePath)
+			throws InvalidImageException, IllegalImageFormatException;
 
 	/**
 	 * Loads a Profile object.

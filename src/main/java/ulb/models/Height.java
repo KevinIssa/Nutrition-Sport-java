@@ -18,6 +18,8 @@
  */
 package ulb.models;
 
+import ulb.exceptions.BadHeightException;
+
 /**
  * Represents the height of an individual.
  */
@@ -34,8 +36,8 @@ public class Height {
 	 * @param height The height value in centimeters.
 	 * @throws IllegalArgumentException If the provided height is not within the allowed range.
 	 */
-	public Height(float height) throws IllegalArgumentException {
-		validateHeight(height);
+	public Height(float height) throws BadHeightException {
+		checkValidity(height);
 		this.height = height;
 	}
 
@@ -45,11 +47,11 @@ public class Height {
 	 * @param height The height value to validate.
 	 * @throws IllegalArgumentException If the provided height is not within the allowed range.
 	 */
-	private void validateHeight(float height) throws IllegalArgumentException {
+	private void checkValidity(float height) throws BadHeightException {
 		if (height <= MIN_HEIGHT) {
-			throw new IllegalArgumentException("Height must be greater than " + MIN_HEIGHT);
+			throw new BadHeightException(STR."Height must be greater than \{MIN_HEIGHT}");
 		} else if (height > MAX_HEIGHT) {
-			throw new IllegalArgumentException("Height must be less than " + MAX_HEIGHT);
+			throw new BadHeightException(STR."Height must be less than \{MAX_HEIGHT}");
 		}
 	}
 
@@ -68,8 +70,8 @@ public class Height {
 	 * @param height The height value to set in centimeters.
 	 * @throws IllegalArgumentException If the provided height is not within the allowed range.
 	 */
-	public void setHeight(float height) throws IllegalArgumentException {
-		validateHeight(height);
+	public void setHeight(float height) throws BadHeightException {
+		this.checkValidity(height);
 		this.height = height;
 	}
 
@@ -80,7 +82,7 @@ public class Height {
 	 */
 	@Override
 	public String toString() {
-		return "Height=" + height;
+		return String.valueOf(this.height);
 	}
 
 	/**

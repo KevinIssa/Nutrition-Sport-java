@@ -45,7 +45,12 @@ public class ProfileController extends AppController implements ProfileViewContr
 
 	@Override
 	public void updateProfile(ProfileDTO profileDTO) {
-		this.profileService.updateProfile(profileDTO);
+		try {
+			this.profileService.updateProfile(profileDTO);
+		} catch (Exception e) {
+			// TODO: Handle exception
+			e.printStackTrace();
+		}
 	}
 
 	@Override

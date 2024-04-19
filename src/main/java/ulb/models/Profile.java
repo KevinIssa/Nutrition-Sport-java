@@ -23,25 +23,23 @@ import java.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.enums.Sex;
+import ulb.exceptions.BadBirthDateException;
+import ulb.exceptions.BadHeightException;
+import ulb.exceptions.BadNameException;
+import ulb.exceptions.BadWeightException;
 
-/**
- * Represents a user profile containing personal information.
- */
 public class Profile {
 	private static final Logger logger = LoggerFactory.getLogger(Profile.class);
 
-	private String firstName;
-	private String lastName;
+	private Name firstName;
+	private Name lastName;
 	private Sex sex;
 	private Weight weight;
 	private Height height;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private LocalDate birthDate;
+	private BirthDate birthDate;
 
-	/**
-	 * Default constructor for Profile.
-	 */
 	public Profile() {}
 
 	/**
@@ -59,13 +57,14 @@ public class Profile {
 			Sex sex,
 			float weight,
 			float height,
-			LocalDate birthDate) {
-		this.firstName = firstName;
-		this.lastName = lastName;
+			LocalDate birthDate)
+			throws BadNameException, BadWeightException, BadHeightException, BadBirthDateException {
+		this.firstName = new Name(firstName);
+		this.lastName = new Name(lastName);
 		this.sex = sex;
 		this.weight = new Weight(weight);
 		this.height = new Height(height);
-		this.birthDate = birthDate;
+		this.birthDate = new BirthDate(birthDate);
 	}
 
 	@Override
@@ -91,22 +90,16 @@ public class Profile {
 	 */
 	@Override
 	public String toString() {
-		return "Profile{"
-				+ "firstName='"
-				+ firstName
-				+ '\''
-				+ ", lastName='"
-				+ lastName
-				+ '\''
-				+ ", sex="
-				+ sex
-				+ ", weight="
-				+ weight.getWeight()
-				+ ", height="
-				+ height.getHeight()
-				+ ", birthDate="
-				+ birthDate
-				+ '}';
+		return STR."Profile{firstName='\{
+				firstName.toString()}\{
+				'\''}, lastName='\{
+				lastName.toString()}\{
+				'\''}, sex=\{
+				sex.toString()}, weight=\{
+				weight.toString()}, height=\{
+				height.toString()}, birthDate=\{
+				birthDate.toString()}\{
+				'}'}";
 	}
 
 	// Getters and setters for class attributes.
@@ -116,15 +109,15 @@ public class Profile {
 	 * @return The first name of the user.
 	 */
 	public String getFirstName() {
-		return this.firstName;
+		return this.firstName.getName();
 	}
 
 	/**
 	 * Sets the first name of the user.
 	 * @param newFirstName The new first name to set.
 	 */
-	public void setFirstName(String newFirstName) {
-		this.firstName = newFirstName;
+	public void setFirstName(String newFirstName) throws BadNameException {
+		this.firstName = new Name(newFirstName);
 	}
 
 	/**
@@ -132,15 +125,15 @@ public class Profile {
 	 * @return The last name of the user.
 	 */
 	public String getLastName() {
-		return this.lastName;
+		return this.lastName.getName();
 	}
 
 	/**
 	 * Sets the last name of the user.
 	 * @param newLastName The new last name to set.
 	 */
-	public void setLastName(String newLastName) {
-		this.lastName = newLastName;
+	public void setLastName(String newLastName) throws BadNameException {
+		this.lastName = new Name(newLastName);
 	}
 
 	/**
@@ -171,7 +164,7 @@ public class Profile {
 	 * Sets the weight of the user.
 	 * @param weight The new weight to set.
 	 */
-	public void setWeight(float weight) throws IllegalArgumentException {
+	public void setWeight(float weight) throws BadWeightException {
 		this.weight = new Weight(weight);
 	}
 
@@ -187,7 +180,7 @@ public class Profile {
 	 * Sets the height of the user.
 	 * @param height The new height to set.
 	 */
-	public void setHeight(float height) {
+	public void setHeight(float height) throws BadHeightException {
 		this.height = new Height(height);
 	}
 
@@ -196,14 +189,14 @@ public class Profile {
 	 * @return The birthdate of the user.
 	 */
 	public LocalDate getBirthDate() {
-		return birthDate;
+		return birthDate.getBirthDate();
 	}
 
 	/**
 	 * Sets the birthdate of the user.
 	 * @param birthDate The new birthdate to set.
 	 */
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
+	public void setBirthDate(LocalDate birthDate) throws BadBirthDateException {
+		this.birthDate = new BirthDate(birthDate);
 	}
 }

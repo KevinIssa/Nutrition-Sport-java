@@ -136,7 +136,6 @@ public class ProfileViewController implements ViewController {
 							Float.parseFloat(this.heightController.getText()),
 							LocalDate.parse(this.birthdateController.getText()),
 							this.imagePath);
-			System.out.println(profileDTO);
 			this.listener.updateProfile(profileDTO);
 		} catch (NumberFormatException e) {
 			logger.warn("Height and weight must be positive numbers");

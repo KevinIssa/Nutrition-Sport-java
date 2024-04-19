@@ -47,7 +47,12 @@ public class ProfileCreateController extends AppController
 
 	@Override
 	public void saveProfile(ProfileDTO profileDTO) {
-		this.profileService.saveProfile(profileDTO);
+		try {
+			this.profileService.saveProfile(profileDTO);
+		} catch (Exception e) {
+			// TODO: Handle exception
+			e.printStackTrace();
+		}
 	}
 
 	@Override
