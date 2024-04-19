@@ -28,6 +28,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import ulb.models.Activity;
+import ulb.models.CalorieCalculator;
 
 public class JSONActivityRepository implements ActivityRepository {
 	private static final String FOLDER_NAME = "activities";
@@ -110,5 +111,10 @@ public class JSONActivityRepository implements ActivityRepository {
 				}
 			}
 		}
+	}
+
+	@Override
+	public int calculateCaloriesBurned(Activity activity, float weight) {
+		return (int) CalorieCalculator.compute(activity, weight);
 	}
 }

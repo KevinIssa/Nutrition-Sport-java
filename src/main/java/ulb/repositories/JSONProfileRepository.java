@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Optional;
 import ulb.models.Profile;
 
 public class JSONProfileRepository implements ProfileRepository {
@@ -100,5 +101,10 @@ public class JSONProfileRepository implements ProfileRepository {
 	@Override
 	public String getImagePath() {
 		return IMAGE_PATH;
+	}
+
+	@Override
+	public float getWeight() {
+		return Optional.ofNullable(this.load()).map(Profile::getWeight).orElse(0f);
 	}
 }

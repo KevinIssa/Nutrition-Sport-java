@@ -22,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.enums.Intensity;
@@ -33,14 +32,14 @@ import ulb.enums.Sport;
  */
 public class Activity {
 	public static final Logger logger = LoggerFactory.getLogger(Activity.class);
-	public static final String FOLDER_NAME = "activities";
-
 	private Sport sport;
 	private Intensity intensity = Intensity.MODERATE;
 	private Duration duration;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd-HH-mm-ss")
 	private LocalDateTime date;
+
+	private int burnedCalories;
 
 	/**
 	 * Default constructor for Activity class.
@@ -56,10 +55,20 @@ public class Activity {
 	 * @param date      The date and time when the activity was performed.
 	 */
 	public Activity(Sport sport, Intensity intensity, Duration duration, LocalDateTime date) {
+		this(sport, intensity, duration, date, -1);
+	}
+
+	public Activity(
+			Sport sport,
+			Intensity intensity,
+			Duration duration,
+			LocalDateTime date,
+			int burnedCalories) {
 		this.sport = sport;
 		this.intensity = intensity;
 		this.duration = duration;
 		this.date = date;
+		this.burnedCalories = burnedCalories;
 		logger.trace("Creating activity: {} ", this);
 	}
 
@@ -91,39 +100,6 @@ public class Activity {
 	@JsonIgnore
 	public int getDurationInMinutes() {
 		return (int) duration.toMinutes();
-	}
-
-	/**
-	 * Calculates the calories burned during the activity based on user weight.
-	 *
-	 * @param weight The weight of the user.
-	 * @return The calories burned during the activity.
-	 */
-	public int getCaloriesBurned(float weight) {
-		return (int) CalorieCalculator.compute(this, weight);
-	}
-
-	/**
-	 * Converts the activity duration to a string format.
-	 *
-	 * @return The duration of the activity as a string (e.g., "2h30m").
-	 */
-	@JsonIgnore
-	public String getDurationToString() {
-		long hours = duration.toHours();
-		long minutes = duration.minusHours(hours).toMinutes();
-		return hours + "h" + minutes + "m";
-	}
-
-	/**
-	 * Converts the date to a formatted string.
-	 *
-	 * @return The formatted date string.
-	 */
-	@JsonIgnore
-	public String getDateToString() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm");
-		return date.format(formatter);
 	}
 
 	// Getters and setters for class attributes.
@@ -199,5 +175,23 @@ public class Activity {
 	 */
 	public void setDate(LocalDateTime date) {
 		this.date = date;
+	}
+
+	/**
+	 * Gets the number of calories burned during the activity.
+	 *
+	 * @return The number of calories burned during the activity.
+	 */
+	public int getBurnedCalories() {
+		return burnedCalories;
+	}
+
+	/**
+	 * Sets the number of calories burned during the activity.
+	 *
+	 * @param burnedCalories The number of calories burned during the activity.
+	 */
+	public void setBurnedCalories(int burnedCalories) {
+		this.burnedCalories = burnedCalories;
 	}
 }

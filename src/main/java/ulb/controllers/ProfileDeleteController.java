@@ -19,8 +19,6 @@
 package ulb.controllers;
 
 import javafx.stage.Stage;
-import ulb.models.Activity;
-import ulb.models.ConsumedMeal;
 import ulb.services.ProfileService;
 import ulb.views.ProfileDeleteConfirmViewController;
 
@@ -52,8 +50,8 @@ public class ProfileDeleteController extends AppController
 	@Override
 	public void deleteProfile() {
 		this.profileService.deleteProfile();
-//		Activity.clearAll();
-//		ConsumedMeal.clearAll();
+		//		Activity.clearAll();
+		//		ConsumedMeal.clearAll();
 		this.listener.createProfile();
 	}
 

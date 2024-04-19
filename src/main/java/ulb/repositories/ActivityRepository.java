@@ -29,4 +29,6 @@ public interface ActivityRepository {
 	void delete(Activity activity);
 
 	void deleteAll();
+
+	int calculateCaloriesBurned(Activity activity, float weight);
 }

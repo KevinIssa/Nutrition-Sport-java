@@ -53,6 +53,10 @@ public class ProfileService {
 		return this.profileRepository.getImagePath();
 	}
 
+	public float getProfileWeight() {
+		return this.profileRepository.getWeight();
+	}
+
 	private Profile convertToProfile(ProfileDTO profileDTO) {
 		return new Profile(
 				profileDTO.firstName(),

@@ -44,8 +44,8 @@ public class ProfileController extends AppController implements ProfileViewContr
 	}
 
 	@Override
-	public void saveProfile(ProfileDTO profileDTO) {
-		this.profileService.saveProfile(profileDTO);
+	public void updateProfile(ProfileDTO profileDTO) {
+		this.profileService.updateProfile(profileDTO);
 	}
 
 	@Override

@@ -67,4 +67,6 @@ public interface ProfileRepository {
 	boolean isCreated();
 
 	String getImagePath();
+
+	float getWeight();
 }

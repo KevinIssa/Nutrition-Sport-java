@@ -22,7 +22,6 @@ import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 import ulb.dtos.ActivityDTO;
-import ulb.enums.Intensity;
 import ulb.models.Activity;
 import ulb.repositories.ActivityRepository;
 
@@ -54,16 +53,27 @@ public class ActivityService {
 	private Activity convertToActivity(ActivityDTO activityDTO) {
 		return new Activity(
 				activityDTO.sport(),
-				Intensity.fromInt(activityDTO.intensity()),
+				activityDTO.intensity(),
 				Duration.ofMinutes(activityDTO.duration()),
-				activityDTO.date());
+				activityDTO.date(),
+				activityDTO.burnedCalories());
 	}
 
 	private ActivityDTO convertToActivityDTO(Activity activity) {
 		return new ActivityDTO(
 				activity.getSport(),
-				activity.getIntensity().ordinal(),
+				activity.getIntensity(),
 				(int) activity.getDuration().toMinutes(),
-				activity.getDate());
+				activity.getDate(),
+				activity.getBurnedCalories());
+	}
+
+	public int calculateCaloriesBurnedDuringActivity(ActivityDTO activityDTO, float weight) {
+		return this.calculateCaloriesBurnedDuringActivity(
+				this.convertToActivity(activityDTO), weight);
+	}
+
+	private int calculateCaloriesBurnedDuringActivity(Activity activity, float weight) {
+		return this.activityRepository.calculateCaloriesBurned(activity, weight);
 	}
 }

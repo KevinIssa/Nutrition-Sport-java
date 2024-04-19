@@ -19,6 +19,22 @@
 package ulb.dtos;
 
 import java.time.LocalDateTime;
+import ulb.enums.Intensity;
 import ulb.enums.Sport;
 
-public record ActivityDTO(Sport sport, int intensity, int duration, LocalDateTime date) {}
+public record ActivityDTO(
+		Sport sport, Intensity intensity, int duration, LocalDateTime date, int burnedCalories) {
+
+	public ActivityDTO(Sport sport, Intensity intensity, int duration, LocalDateTime date) {
+		this(sport, intensity, duration, date, -1);
+	}
+
+	public ActivityDTO(ActivityDTO activityDTO, int burnedCalories) {
+		this(
+				activityDTO.sport(),
+				activityDTO.intensity(),
+				activityDTO.duration(),
+				activityDTO.date(),
+				burnedCalories);
+	}
+}

@@ -56,8 +56,8 @@ public class TestCalorieCalculator {
 	private void testActivity(Sport sport, int intenseCalories, int slowCalories) {
 		Activity activity =
 				new Activity(sport, Intensity.INTENSE, Duration.ofMinutes(15), LocalDateTime.now());
-		assertEquals(intenseCalories, activity.getCaloriesBurned(40), 1);
+		assertEquals(intenseCalories, CalorieCalculator.compute(activity, 40), 1);
 		activity = new Activity(sport, Intensity.SLOW, Duration.ofHours(1), LocalDateTime.now());
-		assertEquals(slowCalories, activity.getCaloriesBurned(80), 1);
+		assertEquals(slowCalories, CalorieCalculator.compute(activity, 80), 1);
 	}
 }

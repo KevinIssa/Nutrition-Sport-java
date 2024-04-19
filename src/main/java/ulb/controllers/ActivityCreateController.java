@@ -21,6 +21,7 @@ package ulb.controllers;
 import javafx.stage.Stage;
 import ulb.dtos.ActivityDTO;
 import ulb.services.ActivityService;
+import ulb.services.ProfileService;
 import ulb.views.ActivityCreateViewController;
 
 /**
@@ -31,6 +32,7 @@ import ulb.views.ActivityCreateViewController;
 public class ActivityCreateController extends AppController
 		implements ActivityCreateViewController.Listener {
 	private final ActivityService activityService;
+	private final ProfileService profileService;
 	private final ActivityCreateController.Listener listener;
 
 	/**
@@ -38,8 +40,10 @@ public class ActivityCreateController extends AppController
 	 *
 	 * @param listener Listener for the ActivityCreateController
 	 */
-	public ActivityCreateController(ActivityService activityService, Listener listener) {
+	public ActivityCreateController(
+			ActivityService activityService, ProfileService profileService, Listener listener) {
 		this.activityService = activityService;
+		this.profileService = profileService;
 		this.listener = listener;
 	}
 
@@ -51,7 +55,13 @@ public class ActivityCreateController extends AppController
 
 	@Override
 	public void saveActivity(ActivityDTO activityDTO) {
+		int burnedCalories =
+				this.activityService.calculateCaloriesBurnedDuringActivity(
+						activityDTO, this.profileService.getProfileWeight());
+		activityDTO = new ActivityDTO(activityDTO, burnedCalories);
 		this.activityService.saveActivity(activityDTO);
+		((ActivityCreateViewController) this.viewController)
+				.showCaloriesConsumed(activityDTO.burnedCalories());
 	}
 
 	@Override

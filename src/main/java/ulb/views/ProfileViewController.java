@@ -132,11 +132,12 @@ public class ProfileViewController implements ViewController {
 							this.firstnameController.getText(),
 							this.lastnameController.getText(),
 							this.sexController.getText(),
-							Float.parseFloat(this.heightController.getText()),
 							Float.parseFloat(this.weightController.getText()),
+							Float.parseFloat(this.heightController.getText()),
 							LocalDate.parse(this.birthdateController.getText()),
 							this.imagePath);
-			this.listener.saveProfile(profileDTO);
+			System.out.println(profileDTO);
+			this.listener.updateProfile(profileDTO);
 		} catch (NumberFormatException e) {
 			logger.warn("Height and weight must be positive numbers");
 		} catch (IllegalArgumentException | NullPointerException e) {
@@ -165,7 +166,7 @@ public class ProfileViewController implements ViewController {
 
 	// Listener interface for communication with the controller
 	public interface Listener {
-		void saveProfile(ProfileDTO profileDTO);
+		void updateProfile(ProfileDTO profileDTO);
 
 		ProfileDTO getProfile();
 

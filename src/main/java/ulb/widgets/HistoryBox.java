@@ -18,6 +18,8 @@
  */
 package ulb.widgets;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -63,10 +65,9 @@ public class HistoryBox extends HBox {
 	}
 
 	private void setLabels() {
-		this.getChildren().add(3, new Label(this.activity.date().toString()));
-		this.getChildren().add(5, new Label(String.valueOf(this.activity.duration())));
-		// this.getChildren().add(7, new Label(this.activity.burnedCalories() + " kcal"));
-		this.getChildren().add(7, new Label("0 kcal"));
+		this.getChildren().add(3, new Label(this.dateToString(this.activity.date())));
+		this.getChildren().add(5, new Label(this.durationToString(this.activity.duration())));
+		this.getChildren().add(7, new Label(STR."\{this.activity.burnedCalories()} kcal"));
 	}
 
 	private void setButtonInHBox(Button button) {
@@ -85,6 +86,17 @@ public class HistoryBox extends HBox {
 						false,
 						false);
 		return new ImageView(image);
+	}
+
+	public String durationToString(int duration) {
+		int hours = duration / 60;
+		int minutes = duration % 60;
+		return STR."\{hours}h\{minutes}m";
+	}
+
+	public String dateToString(LocalDateTime date) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm");
+		return date.format(formatter);
 	}
 
 	public ActivityDTO getActivity() {
