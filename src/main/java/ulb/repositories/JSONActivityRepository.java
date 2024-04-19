@@ -30,9 +30,17 @@ import java.util.List;
 import ulb.models.Activity;
 import ulb.models.CalorieCalculator;
 
+/**
+ * This class implements the ActivityRepository interface and provides methods for saving, loading, deleting activities,
+ * and calculating calories burned. It uses JSON files for storing and retrieving activities.
+ */
 public class JSONActivityRepository implements ActivityRepository {
 	private static final String FOLDER_NAME = "activities";
 
+	/**
+	 * Saves the given Activity object to a JSON file.
+	 * @param activity The Activity object to be saved.
+	 */
 	@Override
 	public void save(Activity activity) {
 		File folder = new File(FOLDER_NAME);
@@ -56,6 +64,11 @@ public class JSONActivityRepository implements ActivityRepository {
 		}
 	}
 
+	/**
+	 * Loads an Activity object from a given JSON file.
+	 * @param file The JSON file from which the Activity object is to be loaded.
+	 * @return The loaded Activity object.
+	 */
 	private Activity load(File file) {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new JavaTimeModule());
@@ -68,6 +81,10 @@ public class JSONActivityRepository implements ActivityRepository {
 		}
 	}
 
+	/**
+	 * Loads all Activity objects from the JSON files.
+	 * @return A list of all loaded Activity objects.
+	 */
 	@Override
 	public List<Activity> loadAll() {
 		File folder = new File(FOLDER_NAME);
@@ -84,6 +101,10 @@ public class JSONActivityRepository implements ActivityRepository {
 		return activities;
 	}
 
+	/**
+	 * Deletes the given Activity object from the JSON files.
+	 * @param activity The Activity object to be deleted.
+	 */
 	@Override
 	public void delete(Activity activity) {
 		File folder = new File(FOLDER_NAME);
@@ -99,6 +120,9 @@ public class JSONActivityRepository implements ActivityRepository {
 		}
 	}
 
+	/**
+	 * Deletes all Activity objects from the JSON files.
+	 */
 	@Override
 	public void deleteAll() {
 		File folder = new File(FOLDER_NAME);
@@ -113,6 +137,12 @@ public class JSONActivityRepository implements ActivityRepository {
 		}
 	}
 
+	/**
+	 * Calculates the calories burned for the given Activity object and weight.
+	 * @param activity The Activity object for which the calories burned is to be calculated.
+	 * @param weight The weight of the user.
+	 * @return The number of calories burned.
+	 */
 	@Override
 	public int calculateCaloriesBurned(Activity activity, float weight) {
 		return (int) CalorieCalculator.compute(activity, weight);

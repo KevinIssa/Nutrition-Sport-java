@@ -18,7 +18,16 @@
  */
 package ulb.exceptions;
 
+/**
+ * This class represents a custom exception for invalid names.
+ * It extends the ValueObjectException class and can be used to throw exceptions with a custom message.
+ */
 public class BadNameException extends ValueObjectException {
+
+	/**
+	 * Constructor for BadNameException with a specified message.
+	 * @param message The message for the exception.
+	 */
 	public BadNameException(String message) {
 		super(message);
 	}

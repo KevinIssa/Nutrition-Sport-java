@@ -20,6 +20,18 @@ package ulb.dtos;
 
 import java.time.LocalDate;
 
+/**
+ * This record represents a Profile Data Transfer Object (DTO).
+ * It is used to transfer data between processes or components.
+ *
+ * @param firstName The first name of the user.
+ * @param lastName The last name of the user.
+ * @param sex The sex of the user.
+ * @param weight The weight of the user in kilograms.
+ * @param height The height of the user in meters.
+ * @param birthDate The birth date of the user.
+ * @param imagePath The path to the image of the user.
+ */
 public record ProfileDTO(
 		String firstName,
 		String lastName,

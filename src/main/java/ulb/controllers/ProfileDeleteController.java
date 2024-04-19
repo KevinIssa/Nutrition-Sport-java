@@ -19,6 +19,8 @@
 package ulb.controllers;
 
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.services.ProfileService;
 import ulb.views.ProfileDeleteConfirmViewController;
 
@@ -30,25 +32,27 @@ import ulb.views.ProfileDeleteConfirmViewController;
  */
 public class ProfileDeleteController extends AppController
 		implements ProfileDeleteConfirmViewController.Listener {
-
+	private static final Logger logger = LoggerFactory.getLogger(AppController.class);
 	private final ProfileService profileService;
-
 	private final ProfileDeleteController.Listener listener;
 
 	public ProfileDeleteController(
 			ProfileService profileService, ProfileDeleteController.Listener listener) {
+		logger.info("Initializing ProfileDeleteController");
 		this.profileService = profileService;
 		this.listener = listener;
 	}
 
 	@Override
 	public void show(Stage stage) {
+		logger.info("Showing ProfileDeleteController");
 		this.loadView("/ulb/views/ProfileDeleteConfirm.fxml", stage);
 		this.viewController.setListener(this);
 	}
 
 	@Override
 	public void deleteProfile() {
+		logger.info("Deleting profile");
 		this.profileService.deleteProfile();
 		//		Activity.clearAll();
 		//		ConsumedMeal.clearAll();
@@ -57,6 +61,7 @@ public class ProfileDeleteController extends AppController
 
 	@Override
 	public void returnHome() {
+		logger.info("Returning to home view");
 		this.listener.returnHome();
 	}
 

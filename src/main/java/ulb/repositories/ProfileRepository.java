@@ -39,6 +39,8 @@ public interface ProfileRepository {
 	 * Saves the profile image.
 	 *
 	 * @param imagePath the path to the image
+	 * @throws InvalidImageException if the image is invalid
+	 * @throws IllegalImageFormatException if the image format is not supported
 	 */
 	void saveProfileImage(String imagePath)
 			throws InvalidImageException, IllegalImageFormatException;
@@ -69,7 +71,17 @@ public interface ProfileRepository {
 	 */
 	boolean isCreated();
 
+	/**
+	 * Retrieves the image path of the profile.
+	 *
+	 * @return the image path of the profile
+	 */
 	String getImagePath();
 
+	/**
+	 * Retrieves the weight of the profile.
+	 *
+	 * @return the weight of the profile
+	 */
 	float getWeight();
 }

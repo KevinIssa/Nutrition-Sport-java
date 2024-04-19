@@ -30,7 +30,7 @@ public class NumberField {
 				.addListener(
 						(observable, oldValue, newValue) -> {
 							if (!newValue.matches("\\d*")) {
-								textField.setText(newValue.replaceAll("[^\\d]", ""));
+								textField.setText(newValue.replaceAll("\\D", ""));
 							}
 						});
 	}

@@ -18,8 +18,16 @@
  */
 package ulb.exceptions;
 
+/**
+ * This class represents a custom exception for invalid heights.
+ * It extends the ValueObjectException class and can be used to throw exceptions with a custom message.
+ */
 public class BadHeightException extends ValueObjectException {
 
+	/**
+	 * Constructor for BadHeightException with a specified message.
+	 * @param message The message for the exception.
+	 */
 	public BadHeightException(String message) {
 		super(message);
 	}

@@ -19,6 +19,8 @@
 package ulb.controllers;
 
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.dtos.ActivityDTO;
 import ulb.services.ActivityService;
 import ulb.services.ProfileService;
@@ -31,6 +33,7 @@ import ulb.views.ActivityCreateViewController;
  */
 public class ActivityCreateController extends AppController
 		implements ActivityCreateViewController.Listener {
+	private static final Logger logger = LoggerFactory.getLogger(ActivityCreateController.class);
 	private final ActivityService activityService;
 	private final ProfileService profileService;
 	private final ActivityCreateController.Listener listener;
@@ -42,6 +45,7 @@ public class ActivityCreateController extends AppController
 	 */
 	public ActivityCreateController(
 			ActivityService activityService, ProfileService profileService, Listener listener) {
+		logger.info("Initializing ActivityCreateController");
 		this.activityService = activityService;
 		this.profileService = profileService;
 		this.listener = listener;
@@ -49,6 +53,7 @@ public class ActivityCreateController extends AppController
 
 	@Override
 	public void show(Stage stage) {
+		logger.info("Showing ActivityCreateView");
 		this.loadView("/ulb/views/ActivityCreate.fxml", stage);
 		this.viewController.setListener(this);
 	}
@@ -59,6 +64,7 @@ public class ActivityCreateController extends AppController
 				this.activityService.calculateCaloriesBurnedDuringActivity(
 						activityDTO, this.profileService.getProfileWeight());
 		activityDTO = new ActivityDTO(activityDTO, burnedCalories);
+		logger.info("Saving activity {}", activityDTO);
 		this.activityService.saveActivity(activityDTO);
 		((ActivityCreateViewController) this.viewController)
 				.showCaloriesConsumed(activityDTO.burnedCalories());
@@ -66,6 +72,7 @@ public class ActivityCreateController extends AppController
 
 	@Override
 	public void returnHome() {
+		logger.info("Returning to home screen");
 		this.listener.returnHome();
 	}
 

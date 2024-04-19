@@ -18,8 +18,16 @@
  */
 package ulb.exceptions;
 
+/**
+ * This class represents a custom exception for invalid weights.
+ * It extends the ValueObjectException class and can be used to throw exceptions with a custom message.
+ */
 public class BadWeightException extends ValueObjectException {
 
+	/**
+	 * Constructor for BadWeightException with a specified message.
+	 * @param message The message for the exception.
+	 */
 	public BadWeightException(String message) {
 		super(message);
 	}

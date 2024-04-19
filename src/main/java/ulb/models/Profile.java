@@ -20,14 +20,14 @@ package ulb.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ulb.enums.Sex;
 import ulb.exceptions.*;
 
+/**
+ * This class represents a user's profile in the health and wellness application.
+ * It contains the user's first name, last name, sex, weight, height, and birth date.
+ */
 public class Profile {
-	private static final Logger logger = LoggerFactory.getLogger(Profile.class);
-
 	private Name firstName;
 	private Name lastName;
 	private Sex sex;
@@ -37,6 +37,10 @@ public class Profile {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private BirthDate birthDate;
 
+	/**
+	 * Default constructor for Profile.
+	 * Initializes the Profile with no values.
+	 */
 	public Profile() {}
 
 	/**
@@ -47,6 +51,7 @@ public class Profile {
 	 * @param weight The weight of the user.
 	 * @param height The height of the user.
 	 * @param birthDate The birthdate of the user.
+	 * @throws ValueObjectException If any of the values are not valid.
 	 */
 	public Profile(
 			String firstName,
@@ -64,6 +69,11 @@ public class Profile {
 		this.birthDate = new BirthDate(birthDate);
 	}
 
+	/**
+	 * Checks if this Profile is equal to another object.
+	 * @param obj The object to compare with.
+	 * @return true if the objects are equal, false otherwise.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -112,6 +122,7 @@ public class Profile {
 	/**
 	 * Sets the first name of the user.
 	 * @param newFirstName The new first name to set.
+	 * @throws ValueObjectException If the new first name is not valid.
 	 */
 	public void setFirstName(String newFirstName) throws ValueObjectException {
 		this.firstName = new Name(newFirstName);
@@ -128,6 +139,7 @@ public class Profile {
 	/**
 	 * Sets the last name of the user.
 	 * @param newLastName The new last name to set.
+	 * @throws ValueObjectException If the new last name is not valid.
 	 */
 	public void setLastName(String newLastName) throws ValueObjectException {
 		this.lastName = new Name(newLastName);
@@ -160,6 +172,7 @@ public class Profile {
 	/**
 	 * Sets the weight of the user.
 	 * @param weight The new weight to set.
+	 * @throws ValueObjectException If the new weight is not valid.
 	 */
 	public void setWeight(float weight) throws ValueObjectException {
 		this.weight = new Weight(weight);
@@ -176,6 +189,7 @@ public class Profile {
 	/**
 	 * Sets the height of the user.
 	 * @param height The new height to set.
+	 * @throws ValueObjectException If the new height is not valid.
 	 */
 	public void setHeight(float height) throws ValueObjectException {
 		this.height = new Height(height);
@@ -192,6 +206,7 @@ public class Profile {
 	/**
 	 * Sets the birthdate of the user.
 	 * @param birthDate The new birthdate to set.
+	 * @throws ValueObjectException If the new birthdate is not valid.
 	 */
 	public void setBirthDate(LocalDate birthDate) throws ValueObjectException {
 		this.birthDate = new BirthDate(birthDate);

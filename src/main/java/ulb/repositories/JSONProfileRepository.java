@@ -31,10 +31,18 @@ import ulb.exceptions.IllegalImageFormatException;
 import ulb.exceptions.InvalidImageException;
 import ulb.models.Profile;
 
+/**
+ * This class implements the ProfileRepository interface and provides methods for saving, loading, updating, and deleting Profile objects.
+ * It uses JSON files for storing and retrieving profiles.
+ */
 public class JSONProfileRepository implements ProfileRepository {
 	private static final String FILE_NAME = "profile.json";
 	private static final String IMAGE_PATH = "profile.png";
 
+	/**
+	 * Saves the given Profile object to a JSON file.
+	 * @param profile The Profile object to be saved.
+	 */
 	@Override
 	public void save(Profile profile) {
 		ObjectMapper mapper = new ObjectMapper();
@@ -48,6 +56,12 @@ public class JSONProfileRepository implements ProfileRepository {
 		}
 	}
 
+	/**
+	 * Saves the profile image to a specified path.
+	 * @param imagePath The path to the image.
+	 * @throws InvalidImageException if the image is invalid.
+	 * @throws IllegalImageFormatException if the image format is not supported.
+	 */
 	@Override
 	public void saveProfileImage(String imagePath)
 			throws InvalidImageException, IllegalImageFormatException {
@@ -56,7 +70,7 @@ public class JSONProfileRepository implements ProfileRepository {
 				|| imagePath.endsWith(".jpeg"))) {
 			// TODO: Handle exception
 			// logger.warn("Only PNG and JPG images are supported: {}", imagePath);
-			throw new IllegalImageFormatException("Only PNG and JPG images are supported");
+			throw new IllegalImageFormatException("Only PNG, JPG and JPEG images are supported");
 		}
 		try {
 			Files.copy(
@@ -70,6 +84,10 @@ public class JSONProfileRepository implements ProfileRepository {
 		}
 	}
 
+	/**
+	 * Loads a Profile object from a JSON file.
+	 * @return The loaded Profile object.
+	 */
 	@Override
 	public Profile load() {
 		File file = new File(FILE_NAME);
@@ -84,26 +102,45 @@ public class JSONProfileRepository implements ProfileRepository {
 		}
 	}
 
+	/**
+	 * Updates a Profile object in the JSON file.
+	 * @param profile The Profile object to be updated.
+	 */
 	@Override
 	public void update(Profile profile) {
 		this.save(profile);
 	}
 
+	/**
+	 * Deletes a Profile object from the JSON file.
+	 */
 	@Override
 	public void delete() {
 		new File(FILE_NAME).delete();
 	}
 
+	/**
+	 * Checks if a Profile object has been created.
+	 * @return true if a Profile object has been created, false otherwise.
+	 */
 	@Override
 	public boolean isCreated() {
 		return new File(FILE_NAME).exists() && this.load() != null;
 	}
 
+	/**
+	 * Retrieves the image path of the profile.
+	 * @return The image path of the profile.
+	 */
 	@Override
 	public String getImagePath() {
 		return IMAGE_PATH;
 	}
 
+	/**
+	 * Retrieves the weight of the profile.
+	 * @return The weight of the profile.
+	 */
 	@Override
 	public float getWeight() {
 		return Optional.ofNullable(this.load()).map(Profile::getWeight).orElse(0f);

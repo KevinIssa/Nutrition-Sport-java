@@ -23,10 +23,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.views.ViewController;
 
 public abstract class AppController {
-
+	private static final Logger logger = LoggerFactory.getLogger(AppController.class);
 	protected ViewController viewController;
 
 	public abstract void show(Stage stage);
@@ -38,7 +40,7 @@ public abstract class AppController {
 			this.viewController = loader.getController();
 			stage.setScene(new Scene(root));
 		} catch (IOException e) {
-			// logger.error("Failed to load view resources", e);
+			logger.error("Failed to load view resources", e);
 			System.exit(1);
 		}
 	}

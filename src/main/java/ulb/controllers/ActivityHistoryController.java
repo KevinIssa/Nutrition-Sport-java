@@ -21,6 +21,8 @@ package ulb.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.dtos.ActivityDTO;
 import ulb.enums.Sport;
 import ulb.services.ActivityService;
@@ -33,24 +35,27 @@ import ulb.views.ActivityHistoryViewController;
  */
 public class ActivityHistoryController extends AppController
 		implements ActivityHistoryViewController.Listener {
+	private static final Logger logger = LoggerFactory.getLogger(ActivityHistoryController.class);
 	private final ActivityService activityService;
 	private final ActivityHistoryController.Listener listener;
-	public static final String FOLDER_NAME = "activities";
 
 	public ActivityHistoryController(
 			ActivityService activityService, ActivityHistoryController.Listener listener) {
+		logger.info("Initializing ActivityHistoryController");
 		this.activityService = activityService;
 		this.listener = listener;
 	}
 
 	@Override
 	public void show(Stage stage) {
+		logger.info("Showing ActivityHistoryView");
 		this.loadView("/ulb/views/ActivityHistory.fxml", stage);
 		this.viewController.setListener(this);
 	}
 
 	@Override
 	public List<ActivityDTO> getActivities(Sport filter) {
+		logger.info("Getting activities with filter: {}", filter);
 		return this.activityService.loadActivities().stream()
 				.filter(activity -> filter == null || activity.sport() == filter)
 				.collect(Collectors.toList());
@@ -58,11 +63,13 @@ public class ActivityHistoryController extends AppController
 
 	@Override
 	public void deleteActivity(ActivityDTO activityDTO) {
+		logger.info("Deleting activity: {}", activityDTO);
 		this.activityService.deleteActivity(activityDTO);
 	}
 
 	@Override
 	public void returnHome() {
+		logger.info("Returning to home screen");
 		this.listener.returnHome();
 	}
 

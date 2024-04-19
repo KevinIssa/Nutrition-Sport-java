@@ -22,27 +22,26 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ulb.enums.Intensity;
 import ulb.enums.Sport;
 
 /**
- * Represents an activity performed by a user.
+ * This class represents an Activity performed by a user.
+ * It contains the sport type, intensity, duration, date of the activity, and the number of calories burned.
  */
 public class Activity {
-	public static final Logger logger = LoggerFactory.getLogger(Activity.class);
-	private Sport sport;
-	private Intensity intensity = Intensity.MODERATE;
-	private Duration duration;
+	private Sport sport; // The type of sport for the activity
+	private Intensity intensity; // The intensity of the activity
+	private Duration duration; // The duration of the activity
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd-HH-mm-ss")
-	private LocalDateTime date;
+	private LocalDateTime date; // The date and time when the activity was performed
 
-	private int burnedCalories;
+	private int burnedCalories; // The number of calories burned during the activity
 
 	/**
 	 * Default constructor for Activity class.
+	 * Initializes the Activity with no values.
 	 */
 	public Activity() {}
 
@@ -58,6 +57,15 @@ public class Activity {
 		this(sport, intensity, duration, date, -1);
 	}
 
+	/**
+	 * Parameterized constructor for Activity class.
+	 *
+	 * @param sport     The sport of the activity.
+	 * @param intensity The intensity of the activity.
+	 * @param duration  The duration of the activity.
+	 * @param date      The date and time when the activity was performed.
+	 * @param burnedCalories The number of calories burned during the activity.
+	 */
 	public Activity(
 			Sport sport,
 			Intensity intensity,
@@ -69,7 +77,6 @@ public class Activity {
 		this.duration = duration;
 		this.date = date;
 		this.burnedCalories = burnedCalories;
-		logger.trace("Creating activity: {} ", this);
 	}
 
 	/**

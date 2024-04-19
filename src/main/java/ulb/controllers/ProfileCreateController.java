@@ -19,6 +19,8 @@
 package ulb.controllers;
 
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.dtos.ProfileDTO;
 import ulb.services.ProfileService;
 import ulb.views.ProfileCreateViewController;
@@ -30,17 +32,20 @@ import ulb.views.ProfileCreateViewController;
  */
 public class ProfileCreateController extends AppController
 		implements ProfileCreateViewController.Listener {
+	private static final Logger logger = LoggerFactory.getLogger(ProfileCreateController.class);
 	private final ProfileService profileService;
 	private final ProfileCreateController.Listener listener;
 
 	public ProfileCreateController(
 			ProfileService profileService, ProfileCreateController.Listener listener) {
+		logger.info("Initializing ProfileCreateController");
 		this.profileService = profileService;
 		this.listener = listener;
 	}
 
 	@Override
 	public void show(Stage stage) {
+		logger.info("Showing ProfileCreateView");
 		this.loadView("/ulb/views/ProfileCreate.fxml", stage);
 		this.viewController.setListener(this);
 	}
@@ -48,6 +53,7 @@ public class ProfileCreateController extends AppController
 	@Override
 	public void saveProfile(ProfileDTO profileDTO) {
 		try {
+			logger.info("Saving profile {}", profileDTO);
 			this.profileService.saveProfile(profileDTO);
 		} catch (Exception e) {
 			// TODO: Handle exception
@@ -57,6 +63,7 @@ public class ProfileCreateController extends AppController
 
 	@Override
 	public void returnHome() {
+		logger.info("Returning to home screen");
 		this.listener.returnHome();
 	}
 
