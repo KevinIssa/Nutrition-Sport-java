@@ -18,7 +18,6 @@
  */
 package ulb.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 import ulb.enums.Sex;
 import ulb.exceptions.*;
@@ -33,8 +32,6 @@ public class Profile {
 	private Sex sex;
 	private Weight weight;
 	private Height height;
-
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private BirthDate birthDate;
 
 	/**

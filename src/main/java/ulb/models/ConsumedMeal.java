@@ -18,53 +18,20 @@
  */
 package ulb.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Represents a meal consumed by a user.
- * This class is responsible for managing the consumed meal data and operations related to it.
- * It implements the JsonSerializable interface for serialization and deserialization purposes.
- */
-@JsonDeserialize(using = ConsumedMealDeserializer.class)
-public class ConsumedMeal implements JsonSerializable {
+public class ConsumedMeal {
 	private static final Logger logger = LoggerFactory.getLogger(ConsumedMeal.class);
-	// Folder name where the consumed meals data will be stored
-	public static final String FOLDER_NAME = "consumed_meals";
-
-	// List of foods consumed in the meal
-	@JsonSerialize(using = ConsumedFoodListSerializer.class)
-	private List<ConsumedFood> consumedFoods;
-
-	// Date and time when the meal was consumed
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy-HH-mm-ss")
-	private LocalDateTime date;
-
-	/**
-	 * Default constructor initializing the consumedFoods list and setting the current date and time.
-	 */
-	public ConsumedMeal() {
-		consumedFoods = new ArrayList<>();
-		date = LocalDateTime.now().withNano(0);
-	}
+	private final List<ConsumedFood> consumedFoods = new ArrayList<>();
+	private LocalDateTime date = LocalDateTime.now().withNano(0);
 
 	/**
 	 * Overrides the equals method to compare ConsumedMeal objects based on their date and consumedFoods list.
+	 *
 	 * @param obj Object to be compared with
 	 * @return boolean indicating whether the objects are equal or not
 	 */
@@ -77,6 +44,7 @@ public class ConsumedMeal implements JsonSerializable {
 
 	/**
 	 * Adds a ConsumedFoodDTO object to the consumedFoods list.
+	 *
 	 * @param food ConsumedFoodDTO object to be added
 	 */
 	public void addConsumedFood(ConsumedFood food) {
@@ -85,7 +53,8 @@ public class ConsumedMeal implements JsonSerializable {
 
 	/**
 	 * Creates a new ConsumedFoodDTO object and adds it to the consumedFoods list.
-	 * @param name Name of the food
+	 *
+	 * @param name     Name of the food
 	 * @param quantity Quantity of the food consumed
 	 * @param calories Calories of the food consumed
 	 */
@@ -95,61 +64,26 @@ public class ConsumedMeal implements JsonSerializable {
 	}
 
 	/**
-	 * Deletes all the consumed meals data from the storage.
-	 */
-	public static void clearAll() {
-		File folder = new File(FOLDER_NAME);
-		File[] files = folder.listFiles();
-		if (files != null) {
-			logger.info("Deleting all consumed meals");
-			for (File file : files) {
-				file.delete();
-			}
-		}
-	}
-
-	/**
 	 * Calculates the total calories consumed in the meal.
+	 *
 	 * @return Total calories consumed
 	 */
-	@JsonIgnore
 	public int getCaloriesConsumed() {
 		return consumedFoods.stream().mapToInt(ConsumedFood::getCalories).sum();
 	}
 
 	/**
-	 * Saves the consumed meal data to a file.
+	 * This method is used to get the list of consumed foods.
+	 *
+	 * @return List of ConsumedFood objects representing the foods consumed in the meal.
 	 */
-	public void save() {
-		File folder = new File(FOLDER_NAME);
-		if (!folder.exists()) {
-			logger.info("Creating consumed meals folder");
-			folder.mkdir();
-		}
-		String filename =
-				FOLDER_NAME
-						+ "/"
-						+ LocalDateTime.now()
-								.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))
-						+ ".json";
-		saveToFile(filename);
-	}
-
-	/**
-	 * Loads the consumed meal data from a file.
-	 * @param filename Name of the file from which the data is to be loaded
-	 * @return ConsumedMeal object containing the loaded data
-	 */
-	public static ConsumedMeal load(String filename) {
-		return (ConsumedMeal) new ConsumedMeal().loadFromFile(filename);
-	}
-
 	public List<ConsumedFood> getConsumedFoods() {
 		return consumedFoods;
 	}
 
 	/**
 	 * Getter for the date field.
+	 *
 	 * @return Date and time when the meal was consumed
 	 */
 	public LocalDateTime getDate() {
@@ -158,118 +92,10 @@ public class ConsumedMeal implements JsonSerializable {
 
 	/**
 	 * Setter for the date field.
+	 *
 	 * @param date Date and time when the meal was consumed
 	 */
 	public void setDate(LocalDateTime date) {
 		this.date = date;
-	}
-
-	public String changeDateFormat(LocalDateTime date) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm");
-		return date.format(formatter);
-	}
-
-	/**
-	 * Saves the consumed meal data to a file.
-	 * @param filename Name of the file where the data is to be saved
-	 */
-	public void saveToFile(String filename) {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		mapper.registerModule(new JavaTimeModule());
-		try {
-			logger.info("Saving consumed meal:{} to {} ", this, filename);
-			mapper.writeValue(new File(filename), this);
-		} catch (IOException e) {
-			logger.error("Error saving consumed meal to file", e);
-		}
-	}
-
-	/**
-	 * Loads the consumed meal data from a file.
-	 * @param filename Name of the file from which the data is to be loaded
-	 * @return JsonSerializable object containing the loaded data
-	 */
-	public JsonSerializable loadFromFile(String filename) {
-		File file = new File(filename);
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new JavaTimeModule());
-		try {
-			logger.info("Loading consumed meal from file: {}", filename);
-			return mapper.readValue(file, ConsumedMeal.class);
-		} catch (IOException e) {
-			logger.warn("No consumed meal found");
-			return null;
-		}
-	}
-}
-
-/**
- * Serializer class for the consumedFoods list.
- */
-class ConsumedFoodListSerializer extends JsonSerializer<List<ConsumedFood>> {
-
-	/**
-	 * Serializes the consumedFoods list to JSON format.
-	 * @param consumedFoods List of ConsumedFoodDTO objects to be serialized
-	 * @param jsonGenerator JsonGenerator object used for writing JSON content
-	 * @param serializerProvider SerializerProvider object used for accessing secondary serializers
-	 */
-	@Override
-	public void serialize(
-			List<ConsumedFood> consumedFoods,
-			JsonGenerator jsonGenerator,
-			SerializerProvider serializerProvider)
-			throws IOException {
-		jsonGenerator.writeStartArray();
-		for (ConsumedFood consumedFood : consumedFoods) {
-			jsonGenerator.writeStartObject();
-			jsonGenerator.writeStringField("name", consumedFood.getName());
-			jsonGenerator.writeNumberField("quantity", consumedFood.getQuantity());
-			jsonGenerator.writeNumberField("calories", consumedFood.getCalories());
-			jsonGenerator.writeStringField("type", consumedFood.getType());
-			jsonGenerator.writeEndObject();
-		}
-		jsonGenerator.writeEndArray();
-	}
-}
-
-/**
- * Deserializer class for the ConsumedMeal object.
- */
-class ConsumedMealDeserializer extends StdDeserializer<ConsumedMeal> {
-
-	/**
-	 * Default constructor specifying the type to be deserialized.
-	 */
-	public ConsumedMealDeserializer() {
-		super(ConsumedMeal.class);
-	}
-
-	/**
-	 * Deserializes the JSON content into a ConsumedMeal object.
-	 * @param jp JsonParser object used for reading JSON content
-	 * @param ctxt DeserializationContext object used for accessing contextual information during deserialization
-	 * @return ConsumedMeal object containing the deserialized data
-	 */
-	@Override
-	public ConsumedMeal deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode node = jp.getCodec().readTree(jp);
-		ConsumedMeal meal = new ConsumedMeal();
-		JsonNode consumedFoodsNode = node.get("consumedFoods");
-		if (consumedFoodsNode.isArray()) {
-			for (JsonNode element : consumedFoodsNode) {
-				String name = element.get("name").asText();
-				int quantity = element.get("quantity").asInt();
-				int calories = element.get("calories").asInt();
-				String text = element.get("type").asText();
-				meal.addConsumedFood(name, quantity, calories, text);
-			}
-		}
-		String date = node.get("date").asText();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy-HH-mm-ss");
-		meal.setDate(LocalDateTime.parse(date, formatter));
-		return meal;
 	}
 }
