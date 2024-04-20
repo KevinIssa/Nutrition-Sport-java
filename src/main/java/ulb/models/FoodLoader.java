@@ -54,6 +54,7 @@ public class FoodLoader {
 					objectMapper.readValue(
 							getClass().getResourceAsStream(filename), new TypeReference<>() {});
 		} catch (IOException e) {
+			e.printStackTrace();
 			logger.error("Error loading food data from file: {}", filename);
 			System.exit(1);
 		}
