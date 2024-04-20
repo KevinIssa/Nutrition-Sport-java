@@ -18,12 +18,11 @@
  */
 package ulb.controllers;
 
-import java.time.LocalDate;
-import ulb.exceptions.ImageException;
-import ulb.models.Height;
-import ulb.models.Profile;
-import ulb.models.Weight;
-import ulb.models.enums.Sex;
+import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ulb.dtos.ProfileDTO;
+import ulb.services.ProfileService;
 import ulb.views.ProfileCreateViewController;
 
 /**
@@ -31,42 +30,41 @@ import ulb.views.ProfileCreateViewController;
  * It is responsible for handling the logic of the profile creation screen, such as saving the user's profile information.
  * It also listens to events from the ProfileCreateViewController and notifies the listener when the user wants to return to the home screen.
  */
-public class ProfileCreateController
-		implements AppController, ProfileCreateViewController.Listener {
-
+public class ProfileCreateController extends AppController
+		implements ProfileCreateViewController.Listener {
+	private static final Logger logger = LoggerFactory.getLogger(ProfileCreateController.class);
+	private final ProfileService profileService;
 	private final ProfileCreateController.Listener listener;
 
-	public ProfileCreateController(ProfileCreateController.Listener listener) {
+	public ProfileCreateController(
+			ProfileService profileService, ProfileCreateController.Listener listener) {
+		logger.info("Initializing ProfileCreateController");
+		this.profileService = profileService;
 		this.listener = listener;
 	}
 
-	public void saveProfile(
-			String firstName,
-			String lastName,
-			String sex,
-			LocalDate birthDate,
-			float height,
-			float weight)
-			throws IllegalArgumentException {
-		Profile profile =
-				new Profile(
-						firstName,
-						lastName,
-						Sex.fromString(sex),
-						new Weight(weight),
-						new Height(height),
-						birthDate);
-		profile.save();
+	@Override
+	public void show(Stage stage) {
+		logger.info("Showing ProfileCreateView");
+		this.loadView("/ulb/views/ProfileCreate.fxml", stage);
+		this.viewController.setListener(this);
+	}
+
+	@Override
+	public void saveProfile(ProfileDTO profileDTO) {
+		try {
+			logger.info("Saving profile {}", profileDTO);
+			this.profileService.saveProfile(profileDTO);
+		} catch (Exception e) {
+			// TODO: Handle exception
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void returnHome() {
+		logger.info("Returning to home screen");
 		this.listener.returnHome();
-	}
-
-	@Override
-	public void saveProfileImage(String imagePath) throws ImageException {
-		Profile.saveImage(imagePath);
 	}
 
 	/**

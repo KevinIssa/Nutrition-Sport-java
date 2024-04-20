@@ -22,13 +22,15 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javafx.collections.FXCollections;
+import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.models.ConsumedMeal;
 import ulb.models.Food;
 import ulb.models.FoodLoader;
 import ulb.models.Meal;
-import ulb.views.FoodViewController;
+import ulb.views.AddFoodViewController;
 
 /**
  * The FoodController class is responsible for managing the interactions between the FoodViewController and the model classes related to food and meals.
@@ -36,25 +38,25 @@ import ulb.views.FoodViewController;
  * This class handles the loading of foods from the database, the calculation of calories consumed by a certain quantity of food, the saving of consumed foods and meals, and the retrieval of food details.
  * It also handles the user's search for foods and the return to the home screen of the application.
  */
-public class FoodController implements AppController, FoodViewController.Listener {
-
-	private static final Logger logger = LoggerFactory.getLogger(FoodController.class);
-	// Listener for the FoodController
+public class FoodController extends AppController implements AddFoodViewController.Listener {
+	private static final Logger logger = LoggerFactory.getLogger(AppController.class);
 	private final FoodController.Listener listener;
-	// ViewController for the FoodController
-	private final FoodViewController viewController;
-	// FoodLoader for the FoodController
 	private FoodLoader foodLoader;
 
 	/**
 	 * Constructor for the FoodController class.
+	 *
 	 * @param listener Listener for the FoodController
-	 * @param viewController ViewController for the FoodController
 	 */
-	public FoodController(FoodController.Listener listener, FoodViewController viewController) {
+	public FoodController(Listener listener) {
 		this.listener = listener;
-		this.viewController = viewController;
 		this.foodLoader = loadFoods();
+	}
+
+	@Override
+	public void show(Stage stage) {
+		this.loadView("/ulb/views/AddFood.fxml", stage);
+		this.viewController.setListener(this);
 	}
 
 	/**
@@ -87,21 +89,6 @@ public class FoodController implements AppController, FoodViewController.Listene
 	}
 
 	@Override
-	public void saveConsumedFoods(
-			ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealDate) {
-		ConsumedMeal consumedMeal = new ConsumedMeal();
-		for (List<String> consumedFood : consumedFoodsList) {
-			consumedMeal.addConsumedFood(
-					consumedFood.get(0),
-					Integer.parseInt(consumedFood.get(1)),
-					Integer.parseInt(consumedFood.get(2)),
-					consumedFood.get(3));
-		}
-		consumedMeal.setDate(mealDate);
-		consumedMeal.save();
-	}
-
-	@Override
 	public Food getCorrespondingFood(String food) {
 		return foodLoader.getFoodsSuggestion(food).stream()
 				.findFirst()
@@ -117,6 +104,21 @@ public class FoodController implements AppController, FoodViewController.Listene
 					Integer.parseInt(consumedFood.get(1)));
 		}
 		newmeal.save();
+	}
+
+	@Override
+	public void saveConsumedFoods(
+			ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealDate) {
+		ConsumedMeal consumedMeal = new ConsumedMeal();
+		for (List<String> consumedFood : consumedFoodsList) {
+			consumedMeal.addConsumedFood(
+					consumedFood.get(0),
+					Integer.parseInt(consumedFood.get(1)),
+					Integer.parseInt(consumedFood.get(2)),
+					consumedFood.get(3));
+		}
+		consumedMeal.setDate(mealDate);
+		consumedMeal.save();
 	}
 
 	@Override
@@ -136,10 +138,12 @@ public class FoodController implements AppController, FoodViewController.Listene
 
 	@Override
 	public void sendUserSearch(String searchText) {
-		this.viewController.setSuggestions(
-				this.foodLoader.getFoodsSuggestion(searchText).stream()
-						.map(Food::getName)
-						.collect(Collectors.toList()));
+		((AddFoodViewController) this.viewController)
+				.setSuggestions(
+						FXCollections.observableArrayList(
+								this.foodLoader.getFoodsSuggestion(searchText).stream()
+										.map(Food::getName)
+										.collect(Collectors.toList())));
 	}
 
 	/**

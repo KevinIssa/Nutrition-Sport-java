@@ -44,7 +44,8 @@ public class ConsumedFood {
 		this.calories = calories;
 		this.type = type;
 		log.info(
-				"ConsumedFood object created with name: {}, quantity: {}, calories: {} of type: {}",
+				"ConsumedFoodDTO object created with name: {}, quantity: {}, calories: {} of type:"
+						+ " {}",
 				name,
 				quantity,
 				calories,
@@ -52,7 +53,7 @@ public class ConsumedFood {
 	}
 
 	/**
-	 * Overrides the equals method to compare ConsumedFood objects based on their name, quantity, and calories.
+	 * Overrides the equals method to compare ConsumedFoodDTO objects based on their name, quantity, and calories.
 	 * @param obj Object to be compared with
 	 * @return boolean indicating whether the objects are equal or not
 	 */

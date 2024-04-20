@@ -18,12 +18,12 @@
  */
 package ulb.controllers;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-import ulb.models.Activity;
-import ulb.models.Profile;
-import ulb.models.enums.Intensity;
-import ulb.models.enums.Sport;
+import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ulb.dtos.ActivityDTO;
+import ulb.services.ActivityService;
+import ulb.services.ProfileService;
 import ulb.views.ActivityCreateViewController;
 
 /**
@@ -31,39 +31,48 @@ import ulb.views.ActivityCreateViewController;
  * It implements the AppController interface and the Listener interface from the ActivityCreateViewController.
  * This class handles the saving of activities, the calculation of calories burned by an activity, and the return to the home screen of the application.
  */
-public class ActivityCreateController
-		implements AppController, ActivityCreateViewController.Listener {
-
+public class ActivityCreateController extends AppController
+		implements ActivityCreateViewController.Listener {
+	private static final Logger logger = LoggerFactory.getLogger(ActivityCreateController.class);
+	private final ActivityService activityService;
+	private final ProfileService profileService;
 	private final ActivityCreateController.Listener listener;
-	private final ActivityCreateViewController viewController;
 
 	/**
 	 * Constructor for the ActivityCreateController class.
+	 *
 	 * @param listener Listener for the ActivityCreateController
-	 * @param viewController ViewController for the ActivityCreateController
 	 */
 	public ActivityCreateController(
-			ActivityCreateController.Listener listener,
-			ActivityCreateViewController viewController) {
+			ActivityService activityService, ProfileService profileService, Listener listener) {
+		logger.info("Initializing ActivityCreateController");
+		this.activityService = activityService;
+		this.profileService = profileService;
 		this.listener = listener;
-		this.viewController = viewController;
 	}
 
 	@Override
-	public void saveActivity(Sport sport, int intensity, int duration, LocalDateTime dateTime) {
-		Activity activity =
-				new Activity(
-						sport,
-						Intensity.fromInt(intensity),
-						Duration.ofMinutes(duration),
-						dateTime);
-		activity.save();
-		this.viewController.showCaloriesConsumed(
-				activity.getCaloriesBurned(Profile.load().getWeight()));
+	public void show(Stage stage) {
+		logger.info("Showing ActivityCreateView");
+		this.loadView("/ulb/views/ActivityCreate.fxml", stage);
+		this.viewController.setListener(this);
+	}
+
+	@Override
+	public void saveActivity(ActivityDTO activityDTO) {
+		int burnedCalories =
+				this.activityService.calculateCaloriesBurnedDuringActivity(
+						activityDTO, this.profileService.getProfileWeight());
+		activityDTO = new ActivityDTO(activityDTO, burnedCalories);
+		logger.info("Saving activity {}", activityDTO);
+		this.activityService.saveActivity(activityDTO);
+		((ActivityCreateViewController) this.viewController)
+				.showCaloriesConsumed(activityDTO.burnedCalories());
 	}
 
 	@Override
 	public void returnHome() {
+		logger.info("Returning to home screen");
 		this.listener.returnHome();
 	}
 

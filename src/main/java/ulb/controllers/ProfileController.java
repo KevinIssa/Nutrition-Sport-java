@@ -18,12 +18,11 @@
  */
 package ulb.controllers;
 
-import java.time.LocalDate;
-import ulb.exceptions.ImageException;
-import ulb.models.Height;
-import ulb.models.Profile;
-import ulb.models.Weight;
-import ulb.models.enums.Sex;
+import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ulb.dtos.ProfileDTO;
+import ulb.services.ProfileService;
 import ulb.views.ProfileViewController;
 
 /**
@@ -31,83 +30,57 @@ import ulb.views.ProfileViewController;
  * It is responsible for handling the logic of the profile screen, such as saving the user's profile information.
  * It also listens to events from the ProfileViewController and notifies the listener when the user wants to delete their profile or return to the home screen.
  */
-public class ProfileController implements AppController, ProfileViewController.Listener {
-
-	private final Profile profile = Profile.load();
+public class ProfileController extends AppController implements ProfileViewController.Listener {
+	private static final Logger logger = LoggerFactory.getLogger(ProfileController.class);
+	private final ProfileService profileService;
 	private final ProfileController.Listener listener;
 
-	public ProfileController(ProfileController.Listener listener) {
+	public ProfileController(ProfileService profileService, ProfileController.Listener listener) {
+		logger.info("Initializing ProfileController");
+		this.profileService = profileService;
 		this.listener = listener;
 	}
 
 	@Override
-	public void saveProfile(
-			String firstName,
-			String lastName,
-			String sex,
-			java.time.LocalDate birthDate,
-			float height,
-			float weight)
-			throws IllegalArgumentException {
-		Profile profile =
-				new Profile(
-						firstName,
-						lastName,
-						Sex.fromString(sex),
-						new Weight(weight),
-						new Height(height),
-						birthDate);
-		profile.save();
+	public void show(Stage stage) {
+		logger.info("Showing ProfileView");
+		this.loadView("/ulb/views/Profile.fxml", stage);
+		this.viewController.setListener(this);
+	}
+
+	@Override
+	public void updateProfile(ProfileDTO profileDTO) {
+		try {
+			logger.info("Updating profile {}", profileDTO);
+			this.profileService.updateProfile(profileDTO);
+		} catch (Exception e) {
+			// TODO: Handle exception
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public ProfileDTO getProfile() {
+		logger.info("Getting profile");
+		return this.profileService.loadProfile();
+	}
+
+	@Override
+	public String getProfileImagePath() {
+		logger.info("Getting profile image path");
+		return profileService.getProfileImagePath();
 	}
 
 	@Override
 	public void deleteProfileView() {
+		logger.info("Deleting profile view");
 		this.listener.deleteProfile();
 	}
 
 	@Override
 	public void returnHome() {
+		logger.info("Returning to home screen");
 		this.listener.returnHome();
-	}
-
-	@Override
-	public String getFirstName() {
-		return profile.getFirstName();
-	}
-
-	@Override
-	public String getLastName() {
-		return profile.getLastName();
-	}
-
-	@Override
-	public String getSex() {
-		return profile.getSex().toString();
-	}
-
-	@Override
-	public LocalDate getBirthDate() {
-		return profile.getBirthDate();
-	}
-
-	@Override
-	public float getHeight() {
-		return profile.getHeight();
-	}
-
-	@Override
-	public float getWeight() {
-		return profile.getWeight();
-	}
-
-	@Override
-	public void saveProfileImage(String imagePath) throws ImageException {
-		Profile.saveImage(imagePath);
-	}
-
-	@Override
-	public String getProfileImagePath() {
-		return Profile.IMAGE_PATH;
 	}
 
 	/**

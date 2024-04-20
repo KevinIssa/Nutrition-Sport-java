@@ -18,86 +18,55 @@
  */
 package ulb.models;
 
+import ulb.exceptions.BadHeightException;
+import ulb.exceptions.ValueObjectException;
+
 /**
- * Represents the height of an individual.
+ * This class represents a Height, which is a ValueObject that holds a Float value.
+ * The height must be within a specified range (MIN_HEIGHT to MAX_HEIGHT).
  */
-public class Height {
+public class Height extends ValueObject<Float> {
 
 	private static final int MIN_HEIGHT = 1; // Minimum height allowed
 	private static final int MAX_HEIGHT = 300; // Maximum height allowed
 
-	private float height; // in cm
-
 	/**
-	 * Constructor for the Height class.
-	 *
-	 * @param height The height value in centimeters.
-	 * @throws IllegalArgumentException If the provided height is not within the allowed range.
+	 * Default constructor for Height.
+	 * Initializes the Height with no value.
 	 */
-	public Height(float height) throws IllegalArgumentException {
-		validateHeight(height);
-		this.height = height;
+	public Height() {
+		super();
 	}
 
 	/**
-	 * Validates the provided height value.
-	 *
-	 * @param height The height value to validate.
-	 * @throws IllegalArgumentException If the provided height is not within the allowed range.
+	 * Constructor for Height with a specified height.
+	 * @param height The height to be held by this Height object.
+	 * @throws ValueObjectException If the height is not valid.
 	 */
-	private void validateHeight(float height) throws IllegalArgumentException {
+	public Height(float height) throws ValueObjectException {
+		super(height);
+	}
+
+	/**
+	 * Checks the validity of a specified height.
+	 * The height must be greater than MIN_HEIGHT and less than MAX_HEIGHT.
+	 * @param height The height to check.
+	 * @throws BadHeightException If the height is not within the valid range.
+	 */
+	protected void checkValidity(Float height) throws BadHeightException {
 		if (height <= MIN_HEIGHT) {
-			throw new IllegalArgumentException("Height must be greater than " + MIN_HEIGHT);
+			throw new BadHeightException("Height must be greater than " + MIN_HEIGHT);
 		} else if (height > MAX_HEIGHT) {
-			throw new IllegalArgumentException("Height must be less than " + MAX_HEIGHT);
+			throw new BadHeightException("Height must be less than " + MAX_HEIGHT);
 		}
 	}
 
 	/**
-	 * Retrieves the height value.
-	 *
-	 * @return The height value in centimeters.
-	 */
-	public float getHeight() {
-		return height;
-	}
-
-	/**
-	 * Sets the height value.
-	 *
-	 * @param height The height value to set in centimeters.
-	 * @throws IllegalArgumentException If the provided height is not within the allowed range.
-	 */
-	public void setHeight(float height) throws IllegalArgumentException {
-		validateHeight(height);
-		this.height = height;
-	}
-
-	/**
-	 * Returns a string representation of the Height object.
-	 *
-	 * @return A string representing the height.
+	 * Converts this Height object to a String.
+	 * @return A string representation of this Height object, in the format "{value} cm".
 	 */
 	@Override
 	public String toString() {
-		return "Height=" + height;
-	}
-
-	/**
-	 * Checks if this Height object is equal to another object.
-	 *
-	 * @param obj The object to compare with this Height object.
-	 * @return True if the objects are equal, false otherwise.
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null || this.getClass() != obj.getClass()) {
-			return false;
-		}
-		Height otherHeight = (Height) obj;
-		return Float.compare(otherHeight.height, height) == 0;
+		return String.format("%.2f cm", value);
 	}
 }
