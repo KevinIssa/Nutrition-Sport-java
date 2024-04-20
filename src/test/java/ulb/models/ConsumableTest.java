@@ -18,19 +18,14 @@
  */
 package ulb.models;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-public class TestHeight {
+public class ConsumableTest {
 
 	@Test
-	public void inAnOtherDimension() {
-		assertThrows(Exception.class, () -> new Height(-5));
-	}
-
-	@Test
-	public void tooHigh() {
-		assertThrows(Exception.class, () -> new Height(500));
+	public void testGetCaloriesConsumedByGrams() {
+		assertEquals(100, new Food("food", 100, 100, "100g").getCaloriesConsumedByGrams(100), 0);
 	}
 }

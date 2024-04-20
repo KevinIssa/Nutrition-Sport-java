@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-public class TestMeal {
+public class MealTest {
 
 	@Test
 	public void testMeal() {

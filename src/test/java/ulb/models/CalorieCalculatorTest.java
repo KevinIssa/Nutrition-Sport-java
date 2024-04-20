@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 import ulb.enums.Intensity;
 import ulb.enums.Sport;
 
-public class TestCalorieCalculator {
+public class CalorieCalculatorTest {
 
 	@Test
 	public void computeRunning() {
