@@ -19,6 +19,8 @@
 package ulb.models;
 
 import java.time.LocalDate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.enums.Sex;
 import ulb.exceptions.*;
 
@@ -27,6 +29,7 @@ import ulb.exceptions.*;
  * It contains the user's first name, last name, sex, weight, height, and birth date.
  */
 public class Profile {
+	private static final Logger logger = LoggerFactory.getLogger(Profile.class);
 	private Name firstName;
 	private Name lastName;
 	private Sex sex;
@@ -64,6 +67,7 @@ public class Profile {
 		this.weight = new Weight(weight);
 		this.height = new Height(height);
 		this.birthDate = new BirthDate(birthDate);
+		logger.info("Profile object created: {}", this);
 	}
 
 	/**

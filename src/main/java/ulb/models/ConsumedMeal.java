@@ -24,6 +24,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The ConsumedMeal class represents a meal that a user has consumed.
+ * It contains a list of ConsumedFood objects, each representing a food item that was part of the meal.
+ * It also contains the date and time when the meal was consumed.
+ */
 public class ConsumedMeal {
 	private static final Logger logger = LoggerFactory.getLogger(ConsumedMeal.class);
 	private final List<ConsumedFood> consumedFoods = new ArrayList<>();
@@ -37,30 +42,30 @@ public class ConsumedMeal {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof ConsumedMeal)) return false;
-		ConsumedMeal meal = (ConsumedMeal) obj;
+		if (!(obj instanceof ConsumedMeal meal)) return false;
 		return meal.date.equals(date) && meal.consumedFoods.equals(consumedFoods);
 	}
 
 	/**
-	 * Adds a ConsumedFoodDTO object to the consumedFoods list.
+	 * Adds a ConsumedFood object to the consumedFoods list.
 	 *
-	 * @param food ConsumedFoodDTO object to be added
+	 * @param food ConsumedFood object to be added
 	 */
 	public void addConsumedFood(ConsumedFood food) {
 		consumedFoods.add(food);
+		logger.info("Consumed food added to meal: {}", food);
 	}
 
 	/**
-	 * Creates a new ConsumedFoodDTO object and adds it to the consumedFoods list.
+	 * Creates a new ConsumedFood object and adds it to the consumedFoods list.
 	 *
 	 * @param name     Name of the food
 	 * @param quantity Quantity of the food consumed
 	 * @param calories Calories of the food consumed
+	 * @param type     Type of the food
 	 */
 	public void addConsumedFood(String name, int quantity, int calories, String type) {
 		consumedFoods.add(new ConsumedFood(name, quantity, calories, type));
-		logger.info("Added food: {} qty: {} cal: {} type: {}", name, quantity, calories, type);
 	}
 
 	/**
