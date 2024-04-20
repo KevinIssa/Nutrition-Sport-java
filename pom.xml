@@ -126,6 +126,9 @@
 							<version>${junit.version}</version>
 						</dependency>
 					</dependencies>
+					<configuration>
+						<argLine>--enable-preview</argLine>
+					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
