@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +31,6 @@ import ulb.models.Food;
 import ulb.models.FoodLoader;
 import ulb.models.Meal;
 import ulb.views.AddFoodViewController;
-import ulb.widgets.FoodBox;
 
 /**
  * The FoodController class is responsible for managing the interactions between the FoodViewController and the model classes related to food and meals.
@@ -81,9 +79,6 @@ public class FoodController extends AppController implements AddFoodViewControll
 	}
 
 	@Override
-	public void deleteFood(FoodBox selectedItem) {}
-
-	@Override
 	public void reload() {
 		this.foodLoader = loadFoods();
 	}
@@ -91,21 +86,6 @@ public class FoodController extends AppController implements AddFoodViewControll
 	@Override
 	public int getCaloriesConsumedByGrams(String food, int quantity) {
 		return this.foodLoader.getFoodByName(food).getCaloriesConsumedByGrams(quantity);
-	}
-
-	@Override
-	public void saveConsumedFoods(
-			ArrayList<ObservableList<String>> consumedFoodsList, LocalDateTime mealDate) {
-		ConsumedMeal consumedMeal = new ConsumedMeal();
-		for (List<String> consumedFood : consumedFoodsList) {
-			consumedMeal.addConsumedFood(
-					consumedFood.get(0),
-					Integer.parseInt(consumedFood.get(1)),
-					Integer.parseInt(consumedFood.get(2)),
-					consumedFood.get(3));
-		}
-		consumedMeal.setDate(mealDate);
-		consumedMeal.save();
 	}
 
 	@Override
@@ -124,6 +104,21 @@ public class FoodController extends AppController implements AddFoodViewControll
 					Integer.parseInt(consumedFood.get(1)));
 		}
 		newmeal.save();
+	}
+
+	@Override
+	public void saveConsumedFoods(
+			ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealDate) {
+		ConsumedMeal consumedMeal = new ConsumedMeal();
+		for (List<String> consumedFood : consumedFoodsList) {
+			consumedMeal.addConsumedFood(
+					consumedFood.get(0),
+					Integer.parseInt(consumedFood.get(1)),
+					Integer.parseInt(consumedFood.get(2)),
+					consumedFood.get(3));
+		}
+		consumedMeal.setDate(mealDate);
+		consumedMeal.save();
 	}
 
 	@Override
