@@ -18,9 +18,6 @@
  */
 package ulb.repositories;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -35,7 +32,7 @@ import ulb.models.Profile;
  * This class implements the ProfileRepository interface and provides methods for saving, loading, updating, and deleting Profile objects.
  * It uses JSON files for storing and retrieving profiles.
  */
-public class JSONProfileRepository implements ProfileRepository {
+public class JSONProfileRepository extends JSONRepository<Profile> implements ProfileRepository {
 	private static final String FILE_NAME = "profile.json";
 	private static final String IMAGE_PATH = "profile.png";
 
@@ -45,14 +42,12 @@ public class JSONProfileRepository implements ProfileRepository {
 	 */
 	@Override
 	public void save(Profile profile) {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		mapper.registerModule(new JavaTimeModule());
 		try {
-			mapper.writeValue(new File(FILE_NAME), profile);
+			super.save(profile, FILE_NAME);
 		} catch (IOException e) {
 			// TODO: Handle exception
 			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 
@@ -90,15 +85,13 @@ public class JSONProfileRepository implements ProfileRepository {
 	 */
 	@Override
 	public Profile load() {
-		File file = new File(FILE_NAME);
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new JavaTimeModule());
 		try {
-			return mapper.readValue(file, Profile.class);
+			return super.load(FILE_NAME);
 		} catch (IOException e) {
 			// TODO: Handle exception
-			// logger.error("Error loading profile from file: {}", FILE_NAME);
-			return null;
+			e.printStackTrace();
+			System.exit(1);
+			return null; // Unreachable
 		}
 	}
 
@@ -116,7 +109,7 @@ public class JSONProfileRepository implements ProfileRepository {
 	 */
 	@Override
 	public void delete() {
-		new File(FILE_NAME).delete();
+		this.delete(FILE_NAME);
 	}
 
 	/**
@@ -144,5 +137,15 @@ public class JSONProfileRepository implements ProfileRepository {
 	@Override
 	public float getWeight() {
 		return Optional.ofNullable(this.load()).map(Profile::getWeight).orElse(0f);
+	}
+
+	/**
+	 * Returns the Class object for type Profile.
+	 * It is used by the Jackson library to know the type of the objects to deserialize.
+	 * @return the Class object for type Profile
+	 */
+	@Override
+	protected Class<Profile> getObjectType() {
+		return Profile.class;
 	}
 }

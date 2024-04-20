@@ -18,9 +18,6 @@
  */
 package ulb.repositories;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -31,10 +28,11 @@ import ulb.models.Activity;
 import ulb.models.CalorieCalculator;
 
 /**
- * This class implements the ActivityRepository interface and provides methods for saving, loading, deleting activities,
- * and calculating calories burned. It uses JSON files for storing and retrieving activities.
+ * This class extends JSONRepository and implements ActivityRepository.
+ * It provides methods for saving, loading, deleting activities, and calculating calories burned.
+ * It uses JSON files for storing and retrieving activities.
  */
-public class JSONActivityRepository implements ActivityRepository {
+public class JSONActivityRepository extends JSONRepository<Activity> implements ActivityRepository {
 	private static final String FOLDER_NAME = "activities";
 
 	/**
@@ -53,31 +51,12 @@ public class JSONActivityRepository implements ActivityRepository {
 						FOLDER_NAME}/\{
 						LocalDateTime.now()
 								.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))}.json";
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		mapper.registerModule(new JavaTimeModule());
 		try {
-			// logger.info("Saving activity:{} to {} ", this, filename);
-			mapper.writeValue(new File(filename), activity);
+			super.save(activity, filename);
 		} catch (IOException e) {
-			// logger.error("Error saving activity to file", e);
-		}
-	}
-
-	/**
-	 * Loads an Activity object from a given JSON file.
-	 * @param file The JSON file from which the Activity object is to be loaded.
-	 * @return The loaded Activity object.
-	 */
-	private Activity load(File file) {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new JavaTimeModule());
-		try {
-			// logger.info("Loading activity from file: {}", file);
-			return mapper.readValue(file, Activity.class);
-		} catch (IOException e) {
-			// logger.error("Error loading activity from file", e);
-			return null;
+			// TODO: Handle exception
+			e.printStackTrace();
+			System.exit(1);
 		}
 	}
 
@@ -94,7 +73,12 @@ public class JSONActivityRepository implements ActivityRepository {
 			// logger.info("Loading all activities");
 			for (File file : files) {
 				if (!file.isDirectory()) {
-					activities.add(load(file));
+					try {
+						activities.add(super.load(file.getPath()));
+					} catch (IOException _) {
+						// If the file is corrupted, we just skip it
+						// logger.error("Failed to load activity", e);
+					}
 				}
 			}
 		}
@@ -112,7 +96,14 @@ public class JSONActivityRepository implements ActivityRepository {
 		if (files != null) {
 			// logger.info("Deleting all activities");
 			for (File file : files) {
-				Activity loadedActivity = load(file);
+				Activity loadedActivity = null;
+				try {
+					loadedActivity = load(file.getPath());
+				} catch (IOException _) {
+					// If the file is corrupted, we just skip it
+					// logger.error("Failed to load activity", e);
+					continue;
+				}
 				if (loadedActivity.equals(activity)) {
 					file.delete();
 				}
@@ -146,5 +137,15 @@ public class JSONActivityRepository implements ActivityRepository {
 	@Override
 	public int calculateCaloriesBurned(Activity activity, float weight) {
 		return (int) CalorieCalculator.compute(activity, weight);
+	}
+
+	/**
+	 * Returns the Class object for type Activity.
+	 * It is used by the Jackson library to know the type of the objects to deserialize.
+	 * @return the Class object for type Activity
+	 */
+	@Override
+	protected Class<Activity> getObjectType() {
+		return Activity.class;
 	}
 }
