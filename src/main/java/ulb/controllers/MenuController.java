@@ -22,8 +22,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ulb.models.*;
 import ulb.repositories.ActivityRepository;
+import ulb.repositories.ConsumeMealRepository;
 import ulb.repositories.JSONActivityRepository;
+import ulb.repositories.JSONConsumeMealRepository;
 import ulb.services.ActivityService;
+import ulb.services.ConsumeMealService;
 import ulb.services.ProfileService;
 import ulb.views.*;
 
@@ -202,7 +205,10 @@ public class MenuController extends AppController implements MenuViewController.
 	 */
 	@Override
 	public void loadMealHistoryView() {
-		AppController controller = new MealHistoryController(this::loadMenuView);
+		ConsumeMealRepository consumeMealRepository = new JSONConsumeMealRepository();
+		ConsumeMealService consumeMealService = new ConsumeMealService(consumeMealRepository);
+		AppController controller =
+				new MealHistoryController(consumeMealService, this::loadMenuView);
 		controller.show(this.primaryStage);
 	}
 

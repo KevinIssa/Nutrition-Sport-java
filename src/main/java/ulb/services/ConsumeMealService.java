@@ -34,9 +34,26 @@ public class ConsumeMealService {
 
 	private final FoodLoader foodLoader = new FoodLoader(); // TODO: Change this
 
-
 	public ConsumeMealService(ConsumeMealRepository consumeMealRepository) {
 		this.consumeMealRepository = consumeMealRepository;
+	}
+
+	public void saveConsumedMeal(ConsumedMealDTO consumedMealDTO) {
+		this.consumeMealRepository.save(this.convertToConsumedMeal(consumedMealDTO));
+	}
+
+	public List<ConsumedMealDTO> getConsumedMeals() {
+		return this.consumeMealRepository.loadAll().stream()
+				.map(this::convertToConsumedMealDTO)
+				.collect(Collectors.toList());
+	}
+
+	public void deleteConsumedMeal(ConsumedMealDTO consumedMealDTO) {
+		this.consumeMealRepository.delete(this.convertToConsumedMeal(consumedMealDTO));
+	}
+
+	public void deleteAllConsumedMeals() {
+		this.consumeMealRepository.deleteAll();
 	}
 
 	private ConsumedMeal convertToConsumedMeal(ConsumedMealDTO consumedMealDTO) {
