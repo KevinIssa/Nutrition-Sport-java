@@ -74,6 +74,17 @@ public class ActivityService {
 	}
 
 	/**
+	 * Calculates the calories burned during an activity for a given weight.
+	 * @param activityDTO The ActivityDTO object for which the calories burned is to be calculated.
+	 * @param weight The weight of the user.
+	 * @return The number of calories burned.
+	 */
+	public int calculateCaloriesBurnedDuringActivity(ActivityDTO activityDTO, float weight) {
+		return this.calculateCaloriesBurnedDuringActivity(
+				this.convertToActivity(activityDTO), weight);
+	}
+
+	/**
 	 * Converts an ActivityDTO object to an Activity object.
 	 * @param activityDTO The ActivityDTO object to be converted.
 	 * @return The converted Activity object.
@@ -99,17 +110,6 @@ public class ActivityService {
 				(int) activity.getDuration().toMinutes(),
 				activity.getDate(),
 				activity.getBurnedCalories());
-	}
-
-	/**
-	 * Calculates the calories burned during an activity for a given weight.
-	 * @param activityDTO The ActivityDTO object for which the calories burned is to be calculated.
-	 * @param weight The weight of the user.
-	 * @return The number of calories burned.
-	 */
-	public int calculateCaloriesBurnedDuringActivity(ActivityDTO activityDTO, float weight) {
-		return this.calculateCaloriesBurnedDuringActivity(
-				this.convertToActivity(activityDTO), weight);
 	}
 
 	/**

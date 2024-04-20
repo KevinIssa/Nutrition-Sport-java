@@ -76,15 +76,15 @@ public class ConsumedMeal implements JsonSerializable {
 	}
 
 	/**
-	 * Adds a ConsumedFood object to the consumedFoods list.
-	 * @param food ConsumedFood object to be added
+	 * Adds a ConsumedFoodDTO object to the consumedFoods list.
+	 * @param food ConsumedFoodDTO object to be added
 	 */
 	public void addConsumedFood(ConsumedFood food) {
 		consumedFoods.add(food);
 	}
 
 	/**
-	 * Creates a new ConsumedFood object and adds it to the consumedFoods list.
+	 * Creates a new ConsumedFoodDTO object and adds it to the consumedFoods list.
 	 * @param name Name of the food
 	 * @param quantity Quantity of the food consumed
 	 * @param calories Calories of the food consumed
@@ -211,7 +211,7 @@ class ConsumedFoodListSerializer extends JsonSerializer<List<ConsumedFood>> {
 
 	/**
 	 * Serializes the consumedFoods list to JSON format.
-	 * @param consumedFoods List of ConsumedFood objects to be serialized
+	 * @param consumedFoods List of ConsumedFoodDTO objects to be serialized
 	 * @param jsonGenerator JsonGenerator object used for writing JSON content
 	 * @param serializerProvider SerializerProvider object used for accessing secondary serializers
 	 */
