@@ -18,13 +18,4 @@
  */
 package ulb.repositories;
 
-import ulb.models.ConsumedMeal;
-
-public class JSONConsumedMealRepository extends JSONRepository<ConsumedMeal>
-		implements ConsumedMealRepository {
-
-	@Override
-	protected Class<ConsumedMeal> getObjectType() {
-		return ConsumedMeal.class;
-	}
-}
+public interface ConsumeMealRepository {}

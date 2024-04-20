@@ -57,9 +57,7 @@ public class FoodController extends AppController implements AddFoodViewControll
 
 	@Override
 	public void show(Stage stage) {
-		System.out.println("Loading food view");
 		this.loadView("/ulb/views/AddFood.fxml", stage);
-		System.out.println("Food view loaded");
 		this.viewController.setListener(this);
 	}
 
