@@ -18,8 +18,9 @@
  */
 package ulb.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.enums.Sex;
 import ulb.exceptions.*;
 
@@ -28,13 +29,12 @@ import ulb.exceptions.*;
  * It contains the user's first name, last name, sex, weight, height, and birth date.
  */
 public class Profile {
+	private static final Logger logger = LoggerFactory.getLogger(Profile.class);
 	private Name firstName;
 	private Name lastName;
 	private Sex sex;
 	private Weight weight;
 	private Height height;
-
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private BirthDate birthDate;
 
 	/**
@@ -67,6 +67,7 @@ public class Profile {
 		this.weight = new Weight(weight);
 		this.height = new Height(height);
 		this.birthDate = new BirthDate(birthDate);
+		logger.info("Profile object created: {}", this);
 	}
 
 	/**
