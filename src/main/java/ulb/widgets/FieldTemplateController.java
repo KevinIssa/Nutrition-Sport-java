@@ -36,6 +36,8 @@ public class FieldTemplateController
 		super.setEditMode();
 		infoFieldUser.setVisible(true);
 		infoFieldUser.setText(infoUser.getText());
+		infoFieldUser.requestFocus();
+		infoFieldUser.positionCaret(infoFieldUser.getText().length());
 	}
 
 	@Override

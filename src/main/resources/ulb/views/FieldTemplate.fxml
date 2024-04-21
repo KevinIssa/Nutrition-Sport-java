@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.widgets.FieldTemplateController">
    <children>
@@ -16,8 +17,14 @@
          <children>
             <StackPane>
                <children>
-                  <Label fx:id="infoUser" alignment="CENTER" minHeight="36.0" prefWidth="376.0" text="Label" textFill="#f3fbfb" />
-                  <TextField fx:id="infoFieldUser" onAction="#toggleMode" minHeight="36.0" prefWidth="376.0" />
+                  <Label fx:id="infoUser" alignment="CENTER" minHeight="36.0" prefWidth="376.0" text="Label" textFill="#f3fbfb">
+                     <font>
+                        <Font size="22.0" />
+                     </font></Label>
+                  <TextField fx:id="infoFieldUser" maxHeight="36.0" minHeight="36.0" onAction="#toggleMode" prefWidth="376.0">
+                     <font>
+                        <Font size="22.0" />
+                     </font></TextField>
                </children>
             </StackPane>
             <Button fx:id="editButton" minHeight="36.0" minWidth="43.0" mnemonicParsing="false" onAction="#toggleMode" style="-fx-background-color: #fd9c2d; -fx-background-radius: 10;">
