@@ -116,6 +116,10 @@ public class ActivityHistoryViewController implements ViewController {
 		this.setActivities();
 	}
 
+	public void loadAddActivity() {
+		this.listener.addActivity();
+	}
+
 	// Listener interface for communication with the controller
 	public interface Listener {
 
@@ -124,5 +128,7 @@ public class ActivityHistoryViewController implements ViewController {
 		void deleteActivity(ActivityDTO activityDTO);
 
 		void returnHome();
+
+		void addActivity();
 	}
 }
