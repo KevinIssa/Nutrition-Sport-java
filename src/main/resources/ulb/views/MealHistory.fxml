@@ -42,6 +42,18 @@
                      </effect>
                   </ImageView>
                </graphic></Button>
+            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="47.0" onAction="#loadAddMeal" style="-fx-background-color: #656ff9; -fx-background-radius: 10;" translateX="10.0">
+               <graphic>
+                  <ImageView fitHeight="38.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/menu_img/plus.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust brightness="1.0" />
+                     </effect>
+                  </ImageView>
+               </graphic>
+            </Button>
             </children>
         </HBox>
     </children>
