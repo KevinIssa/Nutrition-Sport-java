@@ -30,6 +30,18 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
+            <Button fx:id="addActivityButton" mnemonicParsing="false" prefHeight="46.0" prefWidth="46.0" onAction="#loadAddActivity" style="-fx-background-color: #656ff9; -fx-background-radius: 10;" translateX="10.0">
+               <graphic>
+                  <ImageView fitHeight="37.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/menu_img/plus.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust brightness="1.0" />
+                     </effect>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </HBox>
       <HBox fx:id="filters" prefHeight="83.0" prefWidth="642.0" spacing="10.0" visible="false">

@@ -157,7 +157,7 @@ class ConsumedMealDeserializer extends StdDeserializer<ConsumedMeal> {
 				String name = element.get("name").asText();
 				int quantity = element.get("quantity").asInt();
 				int calories = element.get("calories").asInt();
-				String text = element.get("type").asText();
+				String text = element.get("unit").asText();
 				meal.addConsumedFood(name, quantity, calories, text);
 			}
 		}

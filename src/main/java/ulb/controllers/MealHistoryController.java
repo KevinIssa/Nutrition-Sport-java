@@ -57,6 +57,11 @@ public class MealHistoryController extends AppController
 		this.listener.returnHome();
 	}
 
+	@Override
+	public void addMeal() {
+		this.listener.addMeal();
+	}
+
 	//	@Override
 	//	public void deleteFood(HBox foodBox) {
 	//		String date_in_string = ((Label) foodBox.getChildren().get(4)).getText();
@@ -117,5 +122,7 @@ public class MealHistoryController extends AppController
 		 * The implementing class should define the behavior that occurs when this event happens.
 		 */
 		void returnHome();
+
+		void addMeal();
 	}
 }
