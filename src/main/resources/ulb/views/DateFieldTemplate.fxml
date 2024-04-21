@@ -21,7 +21,7 @@
                      <font>
                         <Font size="22.0" />
                      </font></Label>
-                  <DatePicker fx:id="birthdateFieldInfo" minHeight="36.0" prefWidth="376.0" />
+                  <DatePicker fx:id="birthdateFieldInfo" onAction="#toggleMode" minHeight="36.0" prefWidth="376.0" />
                </children>
             </StackPane>
             <Button fx:id="editButton" minHeight="36.0" minWidth="43.0" mnemonicParsing="false" onAction="#toggleMode" style="-fx-background-color: #fd9c2d; -fx-background-radius: 10;">

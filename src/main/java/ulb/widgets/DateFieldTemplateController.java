@@ -37,6 +37,7 @@ public class DateFieldTemplateController extends AbstractFieldTemplate {
 		super.setEditMode();
 		birthdateFieldInfo.setVisible(true);
 		birthdateFieldInfo.setValue(getFormattedDate());
+		birthdateFieldInfo.requestFocus();
 	}
 
 	@Override

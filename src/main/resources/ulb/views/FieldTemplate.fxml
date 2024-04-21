@@ -21,7 +21,7 @@
                      <font>
                         <Font size="22.0" />
                      </font></Label>
-                  <TextField fx:id="infoFieldUser" maxHeight="36.0" minHeight="36.0" onAction="#toggleMode" prefWidth="376.0">
+                  <TextField fx:id="infoFieldUser" minHeight="36.0" onAction="#toggleMode" prefWidth="376.0">
                      <font>
                         <Font size="22.0" />
                      </font></TextField>
