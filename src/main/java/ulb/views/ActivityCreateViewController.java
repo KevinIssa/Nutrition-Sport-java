@@ -108,11 +108,11 @@ public class ActivityCreateViewController implements ViewController {
 
 	public void setIntensitySliderColor() {
 		if (intensitySlider.getValue() == 0) {
-			intensitySlider.setStyle("-fx-control-inner-background: #b7ed65;");
+			intensitySlider.setStyle("-fx-control-inner-background: #98ff00;");
 		} else if (intensitySlider.getValue() == 1) {
-			intensitySlider.setStyle("-fx-control-inner-background: #f2e060;");
-		} else {
-			intensitySlider.setStyle("-fx-control-inner-background: #f26060;");
+			intensitySlider.setStyle("-fx-control-inner-background: #ffe000;");
+		} else if (intensitySlider.getValue() == 2) {
+			intensitySlider.setStyle("-fx-control-inner-background: #ff0000;");
 		}
 	}
 
