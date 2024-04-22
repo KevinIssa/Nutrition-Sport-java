@@ -171,7 +171,7 @@ public class MenuController extends AppController implements MenuViewController.
 						activityService,
 						this.profileService,
 						() -> {
-							loadMenuView();
+							loadActivityHistoryView();
 							popupStage.close();
 						});
 		controller.show(popupStage);

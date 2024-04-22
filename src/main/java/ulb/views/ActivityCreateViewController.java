@@ -40,6 +40,7 @@ public class ActivityCreateViewController implements ViewController {
 	private Button buttonWalking, buttonRunning, buttonBiking, buttonSwimming, buttonVolleyball;
 	@FXML private DatePicker activityDate;
 	@FXML private TextField hour, minute;
+	@FXML private Label caloriesBurned;
 
 	private NumberField durationNumber;
 	private NumberField hourNumber;
@@ -54,6 +55,7 @@ public class ActivityCreateViewController implements ViewController {
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		this.selectedButton = this.buttonWalking;
 		this.intensitySlider.setLabelFormatter(new IntensityStringConverter());
+		this.intensitySlider.setStyle("-fx-control-inner-background: #f2e060;");
 		this.durationNumber = new NumberField(this.duration);
 		this.hourNumber = new NumberField(this.hour);
 		this.minuteNumber = new NumberField(this.minute);
@@ -102,6 +104,16 @@ public class ActivityCreateViewController implements ViewController {
 	public LocalDateTime getDateTime() {
 		LocalTime activityTime = getActivityTime();
 		return LocalDateTime.of(activityDate.getValue(), activityTime);
+	}
+
+	public void setIntensitySliderColor() {
+		if (intensitySlider.getValue() == 0) {
+			intensitySlider.setStyle("-fx-control-inner-background: #b7ed65;");
+		} else if (intensitySlider.getValue() == 1) {
+			intensitySlider.setStyle("-fx-control-inner-background: #f2e060;");
+		} else {
+			intensitySlider.setStyle("-fx-control-inner-background: #f26060;");
+		}
 	}
 
 	/**
@@ -186,6 +198,8 @@ public class ActivityCreateViewController implements ViewController {
 		void saveActivity(ActivityDTO activityDTO);
 
 		void returnHome();
+
+
 	}
 
 	// Custom string converter for intensity slider labels
