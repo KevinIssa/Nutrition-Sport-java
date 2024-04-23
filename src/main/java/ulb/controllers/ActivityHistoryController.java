@@ -73,6 +73,12 @@ public class ActivityHistoryController extends AppController
 		this.listener.returnHome();
 	}
 
+	@Override
+	public void addActivity() {
+		logger.info("Adding activity");
+		this.listener.addActivity();
+	}
+
 	/**
 	 * This is an interface for the Listener within the ActivityHistoryController class.
 	 * It is used to define the contract for the Listener, which is expected to be implemented by any class that wants to listen to events from the ActivityHistoryController.
@@ -86,5 +92,7 @@ public class ActivityHistoryController extends AppController
 		 * The implementing class should define the behavior that occurs when this event happens.
 		 */
 		void returnHome();
+
+		void addActivity();
 	}
 }

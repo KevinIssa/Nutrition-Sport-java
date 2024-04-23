@@ -30,6 +30,7 @@ import ulb.models.ConsumedMeal;
 import ulb.models.Food;
 import ulb.models.FoodLoader;
 import ulb.models.Meal;
+import ulb.repositories.JSONConsumeMealRepository;
 import ulb.views.AddFoodViewController;
 
 /**
@@ -118,7 +119,8 @@ public class FoodController extends AppController implements AddFoodViewControll
 					consumedFood.get(3));
 		}
 		consumedMeal.setDate(mealDate);
-		consumedMeal.save();
+		new JSONConsumeMealRepository().save(consumedMeal);
+		//		consumedMeal.save();
 	}
 
 	@Override

@@ -18,10 +18,10 @@
  */
 package ulb.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.enums.Intensity;
 import ulb.enums.Sport;
 
@@ -30,14 +30,12 @@ import ulb.enums.Sport;
  * It contains the sport type, intensity, duration, date of the activity, and the number of calories burned.
  */
 public class Activity {
-	private Sport sport; // The type of sport for the activity
-	private Intensity intensity; // The intensity of the activity
-	private Duration duration; // The duration of the activity
-
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd-HH-mm-ss")
-	private LocalDateTime date; // The date and time when the activity was performed
-
-	private int burnedCalories; // The number of calories burned during the activity
+	private static final Logger logger = LoggerFactory.getLogger(Activity.class);
+	private Sport sport;
+	private Intensity intensity;
+	private Duration duration;
+	private LocalDateTime date;
+	private int burnedCalories;
 
 	/**
 	 * Default constructor for Activity class.
@@ -77,6 +75,7 @@ public class Activity {
 		this.duration = duration;
 		this.date = date;
 		this.burnedCalories = burnedCalories;
+		logger.info("Activity object created {}", this);
 	}
 
 	/**
@@ -97,20 +96,23 @@ public class Activity {
 				&& date.equals(activity.date);
 	}
 
-	// Utility methods.
-
 	/**
-	 * Gets the duration of the activity in minutes.
+	 * Provides a string representation of the Activity object.
+	 * The string representation includes the sport, intensity, duration, date, and the number of calories burned during the activity.
 	 *
-	 * @return The duration of the activity in minutes.
+	 * @return A string representation of the Activity object.
 	 */
-	@JsonIgnore
-	public int getDurationInMinutes() {
-		return (int) duration.toMinutes();
+	@Override
+	public String toString() {
+		return STR."Activity{sport=\{
+				sport}, intensity=\{
+				intensity}, duration=\{
+				duration}, date=\{
+				date}, burnedCalories=\{
+				burnedCalories}}";
 	}
 
 	// Getters and setters for class attributes.
-	// These are used by Jackson to serialize and deserialize JSON data.
 
 	/**
 	 * Gets the sport of the activity.

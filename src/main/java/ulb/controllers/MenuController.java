@@ -171,7 +171,7 @@ public class MenuController extends AppController implements MenuViewController.
 						activityService,
 						this.profileService,
 						() -> {
-							loadMenuView();
+							loadActivityHistoryView();
 							popupStage.close();
 						});
 		controller.show(popupStage);
@@ -193,7 +193,19 @@ public class MenuController extends AppController implements MenuViewController.
 		ActivityRepository activityRepository = new JSONActivityRepository();
 		ActivityService activityService = new ActivityService(activityRepository);
 		AppController controller =
-				new ActivityHistoryController(activityService, this::loadMenuView);
+				new ActivityHistoryController(activityService,
+						new ActivityHistoryController.Listener() {
+							@Override
+							public void returnHome() {
+								loadMenuView();
+							}
+
+							@Override
+							public void addActivity() {
+								loadCreateActivityView();
+							}
+						});
+
 		controller.show(this.primaryStage);
 	}
 
@@ -208,7 +220,19 @@ public class MenuController extends AppController implements MenuViewController.
 		ConsumeMealRepository consumeMealRepository = new JSONConsumeMealRepository();
 		ConsumeMealService consumeMealService = new ConsumeMealService(consumeMealRepository);
 		AppController controller =
-				new MealHistoryController(consumeMealService, this::loadMenuView);
+				new MealHistoryController(consumeMealService,
+						new MealHistoryController.Listener() {
+
+							@Override
+							public void returnHome() {
+								loadMenuView();
+							}
+
+							@Override
+							public void addMeal() {
+								loadFoodSearchPage();
+							}
+						});
 		controller.show(this.primaryStage);
 	}
 

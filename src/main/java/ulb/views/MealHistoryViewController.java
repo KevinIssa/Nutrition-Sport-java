@@ -143,10 +143,16 @@ public class MealHistoryViewController implements ViewController {
 		this.listener.returnHome();
 	}
 
+	public void loadAddMeal(){
+		this.listener.addMeal();
+	}
+
 	public interface Listener {
 
 		List<ConsumedMealDTO> getAllMeals(); // Load all meals
 
 		void returnHome(); // Return to the home view
+
+		void addMeal();
 	}
 }

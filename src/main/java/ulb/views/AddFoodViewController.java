@@ -39,6 +39,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.models.Food;
 import ulb.widgets.FoodPopupController;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
+
 
 public class AddFoodViewController implements ViewController {
 	private static final Logger logger = LoggerFactory.getLogger(AddFoodViewController.class);
@@ -59,6 +63,7 @@ public class AddFoodViewController implements ViewController {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
+		this.mealDate.getEditor().setStyle("-fx-background-color: #c9d1f0;");
 		this.hour.setText(String.valueOf(LocalTime.now().getHour()));
 		this.minutes.setText(String.valueOf(LocalTime.now().getMinute()));
 		this.mealDate.setValue(LocalDate.now());
@@ -120,7 +125,10 @@ public class AddFoodViewController implements ViewController {
 		if (chosenFood != null) {
 			addChosenFood(chosenFood);
 		}
+		cleanSuggestedFoodList();
 	}
+
+
 
 	/**
 	 * This method adds the chosen food to the list when the user presses the enter key.
@@ -403,6 +411,11 @@ public class AddFoodViewController implements ViewController {
 	public void cleanFoodList() {
 		chosenFoodView.getItems().clear();
 		consumedFoodsList.clear();
+	}
+
+	public void cleanSuggestedFoodList(){
+		searchField.clear();
+		suggestionsList.getItems().clear();
 	}
 
 	public interface Listener {
