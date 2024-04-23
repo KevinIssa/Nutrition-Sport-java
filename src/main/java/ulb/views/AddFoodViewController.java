@@ -39,9 +39,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.models.Food;
 import ulb.widgets.FoodPopupController;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.paint.Color;
 
 
 public class AddFoodViewController implements ViewController {
@@ -57,6 +54,7 @@ public class AddFoodViewController implements ViewController {
 	@FXML private TextField hour;
 	@FXML private TextField minutes;
 	@FXML private Group date;
+	@FXML private Label calorieNumber;
 	private boolean mode = false;
 	private final ArrayList<ArrayList<String>> consumedFoodsList = new ArrayList<>();
 	private AddFoodViewController.Listener listener;
@@ -76,6 +74,13 @@ public class AddFoodViewController implements ViewController {
 							this.mode = newValue.intValue() == 1;
 							changeMode();
 						});
+		searchField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+			if (! newValue) {
+				if (!suggestionsList.isFocused()){
+					cleanSuggestedFoodList();
+				}
+			}
+		});
 	}
 
 	/**
@@ -264,6 +269,14 @@ public class AddFoodViewController implements ViewController {
 				Label label = (Label) selectedItem.getChildren().get(0);
 				String selectedFoodName = label.getText();
 				consumedFoodsList.removeIf(foodList -> foodList.contains(selectedFoodName));
+
+			}
+			if (selectedItem.getChildren().get(1) instanceof Label){
+				Label label = (Label) selectedItem.getChildren().get(1);
+				String selectedFoodcalorie = label.getText();
+				String[] splittedFood = selectedFoodcalorie.split("\\s+");
+				String calorieString = splittedFood[1];
+				removeCalorie(Integer.parseInt(calorieString));
 			}
 		}
 	}
@@ -307,6 +320,26 @@ public class AddFoodViewController implements ViewController {
 								Integer.toString(quantity),
 								Integer.toString(calories),
 								value.contains("g") ? "g" : servingType)));
+		addCalorie(calories);
+	}
+	public void removeCalorie(int calorie){
+		String calorieString = this.calorieNumber.getText();
+		String numericString = calorieString.replaceAll("[^0-9]", ""); // Remove non-numeric characters
+		setCalorieNumber(Integer.parseInt(numericString) - calorie);
+	}
+	public void addCalorie(int calorie){
+		String calorieString = this.calorieNumber.getText();
+		String numericString = calorieString.replaceAll("[^0-9]", ""); // Remove non-numeric characters
+		setCalorieNumber(Integer.parseInt(numericString) + calorie);
+	}
+	/**
+	 * This method use the parameter given to show on the view the correct calorie number on calorieNumber
+	 * @param calorie number of calorie that need to be showed
+	 */
+	public void setCalorieNumber(int calorie){
+		String toString = String.valueOf(calorie);
+		String calorieString = "Kcal: " + " ".repeat(10 - toString.length()) + toString;
+		this.calorieNumber.setText(calorieString);
 	}
 
 	/**
@@ -411,6 +444,7 @@ public class AddFoodViewController implements ViewController {
 	public void cleanFoodList() {
 		chosenFoodView.getItems().clear();
 		consumedFoodsList.clear();
+		setCalorieNumber(0);
 	}
 
 	public void cleanSuggestedFoodList(){
