@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,7 +37,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulb.models.Food;
 import ulb.widgets.FoodBox;
 import ulb.widgets.FoodPopupController;
 import ulb.widgets.NumberField;
@@ -123,11 +121,9 @@ public class AddFoodViewController implements ViewController {
 
 	private LocalTime getTime() {
 		return LocalTime.of(this.hourNumber.getValue(), this.minuteNumber.getValue());
-
 	}
 
-
-	private void checkDate() throws IllegalArgumentException{
+	private void checkDate() throws IllegalArgumentException {
 		LocalDate now = LocalDate.now();
 		LocalDate foodDate = this.date.getValue();
 		if (foodDate.isAfter(now)) {
@@ -301,9 +297,7 @@ public class AddFoodViewController implements ViewController {
 
 		int getCaloriesConsumedByGrams(String food, int quantity);
 
-
-		void saveConsumedFoods(
-				List<List<String>> consumedFoodsList, LocalDateTime mealDate);
+		void saveConsumedFoods(List<List<String>> consumedFoodsList, LocalDateTime mealDate);
 
 		String getFoodServingQuantity(String food);
 

@@ -1,33 +1,45 @@
+/*
+ * Ce projet est une application de santé et de bien-être développée dans le cadre du cours INFO-F-307 à l'ULB.
+ *
+ * Groupe : 06
+ * Étudiants :
+ * - Kevin ISSA
+ * - Hamza CAEYMAN
+ * - Alexandru MELNIC
+ * - Ze-Xuan XU
+ * - Bao TRAN
+ * - Hà Uyên TRAN
+ * - Hugo CHARELS
+ * - Hodo SOULEIMAN AHMED
+ * - Kevin VANDERVAEREN
+ * - Arthur INSTALLÉ
+ *
+ * Date : 2024
+ */
 package ulb.widgets;
-
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 
 public class Search extends VBox {
-    @FXML private TextField searchField;
-    @FXML private ListView<String> searchList;
+	@FXML private TextField searchField;
+	@FXML private ListView<String> searchList;
 
-    public void initialiaze(URL url, ResourceBundle resourceBundle) {}
-    
-    public String getText(){
-        return searchField.getText();
-    }
+	public void initialiaze(URL url, ResourceBundle resourceBundle) {}
 
-    private void onUpPress() {
+	public String getText() {
+		return searchField.getText();
+	}
+
+	private void onUpPress() {
 		if (this.searchList.getSelectionModel().getSelectedIndex() != 0) {
 			this.searchList.getSelectionModel().selectPrevious();
-            this.searchField.setText(this.searchList.getSelectionModel().getSelectedItem());
+			this.searchField.setText(this.searchList.getSelectionModel().getSelectedItem());
 		}
 		int index = this.searchList.getSelectionModel().getSelectedIndex();
 		if (index - 3 <= this.searchList.getItems().size() - 1) {
@@ -39,7 +51,7 @@ public class Search extends VBox {
 		if (this.searchList.getSelectionModel().getSelectedIndex()
 				!= this.searchList.getItems().size() - 1) {
 			this.searchList.getSelectionModel().selectNext();
-            this.searchField.setText(this.searchList.getSelectionModel().getSelectedItem());
+			this.searchField.setText(this.searchList.getSelectionModel().getSelectedItem());
 		}
 		int index = this.searchList.getSelectionModel().getSelectedIndex();
 		if (index - 4 >= 0) {
@@ -47,43 +59,43 @@ public class Search extends VBox {
 		}
 	}
 
-    public String getSelectedItem(){
-        return searchList.getSelectionModel().getSelectedItem();
-    }
+	public String getSelectedItem() {
+		return searchList.getSelectionModel().getSelectedItem();
+	}
 
-    public int getSelectedIndex(){
-        return searchList.getSelectionModel().getSelectedIndex();
-    }
+	public int getSelectedIndex() {
+		return searchList.getSelectionModel().getSelectedIndex();
+	}
 
-    public void selectPrevious(){
-        searchList.getSelectionModel().selectPrevious();
-    }
+	public void selectPrevious() {
+		searchList.getSelectionModel().selectPrevious();
+	}
 
-    public void selectNext(){
-        searchList.getSelectionModel().selectNext();
-    }
+	public void selectNext() {
+		searchList.getSelectionModel().selectNext();
+	}
 
-    public void scrollTo(int index){
-        searchList.scrollTo(index);
-    }
+	public void scrollTo(int index) {
+		searchList.scrollTo(index);
+	}
 
-    public void selectFirst(){
-        searchList.getSelectionModel().selectFirst();
-    }
+	public void selectFirst() {
+		searchList.getSelectionModel().selectFirst();
+	}
 
-    public int size(){
-        return searchList.getItems().size();
-    }
+	public int size() {
+		return searchList.getItems().size();
+	}
 
-    public boolean isEmpty(){
-        return searchList.getItems().isEmpty();
-    }
+	public boolean isEmpty() {
+		return searchList.getItems().isEmpty();
+	}
 
-    public ObservableList<String> getItems(){
-        return searchList.getItems();
-    }
+	public ObservableList<String> getItems() {
+		return searchList.getItems();
+	}
 
-    public void setResults(ObservableList<String> results) {
-        searchList.setItems(results);
-    }
+	public void setResults(ObservableList<String> results) {
+		searchList.setItems(results);
+	}
 }

@@ -21,7 +21,6 @@ package ulb.controllers;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.models.ConsumedMeal;
@@ -51,7 +50,8 @@ public class AddFoodController implements AppController, AddFoodViewController.L
 	 * @param listener Listener for the FoodController
 	 * @param viewController ViewController for the FoodController
 	 */
-	public AddFoodController(AddFoodController.Listener listener, AddFoodViewController viewController) {
+	public AddFoodController(
+			AddFoodController.Listener listener, AddFoodViewController viewController) {
 		this.listener = listener;
 		this.viewController = viewController;
 		this.foodLoader = loadFoods();
@@ -76,15 +76,13 @@ public class AddFoodController implements AppController, AddFoodViewController.L
 		this.listener.returnHome();
 	}
 
-
 	@Override
 	public int getCaloriesConsumedByGrams(String food, int quantity) {
 		return this.foodLoader.getFoodByName(food).getCaloriesConsumedByGrams(quantity);
 	}
 
 	@Override
-	public void saveConsumedFoods(
-			List<List<String>> consumedFoodsList, LocalDateTime mealDate) {
+	public void saveConsumedFoods(List<List<String>> consumedFoodsList, LocalDateTime mealDate) {
 		ConsumedMeal consumedMeal = new ConsumedMeal();
 		for (List<String> consumedFood : consumedFoodsList) {
 			consumedMeal.addConsumedFood(
@@ -114,7 +112,10 @@ public class AddFoodController implements AppController, AddFoodViewController.L
 
 	@Override
 	public void sendUserSearch(String searchText) {
-		this.viewController.setSuggestions(this.foodLoader.getFoodsSuggestion(searchText).stream().map(Food::getName).collect(Collectors.toList()));
+		this.viewController.setSuggestions(
+				this.foodLoader.getFoodsSuggestion(searchText).stream()
+						.map(Food::getName)
+						.collect(Collectors.toList()));
 	}
 
 	/**
