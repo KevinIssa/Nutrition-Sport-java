@@ -16,8 +16,8 @@
 
 <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1018.0" style="-fx-background-color: #172e8c;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.AddFoodViewController">
    <children>
-      <ListView fx:id="suggestionsList" layoutX="15.0" layoutY="178.0" onKeyPressed="#keyPress" onMouseClicked="#addChosenFoodMouse" prefHeight="177.0" prefWidth="986.0" style="-fx-background-color: #a0aeeb;" />
-      <TextField fx:id="searchField" layoutX="14.0" layoutY="130.0" minHeight="-Infinity" onKeyPressed="#keyPress" onKeyTyped="#suggestFoods" onMouseClicked="#suggestFoods" prefHeight="48.0" prefWidth="987.0" promptText="ex: pomme" style="-fx-background-color: #c9d1f0;">
+      <ListView fx:id="suggestionsList" layoutX="31.0" layoutY="284.0" onKeyPressed="#keyPress" onMouseClicked="#addChosenFoodMouse" prefHeight="300.0" prefWidth="458.0" style="-fx-background-color: #a0aeeb;" />
+      <TextField fx:id="searchField" layoutX="31.0" layoutY="239.0" minHeight="-Infinity" onKeyPressed="#keyPress" onKeyTyped="#suggestFoods" onMouseClicked="#suggestFoods" prefHeight="45.0" prefWidth="458.0" promptText="ex: pomme" style="-fx-background-color: #c9d1f0;">
          <font>
             <Font size="26.0" />
          </font>
@@ -27,12 +27,12 @@
             <Font name="Consolas" size="41.0" />
          </font>
       </Label>
-      <Label layoutX="59.0" layoutY="388.0" prefHeight="48.0" prefWidth="212.0" text="Aliments choisis" textFill="#f3fbfb">
+      <Label layoutX="536.0" layoutY="190.0" prefHeight="48.0" prefWidth="157.0" text="Aliments choisis" textFill="#f3fbfb">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <ListView fx:id="chosenFoodView" layoutX="15.0" layoutY="436.0" prefHeight="177.0" prefWidth="637.0" style="-fx-background-color: #a0aeeb;" />
+      <ListView fx:id="chosenFoodView" layoutX="535.0" layoutY="242.0" prefHeight="300.0" prefWidth="440.0" style="-fx-background-color: #a0aeeb;" />
       <HBox layoutX="920.0" layoutY="374.0" prefHeight="62.0" prefWidth="84.0" />
       <HBox layoutX="15.0" layoutY="637.0" prefHeight="64.0" prefWidth="106.0">
          <children>
@@ -62,9 +62,9 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="423.0" layoutY="372.0" mnemonicParsing="false" onMouseClicked="#cleanFoodList" prefHeight="55.0" prefWidth="84.0" style="-fx-background-color: #f44343; -fx-background-radius: 20;">
+      <Button layoutX="837.0" layoutY="191.0" mnemonicParsing="false" onMouseClicked="#cleanFoodList" prefHeight="40.0" prefWidth="58.0" style="-fx-background-color: #f44343; -fx-background-radius: 20;">
          <graphic>
-            <ImageView fitHeight="49.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="39.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/trash_cross.png" />
                </image>
@@ -74,13 +74,9 @@
             </ImageView>
          </graphic>
       </Button>
-      <Slider fx:id="slider" layoutX="498.0" layoutY="79.0" majorTickUnit="1" max="1" minorTickCount="0" onDragDone="#changeMode" prefHeight="11.0" prefWidth="20.0" snapToTicks="true" />
-      <TextField fx:id="textField" layoutX="796.0" layoutY="509.0" prefHeight="33.0" prefWidth="149.0" visible="false" />
-      <Label fx:id="name" layoutX="698.0" layoutY="503.0" prefHeight="42.0" prefWidth="84.0" text="Nom du plat: " textFill="#f3fbfb" visible="false">
-         <font>
-            <Font size="13.0" />
-         </font></Label>
-      <Button fx:id="RemoveButton" layoutX="556.0" layoutY="373.0" mnemonicParsing="false" onAction="#removeSelectedFood" prefHeight="55.0" prefWidth="92.0" style="-fx-background-color: #f44343; -fx-background-radius: 20;">
+      <Slider fx:id="slider" layoutX="260.0" layoutY="102.0" majorTickUnit="1" max="1" minorTickCount="0" onDragDone="#changeMode" prefHeight="11.0" prefWidth="20.0" snapToTicks="true" />
+      <TextField fx:id="textField" layoutX="360.0" layoutY="124.0" prefHeight="33.0" prefWidth="157.0" visible="false" />
+      <Button fx:id="RemoveButton" layoutX="905.0" layoutY="192.0" mnemonicParsing="false" onAction="#removeSelectedFood" prefHeight="36.0" prefWidth="58.0" style="-fx-background-color: #f44343; -fx-background-radius: 20;">
          <graphic>
             <ImageView fitHeight="37.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -92,36 +88,54 @@
             </ImageView>
          </graphic>
       </Button>
-      <Group fx:id="date">
+      <Label fx:id="name" layoutX="152.0" layoutY="115.0" prefHeight="52.0" prefWidth="149.0" text="Nom du plat: " textFill="#f3fbfb" visible="false">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Group fx:id="date" layoutX="-546.0" layoutY="-318.0">
          <children>
-            <Label layoutX="708.0" layoutY="388.0" prefHeight="48.0" prefWidth="277.0" text="Date de consommation" textFill="#f3fbfb">
+            <DatePicker fx:id="mealDate" layoutX="897.0" layoutY="453.0" prefHeight="39.0" prefWidth="200.0" />
+            <Label layoutX="1210.0" layoutY="460.0" prefHeight="22.0" prefWidth="18.0" text="h" textFill="#f3fbfb">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <DatePicker fx:id="mealDate" layoutX="692.0" layoutY="438.0" prefHeight="59.0" prefWidth="267.0" />
-            <TextField fx:id="hour" layoutX="710.0" layoutY="544.0" minHeight="-Infinity" onKeyPressed="#keyPress" onKeyTyped="#suggestFoods" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #c9d1f0;">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="minutes" layoutX="853.0" layoutY="543.0" minHeight="-Infinity" onKeyPressed="#keyPress" onKeyTyped="#suggestFoods" prefHeight="48.0" prefWidth="87.0" style="-fx-background-color: #c9d1f0;">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </TextField>
-            <Label layoutX="706.0" layoutY="506.0" prefHeight="36.0" prefWidth="116.0" text="Heure" textFill="#f3fbfb">
+            <Label layoutX="642.0" layoutY="453.0" prefHeight="46.0" prefWidth="233.0" text="Date de consommation" textFill="#f3fbfb">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label layoutX="849.0" layoutY="507.0" prefHeight="36.0" prefWidth="116.0" text="Minutes" textFill="#f3fbfb">
+            <TextField fx:id="hour" layoutX="1123.0" layoutY="452.0" minHeight="-Infinity" onKeyPressed="#keyPress" onKeyTyped="#suggestFoods" prefHeight="41.0" prefWidth="83.0" style="-fx-background-color: #c9d1f0;">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="minutes" layoutX="1251.0" layoutY="452.0" minHeight="-Infinity" onKeyPressed="#keyPress" onKeyTyped="#suggestFoods" prefHeight="42.0" prefWidth="73.0" style="-fx-background-color: #c9d1f0;">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </TextField>
+            <Label layoutX="1331.0" layoutY="453.0" prefHeight="36.0" prefWidth="45.0" text="min" textFill="#f3fbfb">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
          </children>
       </Group>
-      <Label fx:id="calorieNumber" layoutX="715.0" layoutY="650.0" prefHeight="40.0" prefWidth="75.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="Kcal:          0" />
+      <Label fx:id="calorieNumber" alignment="CENTER_RIGHT" layoutX="875.0" layoutY="557.0" prefHeight="40.0" prefWidth="91.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="0" textAlignment="RIGHT">
+         <font>
+            <Font size="22.0" />
+         </font></Label>
+      <Label layoutX="703.0" layoutY="557.0" text="Total calories:" textFill="#f3fbfb">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+      <Label layoutX="96.0" layoutY="96.0" text="Composez un plat" textFill="#f3fbfb">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

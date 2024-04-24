@@ -90,7 +90,7 @@ public class AddFoodViewController implements ViewController {
 	 */
 	public void changeMode() {
 		if (mode) {
-			title.setText("Ajoutez un plat");
+			title.setText("Composez un plat");
 			name.setVisible(true);
 			textField.setVisible(true);
 			date.setVisible(false);
@@ -337,8 +337,7 @@ public class AddFoodViewController implements ViewController {
 	 * @param calorie number of calorie that need to be showed
 	 */
 	public void setCalorieNumber(int calorie){
-		String toString = String.valueOf(calorie);
-		String calorieString = "Kcal: " + " ".repeat(10 - toString.length()) + toString;
+		String calorieString = String.valueOf(calorie);
 		this.calorieNumber.setText(calorieString);
 	}
 
