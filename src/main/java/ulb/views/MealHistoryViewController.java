@@ -143,7 +143,7 @@ public class MealHistoryViewController implements ViewController {
 		this.listener.returnHome();
 	}
 
-	public void loadAddMeal(){
+	public void loadAddMeal() {
 		this.listener.addMeal();
 	}
 

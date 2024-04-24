@@ -83,11 +83,11 @@ public class ConsumeMealService {
 	}
 
 	private ConsumedFoodDTO convertToConsumedFoodDTO(ConsumedFood consumedFood) {
-		Food food = this.foodLoader.getFoodByName(consumedFood.getName());
+		Food food = foodLoader.getFoodByName(consumedFood.getName());
 		return new ConsumedFoodDTO(
 				consumedFood.getName(),
 				consumedFood.getQuantity(),
 				consumedFood.getCalories(),
-				food.getServingType());
+				food != null ? food.getServingType() : "g");
 	}
 }

@@ -198,8 +198,6 @@ public class ActivityCreateViewController implements ViewController {
 		void saveActivity(ActivityDTO activityDTO);
 
 		void returnHome();
-
-
 	}
 
 	// Custom string converter for intensity slider labels

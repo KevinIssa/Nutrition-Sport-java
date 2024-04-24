@@ -193,7 +193,8 @@ public class MenuController extends AppController implements MenuViewController.
 		ActivityRepository activityRepository = new JSONActivityRepository();
 		ActivityService activityService = new ActivityService(activityRepository);
 		AppController controller =
-				new ActivityHistoryController(activityService,
+				new ActivityHistoryController(
+						activityService,
 						new ActivityHistoryController.Listener() {
 							@Override
 							public void returnHome() {
@@ -220,7 +221,8 @@ public class MenuController extends AppController implements MenuViewController.
 		ConsumeMealRepository consumeMealRepository = new JSONConsumeMealRepository();
 		ConsumeMealService consumeMealService = new ConsumeMealService(consumeMealRepository);
 		AppController controller =
-				new MealHistoryController(consumeMealService,
+				new MealHistoryController(
+						consumeMealService,
 						new MealHistoryController.Listener() {
 
 							@Override
