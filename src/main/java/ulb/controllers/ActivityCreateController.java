@@ -89,5 +89,6 @@ public class ActivityCreateController extends AppController
 		 * The implementing class should define the behavior that occurs when this event happens.
 		 */
 		void returnHome();
+
 	}
 }

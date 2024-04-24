@@ -9,10 +9,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="434.0" prefWidth="642.0" style="-fx-background-color: #040b35;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ActivityHistoryViewController">
+<VBox prefHeight="750.0" prefWidth="736.0" style="-fx-background-color: #040b35;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ActivityHistoryViewController">
     <children>
 	    <!-- Container for history labels -->
-	    <ListView fx:id="historyList" prefHeight="330.0" prefWidth="610.0" style="-fx-background-color: #222745;" />
+	    <ListView fx:id="historyList" prefHeight="660.0" prefWidth="736.0" style="-fx-background-color: #222745;" />
       <HBox prefHeight="100.0" prefWidth="570.0" spacing="10.0">
          <children>
       		<Button mnemonicParsing="false" onAction="#returnHome" prefHeight="46.0" prefWidth="77.0" style="-fx-background-color: #fd9c2d; -fx-background-radius: 10;" translateX="10.0">
@@ -30,7 +30,7 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-            <Button fx:id="addActivityButton" mnemonicParsing="false" prefHeight="46.0" prefWidth="46.0" onAction="#loadAddActivity" style="-fx-background-color: #656ff9; -fx-background-radius: 10;" translateX="10.0">
+            <Button fx:id="addActivityButton" mnemonicParsing="false" onAction="#loadAddActivity" prefHeight="46.0" prefWidth="46.0" style="-fx-background-color: #656ff9; -fx-background-radius: 10;" translateX="10.0">
                <graphic>
                   <ImageView fitHeight="37.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                      <image>
