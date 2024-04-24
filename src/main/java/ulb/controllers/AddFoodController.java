@@ -19,7 +19,6 @@
 package ulb.controllers;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,11 +36,11 @@ import ulb.views.AddFoodViewController;
  * This class handles the loading of foods from the database, the calculation of calories consumed by a certain quantity of food, the saving of consumed foods and meals, and the retrieval of food details.
  * It also handles the user's search for foods and the return to the home screen of the application.
  */
-public class FoodController implements AppController, AddFoodViewController.Listener {
+public class AddFoodController implements AppController, AddFoodViewController.Listener {
 
-	private static final Logger logger = LoggerFactory.getLogger(FoodController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AddFoodController.class);
 	// Listener for the FoodController
-	private final FoodController.Listener listener;
+	private final AddFoodController.Listener listener;
 	// ViewController for the FoodController
 	private final AddFoodViewController viewController;
 	// FoodLoader for the FoodController
@@ -52,7 +51,7 @@ public class FoodController implements AppController, AddFoodViewController.List
 	 * @param listener Listener for the FoodController
 	 * @param viewController ViewController for the FoodController
 	 */
-	public FoodController(FoodController.Listener listener, AddFoodViewController viewController) {
+	public AddFoodController(AddFoodController.Listener listener, AddFoodViewController viewController) {
 		this.listener = listener;
 		this.viewController = viewController;
 		this.foodLoader = loadFoods();
@@ -99,24 +98,6 @@ public class FoodController implements AppController, AddFoodViewController.List
 	}
 
 	@Override
-	public Food getCorrespondingFood(String food) {
-		return foodLoader.getFoodsSuggestion(food).stream()
-				.findFirst()
-				.orElseThrow(() -> new RuntimeException("food selected not in database"));
-	}
-
-	@Override
-	public void saveMeal(String mealName, ArrayList<ArrayList<String>> consumedFoodsList) {
-		Meal newmeal = new Meal(mealName);
-		for (List<String> consumedFood : consumedFoodsList) {
-			newmeal.addIngredient(
-					getCorrespondingFood(consumedFood.get(0)),
-					Integer.parseInt(consumedFood.get(1)));
-		}
-		newmeal.save();
-	}
-
-	@Override
 	public String getFoodServingQuantity(String food) {
 		return this.foodLoader.getFoodByName(food).getServingQuantity();
 	}
@@ -133,10 +114,7 @@ public class FoodController implements AppController, AddFoodViewController.List
 
 	@Override
 	public void sendUserSearch(String searchText) {
-		this.viewController.setSuggestions(
-				this.foodLoader.getFoodsSuggestion(searchText).stream()
-						.map(Food::getName)
-						.collect(Collectors.toList()));
+		this.viewController.setSuggestions(this.foodLoader.getFoodsSuggestion(searchText).stream().map(Food::getName).collect(Collectors.toList()));
 	}
 
 	/**

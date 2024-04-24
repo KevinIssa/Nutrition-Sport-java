@@ -1,73 +1,89 @@
 package ulb.widgets;
 
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
-import java.awt.*;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 
 public class Search extends VBox {
-    //TODO Doit auto-remettre l'item choisi dans la searchbar : this.searchField.setText(this.suggestionsList.getSelectionModel().getSelectedItem());
-
     @FXML private TextField searchField;
-    @FXML private ListView<String> suggestionsList;
+    @FXML private ListView<String> searchList;
 
+    public void initialiaze(URL url, ResourceBundle resourceBundle) {}
+    
     public String getText(){
         return searchField.getText();
     }
 
-    //TODO onClickEvent
-
     private void onUpPress() {
-		if (this.searchController.getSelectedIndex() != 0) {
-			this.searchController.selectPrevious();
+		if (this.searchList.getSelectionModel().getSelectedIndex() != 0) {
+			this.searchList.getSelectionModel().selectPrevious();
+            this.searchField.setText(this.searchList.getSelectionModel().getSelectedItem());
 		}
-		int index = this.searchController.getSelectedIndex();
-		if (index - 3 <= this.searchController.size() - 1) {
-			this.searchController.scrollTo(index - 3);
+		int index = this.searchList.getSelectionModel().getSelectedIndex();
+		if (index - 3 <= this.searchList.getItems().size() - 1) {
+			this.searchList.scrollTo(index - 3);
 		}
 	}
 
 	private void onDownPress() {
-		if (this.searchController.getSelectedIndex()
-				!= this.searchController.size() - 1) {
-			this.searchController.selectNext();
+		if (this.searchList.getSelectionModel().getSelectedIndex()
+				!= this.searchList.getItems().size() - 1) {
+			this.searchList.getSelectionModel().selectNext();
+            this.searchField.setText(this.searchList.getSelectionModel().getSelectedItem());
 		}
-		int index = this.searchController.getSelectedIndex();
+		int index = this.searchList.getSelectionModel().getSelectedIndex();
 		if (index - 4 >= 0) {
-			this.searchController.scrollTo(index - 4);
+			this.searchList.scrollTo(index - 4);
 		}
 	}
 
     public String getSelectedItem(){
-        return suggestionsList.getSelectionModel().getSelectedItem();
+        return searchList.getSelectionModel().getSelectedItem();
     }
+
     public int getSelectedIndex(){
-        return suggestionsList.getSelectionModel().getSelectedIndex();
+        return searchList.getSelectionModel().getSelectedIndex();
     }
+
     public void selectPrevious(){
-        suggestionsList.getSelectionModel().selectPrevious();
+        searchList.getSelectionModel().selectPrevious();
     }
+
     public void selectNext(){
-        suggestionsList.getSelectionModel().selectNext();
+        searchList.getSelectionModel().selectNext();
     }
+
     public void scrollTo(int index){
-        suggestionsList.scrollTo(index);
+        searchList.scrollTo(index);
     }
+
     public void selectFirst(){
-        suggestionsList.getSelectionModel().selectFirst();
+        searchList.getSelectionModel().selectFirst();
     }
+
     public int size(){
-        return suggestionsList.getItems().size();
+        return searchList.getItems().size();
     }
+
     public boolean isEmpty(){
-        return suggestionsList.getItems().isEmpty();
+        return searchList.getItems().isEmpty();
     }
+
     public ObservableList<String> getItems(){
-        return suggestionsList.getItems();
+        return searchList.getItems();
     }
+
     public void setResults(ObservableList<String> results) {
-        suggestionsList.setItems(results);
+        searchList.setItems(results);
     }
 }

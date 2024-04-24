@@ -191,8 +191,8 @@ public class AddFoodViewController implements ViewController {
 	}
 
 	// Helper methods
-	public void setSuggestions(ObservableList<String> foods) {
-		searchController.setResults(foods);
+	public void setSuggestions(List<String> foods) {
+		searchController.setResults((ObservableList<String>) foods);
 	}
 
 	public void returnHome() {
@@ -310,7 +310,5 @@ public class AddFoodViewController implements ViewController {
 		int extractServingQuantityValue(String food);
 
 		String getFoodQuantityUnit(String food);
-
-		Food getCorrespondingFood(String food);
 	}
 }

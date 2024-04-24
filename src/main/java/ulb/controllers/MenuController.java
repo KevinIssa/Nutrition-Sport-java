@@ -207,7 +207,7 @@ public class MenuController implements AppController, MenuViewController.Listene
 		AddFoodViewController foodViewController =
 				(AddFoodViewController) viewLoader.loadAddMeal(popupStage);
 		foodViewController.setListener(
-				new FoodController(
+				new AddFoodController(
 						() -> {
 							loadMenuView();
 							popupStage.close();

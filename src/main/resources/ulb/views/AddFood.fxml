@@ -118,7 +118,7 @@
          </children>
       </Group>
       <Pane layoutX="34.0" layoutY="116.0" prefHeight="246.0" prefWidth="960.0" >
-         <fx:include source="search.fxml" fx:id="searchController" />
+         <fx:include source="../widgets/search.fxml" fx:id="searchController" />
       </Pane>
    </children>
 </Pane>
