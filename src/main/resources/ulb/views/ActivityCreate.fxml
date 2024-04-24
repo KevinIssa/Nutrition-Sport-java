@@ -175,7 +175,7 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <TextField fx:id="duration" prefHeight="31.0" prefWidth="70.0" translateX="80.0">
+            <TextField fx:id="duration" onKeyTyped="#setCaloriesBurned" prefHeight="31.0" prefWidth="70.0" translateX="80.0">
                <font>
                   <Font size="15.0" />
                </font>

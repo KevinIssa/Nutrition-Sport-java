@@ -57,12 +57,15 @@ public class ActivityCreateController extends AppController
 		this.loadView("/ulb/views/ActivityCreate.fxml", stage);
 		this.viewController.setListener(this);
 	}
+	@Override
+	public int calculateCalorie(ActivityDTO activityDTO){
+		return this.activityService.calculateCaloriesBurnedDuringActivity(
+				activityDTO, this.profileService.getProfileWeight());
+	}
 
 	@Override
 	public void saveActivity(ActivityDTO activityDTO) {
-		int burnedCalories =
-				this.activityService.calculateCaloriesBurnedDuringActivity(
-						activityDTO, this.profileService.getProfileWeight());
+		int burnedCalories = calculateCalorie(activityDTO);
 		activityDTO = new ActivityDTO(activityDTO, burnedCalories);
 		logger.info("Saving activity {}", activityDTO);
 		this.activityService.saveActivity(activityDTO);
