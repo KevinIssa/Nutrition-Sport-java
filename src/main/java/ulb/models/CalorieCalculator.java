@@ -52,6 +52,8 @@ public class CalorieCalculator {
 		return metMap;
 	}
 
+	private CalorieCalculator() {}
+
 	/**
 	 * Retrieves the MET (Metabolic Equivalent of Task) value based on the sport and intensity.
 	 *

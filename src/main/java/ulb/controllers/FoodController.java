@@ -21,7 +21,6 @@ package ulb.controllers;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
@@ -71,7 +70,7 @@ public class FoodController extends AppController implements AddFoodViewControll
 	}
 
 	private List<Food> loadMeals() {
-		return Meal.loadAll().stream().map(Meal::toFood).collect(Collectors.toList());
+		return Meal.loadAll().stream().map(Meal::toFood).toList();
 	}
 
 	@Override
@@ -120,7 +119,7 @@ public class FoodController extends AppController implements AddFoodViewControll
 		}
 		consumedMeal.setDate(mealDate);
 		new JSONConsumeMealRepository().save(consumedMeal);
-		//		consumedMeal.save();
+		// consumedMeal.save();
 	}
 
 	@Override
@@ -145,7 +144,7 @@ public class FoodController extends AppController implements AddFoodViewControll
 						FXCollections.observableArrayList(
 								this.foodLoader.getFoodsSuggestion(searchText).stream()
 										.map(Food::getName)
-										.collect(Collectors.toList())));
+										.toList()));
 	}
 
 	/**
