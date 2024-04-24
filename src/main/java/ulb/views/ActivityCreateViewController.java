@@ -28,7 +28,9 @@ import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulb.models.enums.Sport;
+import ulb.dtos.ActivityDTO;
+import ulb.enums.Intensity;
+import ulb.enums.Sport;
 import ulb.widgets.NumberField;
 
 public class ActivityCreateViewController implements ViewController {
@@ -112,11 +114,13 @@ public class ActivityCreateViewController implements ViewController {
 			LocalDateTime activityDateTime = getDateTime();
 			int durationValue = this.durationNumber.getValue();
 
-			this.listener.saveActivity(
-					this.selectedSport,
-					(int) intensitySlider.getValue(),
-					durationValue,
-					activityDateTime);
+			ActivityDTO activityDTO =
+					new ActivityDTO(
+							this.selectedSport,
+							Intensity.fromInt((int) intensitySlider.getValue()),
+							durationValue,
+							activityDateTime);
+			this.listener.saveActivity(activityDTO);
 			returnHome();
 		} catch (NumberFormatException e) {
 			showAlert("Erreur", "Veuillez entrer une heure valide.");
@@ -179,11 +183,7 @@ public class ActivityCreateViewController implements ViewController {
 
 	// Listener interface for communication with the controller
 	public interface Listener {
-		void saveActivity(
-				Sport selectedSport,
-				int selectedIntensity,
-				int selectedDuration,
-				LocalDateTime activityDateTime);
+		void saveActivity(ActivityDTO activityDTO);
 
 		void returnHome();
 	}

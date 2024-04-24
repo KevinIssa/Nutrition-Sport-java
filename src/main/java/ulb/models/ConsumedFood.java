@@ -26,11 +26,11 @@ import org.slf4j.LoggerFactory;
  * This class is responsible for managing the consumed food data.
  */
 public class ConsumedFood {
-	private static final Logger log = LoggerFactory.getLogger(ConsumedFood.class);
+	private static final Logger logger = LoggerFactory.getLogger(ConsumedFood.class);
 	private String name;
 	private int quantity; // in grams
 	private int calories; // consumed
-	private String type; // g or ml
+	private String unit; // g or ml
 
 	/**
 	 * Constructor initializing the name, quantity, and calories of the consumed food.
@@ -38,34 +38,46 @@ public class ConsumedFood {
 	 * @param quantity Quantity of the consumed food
 	 * @param calories Calories of the consumed food
 	 */
-	public ConsumedFood(String name, int quantity, int calories, String type) {
+	public ConsumedFood(String name, int quantity, int calories, String unit) {
 		this.name = name;
 		this.quantity = quantity;
 		this.calories = calories;
-		this.type = type;
-		log.info(
-				"ConsumedFood object created with name: {}, quantity: {}, calories: {} of type: {}",
-				name,
-				quantity,
-				calories,
-				type);
+		this.unit = unit;
+		logger.info("ConsumedFood object created {}", this);
 	}
 
 	/**
-	 * Overrides the equals method to compare ConsumedFood objects based on their name, quantity, and calories.
+	 * Overrides the equals method to compare ConsumedFoodDTO objects based on their name, quantity, and calories.
 	 * @param obj Object to be compared with
 	 * @return boolean indicating whether the objects are equal or not
 	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
-		if (!(obj instanceof ConsumedFood)) return false;
-		ConsumedFood food = (ConsumedFood) obj;
+		if (!(obj instanceof ConsumedFood food)) return false;
 		return food.name.equals(name) && food.quantity == quantity && food.calories == calories;
 	}
 
+	/**
+	 * Overrides the toString method for the ConsumedFood class.
+	 * This method is used to provide a string representation of the ConsumedFood object.
+	 * The string representation includes the name, quantity, calories, and unit of the consumed food.
+	 *
+	 * @return A string representation of the ConsumedFood object.
+	 */
+	@Override
+	public String toString() {
+		return STR."ConsumedFood{name='\{
+				name}\{
+				'\''}, quantity=\{
+				quantity}, calories=\{
+				calories}, unit='\{
+				unit}\{
+				'\''}\{
+				'}'}";
+	}
+
 	// Getters and setters for class attributes.
-	// These are used by Jackson to serialize and deserialize JSON data.
 
 	/**
 	 * Getter for the name field.
@@ -119,15 +131,15 @@ public class ConsumedFood {
 	 * Getter for the type field.
 	 * @return Type of the consumed food
 	 */
-	public String getType() {
-		return type;
+	public String getUnit() {
+		return unit;
 	}
 
 	/**
 	 * Setter for the type field.
-	 * @param type Type of the consumed food
+	 * @param unit Type of the consumed food
 	 */
-	public void setType(String type) {
-		this.type = type;
+	public void setUnit(String unit) {
+		this.unit = unit;
 	}
 }

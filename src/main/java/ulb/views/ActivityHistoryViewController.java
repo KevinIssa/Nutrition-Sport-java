@@ -27,8 +27,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulb.controllers.dtos.ActivityDTO;
-import ulb.models.enums.Sport;
+import ulb.dtos.ActivityDTO;
+import ulb.enums.Sport;
 import ulb.widgets.HistoryBox;
 
 /**
@@ -65,6 +65,7 @@ public class ActivityHistoryViewController implements ViewController {
 	}
 
 	private void deleteActivityInHistory(HistoryBox activityBox) {
+		this.listener.deleteActivity(activityBox.getActivity());
 		historyList.getItems().remove(activityBox);
 	}
 
@@ -115,11 +116,19 @@ public class ActivityHistoryViewController implements ViewController {
 		this.setActivities();
 	}
 
+	public void loadAddActivity() {
+		this.listener.addActivity();
+	}
+
 	// Listener interface for communication with the controller
 	public interface Listener {
 
-		List<ActivityDTO> getActivities(Sport filter); // Load activity from file
+		List<ActivityDTO> getActivities(Sport filter);
 
-		void returnHome(); // Return to the home view
+		void deleteActivity(ActivityDTO activityDTO);
+
+		void returnHome();
+
+		void addActivity();
 	}
 }

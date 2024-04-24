@@ -18,82 +18,56 @@
  */
 package ulb.models;
 
+import ulb.exceptions.BadWeightException;
+import ulb.exceptions.ValueObjectException;
+
 /**
- * Represents the weight of a person.
+ * This class represents a Weight, which is a ValueObject that holds a Float value.
+ * The weight must be within a specified range (MIN_WEIGHT to MAX_WEIGHT).
  */
-public class Weight {
+public class Weight extends ValueObject<Float> {
 
 	private static final int MIN_WEIGHT = 1; // Minimum weight allowed
 	private static final int MAX_WEIGHT = 500; // Maximum weight allowed
 
-	private float weight; // in kg
-
 	/**
-	 * Constructs a Weight object with the specified weight.
-	 * @param weight The weight value in kilograms.
-	 * @throws IllegalArgumentException if the weight is less than or equal to MIN_WEIGHT or greater than MAX_WEIGHT.
+	 * Default constructor for Weight.
+	 * Initializes the Weight with no value.
 	 */
-	public Weight(float weight) throws IllegalArgumentException {
-		validateWeight(weight);
-		this.weight = weight;
+	public Weight() {
+		super();
 	}
 
-	// Validate weight value
+	/**
+	 * Constructor for Weight with a specified weight.
+	 * @param weight The weight to be held by this Weight object.
+	 * @throws ValueObjectException If the weight is not valid.
+	 */
+	public Weight(float weight) throws ValueObjectException {
+		super(weight);
+	}
 
 	/**
-	 * Validates the weight value.
-	 * @param weight The weight value to validate.
-	 * @throws IllegalArgumentException if the weight is out of the allowed range.
+	 * Checks the validity of a specified weight.
+	 * The weight must be greater than MIN_WEIGHT and less than MAX_WEIGHT.
+	 * @param weight The weight to check.
+	 * @throws IllegalArgumentException If the weight is not a Float.
+	 * @throws BadWeightException If the weight is not within the valid range.
 	 */
-	private void validateWeight(float weight) throws IllegalArgumentException {
+	protected void checkValidity(Float weight) throws IllegalArgumentException, BadWeightException {
 		if (weight <= MIN_WEIGHT) {
-			throw new IllegalArgumentException("Weight must be greater than " + MIN_WEIGHT);
+			throw new BadWeightException(STR."Weight must be greater than \{MIN_WEIGHT}");
 		} else if (weight > MAX_WEIGHT) {
-			throw new IllegalArgumentException("Weight must be less than " + MAX_WEIGHT);
+			throw new BadWeightException(STR."Weight must be less than \{MAX_WEIGHT}");
 		}
 	}
 
 	/**
-	 * Gets the weight value.
-	 * @return The weight value in kilograms.
-	 */
-	public float getWeight() {
-		return weight;
-	}
-
-	/**
-	 * Sets the weight value.
-	 * @param weight The new weight value to set in kilograms.
-	 * @throws IllegalArgumentException if the new weight is out of the allowed range.
-	 */
-	public void setWeight(float weight) throws IllegalArgumentException {
-		validateWeight(weight);
-		this.weight = weight;
-	}
-
-	/**
-	 * Returns a string representation of the Weight object.
-	 * @return A string representation including the weight value.
+	 * Converts this Weight object to a String.
+	 * @return A string representation of this Weight object, in the format "{value} kg".
 	 */
 	@Override
 	public String toString() {
-		return "Weight=" + weight;
-	}
-
-	/**
-	 * Checks if this Weight object is equal to another object.
-	 * @param obj The object to compare with.
-	 * @return true if the objects are equal, false otherwise.
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null || this.getClass() != obj.getClass()) {
-			return false;
-		}
-		Weight otherWeight = (Weight) obj;
-		return Float.compare(otherWeight.weight, weight) == 0;
+		return STR."\{this.value} kg";
 	}
 }

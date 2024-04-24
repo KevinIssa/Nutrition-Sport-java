@@ -16,7 +16,7 @@
  *
  * Date : 2024
  */
-package ulb.models.enums;
+package ulb.enums;
 
 /**
  * The Sex enum represents the sex of a person or animal.

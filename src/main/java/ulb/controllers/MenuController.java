@@ -20,7 +20,13 @@ package ulb.controllers;
 
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import ulb.models.*;
+import ulb.repositories.ActivityRepository;
+import ulb.repositories.ConsumeMealRepository;
+import ulb.repositories.JSONActivityRepository;
+import ulb.repositories.JSONConsumeMealRepository;
+import ulb.services.ActivityService;
+import ulb.services.ConsumeMealService;
+import ulb.services.ProfileService;
 import ulb.views.*;
 
 /**
@@ -29,24 +35,21 @@ import ulb.views.*;
  * This class is responsible for loading different views of the application based on user interaction.
  * It uses a ViewLoader instance to load the views and manages the primary stage of the application.
  */
-public class MenuController implements AppController, MenuViewController.Listener {
+public class MenuController extends AppController implements MenuViewController.Listener {
 
-	private final ViewLoader viewLoader = new ViewLoader();
-	private final Stage primaryStage;
+	private Stage primaryStage;
+	private ProfileService profileService;
 
-	public MenuController(Stage primaryStage) {
-		this.primaryStage = primaryStage;
+	public MenuController() {}
+
+	public void setProfileService(ProfileService profileService) {
+		this.profileService = profileService;
 	}
 
-	/**
-	 * This method is used to load a view associated with a given controller.
-	 * It delegates the view loading to the ViewLoader instance, passing the primary stage and the controller as arguments.
-	 * This method is private because it is a helper method that is only used within this class.
-	 *
-	 * @param controller The controller associated with the view that needs to be loaded.
-	 */
-	private void loadViewWithController(AppController controller) {
-		viewLoader.loadView(this.primaryStage, controller);
+	@Override
+	public void show(Stage stage) {
+		this.primaryStage = stage;
+		this.loadWelcomeView();
 	}
 
 	/**
@@ -57,10 +60,10 @@ public class MenuController implements AppController, MenuViewController.Listene
 	 */
 	@Override
 	public void loadWelcomeView() {
-		if (Profile.isCreated()) {
-			loadMenuView();
+		if (this.profileService.isProfileCreated()) {
+			this.loadMenuView();
 		} else {
-			loadCreateProfileView();
+			this.loadCreateProfileView();
 		}
 	}
 
@@ -71,7 +74,8 @@ public class MenuController implements AppController, MenuViewController.Listene
 	 */
 	@Override
 	public void loadMenuView() {
-		viewLoader.loadView(this.primaryStage, this);
+		this.loadView("/ulb/views/Menu.fxml", this.primaryStage);
+		this.viewController.setListener(this);
 	}
 
 	/**
@@ -82,7 +86,9 @@ public class MenuController implements AppController, MenuViewController.Listene
 	 */
 	@Override
 	public void loadCreateProfileView() {
-		loadViewWithController(new ProfileCreateController(this::loadMenuView));
+		AppController controller =
+				new ProfileCreateController(this.profileService, this::loadMenuView);
+		controller.show(this.primaryStage);
 	}
 
 	/**
@@ -95,8 +101,9 @@ public class MenuController implements AppController, MenuViewController.Listene
 	 */
 	@Override
 	public void loadOpenProfileView() {
-		loadViewWithController(
+		AppController controller =
 				new ProfileController(
+						this.profileService,
 						new ProfileController.Listener() {
 							@Override
 							public void deleteProfile() {
@@ -107,7 +114,8 @@ public class MenuController implements AppController, MenuViewController.Listene
 							public void returnHome() {
 								loadWelcomeView();
 							}
-						}));
+						});
+		controller.show(this.primaryStage);
 	}
 
 	/**
@@ -120,9 +128,9 @@ public class MenuController implements AppController, MenuViewController.Listene
 	 */
 	public void loadDeleteProfileView() {
 		Stage popupStage = new Stage();
-		viewLoader.loadView(
-				popupStage,
+		AppController controller =
 				new ProfileDeleteController(
+						this.profileService,
 						new ProfileDeleteController.Listener() {
 							@Override
 							public void returnHome() {
@@ -134,7 +142,8 @@ public class MenuController implements AppController, MenuViewController.Listene
 								loadCreateProfileView();
 								popupStage.close();
 							}
-						}));
+						});
+		controller.show(popupStage);
 		// This line sets the modality of the popup stage to APPLICATION_MODAL.
 		// This means that while the popup stage is showing, it blocks user interaction with all
 		// other stages of the application.
@@ -154,15 +163,17 @@ public class MenuController implements AppController, MenuViewController.Listene
 	@Override
 	public void loadCreateActivityView() {
 		Stage popupStage = new Stage();
-		ActivityCreateViewController viewController =
-				(ActivityCreateViewController) viewLoader.loadActivityCreate(popupStage);
-		viewController.setListener(
+		ActivityRepository activityRepository = new JSONActivityRepository();
+		ActivityService activityService = new ActivityService(activityRepository);
+		AppController controller =
 				new ActivityCreateController(
+						activityService,
+						this.profileService,
 						() -> {
 							loadMenuView();
 							popupStage.close();
-						},
-						viewController));
+						});
+		controller.show(popupStage);
 		// This line sets the modality of the popup stage to APPLICATION_MODAL.
 		// This means that while the popup stage is showing, it blocks user interaction with all
 		// other stages of the application.
@@ -178,7 +189,23 @@ public class MenuController implements AppController, MenuViewController.Listene
 	 */
 	@Override
 	public void loadActivityHistoryView() {
-		loadViewWithController(new ActivityHistoryController(this::loadMenuView));
+		ActivityRepository activityRepository = new JSONActivityRepository();
+		ActivityService activityService = new ActivityService(activityRepository);
+		AppController controller =
+				new ActivityHistoryController(activityService,
+						new ActivityHistoryController.Listener() {
+							@Override
+							public void returnHome() {
+								loadMenuView();
+							}
+
+							@Override
+							public void addActivity() {
+								loadCreateActivityView();
+							}
+						});
+
+		controller.show(this.primaryStage);
 	}
 
 	/**
@@ -189,7 +216,23 @@ public class MenuController implements AppController, MenuViewController.Listene
 	 */
 	@Override
 	public void loadMealHistoryView() {
-		loadViewWithController(new MealHistoryController(this::loadMenuView));
+		ConsumeMealRepository consumeMealRepository = new JSONConsumeMealRepository();
+		ConsumeMealService consumeMealService = new ConsumeMealService(consumeMealRepository);
+		AppController controller =
+				new MealHistoryController(consumeMealService,
+						new MealHistoryController.Listener() {
+
+							@Override
+							public void returnHome() {
+								loadMenuView();
+							}
+
+							@Override
+							public void addMeal() {
+								loadFoodSearchPage();
+							}
+						});
+		controller.show(this.primaryStage);
 	}
 
 	/**
@@ -204,15 +247,13 @@ public class MenuController implements AppController, MenuViewController.Listene
 	@Override
 	public void loadFoodSearchPage() {
 		Stage popupStage = new Stage();
-		AddFoodViewController foodViewController =
-				(AddFoodViewController) viewLoader.loadAddMeal(popupStage);
-		foodViewController.setListener(
+		AppController controller =
 				new AddFoodController(
 						() -> {
 							loadMenuView();
 							popupStage.close();
-						},
-						foodViewController));
+						});
+		controller.show(popupStage);
 		// This line sets the modality of the popup stage to APPLICATION_MODAL.
 		// This means that while the popup stage is showing, it blocks user interaction with all
 		// other stages of the application.
@@ -227,6 +268,6 @@ public class MenuController implements AppController, MenuViewController.Listene
 	 */
 	@Override
 	public String getProfileImagePath() {
-		return Profile.IMAGE_PATH;
+		return this.profileService.getProfileImagePath();
 	}
 }

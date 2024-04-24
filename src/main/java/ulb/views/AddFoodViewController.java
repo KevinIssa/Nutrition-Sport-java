@@ -35,7 +35,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import jdk.jshell.spi.ExecutionControl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.widgets.FoodBox;
@@ -63,7 +62,8 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 		this.hourNumber.setValue(now.getHour());
 		this.minuteNumber.setValue(now.getMinute());
 		this.date.setValue(LocalDate.now());
-		this.searchController.setListener(this);
+        this.date.getEditor().setStyle("-fx-background-color: #c9d1f0;");
+        this.searchController.setListener(this);
 	}
 
 	@Override

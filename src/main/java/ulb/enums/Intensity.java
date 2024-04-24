@@ -16,7 +16,7 @@
  *
  * Date : 2024
  */
-package ulb.models.enums;
+package ulb.enums;
 
 /**
  * The Intensity enum represents the intensity levels of a certain activity or condition.

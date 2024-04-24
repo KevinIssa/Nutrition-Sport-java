@@ -16,21 +16,6 @@
  *
  * Date : 2024
  */
-package ulb.models;
+package ulb.repositories;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.jupiter.api.Test;
-
-public class TestHeight {
-
-	@Test
-	public void inAnOtherDimension() {
-		assertThrows(Exception.class, () -> new Height(-5));
-	}
-
-	@Test
-	public void tooHigh() {
-		assertThrows(Exception.class, () -> new Height(500));
-	}
-}
+public interface ComposeMealRepository {}

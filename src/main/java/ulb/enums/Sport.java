@@ -16,7 +16,7 @@
  *
  * Date : 2024
  */
-package ulb.models.enums;
+package ulb.enums;
 
 /**
  * The Sport enum represents different types of sports.

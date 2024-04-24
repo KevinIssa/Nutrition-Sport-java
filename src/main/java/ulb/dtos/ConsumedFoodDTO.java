@@ -16,21 +16,11 @@
  *
  * Date : 2024
  */
-package ulb.models;
+package ulb.dtos;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+public record ConsumedFoodDTO(String name, int quantity, int calories, String unit) {
 
-import org.junit.jupiter.api.Test;
-
-public class TestWeight {
-
-	@Test()
-	public void inAnOtherDimension() {
-		assertThrows(Exception.class, () -> new Weight(-5));
-	}
-
-	@Test()
-	public void tooFat() {
-		assertThrows(Exception.class, () -> new Weight(1000));
+	public ConsumedFoodDTO(String name, int quantity) {
+		this(name, quantity, -1, null);
 	}
 }

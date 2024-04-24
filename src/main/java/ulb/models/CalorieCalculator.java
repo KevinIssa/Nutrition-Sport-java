@@ -20,8 +20,8 @@ package ulb.models;
 
 import java.util.HashMap;
 import java.util.Map;
-import ulb.models.enums.Intensity;
-import ulb.models.enums.Sport;
+import ulb.enums.Intensity;
+import ulb.enums.Sport;
 
 /**
  * Utility class to calculate calories burned during various activities.
@@ -72,7 +72,7 @@ public class CalorieCalculator {
 	 */
 	public static double compute(Activity activity, float weight) {
 		double met = getMET(activity.getSport(), activity.getIntensity());
-		int durationInMinutes = activity.getDurationInMinutes();
+		int durationInMinutes = (int) activity.getDuration().toMinutes();
 		return ((met * 3.5 * weight) / 200) * durationInMinutes;
 	}
 }

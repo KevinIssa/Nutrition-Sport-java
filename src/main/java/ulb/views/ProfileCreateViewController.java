@@ -28,9 +28,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import ulb.exceptions.IllegalImageFormatException;
-import ulb.exceptions.ImageException;
-import ulb.exceptions.InvalidImageException;
+import ulb.dtos.ProfileDTO;
 
 public class ProfileCreateViewController implements ViewController {
 	@FXML private ImageView image;
@@ -68,28 +66,28 @@ public class ProfileCreateViewController implements ViewController {
 	 */
 	public void saveProfile() {
 		try {
-			this.listener.saveProfile(
-					this.firstname.getText(),
-					this.lastname.getText(),
-					((RadioButton) this.sex.getSelectedToggle()).getText(),
-					this.birthdate.getValue(),
-					Float.parseFloat(this.height.getText()),
-					Float.parseFloat(this.weight.getText()));
-			if (this.imagePath != null) {
-				this.listener.saveProfileImage(this.imagePath);
-			}
+			ProfileDTO profile =
+					new ProfileDTO(
+							this.firstname.getText(),
+							this.lastname.getText(),
+							((RadioButton) this.sex.getSelectedToggle()).getText(),
+							Float.parseFloat(this.weight.getText()),
+							Float.parseFloat(this.height.getText()),
+							this.birthdate.getValue(),
+							this.imagePath);
+			this.listener.saveProfile(profile);
 		} catch (NumberFormatException e) {
 			return;
-		} catch (IllegalImageFormatException e) {
-			return;
-		} catch (IllegalArgumentException e) {
-			return;
-		} catch (InvalidImageException e) {
-			return;
-		} catch (
-				ImageException
-						e) { // this should not be caught it should be caught in catch block above
-			return;
+			//		} catch (IllegalImageFormatException e) {
+			//			return;
+			//		} catch (IllegalArgumentException e) {
+			//			return;
+			//		} catch (InvalidImageException e) {
+			//			return;
+			//		} catch (
+			//				ImageException
+			//						e) { // this should not be caught it should be caught in catch block above
+			//			return;
 		}
 		this.listener.returnHome();
 	}
@@ -102,17 +100,8 @@ public class ProfileCreateViewController implements ViewController {
 	}
 
 	public interface Listener {
-		void saveProfile(
-				String firstName,
-				String lastName,
-				String sex,
-				LocalDate birthDate,
-				float height,
-				float weight)
-				throws IllegalArgumentException;
+		void saveProfile(ProfileDTO profileDTO);
 
 		void returnHome();
-
-		void saveProfileImage(String image) throws ImageException;
 	}
 }

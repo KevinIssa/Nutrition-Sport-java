@@ -18,43 +18,28 @@
  */
 package ulb.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulb.exceptions.IllegalImageFormatException;
-import ulb.exceptions.ImageException;
-import ulb.exceptions.InvalidImageException;
-import ulb.models.enums.Sex;
+import ulb.enums.Sex;
+import ulb.exceptions.*;
 
 /**
- * Represents a user profile containing personal information.
+ * This class represents a user's profile in the health and wellness application.
+ * It contains the user's first name, last name, sex, weight, height, and birth date.
  */
-public class Profile implements JsonSerializable {
+public class Profile {
 	private static final Logger logger = LoggerFactory.getLogger(Profile.class);
-
-	public static final String FILE_NAME = "profile.json";
-	public static final String IMAGE_PATH = "profile.png";
-
-	private String firstName;
-	private String lastName;
+	private Name firstName;
+	private Name lastName;
 	private Sex sex;
 	private Weight weight;
 	private Height height;
-
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-	private LocalDate birthDate;
+	private BirthDate birthDate;
 
 	/**
 	 * Default constructor for Profile.
+	 * Initializes the Profile with no values.
 	 */
 	public Profile() {}
 
@@ -66,22 +51,30 @@ public class Profile implements JsonSerializable {
 	 * @param weight The weight of the user.
 	 * @param height The height of the user.
 	 * @param birthDate The birthdate of the user.
+	 * @throws ValueObjectException If any of the values are not valid.
 	 */
 	public Profile(
 			String firstName,
 			String lastName,
 			Sex sex,
-			Weight weight,
-			Height height,
-			LocalDate birthDate) {
-		this.firstName = firstName;
-		this.lastName = lastName;
+			float weight,
+			float height,
+			LocalDate birthDate)
+			throws ValueObjectException {
+		this.firstName = new Name(firstName);
+		this.lastName = new Name(lastName);
 		this.sex = sex;
-		this.weight = weight;
-		this.height = height;
-		this.birthDate = birthDate;
+		this.weight = new Weight(weight);
+		this.height = new Height(height);
+		this.birthDate = new BirthDate(birthDate);
+		logger.info("Profile object created: {}", this);
 	}
 
+	/**
+	 * Checks if this Profile is equal to another object.
+	 * @param obj The object to compare with.
+	 * @return true if the objects are equal, false otherwise.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -100,149 +93,40 @@ public class Profile implements JsonSerializable {
 	}
 
 	/**
-	 * Checks if a profile file exists.
-	 * @return True if the profile file exists, false otherwise.
-	 */
-	public static boolean isCreated() {
-		File file = new File(FILE_NAME);
-		return file.exists();
-	}
-
-	/**
-	 * Saves the profile to a file.
-	 */
-	public void save() {
-		this.saveToFile(FILE_NAME);
-	}
-
-	/**
-	 * Loads the profile from a file.
-	 * @return The loaded profile.
-	 */
-	public static Profile load() {
-		return (Profile) new Profile().loadFromFile(FILE_NAME);
-	}
-
-	/**
-	 * Deletes the profile files.
-	 */
-	public static void delete() {
-		JsonSerializable.deleteFile(FILE_NAME);
-		JsonSerializable.deleteFile(IMAGE_PATH);
-	}
-
-	/**
-	 * Saves an image from a given URL to a local file named "profile.png".
-	 * <p>
-	 * This method creates a URL object from the provided image path, opens a stream to the URL,
-	 * and copies the contents of the stream to a local file named "profile.png". If a file with
-	 * the same name already exists, it is replaced.
-	 *
-	 * @param imagePath The URL of the image to save.
-	 * @throws RuntimeException If an IOException occurs during the operation.
-	 */
-	public static void saveImage(String imagePath) throws ImageException {
-		if (!(imagePath.endsWith(".png")
-				|| imagePath.endsWith(".jpg")
-				|| imagePath.endsWith(".jpeg"))) {
-			logger.warn("Only PNG and JPG images are supported: {}", imagePath);
-			throw new IllegalImageFormatException("Only PNG and JPG images are supported");
-		}
-
-		try {
-			Files.copy(
-					new URL(imagePath).openStream(),
-					Paths.get(IMAGE_PATH),
-					java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			logger.error("Failed to save image", e);
-			throw new InvalidImageException("Failed to save image");
-		}
-	}
-
-	/**
 	 * Generates a string representation of the profile.
 	 * @return A string representation of the profile.
 	 */
 	@Override
 	public String toString() {
-		return "Profile{"
-				+ "firstName='"
-				+ firstName
-				+ '\''
-				+ ", lastName='"
-				+ lastName
-				+ '\''
-				+ ", sex="
-				+ sex
-				+ ", weight="
-				+ weight.getWeight()
-				+ ", height="
-				+ height.getHeight()
-				+ ", birthDate="
-				+ birthDate
-				+ '}';
-	}
-
-	/**
-	 * Saves the profile to a file.
-	 * @param filename The name of the file to save the profile to.
-	 */
-	@Override
-	public void saveToFile(String filename) {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		mapper.registerModule(new JavaTimeModule());
-		try {
-			mapper.writeValue(new File(filename), this);
-		} catch (IOException e) {
-			logger.error(
-					"Error saving profile to file: {} with value : {}, {}, {}, {}, {}, {}",
-					filename,
-					this.firstName,
-					this.lastName,
-					this.birthDate,
-					this.sex,
-					this.weight,
-					this.height);
-		}
-	}
-
-	/**
-	 * Loads the profile from a file.
-	 * @param filename The name of the file to load the profile from.
-	 * @return The loaded profile.
-	 */
-	@Override
-	public JsonSerializable loadFromFile(String filename) {
-		File file = new File(filename);
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new JavaTimeModule());
-		try {
-			return mapper.readValue(file, Profile.class);
-		} catch (IOException e) {
-			logger.error("Error loading profile from file: {}", filename);
-			return null;
-		}
+		return STR."Profile{firstName='\{
+				firstName.toString()}\{
+				'\''}, lastName='\{
+				lastName.toString()}\{
+				'\''}, sex=\{
+				sex.toString()}, weight=\{
+				weight.toString()}, height=\{
+				height.toString()}, birthDate=\{
+				birthDate.toString()}\{
+				'}'}";
 	}
 
 	// Getters and setters for class attributes.
-	// These are used by Jackson to serialize and deserialize JSON data.
 
 	/**
 	 * Gets the first name of the user.
 	 * @return The first name of the user.
 	 */
 	public String getFirstName() {
-		return this.firstName;
+		return this.firstName.getValue();
 	}
 
 	/**
 	 * Sets the first name of the user.
 	 * @param newFirstName The new first name to set.
+	 * @throws ValueObjectException If the new first name is not valid.
 	 */
-	public void setFirstName(String newFirstName) {
-		this.firstName = newFirstName;
+	public void setFirstName(String newFirstName) throws ValueObjectException {
+		this.firstName = new Name(newFirstName);
 	}
 
 	/**
@@ -250,15 +134,16 @@ public class Profile implements JsonSerializable {
 	 * @return The last name of the user.
 	 */
 	public String getLastName() {
-		return this.lastName;
+		return this.lastName.getValue();
 	}
 
 	/**
 	 * Sets the last name of the user.
 	 * @param newLastName The new last name to set.
+	 * @throws ValueObjectException If the new last name is not valid.
 	 */
-	public void setLastName(String newLastName) {
-		this.lastName = newLastName;
+	public void setLastName(String newLastName) throws ValueObjectException {
+		this.lastName = new Name(newLastName);
 	}
 
 	/**
@@ -282,14 +167,15 @@ public class Profile implements JsonSerializable {
 	 * @return The weight of the user.
 	 */
 	public float getWeight() {
-		return weight.getWeight();
+		return weight.getValue();
 	}
 
 	/**
 	 * Sets the weight of the user.
 	 * @param weight The new weight to set.
+	 * @throws ValueObjectException If the new weight is not valid.
 	 */
-	public void setWeight(float weight) throws IllegalArgumentException {
+	public void setWeight(float weight) throws ValueObjectException {
 		this.weight = new Weight(weight);
 	}
 
@@ -298,14 +184,15 @@ public class Profile implements JsonSerializable {
 	 * @return The height of the user.
 	 */
 	public float getHeight() {
-		return height.getHeight();
+		return height.getValue();
 	}
 
 	/**
 	 * Sets the height of the user.
 	 * @param height The new height to set.
+	 * @throws ValueObjectException If the new height is not valid.
 	 */
-	public void setHeight(float height) {
+	public void setHeight(float height) throws ValueObjectException {
 		this.height = new Height(height);
 	}
 
@@ -314,14 +201,15 @@ public class Profile implements JsonSerializable {
 	 * @return The birthdate of the user.
 	 */
 	public LocalDate getBirthDate() {
-		return birthDate;
+		return birthDate.getValue();
 	}
 
 	/**
 	 * Sets the birthdate of the user.
 	 * @param birthDate The new birthdate to set.
+	 * @throws ValueObjectException If the new birthdate is not valid.
 	 */
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
+	public void setBirthDate(LocalDate birthDate) throws ValueObjectException {
+		this.birthDate = new BirthDate(birthDate);
 	}
 }

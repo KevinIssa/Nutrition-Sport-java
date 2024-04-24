@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class TestFood {
+public class FoodTest {
 
 	private Food food;
 
@@ -83,7 +83,7 @@ public class TestFood {
 
 	@Test
 	public void servingTypeIsExtractedCorrectly() {
-		assertEquals("g", food.getFoodQuantityUnit());
+		assertEquals("g", food.getQuantityUnit());
 	}
 
 	@Test

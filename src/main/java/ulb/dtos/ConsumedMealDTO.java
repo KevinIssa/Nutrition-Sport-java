@@ -16,16 +16,9 @@
  *
  * Date : 2024
  */
-package ulb.models;
+package ulb.dtos;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.time.LocalDateTime;
+import java.util.List;
 
-import org.junit.jupiter.api.Test;
-
-public class TestConsumable {
-
-	@Test
-	public void testGetCaloriesConsumedByGrams() {
-		assertEquals(100, new Food("food", 100, 100, "100g").getCaloriesConsumedByGrams(100), 0);
-	}
-}
+public record ConsumedMealDTO(List<ConsumedFoodDTO> consumedFoods, LocalDateTime date) {}

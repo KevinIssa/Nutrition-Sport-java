@@ -230,7 +230,7 @@ public class Food implements Consumable, Comparable<Food> {
 	 *
 	 * @return the unit of the serving
 	 */
-	public String getFoodQuantityUnit() {
+	public String getQuantityUnit() {
 		int startPosition = servingQuantity.indexOf("(");
 		String substring = this.servingQuantity.substring(startPosition);
 		if (substring.contains("ml")) {

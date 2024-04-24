@@ -18,8 +18,10 @@
  */
 package ulb.views;
 
-import java.io.File;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -33,12 +35,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulb.models.ConsumedFood;
-import ulb.models.ConsumedMeal;
+import ulb.dtos.ConsumedFoodDTO;
+import ulb.dtos.ConsumedMealDTO;
 
 public class MealHistoryViewController implements ViewController {
 	private static final Logger logger = LoggerFactory.getLogger(MealHistoryViewController.class);
-	private static final String FOLDERNAME = "consumed_meals";
 
 	private MealHistoryViewController.Listener
 			listener; // Listener interface for communication with the controller
@@ -46,7 +47,9 @@ public class MealHistoryViewController implements ViewController {
 	@FXML private ListView<HBox> historyList;
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {}
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		System.out.println(listener);
+	}
 
 	public void setListener(Object listener) {
 		if (listener == null) {
@@ -54,38 +57,31 @@ public class MealHistoryViewController implements ViewController {
 			System.exit(1);
 		}
 		this.listener = (MealHistoryViewController.Listener) listener;
-		this.addMeals(); // Add activities when listener is set
+		this.loadConsumedMeals();
 	}
 
-	/**
-	 * This method adds meals consumed to the history list.
-	 * For each file, it loads the meal from the file, and for each food in the meal, it adds the food to the history list with the date of the meal.
-	 */
-	public void addMeals() {
-		File directory = new File(FOLDERNAME); // Specify the directory path
-
-		File[] files = directory.listFiles();
-
-		if (files != null) {
-			for (File file : files) {
-				ConsumedMeal meal = listener.loadMeal(file.getPath());
-				for (ConsumedFood food : meal.getConsumedFoods()) {
-					addFood(food, meal.changeDateFormat(meal.getDate()));
-				}
+	private void loadConsumedMeals() {
+		List<ConsumedMealDTO> meals = this.listener.getAllMeals();
+		for (ConsumedMealDTO meal : meals) {
+			for (ConsumedFoodDTO food : meal.consumedFoods()) {
+				HBox mealHBox = createHistoryHBox(food, meal.date());
+				historyList.getItems().add(mealHBox);
 			}
 		}
 	}
 
-	public void addFood(ConsumedFood food, String date) {
-		HBox mealHBox = createHistoryHBox(food, date);
-		historyList.getItems().add(mealHBox);
-	}
-
-	private HBox createHistoryHBox(ConsumedFood food, String date) {
+	private HBox createHistoryHBox(ConsumedFoodDTO food, LocalDateTime date) {
 		HBox hbox = createHBox();
 		setIconInHBox(hbox);
 		setTextInHBox(food, date, hbox);
 		setButtonInHBox(hbox);
+		return hbox;
+	}
+
+	private static HBox createHBox() {
+		HBox hbox = new HBox();
+		hbox.setAlignment(Pos.CENTER_LEFT);
+		hbox.setSpacing(10);
 		return hbox;
 	}
 
@@ -98,12 +94,13 @@ public class MealHistoryViewController implements ViewController {
 		hbox.getChildren().addAll(quantityImageView, dateImageView, calorieImageView);
 	}
 
-	private void setTextInHBox(ConsumedFood food, String date, HBox hbox) {
-		Label LabelMealName = createLabel(food.getName(), 100);
+	private void setTextInHBox(ConsumedFoodDTO food, LocalDateTime date, HBox hbox) {
+		Label LabelMealName = createLabel(food.name(), 100);
 		Label LabelQuantity =
-				createLabel(Integer.toString(food.getQuantity()) + " " + food.getType(), 40);
-		Label LabelDate = createLabel(date, 120);
-		Label LabelCalorie = createLabel(String.valueOf(food.getCalories() + " kcal"), 50);
+				createLabel(STR."\{Integer.toString(food.quantity())} \{food.unit()}", 40);
+		Label LabelDate =
+				createLabel(date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm")), 120);
+		Label LabelCalorie = createLabel(String.valueOf(STR."\{food.calories()} kcal"), 50);
 		hbox.getChildren().add(0, LabelMealName);
 		hbox.getChildren().add(2, LabelQuantity);
 		hbox.getChildren().add(4, LabelDate);
@@ -114,63 +111,20 @@ public class MealHistoryViewController implements ViewController {
 		ImageView imageDelete = createImageView("/ulb/images/trash.png", 30, 30);
 		Button deleteActivityButton = new Button("");
 		deleteActivityButton.setGraphic(imageDelete);
-		deleteActivityButton.setOnAction(e -> deleteFoodInHistory(hbox));
+		//		deleteActivityButton.setOnAction(e -> deleteFoodInHistory(hbox));
 		Region spacer = new Region();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
 		hbox.getChildren().addAll(spacer, deleteActivityButton);
 	}
 
-	private void deleteFoodInHistory(HBox foodBox) {
-		// delete food in model and controller
-		String date_in_string = ((Label) foodBox.getChildren().get(4)).getText();
-		File directory = new File(FOLDERNAME); // Specify the directory path
-
-		File[] files = directory.listFiles();
-		boolean isDeleted = false;
-		if (files != null) {
-			for (File file : files) {
-				ConsumedMeal meal = listener.loadMeal(file.getPath());
-				if (meal.changeDateFormat(meal.getDate()).equals(date_in_string)) {
-					for (ConsumedFood food : meal.getConsumedFoods()) {
-						if (isSameFood(food, foodBox)) {
-							meal.getConsumedFoods().remove(food);
-							isDeleted = true;
-							break;
-						}
-					}
-				}
-				if (meal.getConsumedFoods().isEmpty() && isDeleted) {
-					file.delete();
-					break;
-				} else if (isDeleted) {
-					file.delete();
-					meal.save();
-					break;
-				}
-			}
-		}
-
-		historyList.getItems().remove(foodBox);
-	}
-
-	private boolean isSameFood(ConsumedFood food, HBox foodBox) {
-		return food.getName().equals(((Label) foodBox.getChildren().get(0)).getText())
-				&& food.getQuantity()
-						== Integer.parseInt(
-								((Label) foodBox.getChildren().get(2)).getText().split(" ")[0])
-				&& food.getCalories()
-						== Integer.parseInt(
-								((Label) foodBox.getChildren().get(6)).getText().split(" ")[0])
-				&& food.getType()
-						.equals(((Label) foodBox.getChildren().get(2)).getText().split(" ")[1]);
-	}
-
-	private static HBox createHBox() {
-		HBox hbox = new HBox();
-		hbox.setAlignment(Pos.CENTER_LEFT);
-		hbox.setSpacing(10);
-		return hbox;
-	}
+	//
+	//	private void deleteFoodInHistory(HBox foodBox) {
+	//		// delete food in model and controller
+	//		// listener.deleteFood(foodBox);
+	//		// delete food in view
+	//
+	//		historyList.getItems().remove(foodBox);
+	//	}
 
 	private ImageView createImageView(String imagePath, int width, int height) {
 		URL path = getClass().getResource(imagePath);
@@ -189,10 +143,16 @@ public class MealHistoryViewController implements ViewController {
 		this.listener.returnHome();
 	}
 
+	public void loadAddMeal(){
+		this.listener.addMeal();
+	}
+
 	public interface Listener {
 
-		ConsumedMeal loadMeal(String filename); // Load activity from file
+		List<ConsumedMealDTO> getAllMeals(); // Load all meals
 
 		void returnHome(); // Return to the home view
+
+		void addMeal();
 	}
 }

@@ -18,24 +18,35 @@
  */
 package ulb.models;
 
+/**
+ * The Consumable interface represents any item that can be consumed.
+ * It provides methods to calculate the calories consumed when this item is eaten.
+ */
 public interface Consumable {
 
 	/**
-	 * Compute the calories consumed by eating this consumable.
+	 * Computes the calories consumed by eating this consumable.
+	 * The specific implementation of this method depends on the class that implements this interface.
+	 *
+	 * @return the number of calories consumed by eating this consumable
 	 */
 	int getCaloriesConsumed();
 
 	/**
-	 * Compute the calories consumed by eating a certain amount of this consumable.
+	 * Computes the calories consumed by eating a certain amount of this consumable, measured in grams.
+	 * The specific implementation of this method depends on the class that implements this interface.
+	 *
 	 * @param grams the amount of the consumable in grams
-	 * @return the calories consumed by eating the given amount of this consumable
+	 * @return the number of calories consumed by eating the given amount of this consumable
 	 */
 	int getCaloriesConsumedByGrams(int grams);
 
 	/**
-	 * Compute the calories consumed by eating a certain amount of this consumable.
+	 * Computes the calories consumed by eating a certain amount of this consumable, measured in servings.
+	 * The specific implementation of this method depends on the class that implements this interface.
+	 *
 	 * @param servings the amount of the consumable in servings
-	 * @return the calories consumed by eating the given amount of this consumable
+	 * @return the number of calories consumed by eating the given amount of this consumable
 	 */
 	int getCaloriesConsumedByServing(int servings);
 }

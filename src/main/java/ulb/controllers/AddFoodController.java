@@ -21,12 +21,15 @@ package ulb.controllers;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.models.ConsumedMeal;
 import ulb.models.Food;
 import ulb.models.FoodLoader;
 import ulb.models.Meal;
+import ulb.repositories.JSONConsumeMealRepository;
 import ulb.views.AddFoodViewController;
 
 /**
@@ -35,15 +38,10 @@ import ulb.views.AddFoodViewController;
  * This class handles the loading of foods from the database, the calculation of calories consumed by a certain quantity of food, the saving of consumed foods and meals, and the retrieval of food details.
  * It also handles the user's search for foods and the return to the home screen of the application.
  */
-public class AddFoodController implements AppController, AddFoodViewController.Listener {
-
+public class AddFoodController extends AppController implements AddFoodViewController.Listener {
 	private static final Logger logger = LoggerFactory.getLogger(AddFoodController.class);
-	// Listener for the FoodController
 	private final AddFoodController.Listener listener;
-	// ViewController for the FoodController
-	private final AddFoodViewController viewController;
-	// FoodLoader for the FoodController
-	private FoodLoader foodLoader;
+	private final FoodLoader foodLoader;
 
 	/**
 	 * Constructor for the FoodController class.
@@ -51,10 +49,15 @@ public class AddFoodController implements AppController, AddFoodViewController.L
 	 * @param viewController ViewController for the FoodController
 	 */
 	public AddFoodController(
-			AddFoodController.Listener listener, AddFoodViewController viewController) {
+			AddFoodController.Listener listener) {
 		this.listener = listener;
-		this.viewController = viewController;
 		this.foodLoader = loadFoods();
+	}
+
+	@Override
+	public void show(Stage stage) {
+		this.loadView("/ulb/views/AddFood.fxml", stage);
+		this.viewController.setListener(this);
 	}
 
 	/**
@@ -92,7 +95,7 @@ public class AddFoodController implements AppController, AddFoodViewController.L
 					consumedFood.get(3));
 		}
 		consumedMeal.setDate(mealDate);
-		consumedMeal.save();
+		new JSONConsumeMealRepository().save(consumedMeal);
 	}
 
 	@Override
@@ -107,7 +110,7 @@ public class AddFoodController implements AppController, AddFoodViewController.L
 
 	@Override
 	public String getFoodQuantityUnit(String food) {
-		return this.foodLoader.getFoodByName(food).getFoodQuantityUnit();
+		return this.foodLoader.getFoodByName(food).getQuantityUnit();
 	}
 
 	@Override

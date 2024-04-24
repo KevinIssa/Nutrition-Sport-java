@@ -21,13 +21,20 @@ package ulb;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import ulb.controllers.MenuController;
+import ulb.repositories.JSONProfileRepository;
+import ulb.repositories.ProfileRepository;
+import ulb.services.ProfileService;
 
 public class App extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
 		this.setupStage(primaryStage);
-		new MenuController(primaryStage).loadWelcomeView();
+		ProfileRepository profileRepository = new JSONProfileRepository();
+		ProfileService profileService = new ProfileService(profileRepository);
+		MenuController menuController = new MenuController();
+		menuController.setProfileService(profileService);
+		menuController.show(primaryStage);
 		primaryStage.show();
 	}
 

@@ -23,10 +23,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
-import ulb.models.enums.Intensity;
-import ulb.models.enums.Sport;
+import ulb.enums.Intensity;
+import ulb.enums.Sport;
 
-public class TestCalorieCalculator {
+public class CalorieCalculatorTest {
 
 	@Test
 	public void computeRunning() {
@@ -56,8 +56,8 @@ public class TestCalorieCalculator {
 	private void testActivity(Sport sport, int intenseCalories, int slowCalories) {
 		Activity activity =
 				new Activity(sport, Intensity.INTENSE, Duration.ofMinutes(15), LocalDateTime.now());
-		assertEquals(intenseCalories, activity.getCaloriesBurned(40), 1);
+		assertEquals(intenseCalories, CalorieCalculator.compute(activity, 40), 1);
 		activity = new Activity(sport, Intensity.SLOW, Duration.ofHours(1), LocalDateTime.now());
-		assertEquals(slowCalories, activity.getCaloriesBurned(80), 1);
+		assertEquals(slowCalories, CalorieCalculator.compute(activity, 80), 1);
 	}
 }
