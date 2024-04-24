@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.widgets.Search">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.widgets.Search">
    <children>
-      <TextField fx:id="searchField" prefHeight="100.0" prefWidth="600.0" style="-fx-background-color: #a0aeeb;" />
-      <ListView fx:id="searchList" prefHeight="340.0" prefWidth="600.0" style="-fx-background-color: #c9d1f0;" />
+      <TextField fx:id="searchField" onKeyPressed="#keyPress" onKeyTyped="#loadContent" onMouseClicked="#loadContent" prefHeight="50.0" prefWidth="500.0" promptText="ex : Pomme" style="-fx-background-color: #a0aeeb;" VBox.vgrow="ALWAYS">
+         <font>
+            <Font size="25.0" />
+         </font></TextField>
+      <ListView fx:id="searchList" onKeyPressed="#keyPress" onMouseClicked="#onListClick" prefHeight="350.0" prefWidth="500.0" style="-fx-background-color: #c9d1f0;" VBox.vgrow="ALWAYS" />
    </children>
 </VBox>

@@ -111,11 +111,8 @@ public class AddFoodController implements AppController, AddFoodViewController.L
 	}
 
 	@Override
-	public void sendUserSearch(String searchText) {
-		this.viewController.setSuggestions(
-				this.foodLoader.getFoodsSuggestion(searchText).stream()
-						.map(Food::getName)
-						.collect(Collectors.toList()));
+	public List<String> getUserSearch(String searchText) {
+		return this.foodLoader.getFoodsSuggestion(searchText).stream().map(Food::getName).collect(Collectors.toList());
 	}
 
 	/**

@@ -22,15 +22,58 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
+import javafx.scene.input.KeyEvent;
 
-public class Search extends VBox {
+public class Search implements Initializable {
 	@FXML private TextField searchField;
 	@FXML private ListView<String> searchList;
+	private Listener listener;
 
-	public void initialiaze(URL url, ResourceBundle resourceBundle) {}
+	public interface Listener {
+		void onClick(String search);
+
+		ObservableList<String> getContent(String search);
+	}
+
+	public void setListener(Search.Listener listener) {
+		this.listener = listener;
+	}
+
+	@Override
+	public void initialize(URL url, ResourceBundle resourceBundle) {}
+
+	@FXML
+	public void onListClick(){
+		if (this.listener != null) {
+			this.listener.onClick(this.searchList.getSelectionModel().getSelectedItem());
+		}
+	}
+
+	@FXML
+	private void loadContent(){
+		if (this.listener != null) {
+			String search = this.searchField.getText();
+			this.searchList.setItems(this.listener.getContent(search));
+			this.searchList.getSelectionModel().selectFirst();
+		}
+	}
+
+	@FXML
+	public void keyPress(KeyEvent event) {
+		switch(event.getCode()){
+			case ENTER:
+				this.onListClick();
+				break;
+			case UP:
+				this.onUpPress();
+				break;
+			case DOWN:
+				this.onDownPress();
+		}
+	}
 
 	public String getText() {
 		return searchField.getText();
@@ -97,5 +140,9 @@ public class Search extends VBox {
 
 	public void setResults(ObservableList<String> results) {
 		searchList.setItems(results);
+	}
+
+	public String getFirst(){
+		return searchList.getItems().getFirst();
 	}
 }

@@ -6,6 +6,7 @@ module ulb {
 	requires com.fasterxml.jackson.datatype.jsr310;
 	requires java.desktop;
 	requires org.slf4j;
+	requires jdk.jshell;
 
 	exports ulb;
 	exports ulb.models;

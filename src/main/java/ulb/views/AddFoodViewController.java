@@ -28,13 +28,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import jdk.jshell.spi.ExecutionControl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.widgets.FoodBox;
@@ -42,13 +43,13 @@ import ulb.widgets.FoodPopupController;
 import ulb.widgets.NumberField;
 import ulb.widgets.Search;
 
-public class AddFoodViewController implements ViewController {
+public class AddFoodViewController implements ViewController, Search.Listener {
 	@FXML private Search searchController;
 	@FXML private ListView<FoodBox> chosenFoodList;
 	@FXML private DatePicker date;
 	@FXML private TextField hour;
 	@FXML private TextField minute;
-
+	@FXML private Label calorieNumber;
 	private NumberField hourNumber;
 	private NumberField minuteNumber;
 	private static final Logger logger = LoggerFactory.getLogger(AddFoodViewController.class);
@@ -62,6 +63,7 @@ public class AddFoodViewController implements ViewController {
 		this.hourNumber.setValue(now.getHour());
 		this.minuteNumber.setValue(now.getMinute());
 		this.date.setValue(LocalDate.now());
+		this.searchController.setListener(this);
 	}
 
 	@Override
@@ -73,42 +75,17 @@ public class AddFoodViewController implements ViewController {
 		this.listener = (Listener) listener;
 	}
 
-	@FXML
-	private void suggestFoods() {
-		String searchText = this.searchController.getText();
-		listener.sendUserSearch(searchText);
+	@Override
+	public ObservableList<String> getContent(String searchText) {
+		return FXCollections.observableArrayList(this.listener.getUserSearch(searchText));
 	}
 
 	/**
 	 * This method adds the chosen food to the list when the user clicks on it.
 	 */
-	@FXML
-	public void addClickedFood() {
-		String chosenFood = this.searchController.getSelectedItem();
-		if (chosenFood != null) {
-			this.addChosenFood(chosenFood);
-		}
-	}
-
-	/**
-	 * This method adds the chosen food to the list when the user presses the enter key.
-	 * @param event The key event.
-	 */
-	@FXML
-	public void keyPress(KeyEvent event) {
-		if (event.getCode() == KeyCode.ENTER) {
-			this.onEnterPress();
-		}
-	}
-
-	private void onEnterPress() {
-		String chosenFood = this.searchController.getSelectedItem();
-		if (chosenFood == null && !this.searchController.isEmpty()) {
-			chosenFood = this.searchController.getItems().getFirst();
-		}
-		if (chosenFood != null) {
-			addChosenFood(chosenFood);
-		}
+	@Override
+	public void onClick(String searchText) {
+		this.addChosenFood(searchText);
 	}
 
 	private void checkTime() throws NumberFormatException {
@@ -135,6 +112,16 @@ public class AddFoodViewController implements ViewController {
 		return LocalDateTime.of(date.getValue(), getTime());
 	}
 
+	@FXML
+	public void returnHome() {
+		listener.returnHome();
+	}
+
+	@FXML
+	public void cleanFoodList() {
+		this.chosenFoodList.getItems().clear();
+	}
+
 	/**
 	 * This method saves the consumed foods selected.
 	 * If the consumedFoodsList is empty, it returns without doing anything.
@@ -152,7 +139,7 @@ public class AddFoodViewController implements ViewController {
 			checkTime();
 			checkDate();
 			LocalDateTime mealDate = getDateTime();
-			this.saveConsumedFoods(mealDate);
+			this.listener.saveConsumedFoods(this.getConsumedFoods(), mealDate);
 			chosenFoodList.getItems().clear();
 		} catch (NumberFormatException e) {
 			showAlert("Erreur", "Veuillez entrer une heure valide.");
@@ -161,40 +148,19 @@ public class AddFoodViewController implements ViewController {
 		}
 	}
 
-	private void saveConsumedFoods(LocalDateTime mealDate) {
+	@FXML
+	public void makeMeal() {
+		//TODO NOT IMPLEMENTED
+	}
+	private List<List<String>> getConsumedFoods() {
 		List<List<String>> consumedFoodsList = new ArrayList<>();
 		for (FoodBox foodBox : chosenFoodList.getItems()) {
 			consumedFoodsList.add(foodBox.getItems());
 		}
-		this.listener.saveConsumedFoods(consumedFoodsList, mealDate);
+		return consumedFoodsList;
 	}
 
-	/**
-	 * This method removes the selected food from the list when the user select an item and click on the cross.
-	 * It first gets the selected item from the chosenFoodView.
-	 * If the selected item is not null, it removes the item from the chosenFoodView.
-	 * It then checks if the first child of the selected item is a Label.
-	 * If it is, it gets the text of the label (which is the name of the selected food),
-	 * and removes all food lists from consumedFoodsList that contain the selected food name.
-	 */
-	@FXML
-	public void removeSelectedFood() {
-		FoodBox selectedItem = chosenFoodList.getSelectionModel().getSelectedItem();
-		if (selectedItem == null) {
-			return;
-		}
-		chosenFoodList.getItems().remove(selectedItem);
-	}
-
-	// Helper methods
-	public void setSuggestions(List<String> foods) {
-		searchController.setResults((ObservableList<String>) foods);
-	}
-
-	public void returnHome() {
-		listener.returnHome();
-	}
-
+	//The following group of methods may be moved to popup class (FoodPopupController ?) //TODO REMOVE
 	private VBox loadPopupBox(FXMLLoader loader) {
 		try {
 			return loader.load();
@@ -291,7 +257,7 @@ public class AddFoodViewController implements ViewController {
 	}
 
 	public interface Listener {
-		void sendUserSearch(String searchText);
+		List<String> getUserSearch(String searchText);
 
 		void returnHome();
 
