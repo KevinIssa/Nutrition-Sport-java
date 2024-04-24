@@ -36,7 +36,8 @@ import ulb.widgets.NumberField;
 public class ActivityCreateViewController implements ViewController {
 	@FXML private Slider intensitySlider;
 	@FXML private TextField duration;
-	@FXML private Button buttonWalking, buttonRunning, buttonBiking, buttonSwimming, buttonVolleyball;
+	@FXML
+	private Button buttonWalking, buttonRunning, buttonBiking, buttonSwimming, buttonVolleyball;
 	@FXML private DatePicker activityDate;
 	@FXML private TextField hour, minute;
 	@FXML private Label burnedCalories;
@@ -91,9 +92,7 @@ public class ActivityCreateViewController implements ViewController {
 	}
 
 	private void checkDate() {
-		LocalDate now = LocalDate.now();
-		LocalDate activityDate = this.activityDate.getValue();
-		if (activityDate.isAfter(now)) {
+		if (this.activityDate.getValue().isAfter(LocalDate.now())) {
 			throw new IllegalArgumentException("La date ne peut pas être dans le futur");
 		}
 	}
@@ -117,46 +116,49 @@ public class ActivityCreateViewController implements ViewController {
 		// update the number of calorie showed
 		setCaloriesBurned();
 	}
-    public ActivityDTO getActivityDTO(){
+
+	public ActivityDTO getActivityDTO() {
 		try {
 			this.checkDate();
 			this.checkTime();
 			LocalDateTime activityDateTime = getDateTime();
 			int durationValue = this.durationNumber.getValue();
 			return new ActivityDTO(
-                this.selectedSport,
-                Intensity.fromInt((int) intensitySlider.getValue()),
-                durationValue,
-                activityDateTime);
-	    } catch (NumberFormatException e) {
-		    showAlert("Erreur", "Veuillez entrer une heure valide.");
-	    } catch (IllegalArgumentException e) {
+					this.selectedSport,
+					Intensity.fromInt((int) intensitySlider.getValue()),
+					durationValue,
+					activityDateTime);
+		} catch (NumberFormatException e) {
+			showAlert("Erreur", "Veuillez entrer une heure valide.");
+		} catch (IllegalArgumentException e) {
 			showAlert("Erreur", e.getMessage());
 		}
-        return null;
-    }
+		return null;
+	}
+
 	/**
 	 * This method saves the activity.
 	 */
 	public void saveActivity() {
-		try{
+		try {
 			ActivityDTO activityDTO = getActivityDTO();
-            if (activityDTO != null) {
-                this.listener.saveActivity(getActivityDTO());
+			if (activityDTO != null) {
+				this.listener.saveActivity(getActivityDTO());
 				goToActivityHistory();
-            }
-        } catch (Exception e) {
+			}
+		} catch (Exception e) {
 			showAlert(
 					"Erreur", "Une erreur s'est produite lors de l'enregistrement de l'activité.");
 		}
 	}
+
 	@FXML
-	private void setCaloriesBurned(){
-		if (!this.duration.getText().isEmpty()){
+	private void setCaloriesBurned() {
+		if (!this.duration.getText().isEmpty()) {
 			ActivityDTO activityDTO = getActivityDTO();
 			if (activityDTO != null) {
-				int burnedCalories = this.listener.calculateCalorie(activityDTO);
-				this.burnedCalories.setText(String.valueOf(burnedCalories));
+				this.burnedCalories.setText(
+						String.valueOf(this.listener.calculateCalorie(activityDTO)));
 			}
 		}
 	}
@@ -164,7 +166,8 @@ public class ActivityCreateViewController implements ViewController {
 	public void returnHome() {
 		this.listener.returnHome();
 	}
-	public void goToActivityHistory(){
+
+	public void goToActivityHistory() {
 		this.listener.goToActivityHistory();
 	}
 
@@ -218,11 +221,12 @@ public class ActivityCreateViewController implements ViewController {
 	// Listener interface for communication with the controller
 	public interface Listener {
 		void saveActivity(ActivityDTO activityDTO);
+
 		int calculateCalorie(ActivityDTO activityDTO);
+
 		void returnHome();
+
 		void goToActivityHistory();
-
-
 	}
 
 	// Custom string converter for intensity slider labels

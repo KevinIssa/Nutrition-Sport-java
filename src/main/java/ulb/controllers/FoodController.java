@@ -50,7 +50,7 @@ public class FoodController extends AppController implements AddFoodViewControll
 	 */
 	public FoodController(Listener listener) {
 		this.listener = listener;
-		this.foodLoader = loadFoods();
+		loadFoods();
 	}
 
 	@Override
@@ -61,12 +61,10 @@ public class FoodController extends AppController implements AddFoodViewControll
 
 	/**
 	 * This method is used to load foods from the database.
-	 * @return A FoodLoader object
 	 */
-	private FoodLoader loadFoods() {
-		FoodLoader foodLoader = new FoodLoader();
-		foodLoader.extend(loadMeals());
-		return foodLoader;
+	private void loadFoods() {
+		this.foodLoader = new FoodLoader();
+		this.foodLoader.extend(loadMeals());
 	}
 
 	private List<Food> loadMeals() {
@@ -80,7 +78,7 @@ public class FoodController extends AppController implements AddFoodViewControll
 
 	@Override
 	public void reload() {
-		this.foodLoader = loadFoods();
+		loadFoods();
 	}
 
 	@Override

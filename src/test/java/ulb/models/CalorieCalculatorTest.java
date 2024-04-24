@@ -26,30 +26,30 @@ import org.junit.jupiter.api.Test;
 import ulb.enums.Intensity;
 import ulb.enums.Sport;
 
-public class CalorieCalculatorTest {
+class CalorieCalculatorTest {
 
 	@Test
-	public void computeRunning() {
+	void computeRunning() {
 		testActivity(Sport.RUNNING, 137, 672);
 	}
 
 	@Test
-	public void computeVolleyball() {
+	void computeVolleyball() {
 		testActivity(Sport.VOLLEYBALL, 47, 252);
 	}
 
 	@Test
-	public void computeWalking() {
+	void computeWalking() {
 		testActivity(Sport.WALKING, 47, 252);
 	}
 
 	@Test
-	public void computeBiking() {
+	void computeBiking() {
 		testActivity(Sport.BIKING, 105, 336);
 	}
 
 	@Test
-	public void computeSwimming() {
+	void computeSwimming() {
 		testActivity(Sport.SWIMMING, 105, 504);
 	}
 

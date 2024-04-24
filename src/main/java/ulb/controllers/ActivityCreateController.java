@@ -57,8 +57,9 @@ public class ActivityCreateController extends AppController
 		this.loadView("/ulb/views/ActivityCreate.fxml", stage);
 		this.viewController.setListener(this);
 	}
+
 	@Override
-	public int calculateCalorie(ActivityDTO activityDTO){
+	public int calculateCalorie(ActivityDTO activityDTO) {
 		return this.activityService.calculateCaloriesBurnedDuringActivity(
 				activityDTO, this.profileService.getProfileWeight());
 	}
@@ -78,8 +79,9 @@ public class ActivityCreateController extends AppController
 		logger.info("Closing the popup");
 		this.listener.returnHome();
 	}
+
 	@Override
-	public void goToActivityHistory(){
+	public void goToActivityHistory() {
 		logger.info("Going to activity history");
 		this.listener.goToActivityHistory();
 	}
@@ -97,7 +99,7 @@ public class ActivityCreateController extends AppController
 		 * The implementing class should define the behavior that occurs when this event happens.
 		 */
 		void returnHome();
-		void goToActivityHistory();
 
+		void goToActivityHistory();
 	}
 }

@@ -23,87 +23,87 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class FoodTest {
+class FoodTest {
 
 	private Food food;
 
 	@BeforeEach
-	public void setup() {
+	void setup() {
 		food = new Food("Apple", 52, 52, "1 (182g)");
 	}
 
 	@Test
-	public void nameIsSetCorrectly() {
+	void nameIsSetCorrectly() {
 		assertEquals("Apple", food.getName());
 	}
 
 	@Test
-	public void caloriesPer100IsSetCorrectly() {
+	void caloriesPer100IsSetCorrectly() {
 		assertEquals(52, food.getCaloriesPer100());
 	}
 
 	@Test
-	public void caloriesPerServingIsSetCorrectly() {
+	void caloriesPerServingIsSetCorrectly() {
 		assertEquals(52, food.getCaloriesPerServing());
 	}
 
 	@Test
-	public void servingQuantityIsSetCorrectly() {
+	void servingQuantityIsSetCorrectly() {
 		assertEquals("1 (182g)", food.getServingQuantity());
 	}
 
 	@Test
-	public void nameCanBeChanged() {
+	void nameCanBeChanged() {
 		food.setName("Banana");
 		assertEquals("Banana", food.getName());
 	}
 
 	@Test
-	public void caloriesPer100CanBeChanged() {
+	void caloriesPer100CanBeChanged() {
 		food.setCaloriesPer100(96);
 		assertEquals(96, food.getCaloriesPer100());
 	}
 
 	@Test
-	public void caloriesPerServingCanBeChanged() {
+	void caloriesPerServingCanBeChanged() {
 		food.setCaloriesPerServing(105);
 		assertEquals(105, food.getCaloriesPerServing());
 	}
 
 	@Test
-	public void servingQuantityCanBeChanged() {
+	void servingQuantityCanBeChanged() {
 		food.setServingQuantity("1 (118g)");
 		assertEquals("1 (118g)", food.getServingQuantity());
 	}
 
 	@Test
-	public void servingQuantityValueIsExtractedCorrectly() {
+	void servingQuantityValueIsExtractedCorrectly() {
 		assertEquals(182, food.extractServingQuantityValue());
 	}
 
 	@Test
-	public void servingTypeIsExtractedCorrectly() {
+	void servingTypeIsExtractedCorrectly() {
 		assertEquals("g", food.getServingType());
 	}
 
 	@Test
-	public void caloriesConsumedByGramsIsCalculatedCorrectly() {
+	void caloriesConsumedByGramsIsCalculatedCorrectly() {
 		assertEquals(94, food.getCaloriesConsumedByGrams(182));
 	}
 
 	@Test
-	public void caloriesConsumedByServingIsCalculatedCorrectly() {
+	void caloriesConsumedByServingIsCalculatedCorrectly() {
 		assertEquals(52, food.getCaloriesConsumedByServing(1));
 	}
 
 	@Test
-	public void equalsReturnsFalseForDifferentFood() {
+	void equalsReturnsFalseForDifferentFood() {
 		Food differentFood = new Food("Banana", 96, 105, "1 (118g)");
 		assertNotEquals(food, differentFood);
 	}
 
 	@Test
-	public void equalsReturnsTrueForSameFood() {
+	void equalsReturnsTrueForSameFood() {
 		Food sameFood = new Food("Apple", 52, 52, "1 (182g)");
 		assertEquals(food, sameFood);
 	}

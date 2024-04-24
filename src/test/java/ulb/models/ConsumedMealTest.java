@@ -24,17 +24,17 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ConsumedMealTest {
+class ConsumedMealTest {
 
 	private ConsumedMeal consumedMeal;
 
 	@BeforeEach
-	public void setup() {
+	void setup() {
 		consumedMeal = new ConsumedMeal();
 	}
 
 	@Test
-	public void addConsumedFoodShouldAddFoodToList() {
+	void addConsumedFoodShouldAddFoodToList() {
 		consumedMeal.addConsumedFood("Banana", 100, 100, "g");
 		List<ConsumedFood> consumedFoods = consumedMeal.getConsumedFoods();
 		assertEquals(1, consumedFoods.size());
@@ -42,7 +42,7 @@ public class ConsumedMealTest {
 	}
 
 	@Test
-	public void getCaloriesConsumedShouldReturnTotalCalories() {
+	void getCaloriesConsumedShouldReturnTotalCalories() {
 		consumedMeal.addConsumedFood("Banana", 100, 100, "g");
 		consumedMeal.addConsumedFood("Apple", 100, 200, "g");
 		assertEquals(300, consumedMeal.getCaloriesConsumed());

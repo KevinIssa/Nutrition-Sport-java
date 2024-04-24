@@ -77,10 +77,8 @@ public class AddFoodViewController implements ViewController {
 				.focusedProperty()
 				.addListener(
 						(observable, oldValue, newValue) -> {
-							if (!newValue) {
-								if (!suggestionsList.isFocused()) {
-									cleanSuggestedFoodList();
-								}
+							if (Boolean.TRUE.equals(!newValue) && (!suggestionsList.isFocused())) {
+								cleanSuggestedFoodList();
 							}
 						});
 	}
@@ -154,6 +152,8 @@ public class AddFoodViewController implements ViewController {
 			case BACK_SPACE:
 				this.onBackSpacePress();
 				break;
+			default:
+				break;
 		}
 	}
 
@@ -189,21 +189,22 @@ public class AddFoodViewController implements ViewController {
 			addChosenFood(chosenFood);
 		}
 	}
-	private void onBackSpacePress(){
-		if (this.searchField.getText().isEmpty()){
+
+	private void onBackSpacePress() {
+		if (this.searchField.getText().isEmpty()) {
 			cleanSuggestedFoodList();
-		}else{
-			suggestFoods();
-		}
-	}
-	// we check if the the search bar is not empty before giving suggestions
-	@FXML
-	private void onKeyPress(){
-		if (! this.searchField.getText().isEmpty()){
+		} else {
 			suggestFoods();
 		}
 	}
 
+	// we check if the the search bar is not empty before giving suggestions
+	@FXML
+	private void onKeyPress() {
+		if (!this.searchField.getText().isEmpty()) {
+			suggestFoods();
+		}
+	}
 
 	/**
 	 * This method returns the time of the meal entered by the user and handles the exceptions in case of an invalid input.
@@ -284,13 +285,11 @@ public class AddFoodViewController implements ViewController {
 		HBox selectedItem = chosenFoodView.getSelectionModel().getSelectedItem();
 		if (selectedItem != null) {
 			chosenFoodView.getItems().remove(selectedItem);
-			if (selectedItem.getChildren().get(0) instanceof Label) {
-				Label label = (Label) selectedItem.getChildren().get(0);
+			if (selectedItem.getChildren().get(0) instanceof Label label) {
 				String selectedFoodName = label.getText();
 				consumedFoodsList.removeIf(foodList -> foodList.contains(selectedFoodName));
 			}
-			if (selectedItem.getChildren().get(1) instanceof Label) {
-				Label label = (Label) selectedItem.getChildren().get(1);
+			if (selectedItem.getChildren().get(1) instanceof Label label) {
 				String selectedFoodcalorie = label.getText();
 				String[] splittedFood = selectedFoodcalorie.split("\\s+");
 				String calorieString = splittedFood[1];

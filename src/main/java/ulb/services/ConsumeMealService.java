@@ -19,7 +19,6 @@
 package ulb.services;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import ulb.dtos.ConsumedFoodDTO;
 import ulb.dtos.ConsumedMealDTO;
 import ulb.models.ConsumedFood;
@@ -45,7 +44,7 @@ public class ConsumeMealService {
 	public List<ConsumedMealDTO> getConsumedMeals() {
 		return this.consumeMealRepository.loadAll().stream()
 				.map(this::convertToConsumedMealDTO)
-				.collect(Collectors.toList());
+				.toList();
 	}
 
 	public void deleteConsumedMeal(ConsumedMealDTO consumedMealDTO) {
@@ -78,7 +77,7 @@ public class ConsumeMealService {
 		List<ConsumedFoodDTO> consumedFoods =
 				consumedMeal.getConsumedFoods().stream()
 						.map(this::convertToConsumedFoodDTO)
-						.collect(Collectors.toList());
+						.toList();
 		return new ConsumedMealDTO(consumedFoods, consumedMeal.getDate());
 	}
 

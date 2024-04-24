@@ -24,42 +24,42 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class FoodLoaderTest {
+class FoodLoaderTest {
 
 	private FoodLoader foodLoader;
 
 	@BeforeEach
-	public void setup() {
+	void setup() {
 		foodLoader = new FoodLoader();
 	}
 
 	@Test
-	public void loadFoodsShouldNotReturnNull() {
+	void loadFoodsShouldNotReturnNull() {
 		assertNotNull(foodLoader.getFoods());
 	}
 
 	@Test
-	public void getFoodsSuggestionShouldReturnCorrectSuggestions() {
+	void getFoodsSuggestionShouldReturnCorrectSuggestions() {
 		List<Food> foods = foodLoader.getFoodsSuggestion("Ban");
 		assertFalse(foods.isEmpty());
 		assertTrue(foods.stream().allMatch(food -> food.getName().startsWith("Ban")));
 	}
 
 	@Test
-	public void getFoodsSuggestionShouldReturnEmptyListForUnknownFood() {
+	void getFoodsSuggestionShouldReturnEmptyListForUnknownFood() {
 		List<Food> foods = foodLoader.getFoodsSuggestion("UnknownFood");
 		assertTrue(foods.isEmpty());
 	}
 
 	@Test
-	public void getFoodByNameShouldReturnCorrectFood() {
+	void getFoodByNameShouldReturnCorrectFood() {
 		Food food = foodLoader.getFoodByName("7up");
 		assertNotNull(food);
 		assertEquals("7up", food.getName());
 	}
 
 	@Test
-	public void getFoodByNameShouldReturnNullForUnknownFood() {
+	void getFoodByNameShouldReturnNullForUnknownFood() {
 		Food food = foodLoader.getFoodByName("UnknownFood");
 		assertNull(food);
 	}
