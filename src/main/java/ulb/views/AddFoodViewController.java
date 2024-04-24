@@ -48,11 +48,12 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 	@FXML private DatePicker date;
 	@FXML private TextField hour;
 	@FXML private TextField minute;
-	@FXML private Label calorieNumber;
+	@FXML private Label calorieLabel;
 	private NumberField hourNumber;
 	private NumberField minuteNumber;
 	private static final Logger logger = LoggerFactory.getLogger(AddFoodViewController.class);
 	private AddFoodViewController.Listener listener;
+	private int totalCalories = 0;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -138,8 +139,8 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 		try {
 			checkTime();
 			checkDate();
-			LocalDateTime mealDate = getDateTime();
-			this.listener.saveConsumedFoods(this.getConsumedFoods(), mealDate);
+			LocalDateTime saveDate = getDateTime();
+			this.listener.saveConsumedFoods(this.getConsumedFoods(), saveDate);
 			chosenFoodList.getItems().clear();
 		} catch (NumberFormatException e) {
 			showAlert("Erreur", "Veuillez entrer une heure valide.");
@@ -251,6 +252,8 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 		}
 
 		int calories = listener.getCaloriesConsumedByGrams(food, quantity);
+		this.totalCalories += calories;
+		this.calorieLabel.setText(Integer.toString(this.totalCalories));
 		String foodUnit = listener.getFoodQuantityUnit(food);
 		FoodBox foodBox = new FoodBox(food, calories, quantity, foodUnit);
 		chosenFoodList.getItems().add(foodBox);
