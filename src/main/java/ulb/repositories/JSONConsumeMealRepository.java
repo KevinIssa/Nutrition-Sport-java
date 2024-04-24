@@ -46,6 +46,11 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 
 	@Override
 	public void save(ConsumedMeal consumedMeal) {
+		File folder = new File(FOLDER_NAME);
+		if (!folder.exists()) {
+			// logger.info("Creating activities folder");
+			folder.mkdir();
+		}
 		String fileName =
 				STR."\{
 						FOLDER_NAME}/\{

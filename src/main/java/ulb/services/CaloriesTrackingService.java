@@ -87,7 +87,7 @@ public class CaloriesTrackingService {
 	 */
 	private List<DateCalorie> generateCaloriesTrackingListSince(int daysAgo) {
 		return IntStream.rangeClosed(0, daysAgo)
-				.mapToObj(i -> new DateCalorie(LocalDate.now().minusDays(daysAgo-i)))
+				.mapToObj(i -> new DateCalorie(LocalDate.now().minusDays(daysAgo - i)))
 				.toList();
 	}
 
