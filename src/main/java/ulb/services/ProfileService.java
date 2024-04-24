@@ -81,7 +81,9 @@ public class ProfileService {
 	/**
 	 * Deletes a Profile object from the repository.
 	 */
-	public void deleteProfile() {}
+	public void deleteProfile() {
+		this.profileRepository.delete();
+	}
 
 	/**
 	 * Retrieves the image path of the profile.

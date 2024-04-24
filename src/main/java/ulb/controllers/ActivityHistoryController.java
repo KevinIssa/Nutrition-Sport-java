@@ -19,7 +19,6 @@
 package ulb.controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,7 +57,7 @@ public class ActivityHistoryController extends AppController
 		logger.info("Getting activities with filter: {}", filter);
 		return this.activityService.loadActivities().stream()
 				.filter(activity -> filter == null || activity.sport() == filter)
-				.collect(Collectors.toList());
+				.toList();
 	}
 
 	@Override

@@ -40,7 +40,6 @@ import org.slf4j.LoggerFactory;
 import ulb.models.Food;
 import ulb.widgets.FoodPopupController;
 
-
 public class AddFoodViewController implements ViewController {
 	private static final Logger logger = LoggerFactory.getLogger(AddFoodViewController.class);
 	@FXML private TextField searchField;
@@ -74,13 +73,16 @@ public class AddFoodViewController implements ViewController {
 							this.mode = newValue.intValue() == 1;
 							changeMode();
 						});
-		searchField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (! newValue) {
-				if (!suggestionsList.isFocused()){
-					cleanSuggestedFoodList();
-				}
-			}
-		});
+		searchField
+				.focusedProperty()
+				.addListener(
+						(observable, oldValue, newValue) -> {
+							if (!newValue) {
+								if (!suggestionsList.isFocused()) {
+									cleanSuggestedFoodList();
+								}
+							}
+						});
 	}
 
 	/**
@@ -132,8 +134,6 @@ public class AddFoodViewController implements ViewController {
 		}
 		cleanSuggestedFoodList();
 	}
-
-
 
 	/**
 	 * This method adds the chosen food to the list when the user presses the enter key.
@@ -288,9 +288,8 @@ public class AddFoodViewController implements ViewController {
 				Label label = (Label) selectedItem.getChildren().get(0);
 				String selectedFoodName = label.getText();
 				consumedFoodsList.removeIf(foodList -> foodList.contains(selectedFoodName));
-
 			}
-			if (selectedItem.getChildren().get(1) instanceof Label){
+			if (selectedItem.getChildren().get(1) instanceof Label) {
 				Label label = (Label) selectedItem.getChildren().get(1);
 				String selectedFoodcalorie = label.getText();
 				String[] splittedFood = selectedFoodcalorie.split("\\s+");
@@ -341,21 +340,26 @@ public class AddFoodViewController implements ViewController {
 								value.contains("g") ? "g" : servingType)));
 		addCalorie(calories);
 	}
-	public void removeCalorie(int calorie){
+
+	public void removeCalorie(int calorie) {
 		String calorieString = this.calorieNumber.getText();
-		String numericString = calorieString.replaceAll("[^0-9]", ""); // Remove non-numeric characters
+		String numericString =
+				calorieString.replaceAll("[^0-9]", ""); // Remove non-numeric characters
 		setCalorieNumber(Integer.parseInt(numericString) - calorie);
 	}
-	public void addCalorie(int calorie){
+
+	public void addCalorie(int calorie) {
 		String calorieString = this.calorieNumber.getText();
-		String numericString = calorieString.replaceAll("[^0-9]", ""); // Remove non-numeric characters
+		String numericString =
+				calorieString.replaceAll("[^0-9]", ""); // Remove non-numeric characters
 		setCalorieNumber(Integer.parseInt(numericString) + calorie);
 	}
+
 	/**
 	 * This method use the parameter given to show on the view the correct calorie number on calorieNumber
 	 * @param calorie number of calorie that need to be showed
 	 */
-	public void setCalorieNumber(int calorie){
+	public void setCalorieNumber(int calorie) {
 		String calorieString = String.valueOf(calorie);
 		this.calorieNumber.setText(calorieString);
 	}
@@ -465,7 +469,7 @@ public class AddFoodViewController implements ViewController {
 		setCalorieNumber(0);
 	}
 
-	public void cleanSuggestedFoodList(){
+	public void cleanSuggestedFoodList() {
 		searchField.clear();
 		suggestionsList.getItems().clear();
 	}

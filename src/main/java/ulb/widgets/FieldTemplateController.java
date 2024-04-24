@@ -19,17 +19,14 @@
 package ulb.widgets;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 public class FieldTemplateController
-        extends AbstractFieldTemplate{ // TODO : Rename this class "this class is a container for
+		extends AbstractFieldTemplate { // TODO : Rename this class "this class is a container for
 	// the textfield, label and button"
 
 	@FXML public TextField infoFieldUser;
+
 	@Override
 	public void setDefault() {
 		super.setDefault(infoFieldUser);

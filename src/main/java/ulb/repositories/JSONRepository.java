@@ -38,7 +38,7 @@ public abstract class JSONRepository<T> {
 	/**
 	 * The constructor initializes the ObjectMapper with the necessary settings.
 	 */
-	public JSONRepository() {
+	protected JSONRepository() {
 		// Enable pretty-printing of the JSON output.
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		// Register the JavaTimeModule to support Java 8 date/time types.

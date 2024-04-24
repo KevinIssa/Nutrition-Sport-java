@@ -18,14 +18,17 @@
  */
 package ulb.controllers;
 
+import java.util.List;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ulb.dtos.DateCalorieDTO;
 import ulb.models.*;
 import ulb.repositories.ActivityRepository;
 import ulb.repositories.ConsumeMealRepository;
 import ulb.repositories.JSONActivityRepository;
 import ulb.repositories.JSONConsumeMealRepository;
 import ulb.services.ActivityService;
+import ulb.services.CaloriesTrackingService;
 import ulb.services.ConsumeMealService;
 import ulb.services.ProfileService;
 import ulb.views.*;
@@ -40,11 +43,14 @@ public class MenuController extends AppController implements MenuViewController.
 
 	private Stage primaryStage;
 	private ProfileService profileService;
-
-	public MenuController() {}
+	private CaloriesTrackingService caloriesTrackingService;
 
 	public void setProfileService(ProfileService profileService) {
 		this.profileService = profileService;
+	}
+
+	public void setCaloriesTrackingService(CaloriesTrackingService caloriesTrackingService) {
+		this.caloriesTrackingService = caloriesTrackingService;
 	}
 
 	@Override
@@ -201,7 +207,8 @@ public class MenuController extends AppController implements MenuViewController.
 		ActivityRepository activityRepository = new JSONActivityRepository();
 		ActivityService activityService = new ActivityService(activityRepository);
 		AppController controller =
-				new ActivityHistoryController(activityService,
+				new ActivityHistoryController(
+						activityService,
 						new ActivityHistoryController.Listener() {
 							@Override
 							public void returnHome() {
@@ -228,7 +235,8 @@ public class MenuController extends AppController implements MenuViewController.
 		ConsumeMealRepository consumeMealRepository = new JSONConsumeMealRepository();
 		ConsumeMealService consumeMealService = new ConsumeMealService(consumeMealRepository);
 		AppController controller =
-				new MealHistoryController(consumeMealService,
+				new MealHistoryController(
+						consumeMealService,
 						new MealHistoryController.Listener() {
 
 							@Override
@@ -278,5 +286,10 @@ public class MenuController extends AppController implements MenuViewController.
 	@Override
 	public String getProfileImagePath() {
 		return this.profileService.getProfileImagePath();
+	}
+
+	@Override
+	public List<DateCalorieDTO> getGraphData() {
+		return this.caloriesTrackingService.getCaloriesTracking();
 	}
 }
