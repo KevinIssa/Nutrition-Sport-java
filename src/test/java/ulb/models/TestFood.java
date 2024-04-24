@@ -83,7 +83,7 @@ public class TestFood {
 
 	@Test
 	public void servingTypeIsExtractedCorrectly() {
-		assertEquals("g", food.getServingType());
+		assertEquals("g", food.getFoodQuantityUnit());
 	}
 
 	@Test

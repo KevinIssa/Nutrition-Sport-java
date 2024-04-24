@@ -35,7 +35,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -107,7 +106,7 @@ public class AddFoodViewController implements ViewController {
 	private void onEnterPress() {
 		String chosenFood = this.searchController.getSelectedItem();
 		if (chosenFood == null && !this.searchController.isEmpty()) {
-			chosenFood = this.searchController.getItems().get(0);
+			chosenFood = this.searchController.getItems().getFirst();
 		}
 		if (chosenFood != null) {
 			addChosenFood(chosenFood);
@@ -167,7 +166,7 @@ public class AddFoodViewController implements ViewController {
 	}
 
 	private void saveConsumedFoods(LocalDateTime mealDate) {
-		ArrayList<ObservableList<String>> consumedFoodsList = new ArrayList<>();
+		List<List<String>> consumedFoodsList = new ArrayList<>();
 		for (FoodBox foodBox : chosenFoodList.getItems()) {
 			consumedFoodsList.add(foodBox.getItems());
 		}
@@ -189,7 +188,6 @@ public class AddFoodViewController implements ViewController {
 			return;
 		}
 		chosenFoodList.getItems().remove(selectedItem);
-		}
 	}
 
 	// Helper methods
@@ -199,64 +197,6 @@ public class AddFoodViewController implements ViewController {
 
 	public void returnHome() {
 		listener.returnHome();
-	}
-
-	/**
-	 * This method adds the chosen food to the list.
-	 * It first gets the user data for the food, and extracts the quantity from it.
-	 * If the quantity is 0, it returns without doing anything.
-	 * Otherwise, it gets the calories consumed by the quantity of the food, and loads the food item box.
-	 * It then gets the serving type of the food, and updates the food item box with the food, calories, quantity, serving type, and value.
-	 * It adds the box to the chosenFoodView, and adds a list of the food, quantity, calories, and serving type (or "g" if the value contains "g") to the consumedFoodsList.
-	 * @param food The chosen food.
-	 */
-	public void addChosenFood(String food) {
-		String value = this.getUserData(food);
-		int quantity = extractQuantity(value, food);
-		if (quantity == 0) {
-			return;
-		}
-
-		int calories = listener.getCaloriesConsumedByGrams(food, quantity);
-		FoodBox box = this.loadFoodItemBox();
-		String servingType = listener.getFoodServingType(food);
-		updateFoodItemBox(box, food, calories, quantity, servingType, value);
-		chosenFoodList.getItems().add(box);
-
-		consumedFoodsList.add(
-				new ArrayList<>(
-						List.of(
-								food,
-								Integer.toString(quantity),
-								Integer.toString(calories),
-								value.contains("g") ? "g" : servingType)));
-	}
-
-	/**
-	 * This method gets the user data for a food.
-	 * It creates a dialog with a custom input dialog title, and loads the popup box for the food.
-	 * It sets the serving label of the controller with the food serving quantity, and sets the content of the dialog pane with the box.
-	 * It adds OK and Cancel buttons to the dialog pane, and sets the result converter of the dialog with the processDialogResult method.
-	 * It then shows the dialog and waits for the user to input a value or cancel the dialog.
-	 * If the user inputs a value, it returns the value. Otherwise, it returns "0".
-	 * @param food The food.
-	 * @return The user data.
-	 */
-	private String getUserData(String food) {
-		Dialog<String> dialog = new Dialog<>();
-		dialog.setTitle("Quantité de " + food);
-
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/widgets/Food_popup.fxml"));
-		VBox box = loadPopupBox(loader);
-
-		FoodPopupController controller = loader.getController();
-		controller.setServinglabel(listener.getFoodServingQuantity(food));
-
-		dialog.getDialogPane().setContent(box);
-		dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-		dialog.setResultConverter(buttonType -> processDialogResult(buttonType, controller));
-
-		return dialog.showAndWait().orElse("0");
 	}
 
 	private VBox loadPopupBox(FXMLLoader loader) {
@@ -283,52 +223,75 @@ public class AddFoodViewController implements ViewController {
 	}
 
 	/**
-	 * Extracts the quantity from the the food selected by the user.
+	 * This method gets the user data for a food.
+	 * It creates a dialog with a custom input dialog title, and loads the popup box for the food.
+	 * It sets the serving label of the controller with the food serving quantity, and sets the content of the dialog pane with the box.
+	 * It adds OK and Cancel buttons to the dialog pane, and sets the result converter of the dialog with the processDialogResult method.
+	 * It then shows the dialog and waits for the user to input a value or cancel the dialog.
+	 * If the user inputs a value, it returns the value. Otherwise, it returns "0".
+	 * @param food The food.
+	 * @return The user data.
+	 */
+	private String getUserFoodQuantity(String food) {
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/widgets/Food_popup.fxml"));
+
+		FoodPopupController controller = loader.getController();
+		controller.setServinglabel(listener.getFoodServingQuantity(food));
+
+		Dialog<String> dialog = new Dialog<>();
+		dialog.setTitle("Quantité de " + food);
+		VBox box = loadPopupBox(loader);
+		dialog.getDialogPane().setContent(box);
+		dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+		dialog.setResultConverter(buttonType -> processDialogResult(buttonType, controller));
+
+		return dialog.showAndWait().orElse("0");
+	}
+
+	private int getGramQuantity(String input, String food, Matcher matcher) {
+		int quantity = Integer.parseInt(matcher.group());
+		if (input.contains("portion")) {
+			quantity *= this.listener.extractServingQuantityValue(food);
+		}
+		return quantity;
+	}
+
+	/**
+	 * Extracts the quantity from the food selected by the user.
 	 */
 	private int extractQuantity(String input, String food) {
 		Pattern pattern = Pattern.compile("\\d+");
 		Matcher matcher = pattern.matcher(input);
 
 		if (matcher.find()) {
-
-			int quantity = Integer.parseInt(matcher.group());
-			if (input.contains("portion")) {
-				quantity *= this.listener.extractServingQuantityValue(food);
-			}
-			return quantity;
-
+			return getGramQuantity(input, food, matcher);
 		} else {
-			this.logger.error("No match found in serving quantity {} for food {}", input, food);
+			logger.error("No match found in serving quantity {} for food {}", input, food);
 			return 0;
 		}
 	}
 
-	private FoodBox loadFoodItemBox() {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/widgets/Food_item.fxml"));
-		try {
-			return loader.load();
-		} catch (IOException e) {
-			logger.error("Food_item file not existing", e);
-			System.exit(1);
-			return null; // Unreachable
+	/**
+	 * This method adds the chosen food to the list.
+	 * It first gets the user data for the food, and extracts the quantity from it.
+	 * If the quantity is 0, it returns without doing anything.
+	 * Otherwise, it gets the calories consumed by the quantity of the food, and loads the food item box.
+	 * It then gets the serving type of the food, and updates the food item box with the food, calories, quantity, serving type, and value.
+	 * It adds the box to the chosenFoodView, and adds a list of the food, quantity, calories, and serving type (or "g" if the value contains "g") to the consumedFoodsList.
+	 * @param food The chosen food.
+	 */
+	public void addChosenFood(String food) {
+		String value = this.getUserFoodQuantity(food);
+		int quantity = this.extractQuantity(value, food);
+		if (quantity == 0) {
+			return;
 		}
-	}
 
-	private void updateFoodItemBox(
-			HBox box, String food, int calories, int quantity, String servingType, String value) {
-
-		Label label1 = (Label) box.getChildren().get(0);
-		label1.setText(food);
-
-		Label label2 = (Label) box.getChildren().get(1);
-		String quantityText =
-				value.contains("g")
-						? String.format(
-								"Calories: %d          quantites(g): %d", calories, quantity)
-						: String.format(
-								"Calories: %d          quantites(%s): %d",
-								calories, servingType, quantity);
-		label2.setText(quantityText);
+		int calories = listener.getCaloriesConsumedByGrams(food, quantity);
+		String foodUnit = listener.getFoodQuantityUnit(food);
+		FoodBox foodBox = new FoodBox(food, calories, quantity, foodUnit);
+		chosenFoodList.getItems().add(foodBox);
 	}
 
 	public interface Listener {
@@ -343,13 +306,13 @@ public class AddFoodViewController implements ViewController {
 		void saveMeal(String mealName, ArrayList<ArrayList<String>> consumedFoodsList);
 
 		void saveConsumedFoods(
-				ArrayList<ObservableList<String>> consumedFoodsList, LocalDateTime mealDate);
+				List<List<String>> consumedFoodsList, LocalDateTime mealDate);
 
 		String getFoodServingQuantity(String food);
 
 		int extractServingQuantityValue(String food);
 
-		String getFoodServingType(String food);
+		String getFoodQuantityUnit(String food);
 
 		Food getCorrespondingFood(String food);
 

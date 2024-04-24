@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javafx.collections.ObservableList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.models.ConsumedMeal;
@@ -90,7 +89,7 @@ public class FoodController implements AppController, AddFoodViewController.List
 
 	@Override
 	public void saveConsumedFoods(
-			ArrayList<ObservableList<String>> consumedFoodsList, LocalDateTime mealDate) {
+			List<List<String>> consumedFoodsList, LocalDateTime mealDate) {
 		ConsumedMeal consumedMeal = new ConsumedMeal();
 		for (List<String> consumedFood : consumedFoodsList) {
 			consumedMeal.addConsumedFood(
@@ -132,8 +131,8 @@ public class FoodController implements AppController, AddFoodViewController.List
 	}
 
 	@Override
-	public String getFoodServingType(String food) {
-		return this.foodLoader.getFoodByName(food).getServingType();
+	public String getFoodQuantityUnit(String food) {
+		return this.foodLoader.getFoodByName(food).getFoodQuantityUnit();
 	}
 
 	@Override
