@@ -170,9 +170,17 @@ public class MenuController extends AppController implements MenuViewController.
 				new ActivityCreateController(
 						activityService,
 						this.profileService,
-						() -> {
-							loadActivityHistoryView();
-							popupStage.close();
+						new ActivityCreateController.Listener() {
+							@Override
+							public void goToActivityHistory() {
+								loadActivityHistoryView();
+								popupStage.close();
+							}
+
+							@Override
+							public void returnHome() {
+								popupStage.close();
+							}
 						});
 		controller.show(popupStage);
 		// This line sets the modality of the popup stage to APPLICATION_MODAL.

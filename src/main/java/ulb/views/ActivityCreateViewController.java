@@ -36,8 +36,7 @@ import ulb.widgets.NumberField;
 public class ActivityCreateViewController implements ViewController {
 	@FXML private Slider intensitySlider;
 	@FXML private TextField duration;
-	@FXML
-	private Button buttonWalking, buttonRunning, buttonBiking, buttonSwimming, buttonVolleyball;
+	@FXML private Button buttonWalking, buttonRunning, buttonBiking, buttonSwimming, buttonVolleyball;
 	@FXML private DatePicker activityDate;
 	@FXML private TextField hour, minute;
 	@FXML private Label burnedCalories;
@@ -144,7 +143,7 @@ public class ActivityCreateViewController implements ViewController {
 			ActivityDTO activityDTO = getActivityDTO();
             if (activityDTO != null) {
                 this.listener.saveActivity(getActivityDTO());
-                returnHome();
+				goToActivityHistory();
             }
         } catch (Exception e) {
 			showAlert(
@@ -164,6 +163,9 @@ public class ActivityCreateViewController implements ViewController {
 
 	public void returnHome() {
 		this.listener.returnHome();
+	}
+	public void goToActivityHistory(){
+		this.listener.goToActivityHistory();
 	}
 
 	/**
@@ -217,8 +219,8 @@ public class ActivityCreateViewController implements ViewController {
 	public interface Listener {
 		void saveActivity(ActivityDTO activityDTO);
 		int calculateCalorie(ActivityDTO activityDTO);
-
 		void returnHome();
+		void goToActivityHistory();
 
 
 	}

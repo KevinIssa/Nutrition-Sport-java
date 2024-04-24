@@ -75,8 +75,13 @@ public class ActivityCreateController extends AppController
 
 	@Override
 	public void returnHome() {
-		logger.info("Returning to home screen");
+		logger.info("Closing the popup");
 		this.listener.returnHome();
+	}
+	@Override
+	public void goToActivityHistory(){
+		logger.info("Going to activity history");
+		this.listener.goToActivityHistory();
 	}
 
 	/**
@@ -92,6 +97,7 @@ public class ActivityCreateController extends AppController
 		 * The implementing class should define the behavior that occurs when this event happens.
 		 */
 		void returnHome();
+		void goToActivityHistory();
 
 	}
 }
