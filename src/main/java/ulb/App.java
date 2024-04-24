@@ -21,8 +21,8 @@ package ulb;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import ulb.controllers.MenuController;
-import ulb.repositories.JSONProfileRepository;
-import ulb.repositories.ProfileRepository;
+import ulb.repositories.*;
+import ulb.services.CaloriesTrackingService;
 import ulb.services.ProfileService;
 
 public class App extends Application {
@@ -30,12 +30,24 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.setupStage(primaryStage);
-		ProfileRepository profileRepository = new JSONProfileRepository();
-		ProfileService profileService = new ProfileService(profileRepository);
-		MenuController menuController = new MenuController();
-		menuController.setProfileService(profileService);
+
+		MenuController menuController = this.setupController();
 		menuController.show(primaryStage);
 		primaryStage.show();
+	}
+
+	private MenuController setupController(){
+		ProfileRepository profileRepository = new JSONProfileRepository();
+		ActivityRepository activityRepository = new JSONActivityRepository();
+		ConsumeMealRepository consumeMealRepository = new JSONConsumeMealRepository();
+
+		ProfileService profileService = new ProfileService(profileRepository);
+		CaloriesTrackingService caloriesTrackingService = new CaloriesTrackingService(activityRepository, consumeMealRepository);
+
+		MenuController menuController = new MenuController();
+		menuController.setCaloriesTrackingService(caloriesTrackingService);
+		menuController.setProfileService(profileService);
+		return menuController;
 	}
 
 	private void setupStage(Stage stage) {

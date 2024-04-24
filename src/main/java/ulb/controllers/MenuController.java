@@ -18,17 +18,22 @@
  */
 package ulb.controllers;
 
+import javafx.collections.ObservableList;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import ulb.dtos.DateCalorieDTO;
 import ulb.models.*;
 import ulb.repositories.ActivityRepository;
 import ulb.repositories.ConsumeMealRepository;
 import ulb.repositories.JSONActivityRepository;
 import ulb.repositories.JSONConsumeMealRepository;
 import ulb.services.ActivityService;
+import ulb.services.CaloriesTrackingService;
 import ulb.services.ConsumeMealService;
 import ulb.services.ProfileService;
 import ulb.views.*;
+
+import java.util.List;
 
 /**
  * The MenuController class is responsible for managing the application's menu.
@@ -40,13 +45,16 @@ public class MenuController extends AppController implements MenuViewController.
 
 	private Stage primaryStage;
 	private ProfileService profileService;
+	private CaloriesTrackingService caloriesTrackingService;
 
 	public MenuController() {}
 
 	public void setProfileService(ProfileService profileService) {
 		this.profileService = profileService;
 	}
-
+	public void setCaloriesTrackingService(CaloriesTrackingService caloriesTrackingService) {
+		this.caloriesTrackingService = caloriesTrackingService;
+	}
 	@Override
 	public void show(Stage stage) {
 		this.primaryStage = stage;
@@ -270,5 +278,10 @@ public class MenuController extends AppController implements MenuViewController.
 	@Override
 	public String getProfileImagePath() {
 		return this.profileService.getProfileImagePath();
+	}
+
+	@Override
+	public List<DateCalorieDTO> getGraphData() {
+		return this.caloriesTrackingService.getCaloriesTracking();
 	}
 }
