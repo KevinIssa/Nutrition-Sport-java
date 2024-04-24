@@ -22,23 +22,23 @@ import ulb.exceptions.ValueObjectException;
 
 /**
  * This abstract class represents a ValueObject, a small object that represents a simple entity whose equality isn't based on identity.
- * @param <Type> The type of the value that this ValueObject holds.
+ * @param <T> The type of the value that this ValueObject holds.
  */
-public abstract class ValueObject<Type> {
+public abstract class ValueObject<T> {
 
-	protected Type value;
+	protected T value;
 
 	/**
 	 * Default constructor for ValueObject.
 	 */
-	public ValueObject() {}
+	protected ValueObject() {}
 
 	/**
 	 * Constructor for ValueObject with a value.
 	 * @param value The value to be held by this ValueObject.
 	 * @throws ValueObjectException If the value is not valid.
 	 */
-	public ValueObject(Type value) throws ValueObjectException {
+	protected ValueObject(T value) throws ValueObjectException {
 		this.checkValidity(value);
 		this.value = value;
 	}
@@ -48,6 +48,7 @@ public abstract class ValueObject<Type> {
 	 * @param obj The object to compare with.
 	 * @return true if the objects are equal, false otherwise.
 	 */
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -64,7 +65,7 @@ public abstract class ValueObject<Type> {
 	 * @param value The value to check.
 	 * @throws ValueObjectException If the value is not valid.
 	 */
-	protected abstract void checkValidity(Type value) throws ValueObjectException;
+	protected abstract void checkValidity(T value) throws ValueObjectException;
 
 	/**
 	 * Abstract method to convert this ValueObject to a String.
@@ -77,7 +78,7 @@ public abstract class ValueObject<Type> {
 	 * Gets the value held by this ValueObject.
 	 * @return The value held by this ValueObject.
 	 */
-	public Type getValue() {
+	public T getValue() {
 		return value;
 	}
 
@@ -86,7 +87,7 @@ public abstract class ValueObject<Type> {
 	 * @param value The value to set.
 	 * @throws ValueObjectException If the value is not valid.
 	 */
-	public void setValue(Type value) throws ValueObjectException {
+	public void setValue(T value) throws ValueObjectException {
 		this.checkValidity(value);
 		this.value = value;
 	}

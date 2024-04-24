@@ -39,10 +39,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.models.Food;
 import ulb.widgets.FoodPopupController;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.paint.Color;
-
 
 public class AddFoodViewController implements ViewController {
 	private static final Logger logger = LoggerFactory.getLogger(AddFoodViewController.class);
@@ -127,8 +123,6 @@ public class AddFoodViewController implements ViewController {
 		}
 		cleanSuggestedFoodList();
 	}
-
-
 
 	/**
 	 * This method adds the chosen food to the list when the user presses the enter key.
@@ -413,7 +407,7 @@ public class AddFoodViewController implements ViewController {
 		consumedFoodsList.clear();
 	}
 
-	public void cleanSuggestedFoodList(){
+	public void cleanSuggestedFoodList() {
 		searchField.clear();
 		suggestionsList.getItems().clear();
 	}

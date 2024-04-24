@@ -18,7 +18,7 @@
  */
 package ulb.controllers;
 
-import javafx.collections.ObservableList;
+import java.util.List;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import ulb.dtos.DateCalorieDTO;
@@ -33,8 +33,6 @@ import ulb.services.ConsumeMealService;
 import ulb.services.ProfileService;
 import ulb.views.*;
 
-import java.util.List;
-
 /**
  * The MenuController class is responsible for managing the application's menu.
  * It implements the AppController interface and the MenuViewController.Listener interface.
@@ -47,14 +45,14 @@ public class MenuController extends AppController implements MenuViewController.
 	private ProfileService profileService;
 	private CaloriesTrackingService caloriesTrackingService;
 
-	public MenuController() {}
-
 	public void setProfileService(ProfileService profileService) {
 		this.profileService = profileService;
 	}
+
 	public void setCaloriesTrackingService(CaloriesTrackingService caloriesTrackingService) {
 		this.caloriesTrackingService = caloriesTrackingService;
 	}
+
 	@Override
 	public void show(Stage stage) {
 		this.primaryStage = stage;
@@ -201,7 +199,8 @@ public class MenuController extends AppController implements MenuViewController.
 		ActivityRepository activityRepository = new JSONActivityRepository();
 		ActivityService activityService = new ActivityService(activityRepository);
 		AppController controller =
-				new ActivityHistoryController(activityService,
+				new ActivityHistoryController(
+						activityService,
 						new ActivityHistoryController.Listener() {
 							@Override
 							public void returnHome() {
@@ -228,7 +227,8 @@ public class MenuController extends AppController implements MenuViewController.
 		ConsumeMealRepository consumeMealRepository = new JSONConsumeMealRepository();
 		ConsumeMealService consumeMealService = new ConsumeMealService(consumeMealRepository);
 		AppController controller =
-				new MealHistoryController(consumeMealService,
+				new MealHistoryController(
+						consumeMealService,
 						new MealHistoryController.Listener() {
 
 							@Override

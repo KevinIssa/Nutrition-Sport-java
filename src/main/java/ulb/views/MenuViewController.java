@@ -19,12 +19,9 @@
 package ulb.views;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -47,20 +44,15 @@ public class MenuViewController implements ViewController, GraphComponentViewCon
 		if (this.listener == null) {
 			return;
 		}
-		try {
-			Image image =
-					new Image(
-							String.valueOf(new File(this.listener.getProfileImagePath()).toURL()),
-							30,
-							30,
-							false,
-							false);
-			this.profileImage.setImage(image);
-			graphComponentController.setListener(this);
-		} catch (MalformedURLException e) {
-			logger.error("Error loading profile image due to malformed URL {}", e.getMessage());
-			System.exit(1);
-		}
+		Image image =
+				new Image(
+						String.valueOf(new File(this.listener.getProfileImagePath()).toURI()),
+						30,
+						30,
+						false,
+						false);
+		this.profileImage.setImage(image);
+		graphComponentController.setListener(this);
 	}
 
 	public void showAddButtons() {

@@ -20,7 +20,6 @@ package ulb.services;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.stream.Collectors;
 import ulb.dtos.ActivityDTO;
 import ulb.models.Activity;
 import ulb.repositories.ActivityRepository;
@@ -53,9 +52,7 @@ public class ActivityService {
 	 * @return A list of all loaded ActivityDTO objects.
 	 */
 	public List<ActivityDTO> loadActivities() {
-		return this.activityRepository.loadAll().stream()
-				.map(this::convertToActivityDTO)
-				.collect(Collectors.toList());
+		return this.activityRepository.loadAll().stream().map(this::convertToActivityDTO).toList();
 	}
 
 	/**

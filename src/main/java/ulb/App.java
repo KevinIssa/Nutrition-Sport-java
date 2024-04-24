@@ -36,13 +36,14 @@ public class App extends Application {
 		primaryStage.show();
 	}
 
-	private MenuController setupController(){
+	private MenuController setupController() {
 		ProfileRepository profileRepository = new JSONProfileRepository();
 		ActivityRepository activityRepository = new JSONActivityRepository();
 		ConsumeMealRepository consumeMealRepository = new JSONConsumeMealRepository();
 
 		ProfileService profileService = new ProfileService(profileRepository);
-		CaloriesTrackingService caloriesTrackingService = new CaloriesTrackingService(activityRepository, consumeMealRepository);
+		CaloriesTrackingService caloriesTrackingService =
+				new CaloriesTrackingService(activityRepository, consumeMealRepository);
 
 		MenuController menuController = new MenuController();
 		menuController.setCaloriesTrackingService(caloriesTrackingService);
