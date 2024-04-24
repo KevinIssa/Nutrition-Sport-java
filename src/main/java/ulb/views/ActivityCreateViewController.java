@@ -36,11 +36,10 @@ import ulb.widgets.NumberField;
 public class ActivityCreateViewController implements ViewController {
 	@FXML private Slider intensitySlider;
 	@FXML private TextField duration;
-	@FXML
-	private Button buttonWalking, buttonRunning, buttonBiking, buttonSwimming, buttonVolleyball;
+	@FXML private Button buttonWalking, buttonRunning, buttonBiking, buttonSwimming, buttonVolleyball;
 	@FXML private DatePicker activityDate;
 	@FXML private TextField hour, minute;
-	@FXML private Label caloriesBurned;
+	@FXML private Label burnedCalories;
 
 	private NumberField durationNumber;
 	private NumberField hourNumber;
@@ -60,6 +59,7 @@ public class ActivityCreateViewController implements ViewController {
 		this.hourNumber = new NumberField(this.hour);
 		this.minuteNumber = new NumberField(this.minute);
 		this.initTime();
+		this.selectWalking();
 	}
 
 	/**
@@ -114,38 +114,58 @@ public class ActivityCreateViewController implements ViewController {
 		} else if (intensitySlider.getValue() == 2) {
 			intensitySlider.setStyle("-fx-control-inner-background: #ff0000;");
 		}
+		// update the number of calorie showed
+		setCaloriesBurned();
 	}
-
-	/**
-	 * This method saves the activity.
-	 */
-	public void saveActivity() {
+    public ActivityDTO getActivityDTO(){
 		try {
 			this.checkDate();
 			this.checkTime();
 			LocalDateTime activityDateTime = getDateTime();
 			int durationValue = this.durationNumber.getValue();
-
-			ActivityDTO activityDTO =
-					new ActivityDTO(
-							this.selectedSport,
-							Intensity.fromInt((int) intensitySlider.getValue()),
-							durationValue,
-							activityDateTime);
-			this.listener.saveActivity(activityDTO);
-			returnHome();
-		} catch (NumberFormatException e) {
-			showAlert("Erreur", "Veuillez entrer une heure valide.");
-		} catch (IllegalArgumentException e) {
+			return new ActivityDTO(
+                this.selectedSport,
+                Intensity.fromInt((int) intensitySlider.getValue()),
+                durationValue,
+                activityDateTime);
+	    } catch (NumberFormatException e) {
+		    showAlert("Erreur", "Veuillez entrer une heure valide.");
+	    } catch (IllegalArgumentException e) {
 			showAlert("Erreur", e.getMessage());
-		} catch (Exception e) {
+		}
+        return null;
+    }
+	/**
+	 * This method saves the activity.
+	 */
+	public void saveActivity() {
+		try{
+			ActivityDTO activityDTO = getActivityDTO();
+            if (activityDTO != null) {
+                this.listener.saveActivity(getActivityDTO());
+				goToActivityHistory();
+            }
+        } catch (Exception e) {
 			showAlert(
 					"Erreur", "Une erreur s'est produite lors de l'enregistrement de l'activité.");
+		}
+	}
+	@FXML
+	private void setCaloriesBurned(){
+		if (!this.duration.getText().isEmpty()){
+			ActivityDTO activityDTO = getActivityDTO();
+			if (activityDTO != null) {
+				int burnedCalories = this.listener.calculateCalorie(activityDTO);
+				this.burnedCalories.setText(String.valueOf(burnedCalories));
+			}
 		}
 	}
 
 	public void returnHome() {
 		this.listener.returnHome();
+	}
+	public void goToActivityHistory(){
+		this.listener.goToActivityHistory();
 	}
 
 	/**
@@ -156,6 +176,8 @@ public class ActivityCreateViewController implements ViewController {
 		button.setStyle("-fx-background-color: #b7ed65;");
 		this.selectedSport = sport;
 		this.selectedButton = button;
+		// update the number of calorie showed
+		setCaloriesBurned();
 	}
 
 	public void selectWalking() {
@@ -196,8 +218,11 @@ public class ActivityCreateViewController implements ViewController {
 	// Listener interface for communication with the controller
 	public interface Listener {
 		void saveActivity(ActivityDTO activityDTO);
-
+		int calculateCalorie(ActivityDTO activityDTO);
 		void returnHome();
+		void goToActivityHistory();
+
+
 	}
 
 	// Custom string converter for intensity slider labels

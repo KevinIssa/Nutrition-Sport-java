@@ -57,12 +57,15 @@ public class ActivityCreateController extends AppController
 		this.loadView("/ulb/views/ActivityCreate.fxml", stage);
 		this.viewController.setListener(this);
 	}
+	@Override
+	public int calculateCalorie(ActivityDTO activityDTO){
+		return this.activityService.calculateCaloriesBurnedDuringActivity(
+				activityDTO, this.profileService.getProfileWeight());
+	}
 
 	@Override
 	public void saveActivity(ActivityDTO activityDTO) {
-		int burnedCalories =
-				this.activityService.calculateCaloriesBurnedDuringActivity(
-						activityDTO, this.profileService.getProfileWeight());
+		int burnedCalories = calculateCalorie(activityDTO);
 		activityDTO = new ActivityDTO(activityDTO, burnedCalories);
 		logger.info("Saving activity {}", activityDTO);
 		this.activityService.saveActivity(activityDTO);
@@ -72,8 +75,13 @@ public class ActivityCreateController extends AppController
 
 	@Override
 	public void returnHome() {
-		logger.info("Returning to home screen");
+		logger.info("Closing the popup");
 		this.listener.returnHome();
+	}
+	@Override
+	public void goToActivityHistory(){
+		logger.info("Going to activity history");
+		this.listener.goToActivityHistory();
 	}
 
 	/**
@@ -89,5 +97,7 @@ public class ActivityCreateController extends AppController
 		 * The implementing class should define the behavior that occurs when this event happens.
 		 */
 		void returnHome();
+		void goToActivityHistory();
+
 	}
 }

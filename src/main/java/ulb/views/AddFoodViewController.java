@@ -150,6 +150,10 @@ public class AddFoodViewController implements ViewController {
 				break;
 			case UP:
 				this.onUpPress();
+				break;
+			case BACK_SPACE:
+				this.onBackSpacePress();
+				break;
 		}
 	}
 
@@ -185,6 +189,21 @@ public class AddFoodViewController implements ViewController {
 			addChosenFood(chosenFood);
 		}
 	}
+	private void onBackSpacePress(){
+		if (this.searchField.getText().isEmpty()){
+			cleanSuggestedFoodList();
+		}else{
+			suggestFoods();
+		}
+	}
+	// we check if the the search bar is not empty before giving suggestions
+	@FXML
+	private void onKeyPress(){
+		if (! this.searchField.getText().isEmpty()){
+			suggestFoods();
+		}
+	}
+
 
 	/**
 	 * This method returns the time of the meal entered by the user and handles the exceptions in case of an invalid input.
