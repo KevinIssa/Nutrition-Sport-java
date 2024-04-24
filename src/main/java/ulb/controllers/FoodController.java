@@ -77,10 +77,6 @@ public class FoodController implements AppController, AddFoodViewController.List
 		this.listener.returnHome();
 	}
 
-	@Override
-	public void reload() {
-		this.foodLoader = loadFoods();
-	}
 
 	@Override
 	public int getCaloriesConsumedByGrams(String food, int quantity) {

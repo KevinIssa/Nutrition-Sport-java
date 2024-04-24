@@ -299,11 +299,8 @@ public class AddFoodViewController implements ViewController {
 
 		void returnHome();
 
-		void deleteFood(FoodBox selectedItem);
-
 		int getCaloriesConsumedByGrams(String food, int quantity);
 
-		void saveMeal(String mealName, ArrayList<ArrayList<String>> consumedFoodsList);
 
 		void saveConsumedFoods(
 				List<List<String>> consumedFoodsList, LocalDateTime mealDate);
@@ -315,7 +312,5 @@ public class AddFoodViewController implements ViewController {
 		String getFoodQuantityUnit(String food);
 
 		Food getCorrespondingFood(String food);
-
-		void reload();
 	}
 }
