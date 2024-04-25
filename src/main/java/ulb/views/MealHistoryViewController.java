@@ -117,13 +117,12 @@ public class MealHistoryViewController implements ViewController {
 		hbox.getChildren().addAll(spacer, deleteActivityButton);
 	}
 
-	
 	private void deleteFoodInHistory(HBox foodBox) {
 		// delete food in model and controller
 		listener.deleteFood(foodBox);
 		// delete food in view
 		historyList.getItems().remove(foodBox);
-		}
+	}
 
 	private ImageView createImageView(String imagePath, int width, int height) {
 		URL path = getClass().getResource(imagePath);

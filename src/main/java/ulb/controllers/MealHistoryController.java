@@ -21,9 +21,8 @@ package ulb.controllers;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import javafx.scene.layout.HBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import ulb.dtos.ConsumedFoodDTO;
 import ulb.dtos.ConsumedMealDTO;
@@ -79,17 +78,17 @@ public class MealHistoryController extends AppController
 
 	private ConsumedFoodDTO to_consumedFoodDTO(HBox foodBox) {
 		String name = ((Label) foodBox.getChildren().get(0)).getText();
-		int quantity = Integer.parseInt(((Label) foodBox.getChildren().get(2)).getText().split(" ")[0]);
-		int calories = Integer.parseInt(((Label) foodBox.getChildren().get(6)).getText().split(" ")[0]);
+		int quantity =
+				Integer.parseInt(((Label) foodBox.getChildren().get(2)).getText().split(" ")[0]);
+		int calories =
+				Integer.parseInt(((Label) foodBox.getChildren().get(6)).getText().split(" ")[0]);
 		String unit = ((Label) foodBox.getChildren().get(2)).getText().split(" ")[1];
 		String dateString = ((Label) foodBox.getChildren().get(4)).getText();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy 'à' HH:mm");
 		// Parse the string into a LocalDateTime object
 		LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
-		return new ConsumedFoodDTO(name, quantity, calories,unit);
+		return new ConsumedFoodDTO(name, quantity, calories, unit);
 	}
-
-
 
 	/**
 	 * This is an interface for the Listener within the MealHistoryController class.

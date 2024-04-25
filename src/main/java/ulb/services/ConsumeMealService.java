@@ -51,6 +51,7 @@ public class ConsumeMealService {
 	public void deleteConsumedMeal(ConsumedMealDTO consumedMealDTO) {
 		this.consumeMealRepository.delete(this.convertToConsumedMeal(consumedMealDTO));
 	}
+
 	public void deleteConsumedFood(ConsumedFoodDTO consumedFoodDTO, LocalDateTime date) {
 		this.consumeMealRepository.delete(this.convertToConsumedFood(consumedFoodDTO), date);
 	}

@@ -112,8 +112,8 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 			for (File file : files) {
 				try {
 					ConsumedMeal loadedConsumedMeal = this.load(file.getPath());
-					if (loadedConsumedMeal.getDate().equals(date)){
-						for (ConsumedFood Food : loadedConsumedMeal.getConsumedFoods()){
+					if (loadedConsumedMeal.getDate().equals(date)) {
+						for (ConsumedFood Food : loadedConsumedMeal.getConsumedFoods()) {
 							if (consumedFood.equals(Food)) {
 								loadedConsumedMeal.getConsumedFoods().remove(Food);
 								isDeleted = true;
@@ -124,7 +124,7 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 					if (loadedConsumedMeal.getConsumedFoods().isEmpty() && isDeleted) {
 						file.delete();
 						break;
-					} else if (isDeleted){
+					} else if (isDeleted) {
 						file.delete();
 						this.save(loadedConsumedMeal, file.getPath());
 						break;
