@@ -55,15 +55,15 @@ public class GraphComponentViewController extends AnchorPane {
 	}
 
 	private void setButton() {
-		this.graphType.getItems().addAll("average", "intake/burned");
-		this.graphType.setValue("average");
+		this.graphType.getItems().addAll("moyenne", "consommée/brûlée");
+		this.graphType.setValue("moyenne");
 	}
 
 	private void initBarChart() {
 		CategoryAxis xAxis = new CategoryAxis();
 		NumberAxis yAxis = new NumberAxis();
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
-		barChart.setTitle("Calorie average");
+		barChart.setTitle("Moyenne des calories");
 		barChart.setLegendVisible(false);
 		xAxis.setLabel("Date");
 		yAxis.setLabel("Calories");
@@ -83,7 +83,7 @@ public class GraphComponentViewController extends AnchorPane {
 		NumberAxis yAxis = new NumberAxis();
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
 		XYChart.Series<String, Number> series2 = new XYChart.Series<>();
-		lineChart.setTitle("Calorie intake and burned");
+		lineChart.setTitle("Calories brûlées et consommées");
 		barChart.setLegendVisible(false);
 		xAxis.setLabel("Date");
 		yAxis.setLabel("Calories");
@@ -99,12 +99,13 @@ public class GraphComponentViewController extends AnchorPane {
 		}
 		lineChart.getData().add(series);
 		lineChart.getData().add(series2);
+		lineChart.setCreateSymbols(false);
 		this.onGraphTypeChange();
 	}
 
 	@FXML
 	private void onGraphTypeChange() {
-		if (graphType.getValue().equals("average")) {
+		if (graphType.getValue().equals("moyenne")) {
 			barChart.setVisible(true);
 			lineChart.setVisible(false);
 		} else {
