@@ -111,20 +111,19 @@ public class MealHistoryViewController implements ViewController {
 		ImageView imageDelete = createImageView("/ulb/images/trash.png", 30, 30);
 		Button deleteActivityButton = new Button("");
 		deleteActivityButton.setGraphic(imageDelete);
-		//		deleteActivityButton.setOnAction(e -> deleteFoodInHistory(hbox));
+		deleteActivityButton.setOnAction(e -> deleteFoodInHistory(hbox));
 		Region spacer = new Region();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
 		hbox.getChildren().addAll(spacer, deleteActivityButton);
 	}
 
-	//
-	//	private void deleteFoodInHistory(HBox foodBox) {
-	//		// delete food in model and controller
-	//		// listener.deleteFood(foodBox);
-	//		// delete food in view
-	//
-	//		historyList.getItems().remove(foodBox);
-	//	}
+	
+	private void deleteFoodInHistory(HBox foodBox) {
+		// delete food in model and controller
+		listener.deleteFood(foodBox);
+		// delete food in view
+		historyList.getItems().remove(foodBox);
+		}
 
 	private ImageView createImageView(String imagePath, int width, int height) {
 		URL path = getClass().getResource(imagePath);
@@ -154,5 +153,7 @@ public class MealHistoryViewController implements ViewController {
 		void returnHome(); // Return to the home view
 
 		void addMeal();
+
+		void deleteFood(HBox foodBox);
 	}
 }

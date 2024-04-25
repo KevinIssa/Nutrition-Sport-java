@@ -104,8 +104,37 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 	}
 
 	@Override
-	public void delete(ConsumedFood consumedFood) {
-		// TODO: Implement this
+	public void delete(ConsumedFood consumedFood, LocalDateTime date) {
+		File folder = new File(FOLDER_NAME);
+		File[] files = folder.listFiles();
+		boolean isDeleted = false;
+		if (files != null) {
+			for (File file : files) {
+				try {
+					ConsumedMeal loadedConsumedMeal = this.load(file.getPath());
+					if (loadedConsumedMeal.getDate().equals(date)){
+						for (ConsumedFood Food : loadedConsumedMeal.getConsumedFoods()){
+							if (consumedFood.equals(Food)) {
+								loadedConsumedMeal.getConsumedFoods().remove(Food);
+								isDeleted = true;
+								break;
+							}
+						}
+					}
+					if (loadedConsumedMeal.getConsumedFoods().isEmpty() && isDeleted) {
+						file.delete();
+						break;
+					} else if (isDeleted){
+						file.delete();
+						this.save(loadedConsumedMeal, file.getPath());
+						break;
+					}
+
+				} catch (IOException _) {
+					// logger.error("Error loading consumed meal from file: " + file.getPath());
+				}
+			}
+		}
 	}
 
 	@Override

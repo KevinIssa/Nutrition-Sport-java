@@ -18,6 +18,7 @@
  */
 package ulb.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import ulb.dtos.ConsumedFoodDTO;
 import ulb.dtos.ConsumedMealDTO;
@@ -50,6 +51,9 @@ public class ConsumeMealService {
 	public void deleteConsumedMeal(ConsumedMealDTO consumedMealDTO) {
 		this.consumeMealRepository.delete(this.convertToConsumedMeal(consumedMealDTO));
 	}
+	public void deleteConsumedFood(ConsumedFoodDTO consumedFoodDTO, LocalDateTime date) {
+		this.consumeMealRepository.delete(this.convertToConsumedFood(consumedFoodDTO), date);
+	}
 
 	public void deleteAllConsumedMeals() {
 		this.consumeMealRepository.deleteAll();
@@ -65,12 +69,11 @@ public class ConsumeMealService {
 
 	private ConsumedFood convertToConsumedFood(ConsumedFoodDTO consumedFoodDTO) {
 		String name = consumedFoodDTO.name();
-		Food food = this.foodLoader.getFoodByName(name);
 		return new ConsumedFood(
 				name,
 				consumedFoodDTO.quantity(),
-				food.getCaloriesConsumedByGrams(consumedFoodDTO.quantity()),
-				food.getServingType());
+				consumedFoodDTO.calories(),
+				consumedFoodDTO.unit());
 	}
 
 	private ConsumedMealDTO convertToConsumedMealDTO(ConsumedMeal consumedMeal) {

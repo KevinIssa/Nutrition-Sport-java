@@ -18,8 +18,14 @@
  */
 package ulb.controllers;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import javafx.scene.layout.HBox;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import ulb.dtos.ConsumedFoodDTO;
 import ulb.dtos.ConsumedMealDTO;
 import ulb.services.ConsumeMealService;
 import ulb.views.MealHistoryViewController;
@@ -62,53 +68,28 @@ public class MealHistoryController extends AppController
 		this.listener.addMeal();
 	}
 
-	//	@Override
-	//	public void deleteFood(HBox foodBox) {
-	//		String date_in_string = ((Label) foodBox.getChildren().get(4)).getText();
-	//		File directory = new File(FOLDERNAME); // Specify the directory path
-	//		File[] files = directory.listFiles();
-	//		boolean isDeleted = false;
-	//		if (files == null) {
-	//			return;
-	//		}
-	//		for (File file : files) {
-	//			ConsumedMeal meal = this.loadMeal(file.getPath());
-	//			if (meal.changeDateFormat(meal.getDate()).equals(date_in_string)) {
-	//				for (ConsumedFood food : meal.getConsumedFoods()) {
-	//					if (isSameFood(food, foodBox)) {
-	//						meal.getConsumedFoods().remove(food);
-	//						isDeleted = true;
-	//						break;
-	//					}
-	//				}
-	//			}
-	//			if (meal.getConsumedFoods().isEmpty() && isDeleted) {
-	//				file.delete();
-	//				break;
-	//			} else if (isDeleted) {
-	//				file.delete();
-	//				meal.save();
-	//				break;
-	//			}
-	//		}
-	//	}
+	@Override
+	public void deleteFood(HBox foodBox) {
+		String dateString = ((Label) foodBox.getChildren().get(4)).getText();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy 'à' HH:mm");
+		// Parse the string into a LocalDateTime object
+		LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
+		this.consumeMealService.deleteConsumedFood(to_consumedFoodDTO(foodBox), dateTime);
+	}
 
-	//	private boolean isSameFood(ConsumedFood food, HBox foodBox) {
-	//		return food.getName().equals(((Label) foodBox.getChildren().get(0)).getText())
-	//				&& food.getQuantity()
-	//						== Integer.parseInt(
-	//								((Label) foodBox.getChildren().get(2)).getText().split(" ")[0])
-	//				&& food.getCalories()
-	//						== Integer.parseInt(
-	//								((Label) foodBox.getChildren().get(6)).getText().split(" ")[0])
-	//				&& food.getType()
-	//						.equals(((Label) foodBox.getChildren().get(2)).getText().split(" ")[1]);
-	//	}
+	private ConsumedFoodDTO to_consumedFoodDTO(HBox foodBox) {
+		String name = ((Label) foodBox.getChildren().get(0)).getText();
+		int quantity = Integer.parseInt(((Label) foodBox.getChildren().get(2)).getText().split(" ")[0]);
+		int calories = Integer.parseInt(((Label) foodBox.getChildren().get(6)).getText().split(" ")[0]);
+		String unit = ((Label) foodBox.getChildren().get(2)).getText().split(" ")[1];
+		String dateString = ((Label) foodBox.getChildren().get(4)).getText();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy 'à' HH:mm");
+		// Parse the string into a LocalDateTime object
+		LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
+		return new ConsumedFoodDTO(name, quantity, calories,unit);
+	}
 
-	//	@Override
-	//	public ConsumedMeal loadMeal(String filename) {
-	//		return ConsumedMeal.load(filename);
-	//	}
+
 
 	/**
 	 * This is an interface for the Listener within the MealHistoryController class.
