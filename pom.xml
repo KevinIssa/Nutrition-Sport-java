@@ -233,6 +233,10 @@
 				<version>0.0.3</version>
 				<configuration>
 					<mainClass>${mainClass}</mainClass>
+                <launcher>launcherName</launcher>
+                <options>
+                    <option>--enable-preview</option>
+                </options>
 				</configuration>
 			</plugin>
 
