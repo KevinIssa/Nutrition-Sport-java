@@ -8,12 +8,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.GraphComponentViewController" stylesheets="@GraphComponentStyle.css">
+<AnchorPane prefHeight="553.0" prefWidth="602.0" stylesheets="@GraphComponentStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.GraphComponentViewController">
    <children>
-      <StackPane prefHeight="400.0" prefWidth="422.0">
+      <StackPane layoutX="50.0" layoutY="58.0" prefHeight="446.0" prefWidth="491.0">
          <children>
-            <BarChart fx:id="barChart" prefWidth="0.0" >
+            <BarChart fx:id="barChart" prefHeight="363.0" prefWidth="411.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -21,7 +20,7 @@
                 <NumberAxis side="LEFT" />
               </yAxis>
             </BarChart>
-            <LineChart fx:id="lineChart">
+            <LineChart fx:id="lineChart" prefHeight="401.0" prefWidth="423.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
@@ -31,6 +30,6 @@
             </LineChart>
          </children>
       </StackPane>
-      <ChoiceBox fx:id="graphType" onAction="#onGraphTypeChange" layoutX="436.0" layoutY="14.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="graphType" layoutX="14.0" layoutY="14.0" onAction="#onGraphTypeChange" prefWidth="150.0" />
    </children>
 </AnchorPane>
