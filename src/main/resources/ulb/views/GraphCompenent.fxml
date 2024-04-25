@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.StackPane?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.GraphComponentViewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.GraphComponentViewController" stylesheets="@GraphComponentStyle.css">
    <children>
       <StackPane prefHeight="400.0" prefWidth="422.0">
          <children>
-            <BarChart fx:id="barChart" prefWidth="0.0">
+            <BarChart fx:id="barChart" prefWidth="0.0" >
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>
