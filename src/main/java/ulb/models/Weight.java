@@ -56,9 +56,9 @@ public class Weight extends ValueObject<Float> {
 	 */
 	protected void checkValidity(Float weight) throws IllegalArgumentException, BadWeightException {
 		if (weight <= MIN_WEIGHT) {
-			throw new BadWeightException(STR."Weight must be greater than \{MIN_WEIGHT}");
+			throw new BadWeightException("Weight must be greater than " + MIN_WEIGHT);
 		} else if (weight > MAX_WEIGHT) {
-			throw new BadWeightException(STR."Weight must be less than \{MAX_WEIGHT}");
+			throw new BadWeightException("Weight must be less than " + MAX_WEIGHT);
 		}
 	}
 
@@ -68,6 +68,6 @@ public class Weight extends ValueObject<Float> {
 	 */
 	@Override
 	public String toString() {
-		return STR."\{this.value} kg";
+		return this.value + " kg";
 	}
 }

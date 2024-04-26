@@ -52,11 +52,12 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 			folder.mkdir();
 		}
 		String fileName =
-				STR."\{
-						FOLDER_NAME}/\{
-						consumedMeal
+				FOLDER_NAME
+						+ "/"
+						+ consumedMeal
 								.getDate()
-								.format(DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss"))}.json";
+								.format(DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss"))
+						+ ".json";
 		try {
 			this.save(consumedMeal, fileName);
 		} catch (IOException e) {
@@ -75,7 +76,7 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 			for (File file : files) {
 				try {
 					consumedMeals.add(this.load(file.getPath()));
-				} catch (IOException _) {
+				} catch (IOException e) {
 					//
 					// logger.error("Error loading consumed meal from file: " + file.getPath());
 				}
@@ -96,7 +97,7 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 						file.delete();
 						break;
 					}
-				} catch (IOException _) {
+				} catch (IOException e) {
 					// logger.error("Error loading consumed meal from file: " + file.getPath());
 				}
 			}
@@ -130,7 +131,7 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 						break;
 					}
 
-				} catch (IOException _) {
+				} catch (IOException e) {
 					// logger.error("Error loading consumed meal from file: " + file.getPath());
 				}
 			}
