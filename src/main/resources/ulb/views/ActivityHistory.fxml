@@ -12,34 +12,43 @@
 
 <VBox prefHeight="750.0" prefWidth="736.0" style="-fx-background-color: #040b35;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ActivityHistoryViewController">
     <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
+      <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="731.0" style="-fx-background-color: #656ff988;">
          <children>
-            <Label text="Sport" translateX="5.0" />
-            <Label text="Intensité" translateX="10.0" />
-            <Label text="Date de l'activitée" translateX="15.0">
+            <Label text="Sport" textFill="#f3fbfb" translateX="5.0" />
+            <Label text="Intensité" textFill="#f3fbfb" translateX="15.0" />
+            <Label text="Date activité" textFill="#f3fbfb" translateX="27.0">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/history_img/calendar.png" />
                      </image>
+                     <effect>
+                        <ColorAdjust brightness="1.0" />
+                     </effect>
                   </ImageView>
                </graphic>
             </Label>
-            <Label layoutX="84.0" layoutY="10.0" translateX="20.0">
+            <Label layoutX="84.0" layoutY="10.0" translateX="40.0">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/history_img/chronometer.png" />
                      </image>
+                     <effect>
+                        <ColorAdjust brightness="1.0" />
+                     </effect>
                   </ImageView>
                </graphic>
             </Label>
-            <Label layoutX="148.0" layoutY="10.0" text="Calories brûlées" translateX="30.0">
+            <Label layoutX="148.0" layoutY="10.0" translateX="55.0">
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/history_img/calories.png" />
                      </image>
+                     <effect>
+                        <ColorAdjust brightness="1.0" />
+                     </effect>
                   </ImageView>
                </graphic>
             </Label>
