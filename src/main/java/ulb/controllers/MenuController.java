@@ -21,6 +21,8 @@ package ulb.controllers;
 import java.util.List;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.dtos.DateCalorieDTO;
 import ulb.models.*;
 import ulb.repositories.ActivityRepository;
@@ -40,21 +42,24 @@ import ulb.views.*;
  * It uses a ViewLoader instance to load the views and manages the primary stage of the application.
  */
 public class MenuController extends AppController implements MenuViewController.Listener {
-
+	private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
 	private Stage primaryStage;
 	private ProfileService profileService;
 	private CaloriesTrackingService caloriesTrackingService;
 
 	public void setProfileService(ProfileService profileService) {
+		logger.info("Setting ProfileService: {}", profileService);
 		this.profileService = profileService;
 	}
 
 	public void setCaloriesTrackingService(CaloriesTrackingService caloriesTrackingService) {
+		logger.info("Setting CaloriesTrackingService: {}", caloriesTrackingService);
 		this.caloriesTrackingService = caloriesTrackingService;
 	}
 
 	@Override
 	public void show(Stage stage) {
+		logger.info("Showing MenuView");
 		this.primaryStage = stage;
 		this.loadWelcomeView();
 	}

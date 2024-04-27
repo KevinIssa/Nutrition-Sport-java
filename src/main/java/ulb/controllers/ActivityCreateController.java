@@ -100,6 +100,10 @@ public class ActivityCreateController extends AppController
 		 */
 		void returnHome();
 
+		/**
+		 * This method is called when the user wants to navigate to the activity history screen of the application.
+		 * The implementing class should define the behavior that occurs when this event happens.
+		 */
 		void goToActivityHistory();
 	}
 }

@@ -92,6 +92,10 @@ public class ActivityHistoryController extends AppController
 		 */
 		void returnHome();
 
+		/**
+		 * This method is called when the user wants to add a new activity.
+		 * The implementing class should define the behavior that occurs when this event happens.
+		 */
 		void addActivity();
 	}
 }

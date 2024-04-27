@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -281,20 +282,17 @@ public class AddFoodViewController implements ViewController {
 	 * and removes all food lists from consumedFoodsList that contain the selected food name.
 	 */
 	@FXML
-	public void removeSelectedFood() {
-		HBox selectedItem = chosenFoodView.getSelectionModel().getSelectedItem();
-		if (selectedItem != null) {
-			chosenFoodView.getItems().remove(selectedItem);
-			if (selectedItem.getChildren().get(0) instanceof Label label) {
-				String selectedFoodName = label.getText();
-				consumedFoodsList.removeIf(foodList -> foodList.contains(selectedFoodName));
-			}
-			if (selectedItem.getChildren().get(1) instanceof Label label) {
-				String selectedFoodcalorie = label.getText();
-				String[] splittedFood = selectedFoodcalorie.split("\\s+");
-				String calorieString = splittedFood[1];
-				removeCalorie(Integer.parseInt(calorieString));
-			}
+	public void removeSelectedFood(HBox selectedItem) {
+		chosenFoodView.getItems().remove(selectedItem);
+		if (selectedItem.getChildren().get(1) instanceof Label label) {
+			String selectedFoodName = label.getText();
+			consumedFoodsList.removeIf(foodList -> foodList.contains(selectedFoodName));
+		}
+		if (selectedItem.getChildren().get(2) instanceof Label label) {
+			String selectedFoodcalorie = label.getText();
+			String[] splittedFood = selectedFoodcalorie.split("\\s+");
+			String calorieString = splittedFood[1];
+			removeCalorie(Integer.parseInt(calorieString));
 		}
 	}
 
@@ -318,6 +316,7 @@ public class AddFoodViewController implements ViewController {
 	 * @param food The chosen food.
 	 */
 	public void addChosenFood(String food) {
+
 		String value = getUserData(food);
 		int quantity = extractQuantity(value, food);
 		if (quantity == 0) {
@@ -326,9 +325,14 @@ public class AddFoodViewController implements ViewController {
 
 		int calories = listener.getCaloriesConsumedByGrams(food, quantity);
 		HBox box = loadFoodItemBox();
+		Button deleteButton = createDeleteButton(box);
+
 		String servingType = listener.getFoodServingType(food);
 		updateFoodItemBox(box, food, calories, quantity, servingType, value);
+
 		chosenFoodView.getItems().add(box);
+
+		setDeleteButtonAction(deleteButton, box);
 
 		consumedFoodsList.add(
 				new ArrayList<>(
@@ -338,6 +342,24 @@ public class AddFoodViewController implements ViewController {
 								Integer.toString(calories),
 								value.contains("g") ? "g" : servingType)));
 		addCalorie(calories);
+	}
+
+	public Button createDeleteButton(HBox box) {
+		Button deleteButton = new Button("X");
+		deleteButton.setStyle(
+				"-fx-background-color: #f44343ff; -fx-text-fill: white; -fx-font-size: 10px;"
+						+ " -fx-font-weight: bold;");
+		box.getChildren().add(0, deleteButton);
+		setDeleteButtonAction(deleteButton, box);
+		return deleteButton;
+	}
+
+	public void setDeleteButtonAction(Button deleteButton, HBox box) {
+		deleteButton.setOnAction(
+				(ActionEvent event) -> {
+					// Supprimer l'élément associé au bouton de la list
+					this.removeSelectedFood(box);
+				});
 	}
 
 	public void removeCalorie(int calorie) {
@@ -448,16 +470,16 @@ public class AddFoodViewController implements ViewController {
 	private void updateFoodItemBox(
 			HBox box, String food, int calories, int quantity, String servingType, String value) {
 
-		Label label1 = (Label) box.getChildren().get(0);
+		Label label1 = (Label) box.getChildren().get(1);
 		label1.setText(food);
 
-		Label label2 = (Label) box.getChildren().get(1);
+		Label label2 = (Label) box.getChildren().get(2);
 		String quantityText =
 				value.contains("g")
 						? String.format(
-								"Calories: %d          quantites(g): %d", calories, quantity)
+								"Calories(cal): %d          Quantité(g): %d", calories, quantity)
 						: String.format(
-								"Calories: %d          quantites(%s): %d",
+								"Calories(cal): %d          Quantité(%s): %d",
 								calories, servingType, quantity);
 		label2.setText(quantityText);
 	}
