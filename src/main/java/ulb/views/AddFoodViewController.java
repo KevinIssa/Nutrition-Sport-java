@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,8 +35,6 @@ import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -284,7 +281,6 @@ public class AddFoodViewController implements ViewController {
 	 * If it is, it gets the text of the label (which is the name of the selected food),
 	 * and removes all food lists from consumedFoodsList that contain the selected food name.
 	 */
-
 	@FXML
 	public void removeSelectedFood(HBox selectedItem) {
 		chosenFoodView.getItems().remove(selectedItem);
@@ -297,7 +293,6 @@ public class AddFoodViewController implements ViewController {
 			String[] splittedFood = selectedFoodcalorie.split("\\s+");
 			String calorieString = splittedFood[1];
 			removeCalorie(Integer.parseInt(calorieString));
-
 		}
 	}
 
@@ -337,7 +332,7 @@ public class AddFoodViewController implements ViewController {
 
 		chosenFoodView.getItems().add(box);
 
-		setDeleteButtonAction(deleteButton,box);
+		setDeleteButtonAction(deleteButton, box);
 
 		consumedFoodsList.add(
 				new ArrayList<>(
@@ -347,20 +342,24 @@ public class AddFoodViewController implements ViewController {
 								Integer.toString(calories),
 								value.contains("g") ? "g" : servingType)));
 		addCalorie(calories);
-
 	}
-	public Button createDeleteButton(HBox box){
+
+	public Button createDeleteButton(HBox box) {
 		Button deleteButton = new Button("X");
-		deleteButton.setStyle("-fx-background-color: #f44343ff; -fx-text-fill: white; -fx-font-size: 10px; -fx-font-weight: bold;");
+		deleteButton.setStyle(
+				"-fx-background-color: #f44343ff; -fx-text-fill: white; -fx-font-size: 10px;"
+						+ " -fx-font-weight: bold;");
 		box.getChildren().add(0, deleteButton);
-		setDeleteButtonAction(deleteButton,box);
+		setDeleteButtonAction(deleteButton, box);
 		return deleteButton;
 	}
-	public void setDeleteButtonAction(Button deleteButton,HBox box){
-		deleteButton.setOnAction((ActionEvent event) -> {
-			// Supprimer l'élément associé au bouton de la list
-			this.removeSelectedFood(box);
-		});
+
+	public void setDeleteButtonAction(Button deleteButton, HBox box) {
+		deleteButton.setOnAction(
+				(ActionEvent event) -> {
+					// Supprimer l'élément associé au bouton de la list
+					this.removeSelectedFood(box);
+				});
 	}
 
 	public void removeCalorie(int calorie) {

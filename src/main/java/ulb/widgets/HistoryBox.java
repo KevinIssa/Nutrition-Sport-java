@@ -58,10 +58,10 @@ public class HistoryBox extends HBox {
 		this.getChildren()
 				.addAll(
 						createImageView("sport_img/" + this.activity.sport() + ".png"),
-						createImageView("intensity_img/" + this.activity.intensity() + ".png"),
-						// createImageView(ICONS[0]),
-						// createImageView(ICONS[1]),
-						// createImageView(ICONS[2]));
+						createImageView("intensity_img/" + this.activity.intensity() + ".png"));
+		// createImageView(ICONS[0]),
+		// createImageView(ICONS[1]),
+		// createImageView(ICONS[2]));
 	}
 
 	private void setLabels() {

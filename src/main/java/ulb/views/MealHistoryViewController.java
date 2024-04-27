@@ -72,7 +72,7 @@ public class MealHistoryViewController implements ViewController {
 
 	private HBox createHistoryHBox(ConsumedFoodDTO food, LocalDateTime date) {
 		HBox hbox = createHBox();
-		//setIconInHBox(hbox);
+		// setIconInHBox(hbox);
 		setTextInHBox(food, date, hbox);
 		setButtonInHBox(hbox);
 		return hbox;
