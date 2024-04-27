@@ -67,14 +67,18 @@ public class ConsumedFood {
 	 */
 	@Override
 	public String toString() {
-		return STR."ConsumedFood{name='\{
-				name}\{
-				'\''}, quantity=\{
-				quantity}, calories=\{
-				calories}, unit='\{
-				unit}\{
-				'\''}\{
-				'}'}";
+		return "ConsumedFood{"
+				+ "name='"
+				+ name
+				+ '\''
+				+ ", quantity="
+				+ quantity
+				+ ", calories="
+				+ calories
+				+ ", unit='"
+				+ unit
+				+ '\''
+				+ '}';
 	}
 
 	// Getters and setters for class attributes.

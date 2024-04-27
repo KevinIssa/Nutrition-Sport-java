@@ -104,12 +104,18 @@ public class Activity {
 	 */
 	@Override
 	public String toString() {
-		return STR."Activity{sport=\{
-				sport}, intensity=\{
-				intensity}, duration=\{
-				duration}, date=\{
-				date}, burnedCalories=\{
-				burnedCalories}}";
+		return "Activity{"
+				+ "sport="
+				+ sport
+				+ ", intensity="
+				+ intensity
+				+ ", duration="
+				+ duration
+				+ ", date="
+				+ date
+				+ ", burnedCalories="
+				+ burnedCalories
+				+ '}';
 	}
 
 	// Getters and setters for class attributes.

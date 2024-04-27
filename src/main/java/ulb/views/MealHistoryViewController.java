@@ -72,7 +72,7 @@ public class MealHistoryViewController implements ViewController {
 
 	private HBox createHistoryHBox(ConsumedFoodDTO food, LocalDateTime date) {
 		HBox hbox = createHBox();
-		//setIconInHBox(hbox);
+		// setIconInHBox(hbox);
 		setTextInHBox(food, date, hbox);
 		setButtonInHBox(hbox);
 		return hbox;
@@ -97,10 +97,10 @@ public class MealHistoryViewController implements ViewController {
 	private void setTextInHBox(ConsumedFoodDTO food, LocalDateTime date, HBox hbox) {
 		Label LabelMealName = createLabel(food.name(), 100);
 		Label LabelQuantity =
-				createLabel(STR."\{Integer.toString(food.quantity())} \{food.unit()}", 40);
+				createLabel(Integer.toString(food.quantity()) + " " + food.unit(), 40);
 		Label LabelDate =
 				createLabel(date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm")), 120);
-		Label LabelCalorie = createLabel(String.valueOf(STR."\{food.calories()} kcal"), 50);
+		Label LabelCalorie = createLabel(food.calories() + " kcal", 50);
 		hbox.getChildren().add(0, LabelMealName);
 		hbox.getChildren().add(1, LabelDate);
 		hbox.getChildren().add(2, LabelQuantity);

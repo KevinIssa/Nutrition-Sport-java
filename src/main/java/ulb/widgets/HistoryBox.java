@@ -57,17 +57,17 @@ public class HistoryBox extends HBox {
 	private void setIcons() {
 		this.getChildren()
 				.addAll(
-						createImageView(STR."sport_img/\{this.activity.sport()}.png"),
-						createImageView(STR."intensity_img/\{this.activity.intensity()}.png"));
-						//createImageView(ICONS[0]),
-						//createImageView(ICONS[1]),
-						//createImageView(ICONS[2]));
+						createImageView("sport_img/" + this.activity.sport() + ".png"),
+						createImageView("intensity_img/" + this.activity.intensity() + ".png"));
+		// createImageView(ICONS[0]),
+		// createImageView(ICONS[1]),
+		// createImageView(ICONS[2]));
 	}
 
 	private void setLabels() {
 		this.getChildren().add(2, new Label(this.dateToString(this.activity.date())));
 		this.getChildren().add(3, new Label(this.durationToString(this.activity.duration())));
-		this.getChildren().add(4, new Label(STR."\{this.activity.burnedCalories()} kcal"));
+		this.getChildren().add(4, new Label(this.activity.burnedCalories() + " kcal"));
 	}
 
 	private void setButtonInHBox(Button button) {
@@ -92,12 +92,12 @@ public class HistoryBox extends HBox {
 		int hours = duration / 60;
 		int minutes = duration % 60;
 		if (hours == 0) {
-			return STR."\{minutes}m";
+			return minutes + "m";
 		}
 		if (minutes == 0) {
-			return STR."\{hours}h";
+			return hours + "h";
 		}
-		return STR."\{hours}h\{minutes}m";
+		return hours + "h" + minutes + "m";
 	}
 
 	public String dateToString(LocalDateTime date) {
