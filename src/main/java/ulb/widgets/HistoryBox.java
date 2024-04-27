@@ -44,7 +44,7 @@ public class HistoryBox extends HBox {
 	public HistoryBox(ActivityDTO activity, Button button) {
 		this.activity = activity;
 		this.setAlignment(Pos.CENTER_LEFT);
-		this.setSpacing(10);
+		this.setSpacing(20);
 		this.fill(button);
 	}
 
@@ -59,15 +59,15 @@ public class HistoryBox extends HBox {
 				.addAll(
 						createImageView("sport_img/" + this.activity.sport() + ".png"),
 						createImageView("intensity_img/" + this.activity.intensity() + ".png"),
-						createImageView(ICONS[0]),
-						createImageView(ICONS[1]),
-						createImageView(ICONS[2]));
+						// createImageView(ICONS[0]),
+						// createImageView(ICONS[1]),
+						// createImageView(ICONS[2]));
 	}
 
 	private void setLabels() {
-		this.getChildren().add(3, new Label(this.dateToString(this.activity.date())));
-		this.getChildren().add(5, new Label(this.durationToString(this.activity.duration())));
-		this.getChildren().add(7, new Label(this.activity.burnedCalories() + " kcal"));
+		this.getChildren().add(2, new Label(this.dateToString(this.activity.date())));
+		this.getChildren().add(3, new Label(this.durationToString(this.activity.duration())));
+		this.getChildren().add(4, new Label(this.activity.burnedCalories() + " kcal"));
 	}
 
 	private void setButtonInHBox(Button button) {

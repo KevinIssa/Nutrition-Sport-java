@@ -62,7 +62,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="837.0" layoutY="191.0" mnemonicParsing="false" onMouseClicked="#cleanFoodList" prefHeight="40.0" prefWidth="58.0" style="-fx-background-color: #f44343; -fx-background-radius: 20;">
+      <Button layoutX="919.0" layoutY="191.0" mnemonicParsing="false" onMouseClicked="#cleanFoodList" prefHeight="40.0" prefWidth="58.0" style="-fx-background-color: #f44343; -fx-background-radius: 20;">
          <graphic>
             <ImageView fitHeight="39.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -76,18 +76,6 @@
       </Button>
       <Slider fx:id="slider" layoutX="260.0" layoutY="102.0" majorTickUnit="1" max="1" minorTickCount="0" onDragDone="#changeMode" prefHeight="11.0" prefWidth="20.0" snapToTicks="true" />
       <TextField fx:id="textField" layoutX="360.0" layoutY="124.0" prefHeight="33.0" prefWidth="157.0" visible="false" />
-      <Button fx:id="RemoveButton" layoutX="905.0" layoutY="192.0" mnemonicParsing="false" onAction="#removeSelectedFood" prefHeight="36.0" prefWidth="58.0" style="-fx-background-color: #f44343; -fx-background-radius: 20;">
-         <graphic>
-            <ImageView fitHeight="37.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/cross.png" />
-               </image>
-               <effect>
-                  <ColorAdjust brightness="1.0" />
-               </effect>
-            </ImageView>
-         </graphic>
-      </Button>
       <Label fx:id="name" layoutX="152.0" layoutY="115.0" prefHeight="52.0" prefWidth="149.0" text="Nom du plat: " textFill="#f3fbfb" visible="false">
          <font>
             <Font size="22.0" />
