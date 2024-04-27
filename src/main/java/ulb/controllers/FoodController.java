@@ -39,7 +39,7 @@ import ulb.views.AddFoodViewController;
  * It also handles the user's search for foods and the return to the home screen of the application.
  */
 public class FoodController extends AppController implements AddFoodViewController.Listener {
-	private static final Logger logger = LoggerFactory.getLogger(AppController.class);
+	private static final Logger logger = LoggerFactory.getLogger(FoodController.class);
 	private final FoodController.Listener listener;
 	private FoodLoader foodLoader;
 
@@ -49,12 +49,14 @@ public class FoodController extends AppController implements AddFoodViewControll
 	 * @param listener Listener for the FoodController
 	 */
 	public FoodController(Listener listener) {
+		logger.info("Initializing FoodController");
 		this.listener = listener;
-		loadFoods();
+		this.loadFoods();
 	}
 
 	@Override
 	public void show(Stage stage) {
+		logger.info("Showing AddFoodView");
 		this.loadView("/ulb/views/AddFood.fxml", stage);
 		this.viewController.setListener(this);
 	}

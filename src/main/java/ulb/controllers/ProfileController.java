@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.ProfileDTO;
+import ulb.exceptions.ValueObjectException;
 import ulb.services.ProfileService;
 import ulb.views.ProfileViewController;
 
@@ -53,9 +54,9 @@ public class ProfileController extends AppController implements ProfileViewContr
 		try {
 			logger.info("Updating profile {}", profileDTO);
 			this.profileService.updateProfile(profileDTO);
-		} catch (Exception e) {
-			// TODO: Handle exception
-			e.printStackTrace();
+		} catch (ValueObjectException e) {
+			logger.error("Error updating profile: {}", e.getMessage());
+			this.viewController.showAlert("Error", e.getMessage());
 		}
 	}
 

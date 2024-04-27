@@ -54,7 +54,7 @@ public class Weight extends ValueObject<Float> {
 	 * @throws IllegalArgumentException If the weight is not a Float.
 	 * @throws BadWeightException If the weight is not within the valid range.
 	 */
-	protected void checkValidity(Float weight) throws IllegalArgumentException, BadWeightException {
+	protected void checkValidity(Float weight) throws BadWeightException {
 		if (weight <= MIN_WEIGHT) {
 			throw new BadWeightException("Weight must be greater than " + MIN_WEIGHT);
 		} else if (weight > MAX_WEIGHT) {
