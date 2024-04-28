@@ -22,9 +22,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.control.Button;
 
 public class FoodBox extends HBox {
 	private final String food;
@@ -34,7 +34,8 @@ public class FoodBox extends HBox {
 	private final double quantityValue;
 	private final String unit;
 
-	public FoodBox(Button button, String food, double calories, double quantity, String quantityUnit) {
+	public FoodBox(
+			Button button, String food, double calories, double quantity, String quantityUnit) {
 		super();
 		this.setAlignment(Pos.CENTER_LEFT);
 		this.setSpacing(10);
@@ -54,6 +55,6 @@ public class FoodBox extends HBox {
 		list.add(String.valueOf(this.caloriesValue));
 		list.add(String.valueOf(this.quantityValue));
 		list.add(this.unit);
-        return Collections.unmodifiableList(list);
+		return Collections.unmodifiableList(list);
 	}
 }

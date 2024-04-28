@@ -25,7 +25,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -57,8 +56,8 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 		this.hourNumber.setValue(now.getHour());
 		this.minuteNumber.setValue(now.getMinute());
 		this.date.setValue(LocalDate.now());
-        this.date.getEditor().setStyle("-fx-background-color: #c9d1f0;");
-        this.searchController.setListener(this);
+		this.date.getEditor().setStyle("-fx-background-color: #c9d1f0;");
+		this.searchController.setListener(this);
 	}
 
 	@Override
@@ -80,7 +79,7 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 	 */
 	@Override
 	public void onClick(String searchText) {
-		if(searchText == null){
+		if (searchText == null) {
 			return;
 		}
 		this.listener.askUserFoodQuantity(searchText);
@@ -158,7 +157,7 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 
 	@FXML
 	public void makeMeal() {
-		//TODO NOT IMPLEMENTED
+		// TODO NOT IMPLEMENTED
 	}
 
 	private void addFoodBox(String food, double quantity, double calories, String foodUnit) {
@@ -177,7 +176,7 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 	 */
 	public void addChosenFood(String food, double quantity) {
 		double calories = listener.getCaloriesConsumed(food, quantity);
-		//Round to 2 decimals
+		// Round to 2 decimals
 		calories = Double.parseDouble(String.format("%.2f", calories));
 		this.totalCalories += calories;
 		this.calorieLabel.setText(String.format("%.2f", this.totalCalories));

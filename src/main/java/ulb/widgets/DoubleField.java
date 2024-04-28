@@ -21,30 +21,29 @@ package ulb.widgets;
 import javafx.scene.control.TextField;
 
 public class DoubleField {
-    private final TextField textField;
+	private final TextField textField;
 
-    public DoubleField(TextField textField) {
-        this.textField = textField;
-        this.textField
-                .textProperty()
-                .addListener(
-                        (observable, oldValue, newValue) -> {
-                            if (!newValue.matches("\\d*\\.?\\d{0,2}")) {
-                                textField.setText(newValue.replaceAll("[^\\d.]", ""));
-                            }
-                        }
-                );
-    }
+	public DoubleField(TextField textField) {
+		this.textField = textField;
+		this.textField
+				.textProperty()
+				.addListener(
+						(observable, oldValue, newValue) -> {
+							if (!newValue.matches("\\d*\\.?\\d{0,2}")) {
+								textField.setText(newValue.replaceAll("[^\\d.]", ""));
+							}
+						});
+	}
 
-    public void setValue(double number) {
-        String text = String.valueOf(number);
-        this.textField.setText(text);
-    }
+	public void setValue(double number) {
+		String text = String.valueOf(number);
+		this.textField.setText(text);
+	}
 
-    public double getValue() throws NumberFormatException {
-        if (this.textField.getText().isEmpty()) {
-            throw new NumberFormatException("Valeur invalide");
-        }
-        return Double.parseDouble(this.textField.getText());
-    }
+	public double getValue() throws NumberFormatException {
+		if (this.textField.getText().isEmpty()) {
+			throw new NumberFormatException("Valeur invalide");
+		}
+		return Double.parseDouble(this.textField.getText());
+	}
 }

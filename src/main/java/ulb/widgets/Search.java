@@ -44,27 +44,33 @@ public class Search implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		this.searchField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue && !this.searchList.isFocused()) {
-				this.clear();
-			}
-		});
-		this.searchList.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue && !this.searchField.isFocused()) {
-				this.clear();
-			}
-		});
+		this.searchField
+				.focusedProperty()
+				.addListener(
+						(observable, oldValue, newValue) -> {
+							if (!newValue && !this.searchList.isFocused()) {
+								this.clear();
+							}
+						});
+		this.searchList
+				.focusedProperty()
+				.addListener(
+						(observable, oldValue, newValue) -> {
+							if (!newValue && !this.searchField.isFocused()) {
+								this.clear();
+							}
+						});
 	}
 
 	@FXML
-	public void onListClick(){
+	public void onListClick() {
 		if (this.listener != null) {
 			this.listener.onClick(this.searchList.getSelectionModel().getSelectedItem());
 		}
 	}
 
 	@FXML
-	private void loadContent(){
+	private void loadContent() {
 		if (this.listener != null) {
 			String search = this.searchField.getText();
 			this.searchList.setItems(this.listener.getContent(search));
@@ -74,7 +80,7 @@ public class Search implements Initializable {
 
 	@FXML
 	public void keyPress(KeyEvent event) {
-		switch(event.getCode()){
+		switch (event.getCode()) {
 			case ENTER:
 				this.onListClick();
 				break;

@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -43,7 +42,8 @@ import ulb.widgets.FoodPopupController;
  * This class handles the loading of foods from the database, the calculation of calories consumed by a certain quantity of food, the saving of consumed foods and meals, and the retrieval of food details.
  * It also handles the user's search for foods and the return to the home screen of the application.
  */
-public class AddFoodController extends AppController implements AddFoodViewController.Listener, FoodPopupController.Listener {
+public class AddFoodController extends AppController
+		implements AddFoodViewController.Listener, FoodPopupController.Listener {
 	private static final Logger logger = LoggerFactory.getLogger(AddFoodController.class);
 	private final AddFoodController.Listener listener;
 	private final FoodLoader foodLoader;
@@ -54,8 +54,7 @@ public class AddFoodController extends AppController implements AddFoodViewContr
 	 * Constructor for the FoodController class.
 	 * @param listener Listener for the FoodController
 	 */
-	public AddFoodController(
-			AddFoodController.Listener listener) {
+	public AddFoodController(AddFoodController.Listener listener) {
 		this.listener = listener;
 		this.foodLoader = loadFoods();
 		this.popup = new Stage();
@@ -137,11 +136,13 @@ public class AddFoodController extends AppController implements AddFoodViewContr
 
 	@Override
 	public List<String> getUserSearch(String searchText) {
-		return this.foodLoader.getFoodsSuggestion(searchText).stream().map(Food::getName).collect(Collectors.toList());
+		return this.foodLoader.getFoodsSuggestion(searchText).stream()
+				.map(Food::getName)
+				.collect(Collectors.toList());
 	}
 
 	@Override
-	public void askUserFoodQuantity(String food){
+	public void askUserFoodQuantity(String food) {
 		this.popup.setTitle("Quantité de nourriture");
 		this.popupController.setFood(food);
 		this.popupController.setFoodUnit(this.getFoodServingQuantity(food));
@@ -156,7 +157,8 @@ public class AddFoodController extends AppController implements AddFoodViewContr
 	@Override
 	public void onEntry(double value) {
 		this.popup.hide();
-		((AddFoodViewController) this.viewController).addChosenFood(this.popupController.getFood(), value);
+		((AddFoodViewController) this.viewController)
+				.addChosenFood(this.popupController.getFood(), value);
 	}
 
 	/**

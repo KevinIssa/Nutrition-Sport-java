@@ -20,8 +20,6 @@ package ulb.widgets;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import ch.qos.logback.core.joran.sanity.AppenderWithinAppenderSanityChecker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -40,19 +38,18 @@ public class FoodPopupController implements ViewController {
 	private static final Logger logger = LoggerFactory.getLogger(FoodPopupController.class);
 	private String food;
 
-
-	private double getFieldValue(DoubleField inputField) throws IllegalArgumentException{
+	private double getFieldValue(DoubleField inputField) throws IllegalArgumentException {
 		double value = inputField.getValue();
-		if(value == 0){
+		if (value == 0) {
 			throw new IllegalArgumentException("Quantité trop petite.");
 		}
 		return value;
 	}
-	
+
 	private double getValue(DoubleField inputField) {
 		try {
 			return this.getFieldValue(inputField);
-		} catch (IllegalArgumentException e){
+		} catch (IllegalArgumentException e) {
 			showAlert("Valeur invalide", e.getMessage());
 			this.serving.clear();
 			this.gramme.clear();
@@ -73,14 +70,14 @@ public class FoodPopupController implements ViewController {
 		this.servinglabel.setText(foodUnit);
 	}
 
-	void disableIfEmpty(TextField field){
+	void disableIfEmpty(TextField field) {
 		boolean isEmpty = field.getText().isEmpty();
 		field.setDisable(isEmpty);
 	}
 
 	@FXML
 	void disabilityHandler() {
-		if(serving.getText().isEmpty() && gramme.getText().isEmpty()){
+		if (serving.getText().isEmpty() && gramme.getText().isEmpty()) {
 			serving.setDisable(false);
 			gramme.setDisable(false);
 			return;
@@ -90,14 +87,16 @@ public class FoodPopupController implements ViewController {
 	}
 
 	@FXML
-	void onEntry(){
+	void onEntry() {
 		double value;
-		if(gramme.getText().isEmpty()){
-			value = this.getValue(this.servingField) * this.listener.getServingQuantityValue(this.food);
+		if (gramme.getText().isEmpty()) {
+			value =
+					this.getValue(this.servingField)
+							* this.listener.getServingQuantityValue(this.food);
 		} else {
 			value = this.getValue(this.grammeField);
 		}
-		if(value == 0){
+		if (value == 0) {
 			this.listener.onBack();
 			return;
 		}
@@ -110,7 +109,7 @@ public class FoodPopupController implements ViewController {
 	}
 
 	@FXML
-	void onBack(){
+	void onBack() {
 		this.listener.onBack();
 	}
 
@@ -129,7 +128,7 @@ public class FoodPopupController implements ViewController {
 		this.grammeField = new DoubleField(this.gramme);
 	}
 
-	public interface Listener{
+	public interface Listener {
 		void onEntry(double value);
 
 		void onBack();

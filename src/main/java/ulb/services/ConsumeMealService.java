@@ -18,8 +18,8 @@
  */
 package ulb.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 import ulb.dtos.ConsumedFoodDTO;
 import ulb.dtos.ConsumedMealDTO;
 import ulb.models.ConsumedFood;
@@ -91,6 +91,6 @@ public class ConsumeMealService {
 				consumedFood.getName(),
 				consumedFood.getQuantity(),
 				consumedFood.getCalories(),
-				food != null ? food.getServingType() : "g");
+				food != null ? food.getQuantityUnit() : "g");
 	}
 }

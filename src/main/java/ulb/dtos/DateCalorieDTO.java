@@ -20,9 +20,9 @@ package ulb.dtos;
 
 import java.time.LocalDate;
 
-public record DateCalorieDTO(LocalDate date, int calorieIntake, int calorieBurned) {
+public record DateCalorieDTO(LocalDate date, double calorieIntake, double calorieBurned) {
 
-	public int getCalorieDifference() {
+	public double getCalorieDifference() {
 		return calorieIntake - calorieBurned;
 	}
 }

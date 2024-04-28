@@ -96,7 +96,7 @@ public class CaloriesTrackingService {
 	 */
 	private static class DateCalorie {
 		private final LocalDate date;
-		private int caloriesIntake;
+		private double caloriesIntake;
 		private int caloriesBurned;
 
 		/**
@@ -111,7 +111,7 @@ public class CaloriesTrackingService {
 		 * This method adds the specified number of calories to the calories intake.
 		 * @param calories the number of calories to add.
 		 */
-		public void addCaloriesIntake(int calories) {
+		public void addCaloriesIntake(double calories) {
 			this.caloriesIntake += calories;
 		}
 

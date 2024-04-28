@@ -46,7 +46,7 @@ public abstract class AppController {
 		}
 	}
 
-	protected void showLoadingAlert(String filePath){
+	protected void showLoadingAlert(String filePath) {
 		Alert alert = new Alert(Alert.AlertType.ERROR);
 		alert.setTitle("Erreur lors du chargement de la fenetre !");
 		alert.setHeaderText("Le fichier " + filePath + " n'a pas pu etre chargé.");
