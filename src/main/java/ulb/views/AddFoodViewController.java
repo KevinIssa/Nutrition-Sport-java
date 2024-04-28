@@ -38,6 +38,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ulb.exceptions.UnloadableFileException;
 import ulb.models.Food;
 import ulb.widgets.FoodPopupController;
 
@@ -316,32 +317,39 @@ public class AddFoodViewController implements ViewController {
 	 * @param food The chosen food.
 	 */
 	public void addChosenFood(String food) {
+		try {
+			String value = getUserData(food);
+			int quantity = extractQuantity(value, food);
+			if (quantity == 0) {
+				return;
+			}
 
-		String value = getUserData(food);
-		int quantity = extractQuantity(value, food);
-		if (quantity == 0) {
-			return;
+			int calories = listener.getCaloriesConsumedByGrams(food, quantity);
+			HBox box = loadFoodItemBox();
+			Button deleteButton = createDeleteButton(box);
+
+			String servingType = listener.getFoodServingType(food);
+			updateFoodItemBox(box, food, calories, quantity, servingType, value);
+
+			chosenFoodView.getItems().add(box);
+
+			setDeleteButtonAction(deleteButton, box);
+
+			consumedFoodsList.add(
+					new ArrayList<>(
+							List.of(
+									food,
+									Integer.toString(quantity),
+									Integer.toString(calories),
+									value.contains("g") ? "g" : servingType)));
+			addCalorie(calories);
+		} catch (UnloadableFileException e) {
+			logger.error("Food_popup or Food_items file not existing", e);
+			this.showAlert(
+					"Erreur",
+					"Des fichier corrompus ou manquants ont été détectés veuillez contacter le"
+							+ " support et leur fournir le fichier de log.");
 		}
-
-		int calories = listener.getCaloriesConsumedByGrams(food, quantity);
-		HBox box = loadFoodItemBox();
-		Button deleteButton = createDeleteButton(box);
-
-		String servingType = listener.getFoodServingType(food);
-		updateFoodItemBox(box, food, calories, quantity, servingType, value);
-
-		chosenFoodView.getItems().add(box);
-
-		setDeleteButtonAction(deleteButton, box);
-
-		consumedFoodsList.add(
-				new ArrayList<>(
-						List.of(
-								food,
-								Integer.toString(quantity),
-								Integer.toString(calories),
-								value.contains("g") ? "g" : servingType)));
-		addCalorie(calories);
 	}
 
 	public Button createDeleteButton(HBox box) {
@@ -392,33 +400,36 @@ public class AddFoodViewController implements ViewController {
 	 * It adds OK and Cancel buttons to the dialog pane, and sets the result converter of the dialog with the processDialogResult method.
 	 * It then shows the dialog and waits for the user to input a value or cancel the dialog.
 	 * If the user inputs a value, it returns the value. Otherwise, it returns "0".
+	 *
 	 * @param food The food.
 	 * @return The user data.
 	 */
-	private String getUserData(String food) {
-		Dialog<String> dialog = new Dialog<>();
-		dialog.setTitle("Custom Input Dialog");
+	private String getUserData(String food) throws UnloadableFileException {
+		try {
+			Dialog<String> dialog = new Dialog<>();
+			dialog.setTitle("Custom Input Dialog");
+			FXMLLoader loader =
+					new FXMLLoader(getClass().getResource("/ulb/widgets/Food_popup.fxml"));
+			VBox box = loadPopupBox(loader);
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/widgets/Food_popup.fxml"));
-		VBox box = loadPopupBox(loader);
+			FoodPopupController controller = loader.getController();
+			controller.setServinglabel(listener.getFoodServingQuantity(food));
 
-		FoodPopupController controller = loader.getController();
-		controller.setServinglabel(listener.getFoodServingQuantity(food));
-
-		dialog.getDialogPane().setContent(box);
-		dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-		dialog.setResultConverter(buttonType -> processDialogResult(buttonType, controller));
-
-		return dialog.showAndWait().orElse("0");
+			dialog.getDialogPane().setContent(box);
+			dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+			dialog.setResultConverter(buttonType -> processDialogResult(buttonType, controller));
+			return dialog.showAndWait().orElse("0");
+		} catch (NullPointerException | UnloadableFileException e) {
+			logger.error("Food_popup file not existing");
+			throw new UnloadableFileException("Food_popup.fxml");
+		}
 	}
 
-	private VBox loadPopupBox(FXMLLoader loader) {
+	private VBox loadPopupBox(FXMLLoader loader) throws UnloadableFileException {
 		try {
 			return loader.load();
-		} catch (IOException e) {
-			logger.error("Food_popup file not existing", e);
-			System.exit(1);
-			return null; // Unreachable
+		} catch (IOException | IllegalStateException e) {
+			throw new UnloadableFileException("Food_popup.fxml");
 		}
 	}
 
@@ -456,14 +467,12 @@ public class AddFoodViewController implements ViewController {
 		}
 	}
 
-	private HBox loadFoodItemBox() {
+	private HBox loadFoodItemBox() throws UnloadableFileException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ulb/widgets/Food_item.fxml"));
 		try {
 			return loader.load();
-		} catch (IOException e) {
-			logger.error("Food_item file not existing", e);
-			System.exit(1);
-			return null; // Unreachable
+		} catch (IOException | IllegalStateException e) {
+			throw new UnloadableFileException("Food_item.fxml");
 		}
 	}
 

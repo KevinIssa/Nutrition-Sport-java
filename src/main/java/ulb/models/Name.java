@@ -52,9 +52,10 @@ public class Name extends ValueObject<String> {
 	 */
 	protected void checkValidity(String name) throws BadNameException {
 		if (name == null || name.isEmpty()) {
-			throw new BadNameException("Name cannot be null or empty.");
+			throw new BadNameException("Nom ne peut pas être vide.");
 		} else if (!name.matches("^[a-zA-Z- ]+$")) {
-			throw new BadNameException("Name can only contain letters, - and spaces.");
+			throw new BadNameException(
+					"le nom ne peut contenir que des lettres, des tirets (-) et des espaces.");
 		}
 	}
 

@@ -56,9 +56,9 @@ public class Weight extends ValueObject<Float> {
 	 */
 	protected void checkValidity(Float weight) throws BadWeightException {
 		if (weight <= MIN_WEIGHT) {
-			throw new BadWeightException("Weight must be greater than " + MIN_WEIGHT);
+			throw new BadWeightException("le poids doit être supérieur à " + MIN_WEIGHT);
 		} else if (weight > MAX_WEIGHT) {
-			throw new BadWeightException("Weight must be less than " + MAX_WEIGHT);
+			throw new BadWeightException("le poids doit être inférieur à " + MAX_WEIGHT);
 		}
 	}
 
