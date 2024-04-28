@@ -43,7 +43,18 @@ public class Search implements Initializable {
 	}
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {}
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		this.searchField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+			if (!newValue && !this.searchList.isFocused()) {
+				this.clear();
+			}
+		});
+		this.searchList.focusedProperty().addListener((observable, oldValue, newValue) -> {
+			if (!newValue && !this.searchField.isFocused()) {
+				this.clear();
+			}
+		});
+	}
 
 	@FXML
 	public void onListClick(){
@@ -102,47 +113,7 @@ public class Search implements Initializable {
 		}
 	}
 
-	public String getSelectedItem() {
-		return searchList.getSelectionModel().getSelectedItem();
-	}
-
-	public int getSelectedIndex() {
-		return searchList.getSelectionModel().getSelectedIndex();
-	}
-
-	public void selectPrevious() {
-		searchList.getSelectionModel().selectPrevious();
-	}
-
-	public void selectNext() {
-		searchList.getSelectionModel().selectNext();
-	}
-
-	public void scrollTo(int index) {
-		searchList.scrollTo(index);
-	}
-
-	public void selectFirst() {
-		searchList.getSelectionModel().selectFirst();
-	}
-
-	public int size() {
-		return searchList.getItems().size();
-	}
-
-	public boolean isEmpty() {
-		return searchList.getItems().isEmpty();
-	}
-
-	public ObservableList<String> getItems() {
-		return searchList.getItems();
-	}
-
-	public void setResults(ObservableList<String> results) {
-		searchList.setItems(results);
-	}
-
-	public String getFirst(){
-		return searchList.getItems().getFirst();
+	public void clear() {
+		this.searchList.getItems().clear();
 	}
 }

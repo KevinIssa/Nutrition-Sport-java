@@ -112,8 +112,8 @@ public class AddFoodController extends AppController implements AddFoodViewContr
 		for (List<String> consumedFood : consumedFoodsList) {
 			consumedMeal.addConsumedFood(
 					consumedFood.get(0),
-					Integer.parseInt(consumedFood.get(1)),
-					Integer.parseInt(consumedFood.get(2)),
+					Double.parseDouble(consumedFood.get(1)),
+					Double.parseDouble(consumedFood.get(2)),
 					consumedFood.get(3));
 		}
 		consumedMeal.setDate(mealDate);

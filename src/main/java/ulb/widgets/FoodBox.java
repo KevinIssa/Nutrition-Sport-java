@@ -29,7 +29,10 @@ import javafx.scene.control.Button;
 public class FoodBox extends HBox {
 	private final String food;
 	private final String calories;
+	private final double caloriesValue;
 	private final String quantity;
+	private final double quantityValue;
+	private final String unit;
 
 	public FoodBox(Button button, String food, double calories, double quantity, String quantityUnit) {
 		super();
@@ -40,14 +43,17 @@ public class FoodBox extends HBox {
 		this.quantity = "Quantité : " + quantity + quantityUnit;
 		this.getChildren()
 				.addAll(new Label(food), new Label(this.calories + "\n" + this.quantity), button);
+		this.caloriesValue = calories;
+		this.quantityValue = quantity;
+		this.unit = quantityUnit;
 	}
 
 	public List<String> getItems() {
 		List<String> list = new ArrayList<>() {};
 		list.add(this.food);
-		list.add(this.calories);
-		list.add(this.quantity);
-		list = Collections.unmodifiableList(list);
-		return list;
+		list.add(String.valueOf(this.caloriesValue));
+		list.add(String.valueOf(this.quantityValue));
+		list.add(this.unit);
+        return Collections.unmodifiableList(list);
 	}
 }

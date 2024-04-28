@@ -118,6 +118,8 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 	@FXML
 	public void cleanFoodList() {
 		this.chosenFoodList.getItems().clear();
+		this.totalCalories = 0;
+		this.calorieLabel.setText("0");
 	}
 
 	/**
@@ -130,7 +132,7 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 	 */
 	@FXML
 	public void saveConsumedFoods() {
-		if (this.chosenFoodList.getSelectionModel().isEmpty()) {
+		if (this.chosenFoodList.getItems().isEmpty()) {
 			return;
 		}
 		try {
@@ -138,7 +140,7 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 			checkDate();
 			LocalDateTime saveDate = getDateTime();
 			this.listener.saveConsumedFoods(this.getConsumedFoods(), saveDate);
-			chosenFoodList.getItems().clear();
+			this.cleanFoodList();
 		} catch (NumberFormatException e) {
 			showAlert("Erreur", "Veuillez entrer une heure valide.");
 		} catch (IllegalArgumentException e) {
@@ -158,6 +160,15 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 	public void makeMeal() {
 		//TODO NOT IMPLEMENTED
 	}
+
+	private void addFoodBox(String food, double quantity, double calories, String foodUnit) {
+		Button deleteFoodButton = new Button("X");
+		deleteFoodButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+		FoodBox foodBox = new FoodBox(deleteFoodButton, food, calories, quantity, foodUnit);
+		deleteFoodButton.setOnAction(e -> this.deleteChosenFood(foodBox, calories));
+		chosenFoodList.getItems().add(foodBox);
+	}
+
 	/**
 	 * This method adds the chosen food to the list.
 	 * It gets the serving type of the food, and updates the food item box with the food, calories, quantity, serving type, and value.
@@ -167,17 +178,12 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 	public void addChosenFood(String food, double quantity) {
 		double calories = listener.getCaloriesConsumed(food, quantity);
 		//Round to 2 decimals
-		calories = Math.round(calories * 100.0) / 100.0;
+		calories = Double.parseDouble(String.format("%.2f", calories));
 		this.totalCalories += calories;
-		this.calorieLabel.setText(Double.toString(this.totalCalories));
+		this.calorieLabel.setText(String.format("%.2f", this.totalCalories));
 		String foodUnit = listener.getFoodUnit(food);
 
-		Button deleteFoodButton = new Button("X");
-		deleteFoodButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-		FoodBox foodBox = new FoodBox(deleteFoodButton, food, calories, quantity, foodUnit);
-		double finalCalories = calories;
-		deleteFoodButton.setOnAction(e -> this.deleteChosenFood(foodBox, finalCalories));
-		chosenFoodList.getItems().add(foodBox);
+		this.addFoodBox(food, quantity, calories, foodUnit);
 	}
 
 	private void deleteChosenFood(FoodBox foodBox, double calories) {

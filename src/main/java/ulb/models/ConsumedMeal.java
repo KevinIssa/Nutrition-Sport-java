@@ -64,7 +64,7 @@ public class ConsumedMeal {
 	 * @param calories Calories of the food consumed
 	 * @param type     Type of the food
 	 */
-	public void addConsumedFood(String name, int quantity, int calories, String type) {
+	public void addConsumedFood(String name, double quantity, double calories, String type) {
 		consumedFoods.add(new ConsumedFood(name, quantity, calories, type));
 	}
 

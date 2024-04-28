@@ -54,8 +54,10 @@ public class FoodPopupController implements ViewController {
 			return this.getFieldValue(inputField);
 		} catch (IllegalArgumentException e){
 			showAlert("Valeur invalide", e.getMessage());
+			this.serving.clear();
+			this.gramme.clear();
+			return 0;
 		}
-		return 0;
 	}
 
 	public void setFood(String food) {
@@ -99,6 +101,7 @@ public class FoodPopupController implements ViewController {
 			this.listener.onBack();
 			return;
 		}
+		value = Double.parseDouble(String.format("%.2f", value));
 		this.serving.setText("");
 		this.serving.setDisable(false);
 		this.gramme.setText("");
