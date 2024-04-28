@@ -18,6 +18,7 @@
  */
 package ulb.repositories;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import ulb.models.ConsumedFood;
 import ulb.models.ConsumedMeal;
@@ -47,7 +48,7 @@ public interface ConsumeMealRepository {
 	 *
 	 * @param consumedFood The ConsumedFood object to be deleted.
 	 */
-	void delete(ConsumedFood consumedFood);
+	void delete(ConsumedFood consumedFood, LocalDateTime date);
 
 	/**
 	 * Deletes a ConsumedMeal object from the repository.

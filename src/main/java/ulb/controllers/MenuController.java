@@ -18,13 +18,19 @@
  */
 package ulb.controllers;
 
+import java.util.List;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ulb.dtos.DateCalorieDTO;
+import ulb.models.*;
 import ulb.repositories.ActivityRepository;
 import ulb.repositories.ConsumeMealRepository;
 import ulb.repositories.JSONActivityRepository;
 import ulb.repositories.JSONConsumeMealRepository;
 import ulb.services.ActivityService;
+import ulb.services.CaloriesTrackingService;
 import ulb.services.ConsumeMealService;
 import ulb.services.ProfileService;
 import ulb.views.*;
@@ -36,18 +42,24 @@ import ulb.views.*;
  * It uses a ViewLoader instance to load the views and manages the primary stage of the application.
  */
 public class MenuController extends AppController implements MenuViewController.Listener {
-
+	private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
 	private Stage primaryStage;
 	private ProfileService profileService;
-
-	public MenuController() {}
+	private CaloriesTrackingService caloriesTrackingService;
 
 	public void setProfileService(ProfileService profileService) {
+		logger.info("Setting ProfileService: {}", profileService);
 		this.profileService = profileService;
+	}
+
+	public void setCaloriesTrackingService(CaloriesTrackingService caloriesTrackingService) {
+		logger.info("Setting CaloriesTrackingService: {}", caloriesTrackingService);
+		this.caloriesTrackingService = caloriesTrackingService;
 	}
 
 	@Override
 	public void show(Stage stage) {
+		logger.info("Showing MenuView");
 		this.primaryStage = stage;
 		this.loadWelcomeView();
 	}
@@ -169,9 +181,17 @@ public class MenuController extends AppController implements MenuViewController.
 				new ActivityCreateController(
 						activityService,
 						this.profileService,
-						() -> {
-							loadMenuView();
-							popupStage.close();
+						new ActivityCreateController.Listener() {
+							@Override
+							public void goToActivityHistory() {
+								loadActivityHistoryView();
+								popupStage.close();
+							}
+
+							@Override
+							public void returnHome() {
+								popupStage.close();
+							}
 						});
 		controller.show(popupStage);
 		// This line sets the modality of the popup stage to APPLICATION_MODAL.
@@ -192,7 +212,8 @@ public class MenuController extends AppController implements MenuViewController.
 		ActivityRepository activityRepository = new JSONActivityRepository();
 		ActivityService activityService = new ActivityService(activityRepository);
 		AppController controller =
-				new ActivityHistoryController(activityService,
+				new ActivityHistoryController(
+						activityService,
 						new ActivityHistoryController.Listener() {
 							@Override
 							public void returnHome() {
@@ -219,7 +240,8 @@ public class MenuController extends AppController implements MenuViewController.
 		ConsumeMealRepository consumeMealRepository = new JSONConsumeMealRepository();
 		ConsumeMealService consumeMealService = new ConsumeMealService(consumeMealRepository);
 		AppController controller =
-				new MealHistoryController(consumeMealService,
+				new MealHistoryController(
+						consumeMealService,
 						new MealHistoryController.Listener() {
 
 							@Override
@@ -269,5 +291,10 @@ public class MenuController extends AppController implements MenuViewController.
 	@Override
 	public String getProfileImagePath() {
 		return this.profileService.getProfileImagePath();
+	}
+
+	@Override
+	public List<DateCalorieDTO> getGraphData() {
+		return this.caloriesTrackingService.getCaloriesTracking();
 	}
 }

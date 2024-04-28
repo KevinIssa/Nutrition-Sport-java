@@ -28,7 +28,7 @@ public abstract class ValueObjectException extends Exception {
 	 * Constructor for ValueObjectException with a specified message.
 	 * @param message The message for the exception.
 	 */
-	public ValueObjectException(String message) {
+	protected ValueObjectException(String message) {
 		super(message);
 	}
 
@@ -37,7 +37,7 @@ public abstract class ValueObjectException extends Exception {
 	 * @param message The message for the exception.
 	 * @param cause The cause of the exception.
 	 */
-	public ValueObjectException(String message, Throwable cause) {
+	protected ValueObjectException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
@@ -45,7 +45,7 @@ public abstract class ValueObjectException extends Exception {
 	 * Constructor for ValueObjectException with a specified cause.
 	 * @param cause The cause of the exception.
 	 */
-	public ValueObjectException(Throwable cause) {
+	protected ValueObjectException(Throwable cause) {
 		super(cause);
 	}
 }

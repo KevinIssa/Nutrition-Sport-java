@@ -69,6 +69,7 @@ public class Food implements Consumable, Comparable<Food> {
 	 * @param obj The object to compare with this food item.
 	 * @return True if the objects are equal, false otherwise.
 	 */
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;

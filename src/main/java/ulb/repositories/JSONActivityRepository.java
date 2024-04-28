@@ -47,10 +47,11 @@ public class JSONActivityRepository extends JSONRepository<Activity> implements 
 			folder.mkdir();
 		}
 		String filename =
-				STR."\{
-						FOLDER_NAME}/\{
-						LocalDateTime.now()
-								.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))}.json";
+				FOLDER_NAME
+						+ "/"
+						+ LocalDateTime.now()
+								.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))
+						+ ".json";
 		try {
 			super.save(activity, filename);
 		} catch (IOException e) {
@@ -75,7 +76,7 @@ public class JSONActivityRepository extends JSONRepository<Activity> implements 
 				if (!file.isDirectory()) {
 					try {
 						activities.add(super.load(file.getPath()));
-					} catch (IOException _) {
+					} catch (IOException e) {
 						// If the file is corrupted, we just skip it
 						// logger.error("Failed to load activity", e);
 					}
@@ -99,7 +100,7 @@ public class JSONActivityRepository extends JSONRepository<Activity> implements 
 				Activity loadedActivity = null;
 				try {
 					loadedActivity = load(file.getPath());
-				} catch (IOException _) {
+				} catch (IOException e) {
 					// If the file is corrupted, we just skip it
 					// logger.error("Failed to load activity", e);
 					continue;

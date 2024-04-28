@@ -18,8 +18,15 @@
  */
 package ulb.controllers;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ulb.dtos.ConsumedFoodDTO;
 import ulb.dtos.ConsumedMealDTO;
 import ulb.services.ConsumeMealService;
 import ulb.views.MealHistoryViewController;
@@ -31,18 +38,20 @@ import ulb.views.MealHistoryViewController;
  */
 public class MealHistoryController extends AppController
 		implements MealHistoryViewController.Listener {
-
+	private static final Logger logger = LoggerFactory.getLogger(MealHistoryController.class);
 	private final ConsumeMealService consumeMealService;
 	private final MealHistoryController.Listener listener;
 
 	public MealHistoryController(
 			ConsumeMealService consumeMealService, MealHistoryController.Listener listener) {
+		logger.info("Initializing MealHistoryController");
 		this.consumeMealService = consumeMealService;
 		this.listener = listener;
 	}
 
 	@Override
 	public void show(Stage stage) {
+		logger.info("Showing MealHistoryView");
 		this.loadView("/ulb/views/MealHistory.fxml", stage);
 		this.viewController.setListener(this);
 	}
@@ -62,53 +71,24 @@ public class MealHistoryController extends AppController
 		this.listener.addMeal();
 	}
 
-	//	@Override
-	//	public void deleteFood(HBox foodBox) {
-	//		String date_in_string = ((Label) foodBox.getChildren().get(4)).getText();
-	//		File directory = new File(FOLDERNAME); // Specify the directory path
-	//		File[] files = directory.listFiles();
-	//		boolean isDeleted = false;
-	//		if (files == null) {
-	//			return;
-	//		}
-	//		for (File file : files) {
-	//			ConsumedMeal meal = this.loadMeal(file.getPath());
-	//			if (meal.changeDateFormat(meal.getDate()).equals(date_in_string)) {
-	//				for (ConsumedFood food : meal.getConsumedFoods()) {
-	//					if (isSameFood(food, foodBox)) {
-	//						meal.getConsumedFoods().remove(food);
-	//						isDeleted = true;
-	//						break;
-	//					}
-	//				}
-	//			}
-	//			if (meal.getConsumedFoods().isEmpty() && isDeleted) {
-	//				file.delete();
-	//				break;
-	//			} else if (isDeleted) {
-	//				file.delete();
-	//				meal.save();
-	//				break;
-	//			}
-	//		}
-	//	}
+	@Override
+	public void deleteFood(HBox foodBox) {
+		String dateString = ((Label) foodBox.getChildren().get(4)).getText();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy 'à' HH:mm");
+		// Parse the string into a LocalDateTime object
+		LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
+		this.consumeMealService.deleteConsumedFood(toConsumedFoodDTO(foodBox), dateTime);
+	}
 
-	//	private boolean isSameFood(ConsumedFood food, HBox foodBox) {
-	//		return food.getName().equals(((Label) foodBox.getChildren().get(0)).getText())
-	//				&& food.getQuantity()
-	//						== Integer.parseInt(
-	//								((Label) foodBox.getChildren().get(2)).getText().split(" ")[0])
-	//				&& food.getCalories()
-	//						== Integer.parseInt(
-	//								((Label) foodBox.getChildren().get(6)).getText().split(" ")[0])
-	//				&& food.getType()
-	//						.equals(((Label) foodBox.getChildren().get(2)).getText().split(" ")[1]);
-	//	}
-
-	//	@Override
-	//	public ConsumedMeal loadMeal(String filename) {
-	//		return ConsumedMeal.load(filename);
-	//	}
+	private ConsumedFoodDTO toConsumedFoodDTO(HBox foodBox) {
+		String name = ((Label) foodBox.getChildren().get(0)).getText();
+		int quantity =
+				Integer.parseInt(((Label) foodBox.getChildren().get(2)).getText().split(" ")[0]);
+		int calories =
+				Integer.parseInt(((Label) foodBox.getChildren().get(6)).getText().split(" ")[0]);
+		String unit = ((Label) foodBox.getChildren().get(2)).getText().split(" ")[1];
+		return new ConsumedFoodDTO(name, quantity, calories, unit);
+	}
 
 	/**
 	 * This is an interface for the Listener within the MealHistoryController class.
@@ -123,6 +103,10 @@ public class MealHistoryController extends AppController
 		 */
 		void returnHome();
 
+		/**
+		 * This method is called when the user wants to add a new meal to the meal history.
+		 * The implementing class should define the behavior that occurs when this event happens.
+		 */
 		void addMeal();
 	}
 }

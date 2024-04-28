@@ -98,16 +98,22 @@ public class Profile {
 	 */
 	@Override
 	public String toString() {
-		return STR."Profile{firstName='\{
-				firstName.toString()}\{
-				'\''}, lastName='\{
-				lastName.toString()}\{
-				'\''}, sex=\{
-				sex.toString()}, weight=\{
-				weight.toString()}, height=\{
-				height.toString()}, birthDate=\{
-				birthDate.toString()}\{
-				'}'}";
+		return "Profile{"
+				+ "firstName='"
+				+ firstName.toString()
+				+ '\''
+				+ ", lastName='"
+				+ lastName.toString()
+				+ '\''
+				+ ", sex="
+				+ sex.toString()
+				+ ", weight="
+				+ weight.toString()
+				+ ", height="
+				+ height.toString()
+				+ ", birthDate="
+				+ birthDate.toString()
+				+ '}';
 	}
 
 	// Getters and setters for class attributes.

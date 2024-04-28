@@ -22,10 +22,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-public class ConsumableTest {
+class ConsumableTest {
 
 	@Test
-	public void testGetCaloriesConsumedByGrams() {
+	void testGetCaloriesConsumedByGrams() {
 		assertEquals(100, new Food("food", 100, 100, "100g").getCaloriesConsumedByGrams(100), 0);
 	}
 }

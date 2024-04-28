@@ -22,10 +22,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-public class MealTest {
+class MealTest {
 
 	@Test
-	public void testMeal() {
+	void testMeal() {
 		Meal customMeal = createCustomMeal();
 		Meal loadedMeal = Meal.load("meals/Omelette aux poivrons.json");
 		assertEquals(customMeal, loadedMeal);

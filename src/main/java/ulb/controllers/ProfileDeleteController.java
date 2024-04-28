@@ -32,7 +32,7 @@ import ulb.views.ProfileDeleteConfirmViewController;
  */
 public class ProfileDeleteController extends AppController
 		implements ProfileDeleteConfirmViewController.Listener {
-	private static final Logger logger = LoggerFactory.getLogger(AppController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProfileDeleteController.class);
 	private final ProfileService profileService;
 	private final ProfileDeleteController.Listener listener;
 
@@ -54,8 +54,8 @@ public class ProfileDeleteController extends AppController
 	public void deleteProfile() {
 		logger.info("Deleting profile");
 		this.profileService.deleteProfile();
-		//		Activity.clearAll();
-		//		ConsumedMeal.clearAll();
+		// Activity.clearAll();
+		// ConsumedMeal.clearAll();
 		this.listener.createProfile();
 	}
 

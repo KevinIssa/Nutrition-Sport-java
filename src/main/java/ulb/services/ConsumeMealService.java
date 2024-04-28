@@ -45,11 +45,15 @@ public class ConsumeMealService {
 	public List<ConsumedMealDTO> getConsumedMeals() {
 		return this.consumeMealRepository.loadAll().stream()
 				.map(this::convertToConsumedMealDTO)
-				.collect(Collectors.toList());
+				.toList();
 	}
 
 	public void deleteConsumedMeal(ConsumedMealDTO consumedMealDTO) {
 		this.consumeMealRepository.delete(this.convertToConsumedMeal(consumedMealDTO));
+	}
+
+	public void deleteConsumedFood(ConsumedFoodDTO consumedFoodDTO, LocalDateTime date) {
+		this.consumeMealRepository.delete(this.convertToConsumedFood(consumedFoodDTO), date);
 	}
 
 	public void deleteAllConsumedMeals() {
@@ -66,28 +70,27 @@ public class ConsumeMealService {
 
 	private ConsumedFood convertToConsumedFood(ConsumedFoodDTO consumedFoodDTO) {
 		String name = consumedFoodDTO.name();
-		Food food = this.foodLoader.getFoodByName(name);
 		return new ConsumedFood(
 				name,
 				consumedFoodDTO.quantity(),
-                food.getCaloriesConsumedByGrams(consumedFoodDTO.quantity()),
-				food.getQuantityUnit());
+				consumedFoodDTO.calories(),
+				consumedFoodDTO.unit());
 	}
 
 	private ConsumedMealDTO convertToConsumedMealDTO(ConsumedMeal consumedMeal) {
 		List<ConsumedFoodDTO> consumedFoods =
 				consumedMeal.getConsumedFoods().stream()
 						.map(this::convertToConsumedFoodDTO)
-						.collect(Collectors.toList());
+						.toList();
 		return new ConsumedMealDTO(consumedFoods, consumedMeal.getDate());
 	}
 
 	private ConsumedFoodDTO convertToConsumedFoodDTO(ConsumedFood consumedFood) {
-		Food food = this.foodLoader.getFoodByName(consumedFood.getName());
+		Food food = foodLoader.getFoodByName(consumedFood.getName());
 		return new ConsumedFoodDTO(
 				consumedFood.getName(),
 				consumedFood.getQuantity(),
 				consumedFood.getCalories(),
-				food.getQuantityUnit());
+				food != null ? food.getServingType() : "g");
 	}
 }

@@ -18,9 +18,11 @@
  */
 package ulb.dtos;
 
-public record ConsumedFoodDTO(String name, double quantity, double calories, String unit) {
+import java.time.LocalDate;
 
-	public ConsumedFoodDTO(String name, double quantity, double calories) {
-		this(name, quantity, calories, "g");
+public record DateCalorieDTO(LocalDate date, int calorieIntake, int calorieBurned) {
+
+	public int getCalorieDifference() {
+		return calorieIntake - calorieBurned;
 	}
 }

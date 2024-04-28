@@ -66,8 +66,10 @@ public class ProfileService {
 	 * @param profileDTO The ProfileDTO object to be updated.
 	 * @throws ValueObjectException if the value object is invalid.
 	 */
-	public void updateProfile(ProfileDTO profileDTO) throws ValueObjectException {
+	public void updateProfile(ProfileDTO profileDTO)
+			throws ValueObjectException, IllegalImageFormatException, InvalidImageException {
 		this.profileRepository.update(this.convertToProfile(profileDTO));
+		this.profileRepository.saveProfileImage(profileDTO.imagePath());
 	}
 
 	/**
@@ -81,7 +83,9 @@ public class ProfileService {
 	/**
 	 * Deletes a Profile object from the repository.
 	 */
-	public void deleteProfile() {}
+	public void deleteProfile() {
+		this.profileRepository.delete();
+	}
 
 	/**
 	 * Retrieves the image path of the profile.

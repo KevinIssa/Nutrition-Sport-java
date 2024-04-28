@@ -46,12 +46,18 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 
 	@Override
 	public void save(ConsumedMeal consumedMeal) {
+		File folder = new File(FOLDER_NAME);
+		if (!folder.exists()) {
+			// logger.info("Creating activities folder");
+			folder.mkdir();
+		}
 		String fileName =
-				STR."\{
-						FOLDER_NAME}/\{
-						consumedMeal
+				FOLDER_NAME
+						+ "/"
+						+ consumedMeal
 								.getDate()
-								.format(DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss"))}.json";
+								.format(DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss"))
+						+ ".json";
 		try {
 			this.save(consumedMeal, fileName);
 		} catch (IOException e) {
@@ -70,7 +76,7 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 			for (File file : files) {
 				try {
 					consumedMeals.add(this.load(file.getPath()));
-				} catch (IOException _) {
+				} catch (IOException e) {
 					//
 					// logger.error("Error loading consumed meal from file: " + file.getPath());
 				}
@@ -91,7 +97,7 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 						file.delete();
 						break;
 					}
-				} catch (IOException _) {
+				} catch (IOException e) {
 					// logger.error("Error loading consumed meal from file: " + file.getPath());
 				}
 			}
@@ -99,8 +105,37 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 	}
 
 	@Override
-	public void delete(ConsumedFood consumedFood) {
-		// TODO: Implement this
+	public void delete(ConsumedFood consumedFood, LocalDateTime date) {
+		File folder = new File(FOLDER_NAME);
+		File[] files = folder.listFiles();
+		boolean isDeleted = false;
+		if (files != null) {
+			for (File file : files) {
+				try {
+					ConsumedMeal loadedConsumedMeal = this.load(file.getPath());
+					if (loadedConsumedMeal.getDate().equals(date)) {
+						for (ConsumedFood Food : loadedConsumedMeal.getConsumedFoods()) {
+							if (consumedFood.equals(Food)) {
+								loadedConsumedMeal.getConsumedFoods().remove(Food);
+								isDeleted = true;
+								break;
+							}
+						}
+					}
+					if (loadedConsumedMeal.getConsumedFoods().isEmpty() && isDeleted) {
+						file.delete();
+						break;
+					} else if (isDeleted) {
+						file.delete();
+						this.save(loadedConsumedMeal, file.getPath());
+						break;
+					}
+
+				} catch (IOException e) {
+					// logger.error("Error loading consumed meal from file: " + file.getPath());
+				}
+			}
+		}
 	}
 
 	@Override

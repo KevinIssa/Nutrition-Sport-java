@@ -51,41 +51,41 @@
                <Region prefHeight="21.0" prefWidth="596.0" />
                <HBox alignment="CENTER">
                   <children>
-                     <VBox alignment="TOP_CENTER" prefHeight="390.0" prefWidth="240.0" spacing="40.0">
+                     <VBox alignment="TOP_CENTER" prefHeight="390.0" prefWidth="240.0" spacing="30.0">
                         <children>
-                           <Label minHeight="36.0" prefHeight="36.0" prefWidth="136.0" text="Votre prénom" textAlignment="CENTER" textFill="#f3fbfb">
+                           <Label minHeight="36.0" prefHeight="46.0" prefWidth="136.0" text="Votre prénom" textAlignment="CENTER" textFill="#f3fbfb">
                               <font>
                                  <Font size="22.0" />
                               </font>
                            </Label>
-                           <Label minHeight="36.0" text="Votre nom" textAlignment="CENTER" textFill="#f3fbfb">
+                           <Label minHeight="36.0" prefHeight="46.0" text="Votre nom" textAlignment="CENTER" textFill="#f3fbfb">
                               <font>
                                  <Font size="22.0" />
                               </font>
                            </Label>
-                           <Label minHeight="36.0" text=" Votre poids (en kg)" textAlignment="CENTER" textFill="#f3fbfb">
+                           <Label minHeight="36.0" prefHeight="46.0" text=" Votre poids (en kg)" textAlignment="CENTER" textFill="#f3fbfb">
                               <font>
                                  <Font size="22.0" />
                               </font>
                            </Label>
-                           <Label minHeight="36.0" text="Votre taille (en cm)" textAlignment="CENTER" textFill="#f3fbfb">
+                           <Label minHeight="36.0" prefHeight="46.0" text="Votre taille (en cm)" textAlignment="CENTER" textFill="#f3fbfb">
                               <font>
                                  <Font size="22.0" />
                               </font>
                            </Label>
-                           <Label minHeight="36.0" text="Votre sexe" textAlignment="CENTER" textFill="#f3fbfb">
+                           <Label minHeight="36.0" prefHeight="36.0" text="Votre sexe" textAlignment="CENTER" textFill="#f3fbfb">
                               <font>
                                  <Font size="22.0" />
                               </font>
                            </Label>
-                           <Label minHeight="36.0" text="Votre date de naissance" textAlignment="CENTER" textFill="#f3fbfb">
+                           <Label minHeight="36.0" prefHeight="36.0" text="Votre date de naissance" textAlignment="CENTER" textFill="#f3fbfb">
                               <font>
                                  <Font size="22.0" />
                               </font>
                            </Label>
                         </children>
                      </VBox>
-                     <VBox spacing="40.0">
+                     <VBox spacing="30.0">
                         <children>
                            <fx:include fx:id="firstname" source="FieldTemplate.fxml" />
                            <fx:include fx:id="lastname" source="FieldTemplate.fxml" />
