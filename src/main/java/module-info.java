@@ -7,8 +7,9 @@ module ulb {
 	requires java.desktop;
 	requires org.slf4j;
 	requires jdk.jshell;
+    requires ch.qos.logback.core;
 
-	exports ulb;
+    exports ulb;
 	exports ulb.controllers;
 	exports ulb.dtos;
 	exports ulb.enums;

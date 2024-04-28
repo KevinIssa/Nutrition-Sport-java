@@ -24,13 +24,14 @@ import java.util.List;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.control.Button;
 
 public class FoodBox extends HBox {
 	private final String food;
 	private final String calories;
 	private final String quantity;
 
-	public FoodBox(String food, double calories, double quantity, String quantityUnit) {
+	public FoodBox(Button button, String food, double calories, double quantity, String quantityUnit) {
 		super();
 		this.setAlignment(Pos.CENTER_LEFT);
 		this.setSpacing(10);
@@ -38,7 +39,7 @@ public class FoodBox extends HBox {
 		this.calories = "Calories : " + calories + " kcal";
 		this.quantity = "Quantité : " + quantity + quantityUnit;
 		this.getChildren()
-				.addAll(new Label(food), new Label(this.calories), new Label(this.quantity));
+				.addAll(new Label(food), new Label(this.calories + "\n" + this.quantity), button);
 	}
 
 	public List<String> getItems() {

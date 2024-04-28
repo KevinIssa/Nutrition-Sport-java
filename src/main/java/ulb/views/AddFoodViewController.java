@@ -146,10 +146,6 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 		}
 	}
 
-	@FXML
-	public void makeMeal() {
-		//TODO NOT IMPLEMENTED
-	}
 	private List<List<String>> getConsumedFoods() {
 		List<List<String>> consumedFoodsList = new ArrayList<>();
 		for (FoodBox foodBox : chosenFoodList.getItems()) {
@@ -158,6 +154,10 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 		return consumedFoodsList;
 	}
 
+	@FXML
+	public void makeMeal() {
+		//TODO NOT IMPLEMENTED
+	}
 	/**
 	 * This method adds the chosen food to the list.
 	 * It gets the serving type of the food, and updates the food item box with the food, calories, quantity, serving type, and value.
@@ -171,8 +171,19 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 		this.totalCalories += calories;
 		this.calorieLabel.setText(Double.toString(this.totalCalories));
 		String foodUnit = listener.getFoodUnit(food);
-		FoodBox foodBox = new FoodBox(food, calories, quantity, foodUnit);
+
+		Button deleteFoodButton = new Button("X");
+		deleteFoodButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+		FoodBox foodBox = new FoodBox(deleteFoodButton, food, calories, quantity, foodUnit);
+		double finalCalories = calories;
+		deleteFoodButton.setOnAction(e -> this.deleteChosenFood(foodBox, finalCalories));
 		chosenFoodList.getItems().add(foodBox);
+	}
+
+	private void deleteChosenFood(FoodBox foodBox, double calories) {
+		this.chosenFoodList.getItems().remove(foodBox);
+		this.totalCalories -= calories;
+		this.calorieLabel.setText(Double.toString(this.totalCalories));
 	}
 
 	public interface Listener {

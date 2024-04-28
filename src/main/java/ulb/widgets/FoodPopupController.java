@@ -21,6 +21,7 @@ package ulb.widgets;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import ch.qos.logback.core.joran.sanity.AppenderWithinAppenderSanityChecker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -99,7 +100,9 @@ public class FoodPopupController implements ViewController {
 			return;
 		}
 		this.serving.setText("");
+		this.serving.setDisable(false);
 		this.gramme.setText("");
+		this.gramme.setDisable(false);
 		this.listener.onEntry(value);
 	}
 
