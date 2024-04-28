@@ -33,6 +33,7 @@ import javafx.stage.FileChooser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.ProfileDTO;
+import ulb.exceptions.ProfileParameterException;
 import ulb.widgets.AbstractFieldTemplate;
 
 public class ProfileViewController implements ViewController {
@@ -107,6 +108,10 @@ public class ProfileViewController implements ViewController {
 			this.profileImage.setImage(image);
 		} catch (MalformedURLException e) {
 			logger.error("Error loading profile image due to malformed URL {}", e.getMessage());
+			this.showAlert(
+					"Erreur de chargement",
+					"Une erreur inconnue s'est produite. veuillez contacter le support et leur"
+							+ " fournir le fichier de log car une erreur inconnue s'est produit.");
 			System.exit(1);
 		}
 	}
@@ -120,6 +125,10 @@ public class ProfileViewController implements ViewController {
 				this.imagePath = selectedFile.toURI().toString();
 			} catch (MalformedURLException e) {
 				logger.error("Error loading profile image due to malformed URL {}", e.getMessage());
+				this.showAlert(
+						"Erreur de chargement",
+						"Une erreur inconnue s'est produite. veuillez contacter le support et leur"
+							+ " fournir le fichier de log car une erreur inconnue s'est produit.");
 				System.exit(1);
 			}
 		}
@@ -137,20 +146,20 @@ public class ProfileViewController implements ViewController {
 							LocalDate.parse(this.birthdateController.getText()),
 							this.imagePath);
 			this.listener.updateProfile(profileDTO);
-		} catch (NumberFormatException e) {
-			logger.warn("Height and weight must be positive numbers");
+			this.listener.returnHome();
 		} catch (IllegalArgumentException | NullPointerException e) {
 			logger.warn("All fields must be filled");
-			//		} catch (IllegalImageFormatException e) {
-			//			logger.warn("Image format not supported");
-			//		} catch (InvalidImageException e) {
-			//			logger.warn("Failed to save image");
-			//		} catch (
-			//				ImageException
-			//						e) { // this should not be caught it should be caught in catch block above
-			//			logger.warn("error while saving image");
+		} catch (ProfileParameterException e) {
+			logger.warn("Error while updating profile", e);
+			this.showAlert("Erreur de saisie", e.getMessage());
+		} catch (Exception e) {
+			logger.error("An unhanded exception occurred while updating profile", e);
+			this.showAlert(
+					"Erreur inconnue",
+					"Une erreur inconnue s'est produite. Veuillez réessayer. Si le problème"
+						+ " persiste, veuillez contacter le support et leur fournir le fichier de"
+						+ " log.");
 		}
-		this.listener.returnHome();
 	}
 
 	public void deleteProfile() {
@@ -165,7 +174,7 @@ public class ProfileViewController implements ViewController {
 
 	// Listener interface for communication with the controller
 	public interface Listener {
-		void updateProfile(ProfileDTO profileDTO);
+		void updateProfile(ProfileDTO profileDTO) throws ProfileParameterException;
 
 		ProfileDTO getProfile();
 

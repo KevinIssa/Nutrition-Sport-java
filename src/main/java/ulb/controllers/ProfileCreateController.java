@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import ulb.dtos.ProfileDTO;
 import ulb.exceptions.IllegalImageFormatException;
 import ulb.exceptions.InvalidImageException;
+import ulb.exceptions.ProfileParameterException;
 import ulb.exceptions.ValueObjectException;
 import ulb.services.ProfileService;
 import ulb.views.ProfileCreateViewController;
@@ -54,13 +55,12 @@ public class ProfileCreateController extends AppController
 	}
 
 	@Override
-	public void saveProfile(ProfileDTO profileDTO) {
+	public void saveProfile(ProfileDTO profileDTO) throws ProfileParameterException {
 		try {
 			logger.info("Saving profile {}", profileDTO);
 			this.profileService.saveProfile(profileDTO);
 		} catch (ValueObjectException | IllegalImageFormatException | InvalidImageException e) {
-			logger.error("Error saving profile: {}", e.getMessage());
-			this.viewController.showAlert("Error", e.getMessage());
+			throw new ProfileParameterException(e.getMessage(), e);
 		}
 	}
 

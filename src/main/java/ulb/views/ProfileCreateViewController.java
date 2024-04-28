@@ -28,9 +28,13 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.dtos.ProfileDTO;
+import ulb.exceptions.ProfileParameterException;
 
 public class ProfileCreateViewController implements ViewController {
+	private static final Logger logger = LoggerFactory.getLogger(ProfileCreateViewController.class);
 	@FXML private ImageView image;
 	@FXML private Button imageSelection;
 	@FXML private TextField firstname, lastname, height, weight;
@@ -76,20 +80,21 @@ public class ProfileCreateViewController implements ViewController {
 							this.birthdate.getValue(),
 							this.imagePath);
 			this.listener.saveProfile(profile);
-		} catch (NumberFormatException e) {
-			return;
-			//		} catch (IllegalImageFormatException e) {
-			//			return;
-			//		} catch (IllegalArgumentException e) {
-			//			return;
-			//		} catch (InvalidImageException e) {
-			//			return;
-			//		} catch (
-			//				ImageException
-			//						e) { // this should not be caught it should be caught in catch block above
-			//			return;
+			this.listener.returnHome();
+		} catch (ProfileParameterException e) {
+			logger.warn("Error while saving profile", e);
+			this.showAlert("Error de saisie", e.getMessage());
+		} catch (IllegalArgumentException | NullPointerException e) {
+			logger.warn("All fields must be filled", e);
+			this.showAlert("Erreur", "Tous les champs doivent être remplis.");
+		} catch (Exception e) {
+			logger.error("Error while saving profile", e);
+			this.showAlert(
+					"Erreur",
+					"Une erreur est survenue lors de la sauvegarde du profil. Veuillez réessayer."
+						+ " Si le problème persiste, veuillez contacter le support et leur fournir"
+						+ " le fichier de log.");
 		}
-		this.listener.returnHome();
 	}
 
 	public void setListener(Object listener) {
@@ -100,7 +105,7 @@ public class ProfileCreateViewController implements ViewController {
 	}
 
 	public interface Listener {
-		void saveProfile(ProfileDTO profileDTO);
+		void saveProfile(ProfileDTO profileDTO) throws ProfileParameterException;
 
 		void returnHome();
 	}

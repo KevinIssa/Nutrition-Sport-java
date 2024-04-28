@@ -65,6 +65,7 @@ public class FoodPopupController implements ViewController {
 	public void setServinglabel(String label) {
 		this.servinglabel.setText(label);
 	}
+
 	public void setFoodlabel(String label) {
 		this.foodlabel.setText(label);
 	}

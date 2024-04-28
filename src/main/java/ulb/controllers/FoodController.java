@@ -128,7 +128,9 @@ public class FoodController extends AppController implements AddFoodViewControll
 	}
 
 	@Override
-	public String getFoodName(String food) { return this.foodLoader.getFoodByName(food).getName();}
+	public String getFoodName(String food) {
+		return this.foodLoader.getFoodByName(food).getName();
+	}
 
 	@Override
 	public int extractServingQuantityValue(String food) {
