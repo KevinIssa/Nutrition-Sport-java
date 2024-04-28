@@ -96,7 +96,7 @@ public class Food implements Consumable, Comparable<Food> {
 	 * @return The total calories consumed for the specified grams.
 	 */
 	@Override
-	public int getCaloriesConsumedByGrams(int grams) {
+	public double getCaloriesConsumedByGrams(double grams) {
 		return (this.caloriesPer100 * grams) / 100;
 	}
 

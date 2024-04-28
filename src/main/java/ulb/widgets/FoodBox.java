@@ -30,7 +30,7 @@ public class FoodBox extends HBox {
 	private final String calories;
 	private final String quantity;
 
-	public FoodBox(String food, int calories, int quantity, String quantityUnit) {
+	public FoodBox(String food, double calories, double quantity, String quantityUnit) {
 		super();
 		this.setAlignment(Pos.CENTER_LEFT);
 		this.setSpacing(10);

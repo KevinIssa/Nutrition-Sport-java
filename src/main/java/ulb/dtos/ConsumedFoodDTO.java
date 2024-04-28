@@ -18,9 +18,9 @@
  */
 package ulb.dtos;
 
-public record ConsumedFoodDTO(String name, int quantity, int calories, String unit) {
+public record ConsumedFoodDTO(String name, double quantity, double calories, String unit) {
 
-	public ConsumedFoodDTO(String name, int quantity) {
+	public ConsumedFoodDTO(String name, double quantity) {
 		this(name, quantity, -1, null);
 	}
 }

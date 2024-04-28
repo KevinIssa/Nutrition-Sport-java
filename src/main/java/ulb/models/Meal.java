@@ -102,7 +102,7 @@ public class Meal implements Consumable, JsonSerializable {
 	 * @return The calories consumed.
 	 */
 	@Override
-	public int getCaloriesConsumedByGrams(int grams) {
+	public double getCaloriesConsumedByGrams(double grams) {
 		int totalGrams = getGramsForServing(1);
 		return getCaloriesConsumed() * grams / totalGrams;
 	}

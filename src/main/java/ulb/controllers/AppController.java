@@ -22,6 +22,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +42,15 @@ public abstract class AppController {
 			stage.setScene(new Scene(root));
 		} catch (IOException e) {
 			logger.error("Failed to load view resources", e);
-			System.exit(1);
+			this.showLoadingAlert(resourcePath);
 		}
+	}
+
+	protected void showLoadingAlert(String filePath){
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.setTitle("Erreur lors du chargement de la fenetre !");
+		alert.setHeaderText("Le fichier " + filePath + " n'a pas pu etre chargé.");
+		alert.setContentText("Veuillez contacter l'équipe de développement.");
+		alert.showAndWait();
 	}
 }

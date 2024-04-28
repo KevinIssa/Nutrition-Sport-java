@@ -19,69 +19,115 @@
 package ulb.widgets;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
-import javafx.event.Event;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.views.ViewController;
 
 public class FoodPopupController implements ViewController {
 	@FXML TextField gramme;
 	@FXML TextField serving;
 	@FXML Label servinglabel;
+	@FXML Label mainLabel;
+	private DoubleField servingField;
+	private DoubleField grammeField;
+	private Listener listener;
+	private static final Logger logger = LoggerFactory.getLogger(FoodPopupController.class);
+	private String food;
 
-	public int getGramme() {
-		return handleInput(gramme, "grammes", 4000);
+
+	private double getFieldValue(DoubleField inputField) throws IllegalArgumentException{
+		double value = inputField.getValue();
+		if(value == 0){
+			throw new IllegalArgumentException("Quantité trop petite.");
+		}
+		return value;
 	}
-
-	public int getServing() {
-		return handleInput(serving, "portions", 100);
-	}
-
-	private int handleInput(TextField inputField, String unit, int max) {
-		if (!inputField.isDisable()) {
-			try {
-				int value = Integer.parseInt(inputField.getText());
-				if (value > max) {
-					showAlert(
-							"Quantité excessive",
-							"Le maximum autorisé est de " + max + " " + unit + ".");
-					return 0;
-				}
-				return value;
-			} catch (NumberFormatException e) {
-				showAlert(
-						"Valeur invalide",
-						"Veuillez entrer une valeur valide pour les " + unit + ".");
-				return 0;
-			}
+	
+	private double getValue(DoubleField inputField) {
+		try {
+			return this.getFieldValue(inputField);
+		} catch (IllegalArgumentException e){
+			showAlert("Valeur invalide", e.getMessage());
 		}
 		return 0;
 	}
 
-	public void setServinglabel(String label) {
-		this.servinglabel.setText(label);
+	public void setFood(String food) {
+		this.food = food;
+		this.mainLabel.setText("Donnez la quantité de " + food);
+	}
+
+	public String getFood() {
+		return this.food;
+	}
+
+	public void setFoodUnit(String foodUnit) {
+		this.servinglabel.setText(foodUnit);
+	}
+
+	void disableIfEmpty(TextField field){
+		boolean isEmpty = field.getText().isEmpty();
+		field.setDisable(isEmpty);
 	}
 
 	@FXML
-	void textboxHandler(Event event) {
-		if (!Objects.equals(serving.getText(), "")) {
-			gramme.setDisable(true);
-		} else {
-			gramme.setDisable(false);
-		}
-		if (!Objects.equals(gramme.getText(), "")) {
-			serving.setDisable(true);
-		} else {
+	void disabilityHandler() {
+		if(serving.getText().isEmpty() && gramme.getText().isEmpty()){
 			serving.setDisable(false);
+			gramme.setDisable(false);
+			return;
 		}
+		this.disableIfEmpty(serving);
+		this.disableIfEmpty(gramme);
+	}
+
+	@FXML
+	void onEntry(){
+		double value;
+		if(gramme.getText().isEmpty()){
+			value = this.getValue(this.servingField) * this.listener.getServingQuantityValue(this.food);
+		} else {
+			value = this.getValue(this.grammeField);
+		}
+		if(value == 0){
+			this.listener.onBack();
+			return;
+		}
+		this.serving.setText("");
+		this.gramme.setText("");
+		this.listener.onEntry(value);
+	}
+
+	@FXML
+	void onBack(){
+		this.listener.onBack();
 	}
 
 	@Override
-	public void setListener(Object listener) {}
+	public void setListener(Object listener) {
+		if (listener == null) {
+			logger.error("Listener is null");
+			System.exit(1);
+		}
+		this.listener = (Listener) listener;
+	}
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {}
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		this.servingField = new DoubleField(this.serving);
+		this.grammeField = new DoubleField(this.gramme);
+	}
+
+	public interface Listener{
+		void onEntry(double value);
+
+		void onBack();
+
+		int getServingQuantityValue(String food);
+	}
 }

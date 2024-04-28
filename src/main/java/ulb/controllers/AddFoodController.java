@@ -18,10 +18,14 @@
  */
 package ulb.controllers;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +35,7 @@ import ulb.models.FoodLoader;
 import ulb.models.Meal;
 import ulb.repositories.JSONConsumeMealRepository;
 import ulb.views.AddFoodViewController;
+import ulb.widgets.FoodPopupController;
 
 /**
  * The FoodController class is responsible for managing the interactions between the FoodViewController and the model classes related to food and meals.
@@ -38,20 +43,37 @@ import ulb.views.AddFoodViewController;
  * This class handles the loading of foods from the database, the calculation of calories consumed by a certain quantity of food, the saving of consumed foods and meals, and the retrieval of food details.
  * It also handles the user's search for foods and the return to the home screen of the application.
  */
-public class AddFoodController extends AppController implements AddFoodViewController.Listener {
+public class AddFoodController extends AppController implements AddFoodViewController.Listener, FoodPopupController.Listener {
 	private static final Logger logger = LoggerFactory.getLogger(AddFoodController.class);
 	private final AddFoodController.Listener listener;
 	private final FoodLoader foodLoader;
+	private final Stage popup;
+	private FoodPopupController popupController;
 
 	/**
 	 * Constructor for the FoodController class.
 	 * @param listener Listener for the FoodController
-	 * @param viewController ViewController for the FoodController
 	 */
 	public AddFoodController(
 			AddFoodController.Listener listener) {
 		this.listener = listener;
 		this.foodLoader = loadFoods();
+		this.popup = new Stage();
+		this.loadPopup();
+	}
+
+	private void loadPopup() {
+		String resourceFile = "/ulb/widgets/Food_popup.fxml";
+		try {
+			FXMLLoader loader = new FXMLLoader(FoodPopupController.class.getResource(resourceFile));
+			Parent root = loader.load();
+			this.popupController = loader.getController();
+			this.popupController.setListener(this);
+			this.popup.setScene(new Scene(root));
+			this.popup.hide();
+		} catch (IOException e) {
+			this.showLoadingAlert(resourceFile);
+		}
 	}
 
 	@Override
@@ -80,7 +102,7 @@ public class AddFoodController extends AppController implements AddFoodViewContr
 	}
 
 	@Override
-	public int getCaloriesConsumedByGrams(String food, int quantity) {
+	public double getCaloriesConsumed(String food, double quantity) {
 		return this.foodLoader.getFoodByName(food).getCaloriesConsumedByGrams(quantity);
 	}
 
@@ -104,18 +126,37 @@ public class AddFoodController extends AppController implements AddFoodViewContr
 	}
 
 	@Override
-	public int extractServingQuantityValue(String food) {
+	public int getServingQuantityValue(String food) {
 		return this.foodLoader.getFoodByName(food).extractServingQuantityValue();
 	}
 
 	@Override
-	public String getFoodQuantityUnit(String food) {
+	public String getFoodUnit(String food) {
 		return this.foodLoader.getFoodByName(food).getQuantityUnit();
 	}
 
 	@Override
 	public List<String> getUserSearch(String searchText) {
 		return this.foodLoader.getFoodsSuggestion(searchText).stream().map(Food::getName).collect(Collectors.toList());
+	}
+
+	@Override
+	public void askUserFoodQuantity(String food){
+		this.popup.setTitle("Quantité de nourriture");
+		this.popupController.setFood(food);
+		this.popupController.setFoodUnit(this.getFoodServingQuantity(food));
+		this.popup.show();
+	}
+
+	@Override
+	public void onBack() {
+		this.popup.hide();
+	}
+
+	@Override
+	public void onEntry(double value) {
+		this.popup.hide();
+		((AddFoodViewController) this.viewController).addChosenFood(this.popupController.getFood(), value);
 	}
 
 	/**

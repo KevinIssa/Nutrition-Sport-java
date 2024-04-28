@@ -73,8 +73,8 @@ public class ConsumedMeal {
 	 *
 	 * @return Total calories consumed
 	 */
-	public int getCaloriesConsumed() {
-		return consumedFoods.stream().mapToInt(ConsumedFood::getCalories).sum();
+	public double getCaloriesConsumed() {
+		return consumedFoods.stream().mapToDouble(ConsumedFood::getCalories).sum();
 	}
 
 	/**

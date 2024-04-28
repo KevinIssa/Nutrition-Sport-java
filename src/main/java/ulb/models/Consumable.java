@@ -39,7 +39,7 @@ public interface Consumable {
 	 * @param grams the amount of the consumable in grams
 	 * @return the number of calories consumed by eating the given amount of this consumable
 	 */
-	int getCaloriesConsumedByGrams(int grams);
+	double getCaloriesConsumedByGrams(double grams);
 
 	/**
 	 * Computes the calories consumed by eating a certain amount of this consumable, measured in servings.

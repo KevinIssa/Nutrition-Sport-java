@@ -28,8 +28,8 @@ import org.slf4j.LoggerFactory;
 public class ConsumedFood {
 	private static final Logger logger = LoggerFactory.getLogger(ConsumedFood.class);
 	private String name;
-	private int quantity; // in grams
-	private int calories; // consumed
+	private double quantity; // in grams
+	private double calories; // consumed
 	private String unit; // g or ml
 
 	/**
@@ -38,7 +38,7 @@ public class ConsumedFood {
 	 * @param quantity Quantity of the consumed food
 	 * @param calories Calories of the consumed food
 	 */
-	public ConsumedFood(String name, int quantity, int calories, String unit) {
+	public ConsumedFood(String name, double quantity, double calories, String unit) {
 		this.name = name;
 		this.quantity = quantity;
 		this.calories = calories;
@@ -99,7 +99,7 @@ public class ConsumedFood {
 	 * Getter for the quantity field.
 	 * @return Quantity of the consumed food
 	 */
-	public int getQuantity() {
+	public double getQuantity() {
 		return quantity;
 	}
 
@@ -115,7 +115,7 @@ public class ConsumedFood {
 	 * Getter for the calories field.
 	 * @return Calories of the consumed food
 	 */
-	public int getCalories() {
+	public double getCalories() {
 		return calories;
 	}
 

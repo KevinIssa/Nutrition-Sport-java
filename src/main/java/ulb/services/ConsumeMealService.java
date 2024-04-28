@@ -70,7 +70,7 @@ public class ConsumeMealService {
 		return new ConsumedFood(
 				name,
 				consumedFoodDTO.quantity(),
-				food.getCaloriesConsumedByGrams(consumedFoodDTO.quantity()),
+                food.getCaloriesConsumedByGrams(consumedFoodDTO.quantity()),
 				food.getQuantityUnit());
 	}
 
