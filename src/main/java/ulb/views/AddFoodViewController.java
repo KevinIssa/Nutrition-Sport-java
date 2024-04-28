@@ -49,13 +49,15 @@ public class AddFoodViewController implements ViewController {
 	@FXML private ListView<HBox> chosenFoodView;
 	@FXML private ToggleButton toggleButton;
 	@FXML private Label title;
-	@FXML private Label name;
-	@FXML private TextField textField;
+	@FXML private TextField nameMealTextField;
 	@FXML private DatePicker mealDate;
 	@FXML private TextField hour;
 	@FXML private TextField minutes;
-	@FXML private Group date;
+	@FXML private Group dateGroup;
+	@FXML private Group newMealGroup;
 	@FXML private Label calorieNumber;
+	@FXML private Label listTittleLabel;
+	@FXML private Label listTittleLabel2;
 	private boolean mode = false;
 	private final ArrayList<ArrayList<String>> consumedFoodsList = new ArrayList<>();
 	private AddFoodViewController.Listener listener;
@@ -66,8 +68,7 @@ public class AddFoodViewController implements ViewController {
 		this.hour.setText(String.valueOf(LocalTime.now().getHour()));
 		this.minutes.setText(String.valueOf(LocalTime.now().getMinute()));
 		this.mealDate.setValue(LocalDate.now());
-		this.name.setVisible(false);
-		this.textField.setVisible(false);
+		this.newMealGroup.setVisible(false);
 		this.toggleButton.setSelected(false);
 		searchField
 				.focusedProperty()
@@ -88,16 +89,20 @@ public class AddFoodViewController implements ViewController {
 		if (toggleButton.isSelected()) {
 			this.mode = true;
 			title.setText("Composez un plat");
-			name.setVisible(true);
-			textField.setVisible(true);
-			date.setVisible(false);
-			textField.setText("");
+			toggleButton.setStyle("-fx-background-color: #b7ed65;");
+			listTittleLabel.setText("Rechercher ingrédient");
+			listTittleLabel2.setText("Ingrédients choisis");
+			newMealGroup.setVisible(true);
+			dateGroup.setVisible(false);
+			nameMealTextField.setText("");
 		} else {
 			this.mode = false;
 			title.setText("Ajoutez les aliments consommés");
-			name.setVisible(false);
-			textField.setVisible(false);
-			date.setVisible(true);
+			toggleButton.setStyle("-fx-background-color: #fdbd07;");
+			listTittleLabel.setText("Rechercher aliment");
+			listTittleLabel2.setText("Aliments choisis");
+			newMealGroup.setVisible(false);
+			dateGroup.setVisible(true);
 		}
 		consumedFoodsList.clear();
 		chosenFoodView.getItems().clear();
@@ -251,8 +256,8 @@ public class AddFoodViewController implements ViewController {
 			return;
 		}
 		if (mode) {
-			if (!textField.getText().isEmpty()) {
-				this.listener.saveMeal(textField.getText(), consumedFoodsList);
+			if (!nameMealTextField.getText().isEmpty()) {
+				this.listener.saveMeal(nameMealTextField.getText(), consumedFoodsList);
 			}
 			this.listener.reload();
 		} else {
