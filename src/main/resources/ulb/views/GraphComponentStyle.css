@@ -7,7 +7,7 @@
 
 .chart-title {
   -fx-text-fill: #4682b4;
-  -fx-font-size: 1.6em;
+  -fx-font-size: 3.5em;
 }
 
 .axis-label {
@@ -28,11 +28,11 @@
 }
 
 .chart-legend-item{
-    -fx-text-fill: #191970;
+    -fx-text-fill: #d0d4f4;
 }
 
 .chart-plot-background {
-    -fx-background-color: transparent;
+    -fx-background-color: #172e8c;
 }
 .chart-vertical-grid-lines {
     -fx-stroke: #3278fa;

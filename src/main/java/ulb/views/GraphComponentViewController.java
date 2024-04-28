@@ -84,6 +84,8 @@ public class GraphComponentViewController extends AnchorPane {
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
 		XYChart.Series<String, Number> series2 = new XYChart.Series<>();
 		lineChart.setTitle("Calories brûlées et consommées");
+		series.setName("Brûlées");
+		series2.setName("Consommées");
 		barChart.setLegendVisible(false);
 		xAxis.setLabel("Date");
 		yAxis.setLabel("Calories");
@@ -91,11 +93,12 @@ public class GraphComponentViewController extends AnchorPane {
 			series.getData()
 					.add(
 							new XYChart.Data<>(
-									dateCalorie.date().toString(), dateCalorie.calorieIntake()));
+									dateCalorie.date().toString(), dateCalorie.calorieBurned()));
+
 			series2.getData()
 					.add(
 							new XYChart.Data<>(
-									dateCalorie.date().toString(), dateCalorie.calorieBurned()));
+									dateCalorie.date().toString(), dateCalorie.calorieIntake()));
 		}
 		lineChart.getData().add(series);
 		lineChart.getData().add(series2);
