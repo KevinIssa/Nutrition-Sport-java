@@ -86,6 +86,13 @@ public class FoodPopupController implements ViewController {
 		this.disableIfEmpty(gramme);
 	}
 
+	private void resetTextFields() {
+		this.serving.setText("");
+		this.serving.setDisable(false);
+		this.gramme.setText("");
+		this.gramme.setDisable(false);
+	}
+
 	@FXML
 	void onEntry() {
 		double value;
@@ -101,10 +108,7 @@ public class FoodPopupController implements ViewController {
 			return;
 		}
 		value = Double.parseDouble(String.format("%.2f", value));
-		this.serving.setText("");
-		this.serving.setDisable(false);
-		this.gramme.setText("");
-		this.gramme.setDisable(false);
+		resetTextFields();
 		this.listener.onEntry(value);
 	}
 
@@ -117,7 +121,7 @@ public class FoodPopupController implements ViewController {
 	public void setListener(Object listener) {
 		if (listener == null) {
 			logger.error("Listener is null");
-			System.exit(1);
+			return;
 		}
 		this.listener = (Listener) listener;
 	}
