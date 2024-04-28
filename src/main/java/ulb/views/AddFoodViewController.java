@@ -34,8 +34,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.models.Food;
@@ -47,6 +47,7 @@ public class AddFoodViewController implements ViewController {
 	@FXML private ListView<String> suggestionsList;
 	@FXML private ListView<HBox> chosenFoodView;
 	@FXML private Slider slider;
+	@FXML private ToggleButton toggleButton;
 	@FXML private Label title;
 	@FXML private Label name;
 	@FXML private TextField textField;
@@ -67,13 +68,7 @@ public class AddFoodViewController implements ViewController {
 		this.mealDate.setValue(LocalDate.now());
 		this.name.setVisible(false);
 		this.textField.setVisible(false);
-		this.slider
-				.valueProperty()
-				.addListener(
-						(observable, oldValue, newValue) -> {
-							this.mode = newValue.intValue() == 1;
-							changeMode();
-						});
+		this.toggleButton.setSelected(false);
 		searchField
 				.focusedProperty()
 				.addListener(
@@ -90,13 +85,15 @@ public class AddFoodViewController implements ViewController {
 	 * If the mode is false, it switches to food mode.
 	 */
 	public void changeMode() {
-		if (mode) {
+		if (toggleButton.isSelected()) {
+			this.mode = true;
 			title.setText("Composez un plat");
 			name.setVisible(true);
 			textField.setVisible(true);
 			date.setVisible(false);
 			textField.setText("");
 		} else {
+			this.mode = false;
 			title.setText("Ajoutez les aliments consommés");
 			name.setVisible(false);
 			textField.setVisible(false);
@@ -404,10 +401,17 @@ public class AddFoodViewController implements ViewController {
 
 		FoodPopupController controller = loader.getController();
 		controller.setServinglabel(listener.getFoodServingQuantity(food));
+		controller.setFoodlabel(listener.getFoodName(food));
 
 		dialog.getDialogPane().setContent(box);
 		dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 		dialog.setResultConverter(buttonType -> processDialogResult(buttonType, controller));
+
+		dialog.getDialogPane().lookupButton(ButtonType.OK).setStyle("-fx-background-color: #2dd798");
+		dialog.getDialogPane().lookupButton(ButtonType.CANCEL).setStyle("-fx-background-color: #f44343");
+		dialog.getDialogPane().setBackground(new Background(new BackgroundFill(Color.DARKBLUE, CornerRadii.EMPTY, null)));
+
+
 
 		return dialog.showAndWait().orElse("0");
 	}
@@ -508,6 +512,8 @@ public class AddFoodViewController implements ViewController {
 				ArrayList<ArrayList<String>> consumedFoodsList, LocalDateTime mealDate);
 
 		String getFoodServingQuantity(String food);
+
+		String getFoodName(String food);
 
 		int extractServingQuantityValue(String food);
 
