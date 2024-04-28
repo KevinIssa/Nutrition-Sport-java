@@ -420,7 +420,7 @@ public class AddFoodViewController implements ViewController {
 			dialog.getDialogPane().setContent(box);
 			dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 			dialog.setResultConverter(buttonType -> processDialogResult(buttonType, controller));
-
+			dialog.setTitle("Ajoutez un aliment");
 			dialog.getDialogPane()
 					.lookupButton(ButtonType.OK)
 					.setStyle("-fx-background-color: #2dd798");

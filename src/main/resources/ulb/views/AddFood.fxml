@@ -74,7 +74,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <ToggleButton fx:id="toggleButton" layoutX="441.0" layoutY="239.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #9960f2;">
+      <ToggleButton fx:id="toggleButton" layoutX="441.0" layoutY="239.0" mnemonicParsing="false" onAction="#changeMode" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #fdbd07;">
          <font>
             <Font size="1.0" />
          </font>
