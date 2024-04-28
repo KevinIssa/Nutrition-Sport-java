@@ -55,9 +55,9 @@ public class Height extends ValueObject<Float> {
 	 */
 	protected void checkValidity(Float height) throws BadHeightException {
 		if (height <= MIN_HEIGHT) {
-			throw new BadHeightException("Height must be greater than " + MIN_HEIGHT);
+			throw new BadHeightException("la taille doit être supérieure à " + MIN_HEIGHT);
 		} else if (height > MAX_HEIGHT) {
-			throw new BadHeightException("Height must be less than " + MAX_HEIGHT);
+			throw new BadHeightException("la taille doit être inférieure à " + MAX_HEIGHT);
 		}
 	}
 

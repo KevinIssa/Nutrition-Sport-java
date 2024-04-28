@@ -55,7 +55,7 @@ public class BirthDate extends ValueObject<LocalDate> {
 	protected void checkValidity(LocalDate birthDate) throws BadBirthDateException {
 		LocalDate now = LocalDate.now();
 		if (birthDate.isAfter(now)) {
-			throw new BadBirthDateException("Birthdate cannot be in the future.");
+			throw new BadBirthDateException("Nous ne supportons pas les voyages dans le temps.");
 		}
 	}
 

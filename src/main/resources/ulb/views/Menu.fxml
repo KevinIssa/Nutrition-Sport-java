@@ -9,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
@@ -16,7 +17,7 @@
 
 <AnchorPane prefHeight="800" prefWidth="1200" style="-fx-background-color: #040b35;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.MenuViewController">
    <children>
-      <Button layoutX="1002.0" layoutY="611.0" mnemonicParsing="false" onAction="#showAddButtons" prefHeight="99.0" prefWidth="106.0" style="-fx-background-color: #656ff9; -fx-background-radius: 50;">
+      <Button layoutX="1051.0" layoutY="615.0" mnemonicParsing="false" onAction="#showAddButtons" prefHeight="99.0" prefWidth="106.0" style="-fx-background-color: #656ff9; -fx-background-radius: 50;">
          <font>
             <Font size="17.0" />
          </font>
@@ -31,7 +32,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="addFoodButton" layoutX="1000.0" layoutY="461.0" mnemonicParsing="false" onAction="#createConsumedFood" prefHeight="113.0" prefWidth="118.0" style="-fx-background-color: #fdbd07; -fx-background-radius: 50;" visible="false">
+      <Button fx:id="addFoodButton" layoutX="1046.0" layoutY="471.0" mnemonicParsing="false" onAction="#createConsumedFood" prefHeight="113.0" prefWidth="118.0" style="-fx-background-color: #fdbd07; -fx-background-radius: 50;" visible="false">
          <font>
             <Font size="17.0" />
          </font>
@@ -46,7 +47,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="addActivityButton" layoutX="1000.0" layoutY="309.0" mnemonicParsing="false" onAction="#createActivity" prefHeight="114.0" prefWidth="118.0" style="-fx-background-color: #9a62f4; -fx-background-radius: 50;" visible="false">
+      <Button fx:id="addActivityButton" layoutX="1046.0" layoutY="343.0" mnemonicParsing="false" onAction="#createActivity" prefHeight="114.0" prefWidth="118.0" style="-fx-background-color: #9a62f4; -fx-background-radius: 50;" visible="false">
          <font>
             <Font size="17.0" />
          </font>
@@ -57,12 +58,15 @@
                </image>
                <effect>
                   <ColorAdjust brightness="1.0" />
-               </effect></ImageView>
+               </effect>
+            </ImageView>
          </graphic>
       </Button>
-      <VBox layoutX="326.0" layoutY="168.0" prefHeight="405.0" prefWidth="611.0">
-         <fx:include fx:id="graphComponent" source="GraphCompenent.fxml" />
-      </VBox>
+      <Pane layoutX="116.0" layoutY="138.0" prefHeight="575.0" prefWidth="912.0">
+         <children>
+            <fx:include fx:id="graphComponent" source="GraphCompenent.fxml" />
+         </children>
+      </Pane>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="1185" style="-fx-background-color: #656ff988; -fx-background-radius: 45;">
          <effect>
             <ColorAdjust />
