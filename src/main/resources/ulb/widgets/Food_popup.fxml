@@ -15,7 +15,12 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Region prefHeight="42.0" prefWidth="300.0" />
+      <Region prefHeight="27.0" prefWidth="278.0" />
+      <Label fx:id="foodlabel" alignment="CENTER" prefHeight="19.0" prefWidth="262.0" text="Nourriture" textFill="#f3fbfb">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
       <HBox alignment="BOTTOM_CENTER" layoutX="10.0" layoutY="65.0" prefHeight="100.0" prefWidth="200.0">
          <children>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">

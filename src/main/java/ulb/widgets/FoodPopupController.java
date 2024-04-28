@@ -31,6 +31,7 @@ public class FoodPopupController implements ViewController {
 	@FXML TextField gramme;
 	@FXML TextField serving;
 	@FXML Label servinglabel;
+	@FXML Label foodlabel;
 
 	public int getGramme() {
 		return handleInput(gramme, "grammes", 4000);
@@ -65,6 +66,10 @@ public class FoodPopupController implements ViewController {
 		this.servinglabel.setText(label);
 	}
 
+	public void setFoodlabel(String label) {
+		this.foodlabel.setText(label);
+	}
+
 	@FXML
 	void textboxHandler(Event event) {
 		if (!Objects.equals(serving.getText(), "")) {
@@ -83,5 +88,7 @@ public class FoodPopupController implements ViewController {
 	public void setListener(Object listener) {}
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {}
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		this.gramme.requestFocus();
+	}
 }

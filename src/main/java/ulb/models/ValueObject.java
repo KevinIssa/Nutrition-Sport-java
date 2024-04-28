@@ -61,6 +61,16 @@ public abstract class ValueObject<T> {
 	}
 
 	/**
+	 * Gets the hash code of this ValueObject. this method has to be overridden due java conventions for overriding equals.
+	 * java:S1206 -> "Overriding "hashCode" is recommended when "equals" is overridden"
+	 * @return The hash code of this ValueObject.
+	 */
+	@Override
+	public int hashCode() {
+		return this.value.hashCode();
+	}
+
+	/**
 	 * Abstract method to check the validity of a value.
 	 * @param value The value to check.
 	 * @throws ValueObjectException If the value is not valid.
