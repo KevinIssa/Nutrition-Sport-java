@@ -34,6 +34,7 @@ import ulb.models.FoodLoader;
 import ulb.models.Meal;
 import ulb.repositories.JSONConsumeMealRepository;
 import ulb.views.AddFoodViewController;
+import ulb.views.MakeMealViewController;
 import ulb.widgets.FoodPopupController;
 
 /**
@@ -43,7 +44,7 @@ import ulb.widgets.FoodPopupController;
  * It also handles the user's search for foods and the return to the home screen of the application.
  */
 public class AddFoodController extends AppController
-		implements AddFoodViewController.Listener, FoodPopupController.Listener {
+		implements AddFoodViewController.Listener, FoodPopupController.Listener, MakeMealViewController.Listener {
 	private static final Logger logger = LoggerFactory.getLogger(AddFoodController.class);
 	private final AddFoodController.Listener listener;
 	private final FoodLoader foodLoader;
@@ -69,6 +70,7 @@ public class AddFoodController extends AppController
 			this.popupController = loader.getController();
 			this.popupController.setListener(this);
 			this.popup.setScene(new Scene(root));
+			this.popup.setTitle("Quantité de nourriture");
 			this.popup.hide();
 		} catch (IOException e) {
 			this.showLoadingAlert(resourceFile);
@@ -77,7 +79,7 @@ public class AddFoodController extends AppController
 
 	@Override
 	public void show(Stage stage) {
-		this.loadView("/ulb/views/AddFood.fxml", stage);
+		this.loadView("/ulb/views/MakeMeal.fxml", stage);
 		this.viewController.setListener(this);
 	}
 
@@ -87,7 +89,7 @@ public class AddFoodController extends AppController
 	 */
 	private FoodLoader loadFoods() {
 		FoodLoader foodLoader = new FoodLoader();
-		foodLoader.extend(loadMeals());
+		foodLoader.extend(this.loadMeals());
 		return foodLoader;
 	}
 
@@ -98,6 +100,17 @@ public class AddFoodController extends AppController
 	@Override
 	public void returnHome() {
 		this.listener.returnHome();
+	}
+
+	@Override
+	public void saveMeal(String mealName, double mealCalories, double mealGrams) {
+		//Meal meal = new Meal(mealName, mealCalories, mealGrams);
+		//TODO add to db
+	}
+
+	@Override
+	public void changeMode() {
+
 	}
 
 	@Override
@@ -143,7 +156,6 @@ public class AddFoodController extends AppController
 
 	@Override
 	public void askUserFoodQuantity(String food) {
-		this.popup.setTitle("Quantité de nourriture");
 		this.popupController.setFood(food);
 		this.popupController.setFoodUnit(this.getFoodServingQuantity(food));
 		this.popup.show();
@@ -157,7 +169,7 @@ public class AddFoodController extends AppController
 	@Override
 	public void onEntry(double value) {
 		this.popup.hide();
-		((AddFoodViewController) this.viewController)
+		((MakeMealViewController) this.viewController)
 				.addChosenFood(this.popupController.getFood(), value);
 	}
 
