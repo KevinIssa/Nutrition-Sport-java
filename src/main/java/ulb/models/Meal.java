@@ -259,7 +259,7 @@ public class Meal implements Consumable, JsonSerializable {
 				getGramsForServing(1));
 		return new Food(
 				this.name,
-				this.getCaloriesConsumedByServing(1),
+				this.getCaloriesConsumedByGrams(100),
 				this.getCaloriesConsumed(),
 				String.format("1 serving (%f g)", this.getGramsForServing(1)));
 	}
