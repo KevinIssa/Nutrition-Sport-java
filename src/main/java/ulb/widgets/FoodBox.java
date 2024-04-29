@@ -49,6 +49,14 @@ public class FoodBox extends HBox {
 		this.unit = quantityUnit;
 	}
 
+	public String getFood() {
+		return this.food;
+	}
+
+	public double getQuantityValue() {
+		return this.quantityValue;
+	}
+
 	public List<String> getItems() {
 		List<String> list = new ArrayList<>() {};
 		list.add(this.food);

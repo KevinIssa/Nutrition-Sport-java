@@ -29,6 +29,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.widgets.FoodBox;
@@ -42,7 +43,6 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	@FXML private ListView<FoodBox> chosenFoodList;
 	@FXML private Label calorieLabel;
 	private double totalCalories = 0;
-	private double totalGrams = 0;
 	private MakeMealViewController.Listener listener;
 	private NumberField personAmountNumber;
 	private static final Logger logger = LoggerFactory.getLogger(MakeMealViewController.class);
@@ -101,7 +101,6 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		calories = BigDecimal.valueOf(calories).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();
 		quantity = BigDecimal.valueOf(quantity).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();
 		this.totalCalories += calories;
-		this.totalGrams += quantity;
 		this.calorieLabel.setText(String.format("%.2f", this.totalCalories));
 		String foodUnit = listener.getFoodUnit(food);
 
@@ -111,7 +110,6 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	private void deleteChosenFood(FoodBox foodBox, double calories, double quantity) {
 		this.chosenFoodList.getItems().remove(foodBox);
 		this.totalCalories -= calories;
-		this.totalGrams -= quantity;
 		this.calorieLabel.setText(Double.toString(this.totalCalories));
 	}
 
@@ -129,9 +127,11 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	}
 
 	public void saveMeal() {
-		double mealCalories = this.totalCalories / this.personAmountNumber.getValue();
-		double mealGrams = this.totalGrams / this.personAmountNumber.getValue();
-		this.listener.saveMeal(this.mealName.getText(), mealCalories, mealGrams);
+		List<Pair<String, Double>> foodlist = new java.util.ArrayList<>();
+		for (FoodBox foodBox : chosenFoodList.getItems()) {
+			foodlist.add(new Pair<>(foodBox.getFood(), foodBox.getQuantityValue()));
+		}
+		this.listener.saveMeal(this.mealName.getText(), foodlist, this.personAmountNumber.getValue());
 		this.cleanFoodList();
 	}
 
@@ -146,7 +146,7 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 
 		void returnHome();
 
-		void saveMeal(String mealName, double mealCalories, double mealGrams);
+		void saveMeal(String mealName, List<Pair<String, Double>> foodsList, int personAmount);
 
 		void changeMode();
 	}

@@ -26,6 +26,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.models.ConsumedMeal;
@@ -109,9 +110,12 @@ public class AddFoodController extends AppController
 	}
 
 	@Override
-	public void saveMeal(String mealName, double mealCalories, double mealGrams) {
-		// Meal meal = new Meal(mealName, mealCalories, mealGrams);
-		// TODO add to db
+	public void saveMeal(String mealName, List<Pair<String, Double>> foodList, int personAmount) {
+		Meal meal = new Meal(mealName);
+		for(Pair<String, Double> food : foodList) {
+			meal.addIngredient(this.foodLoader.getFoodByName(food.getKey()), food.getValue()/personAmount);
+		}
+		meal.save();
 	}
 
 	@Override
