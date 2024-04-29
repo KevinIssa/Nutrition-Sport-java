@@ -18,6 +18,7 @@
  */
 package ulb.views;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -97,8 +98,8 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	public void addChosenFood(String food, double quantity) {
 		double calories = listener.getCaloriesConsumed(food, quantity);
 		// Round to 2 decimals
-		calories = Double.parseDouble(String.format("%.2f", calories));
-		quantity = Double.parseDouble(String.format("%.2f", quantity));
+		calories = BigDecimal.valueOf(calories).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();
+		quantity = BigDecimal.valueOf(quantity).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();
 		this.totalCalories += calories;
 		this.totalGrams += quantity;
 		this.calorieLabel.setText(String.format("%.2f", this.totalCalories));
