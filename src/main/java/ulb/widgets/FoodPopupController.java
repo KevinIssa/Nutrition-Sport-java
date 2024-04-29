@@ -18,6 +18,7 @@
  */
 package ulb.widgets;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -107,7 +108,7 @@ public class FoodPopupController implements ViewController {
 			this.listener.onBack();
 			return;
 		}
-		value = Double.parseDouble(String.format("%.2f", value));
+		value = BigDecimal.valueOf(value).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();
 		resetTextFields();
 		this.listener.onEntry(value);
 	}
