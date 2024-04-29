@@ -44,7 +44,9 @@ import ulb.widgets.FoodPopupController;
  * It also handles the user's search for foods and the return to the home screen of the application.
  */
 public class AddFoodController extends AppController
-		implements AddFoodViewController.Listener, FoodPopupController.Listener, MakeMealViewController.Listener {
+		implements AddFoodViewController.Listener,
+				FoodPopupController.Listener,
+				MakeMealViewController.Listener {
 	private static final Logger logger = LoggerFactory.getLogger(AddFoodController.class);
 	private final AddFoodController.Listener listener;
 	private final FoodLoader foodLoader;
@@ -80,7 +82,6 @@ public class AddFoodController extends AppController
 		}
 	}
 
-
 	@Override
 	public void show(Stage stage) {
 		this.stage = stage;
@@ -109,14 +110,14 @@ public class AddFoodController extends AppController
 
 	@Override
 	public void saveMeal(String mealName, double mealCalories, double mealGrams) {
-		//Meal meal = new Meal(mealName, mealCalories, mealGrams);
-		//TODO add to db
+		// Meal meal = new Meal(mealName, mealCalories, mealGrams);
+		// TODO add to db
 	}
 
 	@Override
 	public void changeMode() {
 		String resource = "/ulb/views/AddFood.fxml";
-		if(this.isAddFood) {
+		if (this.isAddFood) {
 			resource = "/ulb/views/MakeMeal.fxml";
 		}
 		this.loadView(resource, this.stage);
@@ -180,7 +181,7 @@ public class AddFoodController extends AppController
 	@Override
 	public void onEntry(double value) {
 		this.popup.hide();
-		if(this.isAddFood){
+		if (this.isAddFood) {
 			((AddFoodViewController) this.viewController)
 					.addChosenFood(this.popupController.getFood(), value);
 		} else {
