@@ -88,7 +88,7 @@ class FoodTest {
 
 	@Test
 	void caloriesConsumedByGramsIsCalculatedCorrectly() {
-		assertEquals(94, food.getCaloriesConsumedByGrams(182));
+		assertEquals(94.64, food.getCaloriesConsumedByGrams(182));
 	}
 
 	@Test
