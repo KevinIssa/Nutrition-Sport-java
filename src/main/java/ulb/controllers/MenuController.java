@@ -274,7 +274,7 @@ public class MenuController extends AppController implements MenuViewController.
 						() -> {
 							loadMenuView();
 							popupStage.close();
-						});
+						}, popupStage);
 		controller.show(popupStage);
 		// This line sets the modality of the popup stage to APPLICATION_MODAL.
 		// This means that while the popup stage is showing, it blocks user interaction with all

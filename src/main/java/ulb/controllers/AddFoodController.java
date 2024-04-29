@@ -50,16 +50,19 @@ public class AddFoodController extends AppController
 	private final FoodLoader foodLoader;
 	private final Stage popup;
 	private FoodPopupController popupController;
+	private Stage stage;
+	private boolean isAddFood = true;
 
 	/**
 	 * Constructor for the FoodController class.
 	 * @param listener Listener for the FoodController
 	 */
-	public AddFoodController(AddFoodController.Listener listener) {
+	public AddFoodController(AddFoodController.Listener listener, Stage stage) {
 		this.listener = listener;
 		this.foodLoader = loadFoods();
 		this.popup = new Stage();
 		this.loadPopup();
+		this.stage = stage;
 	}
 
 	private void loadPopup() {
@@ -77,9 +80,11 @@ public class AddFoodController extends AppController
 		}
 	}
 
+
 	@Override
 	public void show(Stage stage) {
-		this.loadView("/ulb/views/MakeMeal.fxml", stage);
+		this.stage = stage;
+		this.loadView("/ulb/views/AddFood.fxml", stage);
 		this.viewController.setListener(this);
 	}
 
@@ -110,7 +115,13 @@ public class AddFoodController extends AppController
 
 	@Override
 	public void changeMode() {
-
+		String resource = "/ulb/views/AddFood.fxml";
+		if(this.isAddFood) {
+			resource = "/ulb/views/MakeMeal.fxml";
+		}
+		this.loadView(resource, this.stage);
+		this.viewController.setListener(this);
+		this.isAddFood = !this.isAddFood;
 	}
 
 	@Override
@@ -169,8 +180,13 @@ public class AddFoodController extends AppController
 	@Override
 	public void onEntry(double value) {
 		this.popup.hide();
-		((MakeMealViewController) this.viewController)
-				.addChosenFood(this.popupController.getFood(), value);
+		if(this.isAddFood){
+			((AddFoodViewController) this.viewController)
+					.addChosenFood(this.popupController.getFood(), value);
+		} else {
+			((MakeMealViewController) this.viewController)
+					.addChosenFood(this.popupController.getFood(), value);
+		}
 	}
 
 	/**

@@ -157,7 +157,7 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 
 	@FXML
 	public void makeMeal() {
-		// TODO NOT IMPLEMENTED
+		this.listener.changeMode();
 	}
 
 	private void addFoodBox(String food, double quantity, double calories, String foodUnit) {
@@ -205,5 +205,7 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 		String getFoodUnit(String food);
 
 		void askUserFoodQuantity(String food);
+
+		void changeMode();
 	}
 }
