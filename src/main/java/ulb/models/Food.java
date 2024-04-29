@@ -39,8 +39,8 @@ public class Food implements Consumable, Comparable<Food> {
 	private static final Logger logger = LoggerFactory.getLogger(Food.class);
 
 	private String name;
-	private int caloriesPer100; // grams or ml
-	private int caloriesPerServing;
+	private double caloriesPer100; // grams or ml
+	private double caloriesPerServing;
 	private String servingQuantity; // number of grams or ml per serving
 
 	/**
@@ -56,7 +56,7 @@ public class Food implements Consumable, Comparable<Food> {
 	 * @param caloriesPerServing The number of calories per serving.
 	 * @param servingQuantity The serving quantity of the food item.
 	 */
-	public Food(String name, int caloriesPer100, int caloriesPerServing, String servingQuantity) {
+	public Food(String name, double caloriesPer100, double caloriesPerServing, String servingQuantity) {
 		this.name = name;
 		this.caloriesPer100 = caloriesPer100;
 		this.caloriesPerServing = caloriesPerServing;
@@ -86,7 +86,7 @@ public class Food implements Consumable, Comparable<Food> {
 	 */
 	@JsonIgnore
 	@Override
-	public int getCaloriesConsumed() {
+	public double getCaloriesConsumed() {
 		return getCaloriesConsumedByServing(1);
 	}
 
@@ -108,7 +108,7 @@ public class Food implements Consumable, Comparable<Food> {
 	 * @return The total calories consumed for the specified servings.
 	 */
 	@Override
-	public int getCaloriesConsumedByServing(int servings) {
+	public double getCaloriesConsumedByServing(double servings) {
 		return this.caloriesPerServing * servings;
 	}
 
@@ -155,7 +155,7 @@ public class Food implements Consumable, Comparable<Food> {
 	 *
 	 * @return The number of calories per 100 grams.
 	 */
-	public int getCaloriesPer100() {
+	public double getCaloriesPer100() {
 		return caloriesPer100;
 	}
 
@@ -173,7 +173,7 @@ public class Food implements Consumable, Comparable<Food> {
 	 *
 	 * @return The number of calories per serving.
 	 */
-	public int getCaloriesPerServing() {
+	public double getCaloriesPerServing() {
 		return caloriesPerServing;
 	}
 

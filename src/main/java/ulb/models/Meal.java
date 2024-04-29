@@ -43,7 +43,7 @@ public class Meal implements Consumable, JsonSerializable {
 	private String name;
 
 	@JsonSerialize(using = FoodListSerializer.class)
-	private List<Map.Entry<Food, Integer>> ingredients = new ArrayList<>();
+	private List<Map.Entry<Food, Double>> ingredients = new ArrayList<>();
 
 	/**
 	 * Default constructor.
@@ -79,8 +79,8 @@ public class Meal implements Consumable, JsonSerializable {
 	 * @param food     The food to add.
 	 * @param quantity The quantity in gramme of the food.
 	 */
-	public void addIngredient(Food food, Integer quantity) {
-		Map.Entry<Food, Integer> entry = Map.entry(food, quantity);
+	public void addIngredient(Food food, double quantity) {
+		Map.Entry<Food, Double> entry = Map.entry(food, quantity);
 		this.ingredients.add(entry);
 		logger.trace("Added ingredient: {}", entry);
 	}
@@ -91,7 +91,7 @@ public class Meal implements Consumable, JsonSerializable {
 	 * @return The total calories consumed.
 	 */
 	@Override
-	public int getCaloriesConsumed() {
+	public double getCaloriesConsumed() {
 		return getCaloriesConsumedByServing(1);
 	}
 
@@ -103,7 +103,7 @@ public class Meal implements Consumable, JsonSerializable {
 	 */
 	@Override
 	public double getCaloriesConsumedByGrams(double grams) {
-		int totalGrams = getGramsForServing(1);
+		double totalGrams = getGramsForServing(1);
 		return getCaloriesConsumed() * grams / totalGrams;
 	}
 
@@ -113,9 +113,9 @@ public class Meal implements Consumable, JsonSerializable {
 	 * @param servings The number of servings.
 	 * @return The total grams.
 	 */
-	public int getGramsForServing(int servings) {
+	public double getGramsForServing(double servings) {
 		int totalGrams = 0;
-		for (Map.Entry<Food, Integer> ingredient : ingredients) {
+		for (Map.Entry<Food, Double> ingredient : ingredients) {
 			totalGrams += ingredient.getValue();
 		}
 		return totalGrams * servings;
@@ -128,9 +128,9 @@ public class Meal implements Consumable, JsonSerializable {
 	 * @return The total calories consumed.
 	 */
 	@Override
-	public int getCaloriesConsumedByServing(int servings) {
-		int totalCalories = 0;
-		for (Map.Entry<Food, Integer> ingredient : ingredients) {
+	public double getCaloriesConsumedByServing(double servings) {
+		double totalCalories = 0;
+		for (Map.Entry<Food, Double> ingredient : ingredients) {
 			totalCalories += ingredient.getKey().getCaloriesConsumedByGrams(ingredient.getValue());
 		}
 		return totalCalories * servings;
@@ -228,7 +228,7 @@ public class Meal implements Consumable, JsonSerializable {
 	 *
 	 * @return The list of ingredients.
 	 */
-	public List<Map.Entry<Food, Integer>> getIngredients() {
+	public List<Map.Entry<Food, Double>> getIngredients() {
 		return ingredients;
 	}
 
@@ -237,7 +237,7 @@ public class Meal implements Consumable, JsonSerializable {
 	 *
 	 * @param ingredients The list of ingredients.
 	 */
-	public void setIngredients(List<Map.Entry<Food, Integer>> ingredients) {
+	public void setIngredients(List<Map.Entry<Food, Double>> ingredients) {
 		this.ingredients = ingredients;
 	}
 
@@ -261,7 +261,7 @@ public class Meal implements Consumable, JsonSerializable {
 				this.name,
 				this.getCaloriesConsumedByServing(1),
 				this.getCaloriesConsumed(),
-				String.format("1 serving (%d g)", this.getGramsForServing(1)));
+				String.format("1 serving (%f g)", this.getGramsForServing(1)));
 	}
 }
 
@@ -310,7 +310,7 @@ class MealDeserializer extends StdDeserializer<Meal> {
 	public Meal deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
 		JsonNode mealNode = jp.getCodec().readTree(jp);
 		String name = mealNode.get("name").asText();
-		List<Map.Entry<Food, Integer>> ingredients = getIngredients(mealNode);
+		List<Map.Entry<Food, Double>> ingredients = this.getIngredients(mealNode);
 
 		Meal meal = new Meal(name);
 		meal.setIngredients(ingredients);
@@ -322,12 +322,12 @@ class MealDeserializer extends StdDeserializer<Meal> {
 	 * @param mealNode JsonNode object containing the meal data
 	 * @return List of Map.Entry objects where each entry represents a food and its quantity
 	 */
-	private List<Map.Entry<Food, Integer>> getIngredients(JsonNode mealNode) {
-		List<Map.Entry<Food, Integer>> ingredients = new ArrayList<>();
+	private List<Map.Entry<Food, Double>> getIngredients(JsonNode mealNode) {
+		List<Map.Entry<Food, Double>> ingredients = new ArrayList<>();
 		JsonNode ingredientsNode = mealNode.get("ingredients");
 		Iterator<JsonNode> iterator = ingredientsNode.elements();
 		while (iterator.hasNext()) {
-			ingredients.add(getIngredient(iterator.next()));
+			ingredients.add(this.getIngredient(iterator.next()));
 		}
 		return ingredients;
 	}
@@ -337,9 +337,9 @@ class MealDeserializer extends StdDeserializer<Meal> {
 	 * @param ingredientNode JsonNode object containing the ingredient data
 	 * @return Map.Entry object where the key is a Food object and the value is the quantity
 	 */
-	private Map.Entry<Food, Integer> getIngredient(JsonNode ingredientNode) {
+	private Map.Entry<Food, Double> getIngredient(JsonNode ingredientNode) {
 		Food food = getFood(ingredientNode.get("food"));
-		int quantity = ingredientNode.get("quantity").asInt();
+		double quantity = ingredientNode.get("quantity").asInt();
 		return Map.entry(food, quantity);
 	}
 
