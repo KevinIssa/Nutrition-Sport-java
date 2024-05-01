@@ -65,6 +65,7 @@ public class GraphComponentViewController extends AnchorPane {
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
 		barChart.setTitle("Moyenne des calories");
 		barChart.setLegendVisible(false);
+		barChart.setAnimated(false); // to avoid the collapse bug on the chart
 		xAxis.setLabel("Date");
 		yAxis.setLabel("Calories");
 		for (DateCalorieDTO dateCalorie : data) {
@@ -86,7 +87,7 @@ public class GraphComponentViewController extends AnchorPane {
 		lineChart.setTitle("Calories brûlées et consommées");
 		series.setName("Brûlées");
 		series2.setName("Consommées");
-		barChart.setLegendVisible(false);
+
 		xAxis.setLabel("Date");
 		yAxis.setLabel("Calories");
 		for (DateCalorieDTO dateCalorie : data) {
@@ -103,6 +104,7 @@ public class GraphComponentViewController extends AnchorPane {
 		lineChart.getData().add(series);
 		lineChart.getData().add(series2);
 		lineChart.setCreateSymbols(false);
+		lineChart.setAnimated(false); // to avoid the collapse bug on the chart
 		this.onGraphTypeChange();
 	}
 

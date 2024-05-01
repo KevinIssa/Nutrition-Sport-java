@@ -316,7 +316,10 @@ public class MenuController extends AppController implements MenuViewController.
 		if (todayCalorieDelta % 1 == 0) {
 			return String.valueOf((int) todayCalorieDelta);
 		}
-		double delta2Decimal = BigDecimal.valueOf(todayCalorieDelta).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();
+		double delta2Decimal =
+				BigDecimal.valueOf(todayCalorieDelta)
+						.setScale(2, BigDecimal.ROUND_DOWN)
+						.doubleValue();
 		return String.valueOf(delta2Decimal);
 	}
 }

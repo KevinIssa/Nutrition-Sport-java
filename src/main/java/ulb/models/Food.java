@@ -56,7 +56,8 @@ public class Food implements Consumable, Comparable<Food> {
 	 * @param caloriesPerServing The number of calories per serving.
 	 * @param servingQuantity The serving quantity of the food item.
 	 */
-	public Food(String name, double caloriesPer100, double caloriesPerServing, String servingQuantity) {
+	public Food(
+			String name, double caloriesPer100, double caloriesPerServing, String servingQuantity) {
 		this.name = name;
 		this.caloriesPer100 = caloriesPer100;
 		this.caloriesPerServing = caloriesPerServing;

@@ -167,7 +167,9 @@ public class ProfileViewController implements ViewController {
 	}
 
 	@FXML
-	public void returnHome(){ this.listener.returnHome();}
+	public void returnHome() {
+		this.listener.returnHome();
+	}
 
 	// Set listener for communication with the controller
 	public void setListener(Object listener) {

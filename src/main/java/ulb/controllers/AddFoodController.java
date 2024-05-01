@@ -112,8 +112,9 @@ public class AddFoodController extends AppController
 	@Override
 	public void saveMeal(String mealName, List<Pair<String, Double>> foodList, int personAmount) {
 		Meal meal = new Meal(mealName);
-		for(Pair<String, Double> food : foodList) {
-			meal.addIngredient(this.foodLoader.getFoodByName(food.getKey()), food.getValue()/personAmount);
+		for (Pair<String, Double> food : foodList) {
+			meal.addIngredient(
+					this.foodLoader.getFoodByName(food.getKey()), food.getValue() / personAmount);
 		}
 		meal.save();
 	}

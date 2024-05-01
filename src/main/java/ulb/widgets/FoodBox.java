@@ -28,8 +28,8 @@ import javafx.scene.layout.HBox;
 
 public class FoodBox extends HBox {
 	private final String food;
-    private final double caloriesValue;
-    private final double quantityValue;
+	private final double caloriesValue;
+	private final double quantityValue;
 	private final String unit;
 
 	public FoodBox(
@@ -38,8 +38,8 @@ public class FoodBox extends HBox {
 		this.setAlignment(Pos.CENTER_LEFT);
 		this.setSpacing(10);
 		this.food = food;
-        String caloriesText = "Calories : " + calories + " kcal";
-        String quantityText = "Quantité : " + quantity + quantityUnit;
+		String caloriesText = "Calories : " + calories + " kcal";
+		String quantityText = "Quantité : " + quantity + quantityUnit;
 		this.getChildren()
 				.addAll(new Label(food), new Label(caloriesText + "\n" + quantityText), button);
 		this.caloriesValue = calories;

@@ -91,7 +91,7 @@ public class CaloriesTrackingService {
 				.toList();
 	}
 
-	public double getTodayCalorieDelta(){
+	public double getTodayCalorieDelta() {
 		DateCalorieDTO today = this.getCaloriesTracking(0).get(0);
 		return today.getCalorieDifference();
 	}
@@ -127,7 +127,6 @@ public class CaloriesTrackingService {
 		public void addCaloriesBurned(double calories) {
 			this.caloriesBurned += calories;
 		}
-
 
 		/**
 		 * This method checks if the date of this object is the same as the specified date.

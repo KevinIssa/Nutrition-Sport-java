@@ -55,7 +55,8 @@ public class ProfileCreateViewController implements ViewController {
 	 * If a file is selected, it sets the image view with the selected image and stores the image path.
 	 */
 	public void chooseImage() {
-		File selectedFile = new FileChooser().showOpenDialog(this.imageSelection.getScene().getWindow());
+		File selectedFile =
+				new FileChooser().showOpenDialog(this.imageSelection.getScene().getWindow());
 		if (selectedFile != null) {
 			this.image.setImage(new Image(selectedFile.toURI().toString(), 200, 150, true, true));
 			this.imagePath = selectedFile.toURI().toString();

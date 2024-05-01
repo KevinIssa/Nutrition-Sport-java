@@ -131,7 +131,8 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		for (FoodBox foodBox : chosenFoodList.getItems()) {
 			foodlist.add(new Pair<>(foodBox.getFood(), foodBox.getQuantityValue()));
 		}
-		this.listener.saveMeal(this.mealName.getText(), foodlist, this.personAmountNumber.getValue());
+		this.listener.saveMeal(
+				this.mealName.getText(), foodlist, this.personAmountNumber.getValue());
 		this.cleanFoodList();
 	}
 

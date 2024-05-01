@@ -75,8 +75,7 @@ public class FoodPopupController implements ViewController {
 	public void setFoodUnit(String foodUnit) {
 		if (foodUnit == "g") {
 			this.unitLabel.setText("gramme");
-		}
-		else {
+		} else {
 			this.unitLabel.setText("milli-litre");
 		}
 	}
