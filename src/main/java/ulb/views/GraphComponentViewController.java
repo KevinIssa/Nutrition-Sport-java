@@ -84,9 +84,11 @@ public class GraphComponentViewController extends AnchorPane {
 		NumberAxis yAxis = new NumberAxis();
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
 		XYChart.Series<String, Number> series2 = new XYChart.Series<>();
+		XYChart.Series<String, Number> series3 = new XYChart.Series<>();
 		lineChart.setTitle("Calories brûlées et consommées");
 		series.setName("Brûlées");
 		series2.setName("Consommées");
+		series3.setName("Différence");
 
 		xAxis.setLabel("Date");
 		yAxis.setLabel("Calories");
@@ -100,9 +102,15 @@ public class GraphComponentViewController extends AnchorPane {
 					.add(
 							new XYChart.Data<>(
 									dateCalorie.date().toString(), dateCalorie.calorieIntake()));
+			series3.getData()
+					.add(
+							new XYChart.Data<>(
+									dateCalorie.date().toString(),
+									dateCalorie.getCalorieDifference()));
 		}
 		lineChart.getData().add(series);
 		lineChart.getData().add(series2);
+		lineChart.getData().add(series3);
 		lineChart.setCreateSymbols(false);
 		lineChart.setAnimated(false); // to avoid the collapse bug on the chart
 		this.onGraphTypeChange();
