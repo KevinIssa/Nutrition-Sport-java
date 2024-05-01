@@ -190,10 +190,10 @@ class ConsumedMealDeserializer extends StdDeserializer<ConsumedMeal> {
 		if (consumedFoodsNode.isArray()) {
 			for (JsonNode element : consumedFoodsNode) {
 				String name = element.get("name").asText();
-				int quantity = element.get("quantity").asInt();
-				int calories = element.get("calories").asInt();
+				double quantity = element.get("quantity").asDouble();
+				double calories = element.get("calories").asDouble();
 				String text = element.get("unit").asText();
-				meal.addConsumedFood(name, quantity, calories, text);
+				meal.addConsumedFood(name, calories, quantity, text);
 			}
 		}
 		JsonNode dateNode = node.get("date");

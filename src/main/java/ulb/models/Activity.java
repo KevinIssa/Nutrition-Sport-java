@@ -35,7 +35,7 @@ public class Activity {
 	private Intensity intensity;
 	private Duration duration;
 	private LocalDateTime date;
-	private int burnedCalories;
+	private double burnedCalories;
 
 	/**
 	 * Default constructor for Activity class.
@@ -69,7 +69,7 @@ public class Activity {
 			Intensity intensity,
 			Duration duration,
 			LocalDateTime date,
-			int burnedCalories) {
+			double burnedCalories) {
 		this.sport = sport;
 		this.intensity = intensity;
 		this.duration = duration;
@@ -197,7 +197,7 @@ public class Activity {
 	 *
 	 * @return The number of calories burned during the activity.
 	 */
-	public int getBurnedCalories() {
+	public double getBurnedCalories() {
 		return burnedCalories;
 	}
 

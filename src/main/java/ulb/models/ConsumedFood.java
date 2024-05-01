@@ -38,7 +38,7 @@ public class ConsumedFood {
 	 * @param quantity Quantity of the consumed food
 	 * @param calories Calories of the consumed food
 	 */
-	public ConsumedFood(String name, double quantity, double calories, String unit) {
+	public ConsumedFood(String name, double calories, double quantity, String unit) {
 		this.name = name;
 		this.quantity = quantity;
 		this.calories = calories;
@@ -111,7 +111,7 @@ public class ConsumedFood {
 	 * Setter for the quantity field.
 	 * @param quantity Quantity of the consumed food
 	 */
-	public void setQuantity(int quantity) {
+	public void setQuantity(double quantity) {
 		this.quantity = quantity;
 	}
 
@@ -127,7 +127,7 @@ public class ConsumedFood {
 	 * Setter for the calories field.
 	 * @param calories Calories of the consumed food
 	 */
-	public void setCalories(int calories) {
+	public void setCalories(double calories) {
 		this.calories = calories;
 	}
 

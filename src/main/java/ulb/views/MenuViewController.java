@@ -26,13 +26,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.DateCalorieDTO;
 
 public class MenuViewController implements ViewController, GraphComponentViewController.Listener {
 	private static final Logger logger = LoggerFactory.getLogger(MenuViewController.class);
-	@FXML ImageView profileImage;
+	public AnchorPane graphComponent;
+	@FXML private ImageView profileImage;
+	@FXML private Label weightLabel;
+	@FXML private Label calorieLabel;
 	@FXML private Button addActivityButton;
 	@FXML private Button addFoodButton;
 	@FXML private GraphComponentViewController graphComponentController;
@@ -53,6 +57,8 @@ public class MenuViewController implements ViewController, GraphComponentViewCon
 						false);
 		this.profileImage.setImage(image);
 		graphComponentController.setListener(this);
+		this.weightLabel.setText(this.listener.getProfileWeight() + " kg");
+		this.calorieLabel.setText(this.listener.getDayCalorie() + " kcal");
 	}
 
 	public void showAddButtons() {
@@ -114,5 +120,9 @@ public class MenuViewController implements ViewController, GraphComponentViewCon
 		String getProfileImagePath();
 
 		List<DateCalorieDTO> getGraphData();
+
+		String getProfileWeight();
+
+		String getDayCalorie();
 	}
 }

@@ -33,7 +33,7 @@ import ulb.enums.Sport;
  * @param burnedCalories The number of calories burned during the activity.
  */
 public record ActivityDTO(
-		Sport sport, Intensity intensity, int duration, LocalDateTime date, int burnedCalories) {
+		Sport sport, Intensity intensity, int duration, LocalDateTime date, double burnedCalories) {
 
 	/**
 	 * Constructor for ActivityDTO with specified sport, intensity, duration, and date.
@@ -54,7 +54,7 @@ public record ActivityDTO(
 	 * @param activityDTO An existing ActivityDTO.
 	 * @param burnedCalories The number of calories burned during the activity.
 	 */
-	public ActivityDTO(ActivityDTO activityDTO, int burnedCalories) {
+	public ActivityDTO(ActivityDTO activityDTO, double burnedCalories) {
 		this(
 				activityDTO.sport(),
 				activityDTO.intensity(),

@@ -51,8 +51,8 @@ public class CaloriesTrackingService {
 	 * This method returns a list of DateCalorieDTO objects which represent the calories tracking for the past 31 days.
 	 * @return a list of DateCalorieDTO objects.
 	 */
-	public List<DateCalorieDTO> getCaloriesTracking() {
-		List<DateCalorie> dateCalories = this.generateCaloriesTrackingListSince(31);
+	public List<DateCalorieDTO> getCaloriesTracking(int daysAgo) {
+		List<DateCalorie> dateCalories = this.generateCaloriesTrackingListSince(daysAgo);
 		this.activityRepository
 				.loadAll()
 				.forEach(
@@ -91,13 +91,18 @@ public class CaloriesTrackingService {
 				.toList();
 	}
 
+	public double getTodayCalorieDelta(){
+		DateCalorieDTO today = this.getCaloriesTracking(0).get(0);
+		return today.getCalorieDifference();
+	}
+
 	/**
 	 * The DateCalorie class represents a date with its corresponding calories intake and burned calories.
 	 */
 	private static class DateCalorie {
 		private final LocalDate date;
 		private double caloriesIntake;
-		private int caloriesBurned;
+		private double caloriesBurned;
 
 		/**
 		 * Constructor for the DateCalorie class.
@@ -119,9 +124,10 @@ public class CaloriesTrackingService {
 		 * This method adds the specified number of calories to the burned calories.
 		 * @param calories the number of calories to add.
 		 */
-		public void addCaloriesBurned(int calories) {
+		public void addCaloriesBurned(double calories) {
 			this.caloriesBurned += calories;
 		}
+
 
 		/**
 		 * This method checks if the date of this object is the same as the specified date.
