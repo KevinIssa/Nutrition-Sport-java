@@ -96,6 +96,11 @@ public class Activity {
 				&& date.equals(activity.date);
 	}
 
+	@Override
+	public int hashCode() {
+		return sport.hashCode() + intensity.hashCode() + duration.hashCode() + date.hashCode();
+	}
+
 	/**
 	 * Provides a string representation of the Activity object.
 	 * The string representation includes the sport, intensity, duration, date, and the number of calories burned during the activity.
