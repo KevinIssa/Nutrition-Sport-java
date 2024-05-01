@@ -117,6 +117,7 @@ public class AddFoodController extends AppController
 					this.foodLoader.getFoodByName(food.getKey()), food.getValue() / personAmount);
 		}
 		meal.save();
+		foodLoader.extend(List.of(meal.toFood()));
 	}
 
 	@Override

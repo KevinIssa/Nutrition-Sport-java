@@ -18,8 +18,9 @@
  */
 package ulb.views;
 
-import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -98,8 +99,10 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	public void addChosenFood(String food, double quantity) {
 		double calories = listener.getCaloriesConsumed(food, quantity);
 		// Round to 2 decimals
-		calories = BigDecimal.valueOf(calories).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();
-		quantity = BigDecimal.valueOf(quantity).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();
+		DecimalFormat df = new DecimalFormat("0.00");
+		df.setRoundingMode(RoundingMode.DOWN);
+		calories = Double.parseDouble(df.format(calories));
+		quantity = Double.parseDouble(df.format(quantity));
 		this.totalCalories += calories;
 		this.calorieLabel.setText(String.format("%.2f", this.totalCalories));
 		String foodUnit = listener.getFoodUnit(food);
