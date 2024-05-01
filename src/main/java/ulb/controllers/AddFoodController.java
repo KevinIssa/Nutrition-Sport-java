@@ -173,7 +173,8 @@ public class AddFoodController extends AppController
 	@Override
 	public void askUserFoodQuantity(String food) {
 		this.popupController.setFood(food);
-		this.popupController.setFoodUnit(this.getFoodServingQuantity(food));
+		this.popupController.setFoodServing(this.getFoodServingQuantity(food));
+		this.popupController.setFoodUnit(this.getFoodUnit(food));
 		this.popup.show();
 	}
 

@@ -21,13 +21,13 @@
          <children>
             <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0" spacing="5.0">
                <children>
-                  <Label alignment="BOTTOM_CENTER" prefHeight="98.0" prefWidth="55.0" text="gramme" textFill="#f3fbfb" />
+                  <Label fx:id="unitLabel" alignment="BOTTOM_CENTER" prefHeight="64.0" prefWidth="104.0" text="gramme" textFill="#f3fbfb" />
                   <TextField fx:id="gramme" maxWidth="73.0" onKeyReleased="#disabilityHandler" style="-fx-background-color: #c9d1f0;" />
                </children>
             </VBox>
-            <VBox alignment="CENTER" layoutX="110.0" layoutY="10.0" prefHeight="100.0" prefWidth="100.0" spacing="5.0">
+            <VBox alignment="CENTER" layoutX="110.0" layoutY="10.0" prefHeight="93.0" prefWidth="104.0" spacing="5.0">
                <children>
-                  <Label fx:id="servinglabel" alignment="BOTTOM_CENTER" prefHeight="79.0" prefWidth="100.0" text="litre" textAlignment="CENTER" textFill="#f3fbfb" wrapText="true" />
+                  <Label fx:id="servinglabel" alignment="BOTTOM_CENTER" prefHeight="64.0" prefWidth="117.0" text="litre" textAlignment="CENTER" textFill="#f3fbfb" wrapText="true" />
                   <TextField fx:id="serving" maxWidth="73.0" onKeyReleased="#disabilityHandler" style="-fx-background-color: #c9d1f0;" />
                </children>
             </VBox>
