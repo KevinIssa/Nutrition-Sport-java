@@ -22,7 +22,6 @@ import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -46,18 +45,17 @@ public class ProfileCreateViewController implements ViewController {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		this.birthdate.setValue(LocalDate.now());
+		this.birthdate.setValue(LocalDate.now().minusYears(18));
+		this.imagePath = "@images/default_profile.png";
 	}
 
 	/**
 	 * Handles the event when a user interacts with the image selection button.
 	 * Opens a file chooser dialog for the user to select an image file.
 	 * If a file is selected, it sets the image view with the selected image and stores the image path.
-	 *
-	 * @param event The action event triggered by the user interaction.
 	 */
-	public void eventHandler(ActionEvent event) {
-		File selectedFile = new FileChooser().showOpenDialog(imageSelection.getScene().getWindow());
+	public void chooseImage() {
+		File selectedFile = new FileChooser().showOpenDialog(this.imageSelection.getScene().getWindow());
 		if (selectedFile != null) {
 			this.image.setImage(new Image(selectedFile.toURI().toString(), 200, 150, true, true));
 			this.imagePath = selectedFile.toURI().toString();
