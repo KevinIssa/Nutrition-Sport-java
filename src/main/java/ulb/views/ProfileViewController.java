@@ -146,7 +146,7 @@ public class ProfileViewController implements ViewController {
 							LocalDate.parse(this.birthdateController.getText()),
 							this.imagePath);
 			this.listener.updateProfile(profileDTO);
-			this.listener.returnHome();
+			this.returnHome();
 		} catch (IllegalArgumentException | NullPointerException e) {
 			logger.warn("All fields must be filled");
 		} catch (ProfileParameterException e) {
@@ -165,6 +165,9 @@ public class ProfileViewController implements ViewController {
 	public void deleteProfile() {
 		this.listener.deleteProfileView();
 	}
+
+	@FXML
+	public void returnHome(){ this.listener.returnHome();}
 
 	// Set listener for communication with the controller
 	public void setListener(Object listener) {

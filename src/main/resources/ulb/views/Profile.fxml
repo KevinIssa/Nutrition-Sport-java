@@ -117,8 +117,20 @@
                      </VBox>
                   </children>
                </HBox>
-               <HBox alignment="CENTER_RIGHT" prefHeight="75.0" prefWidth="731.0" spacing="500.0">
+               <HBox alignment="CENTER" prefHeight="75.0" prefWidth="731.0" spacing="228.0">
                   <children>
+                     <Button mnemonicParsing="false" onAction="#returnHome" style="-fx-background-radius: 10; -fx-background-color: #fd9c2d;">
+                        <graphic>
+                           <ImageView fitHeight="40.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../images/go_back_icon.png" />
+                              </image>
+                              <effect>
+                                 <ColorAdjust brightness="1.0" />
+                              </effect>
+                           </ImageView>
+                        </graphic>
+                     </Button>
                      <Button alignment="CENTER" mnemonicParsing="false" onAction="#deleteProfile" style="-fx-background-color: #f44343; -fx-background-radius: 10;" textAlignment="CENTER">
                         <graphic>
                            <ImageView fitHeight="40.0" fitWidth="45.0" preserveRatio="true">
@@ -131,10 +143,20 @@
                            </ImageView>
                         </graphic>
                      </Button>
-                     <Button alignment="CENTER" mnemonicParsing="false" onAction="#saveProfile" style="-fx-background-color: #2dd798; -fx-background-radius: 10;" text="OK" textAlignment="CENTER" textFill="#f3fbfb">
+                     <Button alignment="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onAction="#saveProfile" prefHeight="50.0" prefWidth="59.0" style="-fx-background-color: #2dd798; -fx-background-radius: 10;" textAlignment="CENTER" textFill="#f3fbfb">
                         <font>
-                           <Font size="21.0" />
+                           <Font size="22.0" />
                         </font>
+                        <graphic>
+                           <ImageView fitHeight="40.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../images/save.png" />
+                              </image>
+                              <effect>
+                                 <ColorAdjust brightness="1.0" />
+                              </effect>
+                           </ImageView>
+                        </graphic>
                      </Button>
                   </children>
                </HBox>
