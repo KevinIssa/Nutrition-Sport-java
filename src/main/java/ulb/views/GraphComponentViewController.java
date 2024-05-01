@@ -108,6 +108,10 @@ public class GraphComponentViewController extends AnchorPane {
 		this.onGraphTypeChange();
 	}
 
+	public double getLastCalorieDifference() {
+		return data.getLast().getCalorieDifference();
+	}
+
 	@FXML
 	private void onGraphTypeChange() {
 		if (graphType.getValue().equals("moyenne")) {

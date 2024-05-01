@@ -60,7 +60,7 @@
       </graphic>
    </Button>
    <Pane layoutX="116.0" layoutY="138.0" prefHeight="575.0" prefWidth="912.0">
-      <fx:include fx:id="graphComponent" source="GraphCompenent.fxml"/>
+      <fx:include fx:id="graphComponent" source="GraphComponent.fxml"/>
    </Pane>
    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="1185"
          style="-fx-background-color: #656ff988; -fx-background-radius: 45;">

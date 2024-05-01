@@ -18,7 +18,6 @@
  */
 package ulb.controllers;
 
-import java.math.BigDecimal;
 import java.util.List;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -307,19 +306,5 @@ public class MenuController extends AppController implements MenuViewController.
 			return String.valueOf((int) profileWeight);
 		}
 		return String.valueOf(profileWeight);
-	}
-
-	@Override
-	public String getDayCalorie() {
-		double todayCalorieDelta = this.caloriesTrackingService.getTodayCalorieDelta();
-		System.out.println(todayCalorieDelta);
-		if (todayCalorieDelta % 1 == 0) {
-			return String.valueOf((int) todayCalorieDelta);
-		}
-		double delta2Decimal =
-				BigDecimal.valueOf(todayCalorieDelta)
-						.setScale(2, BigDecimal.ROUND_DOWN)
-						.doubleValue();
-		return String.valueOf(delta2Decimal);
 	}
 }
