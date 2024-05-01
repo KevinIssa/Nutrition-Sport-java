@@ -94,6 +94,7 @@ public class ProfileViewController implements ViewController {
 
 	private void setProfileData() {
 		ProfileDTO profileDTO = this.listener.getProfile();
+		this.imagePath = profileDTO.imagePath();
 		this.firstnameController.setLabelText(profileDTO.firstName());
 		this.lastnameController.setLabelText(profileDTO.lastName());
 		this.birthdateController.setLabelText(profileDTO.birthDate().toString());

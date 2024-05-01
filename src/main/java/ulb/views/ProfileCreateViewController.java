@@ -46,7 +46,7 @@ public class ProfileCreateViewController implements ViewController {
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		this.birthdate.setValue(LocalDate.now().minusYears(18));
-		this.imagePath = "@images/default_profile.png";
+		this.imagePath = getClass().getResource("/ulb/images/default_profile.png").toString();
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class ProfileCreateViewController implements ViewController {
 			logger.warn("Error while saving profile", e);
 			this.showAlert("Error de saisie", e.getMessage());
 		} catch (IllegalArgumentException | NullPointerException e) {
-			logger.warn("All fields must be filled", e);
+			logger.warn("All fields must be filled");
 			this.showAlert("Erreur", "Tous les champs doivent être remplis.");
 		} catch (Exception e) {
 			logger.error("Error while saving profile", e);
