@@ -78,6 +78,12 @@ public class ActivityHistoryController extends AppController
 		this.listener.addActivity();
 	}
 
+	@Override
+	public void editActivity(ActivityDTO activityDTO) {
+		logger.info("Editing activity: {}", activityDTO);
+		this.listener.editActivity(activityDTO);
+	}
+
 	/**
 	 * This is an interface for the Listener within the ActivityHistoryController class.
 	 * It is used to define the contract for the Listener, which is expected to be implemented by any class that wants to listen to events from the ActivityHistoryController.
@@ -97,5 +103,7 @@ public class ActivityHistoryController extends AppController
 		 * The implementing class should define the behavior that occurs when this event happens.
 		 */
 		void addActivity();
+
+		void editActivity(ActivityDTO activityDTO);
 	}
 }

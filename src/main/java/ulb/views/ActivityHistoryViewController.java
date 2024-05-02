@@ -49,9 +49,15 @@ public class ActivityHistoryViewController implements ViewController {
 
 	public void addActivity(ActivityDTO activity) {
 		Button deleteActivityButton = new Button();
-		HistoryBox activityHistoryBox = new HistoryBox(activity, deleteActivityButton);
+		Button editActivityButton = new Button();
+
+		HistoryBox activityHistoryBox = new HistoryBox(activity, deleteActivityButton, editActivityButton);
+
 		deleteActivityButton.setOnAction(e -> deleteActivityInHistory(activityHistoryBox));
+		editActivityButton.setOnAction(e -> editActivityInHistory(activityHistoryBox));
+
 		historyList.getItems().add(activityHistoryBox);
+
 	}
 
 	/**
@@ -67,6 +73,12 @@ public class ActivityHistoryViewController implements ViewController {
 	private void deleteActivityInHistory(HistoryBox activityBox) {
 		this.listener.deleteActivity(activityBox.getActivity());
 		historyList.getItems().remove(activityBox);
+	}
+
+	private void editActivityInHistory(HistoryBox activityBox) {
+		deleteActivityInHistory(activityBox);
+		this.listener.editActivity(activityBox.getActivity());
+		historyList.getItems().add(activityBox);
 	}
 
 	// Set listener for communication with the controller
@@ -126,6 +138,8 @@ public class ActivityHistoryViewController implements ViewController {
 		List<ActivityDTO> getActivities(Sport filter);
 
 		void deleteActivity(ActivityDTO activityDTO);
+
+		void editActivity(ActivityDTO activityDTO);
 
 		void returnHome();
 

@@ -218,6 +218,37 @@ public class ActivityCreateViewController implements ViewController {
 		this.listener = (Listener) listener;
 	}
 
+	public void setDefaultActivity(ActivityDTO activityDTO) {
+		this.selectedSport = activityDTO.sport();
+		this.intensitySlider.setValue(activityDTO.intensity().ordinal());
+		this.durationNumber.setValue(activityDTO.duration());
+		this.activityDate.setValue(activityDTO.date().toLocalDate());
+		this.hourNumber.setValue(activityDTO.date().getHour());
+		this.minuteNumber.setValue(activityDTO.date().getMinute());
+		this.setCaloriesBurned();
+		chooseButton(this.selectedSport);
+	}
+
+	public void chooseButton(Sport sport) {
+		switch (sport) {
+			case WALKING:
+				selectWalking();
+				break;
+			case RUNNING:
+				selectRunning();
+				break;
+			case BIKING:
+				selectBiking();
+				break;
+			case SWIMMING:
+				selectSwimming();
+				break;
+			case VOLLEYBALL:
+				selectVolleyball();
+				break;
+		}
+	}
+
 	// Listener interface for communication with the controller
 	public interface Listener {
 		void saveActivity(ActivityDTO activityDTO);

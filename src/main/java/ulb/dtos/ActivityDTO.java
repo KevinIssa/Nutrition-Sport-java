@@ -48,6 +48,10 @@ public record ActivityDTO(
 		this(sport, intensity, duration, date, -1);
 	}
 
+	public ActivityDTO() {
+		this(null, null, 0, null, 0);
+	}
+
 	/**
 	 * Constructor for ActivityDTO with an existing ActivityDTO and specified burnedCalories.
 	 *
