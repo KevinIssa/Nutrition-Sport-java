@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.DateCalorieDTO;
+import ulb.dtos.ActivityDTO;
 import ulb.models.*;
 import ulb.repositories.ActivityRepository;
 import ulb.repositories.ConsumeMealRepository;
@@ -172,8 +173,13 @@ public class MenuController extends AppController implements MenuViewController.
 	 * Finally, the method shows the popup stage and waits for it to be hidden (closed) before returning.
 	 * This method is an implementation of the loadCreateActivityView method defined in the MenuViewController.Listener interface.
 	 */
+	
 	@Override
 	public void loadCreateActivityView() {
+		ActivityDTO activityDTO = new ActivityDTO();
+		loadCreateActivityView(activityDTO);
+	}
+	public void loadCreateActivityView(ActivityDTO activityDTO) {
 		Stage popupStage = new Stage();
 		ActivityRepository activityRepository = new JSONActivityRepository();
 		ActivityService activityService = new ActivityService(activityRepository);
@@ -193,7 +199,13 @@ public class MenuController extends AppController implements MenuViewController.
 								popupStage.close();
 							}
 						});
-		controller.show(popupStage);
+						if (activityDTO.sport() != null) {
+						controller.show(popupStage);
+						((ActivityCreateController)controller).setDefaultActivity(activityDTO);
+						}
+						else {
+							controller.show(popupStage);
+						}
 		// This line sets the modality of the popup stage to APPLICATION_MODAL.
 		// This means that while the popup stage is showing, it blocks user interaction with all
 		// other stages of the application.
@@ -223,6 +235,11 @@ public class MenuController extends AppController implements MenuViewController.
 							@Override
 							public void addActivity() {
 								loadCreateActivityView();
+							}
+
+							@Override
+							public void editActivity(ActivityDTO activityDTO) {
+								loadCreateActivityView(activityDTO);
 							}
 						});
 

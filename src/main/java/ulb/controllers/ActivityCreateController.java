@@ -86,6 +86,12 @@ public class ActivityCreateController extends AppController
 		this.listener.goToActivityHistory();
 	}
 
+	
+	public void setDefaultActivity(ActivityDTO activityDTO){
+		((ActivityCreateViewController) this.viewController)
+				.setDefaultActivity(activityDTO);
+	}
+
 	/**
 	 * This is an interface for the Listener within the ActivityCreateController class.
 	 * It is used to define the contract for the Listener, which is expected to be implemented by any class that wants to listen to events from the ActivityCreateController.

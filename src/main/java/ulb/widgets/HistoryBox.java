@@ -36,22 +36,19 @@ public class HistoryBox extends HBox {
 		"history_img/calendar.png",
 		"history_img/chronometer.png",
 		"history_img/calories.png",
-		"trash.png"
+		"trash.png",
+		"pen.png"
 	};
 
 	private final ActivityDTO activity;
 
-	public HistoryBox(ActivityDTO activity, Button button) {
+	public HistoryBox(ActivityDTO activity, Button deleteButton, Button editButton) {
 		this.activity = activity;
 		this.setAlignment(Pos.CENTER_LEFT);
 		this.setSpacing(20);
-		this.fill(button);
-	}
-
-	private void fill(Button button) {
 		this.setIcons();
 		this.setLabels();
-		this.setButtonInHBox(button);
+		this.setButtonInHBox(deleteButton, editButton);
 	}
 
 	private void setIcons() {
@@ -70,11 +67,12 @@ public class HistoryBox extends HBox {
 		this.getChildren().add(4, new Label(this.activity.burnedCalories() + " kcal"));
 	}
 
-	private void setButtonInHBox(Button button) {
-		button.setGraphic(createImageView(ICONS[3]));
+	private void setButtonInHBox(Button deleteButton, Button editButton) {
+		deleteButton.setGraphic(createImageView(ICONS[3]));
+		editButton.setGraphic(createImageView(ICONS[4]));
 		Region spacer = new Region();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
-		this.getChildren().addAll(spacer, button);
+		this.getChildren().addAll(spacer, editButton, deleteButton);
 	}
 
 	private ImageView createImageView(String imagePath) {

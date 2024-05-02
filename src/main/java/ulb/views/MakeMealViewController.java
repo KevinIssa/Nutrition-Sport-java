@@ -97,10 +97,10 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	public void addChosenFood(String food, double quantity) {
 		double calories = listener.getCaloriesConsumed(food, quantity);
 		// Round to 2 decimals
-		DecimalFormat df = new DecimalFormat("0.00");
-		df.setRoundingMode(RoundingMode.DOWN);
-		calories = Double.parseDouble(df.format(calories));
-		quantity = Double.parseDouble(df.format(quantity));
+		DecimalFormat decimalFormat = new DecimalFormat("0.00");
+		decimalFormat.setRoundingMode(RoundingMode.DOWN);
+		calories = Double.parseDouble(decimalFormat.format(calories));
+		quantity = Double.parseDouble(decimalFormat.format(quantity));
 		this.totalCalories += calories;
 		this.calorieLabel.setText(String.format("%.2f", this.totalCalories));
 		String foodUnit = listener.getFoodUnit(food);
