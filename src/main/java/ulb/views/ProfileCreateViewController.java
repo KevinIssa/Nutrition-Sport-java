@@ -21,6 +21,7 @@ package ulb.views;
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -46,7 +47,7 @@ public class ProfileCreateViewController implements ViewController {
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		this.birthdate.setValue(LocalDate.now().minusYears(18));
-		this.imagePath = getClass().getResource("/ulb/images/default_profile.png").toString();
+		this.imagePath = Objects.requireNonNull(getClass().getResource("/ulb/images/default_profile.png")).toString();
 	}
 
 	/**
@@ -64,36 +65,54 @@ public class ProfileCreateViewController implements ViewController {
 	}
 
 	/**
-	 * Saves the profile information entered by the user.
-	 * After successfully saving the profile, it make the user return to the home view.
+	 * Save the profile information entered by the user
 	 */
 	public void saveProfile() {
 		try {
-			ProfileDTO profile =
-					new ProfileDTO(
-							this.firstname.getText(),
-							this.lastname.getText(),
-							((RadioButton) this.sex.getSelectedToggle()).getText(),
-							Float.parseFloat(this.weight.getText()),
-							Float.parseFloat(this.height.getText()),
-							this.birthdate.getValue(),
-							this.imagePath);
+			ProfileDTO profile = createDTOProfile();
 			this.listener.saveProfile(profile);
 			this.listener.returnHome();
+
 		} catch (ProfileParameterException e) {
-			logger.warn("Error while saving profile", e);
-			this.showAlert("Error de saisie", e.getMessage());
+			handleProfileParameterException(e);
+
 		} catch (IllegalArgumentException | NullPointerException e) {
-			logger.warn("All fields must be filled");
-			this.showAlert("Erreur", "Tous les champs doivent être remplis.");
+			handleIncompleteFieldsException();
+
 		} catch (Exception e) {
-			logger.error("Error while saving profile", e);
-			this.showAlert(
-					"Erreur",
-					"Une erreur est survenue lors de la sauvegarde du profil. Veuillez réessayer."
+			handleGeneralException(e);
+		}
+	}
+
+	private ProfileDTO createDTOProfile() {
+
+		return new ProfileDTO(
+				this.firstname.getText(),
+				this.lastname.getText(),
+				((RadioButton) this.sex.getSelectedToggle()).getText(),
+				Float.parseFloat(this.weight.getText()),
+				Float.parseFloat(this.height.getText()),
+				this.birthdate.getValue(),
+				this.imagePath);
+	}
+
+	private void handleProfileParameterException(ProfileParameterException e) {
+		logger.warn("Error while saving profile", e);
+		this.showAlert("Error de saisie", e.getMessage());
+	}
+
+	private void handleIncompleteFieldsException() {
+		logger.warn("All fields must be filled");
+		this.showAlert("Erreur", "Tous les champs doivent être remplis.");
+	}
+
+	private void handleGeneralException(Exception e) {
+		logger.error("Error while saving profile", e);
+		this.showAlert(
+				"Erreur inconnue",
+				"Une erreur est survenue lors de la sauvegarde du profil. Veuillez réessayer."
 						+ " Si le problème persiste, veuillez contacter le support et leur fournir"
 						+ " le fichier de log.");
-		}
 	}
 
 	public void setListener(Object listener) {

@@ -19,6 +19,7 @@
 package ulb.views;
 
 import java.util.List;
+import java.util.function.Function;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import javafx.scene.control.ChoiceBox;
@@ -59,61 +60,55 @@ public class GraphComponentViewController extends AnchorPane {
 		this.graphType.setValue("moyenne");
 	}
 
-	private void initBarChart() {
-		CategoryAxis xAxis = new CategoryAxis();
-		NumberAxis yAxis = new NumberAxis();
-		XYChart.Series<String, Number> series = new XYChart.Series<>();
+	private void setupBarChart() {
 		barChart.setTitle("Moyenne des calories");
 		barChart.setLegendVisible(false);
 		barChart.setAnimated(false); // to avoid the collapse bug on the chart
-		xAxis.setLabel("Date");
-		yAxis.setLabel("Calories");
+		barChart.getXAxis().setLabel("Date");
+		barChart.getYAxis().setLabel("Calories");
+	}
+
+	private void addDataToBarChart() {
+		XYChart.Series<String, Number> series = new XYChart.Series<>();
 		for (DateCalorieDTO dateCalorie : data) {
-			series.getData()
-					.add(
-							new XYChart.Data<>(
-									dateCalorie.date().toString(),
-									dateCalorie.getCalorieDifference()));
+			series.getData().add(new XYChart.Data<>(dateCalorie.date().toString(), dateCalorie.getCalorieDifference()));
 		}
 		barChart.getData().add(series);
-		this.onGraphTypeChange();
+	}
+
+	private void initBarChart() {
+		setupBarChart();
+		addDataToBarChart();
+		onGraphTypeChange();
+	}
+
+	private void setupAxes() {
+		lineChart.getXAxis().setLabel("Date");
+		lineChart.getYAxis().setLabel("Calories");
+	}
+
+	private void setupSeries() {
+		lineChart.setTitle("Calories brûlées et consommées");
+		addSeries("Brûlées", DateCalorieDTO::calorieBurned);
+		addSeries("Consommées", DateCalorieDTO::calorieIntake);
+		addSeries("Différence", DateCalorieDTO::getCalorieDifference);
+	}
+
+	private void addSeries(String name, Function<DateCalorieDTO, Number> valueFunction) {
+		XYChart.Series<String, Number> series = new XYChart.Series<>();
+		series.setName(name);
+		for (DateCalorieDTO dateCalorie : data) {
+			series.getData().add(new XYChart.Data<>(dateCalorie.date().toString(), valueFunction.apply(dateCalorie)));
+		}
+		lineChart.getData().add(series);
 	}
 
 	private void initLineChart() {
-		CategoryAxis xAxis = new CategoryAxis();
-		NumberAxis yAxis = new NumberAxis();
-		XYChart.Series<String, Number> series = new XYChart.Series<>();
-		XYChart.Series<String, Number> series2 = new XYChart.Series<>();
-		XYChart.Series<String, Number> series3 = new XYChart.Series<>();
-		lineChart.setTitle("Calories brûlées et consommées");
-		series.setName("Brûlées");
-		series2.setName("Consommées");
-		series3.setName("Différence");
-
-		xAxis.setLabel("Date");
-		yAxis.setLabel("Calories");
-		for (DateCalorieDTO dateCalorie : data) {
-			series.getData()
-					.add(
-							new XYChart.Data<>(
-									dateCalorie.date().toString(), dateCalorie.calorieBurned()));
-
-			series2.getData()
-					.add(
-							new XYChart.Data<>(
-									dateCalorie.date().toString(), dateCalorie.calorieIntake()));
-			series3.getData()
-					.add(
-							new XYChart.Data<>(
-									dateCalorie.date().toString(),
-									dateCalorie.getCalorieDifference()));
-		}
-		lineChart.getData().add(series);
-		lineChart.getData().add(series2);
-		lineChart.getData().add(series3);
+		setupAxes();
+		setupSeries();
 		lineChart.setCreateSymbols(false);
-		lineChart.setAnimated(false); // to avoid the collapse bug on the chart
-		this.onGraphTypeChange();
+		lineChart.setAnimated(false);
+		onGraphTypeChange();
 	}
 
 	public double getLastCalorieDifference() {

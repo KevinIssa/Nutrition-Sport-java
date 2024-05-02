@@ -85,15 +85,6 @@ public class MealHistoryViewController implements ViewController {
 		return hbox;
 	}
 
-	private void setIconInHBox(HBox hbox) {
-		ImageView dateImageView = createImageView("/ulb/images/history_img/calendar.png", 30, 30);
-		ImageView quantityImageView =
-				createImageView("/ulb/images/history_img/quantity.png", 30, 30);
-		ImageView calorieImageView =
-				createImageView("/ulb/images/history_img/calories_consumed.png", 30, 30);
-		hbox.getChildren().addAll(quantityImageView, dateImageView, calorieImageView);
-	}
-
 	private void setTextInHBox(ConsumedFoodDTO food, LocalDateTime date, HBox hbox) {
 		Label LabelMealName = createLabel(food.name(), 100);
 		Label LabelQuantity = createLabel(food.quantity() + " " + food.unit(), 40);
@@ -125,7 +116,8 @@ public class MealHistoryViewController implements ViewController {
 
 	private ImageView createImageView(String imagePath, int width, int height) {
 		URL path = getClass().getResource(imagePath);
-		Image image = new Image(path.toString(), width, height, false, false);
+        assert path != null;
+        Image image = new Image(path.toString(), width, height, false, false);
 		return new ImageView(image);
 	}
 

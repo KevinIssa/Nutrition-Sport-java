@@ -103,17 +103,21 @@ public class ProfileViewController implements ViewController {
 		this.sexController.setLabelText(profileDTO.sex());
 	}
 
+	private void handleImageLoadingError(MalformedURLException e) {
+		logger.error("Error loading profile image due to malformed URL {}", e.getMessage());
+		this.showAlert(
+				"Erreur de chargement",
+				"Une erreur inconnue s'est produite. veuillez contacter le support et leur"
+						+ " fournir le fichier de log car une erreur inconnue s'est produit.");
+		System.exit(1);
+	}
+
 	public void setProfileImage() {
 		try {
 			Image image = loadImage(new File(listener.getProfileImagePath()).toURL(), 129, 125);
 			this.profileImage.setImage(image);
 		} catch (MalformedURLException e) {
-			logger.error("Error loading profile image due to malformed URL {}", e.getMessage());
-			this.showAlert(
-					"Erreur de chargement",
-					"Une erreur inconnue s'est produite. veuillez contacter le support et leur"
-							+ " fournir le fichier de log car une erreur inconnue s'est produit.");
-			System.exit(1);
+			handleImageLoadingError(e);
 		}
 	}
 
@@ -125,14 +129,28 @@ public class ProfileViewController implements ViewController {
 				this.profileImage.setImage(loadImage(selectedFile.toURL(), 129, 125));
 				this.imagePath = selectedFile.toURI().toString();
 			} catch (MalformedURLException e) {
-				logger.error("Error loading profile image due to malformed URL {}", e.getMessage());
-				this.showAlert(
-						"Erreur de chargement",
-						"Une erreur inconnue s'est produite. veuillez contacter le support et leur"
-							+ " fournir le fichier de log car une erreur inconnue s'est produit.");
-				System.exit(1);
+				handleImageLoadingError(e);
 			}
 		}
+	}
+
+	private void handleProfileParameterException(ProfileParameterException e) {
+		logger.warn("Error while updating profile", e);
+		this.showAlert("Error de saisie", e.getMessage());
+	}
+
+	private void handleIncompleteFieldsException() {
+		logger.warn("All fields must be filled");
+		this.showAlert("Erreur", "Tous les champs doivent être remplis.");
+	}
+
+	private void handleGeneralException(Exception e) {
+		logger.error("Error while saving profile", e);
+		this.showAlert(
+				"Erreur inconnue",
+				"Une erreur est survenue lors de la sauvegarde du profil. Veuillez réessayer."
+						+ " Si le problème persiste, veuillez contacter le support et leur fournir"
+						+ " le fichier de log.");
 	}
 
 	public void saveProfile() {
@@ -146,20 +164,19 @@ public class ProfileViewController implements ViewController {
 							Float.parseFloat(this.heightController.getText()),
 							LocalDate.parse(this.birthdateController.getText()),
 							this.imagePath);
+
 			this.listener.updateProfile(profileDTO);
 			this.returnHome();
+
 		} catch (IllegalArgumentException | NullPointerException e) {
-			logger.warn("All fields must be filled");
+			handleIncompleteFieldsException();
+
 		} catch (ProfileParameterException e) {
-			logger.warn("Error while updating profile", e);
-			this.showAlert("Erreur de saisie", e.getMessage());
+			handleProfileParameterException(e);
+
 		} catch (Exception e) {
-			logger.error("An unhanded exception occurred while updating profile", e);
-			this.showAlert(
-					"Erreur inconnue",
-					"Une erreur inconnue s'est produite. Veuillez réessayer. Si le problème"
-						+ " persiste, veuillez contacter le support et leur fournir le fichier de"
-						+ " log.");
+
+			handleGeneralException(e);
 		}
 	}
 
