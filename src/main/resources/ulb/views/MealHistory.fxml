@@ -96,6 +96,18 @@
                   </ImageView>
                </graphic>
             </Button>
+            <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="56.0" style="-fx-background-color: #fdbd07; -fx-background-radius: 10px;" translateX="10.0">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/history_img/recipe.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust brightness="1.0" />
+                     </effect>
+                  </ImageView>
+               </graphic>
+            </Button>
             </children>
         </HBox>
     </children>
