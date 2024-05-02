@@ -72,8 +72,8 @@ public class ConsumeMealService {
 		String name = consumedFoodDTO.name();
 		return new ConsumedFood(
 				name,
-				consumedFoodDTO.quantity(),
 				consumedFoodDTO.calories(),
+				consumedFoodDTO.quantity(),
 				consumedFoodDTO.unit());
 	}
 

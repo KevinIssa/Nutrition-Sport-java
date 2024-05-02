@@ -60,6 +60,9 @@ public class JSONProfileRepository extends JSONRepository<Profile> implements Pr
 	@Override
 	public void saveProfileImage(String imagePath)
 			throws InvalidImageException, IllegalImageFormatException {
+		if(imagePath.equals(IMAGE_PATH)){
+			return;
+		}
 		if (!(imagePath.endsWith(".png")
 				|| imagePath.endsWith(".jpg")
 				|| imagePath.endsWith(".jpeg"))) {

@@ -19,11 +19,12 @@
 package ulb.services;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.IntStream;
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.DateCalorieDTO;
+import ulb.models.Activity;
+import ulb.models.ConsumedMeal;
 import ulb.repositories.ActivityRepository;
 import ulb.repositories.ConsumeMealRepository;
 
@@ -51,44 +52,67 @@ public class CaloriesTrackingService {
 	 * This method returns a list of DateCalorieDTO objects which represent the calories tracking for the past 31 days.
 	 * @return a list of DateCalorieDTO objects.
 	 */
-	public List<DateCalorieDTO> getCaloriesTracking() {
-		List<DateCalorie> dateCalories = this.generateCaloriesTrackingListSince(31);
-		this.activityRepository
-				.loadAll()
-				.forEach(
-						activity ->
-								dateCalories.forEach(
-										dateCalorie -> {
-											if (dateCalorie.isSameDate(
-													activity.getDate().toLocalDate())) {
-												dateCalorie.addCaloriesBurned(
-														activity.getBurnedCalories());
-											}
-										}));
-		this.consumeMealRepository
-				.loadAll()
-				.forEach(
-						consumedMeal ->
-								dateCalories.forEach(
-										dateCalorie -> {
-											if (dateCalorie.isSameDate(
-													consumedMeal.getDate().toLocalDate())) {
-												dateCalorie.addCaloriesIntake(
-														consumedMeal.getCaloriesConsumed());
-											}
-										}));
-		return dateCalories.stream().map(DateCalorie::buildDTO).toList();
+	public List<DateCalorieDTO> getCaloriesTracking(int daysAgo) {
+		Map<LocalDate, DateCalorie> dateCalories = getLocalDateDateCalorieMap(daysAgo);
+		LocalDate firstUsableDate = LocalDate.now().minusDays(daysAgo);
+		addCaloriesBurned(firstUsableDate, dateCalories);
+		addCaloriesIntake(firstUsableDate, dateCalories);
+		return getDateCalorieDTOS(dateCalories);
+	}
+
+	private static Map<LocalDate, DateCalorie> getLocalDateDateCalorieMap(int daysAgo) {
+		Map<LocalDate, DateCalorie> dateCalories = new HashMap<>();
+		for (int i = daysAgo; i >= 0; i--) {
+			LocalDate date = LocalDate.now().minusDays(i);
+			dateCalories.put(date, new DateCalorie(date));
+		}
+		return dateCalories;
+	}
+
+	private void addCaloriesBurned(
+			LocalDate firstUsableDate, Map<LocalDate, DateCalorie> dateCalories) {
+		List<Activity> activities = this.activityRepository.loadAll();
+		for (Activity activity : activities) {
+			if (activity.getDate().toLocalDate().isBefore(firstUsableDate)) {
+				continue;
+			}
+			dateCalories
+					.get(activity.getDate().toLocalDate())
+					.addCaloriesBurned(activity.getBurnedCalories());
+		}
+	}
+
+	private void addCaloriesIntake(
+			LocalDate firstUsableDate, Map<LocalDate, DateCalorie> dateCalories) {
+		List<ConsumedMeal> consumedMeals = this.consumeMealRepository.loadAll();
+		for (ConsumedMeal consumedMeal : consumedMeals) {
+			if (consumedMeal.getDate().toLocalDate().isBefore(firstUsableDate)) {
+				continue;
+			}
+			dateCalories
+					.get(consumedMeal.getDate().toLocalDate())
+					.addCaloriesIntake(consumedMeal.getCaloriesConsumed());
+		}
+	}
+
+	private static List<DateCalorieDTO> getDateCalorieDTOS(
+			Map<LocalDate, DateCalorie> dateCalories) {
+		List<DateCalorieDTO> dtos = new ArrayList<>();
+		for (LocalDate date : dateCalories.keySet()) {
+			dtos.add(dateCalories.get(date).buildDTO());
+		}
+		dtos.sort(Comparator.comparing(DateCalorieDTO::getDate));
+		return dtos;
 	}
 
 	/**
-	 * This method generates a list of DateCalorie objects for the past specified number of days.
-	 * @param daysAgo the number of past days to generate the list for.
-	 * @return a list of DateCalorie objects.
+	 * Retrieves the calorie difference for today's tracking.
+	 *
+	 * @return the calorie difference for today's tracking
 	 */
-	private List<DateCalorie> generateCaloriesTrackingListSince(int daysAgo) {
-		return IntStream.rangeClosed(0, daysAgo)
-				.mapToObj(i -> new DateCalorie(LocalDate.now().minusDays(daysAgo - i)))
-				.toList();
+	public double getTodayCalorieDelta() {
+		DateCalorieDTO today = this.getCaloriesTracking(0).getFirst();
+		return today.getCalorieDifference();
 	}
 
 	/**
@@ -96,8 +120,8 @@ public class CaloriesTrackingService {
 	 */
 	private static class DateCalorie {
 		private final LocalDate date;
-		private double caloriesIntake;
-		private int caloriesBurned;
+		private double caloriesIntake = 0;
+		private double caloriesBurned = 0;
 
 		/**
 		 * Constructor for the DateCalorie class.
@@ -119,7 +143,7 @@ public class CaloriesTrackingService {
 		 * This method adds the specified number of calories to the burned calories.
 		 * @param calories the number of calories to add.
 		 */
-		public void addCaloriesBurned(int calories) {
+		public void addCaloriesBurned(double calories) {
 			this.caloriesBurned += calories;
 		}
 

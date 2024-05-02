@@ -117,6 +117,7 @@ public class AddFoodController extends AppController
 					this.foodLoader.getFoodByName(food.getKey()), food.getValue() / personAmount);
 		}
 		meal.save();
+		foodLoader.extend(List.of(meal.toFood()));
 	}
 
 	@Override
@@ -174,7 +175,8 @@ public class AddFoodController extends AppController
 	@Override
 	public void askUserFoodQuantity(String food) {
 		this.popupController.setFood(food);
-		this.popupController.setFoodUnit(this.getFoodServingQuantity(food));
+		this.popupController.setFoodServing(this.getFoodServingQuantity(food));
+		this.popupController.setFoodUnit(this.getFoodUnit(food));
 		this.popup.show();
 	}
 

@@ -25,4 +25,8 @@ public record DateCalorieDTO(LocalDate date, double calorieIntake, double calori
 	public double getCalorieDifference() {
 		return calorieIntake - calorieBurned;
 	}
+
+	public LocalDate getDate() {
+		return date;
+	}
 }

@@ -25,12 +25,13 @@ public class DoubleField {
 
 	public DoubleField(TextField textField) {
 		this.textField = textField;
+		// TODO doublefield should accept , or . as comma so "\\d*\\.?\\d{0,2}" should be changed
 		this.textField
 				.textProperty()
 				.addListener(
 						(observable, oldValue, newValue) -> {
-							if (!newValue.matches("\\d*\\.?\\d{0,2}")) {
-								textField.setText(newValue.replaceAll("[^\\d.]", ""));
+							if (!newValue.matches("\\d*[.,]?\\d{1,2}")) {
+								textField.setText(newValue.replaceAll("[^\\d.,]", ""));
 							}
 						});
 	}
@@ -44,6 +45,7 @@ public class DoubleField {
 		if (this.textField.getText().isEmpty()) {
 			throw new NumberFormatException("Valeur invalide");
 		}
-		return Double.parseDouble(this.textField.getText());
+		String text = this.textField.getText().replace(",", ".");
+		return Double.parseDouble(text);
 	}
 }

@@ -1,129 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="800" prefWidth="1200" style="-fx-background-color: #040b35;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.MenuViewController">
-   <children>
-      <Button layoutX="1051.0" layoutY="615.0" mnemonicParsing="false" onAction="#showAddButtons" prefHeight="99.0" prefWidth="106.0" style="-fx-background-color: #656ff9; -fx-background-radius: 50;">
-         <font>
-            <Font size="17.0" />
-         </font>
+<AnchorPane prefHeight="800" prefWidth="1200" style="-fx-background-color: #040b35;"
+            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ulb.views.MenuViewController">
+   <effect>
+      <ColorAdjust/>
+   </effect>
+   <Button layoutX="1051.0" layoutY="615.0" mnemonicParsing="false" onAction="#showAddButtons" prefHeight="99.0"
+           prefWidth="106.0" style="-fx-background-color: #656ff9; -fx-background-radius: 50;">
+      <font>
+         <Font size="17.0"/>
+      </font>
+      <graphic>
+         <ImageView fitHeight="101.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../images/menu_img/plus.png"/>
+            </image>
+            <effect>
+               <ColorAdjust brightness="1.0"/>
+            </effect>
+         </ImageView>
+      </graphic>
+   </Button>
+   <Button fx:id="addFoodButton" layoutX="1046.0" layoutY="471.0" mnemonicParsing="false" onAction="#createConsumedFood"
+           prefHeight="113.0" prefWidth="118.0" style="-fx-background-color: #fdbd07; -fx-background-radius: 50;"
+           visible="false">
+      <font>
+         <Font size="17.0"/>
+      </font>
+      <graphic>
+         <ImageView fitHeight="91.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
+            <effect>
+               <ColorAdjust brightness="1.0"/>
+            </effect>
+            <Image url="@../images/menu_img/cookie.png"/>
+         </ImageView>
+      </graphic>
+   </Button>
+   <Button fx:id="addActivityButton" layoutX="1046.0" layoutY="343.0" mnemonicParsing="false" onAction="#createActivity"
+           prefHeight="114.0" prefWidth="118.0" style="-fx-background-color: #9a62f4; -fx-background-radius: 50;"
+           visible="false">
+      <font>
+         <Font size="17.0"/>
+      </font>
+      <graphic>
+         <ImageView fitHeight="82.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+            <effect>
+               <ColorAdjust brightness="1.0"/>
+            </effect>
+            <Image url="@../images/sport_img/running.png"/>
+         </ImageView>
+      </graphic>
+   </Button>
+   <Pane layoutX="116.0" layoutY="138.0" prefHeight="575.0" prefWidth="912.0">
+      <fx:include fx:id="graphComponent" source="GraphComponent.fxml"/>
+   </Pane>
+   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="1185"
+         style="-fx-background-color: #656ff988; -fx-background-radius: 45;">
+      <effect>
+         <ColorAdjust/>
+      </effect>
+      <Button alignment="CENTER" contentDisplay="TOP" maxHeight="100.0" maxWidth="100.0" minHeight="100.0"
+              minWidth="100.0" mnemonicParsing="false" onAction="#openProfile"
+              style="-fx-background-color: transparent;">
          <graphic>
-            <ImageView fitHeight="101.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/menu_img/plus.png" />
-               </image>
-               <effect>
-                  <ColorAdjust brightness="1.0" />
-               </effect>
-            </ImageView>
+            <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0">
+               <clip>
+                  <Circle centerX="50" centerY="50" radius="40.0"/>
+               </clip>
+               <Circle fill="WHITE" radius="40.0"/>
+               <Circle fill="#1f93ff00" radius="40.0" stroke="BLACK" strokeType="INSIDE"/>
+               <ImageView fx:id="profileImage" fitHeight="88.0" fitWidth="90.0">
+                  <Image url="@../images/default_profile.png"/>
+               </ImageView>
+            </StackPane>
          </graphic>
       </Button>
-      <Button fx:id="addFoodButton" layoutX="1046.0" layoutY="471.0" mnemonicParsing="false" onAction="#createConsumedFood" prefHeight="113.0" prefWidth="118.0" style="-fx-background-color: #fdbd07; -fx-background-radius: 50;" visible="false">
-         <font>
-            <Font size="17.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="91.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/menu_img/cookie.png" />
-               </image>
-               <effect>
-                  <ColorAdjust brightness="1.0" />
-               </effect>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button fx:id="addActivityButton" layoutX="1046.0" layoutY="343.0" mnemonicParsing="false" onAction="#createActivity" prefHeight="114.0" prefWidth="118.0" style="-fx-background-color: #9a62f4; -fx-background-radius: 50;" visible="false">
-         <font>
-            <Font size="17.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="82.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/sport_img/running.png" />
-               </image>
-               <effect>
-                  <ColorAdjust brightness="1.0" />
-               </effect>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Pane layoutX="116.0" layoutY="138.0" prefHeight="575.0" prefWidth="912.0">
-         <children>
-            <fx:include fx:id="graphComponent" source="GraphCompenent.fxml" />
-         </children>
-      </Pane>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="1185" style="-fx-background-color: #656ff988; -fx-background-radius: 45;">
-         <effect>
-            <ColorAdjust />
-         </effect>
-            <Button alignment="CENTER" contentDisplay="TOP" maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0" mnemonicParsing="false" onAction="#openProfile" style="-fx-background-color: transparent;">
-               <graphic>
-                  <StackPane maxHeight="100.0" maxWidth="100.0" minHeight="100.0" minWidth="100.0">
-                     <clip>
-                        <Circle centerX="50" centerY="50" radius="40.0" />
-                     </clip>
-                     <Circle fill="WHITE" radius="40.0" />
-                     <Circle fill="#1f93ff00" radius="40.0" stroke="BLACK" strokeType="INSIDE" />
-                     <ImageView fx:id="profileImage" fitHeight="88.0" fitWidth="90.0">
-                           <Image url="@../images/default_profile.png" />
-                        </ImageView>
-                  </StackPane>
-               </graphic>
-            </Button>
-         <VBox prefHeight="100.0" prefWidth="187.0">
-            <children>
-               <Label />
-               <Label text="50 kg" textFill="#fd9c2d">
-                  <font>
-                     <Font size="23.0" />
-                  </font>
-               </Label>
-               <Label prefHeight="34.0" prefWidth="196.0" text="1321 kcal brûlées" textFill="#fd9c2d">
-                  <font>
-                     <Font size="23.0" />
-                  </font>
-               </Label>
-            </children>
-         </VBox>
-         <Label alignment="CENTER" text="NutriSport" textFill="#f3fbfb" translateX="100.0">
+      <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="187.0">
+         <Label fx:id="weightLabel" text="50 kg" textFill="#fd9c2d">
             <font>
-               <Font name="Consolas" size="69.0" />
+               <Font size="23.0"/>
             </font>
          </Label>
-         <MenuButton mnemonicParsing="false" prefHeight="99.0" prefWidth="118.0" style="-fx-background-color: transparent;" translateX="380.0">
-            <graphic>
-               <ImageView fitHeight="87.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@../images/menu_img/bouton-dhorloge-historique.png" />
-                  </image>
-                  <effect>
-                     <ColorAdjust brightness="1.0" hue="0.04" />
-                  </effect>
-               </ImageView>
-            </graphic>
-            <items>
-               <MenuItem onAction="#activityHistory" text="Des activités" />
-               <MenuItem mnemonicParsing="false" onAction="#consumedFoodHistory" text="Des repas" />
-            </items>
-         </MenuButton>
-      </HBox>
-   </children>
-   <effect>
-      <ColorAdjust />
-   </effect>
+         <Label fx:id="calorieLabel" prefHeight="34.0" prefWidth="196.0" text="1321 kcal brûlées" textFill="#fd9c2d">
+            <font>
+               <Font size="23.0"/>
+            </font>
+         </Label>
+      </VBox>
+      <Label alignment="CENTER" text="NutriSport" textFill="#f3fbfb" translateX="100.0">
+         <font>
+            <Font name="Consolas" size="69.0"/>
+         </font>
+      </Label>
+      <MenuButton mnemonicParsing="false" prefHeight="99.0" prefWidth="118.0" style="-fx-background-color: transparent;"
+                  translateX="380.0">
+         <graphic>
+            <ImageView fitHeight="87.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
+               <effect>
+                  <ColorAdjust brightness="1.0" hue="0.04"/>
+               </effect>
+               <Image url="@../images/menu_img/bouton-dhorloge-historique.png"/>
+            </ImageView>
+         </graphic>
+         <items>
+            <MenuItem onAction="#activityHistory" text="Des activités"/>
+            <MenuItem mnemonicParsing="false" onAction="#consumedFoodHistory" text="Des repas"/>
+         </items>
+      </MenuButton>
+   </HBox>
 </AnchorPane>

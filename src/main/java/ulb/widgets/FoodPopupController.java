@@ -33,6 +33,7 @@ public class FoodPopupController implements ViewController {
 	@FXML TextField serving;
 	@FXML Label servinglabel;
 	@FXML Label mainLabel;
+	@FXML Label unitLabel;
 	private DoubleField servingField;
 	private DoubleField grammeField;
 	private Listener listener;
@@ -67,8 +68,16 @@ public class FoodPopupController implements ViewController {
 		return this.food;
 	}
 
-	public void setFoodUnit(String foodUnit) {
+	public void setFoodServing(String foodUnit) {
 		this.servinglabel.setText(foodUnit);
+	}
+
+	public void setFoodUnit(String foodUnit) {
+		if (foodUnit == "g") {
+			this.unitLabel.setText("gramme");
+		} else {
+			this.unitLabel.setText("milli-litre");
+		}
 	}
 
 	void disableIfEmpty(TextField field) {

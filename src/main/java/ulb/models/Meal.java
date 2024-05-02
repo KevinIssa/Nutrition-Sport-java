@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -82,7 +83,6 @@ public class Meal implements Consumable, JsonSerializable {
 	public void addIngredient(Food food, double quantity) {
 		Map.Entry<Food, Double> entry = Map.entry(food, quantity);
 		this.ingredients.add(entry);
-		logger.trace("Added ingredient: {}", entry);
 	}
 
 	/**
@@ -114,10 +114,13 @@ public class Meal implements Consumable, JsonSerializable {
 	 * @return The total grams.
 	 */
 	public double getGramsForServing(double servings) {
-		int totalGrams = 0;
+		double totalGrams = 0;
+		logger.info("Calculating grams for servings: {}", servings);
 		for (Map.Entry<Food, Double> ingredient : ingredients) {
+			logger.info("Ingredient: {}", ingredient);
 			totalGrams += ingredient.getValue();
 		}
+		logger.info("Total grams: {}", totalGrams);
 		return totalGrams * servings;
 	}
 
@@ -252,16 +255,18 @@ public class Meal implements Consumable, JsonSerializable {
 	}
 
 	public Food toFood() {
-		logger.trace(
+		DecimalFormat df = new DecimalFormat("#.##");
+		String servingQuantity = df.format(getGramsForServing(1));
+		logger.info(
 				"Converting meal to food: {}, {}, {}",
 				name,
 				getCaloriesConsumed(),
-				getGramsForServing(1));
+				servingQuantity);
 		return new Food(
 				this.name,
 				this.getCaloriesConsumedByGrams(100),
 				this.getCaloriesConsumed(),
-				String.format("1 serving (%f g)", this.getGramsForServing(1)));
+				String.format("1 serving (%s g)", servingQuantity));
 	}
 }
 
@@ -292,6 +297,8 @@ class FoodListSerializer
  * This class is responsible for converting JSON data into a Meal object.
  */
 class MealDeserializer extends StdDeserializer<Meal> {
+	private static final Logger logger = LoggerFactory.getLogger(MealDeserializer.class);
+	private static final Logger log = LoggerFactory.getLogger(MealDeserializer.class);
 
 	/**
 	 * Default constructor specifying the type to be deserialized.
@@ -339,7 +346,7 @@ class MealDeserializer extends StdDeserializer<Meal> {
 	 */
 	private Map.Entry<Food, Double> getIngredient(JsonNode ingredientNode) {
 		Food food = getFood(ingredientNode.get("food"));
-		double quantity = ingredientNode.get("quantity").asInt();
+		double quantity = ingredientNode.get("quantity").asDouble();
 		return Map.entry(food, quantity);
 	}
 

@@ -44,7 +44,7 @@ class ConsumedMealTest {
 	@Test
 	void getCaloriesConsumedShouldReturnTotalCalories() {
 		consumedMeal.addConsumedFood("Banana", 100, 100, "g");
-		consumedMeal.addConsumedFood("Apple", 100, 200, "g");
+		consumedMeal.addConsumedFood("Apple", 200, 100, "g");
 		assertEquals(300, consumedMeal.getCaloriesConsumed());
 	}
 }
