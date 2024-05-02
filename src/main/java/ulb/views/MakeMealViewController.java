@@ -39,19 +39,17 @@ import ulb.widgets.Search;
 
 public class MakeMealViewController implements ViewController, Search.Listener {
 	@FXML private TextField mealName;
-	@FXML private TextField personAmount;
 	@FXML private Search searchController;
 	@FXML private ListView<FoodBox> chosenFoodList;
 	@FXML private Label calorieLabel;
+	@FXML private NumberField personAmountNumber;
 	private double totalCalories = 0;
 	private MakeMealViewController.Listener listener;
-	private NumberField personAmountNumber;
 	private static final Logger logger = LoggerFactory.getLogger(MakeMealViewController.class);
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		this.searchController.setListener(this);
-		this.personAmountNumber = new NumberField(this.personAmount);
 	}
 
 	/**
@@ -130,13 +128,18 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	}
 
 	public void saveMeal() {
-		List<Pair<String, Double>> foodlist = new java.util.ArrayList<>();
-		for (FoodBox foodBox : chosenFoodList.getItems()) {
-			foodlist.add(new Pair<>(foodBox.getFood(), foodBox.getQuantityValue()));
+		try {
+			List<Pair<String, Double>> foodlist = new java.util.ArrayList<>();
+			for (FoodBox foodBox : chosenFoodList.getItems()) {
+				foodlist.add(new Pair<>(foodBox.getFood(), foodBox.getQuantityValue()));
+			}
+			this.listener.saveMeal(
+					this.mealName.getText(), foodlist, this.personAmountNumber.getValue());
+			this.cleanFoodList();
+		} catch (NumberFormatException e) {
+			logger.error("Error while parsing the number of persons");
+			// juste ignore it normally nothing to do
 		}
-		this.listener.saveMeal(
-				this.mealName.getText(), foodlist, this.personAmountNumber.getValue());
-		this.cleanFoodList();
 	}
 
 	public interface Listener {

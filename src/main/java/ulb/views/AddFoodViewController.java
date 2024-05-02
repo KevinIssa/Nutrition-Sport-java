@@ -40,19 +40,15 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 	@FXML private Search searchController;
 	@FXML private ListView<FoodBox> chosenFoodList;
 	@FXML private DatePicker date;
-	@FXML private TextField hour;
-	@FXML private TextField minute;
 	@FXML private Label calorieLabel;
-	private NumberField hourNumber;
-	private NumberField minuteNumber;
+	@FXML private NumberField hourNumber;
+	@FXML private NumberField minuteNumber;
 	private static final Logger logger = LoggerFactory.getLogger(AddFoodViewController.class);
 	private AddFoodViewController.Listener listener;
 	private double totalCalories = 0;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		this.hourNumber = new NumberField(this.hour);
-		this.minuteNumber = new NumberField(this.minute);
 		LocalTime now = LocalTime.now();
 		this.hourNumber.setValue(now.getHour());
 		this.minuteNumber.setValue(now.getMinute());
@@ -94,7 +90,7 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 		}
 	}
 
-	private LocalTime getTime() {
+	private LocalTime getTime() throws NumberFormatException {
 		return LocalTime.of(this.hourNumber.getValue(), this.minuteNumber.getValue());
 	}
 
@@ -106,7 +102,7 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 		}
 	}
 
-	public LocalDateTime getDateTime() {
+	public LocalDateTime getDateTime() throws IllegalArgumentException {
 		return LocalDateTime.of(date.getValue(), getTime());
 	}
 

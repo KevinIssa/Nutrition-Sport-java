@@ -35,16 +35,14 @@ import ulb.widgets.NumberField;
 
 public class ActivityCreateViewController implements ViewController {
 	@FXML private Slider intensitySlider;
-	@FXML private TextField duration;
 	@FXML
 	private Button buttonWalking, buttonRunning, buttonBiking, buttonSwimming, buttonVolleyball;
 	@FXML private DatePicker activityDate;
-	@FXML private TextField hour, minute;
 	@FXML private Label burnedCalories;
 
-	private NumberField durationNumber;
-	private NumberField hourNumber;
-	private NumberField minuteNumber;
+	@FXML private NumberField durationNumber;
+	@FXML private NumberField hourNumber;
+	@FXML private NumberField minuteNumber;
 	private static final Logger logger =
 			LoggerFactory.getLogger(ActivityCreateViewController.class);
 	private Sport selectedSport = Sport.WALKING;
@@ -56,9 +54,6 @@ public class ActivityCreateViewController implements ViewController {
 		this.selectedButton = this.buttonWalking;
 		this.intensitySlider.setLabelFormatter(new IntensityStringConverter());
 		this.intensitySlider.setStyle("-fx-control-inner-background: #f2e060;");
-		this.durationNumber = new NumberField(this.duration);
-		this.hourNumber = new NumberField(this.hour);
-		this.minuteNumber = new NumberField(this.minute);
 		this.initTime();
 		this.selectWalking();
 	}
@@ -76,13 +71,13 @@ public class ActivityCreateViewController implements ViewController {
 	/**
 	 * This method returns the time of the activity entered by the user and rise a pop up if the time entered is not valid.
 	 */
-	public LocalTime getActivityTime() {
+	public LocalTime getActivityTime() throws NumberFormatException {
 		int hourValue = hourNumber.getValue();
 		int minuteValue = minuteNumber.getValue();
 		return LocalTime.of(hourValue, minuteValue);
 	}
 
-	private void checkTime() {
+	private void checkTime() throws NumberFormatException {
 		if (this.hourNumber.getValue() < 0
 				|| this.hourNumber.getValue() > 23
 				|| this.minuteNumber.getValue() < 0
@@ -100,7 +95,7 @@ public class ActivityCreateViewController implements ViewController {
 	/**
 	 * This method returns the date and time of the activity entered by the user.
 	 */
-	public LocalDateTime getDateTime() {
+	public LocalDateTime getDateTime() throws IllegalArgumentException {
 		LocalTime activityTime = getActivityTime();
 		return LocalDateTime.of(activityDate.getValue(), activityTime);
 	}
@@ -154,13 +149,11 @@ public class ActivityCreateViewController implements ViewController {
 
 	@FXML
 	private void setCaloriesBurned() {
-		if (!this.duration.getText().isEmpty()) {
-			ActivityDTO activityDTO = getActivityDTO();
-			if (activityDTO != null) {
-				this.burnedCalories.setText(
-						String.valueOf(this.listener.calculateCalorie(activityDTO)));
-			}
+		ActivityDTO activityDTO = getActivityDTO();
+		if (activityDTO == null) {
+			return;
 		}
+		this.burnedCalories.setText(String.valueOf(this.listener.calculateCalorie(activityDTO)));
 	}
 
 	public void returnHome() {

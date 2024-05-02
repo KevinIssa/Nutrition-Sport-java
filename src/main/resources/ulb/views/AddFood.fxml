@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import ulb.widgets.NumberField?>
 <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1018.0" style="-fx-background-color: #172e8c;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.AddFoodViewController">
    <VBox alignment="TOP_CENTER" prefHeight="710.0" prefWidth="1018.0">
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="110.0" prefWidth="744.0" text="Ajoutez les aliments consommés" textAlignment="CENTER" textFill="#f3fbfb">
@@ -30,21 +31,21 @@
          </Label>
          <DatePicker fx:id="date" prefHeight="39.0" prefWidth="200.0" style="-fx-background-color: #a0aeeb;" />
          <HBox alignment="CENTER" prefHeight="65.0" prefWidth="250.0" spacing="5.0">
-            <TextField fx:id="hour" minHeight="-Infinity" prefHeight="41.0" prefWidth="83.0" style="-fx-background-color: #c9d1f0;">
+            <NumberField fx:id="hourNumber" minHeight="-Infinity" prefHeight="41.0" prefWidth="83.0" style="-fx-background-color: #c9d1f0;">
                <font>
                   <Font size="26.0" />
                </font>
-            </TextField>
+            </NumberField>
             <Label prefHeight="22.0" prefWidth="18.0" text="h" textFill="#f3fbfb">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <TextField fx:id="minute" minHeight="-Infinity" prefHeight="41.0" prefWidth="83.0" style="-fx-background-color: #c9d1f0;">
+            <NumberField fx:id="minuteNumber" minHeight="-Infinity" prefHeight="41.0" prefWidth="83.0" style="-fx-background-color: #c9d1f0;">
                <font>
                   <Font size="26.0" />
                </font>
-            </TextField>
+            </NumberField>
             <Label prefHeight="36.0" prefWidth="45.0" text="min" textFill="#f3fbfb">
                <font>
                   <Font size="22.0" />

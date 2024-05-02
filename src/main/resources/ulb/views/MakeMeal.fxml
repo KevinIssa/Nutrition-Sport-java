@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import ulb.widgets.NumberField?>
 <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1018.0" style="-fx-background-color: #172e8c;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.MakeMealViewController">
    <VBox alignment="TOP_CENTER" prefHeight="710.0" prefWidth="1018.0">
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="110.0" prefWidth="744.0" text="Composez un plat" textAlignment="CENTER" textFill="#f3fbfb">
@@ -33,7 +34,7 @@
                <Font size="22.0" />
             </font>
          </Label>
-         <TextField fx:id="personAmount" prefHeight="40.0" />
+         <NumberField fx:id="personAmountNumber" prefHeight="40.0" />
       </HBox>
       <HBox alignment="CENTER" prefHeight="386.0" prefWidth="1018.0" spacing="10.0">
          <StackPane prefHeight="400.0" prefWidth="500.0">

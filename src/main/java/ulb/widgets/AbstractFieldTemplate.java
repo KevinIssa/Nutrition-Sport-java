@@ -53,7 +53,7 @@ public abstract class AbstractFieldTemplate extends AnchorPane {
 
 	public abstract void setDefault();
 
-	public void setLabelText(String text) { // TODO : change to protected if possible
+	public void setLabelText(String text) {
 		infoUser.setText(text);
 	}
 
