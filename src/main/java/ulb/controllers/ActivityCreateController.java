@@ -86,10 +86,8 @@ public class ActivityCreateController extends AppController
 		this.listener.goToActivityHistory();
 	}
 
-	
-	public void setDefaultActivity(ActivityDTO activityDTO){
-		((ActivityCreateViewController) this.viewController)
-				.setDefaultActivity(activityDTO);
+	public void setDefaultActivity(ActivityDTO activityDTO) {
+		((ActivityCreateViewController) this.viewController).setDefaultActivity(activityDTO);
 	}
 
 	/**

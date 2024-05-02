@@ -47,7 +47,9 @@ public class ProfileCreateViewController implements ViewController {
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		this.birthdate.setValue(LocalDate.now().minusYears(18));
-		this.imagePath = Objects.requireNonNull(getClass().getResource("/ulb/images/default_profile.png")).toString();
+		this.imagePath =
+				Objects.requireNonNull(getClass().getResource("/ulb/images/default_profile.png"))
+						.toString();
 	}
 
 	/**

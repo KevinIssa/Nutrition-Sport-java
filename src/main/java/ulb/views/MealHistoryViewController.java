@@ -116,8 +116,8 @@ public class MealHistoryViewController implements ViewController {
 
 	private ImageView createImageView(String imagePath, int width, int height) {
 		URL path = getClass().getResource(imagePath);
-        assert path != null;
-        Image image = new Image(path.toString(), width, height, false, false);
+		assert path != null;
+		Image image = new Image(path.toString(), width, height, false, false);
 		return new ImageView(image);
 	}
 

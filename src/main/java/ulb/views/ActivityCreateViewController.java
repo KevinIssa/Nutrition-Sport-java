@@ -112,23 +112,16 @@ public class ActivityCreateViewController implements ViewController {
 		setCaloriesBurned();
 	}
 
-	public ActivityDTO getActivityDTO() {
-		try {
-			this.checkDate();
-			this.checkTime();
-			LocalDateTime activityDateTime = getDateTime();
-			int durationValue = this.durationNumber.getValue();
-			return new ActivityDTO(
-					this.selectedSport,
-					Intensity.fromInt((int) intensitySlider.getValue()),
-					durationValue,
-					activityDateTime);
-		} catch (NumberFormatException e) {
-			showAlert("Erreur", "Veuillez entrer une heure valide.");
-		} catch (IllegalArgumentException e) {
-			showAlert("Erreur", e.getMessage());
-		}
-		return null;
+	public ActivityDTO getActivityDTO() throws IllegalArgumentException {
+		this.checkDate();
+		this.checkTime();
+		LocalDateTime activityDateTime = getDateTime();
+		int durationValue = this.durationNumber.getValue();
+		return new ActivityDTO(
+				this.selectedSport,
+				Intensity.fromInt((int) intensitySlider.getValue()),
+				durationValue,
+				activityDateTime);
 	}
 
 	/**
@@ -136,11 +129,17 @@ public class ActivityCreateViewController implements ViewController {
 	 */
 	public void saveActivity() {
 		try {
+			logger.info("Saving activity");
 			ActivityDTO activityDTO = getActivityDTO();
 			if (activityDTO != null) {
 				this.listener.saveActivity(getActivityDTO());
 				goToActivityHistory();
 			}
+		} catch (NumberFormatException e) {
+			logger.info("Invalid time entered");
+			showAlert("Erreur", "Veuillez entrer une heure valide.");
+		} catch (IllegalArgumentException e) {
+			showAlert("Erreur", e.getMessage());
 		} catch (Exception e) {
 			showAlert(
 					"Erreur", "Une erreur s'est produite lors de l'enregistrement de l'activité.");
@@ -149,11 +148,16 @@ public class ActivityCreateViewController implements ViewController {
 
 	@FXML
 	private void setCaloriesBurned() {
-		ActivityDTO activityDTO = getActivityDTO();
-		if (activityDTO == null) {
-			return;
+		try {
+			ActivityDTO activityDTO = getActivityDTO();
+			if (activityDTO == null) {
+				return;
+			}
+			this.burnedCalories.setText(
+					String.valueOf(this.listener.calculateCalorie(activityDTO)));
+		} catch (IllegalArgumentException ignored) {
+			// ignore
 		}
-		this.burnedCalories.setText(String.valueOf(this.listener.calculateCalorie(activityDTO)));
 	}
 
 	public void returnHome() {
