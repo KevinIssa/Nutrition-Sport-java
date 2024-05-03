@@ -100,6 +100,11 @@ public class AddFoodController extends AppController
 		return foodLoader;
 	}
 
+	void setDefaultRecipe(Meal meal) {
+		this.changeMode();
+		((MakeMealViewController) this.viewController).setDefaultRecipe(meal);
+	}
+
 	private List<Food> loadMeals() {
 		return Meal.loadAll().stream().map(Meal::toFood).collect(Collectors.toList());
 	}

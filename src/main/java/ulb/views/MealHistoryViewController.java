@@ -116,8 +116,8 @@ public class MealHistoryViewController implements ViewController {
 
 	private ImageView createImageView(String imagePath, int width, int height) {
 		URL path = getClass().getResource(imagePath);
-        assert path != null;
-        Image image = new Image(path.toString(), width, height, false, false);
+		assert path != null;
+		Image image = new Image(path.toString(), width, height, false, false);
 		return new ImageView(image);
 	}
 
@@ -136,6 +136,10 @@ public class MealHistoryViewController implements ViewController {
 		this.listener.addMeal();
 	}
 
+	public void loadMealRecipe() {
+		this.listener.mealRecipe();
+	}
+
 	public interface Listener {
 
 		List<ConsumedMealDTO> getAllMeals(); // Load all meals
@@ -143,6 +147,8 @@ public class MealHistoryViewController implements ViewController {
 		void returnHome(); // Return to the home view
 
 		void addMeal();
+
+		void mealRecipe();
 
 		void deleteFood(HBox foodBox);
 	}

@@ -23,8 +23,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulb.dtos.DateCalorieDTO;
 import ulb.dtos.ActivityDTO;
+import ulb.dtos.DateCalorieDTO;
 import ulb.models.*;
 import ulb.repositories.ActivityRepository;
 import ulb.repositories.ConsumeMealRepository;
@@ -173,12 +173,12 @@ public class MenuController extends AppController implements MenuViewController.
 	 * Finally, the method shows the popup stage and waits for it to be hidden (closed) before returning.
 	 * This method is an implementation of the loadCreateActivityView method defined in the MenuViewController.Listener interface.
 	 */
-	
 	@Override
 	public void loadCreateActivityView() {
 		ActivityDTO activityDTO = new ActivityDTO();
 		loadCreateActivityView(activityDTO);
 	}
+
 	public void loadCreateActivityView(ActivityDTO activityDTO) {
 		Stage popupStage = new Stage();
 		ActivityRepository activityRepository = new JSONActivityRepository();
@@ -199,13 +199,12 @@ public class MenuController extends AppController implements MenuViewController.
 								popupStage.close();
 							}
 						});
-						if (activityDTO.sport() != null) {
-						controller.show(popupStage);
-						((ActivityCreateController)controller).setDefaultActivity(activityDTO);
-						}
-						else {
-							controller.show(popupStage);
-						}
+		if (activityDTO.sport() != null) {
+			controller.show(popupStage);
+			((ActivityCreateController) controller).setDefaultActivity(activityDTO);
+		} else {
+			controller.show(popupStage);
+		}
 		// This line sets the modality of the popup stage to APPLICATION_MODAL.
 		// This means that while the popup stage is showing, it blocks user interaction with all
 		// other stages of the application.
@@ -260,6 +259,10 @@ public class MenuController extends AppController implements MenuViewController.
 				new MealHistoryController(
 						consumeMealService,
 						new MealHistoryController.Listener() {
+							@Override
+							public void mealRecipe() {
+								loadMealRecipe();
+							}
 
 							@Override
 							public void returnHome() {
@@ -269,6 +272,32 @@ public class MenuController extends AppController implements MenuViewController.
 							@Override
 							public void addMeal() {
 								loadFoodSearchPage();
+							}
+						});
+		controller.show(this.primaryStage);
+	}
+
+	@Override
+	public void loadMealRecipe() {
+		ConsumeMealRepository consumeMealRepository = new JSONConsumeMealRepository();
+		ConsumeMealService consumeMealService = new ConsumeMealService(consumeMealRepository);
+		AppController controller =
+				new MealRecipeController(
+						consumeMealService,
+						new MealRecipeController.Listener() {
+							@Override
+							public void editMeal(Meal meal) {
+								loadFoodSearchPage(meal);
+							}
+
+							@Override
+							public void returnHome() {
+								loadMealHistoryView();
+							}
+
+							@Override
+							public void mealDetails(Meal meal) {
+								// todo
 							}
 						});
 		controller.show(this.primaryStage);
@@ -285,15 +314,23 @@ public class MenuController extends AppController implements MenuViewController.
 	 */
 	@Override
 	public void loadFoodSearchPage() {
+		Meal meal = new Meal();
+		loadFoodSearchPage(meal);
+	}
+
+	public void loadFoodSearchPage(Meal meal) {
 		Stage popupStage = new Stage();
 		AppController controller =
 				new AddFoodController(
 						() -> {
-							loadMenuView();
 							popupStage.close();
 						},
 						popupStage);
+
 		controller.show(popupStage);
+		if (meal.getName() != null) {
+			((AddFoodController) controller).setDefaultRecipe(meal);
+		}
 		// This line sets the modality of the popup stage to APPLICATION_MODAL.
 		// This means that while the popup stage is showing, it blocks user interaction with all
 		// other stages of the application.

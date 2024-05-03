@@ -51,13 +51,13 @@ public class ActivityHistoryViewController implements ViewController {
 		Button deleteActivityButton = new Button();
 		Button editActivityButton = new Button();
 
-		HistoryBox activityHistoryBox = new HistoryBox(activity, deleteActivityButton, editActivityButton);
+		HistoryBox activityHistoryBox =
+				new HistoryBox(activity, deleteActivityButton, editActivityButton);
 
 		deleteActivityButton.setOnAction(e -> deleteActivityInHistory(activityHistoryBox));
 		editActivityButton.setOnAction(e -> editActivityInHistory(activityHistoryBox));
 
 		historyList.getItems().add(activityHistoryBox);
-
 	}
 
 	/**

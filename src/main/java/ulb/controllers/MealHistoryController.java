@@ -72,6 +72,11 @@ public class MealHistoryController extends AppController
 	}
 
 	@Override
+	public void mealRecipe() {
+		this.listener.mealRecipe();
+	}
+
+	@Override
 	public void deleteFood(HBox foodBox) {
 		String dateString = ((Label) foodBox.getChildren().get(4)).getText();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy 'à' HH:mm");
@@ -108,5 +113,10 @@ public class MealHistoryController extends AppController
 		 * The implementing class should define the behavior that occurs when this event happens.
 		 */
 		void addMeal();
+
+		/**
+		 * This method is called when the user want to switch the window to the window with meal recipe stored
+		 */
+		void mealRecipe();
 	}
 }

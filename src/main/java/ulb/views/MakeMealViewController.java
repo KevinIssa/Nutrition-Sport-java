@@ -18,10 +18,10 @@
  */
 package ulb.views;
 
-import java.math.RoundingMode;
+import java.math.BigDecimal;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,6 +33,8 @@ import javafx.scene.control.TextField;
 import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ulb.models.Food;
+import ulb.models.Meal;
 import ulb.widgets.FoodBox;
 import ulb.widgets.NumberField;
 import ulb.widgets.Search;
@@ -88,6 +90,14 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		chosenFoodList.getItems().add(foodBox);
 	}
 
+	public void setDefaultRecipe(Meal meal) {
+		this.mealName.setText(meal.getName());
+		this.personAmountNumber.setValue(1);
+		for (Map.Entry<Food, Double> ingredient : meal.getIngredients()) {
+			addChosenFood(ingredient.getKey().getName(), ingredient.getValue());
+		}
+	}
+
 	/**
 	 * This method adds the chosen food to the list.
 	 * It gets the serving type of the food, and updates the food item box with the food, calories, quantity, serving type, and value.
@@ -97,10 +107,11 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	public void addChosenFood(String food, double quantity) {
 		double calories = listener.getCaloriesConsumed(food, quantity);
 		// Round to 2 decimals
-		DecimalFormat decimalFormat = new DecimalFormat("0.00");
-		decimalFormat.setRoundingMode(RoundingMode.DOWN);
-		calories = Double.parseDouble(decimalFormat.format(calories));
-		quantity = Double.parseDouble(decimalFormat.format(quantity));
+		// DecimalFormat decimalFormat = new DecimalFormat("0.00");
+		// decimalFormat.setRoundingMode(RoundingMode.DOWN);
+		// calories = Double.parseDouble(decimalFormat.format(calories));
+		// quantity = Double.parseDouble(decimalFormat.format(quantity));
+		calories = BigDecimal.valueOf(calories).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();
 		this.totalCalories += calories;
 		this.calorieLabel.setText(String.format("%.2f", this.totalCalories));
 		String foodUnit = listener.getFoodUnit(food);

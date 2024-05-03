@@ -49,7 +49,7 @@ public class Meal implements Consumable, JsonSerializable {
 	/**
 	 * Default constructor.
 	 */
-	Meal() {}
+	public Meal() {}
 
 	/**
 	 * Constructor with name parameter.
@@ -153,6 +153,19 @@ public class Meal implements Consumable, JsonSerializable {
 	}
 
 	/**
+	 * delete the meal file.
+	 */
+	public void delete() {
+		File folder = new File(FOLDER_NAME);
+		if (!folder.exists()) {
+			folder.mkdir();
+			logger.info("Created folder: {}", FOLDER_NAME);
+		}
+		String filename = FOLDER_NAME + "/" + name + ".json";
+		deleteThisFile(filename);
+	}
+
+	/**
 	 * Loads a meal from a file.
 	 *
 	 * @param filename The name of the file.
@@ -187,6 +200,16 @@ public class Meal implements Consumable, JsonSerializable {
 		} catch (IOException e) {
 			logger.error("Error saving meal to file: {} meal: {}", filename, this);
 		}
+	}
+
+	/**
+	 * delete the file.
+	 *
+	 * @param filename The name of the file.
+	 */
+	public void deleteThisFile(String filename) {
+		File mealFile = new File(filename);
+		mealFile.delete();
 	}
 
 	/**

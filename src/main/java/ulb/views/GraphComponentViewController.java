@@ -71,7 +71,11 @@ public class GraphComponentViewController extends AnchorPane {
 	private void addDataToBarChart() {
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
 		for (DateCalorieDTO dateCalorie : data) {
-			series.getData().add(new XYChart.Data<>(dateCalorie.date().toString(), dateCalorie.getCalorieDifference()));
+			series.getData()
+					.add(
+							new XYChart.Data<>(
+									dateCalorie.date().toString(),
+									dateCalorie.getCalorieDifference()));
 		}
 		barChart.getData().add(series);
 	}
@@ -98,7 +102,11 @@ public class GraphComponentViewController extends AnchorPane {
 		XYChart.Series<String, Number> series = new XYChart.Series<>();
 		series.setName(name);
 		for (DateCalorieDTO dateCalorie : data) {
-			series.getData().add(new XYChart.Data<>(dateCalorie.date().toString(), valueFunction.apply(dateCalorie)));
+			series.getData()
+					.add(
+							new XYChart.Data<>(
+									dateCalorie.date().toString(),
+									valueFunction.apply(dateCalorie)));
 		}
 		lineChart.getData().add(series);
 	}
