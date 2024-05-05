@@ -21,6 +21,7 @@ package ulb.models;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+import ulb.enums.Unit;
 
 class MealTest {
 
@@ -33,8 +34,8 @@ class MealTest {
 
 	private Meal createCustomMeal() {
 		Meal customMeal = new Meal("Omelette aux poivrons");
-		customMeal.addIngredient(new Food("Egg", 97, 58, "1 egg (60 g)"), 60 * 3);
-		customMeal.addIngredient(new Food("Pepper", 27, 20, "1 pepper (75 g)"), 75 * 1);
+		customMeal.addIngredient(new Food("Egg", 97, 58, "1 egg (60 g)", Unit.GRAMS), 60 * 3);
+		customMeal.addIngredient(new Food("Pepper", 27, 20, "1 pepper (75 g)", Unit.GRAMS), 75 * 1);
 		customMeal.save();
 		return customMeal;
 	}

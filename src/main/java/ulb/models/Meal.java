@@ -32,6 +32,7 @@ import java.text.DecimalFormat;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ulb.enums.Unit;
 
 /**
  * Represents a Meal.
@@ -90,8 +91,7 @@ public class Meal implements Consumable, JsonSerializable {
 	 *
 	 * @return The total calories consumed.
 	 */
-	@Override
-	public double getCaloriesConsumed() {
+	private double getCaloriesConsumed() {
 		return getCaloriesConsumedByServing(1);
 	}
 
@@ -102,7 +102,7 @@ public class Meal implements Consumable, JsonSerializable {
 	 * @return The calories consumed.
 	 */
 	@Override
-	public double getCaloriesConsumedByGrams(double grams) {
+	public double getCaloriesConsumedByUnit(double grams) {
 		double totalGrams = getGramsForServing(1);
 		return getCaloriesConsumed() * grams / totalGrams;
 	}
@@ -134,7 +134,7 @@ public class Meal implements Consumable, JsonSerializable {
 	public double getCaloriesConsumedByServing(double servings) {
 		double totalCalories = 0;
 		for (Map.Entry<Food, Double> ingredient : ingredients) {
-			totalCalories += ingredient.getKey().getCaloriesConsumedByGrams(ingredient.getValue());
+			totalCalories += ingredient.getKey().getCaloriesConsumedByUnit(ingredient.getValue());
 		}
 		return totalCalories * servings;
 	}
@@ -264,9 +264,10 @@ public class Meal implements Consumable, JsonSerializable {
 				servingQuantity);
 		return new Food(
 				this.name,
-				this.getCaloriesConsumedByGrams(100),
+				this.getCaloriesConsumedByUnit(100),
 				this.getCaloriesConsumed(),
-				String.format("1 serving (%s g)", servingQuantity));
+				String.format("1 serving (%s g)", servingQuantity),
+				Unit.ALL);
 	}
 }
 
@@ -357,9 +358,10 @@ class MealDeserializer extends StdDeserializer<Meal> {
 	 */
 	private Food getFood(JsonNode foodNode) {
 		String foodName = foodNode.get("name").asText();
-		int caloriesPer100 = foodNode.get("caloriesPer100").asInt();
+		int caloriesPer100 = foodNode.get("caloriesPer100Unit").asInt();
 		int caloriesPerServing = foodNode.get("caloriesPerServing").asInt();
 		String servingQuantity = foodNode.get("servingQuantity").asText();
-		return new Food(foodName, caloriesPer100, caloriesPerServing, servingQuantity);
+		Unit unit = Unit.valueOf(foodNode.get("unit").asText());
+		return new Food(foodName, caloriesPer100, caloriesPerServing, servingQuantity, unit);
 	}
 }

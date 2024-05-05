@@ -91,6 +91,6 @@ public class ConsumeMealService {
 				consumedFood.getName(),
 				consumedFood.getQuantity(),
 				consumedFood.getCalories(),
-				food != null ? food.getQuantityUnit() : "g");
+				food != null ? food.getUnit().toString() : "g");
 	}
 }

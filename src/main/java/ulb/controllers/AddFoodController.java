@@ -133,7 +133,7 @@ public class AddFoodController extends AppController
 
 	@Override
 	public double getCaloriesConsumed(String food, double quantity) {
-		return this.foodLoader.getFoodByName(food).getCaloriesConsumedByGrams(quantity);
+		return this.foodLoader.getFoodByName(food).getCaloriesConsumedByUnit(quantity);
 	}
 
 	@Override
@@ -162,7 +162,7 @@ public class AddFoodController extends AppController
 
 	@Override
 	public String getFoodUnit(String food) {
-		return this.foodLoader.getFoodByName(food).getQuantityUnit();
+		return this.foodLoader.getFoodByName(food).getUnit().toString();
 	}
 
 	@Override

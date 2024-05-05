@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ulb.enums.Unit;
 
 class FoodTest {
 
@@ -29,7 +30,7 @@ class FoodTest {
 
 	@BeforeEach
 	void setup() {
-		food = new Food("Apple", 52, 52, "1 (182g)");
+		food = new Food("Apple", 52, 52, "1 (182g)", Unit.GRAMS);
 	}
 
 	@Test
@@ -39,7 +40,7 @@ class FoodTest {
 
 	@Test
 	void caloriesPer100IsSetCorrectly() {
-		assertEquals(52, food.getCaloriesPer100());
+		assertEquals(52, food.getCaloriesPer100Unit());
 	}
 
 	@Test
@@ -60,8 +61,8 @@ class FoodTest {
 
 	@Test
 	void caloriesPer100CanBeChanged() {
-		food.setCaloriesPer100(96);
-		assertEquals(96, food.getCaloriesPer100());
+		food.setCaloriesPer100Unit(96);
+		assertEquals(96, food.getCaloriesPer100Unit());
 	}
 
 	@Test
@@ -82,13 +83,8 @@ class FoodTest {
 	}
 
 	@Test
-	public void servingTypeIsExtractedCorrectly() {
-		assertEquals("g", food.getQuantityUnit());
-	}
-
-	@Test
 	void caloriesConsumedByGramsIsCalculatedCorrectly() {
-		assertEquals(94.64, food.getCaloriesConsumedByGrams(182));
+		assertEquals(94.64, food.getCaloriesConsumedByUnit(182));
 	}
 
 	@Test
@@ -98,13 +94,13 @@ class FoodTest {
 
 	@Test
 	void equalsReturnsFalseForDifferentFood() {
-		Food differentFood = new Food("Banana", 96, 105, "1 (118g)");
+		Food differentFood = new Food("Banana", 96, 105, "1 (118g)", Unit.GRAMS);
 		assertNotEquals(food, differentFood);
 	}
 
 	@Test
 	void equalsReturnsTrueForSameFood() {
-		Food sameFood = new Food("Apple", 52, 52, "1 (182g)");
+		Food sameFood = new Food("Apple", 52, 52, "1 (182g)", Unit.GRAMS);
 		assertEquals(food, sameFood);
 	}
 }
