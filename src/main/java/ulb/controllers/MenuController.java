@@ -26,9 +26,7 @@ import org.slf4j.LoggerFactory;
 import ulb.dtos.ActivityDTO;
 import ulb.dtos.DateCalorieDTO;
 import ulb.models.*;
-import ulb.repositories.ActivityRepository;
 import ulb.repositories.ConsumeMealRepository;
-import ulb.repositories.JSONActivityRepository;
 import ulb.repositories.JSONConsumeMealRepository;
 import ulb.services.ActivityService;
 import ulb.services.CaloriesTrackingService;
@@ -46,11 +44,17 @@ public class MenuController extends AppController implements MenuViewController.
 	private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
 	private Stage primaryStage;
 	private ProfileService profileService;
+	private ActivityService activityService;
 	private CaloriesTrackingService caloriesTrackingService;
 
 	public void setProfileService(ProfileService profileService) {
 		logger.info("Setting ProfileService: {}", profileService);
 		this.profileService = profileService;
+	}
+
+	public void setActivityService(ActivityService activityService) {
+		logger.info("Setting ActivityService: {}", activityService);
+		this.activityService = activityService;
 	}
 
 	public void setCaloriesTrackingService(CaloriesTrackingService caloriesTrackingService) {
@@ -181,11 +185,9 @@ public class MenuController extends AppController implements MenuViewController.
 
 	public void loadCreateActivityView(ActivityDTO activityDTO) {
 		Stage popupStage = new Stage();
-		ActivityRepository activityRepository = new JSONActivityRepository();
-		ActivityService activityService = new ActivityService(activityRepository);
-		AppController controller =
+		ActivityCreateController controller =
 				new ActivityCreateController(
-						activityService,
+						this.activityService,
 						this.profileService,
 						new ActivityCreateController.Listener() {
 							@Override
@@ -201,7 +203,7 @@ public class MenuController extends AppController implements MenuViewController.
 						});
 		if (activityDTO.sport() != null) {
 			controller.show(popupStage);
-			((ActivityCreateController) controller).setDefaultActivity(activityDTO);
+			controller.setDefaultActivity(activityDTO);
 		} else {
 			controller.show(popupStage);
 		}
@@ -220,11 +222,9 @@ public class MenuController extends AppController implements MenuViewController.
 	 */
 	@Override
 	public void loadActivityHistoryView() {
-		ActivityRepository activityRepository = new JSONActivityRepository();
-		ActivityService activityService = new ActivityService(activityRepository);
 		AppController controller =
 				new ActivityHistoryController(
-						activityService,
+						this.activityService,
 						new ActivityHistoryController.Listener() {
 							@Override
 							public void returnHome() {
@@ -241,7 +241,6 @@ public class MenuController extends AppController implements MenuViewController.
 								loadCreateActivityView(activityDTO);
 							}
 						});
-
 		controller.show(this.primaryStage);
 	}
 
