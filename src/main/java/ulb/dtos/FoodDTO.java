@@ -18,4 +18,4 @@
  */
 package ulb.dtos;
 
-public record FoodDTO(String name, String servingQuantity) {}
+public record FoodDTO(String name, double quantity) {}

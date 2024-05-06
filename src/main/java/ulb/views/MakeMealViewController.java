@@ -30,9 +30,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ulb.dtos.FoodDTO;
 import ulb.widgets.FoodBox;
 import ulb.widgets.NumberField;
 import ulb.widgets.Search;
@@ -127,9 +127,9 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 
 	public void saveMeal() {
 		try {
-			List<Pair<String, Double>> foodlist = new java.util.ArrayList<>();
+			List<FoodDTO> foodlist = new java.util.ArrayList<>();
 			for (FoodBox foodBox : chosenFoodList.getItems()) {
-				foodlist.add(new Pair<>(foodBox.getFood(), foodBox.getQuantityValue()));
+				foodlist.add(new FoodDTO(foodBox.getFood(), foodBox.getQuantityValue()));
 			}
 			this.listener.saveMeal(
 					this.mealName.getText(), foodlist, this.personAmountNumber.getValue());
@@ -151,7 +151,7 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 
 		void returnHome();
 
-		void saveMeal(String mealName, List<Pair<String, Double>> foodsList, int personAmount);
+		void saveMeal(String mealName, List<FoodDTO> foodsList, int personAmount);
 
 		void changeMode();
 	}

@@ -26,9 +26,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ulb.dtos.ConsumedFoodDTO;
+import ulb.dtos.FoodDTO;
 import ulb.models.ConsumedMeal;
 import ulb.models.Food;
 import ulb.models.FoodLoader;
@@ -110,11 +111,11 @@ public class AddFoodController extends AppController
 	}
 
 	@Override
-	public void saveMeal(String mealName, List<Pair<String, Double>> foodList, int personAmount) {
+	public void saveMeal(String mealName, List<FoodDTO> foodList, int personAmount) {
 		Meal meal = new Meal(mealName);
-		for (Pair<String, Double> food : foodList) {
+		for (FoodDTO food : foodList) {
 			meal.addIngredient(
-					this.foodLoader.getFoodByName(food.getKey()), food.getValue() / personAmount);
+					this.foodLoader.getFoodByName(food.name()), food.quantity() / personAmount);
 		}
 		meal.save();
 		foodLoader.extend(List.of(meal.toFood()));
@@ -137,14 +138,14 @@ public class AddFoodController extends AppController
 	}
 
 	@Override
-	public void saveConsumedFoods(List<List<String>> consumedFoodsList, LocalDateTime mealDate) {
+	public void saveConsumedFoods(List<ConsumedFoodDTO> consumedFoodsList, LocalDateTime mealDate) {
 		ConsumedMeal consumedMeal = new ConsumedMeal();
-		for (List<String> consumedFood : consumedFoodsList) {
+		for (ConsumedFoodDTO consumedFood : consumedFoodsList) {
 			consumedMeal.addConsumedFood(
-					consumedFood.get(0),
-					Double.parseDouble(consumedFood.get(1)),
-					Double.parseDouble(consumedFood.get(2)),
-					consumedFood.get(3));
+					consumedFood.name(),
+					Double.parseDouble(String.valueOf(consumedFood.quantity())),
+					Double.parseDouble(String.valueOf(consumedFood.calories())),
+					consumedFood.unit());
 		}
 		consumedMeal.setDate(mealDate);
 		new JSONConsumeMealRepository().save(consumedMeal);
