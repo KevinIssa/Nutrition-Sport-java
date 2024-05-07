@@ -60,7 +60,7 @@ public class MealDetailsViewController implements ViewController {
 			calorie += this.listener.getCaloriesConsumed(food.getKey(), food.getValue());
 			addMealBox(food);
 		}
-		Calories.setText(Double.toString(calorie));
+		Calories.setText(Double.toString(calorie) + "kcal");
 	}
 
 	private void addMealBox(Map.Entry<Food, Double> food) {
@@ -83,7 +83,7 @@ public class MealDetailsViewController implements ViewController {
 
 	private void setTextInHBox(Map.Entry<Food, Double> food, HBox hbox) {
 		Label LabelMealName = createLabel(food.getKey().getName(), 100);
-		Label LabelMealQuantity = createLabel("quantite: " + food.getValue().toString(), 100);
+		Label LabelMealQuantity = createLabel("quantite: " + food.getValue().toString() + food.getKey().getUnit(), 100);
 		hbox.getChildren().add(0, LabelMealName);
 		hbox.getChildren().add(1, LabelMealQuantity);
 	}
