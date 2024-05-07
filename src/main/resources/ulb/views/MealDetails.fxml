@@ -10,18 +10,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="322.0" style="-fx-background-color: #172e8c;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="465.0" prefWidth="322.0" style="-fx-background-color: #172e8c;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.MealDetailsViewController">
    <children>
       <Region prefHeight="17.0" prefWidth="322.0" />
-      <Label alignment="CENTER" contentDisplay="CENTER" text="Nom plat" textFill="#f3fbfb">
+      <Label fx:id="mealName" alignment="CENTER" contentDisplay="CENTER" text="Nom plat" textFill="#f3fbfb">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Label text="1000 Kcal" textFill="#f3fbfb" />
+      <Label fx:id="Calories" text="1000 Kcal" textFill="#f3fbfb" />
       <Region prefHeight="22.0" prefWidth="322.0" />
-      <ListView prefHeight="293.0" prefWidth="322.0" style="-fx-background-color: #a0aeeb;" />
-      <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="67.0" style="-fx-background-color: #fd9c2d; -fx-background-radius: 10px;" translateX="-120.0" translateY="15.0">
+      <ListView fx:id="foodList" prefHeight="293.0" prefWidth="322.0" style="-fx-background-color: #a0aeeb;" />
+      <Button onAction="#returnHome" mnemonicParsing="false" prefHeight="43.0" prefWidth="67.0" style="-fx-background-color: #fd9c2d; -fx-background-radius: 10px;" translateX="-120.0" translateY="15.0">
          <graphic>
             <ImageView fitHeight="36.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                <image>

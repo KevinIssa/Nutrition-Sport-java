@@ -296,10 +296,28 @@ public class MenuController extends AppController implements MenuViewController.
 
 							@Override
 							public void mealDetails(Meal meal) {
-								// todo
+								loadMealDetails(meal);
 							}
 						});
 		controller.show(this.primaryStage);
+	}
+
+	@Override
+	public void loadMealDetails(Meal meal) {
+		Stage popupStage = new Stage();
+		MealDetailsController controller =
+				new MealDetailsController(new MealDetailsController.Listener() {
+							@Override
+							public void returnHome() {
+								popupStage.close();
+							}
+						});
+		controller.show(popupStage);
+		controller.setMeal(meal);
+
+		popupStage.initModality(Modality.APPLICATION_MODAL);
+		popupStage.showAndWait();
+
 	}
 
 	/**
