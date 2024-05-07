@@ -126,7 +126,7 @@ public class AddFoodController extends AppController
 		}
 		meal.save();
 		foodLoader.extend(List.of(meal.toFood()));
-		if (this.editMeal){
+		if (this.editMeal) {
 			this.returnHome();
 		}
 	}

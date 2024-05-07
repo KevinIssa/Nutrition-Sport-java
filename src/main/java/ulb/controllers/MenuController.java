@@ -306,7 +306,8 @@ public class MenuController extends AppController implements MenuViewController.
 	public void loadMealDetails(Meal meal) {
 		Stage popupStage = new Stage();
 		MealDetailsController controller =
-				new MealDetailsController(new MealDetailsController.Listener() {
+				new MealDetailsController(
+						new MealDetailsController.Listener() {
 							@Override
 							public void returnHome() {
 								popupStage.close();
@@ -317,7 +318,6 @@ public class MenuController extends AppController implements MenuViewController.
 
 		popupStage.initModality(Modality.APPLICATION_MODAL);
 		popupStage.showAndWait();
-
 	}
 
 	/**
