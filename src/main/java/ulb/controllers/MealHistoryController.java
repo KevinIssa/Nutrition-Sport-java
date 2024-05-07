@@ -19,10 +19,7 @@
 package ulb.controllers;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,28 +68,14 @@ public class MealHistoryController extends AppController
 		this.listener.addMeal();
 	}
 
-	@Override
 	public void mealRecipe() {
 		this.listener.mealRecipe();
 	}
 
 	@Override
-	public void deleteFood(HBox foodBox) {
-		String dateString = ((Label) foodBox.getChildren().get(4)).getText();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy 'à' HH:mm");
-		// Parse the string into a LocalDateTime object
-		LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
-		this.consumeMealService.deleteConsumedFood(toConsumedFoodDTO(foodBox), dateTime);
-	}
+	public void deleteFood(ConsumedFoodDTO consumedFood, LocalDateTime dateTime) {
 
-	private ConsumedFoodDTO toConsumedFoodDTO(HBox foodBox) {
-		String name = ((Label) foodBox.getChildren().get(0)).getText();
-		int quantity =
-				Integer.parseInt(((Label) foodBox.getChildren().get(2)).getText().split(" ")[0]);
-		int calories =
-				Integer.parseInt(((Label) foodBox.getChildren().get(6)).getText().split(" ")[0]);
-		String unit = ((Label) foodBox.getChildren().get(2)).getText().split(" ")[1];
-		return new ConsumedFoodDTO(name, quantity, calories, unit);
+		this.consumeMealService.deleteConsumedFood(consumedFood, dateTime);
 	}
 
 	/**

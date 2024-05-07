@@ -19,6 +19,7 @@
 package ulb.views;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -26,13 +27,10 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.util.Pair;
+import javafx.scene.control.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ulb.dtos.FoodDTO;
 import ulb.models.Food;
 import ulb.models.Meal;
 import ulb.widgets.FoodBox;
@@ -45,6 +43,7 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	@FXML private ListView<FoodBox> chosenFoodList;
 	@FXML private Label calorieLabel;
 	@FXML private NumberField personAmountNumber;
+	@FXML private ToggleButton switchButton;
 	private double totalCalories = 0;
 	private MakeMealViewController.Listener listener;
 	private static final Logger logger = LoggerFactory.getLogger(MakeMealViewController.class);
@@ -91,6 +90,7 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	}
 
 	public void setDefaultRecipe(Meal meal) {
+		this.switchButton.setVisible(false);
 		this.mealName.setText(meal.getName());
 		this.personAmountNumber.setValue(1);
 		for (Map.Entry<Food, Double> ingredient : meal.getIngredients()) {
@@ -107,11 +107,8 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	public void addChosenFood(String food, double quantity) {
 		double calories = listener.getCaloriesConsumed(food, quantity);
 		// Round to 2 decimals
-		// DecimalFormat decimalFormat = new DecimalFormat("0.00");
-		// decimalFormat.setRoundingMode(RoundingMode.DOWN);
-		// calories = Double.parseDouble(decimalFormat.format(calories));
-		// quantity = Double.parseDouble(decimalFormat.format(quantity));
-		calories = BigDecimal.valueOf(calories).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();
+		calories = BigDecimal.valueOf(calories).setScale(2, RoundingMode.DOWN).doubleValue();
+		quantity = BigDecimal.valueOf(quantity).setScale(2, RoundingMode.DOWN).doubleValue();
 		this.totalCalories += calories;
 		this.calorieLabel.setText(String.format("%.2f", this.totalCalories));
 		String foodUnit = listener.getFoodUnit(food);
@@ -140,9 +137,9 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 
 	public void saveMeal() {
 		try {
-			List<Pair<String, Double>> foodlist = new java.util.ArrayList<>();
+			List<FoodDTO> foodlist = new java.util.ArrayList<>();
 			for (FoodBox foodBox : chosenFoodList.getItems()) {
-				foodlist.add(new Pair<>(foodBox.getFood(), foodBox.getQuantityValue()));
+				foodlist.add(new FoodDTO(foodBox.getFood(), foodBox.getQuantityValue()));
 			}
 			this.listener.saveMeal(
 					this.mealName.getText(), foodlist, this.personAmountNumber.getValue());
@@ -164,7 +161,7 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 
 		void returnHome();
 
-		void saveMeal(String mealName, List<Pair<String, Double>> foodsList, int personAmount);
+		void saveMeal(String mealName, List<FoodDTO> foodsList, int personAmount);
 
 		void changeMode();
 	}

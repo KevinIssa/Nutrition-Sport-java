@@ -57,6 +57,7 @@ public class MealRecipeViewController implements ViewController {
 	}
 
 	private void showRecipes() {
+		this.mealList.getItems().clear();
 		List<Meal> meals = this.loadRecipes();
 		for (Meal meal : meals) {
 			this.addMealBox(meal);

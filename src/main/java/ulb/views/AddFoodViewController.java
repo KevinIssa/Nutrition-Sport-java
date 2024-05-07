@@ -19,6 +19,7 @@
 package ulb.views;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,6 +33,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ulb.dtos.ConsumedFoodDTO;
 import ulb.widgets.FoodBox;
 import ulb.widgets.NumberField;
 import ulb.widgets.Search;
@@ -144,12 +146,21 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 		}
 	}
 
-	private List<List<String>> getConsumedFoods() {
-		List<List<String>> consumedFoodsList = new ArrayList<>();
+	private List<ConsumedFoodDTO> createConsumedFoodDTOList() {
+		List<ConsumedFoodDTO> consumedFoodsList = new ArrayList<>();
 		for (FoodBox foodBox : chosenFoodList.getItems()) {
-			consumedFoodsList.add(foodBox.getItems());
+			List<String> items = foodBox.getItems();
+			String foodName = items.get(0);
+			double quantity = Double.parseDouble(items.get(1));
+			double calories = Double.parseDouble(items.get(2));
+			String unit = items.get(3);
+			consumedFoodsList.add(new ConsumedFoodDTO(foodName, quantity, calories, unit));
 		}
 		return consumedFoodsList;
+	}
+
+	private List<ConsumedFoodDTO> getConsumedFoods() {
+		return createConsumedFoodDTOList();
 	}
 
 	@FXML
@@ -174,7 +185,7 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 	public void addChosenFood(String food, double quantity) {
 		double calories = listener.getCaloriesConsumed(food, quantity);
 		// Round to 2 decimals
-		calories = BigDecimal.valueOf(calories).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();
+		calories = BigDecimal.valueOf(calories).setScale(2, RoundingMode.DOWN).doubleValue();
 		this.totalCalories += calories;
 		this.calorieLabel.setText(String.format("%.2f", this.totalCalories));
 		String foodUnit = listener.getFoodUnit(food);
@@ -195,7 +206,7 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 
 		double getCaloriesConsumed(String food, double quantity);
 
-		void saveConsumedFoods(List<List<String>> consumedFoodsList, LocalDateTime mealDate);
+		void saveConsumedFoods(List<ConsumedFoodDTO> consumedFoodsList, LocalDateTime mealDate);
 
 		String getFoodServingQuantity(String food);
 

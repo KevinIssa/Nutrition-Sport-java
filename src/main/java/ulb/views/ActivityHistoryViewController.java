@@ -78,7 +78,7 @@ public class ActivityHistoryViewController implements ViewController {
 	private void editActivityInHistory(HistoryBox activityBox) {
 		deleteActivityInHistory(activityBox);
 		this.listener.editActivity(activityBox.getActivity());
-		historyList.getItems().add(activityBox);
+		this.setActivities();
 	}
 
 	// Set listener for communication with the controller

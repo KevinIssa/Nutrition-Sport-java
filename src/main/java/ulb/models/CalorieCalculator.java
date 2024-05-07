@@ -29,29 +29,29 @@ import ulb.enums.Sport;
 public class CalorieCalculator {
 
 	// Map to store MET values for different sports and intensities
-	private static final Map<Map.Entry<Sport, Intensity>, Double> MET_MAP = createMetMap();
+	private static final Map<Map.Entry<Sport, Intensity>, Double> MET_MAP;
 
-	// Initialize MET values for different sports and intensities
-	private static Map<Map.Entry<Sport, Intensity>, Double> createMetMap() {
-		Map<Map.Entry<Sport, Intensity>, Double> metMap = new HashMap<>();
-		metMap.put(Map.entry(Sport.WALKING, Intensity.SLOW), 3.0);
-		metMap.put(Map.entry(Sport.WALKING, Intensity.MODERATE), 3.75);
-		metMap.put(Map.entry(Sport.WALKING, Intensity.INTENSE), 4.5);
-		metMap.put(Map.entry(Sport.RUNNING, Intensity.SLOW), 8.0);
-		metMap.put(Map.entry(Sport.RUNNING, Intensity.MODERATE), 10.0);
-		metMap.put(Map.entry(Sport.RUNNING, Intensity.INTENSE), 13.0);
-		metMap.put(Map.entry(Sport.BIKING, Intensity.SLOW), 4.0);
-		metMap.put(Map.entry(Sport.BIKING, Intensity.MODERATE), 7.0);
-		metMap.put(Map.entry(Sport.BIKING, Intensity.INTENSE), 10.0);
-		metMap.put(Map.entry(Sport.SWIMMING, Intensity.SLOW), 6.0);
-		metMap.put(Map.entry(Sport.SWIMMING, Intensity.MODERATE), 8.0);
-		metMap.put(Map.entry(Sport.SWIMMING, Intensity.INTENSE), 10.0);
-		metMap.put(Map.entry(Sport.VOLLEYBALL, Intensity.SLOW), 3.0);
-		metMap.put(Map.entry(Sport.VOLLEYBALL, Intensity.MODERATE), 3.75);
-		metMap.put(Map.entry(Sport.VOLLEYBALL, Intensity.INTENSE), 4.5);
-		return metMap;
+	// Initialize the MET values
+	static {
+		MET_MAP = new HashMap<>();
+		MET_MAP.put(Map.entry(Sport.WALKING, Intensity.SLOW), 3.0);
+		MET_MAP.put(Map.entry(Sport.WALKING, Intensity.MODERATE), 3.75);
+		MET_MAP.put(Map.entry(Sport.WALKING, Intensity.INTENSE), 4.5);
+		MET_MAP.put(Map.entry(Sport.RUNNING, Intensity.SLOW), 8.0);
+		MET_MAP.put(Map.entry(Sport.RUNNING, Intensity.MODERATE), 10.0);
+		MET_MAP.put(Map.entry(Sport.RUNNING, Intensity.INTENSE), 13.0);
+		MET_MAP.put(Map.entry(Sport.BIKING, Intensity.SLOW), 4.0);
+		MET_MAP.put(Map.entry(Sport.BIKING, Intensity.MODERATE), 7.0);
+		MET_MAP.put(Map.entry(Sport.BIKING, Intensity.INTENSE), 10.0);
+		MET_MAP.put(Map.entry(Sport.SWIMMING, Intensity.SLOW), 6.0);
+		MET_MAP.put(Map.entry(Sport.SWIMMING, Intensity.MODERATE), 8.0);
+		MET_MAP.put(Map.entry(Sport.SWIMMING, Intensity.INTENSE), 10.0);
+		MET_MAP.put(Map.entry(Sport.VOLLEYBALL, Intensity.SLOW), 3.0);
+		MET_MAP.put(Map.entry(Sport.VOLLEYBALL, Intensity.MODERATE), 3.75);
+		MET_MAP.put(Map.entry(Sport.VOLLEYBALL, Intensity.INTENSE), 4.5);
 	}
 
+	// Private constructor to prevent instantiation
 	private CalorieCalculator() {}
 
 	/**

@@ -25,21 +25,13 @@ package ulb.models;
 public interface Consumable {
 
 	/**
-	 * Computes the calories consumed by eating this consumable.
-	 * The specific implementation of this method depends on the class that implements this interface.
-	 *
-	 * @return the number of calories consumed by eating this consumable
-	 */
-	double getCaloriesConsumed();
-
-	/**
 	 * Computes the calories consumed by eating a certain amount of this consumable, measured in grams.
 	 * The specific implementation of this method depends on the class that implements this interface.
 	 *
 	 * @param grams the amount of the consumable in grams
 	 * @return the number of calories consumed by eating the given amount of this consumable
 	 */
-	double getCaloriesConsumedByGrams(double grams);
+	double getCaloriesConsumedByUnit(double grams);
 
 	/**
 	 * Computes the calories consumed by eating a certain amount of this consumable, measured in servings.
@@ -49,4 +41,12 @@ public interface Consumable {
 	 * @return the number of calories consumed by eating the given amount of this consumable
 	 */
 	double getCaloriesConsumedByServing(double servings);
+
+	/**
+	 * Returns the name of the consumable object.
+	 * The specific implementation of this method depends on the class that implements this interface.
+	 *
+	 * @return the name of the consumable object
+	 */
+	String getName();
 }

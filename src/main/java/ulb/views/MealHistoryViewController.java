@@ -21,6 +21,7 @@ package ulb.views;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -72,7 +73,6 @@ public class MealHistoryViewController implements ViewController {
 
 	private HBox createHistoryHBox(ConsumedFoodDTO food, LocalDateTime date) {
 		HBox hbox = createHBox();
-		// setIconInHBox(hbox);
 		setTextInHBox(food, date, hbox);
 		setButtonInHBox(hbox);
 		return hbox;
@@ -107,11 +107,49 @@ public class MealHistoryViewController implements ViewController {
 		hbox.getChildren().addAll(spacer, deleteActivityButton);
 	}
 
+	private ConsumedFoodDTO createConsumedFoodDTO(HBox foodBox) {
+		String name = ((Label) foodBox.getChildren().get(0)).getText();
+		double quantity =
+				Double.parseDouble(((Label) foodBox.getChildren().get(2)).getText().split(" ")[0]);
+		double calories =
+				Double.parseDouble(((Label) foodBox.getChildren().get(3)).getText().split(" ")[0]);
+		String unit = ((Label) foodBox.getChildren().get(2)).getText().split(" ")[1];
+		return new ConsumedFoodDTO(name, quantity, calories, unit);
+	}
+
+	private LocalDateTime createLocalDateTime(HBox foodBox) {
+		String dateString = ((Label) foodBox.getChildren().get(1)).getText();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy 'à' HH:mm");
+		// Parse the date string to a LocalDateTime object
+		return LocalDateTime.parse(dateString, formatter);
+	}
+
 	private void deleteFoodInHistory(HBox foodBox) {
-		// delete food in model and controller
-		listener.deleteFood(foodBox);
-		// delete food in view
-		historyList.getItems().remove(foodBox);
+		try {
+
+			ConsumedFoodDTO consumedFood = createConsumedFoodDTO(foodBox);
+			LocalDateTime dateTime = createLocalDateTime(foodBox);
+
+			listener.deleteFood(consumedFood, dateTime);
+			historyList.getItems().remove(foodBox);
+		} catch (Exception e) {
+			handleException(e);
+		}
+	}
+
+	private void handleException(Exception e) {
+		switch (e) {
+				// variables are intentionally unused
+			case NumberFormatException numberFormatException ->
+					logger.error("Error parsing number: " + e.getMessage());
+			case DateTimeParseException dateTimeParseException ->
+					logger.error("Error parsing date: " + e.getMessage());
+			case ClassCastException classCastException ->
+					logger.error("Error casting class: " + e.getMessage());
+			case IndexOutOfBoundsException indexOutOfBoundsException ->
+					logger.error("Error accessing index: " + e.getMessage());
+			case null, default -> logger.error("Unexpected error: " + e.getMessage());
+		}
 	}
 
 	private ImageView createImageView(String imagePath, int width, int height) {
@@ -150,6 +188,6 @@ public class MealHistoryViewController implements ViewController {
 
 		void mealRecipe();
 
-		void deleteFood(HBox foodBox);
+		void deleteFood(ConsumedFoodDTO consumedFood, LocalDateTime dateTime);
 	}
 }

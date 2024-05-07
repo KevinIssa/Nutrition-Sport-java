@@ -39,7 +39,7 @@
       <HBox alignment="CENTER" prefHeight="386.0" prefWidth="1018.0" spacing="10.0">
          <StackPane prefHeight="400.0" prefWidth="500.0">
             <fx:include fx:id="search" source="../widgets/search.fxml" HBox.hgrow="ALWAYS"/>
-            <ToggleButton mnemonicParsing="false" onAction="#consumeFoods" prefHeight="49.0" prefWidth="49.0"
+            <ToggleButton fx:id="switchButton" mnemonicParsing="false" onAction="#consumeFoods" prefHeight="49.0" prefWidth="49.0"
                           style="-fx-background-color: b7ed65;" StackPane.alignment="TOP_RIGHT">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">

@@ -18,30 +18,24 @@
  */
 package ulb.models;
 
-import static java.lang.System.exit;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ulb.enums.Unit;
 
 /**
  * Represents a food item that can be consumed.
  */
-@JsonSerialize(using = FoodSerializer.class)
+// @JsonSerialize(using = FoodSerializer.class)
 public class Food implements Consumable, Comparable<Food> {
 	private static final Logger logger = LoggerFactory.getLogger(Food.class);
 
 	private String name;
-	private double caloriesPer100; // grams or ml
+	private double caloriesPer100Unit; // grams or ml
 	private double caloriesPerServing;
 	private String servingQuantity; // number of grams or ml per serving
+	private Unit unit;
 
 	/**
 	 * Default constructor for the Food class.
@@ -57,11 +51,16 @@ public class Food implements Consumable, Comparable<Food> {
 	 * @param servingQuantity The serving quantity of the food item.
 	 */
 	public Food(
-			String name, double caloriesPer100, double caloriesPerServing, String servingQuantity) {
+			String name,
+			double caloriesPer100,
+			double caloriesPerServing,
+			String servingQuantity,
+			Unit unit) {
 		this.name = name;
-		this.caloriesPer100 = caloriesPer100;
+		this.caloriesPer100Unit = caloriesPer100;
 		this.caloriesPerServing = caloriesPerServing;
 		this.servingQuantity = servingQuantity;
+		this.unit = unit;
 	}
 
 	/**
@@ -75,20 +74,9 @@ public class Food implements Consumable, Comparable<Food> {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
 		Food food = (Food) obj;
-		return caloriesPer100 == food.caloriesPer100
+		return caloriesPer100Unit == food.caloriesPer100Unit
 				&& name.equals(food.name)
 				&& servingQuantity.equals(food.servingQuantity);
-	}
-
-	/**
-	 * Retrieves the total calories consumed based on a single serving.
-	 *
-	 * @return The total calories consumed per serving.
-	 */
-	@JsonIgnore
-	@Override
-	public double getCaloriesConsumed() {
-		return getCaloriesConsumedByServing(1);
 	}
 
 	/**
@@ -98,8 +86,8 @@ public class Food implements Consumable, Comparable<Food> {
 	 * @return The total calories consumed for the specified grams.
 	 */
 	@Override
-	public double getCaloriesConsumedByGrams(double grams) {
-		return (this.caloriesPer100 * grams) / 100;
+	public double getCaloriesConsumedByUnit(double grams) {
+		return (this.caloriesPer100Unit * grams) / 100;
 	}
 
 	/**
@@ -124,7 +112,7 @@ public class Food implements Consumable, Comparable<Food> {
 				+ name
 				+ '\''
 				+ ", caloriesPer100="
-				+ caloriesPer100
+				+ caloriesPer100Unit
 				+ ", gramsPerServing="
 				+ this.servingQuantity
 				+ '}';
@@ -156,17 +144,17 @@ public class Food implements Consumable, Comparable<Food> {
 	 *
 	 * @return The number of calories per 100 grams.
 	 */
-	public double getCaloriesPer100() {
-		return caloriesPer100;
+	public double getCaloriesPer100Unit() {
+		return caloriesPer100Unit;
 	}
 
 	/**
 	 * Sets the number of calories per 100 grams of the food item.
 	 *
-	 * @param caloriesPer100 The number of calories per 100 grams.
+	 * @param caloriesPer100Unit The number of calories per 100 grams.
 	 */
-	public void setCaloriesPer100(int caloriesPer100) {
-		this.caloriesPer100 = caloriesPer100;
+	public void setCaloriesPer100Unit(int caloriesPer100Unit) {
+		this.caloriesPer100Unit = caloriesPer100Unit;
 	}
 
 	/**
@@ -194,6 +182,35 @@ public class Food implements Consumable, Comparable<Food> {
 	 */
 	public String getServingQuantity() {
 		return this.servingQuantity;
+	}
+
+	/**
+	 * Sets the serving quantity of the food item.
+	 *
+	 * @param servingQuantity The serving quantity of the food item.
+	 */
+	public void setServingQuantity(String servingQuantity) {
+		this.servingQuantity = servingQuantity;
+	}
+
+	public Unit getUnit() {
+		return unit;
+	}
+
+	public void setUnit(Unit unit) {
+		this.unit = unit;
+	}
+
+	/**
+	 * Compares this Food object with another Food object based on their names.
+	 * The comparison is case-insensitive.
+	 *
+	 * @param food The Food object to compare with.
+	 * @return A negative integer, zero, or a positive integer as this name is less than, equal to, or greater than the specified name.
+	 */
+	@Override
+	public int compareTo(Food food) {
+		return this.getName().toLowerCase().compareTo(food.getName().toLowerCase());
 	}
 
 	/**
@@ -225,71 +242,37 @@ public class Food implements Consumable, Comparable<Food> {
 			return 0;
 		}
 	}
-
-	/**
-	 * Retrieves the unit of the serving quantity of the food item.
-	 * we dont care about the quantity of the serving, we just want the unit
-	 *
-	 * @return the unit of the serving
-	 */
-	public String getQuantityUnit() {
-		int startPosition = servingQuantity.indexOf("(");
-		String substring = this.servingQuantity.substring(startPosition);
-		if (substring.contains("ml")) {
-			return "ml";
-		} else {
-			return "g";
-		}
-	}
-
-	/**
-	 * Sets the serving quantity of the food item.
-	 *
-	 * @param servingQuantity The serving quantity of the food item.
-	 */
-	public void setServingQuantity(String servingQuantity) {
-		this.servingQuantity = servingQuantity;
-	}
-
-	/**
-	 * Compares this Food object with another Food object based on their names.
-	 * The comparison is case-insensitive.
-	 *
-	 * @param food The Food object to compare with.
-	 * @return A negative integer, zero, or a positive integer as this name is less than, equal to, or greater than the specified name.
-	 */
-	@Override
-	public int compareTo(Food food) {
-		return this.getName().toLowerCase().compareTo(food.getName().toLowerCase());
-	}
 }
 
 /**
  * Serializer class to serialize Food objects to JSON format.
  */
-class FoodSerializer extends JsonSerializer<Food> {
-	private static final Logger logger = LoggerFactory.getLogger(FoodSerializer.class);
-
-	/**
-	 * Serializes a Food object to JSON format.
-	 *
-	 * @param food             The Food object to serialize.
-	 * @param jsonGenerator    The JSON generator used for serialization.
-	 * @param serializerProvider The serializer provider.
-	 */
-	@Override
-	public void serialize(
-			Food food, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
-		try {
-			jsonGenerator.writeStartObject();
-			jsonGenerator.writeStringField("name", food.getName());
-			jsonGenerator.writeNumberField("caloriesPer100", food.getCaloriesPer100());
-			jsonGenerator.writeNumberField("caloriesPerServing", food.getCaloriesPerServing());
-			jsonGenerator.writeStringField("servingQuantity", food.getServingQuantity());
-			jsonGenerator.writeEndObject();
-		} catch (IOException e) {
-			logger.error("Error serializing food object", e);
-			exit(1);
-		}
-	}
-}
+// class FoodSerializer extends JsonSerializer<Food> {
+//	private static final Logger logger = LoggerFactory.getLogger(FoodSerializer.class);
+//
+//	/**
+//	 * Serializes a Food object to JSON format.
+//	 *
+//	 * @param food             The Food object to serialize.
+//	 * @param jsonGenerator    The JSON generator used for serialization.
+//	 * @param serializerProvider The serializer provider.
+//	 */
+//	@Override
+//	public void serialize(
+//			Food food, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
+//		try {
+//			jsonGenerator.writeStartObject();
+//			jsonGenerator.writeStringField("name", food.getName());
+//			jsonGenerator.writeNumberField("caloriesPer100", food.getCaloriesPer100());
+//			jsonGenerator.writeNumberField("caloriesPerServing", food.getCaloriesPerServing());
+//			jsonGenerator.writeStringField("servingQuantity", food.getServingQuantity());
+//			// Write the enum value
+//			jsonGenerator.write
+////			jsonGenerator.writeStringField("unit", food.getUnit().toString());
+//			jsonGenerator.writeEndObject();
+//		} catch (IOException e) {
+//			logger.error("Error serializing food object", e);
+//			exit(1);
+//		}
+//	}
+// }

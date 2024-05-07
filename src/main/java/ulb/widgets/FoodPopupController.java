@@ -19,6 +19,7 @@
 package ulb.widgets;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -117,7 +118,7 @@ public class FoodPopupController implements ViewController {
 			this.listener.onBack();
 			return;
 		}
-		value = BigDecimal.valueOf(value).setScale(2, BigDecimal.ROUND_DOWN).doubleValue();
+		value = BigDecimal.valueOf(value).setScale(2, RoundingMode.DOWN).doubleValue();
 		resetTextFields();
 		this.listener.onEntry(value);
 	}

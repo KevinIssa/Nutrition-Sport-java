@@ -104,6 +104,11 @@ public class ActivityHistoryController extends AppController
 		 */
 		void addActivity();
 
+		/**
+		 * This method is called when the user wants to edit an existing activity.
+		 * The implementing class should define the behavior that occurs when this event happens.
+		 * @param activityDTO The activity to be edited.
+		 */
 		void editActivity(ActivityDTO activityDTO);
 	}
 }

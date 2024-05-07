@@ -3,12 +3,12 @@ import json
 
 
 def csv_to_json(csv_file, output_file):
-    with open(csv_file, "r", encoding='utf-8') as csvfile:
+    with open(csv_file, "r", encoding="utf-8") as csvfile:
         data = sorted(
             [
                 {
                     "name": row["food_name"],
-                    "caloriesPer100": int(
+                    "caloriesPer100Unit": int(
                         row["cal_per_100_ml_or_gms"].replace(" cal", "")
                     )
                     if row["cal_per_100_ml_or_gms"]
@@ -21,6 +21,7 @@ def csv_to_json(csv_file, output_file):
                     "servingQuantity": row["per_serving"]
                     if row["per_serving"]
                     else None,
+                    "unit": "GRAMS" if row["per_serving"][-2] == "g" else "MILLILITERS",
                 }
                 for row in csv.DictReader(csvfile)
             ],

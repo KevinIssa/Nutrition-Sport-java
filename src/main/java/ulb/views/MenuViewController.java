@@ -19,6 +19,8 @@
 package ulb.views;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -57,7 +59,10 @@ public class MenuViewController implements ViewController, GraphComponentViewCon
 		graphComponentController.setListener(this);
 		this.weightLabel.setText(this.listener.getProfileWeight() + " kg");
 		this.calorieLabel.setText(
-				this.graphComponentController.getLastCalorieDifference() + " kcal");
+				BigDecimal.valueOf(this.graphComponentController.getLastCalorieDifference())
+								.setScale(2, RoundingMode.DOWN)
+								.doubleValue()
+						+ " kcal");
 	}
 
 	public void showAddButtons() {
