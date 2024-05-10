@@ -16,15 +16,15 @@
  *
  * Date : 2024
  */
-package ulb.services;
+package ulb.repositories;
 
-import ulb.repositories.ComposeMealRepository;
+import ulb.models.Meal;
 
-public class ComposeMealService {
+public class JSONRecipeRepository extends JSONRepository<Meal>
+		implements RecipeRepository {
 
-	private final ComposeMealRepository composeMealRepository;
-
-	public ComposeMealService(ComposeMealRepository composeMealRepository) {
-		this.composeMealRepository = composeMealRepository;
+	@Override
+	protected Class<Meal> getObjectType() {
+		return Meal.class;
 	}
 }

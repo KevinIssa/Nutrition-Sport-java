@@ -29,10 +29,9 @@ import ulb.dtos.MealDTO;
 import ulb.models.*;
 import ulb.repositories.ConsumeMealRepository;
 import ulb.repositories.JSONConsumeMealRepository;
-import ulb.services.ActivityService;
-import ulb.services.CaloriesTrackingService;
-import ulb.services.ConsumeMealService;
-import ulb.services.ProfileService;
+import ulb.repositories.JSONRecipeRepository;
+import ulb.repositories.RecipeRepository;
+import ulb.services.*;
 import ulb.views.*;
 
 /**
@@ -279,16 +278,12 @@ public class MenuController extends AppController implements MenuViewController.
 
 	@Override
 	public void loadMealRecipe() {
-		ConsumeMealRepository consumeMealRepository = new JSONConsumeMealRepository();
-		ConsumeMealService consumeMealService = new ConsumeMealService(consumeMealRepository);
+		RecipeRepository recipeRepository = new JSONRecipeRepository();
+		RecipeService recipeService = new RecipeService(recipeRepository);
 		AppController controller =
 				new MealRecipeController(
-						consumeMealService,
+						recipeService,
 						new MealRecipeController.Listener() {
-							@Override
-							public void editMeal(MealDTO meal) {
-								loadFoodSearchPage(meal);
-							}
 
 							@Override
 							public void returnHome() {

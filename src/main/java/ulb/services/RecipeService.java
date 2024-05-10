@@ -16,15 +16,24 @@
  *
  * Date : 2024
  */
-package ulb.repositories;
+package ulb.services;
 
-import ulb.models.Meal;
+import ulb.dtos.MealDTO;
+import ulb.repositories.RecipeRepository;
 
-public class JSONComposeMealRepository extends JSONRepository<Meal>
-		implements ComposeMealRepository {
+import java.util.List;
 
-	@Override
-	protected Class<Meal> getObjectType() {
-		return Meal.class;
+public class RecipeService {
+
+	private final RecipeRepository recipeRepository;
+
+	public RecipeService(RecipeRepository recipeRepository) {
+		this.recipeRepository = recipeRepository;
+	}
+
+	public void delete(MealDTO meal) {
+	}
+
+	public List<MealDTO> loadAllRecipes() {
 	}
 }

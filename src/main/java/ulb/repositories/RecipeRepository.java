@@ -18,4 +18,4 @@
  */
 package ulb.repositories;
 
-public interface ComposeMealRepository {}
+public interface RecipeRepository {}

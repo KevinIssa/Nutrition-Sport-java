@@ -25,20 +25,22 @@ import org.slf4j.LoggerFactory;
 import ulb.dtos.MealDTO;
 import ulb.models.Meal;
 import ulb.services.ConsumeMealService;
+import ulb.services.RecipeService;
+import ulb.views.MakeMealViewController;
 import ulb.views.MealRecipeViewController;
 
 public class MealRecipeController extends AppController
-		implements MealRecipeViewController.Listener {
+		implements MealRecipeViewController.Listener, MakeMealViewController.Listener {
 	private static final Logger logger = LoggerFactory.getLogger(MealRecipeController.class);
 
-	private final ConsumeMealService consumeMealService;
+	private final RecipeService recipeService;
 
 	private final MealRecipeController.Listener listener;
 
 	public MealRecipeController(
-			ConsumeMealService consumeMealService, MealRecipeController.Listener listener) {
+			RecipeService recipeService, MealRecipeController.Listener listener) {
 		logger.info("Initializing MealRecipeController");
-		this.consumeMealService = consumeMealService;
+		this.recipeService = recipeService;
 		this.listener = listener;
 	}
 
@@ -52,19 +54,19 @@ public class MealRecipeController extends AppController
 	@Override
 	public List<MealDTO> loadRecipes() {
 		logger.info("Loading all recipe");
-		return Meal.loadAll();
+		return this.recipeService.loadAllRecipes();
 	}
 
 	@Override
 	public void editMeal(MealDTO meal) {
 		logger.info("Editing a recipe");
-		this.listener.editMeal(meal);
+		//TODO: Implement editMeal
 	}
 
 	@Override
 	public void deleteMeal(MealDTO meal) {
 		logger.info("Deleting a recipe");
-		meal.delete();
+		this.recipeService.delete(meal);
 	}
 
 	@Override
@@ -79,7 +81,6 @@ public class MealRecipeController extends AppController
 	}
 
 	public interface Listener {
-		void editMeal(MealDTO meal);
 
 		void mealDetails(MealDTO meal);
 
