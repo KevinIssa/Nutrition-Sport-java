@@ -39,23 +39,20 @@ public class FoodLoader {
 	 * Constructs a FoodLoader and loads food data from a JSON file.
 	 */
 	public FoodLoader() {
-		loadFoods(FOOD_FILE);
+		loadFoods();
 	}
 
 	/**
 	 * Loads food data from the specified JSON file.
-	 *
-	 * @param filename The filename of the JSON file containing food data.
 	 */
-	private void loadFoods(String filename) {
+	private void loadFoods() {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			foods =
 					objectMapper.readValue(
-							getClass().getResourceAsStream(filename), new TypeReference<>() {});
+							getClass().getResourceAsStream(FOOD_FILE), new TypeReference<>() {});
 		} catch (IOException e) {
-			e.printStackTrace();
-			logger.error("Error loading food data from file: {}", filename);
+			logger.error("Error loading food data from file: {}", FOOD_FILE);
 			System.exit(1);
 		}
 	}

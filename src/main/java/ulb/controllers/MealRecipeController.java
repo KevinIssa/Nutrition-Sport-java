@@ -22,6 +22,7 @@ import java.util.List;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ulb.dtos.MealDTO;
 import ulb.models.Meal;
 import ulb.services.ConsumeMealService;
 import ulb.views.MealRecipeViewController;
@@ -49,25 +50,25 @@ public class MealRecipeController extends AppController
 	}
 
 	@Override
-	public List<Meal> loadRecipes() {
+	public List<MealDTO> loadRecipes() {
 		logger.info("Loading all recipe");
 		return Meal.loadAll();
 	}
 
 	@Override
-	public void editMeal(Meal meal) {
+	public void editMeal(MealDTO meal) {
 		logger.info("Editing a recipe");
 		this.listener.editMeal(meal);
 	}
 
 	@Override
-	public void deleteMeal(Meal meal) {
+	public void deleteMeal(MealDTO meal) {
 		logger.info("Deleting a recipe");
 		meal.delete();
 	}
 
 	@Override
-	public void checkMeal(Meal meal) {
+	public void checkMeal(MealDTO meal) {
 		logger.info("Looking at the content of a recipe");
 		this.listener.mealDetails(meal);
 	}
@@ -78,9 +79,9 @@ public class MealRecipeController extends AppController
 	}
 
 	public interface Listener {
-		void editMeal(Meal meal);
+		void editMeal(MealDTO meal);
 
-		void mealDetails(Meal meal);
+		void mealDetails(MealDTO meal);
 
 		void returnHome();
 	}

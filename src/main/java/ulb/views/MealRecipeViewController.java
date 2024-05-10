@@ -18,33 +18,28 @@
  */
 package ulb.views;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulb.models.Meal;
+import ulb.dtos.MealDTO;
+import ulb.widgets.MealBox;
 
 public class MealRecipeViewController implements ViewController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MealRecipeViewController.class);
-	@FXML ListView mealList;
+	@FXML private ListView<MealBox> mealList;
 
 	private MealRecipeViewController.Listener listener;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		System.out.println(listener);
+		logger.info("Initializing MealRecipeViewController");
 	}
 
 	public void setListener(Object listener) {
@@ -53,88 +48,61 @@ public class MealRecipeViewController implements ViewController {
 			System.exit(1);
 		}
 		this.listener = (MealRecipeViewController.Listener) listener;
-		showRecipes();
+		this.showRecipes();
+	}
+
+
+	private MealBox makeMealBox(MealDTO meal) throws IOException {
+		Button deleteButton = new Button("");
+		Button editButton = new Button("");
+		Button checkButton = new Button("");
+
+		MealBox mealBox = new MealBox(meal, checkButton, editButton, deleteButton);
+
+		checkButton.setOnAction(e -> this.checkMeal(mealBox));
+		editButton.setOnAction(e -> this.editMeal(mealBox));
+		deleteButton.setOnAction(e -> this.deleteMeal(mealBox));
+		return mealBox;
 	}
 
 	private void showRecipes() {
 		this.mealList.getItems().clear();
-		List<Meal> meals = this.loadRecipes();
-		for (Meal meal : meals) {
-			this.addMealBox(meal);
+		List<MealDTO> meals = this.loadRecipes();
+		for (MealDTO meal : meals) {
+			try {
+				MealBox mealBox = this.makeMealBox(meal);
+				this.mealList.getItems().add(mealBox);
+			} catch (IOException e) {
+				logger.error("Error while creating meal box", e);
+				this.showAlert("Erreur de chargement d'Image", e.getMessage());
+				this.returnHome();
+			}
 		}
 	}
 
-	private List<Meal> loadRecipes() {
+	private List<MealDTO> loadRecipes() {
 		return this.listener.loadRecipes();
 	}
 
-	private void addMealBox(Meal meal) {
-		HBox mealHBox = createMealHBox(meal);
-		mealList.getItems().add(mealHBox);
-	}
-
-	private HBox createMealHBox(Meal meal) {
-		HBox hbox = createHBox();
-		setTextInHBox(meal, hbox);
-		setButtonInHBox(meal, hbox);
-		return hbox;
-	}
-
-	private static HBox createHBox() {
-		HBox hbox = new HBox();
-		hbox.setAlignment(Pos.CENTER_LEFT);
-		hbox.setSpacing(10);
-		return hbox;
-	}
-
-	private void setTextInHBox(Meal meal, HBox hbox) {
-		Label LabelMealName = createLabel(meal.getName(), 100);
-		hbox.getChildren().add(0, LabelMealName);
-	}
-
-	private Label createLabel(String text, int width) {
-		Label label = new Label(text);
-		label.setMinWidth(width);
-		label.setMaxWidth(width);
-		return label;
-	}
-
-	private void setButtonInHBox(Meal meal, HBox hbox) {
-		ImageView imageDelete = createImageView("/ulb/images/trash.png", 30, 30);
-		ImageView imageEdit = createImageView("/ulb/images/pen.png", 30, 30);
-		ImageView imageCheck = createImageView("/ulb/images/search_icon.png", 30, 30);
-		Button deleteButton = new Button("");
-		Button editButton = new Button("");
-		Button checkButton = new Button("");
-		deleteButton.setGraphic(imageDelete);
-		editButton.setGraphic(imageEdit);
-		checkButton.setGraphic(imageCheck);
-		deleteButton.setOnAction(e -> this.deleteMeal(meal, hbox));
-		editButton.setOnAction(e -> this.editMeal(meal, hbox));
-		checkButton.setOnAction(e -> this.listener.checkMeal(meal));
-		Region spacer = new Region();
-		HBox.setHgrow(spacer, Priority.ALWAYS);
-		hbox.getChildren().addAll(spacer, checkButton, editButton, deleteButton);
-	}
-
-	private ImageView createImageView(String imagePath, int width, int height) {
-		URL path = getClass().getResource(imagePath);
-		assert path != null;
-		Image image = new Image(path.toString(), width, height, false, false);
-		return new ImageView(image);
-	}
-
-	private void deleteMeal(Meal meal, HBox hbox) {
-
-		this.listener.deleteMeal(meal);
-		this.mealList.getItems().remove(hbox);
-	}
-
-	private void editMeal(Meal meal, HBox hbox) {
-		this.deleteMeal(meal, hbox);
-		this.listener.editMeal(meal);
+	private void refreshMealList() {
 		this.mealList.getItems().clear();
 		this.showRecipes();
+	}
+
+	private void checkMeal(MealBox meal) {
+		this.listener.checkMeal(meal.getMealDTO());
+		this.refreshMealList();
+	}
+
+	private void editMeal(MealBox meal) {
+		this.deleteMeal(meal);
+		this.listener.editMeal(meal.getMealDTO());
+		this.refreshMealList();
+	}
+
+	private void deleteMeal(MealBox meal) {
+		this.listener.deleteMeal(meal.getMealDTO());
+		this.refreshMealList();
 	}
 
 	@FXML
@@ -143,13 +111,13 @@ public class MealRecipeViewController implements ViewController {
 	}
 
 	public interface Listener {
-		List<Meal> loadRecipes();
+		List<MealDTO> loadRecipes();
 
-		void editMeal(Meal meal);
+		void checkMeal(MealDTO meal);
 
-		void deleteMeal(Meal meal);
+		void editMeal(MealDTO meal);
 
-		void checkMeal(Meal meal);
+		void deleteMeal(MealDTO meal);
 
 		void returnHome();
 	}

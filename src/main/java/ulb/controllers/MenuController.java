@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.ActivityDTO;
 import ulb.dtos.DateCalorieDTO;
+import ulb.dtos.MealDTO;
 import ulb.models.*;
 import ulb.repositories.ConsumeMealRepository;
 import ulb.repositories.JSONConsumeMealRepository;
@@ -285,7 +286,7 @@ public class MenuController extends AppController implements MenuViewController.
 						consumeMealService,
 						new MealRecipeController.Listener() {
 							@Override
-							public void editMeal(Meal meal) {
+							public void editMeal(MealDTO meal) {
 								loadFoodSearchPage(meal);
 							}
 
@@ -295,7 +296,7 @@ public class MenuController extends AppController implements MenuViewController.
 							}
 
 							@Override
-							public void mealDetails(Meal meal) {
+							public void mealDetails(MealDTO meal) {
 								loadMealDetails(meal);
 							}
 						});
