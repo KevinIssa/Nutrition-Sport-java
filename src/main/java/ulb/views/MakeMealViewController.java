@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,8 +30,7 @@ import javafx.scene.control.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.FoodDTO;
-import ulb.models.Food;
-import ulb.models.Meal;
+import ulb.dtos.MealDTO;
 import ulb.widgets.FoodBox;
 import ulb.widgets.NumberField;
 import ulb.widgets.Search;
@@ -89,12 +87,12 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		chosenFoodList.getItems().add(foodBox);
 	}
 
-	public void setDefaultRecipe(Meal meal) {
+	public void setMeal(MealDTO meal) {
 		this.switchButton.setVisible(false);
-		this.mealName.setText(meal.getName());
+		this.mealName.setText(meal.name());
 		this.personAmountNumber.setValue(1);
-		for (Map.Entry<Food, Double> ingredient : meal.getIngredients()) {
-			addChosenFood(ingredient.getKey().getName(), ingredient.getValue());
+		for (FoodDTO ingredient : meal.foods()) {
+			addChosenFood(ingredient.name(), ingredient.quantity());
 		}
 	}
 
@@ -153,16 +151,16 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	public interface Listener {
 		void askUserFoodQuantity(String searchText);
 
-		List<String> getUserSearch(String searchText);
+		void changeMode();
 
 		double getCaloriesConsumed(String food, double quantity);
 
 		String getFoodUnit(String food);
 
+		List<String> getUserSearch(String searchText);
+
 		void returnHome();
 
 		void saveMeal(String mealName, List<FoodDTO> foodsList, int personAmount);
-
-		void changeMode();
 	}
 }

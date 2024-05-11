@@ -16,7 +16,7 @@
  *
  * Date : 2024
  */
-package ulb.widgets;
+package ulb.views;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -27,9 +27,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulb.views.ViewController;
+import ulb.widgets.DoubleField;
 
-public class FoodPopupController implements ViewController {
+public class FoodPopupViewController implements ViewController {
 	@FXML TextField gramme;
 	@FXML TextField serving;
 	@FXML Label servinglabel;
@@ -38,7 +38,7 @@ public class FoodPopupController implements ViewController {
 	private DoubleField servingField;
 	private DoubleField grammeField;
 	private Listener listener;
-	private static final Logger logger = LoggerFactory.getLogger(FoodPopupController.class);
+	private static final Logger logger = LoggerFactory.getLogger(FoodPopupViewController.class);
 	private String food;
 
 	private double getFieldValue(DoubleField inputField) throws IllegalArgumentException {
@@ -74,7 +74,7 @@ public class FoodPopupController implements ViewController {
 	}
 
 	public void setFoodUnit(String foodUnit) {
-		if (foodUnit == "g") {
+		if (foodUnit.equals("g")) {
 			this.unitLabel.setText("gramme");
 		} else {
 			this.unitLabel.setText("milli-litre");

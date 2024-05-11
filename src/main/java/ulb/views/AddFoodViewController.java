@@ -200,20 +200,20 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 	}
 
 	public interface Listener {
-		List<String> getUserSearch(String searchText);
+		void askUserFoodQuantity(String food);
 
-		void returnHome();
+		void changeMode();
 
 		double getCaloriesConsumed(String food, double quantity);
-
-		void saveConsumedFoods(List<ConsumedFoodDTO> consumedFoodsList, LocalDateTime mealDate);
 
 		String getFoodServingQuantity(String food);
 
 		String getFoodUnit(String food);
 
-		void askUserFoodQuantity(String food);
+		List<String> getUserSearch(String searchText);
 
-		void changeMode();
+		void returnHome();
+
+		void saveConsumedFoods(List<ConsumedFoodDTO> consumedFoodsList, LocalDateTime mealDate);
 	}
 }

@@ -39,7 +39,7 @@ public class FoodLoader {
 	 * Constructs a FoodLoader and loads food data from a JSON file.
 	 */
 	public FoodLoader() {
-		loadFoods();
+		this.loadFoods();
 	}
 
 	/**

@@ -122,8 +122,6 @@ public class MenuViewController implements ViewController, GraphComponentViewCon
 
 		void loadMealRecipe();
 
-		void loadMealDetails(Meal meal);
-
 		void loadFoodSearchPage();
 
 		String getProfileImagePath();

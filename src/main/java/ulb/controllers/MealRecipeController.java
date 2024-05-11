@@ -23,25 +23,24 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.MealDTO;
-import ulb.models.Meal;
-import ulb.services.ConsumeMealService;
 import ulb.services.RecipeService;
-import ulb.views.MakeMealViewController;
 import ulb.views.MealRecipeViewController;
 
 public class MealRecipeController extends AppController
-		implements MealRecipeViewController.Listener, MakeMealViewController.Listener {
+		implements MealRecipeViewController.Listener, EditMealController.Listener {
 	private static final Logger logger = LoggerFactory.getLogger(MealRecipeController.class);
-
 	private final RecipeService recipeService;
-
 	private final MealRecipeController.Listener listener;
+	private EditMealController editMealController;
 
 	public MealRecipeController(
 			RecipeService recipeService, MealRecipeController.Listener listener) {
 		logger.info("Initializing MealRecipeController");
 		this.recipeService = recipeService;
 		this.listener = listener;
+		Stage stage = new Stage();
+		this.editMealController = new EditMealController(stage, this);
+		this.editMealController.hide();
 	}
 
 	@Override

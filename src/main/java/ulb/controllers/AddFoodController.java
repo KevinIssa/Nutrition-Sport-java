@@ -37,7 +37,7 @@ import ulb.models.Meal;
 import ulb.repositories.JSONConsumeMealRepository;
 import ulb.views.AddFoodViewController;
 import ulb.views.MakeMealViewController;
-import ulb.widgets.FoodPopupController;
+import ulb.views.FoodPopupViewController;
 
 /**
  * The FoodController class is responsible for managing the interactions between the FoodViewController and the model classes related to food and meals.
@@ -50,13 +50,11 @@ public class AddFoodController extends AppController
 				FoodPopupController.Listener,
 				MakeMealViewController.Listener {
 	private static final Logger logger = LoggerFactory.getLogger(AddFoodController.class);
+	public static final String ADD_FOOD_FXML = "/ulb/views/AddFood.fxml";
 	private final AddFoodController.Listener listener;
-	private final FoodLoader foodLoader;
-	private final Stage popup;
-	private FoodPopupController popupController;
-	private Stage stage;
+	private final FoodLoader foodLoader = new FoodLoader();
+	private final FoodPopupController foodPopupController;
 	private boolean isAddFood = true;
-	private boolean editMeal = false;
 
 	/**
 	 * Constructor for the FoodController class.
@@ -64,52 +62,11 @@ public class AddFoodController extends AppController
 	 */
 	public AddFoodController(AddFoodController.Listener listener, Stage stage) {
 		this.listener = listener;
-		this.foodLoader = loadFoods();
-		this.popup = new Stage();
-		this.loadPopup();
 		this.stage = stage;
-	}
-
-	private void loadPopup() {
-		String resourceFile = "/ulb/widgets/Food_popup.fxml";
-		try {
-			FXMLLoader loader = new FXMLLoader(FoodPopupController.class.getResource(resourceFile));
-			Parent root = loader.load();
-			this.popupController = loader.getController();
-			this.popupController.setListener(this);
-			this.popup.setScene(new Scene(root));
-			this.popup.setTitle("Quantité de nourriture");
-			this.popup.hide();
-		} catch (IOException e) {
-			this.showLoadingAlert(resourceFile);
-		}
-	}
-
-	@Override
-	public void show(Stage stage) {
-		this.stage = stage;
-		this.loadView("/ulb/views/AddFood.fxml", stage);
+		this.loadView(ADD_FOOD_FXML);
+		Stage popup = new Stage();
+		this.foodPopupController = new FoodPopupController(popup, this);
 		this.viewController.setListener(this);
-	}
-
-	/**
-	 * This method is used to load foods from the database.
-	 * @return A FoodLoader object
-	 */
-	private FoodLoader loadFoods() {
-		FoodLoader foodLoader = new FoodLoader();
-		foodLoader.extend(this.loadMeals());
-		return foodLoader;
-	}
-
-	void setDefaultRecipe(Meal meal) {
-		this.editMeal = true;
-		this.changeMode();
-		((MakeMealViewController) this.viewController).setDefaultRecipe(meal);
-	}
-
-	private List<Food> loadMeals() {
-		return Meal.loadAll().stream().map(Meal::toFood).collect(Collectors.toList());
 	}
 
 	@Override
@@ -126,9 +83,6 @@ public class AddFoodController extends AppController
 		}
 		meal.save();
 		foodLoader.extend(List.of(meal.toFood()));
-		if (this.editMeal) {
-			this.returnHome();
-		}
 	}
 
 	@Override
@@ -137,7 +91,7 @@ public class AddFoodController extends AppController
 		if (this.isAddFood) {
 			resource = "/ulb/views/MakeMeal.fxml";
 		}
-		this.loadView(resource, this.stage);
+		this.loadView(resource);
 		this.viewController.setListener(this);
 		this.isAddFood = !this.isAddFood;
 	}
@@ -167,11 +121,6 @@ public class AddFoodController extends AppController
 	}
 
 	@Override
-	public int getServingQuantityValue(String food) {
-		return this.foodLoader.getFoodByName(food).extractServingQuantityValue();
-	}
-
-	@Override
 	public String getFoodUnit(String food) {
 		return this.foodLoader.getFoodByName(food).getUnit().toString();
 	}
@@ -185,26 +134,18 @@ public class AddFoodController extends AppController
 
 	@Override
 	public void askUserFoodQuantity(String food) {
-		this.popupController.setFood(food);
-		this.popupController.setFoodServing(this.getFoodServingQuantity(food));
-		this.popupController.setFoodUnit(this.getFoodUnit(food));
-		this.popup.show();
+		this.foodPopupController.setFood(food);
+		this.foodPopupController.setFoodServing(this.getFoodServingQuantity(food));
+		this.foodPopupController.setFoodUnit(this.getFoodUnit(food));
+		this.foodPopupController.show();
 	}
 
 	@Override
-	public void onBack() {
-		this.popup.hide();
-	}
-
-	@Override
-	public void onEntry(double value) {
-		this.popup.hide();
-		if (this.isAddFood) {
-			((AddFoodViewController) this.viewController)
-					.addChosenFood(this.popupController.getFood(), value);
+	public void onEntry(String food, double value) {
+		if (isAddFood){
+			((AddFoodViewController) this.viewController).addChosenFood(food, value);
 		} else {
-			((MakeMealViewController) this.viewController)
-					.addChosenFood(this.popupController.getFood(), value);
+			((MakeMealViewController) this.viewController).addChosenFood(food, value);
 		}
 	}
 
