@@ -21,6 +21,7 @@ package ulb.controllers;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +52,6 @@ public class AddFoodController extends AppController
 	private final FoodPopupController foodPopupController;
 	private boolean isAddFood = true;
 	private Stage stage;
-	private Stage popup;
 
 	/**
 	 * Constructor for the FoodController class.
@@ -59,16 +59,15 @@ public class AddFoodController extends AppController
 	 */
 	public AddFoodController(AddFoodController.Listener listener) {
 		this.listener = listener;
-		this.popup = new Stage();
 		this.foodPopupController = new FoodPopupController(this);
-		this.foodPopupController.show(this.popup);
-		this.viewController.setListener(this);
+		this.foodPopupController.show(new Stage());
 	}
 
 	@Override
 	public void show(Stage stage) {
 		this.loadView(ADD_FOOD_FXML, stage);
 		this.stage = stage;
+		this.viewController.setListener(this);
 	}
 
 	@Override
@@ -136,10 +135,14 @@ public class AddFoodController extends AppController
 
 	@Override
 	public void askUserFoodQuantity(String food) {
+		logger.info("Asking user for food quantity for food: {}", food);
+		Stage popup = new Stage();
+		this.foodPopupController.show(popup);
 		this.foodPopupController.setFood(food);
 		this.foodPopupController.setFoodServing(this.getFoodServingQuantity(food));
 		this.foodPopupController.setFoodUnit(this.getFoodUnit(food));
-		this.foodPopupController.show(this.popup);
+		popup.initModality(Modality.APPLICATION_MODAL);
+		popup.showAndWait();
 	}
 
 	@Override

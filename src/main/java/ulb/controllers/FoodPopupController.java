@@ -33,9 +33,10 @@ public class FoodPopupController extends AppController implements FoodPopupViewC
 
 	@Override
 	public void show(Stage stage) {
-		this.loadView("/ulb/views/Food_popup.fxml", stage);
+		this.loadView("/ulb/widgets/Food_popup.fxml", stage);
 		stage.setTitle("Quantité de nourriture");
 		this.stage = stage;
+		this.viewController.setListener(this);
 	}
 
 	public void setFood(String food) {
