@@ -2,27 +2,44 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #172e8c;"
-            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="ulb.views.ProfileDeleteConfirmViewController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #172e8c;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ulb.views.ProfileDeleteConfirmViewController">
    <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0">
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="286.0" prefWidth="600.0"
-             text="Voulez-vous vraiment supprimer votre profil ?" textAlignment="CENTER" textFill="#f3fbfb"
-             wrapText="true">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="286.0" prefWidth="600.0" text="Voulez-vous vraiment supprimer votre profil ?" textAlignment="CENTER" textFill="#f3fbfb" wrapText="true">
          <font>
-            <Font size="20.0"/>
+            <Font size="20.0" />
          </font>
       </Label>
       <HBox alignment="CENTER" prefHeight="116.0" prefWidth="600.0" spacing="200.0">
-         <Button mnemonicParsing="false" onAction="#setYesButton" prefHeight="51.0" prefWidth="120.0"
-                 style="-fx-background-color: #2dd798; -fx-background-radius: 10;" text="Oui" textFill="#f3fbfb"/>
-         <Button mnemonicParsing="false" onAction="#setNoButton" prefHeight="51.0" prefWidth="120.0"
-                 style="-fx-background-color: #f44343; -fx-background-radius: 10;" text="Non" textFill="#f3fbfb"/>
+         <Button mnemonicParsing="false" onAction="#setYesButton" prefHeight="51.0" prefWidth="76.0" style="-fx-background-color: #2dd798; -fx-background-radius: 10;" textFill="#f3fbfb">
+            <graphic>
+               <ImageView fitHeight="43.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/check.png" />
+                  </image>
+                  <effect>
+                     <ColorAdjust brightness="1.0" />
+                  </effect>
+               </ImageView>
+            </graphic></Button>
+         <Button mnemonicParsing="false" onAction="#setNoButton" prefHeight="51.0" prefWidth="74.0" style="-fx-background-color: #f44343; -fx-background-radius: 10;" textFill="#f3fbfb">
+            <graphic>
+               <ImageView fitHeight="42.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/cross.png" />
+                  </image>
+                  <effect>
+                     <ColorAdjust brightness="1.0" />
+                  </effect>
+               </ImageView>
+            </graphic></Button>
       </HBox>
    </VBox>
 </AnchorPane>
