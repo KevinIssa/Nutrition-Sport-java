@@ -18,13 +18,9 @@
  */
 package ulb.controllers;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +33,6 @@ import ulb.models.Meal;
 import ulb.repositories.JSONConsumeMealRepository;
 import ulb.views.AddFoodViewController;
 import ulb.views.MakeMealViewController;
-import ulb.views.FoodPopupViewController;
 
 /**
  * The FoodController class is responsible for managing the interactions between the FoodViewController and the model classes related to food and meals.
@@ -55,18 +50,25 @@ public class AddFoodController extends AppController
 	private final FoodLoader foodLoader = new FoodLoader();
 	private final FoodPopupController foodPopupController;
 	private boolean isAddFood = true;
+	private Stage stage;
+	private Stage popup;
 
 	/**
 	 * Constructor for the FoodController class.
 	 * @param listener Listener for the FoodController
 	 */
-	public AddFoodController(AddFoodController.Listener listener, Stage stage) {
+	public AddFoodController(AddFoodController.Listener listener) {
 		this.listener = listener;
-		this.stage = stage;
-		this.loadView(ADD_FOOD_FXML);
-		Stage popup = new Stage();
-		this.foodPopupController = new FoodPopupController(popup, this);
+		this.popup = new Stage();
+		this.foodPopupController = new FoodPopupController(this);
+		this.foodPopupController.show(this.popup);
 		this.viewController.setListener(this);
+	}
+
+	@Override
+	public void show(Stage stage) {
+		this.loadView(ADD_FOOD_FXML, stage);
+		this.stage = stage;
 	}
 
 	@Override
@@ -91,7 +93,7 @@ public class AddFoodController extends AppController
 		if (this.isAddFood) {
 			resource = "/ulb/views/MakeMeal.fxml";
 		}
-		this.loadView(resource);
+		this.loadView(resource, this.stage);
 		this.viewController.setListener(this);
 		this.isAddFood = !this.isAddFood;
 	}
@@ -137,12 +139,12 @@ public class AddFoodController extends AppController
 		this.foodPopupController.setFood(food);
 		this.foodPopupController.setFoodServing(this.getFoodServingQuantity(food));
 		this.foodPopupController.setFoodUnit(this.getFoodUnit(food));
-		this.foodPopupController.show();
+		this.foodPopupController.show(this.popup);
 	}
 
 	@Override
 	public void onEntry(String food, double value) {
-		if (isAddFood){
+		if (isAddFood) {
 			((AddFoodViewController) this.viewController).addChosenFood(food, value);
 		} else {
 			((MakeMealViewController) this.viewController).addChosenFood(food, value);

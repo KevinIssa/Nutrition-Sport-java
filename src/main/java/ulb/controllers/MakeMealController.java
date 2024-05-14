@@ -1,45 +1,53 @@
+/*
+ * Ce projet est une application de santé et de bien-être développée dans le cadre du cours INFO-F-307 à l'ULB.
+ *
+ * Groupe : 06
+ * Étudiants :
+ * - Kevin ISSA
+ * - Hamza CAEYMAN
+ * - Alexandru MELNIC
+ * - Ze-Xuan XU
+ * - Bao TRAN
+ * - Hà Uyên TRAN
+ * - Hugo CHARELS
+ * - Hodo SOULEIMAN AHMED
+ * - Kevin VANDERVAEREN
+ * - Arthur INSTALLÉ
+ *
+ * Date : 2024
+ */
 package ulb.controllers;
 
+import java.util.List;
 import ulb.dtos.FoodDTO;
 import ulb.views.MakeMealViewController;
 
-import java.util.List;
-
 public class MakeMealController implements MakeMealViewController.Listener {
 
+	@Override
+	public void askUserFoodQuantity(String searchText) {}
 
-    @Override
-    public void askUserFoodQuantity(String searchText) {
+	@Override
+	public List<String> getUserSearch(String searchText) {
+		return List.of();
+	}
 
-    }
+	@Override
+	public double getCaloriesConsumed(String food, double quantity) {
+		return 0;
+	}
 
-    @Override
-    public List<String> getUserSearch(String searchText) {
-        return List.of();
-    }
+	@Override
+	public String getFoodUnit(String food) {
+		return "";
+	}
 
-    @Override
-    public double getCaloriesConsumed(String food, double quantity) {
-        return 0;
-    }
+	@Override
+	public void returnHome() {}
 
-    @Override
-    public String getFoodUnit(String food) {
-        return "";
-    }
+	@Override
+	public void saveMeal(String mealName, List<FoodDTO> foodsList, int personAmount) {}
 
-    @Override
-    public void returnHome() {
-
-    }
-
-    @Override
-    public void saveMeal(String mealName, List<FoodDTO> foodsList, int personAmount) {
-
-    }
-
-    @Override
-    public void changeMode() {
-
-    }
+	@Override
+	public void changeMode() {}
 }

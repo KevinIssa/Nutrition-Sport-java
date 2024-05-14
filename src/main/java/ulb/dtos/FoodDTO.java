@@ -18,4 +18,6 @@
  */
 package ulb.dtos;
 
-public record FoodDTO(String name, double quantity) {}
+import ulb.enums.Unit;
+
+public record FoodDTO(String name, double quantity, Unit unit) {}

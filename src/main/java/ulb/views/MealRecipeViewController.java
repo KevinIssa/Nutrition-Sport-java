@@ -51,7 +51,6 @@ public class MealRecipeViewController implements ViewController {
 		this.showRecipes();
 	}
 
-
 	private MealBox makeMealBox(MealDTO meal) throws IOException {
 		Button deleteButton = new Button("");
 		Button editButton = new Button("");

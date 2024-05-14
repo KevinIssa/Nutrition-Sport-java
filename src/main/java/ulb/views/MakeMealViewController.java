@@ -31,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.FoodDTO;
 import ulb.dtos.MealDTO;
+import ulb.enums.Unit;
 import ulb.widgets.FoodBox;
 import ulb.widgets.NumberField;
 import ulb.widgets.Search;
@@ -137,7 +138,8 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		try {
 			List<FoodDTO> foodlist = new java.util.ArrayList<>();
 			for (FoodBox foodBox : chosenFoodList.getItems()) {
-				foodlist.add(new FoodDTO(foodBox.getFood(), foodBox.getQuantityValue()));
+				// TODO: UNIT
+				foodlist.add(new FoodDTO(foodBox.getFood(), foodBox.getQuantityValue(), Unit.ALL));
 			}
 			this.listener.saveMeal(
 					this.mealName.getText(), foodlist, this.personAmountNumber.getValue());

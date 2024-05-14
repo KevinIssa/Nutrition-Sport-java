@@ -20,4 +20,8 @@ package ulb.dtos;
 
 import java.util.List;
 
-public record MealDTO(String name, List<FoodDTO> foods) {}
+public record MealDTO(String name, List<FoodDTO> foods) {
+	public MealDTO() {
+		this("", List.of());
+	}
+}

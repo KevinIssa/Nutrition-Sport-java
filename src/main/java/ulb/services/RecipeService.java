@@ -18,10 +18,9 @@
  */
 package ulb.services;
 
+import java.util.List;
 import ulb.dtos.MealDTO;
 import ulb.repositories.RecipeRepository;
-
-import java.util.List;
 
 public class RecipeService {
 
@@ -31,9 +30,9 @@ public class RecipeService {
 		this.recipeRepository = recipeRepository;
 	}
 
-	public void delete(MealDTO meal) {
-	}
+	public void delete(MealDTO meal) {}
 
 	public List<MealDTO> loadAllRecipes() {
+		return null;
 	}
 }

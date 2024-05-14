@@ -21,8 +21,8 @@ package ulb.controllers;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulb.models.Food;
-import ulb.models.Meal;
+import ulb.dtos.FoodDTO;
+import ulb.dtos.MealDTO;
 import ulb.views.MealDetailsViewController;
 
 public class MealDetailsController extends AppController
@@ -42,13 +42,15 @@ public class MealDetailsController extends AppController
 		this.viewController.setListener(this);
 	}
 
-	public void setMeal(Meal meal) {
-		((MealDetailsViewController) this.viewController).setMeal(meal);
+	public void setMeal(MealDTO mealDTO) {
+		((MealDetailsViewController) this.viewController).setMeal(mealDTO);
 	}
 
 	@Override
-	public double getCaloriesConsumed(Food food, double quantity) {
-		return food.getCaloriesConsumedByUnit(quantity);
+	public double getCaloriesConsumed(FoodDTO food) {
+		// TODO: Implement this method
+		return 0;
+		// return food.getCaloriesConsumedByUnit(quantity);
 	}
 
 	@Override

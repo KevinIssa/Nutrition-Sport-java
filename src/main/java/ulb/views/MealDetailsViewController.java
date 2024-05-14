@@ -19,7 +19,6 @@
 package ulb.views;
 
 import java.net.URL;
-import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -28,8 +27,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulb.models.Food;
-import ulb.models.Meal;
+import ulb.dtos.FoodDTO;
+import ulb.dtos.MealDTO;
 
 public class MealDetailsViewController implements ViewController {
 
@@ -53,24 +52,24 @@ public class MealDetailsViewController implements ViewController {
 		this.listener = (MealDetailsViewController.Listener) listener;
 	}
 
-	public void setMeal(Meal meal) {
-		mealName.setText(meal.getName());
+	public void setMeal(MealDTO mealDTO) {
+		mealName.setText(mealDTO.name());
 		double calorie = 0;
-		for (Map.Entry<Food, Double> food : meal.getIngredients()) {
-			calorie += this.listener.getCaloriesConsumed(food.getKey(), food.getValue());
-			addMealBox(food);
+		for (FoodDTO foodDTO : mealDTO.foods()) {
+			calorie += this.listener.getCaloriesConsumed(foodDTO);
+			addMealBox(foodDTO);
 		}
 		Calories.setText(Double.toString(calorie) + "kcal");
 	}
 
-	private void addMealBox(Map.Entry<Food, Double> food) {
-		HBox mealHBox = createMealHBox(food);
-		foodList.getItems().add(mealHBox);
+	private void addMealBox(FoodDTO foodDTO) {
+		HBox mealHBox = createMealHBox(foodDTO);
+		this.foodList.getItems().add(mealHBox);
 	}
 
-	private HBox createMealHBox(Map.Entry<Food, Double> food) {
+	private HBox createMealHBox(FoodDTO foodDTO) {
 		HBox hbox = createHBox();
-		setTextInHBox(food, hbox);
+		setTextInHBox(foodDTO, hbox);
 		return hbox;
 	}
 
@@ -81,9 +80,9 @@ public class MealDetailsViewController implements ViewController {
 		return hbox;
 	}
 
-	private void setTextInHBox(Map.Entry<Food, Double> food, HBox hbox) {
-		Label LabelMealName = createLabel(food.getKey().getName(), 100);
-		Label LabelMealQuantity = createLabel("quantite: " + food.getValue().toString() + food.getKey().getUnit(), 100);
+	private void setTextInHBox(FoodDTO food, HBox hbox) {
+		Label LabelMealName = createLabel(food.name(), 100);
+		Label LabelMealQuantity = createLabel("quantite: " + food.quantity() + food.unit(), 100);
 		hbox.getChildren().add(0, LabelMealName);
 		hbox.getChildren().add(1, LabelMealQuantity);
 	}
@@ -104,6 +103,6 @@ public class MealDetailsViewController implements ViewController {
 
 		void returnHome();
 
-		double getCaloriesConsumed(Food food, double quantity);
+		double getCaloriesConsumed(FoodDTO foodDTO);
 	}
 }

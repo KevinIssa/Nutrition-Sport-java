@@ -31,20 +31,17 @@ import ulb.views.ViewController;
 public abstract class AppController {
 	private static final Logger logger = LoggerFactory.getLogger(AppController.class);
 	protected ViewController viewController;
-	protected Stage stage;
 
-	public void show(){
-		this.stage.show();
-	}
+	public abstract void show(Stage stage);
 
-	protected void loadView(String resourcePath) {
+	protected void loadView(String resourcePath, Stage stage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(resourcePath));
 			Parent root = loader.load();
 			this.viewController = loader.getController();
-			this.stage.setScene(new Scene(root));
+			stage.setScene(new Scene(root));
 		} catch (IOException e) {
-			logger.error("Failed to load view resources : {}",e.getMessage());
+			logger.error("Failed to load view resources : {}", e.getMessage());
 			this.showLoadingAlert(resourcePath);
 		}
 	}

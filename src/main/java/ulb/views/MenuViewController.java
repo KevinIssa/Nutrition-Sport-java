@@ -31,7 +31,6 @@ import javafx.scene.image.ImageView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.DateCalorieDTO;
-import ulb.models.Meal;
 
 public class MenuViewController implements ViewController, GraphComponentViewController.Listener {
 	private static final Logger logger = LoggerFactory.getLogger(MenuViewController.class);

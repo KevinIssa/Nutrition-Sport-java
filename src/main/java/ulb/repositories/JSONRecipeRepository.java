@@ -20,8 +20,7 @@ package ulb.repositories;
 
 import ulb.models.Meal;
 
-public class JSONRecipeRepository extends JSONRepository<Meal>
-		implements RecipeRepository {
+public class JSONRecipeRepository extends JSONRepository<Meal> implements RecipeRepository {
 
 	@Override
 	protected Class<Meal> getObjectType() {

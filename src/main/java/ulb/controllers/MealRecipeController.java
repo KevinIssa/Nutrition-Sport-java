@@ -59,7 +59,7 @@ public class MealRecipeController extends AppController
 	@Override
 	public void editMeal(MealDTO meal) {
 		logger.info("Editing a recipe");
-		//TODO: Implement editMeal
+		// TODO: Implement editMeal
 	}
 
 	@Override
