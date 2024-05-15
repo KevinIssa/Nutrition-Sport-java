@@ -28,7 +28,7 @@ import ulb.enums.Unit;
  * Represents a food item that can be consumed.
  */
 // @JsonSerialize(using = FoodSerializer.class)
-public class Food implements Consumable, Comparable<Food> {
+public class Food implements Consumable {
 	private static final Logger logger = LoggerFactory.getLogger(Food.class);
 
 	private String name;
@@ -63,12 +63,6 @@ public class Food implements Consumable, Comparable<Food> {
 		this.unit = unit;
 	}
 
-	/**
-	 * Checks if this food item is equal to another object.
-	 *
-	 * @param obj The object to compare with this food item.
-	 * @return True if the objects are equal, false otherwise.
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
@@ -79,23 +73,11 @@ public class Food implements Consumable, Comparable<Food> {
 				&& servingQuantity.equals(food.servingQuantity);
 	}
 
-	/**
-	 * Retrieves the total calories consumed based on the specified number of grams.
-	 *
-	 * @param grams The number of grams consumed.
-	 * @return The total calories consumed for the specified grams.
-	 */
 	@Override
-	public double getCaloriesConsumedByUnit(double grams) {
-		return (this.caloriesPer100Unit * grams) / 100;
+	public double getCaloriesConsumedByUnit(double unit) {
+		return (this.caloriesPer100Unit * unit) / 100;
 	}
 
-	/**
-	 * Retrieves the total calories consumed based on the specified number of servings.
-	 *
-	 * @param servings The number of servings consumed.
-	 * @return The total calories consumed for the specified servings.
-	 */
 	@Override
 	public double getCaloriesConsumedByServing(double servings) {
 		return this.caloriesPerServing * servings;
@@ -121,11 +103,7 @@ public class Food implements Consumable, Comparable<Food> {
 	// Getters and setters for class attributes.
 	// These are used by Jackson to serialize and deserialize JSON data.
 
-	/**
-	 * Retrieves the name of the food item.
-	 *
-	 * @return The name of the food item.
-	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -180,6 +158,7 @@ public class Food implements Consumable, Comparable<Food> {
 	 *
 	 * @return The serving quantity of the food item.
 	 */
+	@Override
 	public String getServingQuantity() {
 		return this.servingQuantity;
 	}
@@ -193,24 +172,13 @@ public class Food implements Consumable, Comparable<Food> {
 		this.servingQuantity = servingQuantity;
 	}
 
+	@Override
 	public Unit getUnit() {
 		return unit;
 	}
 
 	public void setUnit(Unit unit) {
 		this.unit = unit;
-	}
-
-	/**
-	 * Compares this Food object with another Food object based on their names.
-	 * The comparison is case-insensitive.
-	 *
-	 * @param food The Food object to compare with.
-	 * @return A negative integer, zero, or a positive integer as this name is less than, equal to, or greater than the specified name.
-	 */
-	@Override
-	public int compareTo(Food food) {
-		return this.getName().toLowerCase().compareTo(food.getName().toLowerCase());
 	}
 
 	/**
