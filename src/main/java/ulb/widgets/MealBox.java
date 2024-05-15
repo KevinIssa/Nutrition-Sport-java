@@ -46,9 +46,9 @@ public class MealBox extends HBox {
 		Region spacer = new Region();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
 		this.setUpButton(searchButton, SEARCH_IMAGE);
-		this.setUpButton(deleteButton, TRASH_IMAGE);
 		this.setUpButton(editButton, PEN_IMAGE);
-		this.getChildren().addAll(spacer, searchButton, deleteButton, editButton);
+		this.setUpButton(deleteButton, TRASH_IMAGE);
+		this.getChildren().addAll(spacer, searchButton, editButton, deleteButton);
 	}
 
 	private void setUpButton(Button button, String imagePath) throws IOException {
