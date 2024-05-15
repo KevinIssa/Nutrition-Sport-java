@@ -24,4 +24,8 @@ public record MealDTO(String name, List<FoodDTO> foods) {
 	public MealDTO() {
 		this("", List.of());
 	}
+
+    public void delete() {
+
+	}
 }

@@ -332,14 +332,14 @@ public class MenuController extends AppController implements MenuViewController.
 	 */
 	@Override
 	public void loadFoodSearchPage() {
-		loadFoodSearchPage(new MealDTO());
+		loadFoodSearchPage(null);
 	}
 
 	public void loadFoodSearchPage(MealDTO meal) {
 		Stage popupStage = new Stage();
 		AddFoodController controller = new AddFoodController(popupStage::close);
 		controller.show(popupStage);
-		if (meal.name() != null) {
+		if (meal != null) {
 			controller.setDefaultRecipe(meal);
 		}
 		// This line sets the modality of the popup stage to APPLICATION_MODAL.

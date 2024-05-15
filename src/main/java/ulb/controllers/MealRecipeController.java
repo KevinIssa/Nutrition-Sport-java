@@ -61,7 +61,7 @@ public class MealRecipeController extends AppController
 	@Override
 	public void deleteMeal(MealDTO meal) {
 		logger.info("Deleting a recipe");
-		this.recipeService.delete(meal);
+		this.recipeService.deleteMeal(meal);
 	}
 
 	@Override
