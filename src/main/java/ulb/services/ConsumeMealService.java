@@ -32,7 +32,7 @@ public class ConsumeMealService {
 
 	private final ConsumeMealRepository consumeMealRepository;
 
-	private final FoodLoader foodLoader = new FoodLoader(); // TODO: Change this
+	private final FoodLoader foodLoader = FoodLoader.getInstance(); // TODO: Change this
 
 	public ConsumeMealService(ConsumeMealRepository consumeMealRepository) {
 		this.consumeMealRepository = consumeMealRepository;

@@ -30,7 +30,7 @@ class FoodLoaderTest {
 
 	@BeforeEach
 	void setup() {
-		foodLoader = new FoodLoader();
+		foodLoader = FoodLoader.getInstance();
 	}
 
 	@Test

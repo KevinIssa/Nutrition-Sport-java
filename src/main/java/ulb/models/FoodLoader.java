@@ -35,11 +35,21 @@ public class FoodLoader {
 	private static final String FOOD_FILE = "/ulb/jsons/food.json";
 	private List<Food> foods;
 
+	private static FoodLoader instance = null;
+
 	/**
 	 * Constructs a FoodLoader and loads food data from a JSON file.
 	 */
-	public FoodLoader() {
+	private FoodLoader() {
 		this.loadFoods();
+		this.loadMeals();
+	}
+
+	public static FoodLoader getInstance() {
+		if (instance == null) {
+			instance = new FoodLoader();
+		}
+		return instance;
 	}
 
 	/**
@@ -57,6 +67,11 @@ public class FoodLoader {
 		}
 	}
 
+	private void loadMeals() {
+		Meal.loadAll().forEach(meal -> foods.add(meal.toFood()));
+		Collections.sort(foods);
+	}
+
 	/**
 	 * Retrieves the list of loaded food items.
 	 *
@@ -66,10 +81,9 @@ public class FoodLoader {
 		return foods;
 	}
 
-	public FoodLoader extend(List<Food> foods) {
+	public void extend(List<Food> foods) {
 		this.foods.addAll(foods);
 		Collections.sort(this.foods);
-		return this;
 	}
 
 	/**

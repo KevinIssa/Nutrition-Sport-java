@@ -23,7 +23,7 @@ import ulb.models.FoodLoader;
 import ulb.views.FoodPopupViewController;
 
 public class FoodPopupController extends AppController implements FoodPopupViewController.Listener {
-	private final FoodLoader foodLoader = new FoodLoader();
+	private final FoodLoader foodLoader = FoodLoader.getInstance();
 	private final Listener listener;
 	private Stage stage;
 

@@ -48,7 +48,7 @@ public class AddFoodController extends AppController
 	private static final Logger logger = LoggerFactory.getLogger(AddFoodController.class);
 	public static final String ADD_FOOD_FXML = "/ulb/views/AddFood.fxml";
 	private final AddFoodController.Listener listener;
-	private final FoodLoader foodLoader = new FoodLoader();
+	private final FoodLoader foodLoader = FoodLoader.getInstance();
 	private final FoodPopupController foodPopupController;
 	private boolean isAddFood = true;
 	private Stage stage;
