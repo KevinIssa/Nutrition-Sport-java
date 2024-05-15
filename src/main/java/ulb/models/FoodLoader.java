@@ -111,7 +111,6 @@ public class FoodLoader {
 	 * @return The Food object if it is found, null otherwise.
 	 */
 	public Food getFoodByName(String name) {
-		logger.debug("Searching for food: {}", name);
 		return binarySearch(foods, name, 0, foods.size() - 1);
 	}
 

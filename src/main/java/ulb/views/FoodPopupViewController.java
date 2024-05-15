@@ -62,12 +62,10 @@ public class FoodPopupViewController implements ViewController {
 
 	public void setFood(String food) {
 		this.food = food;
-		logger.debug("Setting food {}", food);
 		this.mainLabel.setText("Donnez la quantité de " + food);
 	}
 
 	public String getFood() {
-		logger.debug("Getting food {}", this.food);
 		return this.food;
 	}
 
@@ -111,7 +109,6 @@ public class FoodPopupViewController implements ViewController {
 	@FXML
 	void onEntry() {
 		double value;
-		logger.debug("Entry");
 		if (gramme.getText().isEmpty()) {
 			value =
 					this.getValue(this.servingField)
@@ -146,7 +143,6 @@ public class FoodPopupViewController implements ViewController {
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		this.servingField = new DoubleField(this.serving);
 		this.grammeField = new DoubleField(this.gramme);
-		logger.debug("Initializing FoodPopupViewController");
 	}
 
 	public interface Listener {

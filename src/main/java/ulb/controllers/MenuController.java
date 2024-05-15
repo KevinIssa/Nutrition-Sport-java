@@ -278,7 +278,6 @@ public class MenuController extends AppController implements MenuViewController.
 
 	@Override
 	public void loadMealRecipe() {
-		logger.debug("Loading Meal Recipe");
 		RecipeRepository recipeRepository = new JSONRecipeRepository();
 		RecipeService recipeService = new RecipeService(recipeRepository);
 		AppController controller =
@@ -337,7 +336,6 @@ public class MenuController extends AppController implements MenuViewController.
 	}
 
 	public void loadFoodSearchPage(MealDTO meal) {
-		logger.debug("Loading Food Search Page");
 		Stage popupStage = new Stage();
 		AddFoodController controller = new AddFoodController(popupStage::close);
 		controller.show(popupStage);
