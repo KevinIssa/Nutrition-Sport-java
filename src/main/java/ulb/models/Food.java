@@ -243,36 +243,3 @@ public class Food implements Consumable, Comparable<Food> {
 		}
 	}
 }
-
-/**
- * Serializer class to serialize Food objects to JSON format.
- */
-// class FoodSerializer extends JsonSerializer<Food> {
-//	private static final Logger logger = LoggerFactory.getLogger(FoodSerializer.class);
-//
-//	/**
-//	 * Serializes a Food object to JSON format.
-//	 *
-//	 * @param food             The Food object to serialize.
-//	 * @param jsonGenerator    The JSON generator used for serialization.
-//	 * @param serializerProvider The serializer provider.
-//	 */
-//	@Override
-//	public void serialize(
-//			Food food, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) {
-//		try {
-//			jsonGenerator.writeStartObject();
-//			jsonGenerator.writeStringField("name", food.getName());
-//			jsonGenerator.writeNumberField("caloriesPer100", food.getCaloriesPer100());
-//			jsonGenerator.writeNumberField("caloriesPerServing", food.getCaloriesPerServing());
-//			jsonGenerator.writeStringField("servingQuantity", food.getServingQuantity());
-//			// Write the enum value
-//			jsonGenerator.write
-////			jsonGenerator.writeStringField("unit", food.getUnit().toString());
-//			jsonGenerator.writeEndObject();
-//		} catch (IOException e) {
-//			logger.error("Error serializing food object", e);
-//			exit(1);
-//		}
-//	}
-// }
