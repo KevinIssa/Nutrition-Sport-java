@@ -32,7 +32,7 @@ public class EditMealController implements MakeMealViewController.Listener {
 	public EditMealController(Stage stage, EditMealController.Listener listener) {
 		this.stage = stage;
 		this.makeMealViewController = new MakeMealViewController();
-		this.makeMealViewController.setListener(listener);
+		this.makeMealViewController.setListener(this);
 		this.listener = listener;
 	}
 
@@ -88,6 +88,8 @@ public class EditMealController implements MakeMealViewController.Listener {
 		// TODO Implement
 
 	}
+
+	public void editMeal(MealDTO meal) {}
 
 	public interface Listener {
 		// TODO Implement

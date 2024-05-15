@@ -18,8 +18,13 @@
  */
 package ulb.services;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import ulb.dtos.FoodDTO;
 import ulb.dtos.MealDTO;
+import ulb.models.Food;
+import ulb.models.Meal;
 import ulb.repositories.RecipeRepository;
 
 public class RecipeService {
@@ -33,6 +38,17 @@ public class RecipeService {
 	public void delete(MealDTO meal) {}
 
 	public List<MealDTO> loadAllRecipes() {
-		return null;
+		// TODO: change that
+		List<Meal> meals = Meal.loadAll();
+		List<MealDTO> mealDTOS = new ArrayList<>();
+		for (Meal meal : meals) {
+			List<FoodDTO> foodDTOS = new ArrayList();
+			for (Map.Entry<Food, Double> food : meal.getIngredients())
+				foodDTOS.add(
+						new FoodDTO(
+								food.getKey().getName(), food.getValue(), food.getKey().getUnit()));
+			mealDTOS.add(new MealDTO(meal.getName(), foodDTOS));
+		}
+		return mealDTOS;
 	}
 }

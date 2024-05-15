@@ -150,6 +150,16 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		}
 	}
 
+	public void setDefaultRecipe(MealDTO mealDTO) {
+		this.switchButton.setVisible(false);
+		this.mealName.setText(mealDTO.name());
+		this.personAmountNumber.setValue(1);
+		for (FoodDTO foodDTO : mealDTO.foods()) {
+			logger.info("Adding foodDTO: {}", foodDTO);
+			addChosenFood(foodDTO.name(), foodDTO.quantity());
+		}
+	}
+
 	public interface Listener {
 		void askUserFoodQuantity(String searchText);
 

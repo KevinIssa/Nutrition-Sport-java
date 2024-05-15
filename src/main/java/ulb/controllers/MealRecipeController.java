@@ -31,16 +31,12 @@ public class MealRecipeController extends AppController
 	private static final Logger logger = LoggerFactory.getLogger(MealRecipeController.class);
 	private final RecipeService recipeService;
 	private final MealRecipeController.Listener listener;
-	private EditMealController editMealController;
 
 	public MealRecipeController(
 			RecipeService recipeService, MealRecipeController.Listener listener) {
 		logger.info("Initializing MealRecipeController");
 		this.recipeService = recipeService;
 		this.listener = listener;
-		Stage stage = new Stage();
-		this.editMealController = new EditMealController(stage, this);
-		this.editMealController.hide();
 	}
 
 	@Override
@@ -59,7 +55,7 @@ public class MealRecipeController extends AppController
 	@Override
 	public void editMeal(MealDTO meal) {
 		logger.info("Editing a recipe");
-		// TODO: Implement editMeal
+		this.listener.editMeal(meal);
 	}
 
 	@Override
@@ -82,6 +78,8 @@ public class MealRecipeController extends AppController
 	public interface Listener {
 
 		void mealDetails(MealDTO meal);
+
+		void editMeal(MealDTO meal);
 
 		void returnHome();
 	}

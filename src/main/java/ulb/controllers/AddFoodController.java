@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.ConsumedFoodDTO;
 import ulb.dtos.FoodDTO;
+import ulb.dtos.MealDTO;
 import ulb.models.ConsumedMeal;
 import ulb.models.Food;
 import ulb.models.FoodLoader;
@@ -152,6 +153,11 @@ public class AddFoodController extends AppController
 		} else {
 			((MakeMealViewController) this.viewController).addChosenFood(food, value);
 		}
+	}
+
+	public void setDefaultRecipe(MealDTO meal) {
+		this.changeMode();
+		((MakeMealViewController) this.viewController).setDefaultRecipe(meal);
 	}
 
 	/**

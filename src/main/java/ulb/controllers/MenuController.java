@@ -278,6 +278,7 @@ public class MenuController extends AppController implements MenuViewController.
 
 	@Override
 	public void loadMealRecipe() {
+		logger.debug("Loading Meal Recipe");
 		RecipeRepository recipeRepository = new JSONRecipeRepository();
 		RecipeService recipeService = new RecipeService(recipeRepository);
 		AppController controller =
@@ -293,6 +294,11 @@ public class MenuController extends AppController implements MenuViewController.
 							@Override
 							public void mealDetails(MealDTO meal) {
 								loadMealDetails(meal);
+							}
+
+							@Override
+							public void editMeal(MealDTO meal) {
+								loadFoodSearchPage(meal);
 							}
 						});
 		controller.show(this.primaryStage);
@@ -331,13 +337,12 @@ public class MenuController extends AppController implements MenuViewController.
 	}
 
 	public void loadFoodSearchPage(MealDTO meal) {
+		logger.debug("Loading Food Search Page");
 		Stage popupStage = new Stage();
 		AddFoodController controller = new AddFoodController(popupStage::close);
-
 		controller.show(popupStage);
 		if (meal.name() != null) {
-			// TODO: set meal
-			// controller.setDefaultRecipe(meal);
+			controller.setDefaultRecipe(meal);
 		}
 		// This line sets the modality of the popup stage to APPLICATION_MODAL.
 		// This means that while the popup stage is showing, it blocks user interaction with all
