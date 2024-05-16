@@ -25,14 +25,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ulb.dtos.ConsumableDTO;
 import ulb.dtos.ConsumedFoodDTO;
 import ulb.dtos.FoodDTO;
 import ulb.dtos.MealDTO;
 import ulb.models.ConsumedMeal;
-import ulb.models.Food;
-import ulb.models.FoodLoader;
-import ulb.models.Meal;
+import ulb.repositories.JSONConsumableRepository;
 import ulb.repositories.JSONConsumeMealRepository;
+import ulb.services.ConsumableService;
 import ulb.views.AddFoodViewController;
 import ulb.views.MakeMealViewController;
 
@@ -48,8 +48,8 @@ public class AddFoodController extends AppController
 				MakeMealViewController.Listener {
 	private static final Logger logger = LoggerFactory.getLogger(AddFoodController.class);
 	public static final String ADD_FOOD_FXML = "/ulb/views/AddFood.fxml";
+	private final ConsumableService consumableService;
 	private final AddFoodController.Listener listener;
-	private final FoodLoader foodLoader = FoodLoader.getInstance();
 	private final FoodPopupController foodPopupController;
 	private boolean isAddFood = true;
 	private Stage stage;
@@ -58,9 +58,11 @@ public class AddFoodController extends AppController
 	 * Constructor for the FoodController class.
 	 * @param listener Listener for the FoodController
 	 */
-	public AddFoodController(AddFoodController.Listener listener) {
+	public AddFoodController(
+			ConsumableService consumableService, AddFoodController.Listener listener) {
+		this.consumableService = consumableService;
 		this.listener = listener;
-		this.foodPopupController = new FoodPopupController(this);
+		this.foodPopupController = new FoodPopupController(this.consumableService, this);
 		this.foodPopupController.show(new Stage());
 	}
 
@@ -78,13 +80,14 @@ public class AddFoodController extends AppController
 
 	@Override
 	public void saveMeal(String mealName, List<FoodDTO> foodList, int personAmount) {
-		Meal meal = new Meal(mealName);
-		for (FoodDTO food : foodList) {
-			meal.addIngredient(
-					this.foodLoader.getFoodByName(food.name()), food.quantity() / personAmount);
-		}
-		meal.save();
-		foodLoader.extend(List.of(meal.toFood()));
+		// TODO : REPAIR THIS
+		//		Meal meal = new Meal(mealName);
+		//		for (FoodDTO food : foodList) {
+		//			ConsumableDTO foodDTO = this.consumableService.loadConsumable(food.name());
+		//			meal.addIngredient(
+		//					this.foodLoader.getFoodByName(food.name()), food.quantity() / personAmount);
+		//		}
+		//		meal.save();
 	}
 
 	@Override
@@ -100,7 +103,9 @@ public class AddFoodController extends AppController
 
 	@Override
 	public double getCaloriesConsumed(String food, double quantity) {
-		return this.foodLoader.getFoodByName(food).getCaloriesConsumedByUnit(quantity);
+		// TODO : Change THAT
+		return new JSONConsumableRepository().load(food).getCaloriesConsumedByUnit(quantity);
+		// return this.foodLoader.getFoodByName(food).getCaloriesConsumedByUnit(quantity);
 	}
 
 	@Override
@@ -119,18 +124,18 @@ public class AddFoodController extends AppController
 
 	@Override
 	public String getFoodServingQuantity(String food) {
-		return this.foodLoader.getFoodByName(food).getServingQuantity();
+		return this.consumableService.loadConsumable(food).servingQuantity();
 	}
 
 	@Override
 	public String getFoodUnit(String food) {
-		return this.foodLoader.getFoodByName(food).getUnit().toString();
+		return this.consumableService.loadConsumable(food).unit().toString();
 	}
 
 	@Override
 	public List<String> getUserSearch(String searchText) {
-		return this.foodLoader.getFoodsSuggestion(searchText).stream()
-				.map(Food::getName)
+		return this.consumableService.loadConsumablesBeginningWith(searchText).stream()
+				.map(ConsumableDTO::name)
 				.collect(Collectors.toList());
 	}
 

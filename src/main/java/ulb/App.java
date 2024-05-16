@@ -24,6 +24,7 @@ import ulb.controllers.MenuController;
 import ulb.repositories.*;
 import ulb.services.ActivityService;
 import ulb.services.CaloriesTrackingService;
+import ulb.services.ConsumableService;
 import ulb.services.ProfileService;
 
 public class App extends Application {
@@ -41,15 +42,18 @@ public class App extends Application {
 		ProfileRepository profileRepository = new JSONProfileRepository();
 		ActivityRepository activityRepository = new JSONActivityRepository();
 		ConsumeMealRepository consumeMealRepository = new JSONConsumeMealRepository();
+		ConsumableRepository consumableRepository = new JSONConsumableRepository();
 
 		ProfileService profileService = new ProfileService(profileRepository);
 		ActivityService activityService = new ActivityService(activityRepository);
 		CaloriesTrackingService caloriesTrackingService =
 				new CaloriesTrackingService(activityRepository, consumeMealRepository);
+		ConsumableService consumableService = new ConsumableService(consumableRepository);
 
 		menuController.setProfileService(profileService);
 		menuController.setActivityService(activityService);
 		menuController.setCaloriesTrackingService(caloriesTrackingService);
+		menuController.setConsumableService(consumableService);
 	}
 
 	private void setupStage(Stage stage) {

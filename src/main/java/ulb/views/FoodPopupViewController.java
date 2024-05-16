@@ -150,6 +150,6 @@ public class FoodPopupViewController implements ViewController {
 
 		void onBack();
 
-		int getServingQuantityValue(String food);
+		double getServingQuantityValue(String food);
 	}
 }

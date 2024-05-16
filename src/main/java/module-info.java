@@ -28,6 +28,8 @@ module ulb {
 			javafx.fxml;
 	opens ulb.controllers to
 			javafx.fxml;
+	opens ulb.repositories to
+			com.fasterxml.jackson.databind;
 	opens ulb.widgets to
 			javafx.fxml;
 }

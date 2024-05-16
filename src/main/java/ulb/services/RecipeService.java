@@ -27,15 +27,19 @@ import ulb.dtos.FoodDTO;
 import ulb.dtos.MealDTO;
 import ulb.models.Food;
 import ulb.models.Meal;
+import ulb.repositories.ConsumableRepository;
 import ulb.repositories.RecipeRepository;
 
 public class RecipeService {
-
-	private final RecipeRepository recipeRepository;
 	private static final Logger logger = LoggerFactory.getLogger(RecipeService.class);
 
-	public RecipeService(RecipeRepository recipeRepository) {
+	private final RecipeRepository recipeRepository;
+	private final ConsumableRepository consumableRepository;
+
+	public RecipeService(
+			RecipeRepository recipeRepository, ConsumableRepository consumableRepository) {
 		this.recipeRepository = recipeRepository;
+		this.consumableRepository = consumableRepository;
 	}
 
 	public void deleteMeal(MealDTO meal) {
@@ -44,17 +48,18 @@ public class RecipeService {
 	}
 
 	public List<MealDTO> loadAllRecipes() {
-		// TODO: change that
-		List<Meal> meals = Meal.loadAll();
-		List<MealDTO> mealDTOS = new ArrayList<>();
-		for (Meal meal : meals) {
-			List<FoodDTO> foodDTOS = new ArrayList<>();
-			for (Map.Entry<Food, Double> food : meal.getIngredients())
-				foodDTOS.add(
-						new FoodDTO(
-								food.getKey().getName(), food.getValue(), food.getKey().getUnit()));
-			mealDTOS.add(new MealDTO(meal.getName(), foodDTOS));
+		List<MealDTO> meals = new ArrayList<>();
+		for (Meal meal : this.consumableRepository.loadAllMeals()) {
+			List<FoodDTO> foods = new ArrayList<>();
+			for (Map.Entry<Food, Double> entry : meal.getIngredients()) {
+				Food food = entry.getKey();
+				Double quantity = entry.getValue();
+				FoodDTO foodDTO = new FoodDTO(food.getName(), quantity, food.getUnit());
+				foods.add(foodDTO);
+			}
+			MealDTO mealDTO = new MealDTO(meal.getName(), foods);
+			meals.add(mealDTO);
 		}
-		return mealDTOS;
+		return meals;
 	}
 }

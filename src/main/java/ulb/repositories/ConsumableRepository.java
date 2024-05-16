@@ -20,7 +20,14 @@ package ulb.repositories;
 
 import java.util.List;
 import ulb.models.Consumable;
+import ulb.models.Meal;
 
 public interface ConsumableRepository {
 	List<Consumable> loadAll();
+
+	List<Meal> loadAllMeals();
+
+	Consumable load(String name);
+
+	List<Consumable> loadAllBeginningWith(String prefix);
 }

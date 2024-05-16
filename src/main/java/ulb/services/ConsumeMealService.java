@@ -22,20 +22,22 @@ import java.time.LocalDateTime;
 import java.util.List;
 import ulb.dtos.ConsumedFoodDTO;
 import ulb.dtos.ConsumedMealDTO;
+import ulb.models.Consumable;
 import ulb.models.ConsumedFood;
 import ulb.models.ConsumedMeal;
-import ulb.models.Food;
-import ulb.models.FoodLoader;
+import ulb.repositories.ConsumableRepository;
 import ulb.repositories.ConsumeMealRepository;
 
 public class ConsumeMealService {
 
 	private final ConsumeMealRepository consumeMealRepository;
+	private final ConsumableRepository consumableRepository;
 
-	private final FoodLoader foodLoader = FoodLoader.getInstance(); // TODO: Change this
-
-	public ConsumeMealService(ConsumeMealRepository consumeMealRepository) {
+	public ConsumeMealService(
+			ConsumeMealRepository consumeMealRepository,
+			ConsumableRepository consumableRepository) {
 		this.consumeMealRepository = consumeMealRepository;
+		this.consumableRepository = consumableRepository;
 	}
 
 	public void saveConsumedMeal(ConsumedMealDTO consumedMealDTO) {
@@ -86,11 +88,11 @@ public class ConsumeMealService {
 	}
 
 	private ConsumedFoodDTO convertToConsumedFoodDTO(ConsumedFood consumedFood) {
-		Food food = foodLoader.getFoodByName(consumedFood.getName());
+		Consumable consumable = this.consumableRepository.load(consumedFood.getName());
 		return new ConsumedFoodDTO(
 				consumedFood.getName(),
 				consumedFood.getQuantity(),
 				consumedFood.getCalories(),
-				food != null ? food.getUnit().toString() : "g");
+				consumable.getUnit().toString());
 	}
 }

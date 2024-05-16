@@ -50,6 +50,25 @@ public class JSONConsumableRepository implements ConsumableRepository {
 		return consumables;
 	}
 
+	@Override
+	public Consumable load(String name) {
+		return this.loadAll().stream()
+				.filter(consumable -> consumable.getName().equalsIgnoreCase(name))
+				.findFirst()
+				.orElse(null);
+	}
+
+	@Override
+	public List<Consumable> loadAllBeginningWith(String prefix) {
+		List<Consumable> consumables = new ArrayList<>();
+		for (Consumable consumable : this.loadAll()) {
+			if (consumable.getName().toLowerCase().startsWith(prefix.toLowerCase())) {
+				consumables.add(consumable);
+			}
+		}
+		return consumables;
+	}
+
 	private static class FoodList {
 		private List<Food> food;
 
@@ -77,7 +96,7 @@ public class JSONConsumableRepository implements ConsumableRepository {
 		return Collections.emptyList();
 	}
 
-	private List<Meal> loadAllMeals() {
+	public List<Meal> loadAllMeals() {
 		File folder = new File(MEAL_FOLDER);
 		File[] files = folder.listFiles();
 		List<Meal> meals = new ArrayList<>();

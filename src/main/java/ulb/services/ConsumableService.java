@@ -31,19 +31,24 @@ public class ConsumableService {
 		this.consumableRepository = consumableRepository;
 	}
 
-	List<ConsumableDTO> loadConsumables() {
+	public List<ConsumableDTO> loadConsumables() {
 		return this.consumableRepository.loadAll().stream()
 				.map(this::convertToConsumableDTO)
 				.toList();
 	}
 
+	public List<ConsumableDTO> loadConsumablesBeginningWith(String prefix) {
+		return this.consumableRepository.loadAllBeginningWith(prefix).stream()
+				.map(this::convertToConsumableDTO)
+				.toList();
+	}
+
+	public ConsumableDTO loadConsumable(String name) {
+		return this.convertToConsumableDTO(this.consumableRepository.load(name));
+	}
+
 	private ConsumableDTO convertToConsumableDTO(Consumable consumable) {
 		return new ConsumableDTO(
 				consumable.getName(), consumable.getUnit(), consumable.getServingQuantity());
-	}
-
-	private Consumable convertToConsumable(ConsumableDTO consumableDTO) {
-		// TODO: implement this method
-		return null;
 	}
 }

@@ -19,15 +19,17 @@
 package ulb.controllers;
 
 import javafx.stage.Stage;
-import ulb.models.FoodLoader;
+import ulb.services.ConsumableService;
 import ulb.views.FoodPopupViewController;
 
 public class FoodPopupController extends AppController implements FoodPopupViewController.Listener {
-	private final FoodLoader foodLoader = FoodLoader.getInstance();
+	private final ConsumableService consumableService;
 	private final Listener listener;
 	private Stage stage;
 
-	public FoodPopupController(FoodPopupController.Listener listener) {
+	public FoodPopupController(
+			ConsumableService consumableService, FoodPopupController.Listener listener) {
+		this.consumableService = consumableService;
 		this.listener = listener;
 	}
 
@@ -52,8 +54,8 @@ public class FoodPopupController extends AppController implements FoodPopupViewC
 	}
 
 	@Override
-	public int getServingQuantityValue(String food) {
-		return this.foodLoader.getFoodByName(food).extractServingQuantityValue();
+	public double getServingQuantityValue(String food) {
+		return this.consumableService.loadConsumable(food).extractServingQuantityValue();
 	}
 
 	@Override

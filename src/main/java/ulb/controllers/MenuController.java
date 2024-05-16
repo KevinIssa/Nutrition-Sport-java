@@ -26,11 +26,7 @@ import org.slf4j.LoggerFactory;
 import ulb.dtos.ActivityDTO;
 import ulb.dtos.DateCalorieDTO;
 import ulb.dtos.MealDTO;
-import ulb.models.*;
-import ulb.repositories.ConsumeMealRepository;
-import ulb.repositories.JSONConsumeMealRepository;
-import ulb.repositories.JSONRecipeRepository;
-import ulb.repositories.RecipeRepository;
+import ulb.repositories.*;
 import ulb.services.*;
 import ulb.views.*;
 
@@ -46,6 +42,7 @@ public class MenuController extends AppController implements MenuViewController.
 	private ProfileService profileService;
 	private ActivityService activityService;
 	private CaloriesTrackingService caloriesTrackingService;
+	private ConsumableService consumableService;
 
 	public void setProfileService(ProfileService profileService) {
 		logger.info("Setting ProfileService: {}", profileService);
@@ -60,6 +57,11 @@ public class MenuController extends AppController implements MenuViewController.
 	public void setCaloriesTrackingService(CaloriesTrackingService caloriesTrackingService) {
 		logger.info("Setting CaloriesTrackingService: {}", caloriesTrackingService);
 		this.caloriesTrackingService = caloriesTrackingService;
+	}
+
+	public void setConsumableService(ConsumableService consumableService) {
+		logger.info("Setting ConsumableService: {}", consumableService);
+		this.consumableService = consumableService;
 	}
 
 	@Override
@@ -252,8 +254,11 @@ public class MenuController extends AppController implements MenuViewController.
 	 */
 	@Override
 	public void loadMealHistoryView() {
+		// TODO : MOVE REPO + SERVICE TO APP
 		ConsumeMealRepository consumeMealRepository = new JSONConsumeMealRepository();
-		ConsumeMealService consumeMealService = new ConsumeMealService(consumeMealRepository);
+		ConsumableRepository consumableRepository = new JSONConsumableRepository();
+		ConsumeMealService consumeMealService =
+				new ConsumeMealService(consumeMealRepository, consumableRepository);
 		AppController controller =
 				new MealHistoryController(
 						consumeMealService,
@@ -278,8 +283,10 @@ public class MenuController extends AppController implements MenuViewController.
 
 	@Override
 	public void loadMealRecipe() {
+		// TODO : MOVE REPO + SERVICE TO APP
 		RecipeRepository recipeRepository = new JSONRecipeRepository();
-		RecipeService recipeService = new RecipeService(recipeRepository);
+		ConsumableRepository consumableRepository = new JSONConsumableRepository();
+		RecipeService recipeService = new RecipeService(recipeRepository, consumableRepository);
 		AppController controller =
 				new MealRecipeController(
 						recipeService,
@@ -337,7 +344,8 @@ public class MenuController extends AppController implements MenuViewController.
 
 	public void loadFoodSearchPage(MealDTO meal) {
 		Stage popupStage = new Stage();
-		AddFoodController controller = new AddFoodController(popupStage::close);
+		AddFoodController controller =
+				new AddFoodController(this.consumableService, popupStage::close);
 		controller.show(popupStage);
 		if (meal != null) {
 			controller.setDefaultRecipe(meal);
