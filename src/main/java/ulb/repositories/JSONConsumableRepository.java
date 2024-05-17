@@ -18,6 +18,7 @@
  */
 package ulb.repositories;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
@@ -69,25 +70,11 @@ public class JSONConsumableRepository implements ConsumableRepository {
 		return consumables;
 	}
 
-	private static class FoodList {
-		private List<Food> food;
-
-		public List<Food> getFood() {
-			return food;
-		}
-
-		public void setFood(List<Food> food) {
-			this.food = food;
-		}
-	}
-
 	private List<Food> loadAllFood() {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			FoodList foods =
-					objectMapper.readValue(
-							getClass().getResourceAsStream(FOOD_FILE), FoodList.class);
-			return foods.getFood();
+			return objectMapper.readValue(
+					getClass().getResourceAsStream(FOOD_FILE), new TypeReference<>() {});
 		} catch (IOException e) {
 			e.printStackTrace();
 			logger.error("Error loading food data from file: {}", FOOD_FILE);
