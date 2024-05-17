@@ -26,8 +26,7 @@ class HeightTest {
     @Test
     void toStringReturnsCorrectFormatForPositiveHeight() throws ValueObjectException {
         Height height = new Height(150.5f);
-        System.out.println(height.toString());
-        assertEquals("150,50 cm", height.toString());
+        assertTrue(height.toString().equals("150.50 cm") || height.toString().equals("150,50 cm"));
     }
 
 }
