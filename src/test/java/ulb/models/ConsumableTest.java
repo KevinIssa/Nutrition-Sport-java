@@ -25,6 +25,8 @@ import ulb.enums.Unit;
 
 class ConsumableTest {
 
+	// TODO : Add tests
+
 	@Test
 	void testGetCaloriesConsumedByGrams() {
 		assertEquals(
