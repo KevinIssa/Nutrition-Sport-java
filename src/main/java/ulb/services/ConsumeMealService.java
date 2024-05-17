@@ -20,15 +20,17 @@ package ulb.services;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.dtos.ConsumedFoodDTO;
 import ulb.dtos.ConsumedMealDTO;
-import ulb.models.Consumable;
 import ulb.models.ConsumedFood;
 import ulb.models.ConsumedMeal;
 import ulb.repositories.ConsumableRepository;
 import ulb.repositories.ConsumeMealRepository;
 
 public class ConsumeMealService {
+	private static final Logger logger = LoggerFactory.getLogger(ConsumeMealService.class);
 
 	private final ConsumeMealRepository consumeMealRepository;
 	private final ConsumableRepository consumableRepository;
@@ -88,11 +90,10 @@ public class ConsumeMealService {
 	}
 
 	private ConsumedFoodDTO convertToConsumedFoodDTO(ConsumedFood consumedFood) {
-		Consumable consumable = this.consumableRepository.load(consumedFood.getName());
 		return new ConsumedFoodDTO(
 				consumedFood.getName(),
 				consumedFood.getQuantity(),
 				consumedFood.getCalories(),
-				consumable.getUnit().toString());
+				consumedFood.getUnit());
 	}
 }
