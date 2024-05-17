@@ -61,4 +61,43 @@ class ActivityTest {
 		int initialHashCode = activity.hashCode();
 		assertEquals(initialHashCode, activity.hashCode());
 	}
+
+	@Test
+	void toStringReturnsCorrectFormat() {
+		Sport sport = Sport.RUNNING;
+		Intensity intensity = Intensity.INTENSE;
+		Duration duration = Duration.ofHours(1);
+		LocalDateTime date = LocalDateTime.now();
+		double burnedCalories = 500;
+		Activity activity = new Activity(sport, intensity, duration, date, burnedCalories);
+		String expected = "Activity{"
+				+ "sport="
+				+ sport
+				+ ", intensity="
+				+ intensity
+				+ ", duration="
+				+ duration
+				+ ", date="
+				+ date
+				+ ", burnedCalories="
+				+ burnedCalories
+				+ '}';
+		assertEquals(expected, activity.toString());
+	}
+
+	@Test
+	void toStringHandlesNullValues() {
+		Activity activity = new Activity();
+		String expected = "Activity{"
+				+ "sport=null"
+				+ ", intensity=null"
+				+ ", duration=null"
+				+ ", date=null"
+				+ ", burnedCalories=0.0"
+				+ '}';
+		assertEquals(expected, activity.toString());
+	}
 }
+
+
+

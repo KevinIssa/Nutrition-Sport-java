@@ -67,4 +67,30 @@ class ProfileTest {
 				BadBirthDateException.class,
 				() -> new Profile("John", "Doe", Sex.MALE, 70, 180, LocalDate.of(2090, 1, 1)));
 	}
+
+	@Test
+	void equalsReturnsFalseForNull() throws ValueObjectException {
+		Profile profile = new Profile("John", "Doe", Sex.MALE, 70, 180, LocalDate.of(1990, 1, 1));
+		assertFalse(profile.equals(null));
+	}
+
+	@Test
+	void equalsReturnsFalseForDifferentClass() throws ValueObjectException {
+		Profile profile = new Profile("John", "Doe", Sex.MALE, 70, 180, LocalDate.of(1990, 1, 1));
+		assertFalse(profile.equals(new Object()));
+	}
+
+	@Test
+	void equalsReturnsTrueForSameData() throws ValueObjectException {
+		Profile profile1 = new Profile("John", "Doe", Sex.MALE, 70, 180, LocalDate.of(1990, 1, 1));
+		Profile profile2 = new Profile("John", "Doe", Sex.MALE, 70, 180, LocalDate.of(1990, 1, 1));
+		assertTrue(profile1.equals(profile2));
+	}
+
+	@Test
+	void equalsReturnsFalseForDifferentData() throws ValueObjectException {
+		Profile profile1 = new Profile("John", "Doe", Sex.MALE, 70, 180, LocalDate.of(1990, 1, 1));
+		Profile profile2 = new Profile("Jane", "Doe", Sex.FEMALE, 60, 165, LocalDate.of(1995, 1, 1));
+		assertFalse(profile1.equals(profile2));
+	}
 }

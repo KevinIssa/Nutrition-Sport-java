@@ -42,9 +42,59 @@ class ConsumedMealTest {
 	}
 
 	@Test
+	void addConsumedFoodAddsFoodToMeal() {
+		ConsumedMeal meal = new ConsumedMeal();
+		ConsumedFood food = new ConsumedFood("Apple", 52, 100, "g");
+		meal.addConsumedFood(food);
+		assertEquals(1, meal.getConsumedFoods().size());
+		assertEquals(food, meal.getConsumedFoods().get(0));
+	}
+
+	@Test
+	void addConsumedFoodHandlesNull() {
+		ConsumedMeal meal = new ConsumedMeal();
+		meal.addConsumedFood(null);
+		assertEquals(1, meal.getConsumedFoods().size());
+		assertNull(meal.getConsumedFoods().get(0));
+	}
+
+	@Test
 	void getCaloriesConsumedShouldReturnTotalCalories() {
 		consumedMeal.addConsumedFood("Banana", 100, 100, "g");
 		consumedMeal.addConsumedFood("Apple", 200, 100, "g");
 		assertEquals(300, consumedMeal.getCaloriesConsumed());
+	}
+
+	@Test
+	void getConsumedFoodsReturnsEmptyListWhenNoFoodsAdded() {
+		ConsumedMeal meal = new ConsumedMeal();
+		assertTrue(meal.getConsumedFoods().isEmpty());
+	}
+
+	@Test
+	void getConsumedFoodsReturnsListOfFoodsWhenFoodsAdded() {
+		ConsumedMeal meal = new ConsumedMeal();
+		ConsumedFood food1 = new ConsumedFood("Apple", 52, 100, "g");
+		ConsumedFood food2 = new ConsumedFood("Banana", 105, 100, "g");
+		meal.addConsumedFood(food1);
+		meal.addConsumedFood(food2);
+		List<ConsumedFood> foods = meal.getConsumedFoods();
+		assertEquals(2, foods.size());
+		assertTrue(foods.contains(food1));
+		assertTrue(foods.contains(food2));
+	}
+
+	@Test
+	void toStringReturnsCorrectFormatForValidConsumedFood() {
+		ConsumedFood food = new ConsumedFood("Apple", 52, 100, "g");
+		String expected = "ConsumedFood{name='Apple', quantity=100.0, calories=52.0, unit='g'}";
+		assertEquals(expected, food.toString());
+	}
+
+	@Test
+	void toStringHandlesNullValues() {
+		ConsumedFood food = new ConsumedFood(null, 0, 0, null);
+		String expected = "ConsumedFood{name='null', quantity=0.0, calories=0.0, unit='null'}";
+		assertEquals(expected, food.toString());
 	}
 }

@@ -103,4 +103,5 @@ class FoodTest {
 		Food sameFood = new Food("Apple", 52, 52, "1 (182g)", Unit.GRAMS);
 		assertEquals(food, sameFood);
 	}
+
 }
