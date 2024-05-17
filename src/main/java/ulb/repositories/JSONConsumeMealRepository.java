@@ -54,9 +54,8 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 		String fileName =
 				FOLDER_NAME
 						+ "/"
-						+ consumedMeal
-								.getDate()
-								.format(DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss"))
+						+ LocalDateTime.now()
+								.format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss"))
 						+ ".json";
 		try {
 			this.save(consumedMeal, fileName);

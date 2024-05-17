@@ -20,10 +20,13 @@ package ulb.dtos;
 
 import java.util.List;
 
-public record MealDTO(String name, List<FoodDTO> foods) {
-	public MealDTO() {
-		this("", List.of());
+public record RecipeDTO(String name, List<FoodDTO> foods, int personAmount) {
+
+	public RecipeDTO(String name, List<FoodDTO> foods) {
+		this(name, foods, 1);
 	}
 
-	public void delete() {}
+	public RecipeDTO() {
+		this("", List.of(), 1);
+	}
 }

@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.ActivityDTO;
 import ulb.dtos.DateCalorieDTO;
-import ulb.dtos.MealDTO;
+import ulb.dtos.RecipeDTO;
 import ulb.repositories.*;
 import ulb.services.*;
 import ulb.views.*;
@@ -247,7 +247,7 @@ public class MenuController extends AppController implements MenuViewController.
 	}
 
 	/**
-	 * This method is used to load the Meal History view of the application.
+	 * This method is used to load the Recipe History view of the application.
 	 * It uses the helper method loadViewWithController to load the view, passing a new instance of MealHistoryController as an argument.
 	 * The MealHistoryController instance is created with a lambda expression that calls the loadMenuView method when invoked.
 	 * This method is an implementation of the loadMealHistoryView method defined in the MenuViewController.Listener interface.
@@ -298,19 +298,19 @@ public class MenuController extends AppController implements MenuViewController.
 							}
 
 							@Override
-							public void mealDetails(MealDTO meal) {
+							public void mealDetails(RecipeDTO meal) {
 								loadMealDetails(meal);
 							}
 
 							@Override
-							public void editMeal(MealDTO meal) {
+							public void editMeal(RecipeDTO meal) {
 								loadFoodSearchPage(meal);
 							}
 						});
 		controller.show(this.primaryStage);
 	}
 
-	public void loadMealDetails(MealDTO mealDTO) {
+	public void loadMealDetails(RecipeDTO recipeDTO) {
 		Stage popupStage = new Stage();
 		MealDetailsController controller =
 				new MealDetailsController(
@@ -322,7 +322,7 @@ public class MenuController extends AppController implements MenuViewController.
 						});
 		controller.show(popupStage);
 
-		controller.setMeal(mealDTO);
+		controller.setMeal(recipeDTO);
 
 		popupStage.initModality(Modality.APPLICATION_MODAL);
 		popupStage.showAndWait();
@@ -342,7 +342,7 @@ public class MenuController extends AppController implements MenuViewController.
 		loadFoodSearchPage(null);
 	}
 
-	public void loadFoodSearchPage(MealDTO meal) {
+	public void loadFoodSearchPage(RecipeDTO meal) {
 		Stage popupStage = new Stage();
 		AddFoodController controller =
 				new AddFoodController(this.consumableService, popupStage::close);

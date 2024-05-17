@@ -28,7 +28,7 @@ import javafx.scene.layout.HBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.FoodDTO;
-import ulb.dtos.MealDTO;
+import ulb.dtos.RecipeDTO;
 
 public class MealDetailsViewController implements ViewController {
 
@@ -52,10 +52,10 @@ public class MealDetailsViewController implements ViewController {
 		this.listener = (MealDetailsViewController.Listener) listener;
 	}
 
-	public void setMeal(MealDTO mealDTO) {
-		mealName.setText(mealDTO.name());
+	public void setMeal(RecipeDTO recipeDTO) {
+		mealName.setText(recipeDTO.name());
 		double calorie = 0;
-		for (FoodDTO foodDTO : mealDTO.foods()) {
+		for (FoodDTO foodDTO : recipeDTO.foods()) {
 			calorie += this.listener.getCaloriesConsumed(foodDTO);
 			addMealBox(foodDTO);
 		}

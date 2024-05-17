@@ -21,7 +21,7 @@ package ulb.controllers;
 import java.util.List;
 import javafx.stage.Stage;
 import ulb.dtos.FoodDTO;
-import ulb.dtos.MealDTO;
+import ulb.dtos.RecipeDTO;
 import ulb.views.MakeMealViewController;
 
 public class EditMealController implements MakeMealViewController.Listener {
@@ -40,7 +40,7 @@ public class EditMealController implements MakeMealViewController.Listener {
 		this.stage.hide();
 	}
 
-	public void show(MealDTO meal) {
+	public void show(RecipeDTO meal) {
 		this.stage.show();
 		this.makeMealViewController.setMeal(meal);
 	}
@@ -89,7 +89,7 @@ public class EditMealController implements MakeMealViewController.Listener {
 
 	}
 
-	public void editMeal(MealDTO meal) {}
+	public void editMeal(RecipeDTO meal) {}
 
 	public interface Listener {
 		// TODO Implement

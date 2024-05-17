@@ -24,32 +24,39 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.enums.Unit;
 
-public class Meal implements Consumable {
-	private static final Logger logger = LoggerFactory.getLogger(Meal.class);
+public class Recipe implements Consumable {
+	private static final Logger logger = LoggerFactory.getLogger(Recipe.class);
 
 	private String name;
-	private List<Map.Entry<Food, Double>> ingredients = new ArrayList<>();
+	private List<Map.Entry<Consumable, Double>> ingredients = new ArrayList<>();
 
 	/**
 	 * Default constructor.
 	 */
-	public Meal() {}
+	public Recipe() {}
 
 	/**
 	 * Constructor with name parameter.
 	 *
 	 * @param name The name of the meal.
 	 */
-	public Meal(String name) {
+	public Recipe(String name) {
 		this.name = name;
+	}
+
+	public Recipe(String name, List<Consumable> list) {
+		this.name = name;
+		for (Consumable consumable : list) {
+			addIngredient(consumable, 100);
+		}
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
-		Meal meal = (Meal) obj;
-		return Objects.equals(name, meal.name) && Objects.equals(ingredients, meal.ingredients);
+		Recipe recipe = (Recipe) obj;
+		return Objects.equals(name, recipe.name) && Objects.equals(ingredients, recipe.ingredients);
 	}
 
 	/**
@@ -58,8 +65,8 @@ public class Meal implements Consumable {
 	 * @param food     The food to add.
 	 * @param quantity The quantity in gramme of the food.
 	 */
-	public void addIngredient(Food food, double quantity) {
-		Map.Entry<Food, Double> entry = Map.entry(food, quantity);
+	public void addIngredient(Consumable food, double quantity) {
+		Map.Entry<Consumable, Double> entry = Map.entry(food, quantity);
 		this.ingredients.add(entry);
 	}
 
@@ -93,7 +100,7 @@ public class Meal implements Consumable {
 	public double getGramsForServing(double servings) {
 		double totalGrams = 0;
 		logger.info("Calculating grams for servings: {}", servings);
-		for (Map.Entry<Food, Double> ingredient : ingredients) {
+		for (Map.Entry<Consumable, Double> ingredient : ingredients) {
 			logger.info("Ingredient: {}", ingredient);
 			totalGrams += ingredient.getValue();
 		}
@@ -110,7 +117,7 @@ public class Meal implements Consumable {
 	@Override
 	public double getCaloriesConsumedByServing(double servings) {
 		double totalCalories = 0;
-		for (Map.Entry<Food, Double> ingredient : ingredients) {
+		for (Map.Entry<Consumable, Double> ingredient : ingredients) {
 			totalCalories += ingredient.getKey().getCaloriesConsumedByUnit(ingredient.getValue());
 		}
 		return totalCalories * servings;
@@ -143,7 +150,7 @@ public class Meal implements Consumable {
 	 *
 	 * @return The list of ingredients.
 	 */
-	public List<Map.Entry<Food, Double>> getIngredients() {
+	public List<Map.Entry<Consumable, Double>> getIngredients() {
 		return ingredients;
 	}
 
@@ -163,7 +170,7 @@ public class Meal implements Consumable {
 	 *
 	 * @param ingredients The list of ingredients.
 	 */
-	public void setIngredients(List<Map.Entry<Food, Double>> ingredients) {
+	public void setIngredients(List<Map.Entry<Consumable, Double>> ingredients) {
 		this.ingredients = ingredients;
 	}
 
@@ -174,6 +181,6 @@ public class Meal implements Consumable {
 	 */
 	@Override
 	public String toString() {
-		return "Meal{" + "name='" + name + '\'' + ", ingredients=" + ingredients + '}';
+		return "Recipe{" + "name='" + name + '\'' + ", ingredients=" + ingredients + '}';
 	}
 }

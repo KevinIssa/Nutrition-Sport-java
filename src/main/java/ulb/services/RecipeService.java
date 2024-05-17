@@ -24,9 +24,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.FoodDTO;
-import ulb.dtos.MealDTO;
-import ulb.models.Food;
-import ulb.models.Meal;
+import ulb.dtos.RecipeDTO;
+import ulb.models.Consumable;
+import ulb.models.Recipe;
 import ulb.repositories.ConsumableRepository;
 import ulb.repositories.RecipeRepository;
 
@@ -42,23 +42,23 @@ public class RecipeService {
 		this.consumableRepository = consumableRepository;
 	}
 
-	public void deleteMeal(MealDTO meal) {
+	public void deleteMeal(RecipeDTO meal) {
 		logger.info("Deleting a recipe and its associated file");
-		meal.delete();
+		// TODO: Implement the deleteMeal method
 	}
 
-	public List<MealDTO> loadAllRecipes() {
-		List<MealDTO> meals = new ArrayList<>();
-		for (Meal meal : this.consumableRepository.loadAllMeals()) {
+	public List<RecipeDTO> loadAllRecipes() {
+		List<RecipeDTO> meals = new ArrayList<>();
+		for (Recipe recipe : this.consumableRepository.loadAllMeals()) {
 			List<FoodDTO> foods = new ArrayList<>();
-			for (Map.Entry<Food, Double> entry : meal.getIngredients()) {
-				Food food = entry.getKey();
+			for (Map.Entry<Consumable, Double> entry : recipe.getIngredients()) {
+				Consumable food = entry.getKey();
 				Double quantity = entry.getValue();
 				FoodDTO foodDTO = new FoodDTO(food.getName(), quantity, food.getUnit());
 				foods.add(foodDTO);
 			}
-			MealDTO mealDTO = new MealDTO(meal.getName(), foods);
-			meals.add(mealDTO);
+			RecipeDTO recipeDTO = new RecipeDTO(recipe.getName(), foods);
+			meals.add(recipeDTO);
 		}
 		return meals;
 	}

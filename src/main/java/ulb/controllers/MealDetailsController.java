@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.FoodDTO;
-import ulb.dtos.MealDTO;
+import ulb.dtos.RecipeDTO;
 import ulb.views.MealDetailsViewController;
 
 public class MealDetailsController extends AppController
@@ -42,8 +42,8 @@ public class MealDetailsController extends AppController
 		this.viewController.setListener(this);
 	}
 
-	public void setMeal(MealDTO mealDTO) {
-		((MealDetailsViewController) this.viewController).setMeal(mealDTO);
+	public void setMeal(RecipeDTO recipeDTO) {
+		((MealDetailsViewController) this.viewController).setMeal(recipeDTO);
 	}
 
 	@Override

@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 import ulb.dtos.ConsumableDTO;
 import ulb.dtos.ConsumedFoodDTO;
 import ulb.dtos.FoodDTO;
-import ulb.dtos.MealDTO;
+import ulb.dtos.RecipeDTO;
 import ulb.models.ConsumedMeal;
 import ulb.repositories.JSONConsumableRepository;
 import ulb.repositories.JSONConsumeMealRepository;
@@ -80,14 +80,7 @@ public class AddFoodController extends AppController
 
 	@Override
 	public void saveMeal(String mealName, List<FoodDTO> foodList, int personAmount) {
-		// TODO : REPAIR THIS
-		//		Meal meal = new Meal(mealName);
-		//		for (FoodDTO food : foodList) {
-		//			ConsumableDTO foodDTO = this.consumableService.loadConsumable(food.name());
-		//			meal.addIngredient(
-		//					this.foodLoader.getFoodByName(food.name()), food.quantity() / personAmount);
-		//		}
-		//		meal.save();
+		this.consumableService.saveMeal(new RecipeDTO(mealName, foodList, personAmount));
 	}
 
 	@Override
@@ -160,7 +153,7 @@ public class AddFoodController extends AppController
 		}
 	}
 
-	public void setDefaultRecipe(MealDTO meal) {
+	public void setDefaultRecipe(RecipeDTO meal) {
 		this.changeMode();
 		((MakeMealViewController) this.viewController).setDefaultRecipe(meal);
 	}

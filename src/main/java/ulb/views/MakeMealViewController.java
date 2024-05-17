@@ -30,7 +30,7 @@ import javafx.scene.control.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.FoodDTO;
-import ulb.dtos.MealDTO;
+import ulb.dtos.RecipeDTO;
 import ulb.enums.Unit;
 import ulb.widgets.FoodBox;
 import ulb.widgets.NumberField;
@@ -88,7 +88,7 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		chosenFoodList.getItems().add(foodBox);
 	}
 
-	public void setMeal(MealDTO meal) {
+	public void setMeal(RecipeDTO meal) {
 		this.switchButton.setVisible(false);
 		this.mealName.setText(meal.name());
 		this.personAmountNumber.setValue(1);
@@ -150,11 +150,11 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		}
 	}
 
-	public void setDefaultRecipe(MealDTO mealDTO) {
+	public void setDefaultRecipe(RecipeDTO recipeDTO) {
 		this.switchButton.setVisible(false);
-		this.mealName.setText(mealDTO.name());
+		this.mealName.setText(recipeDTO.name());
 		this.personAmountNumber.setValue(1);
-		for (FoodDTO foodDTO : mealDTO.foods()) {
+		for (FoodDTO foodDTO : recipeDTO.foods()) {
 			logger.info("Adding foodDTO: {}", foodDTO);
 			addChosenFood(foodDTO.name(), foodDTO.quantity());
 		}

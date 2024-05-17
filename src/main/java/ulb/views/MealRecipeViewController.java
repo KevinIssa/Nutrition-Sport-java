@@ -27,7 +27,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulb.dtos.MealDTO;
+import ulb.dtos.RecipeDTO;
 import ulb.widgets.MealBox;
 
 public class MealRecipeViewController implements ViewController {
@@ -51,7 +51,7 @@ public class MealRecipeViewController implements ViewController {
 		this.showRecipes();
 	}
 
-	private MealBox makeMealBox(MealDTO meal) throws IOException {
+	private MealBox makeMealBox(RecipeDTO meal) throws IOException {
 		Button deleteButton = new Button("");
 		Button editButton = new Button("");
 		Button checkButton = new Button("");
@@ -66,8 +66,8 @@ public class MealRecipeViewController implements ViewController {
 
 	private void showRecipes() {
 		this.mealList.getItems().clear();
-		List<MealDTO> meals = this.loadRecipes();
-		for (MealDTO meal : meals) {
+		List<RecipeDTO> meals = this.loadRecipes();
+		for (RecipeDTO meal : meals) {
 			try {
 				MealBox mealBox = this.makeMealBox(meal);
 				this.mealList.getItems().add(mealBox);
@@ -79,7 +79,7 @@ public class MealRecipeViewController implements ViewController {
 		}
 	}
 
-	private List<MealDTO> loadRecipes() {
+	private List<RecipeDTO> loadRecipes() {
 		return this.listener.loadRecipes();
 	}
 
@@ -110,13 +110,13 @@ public class MealRecipeViewController implements ViewController {
 	}
 
 	public interface Listener {
-		List<MealDTO> loadRecipes();
+		List<RecipeDTO> loadRecipes();
 
-		void checkMeal(MealDTO meal);
+		void checkMeal(RecipeDTO meal);
 
-		void editMeal(MealDTO meal);
+		void editMeal(RecipeDTO meal);
 
-		void deleteMeal(MealDTO meal);
+		void deleteMeal(RecipeDTO meal);
 
 		void returnHome();
 	}

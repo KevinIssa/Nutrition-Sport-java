@@ -28,16 +28,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import ulb.dtos.MealDTO;
+import ulb.dtos.RecipeDTO;
 
 public class MealBox extends HBox {
 	private static final String TRASH_IMAGE = "/ulb/images/trash.png";
 	private static final String PEN_IMAGE = "/ulb/images/pen.png";
 	private static final String SEARCH_IMAGE = "/ulb/images/search_icon.png";
 
-	private MealDTO food;
+	private RecipeDTO food;
 
-	public MealBox(MealDTO meal, Button searchButton, Button deleteButton, Button editButton)
+	public MealBox(RecipeDTO meal, Button searchButton, Button deleteButton, Button editButton)
 			throws IOException {
 		this.food = meal;
 		this.setAlignment(Pos.CENTER);
@@ -59,7 +59,7 @@ public class MealBox extends HBox {
 		button.setGraphic(new ImageView(new Image(path.toString(), 30, 30, false, false)));
 	}
 
-	public MealDTO getMealDTO() {
+	public RecipeDTO getMealDTO() {
 		return this.food;
 	}
 }

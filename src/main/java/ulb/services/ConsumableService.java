@@ -20,7 +20,10 @@ package ulb.services;
 
 import java.util.List;
 import ulb.dtos.ConsumableDTO;
+import ulb.dtos.FoodDTO;
+import ulb.dtos.RecipeDTO;
 import ulb.models.Consumable;
+import ulb.models.Recipe;
 import ulb.repositories.ConsumableRepository;
 
 public class ConsumableService {
@@ -29,6 +32,10 @@ public class ConsumableService {
 
 	public ConsumableService(ConsumableRepository consumableRepository) {
 		this.consumableRepository = consumableRepository;
+	}
+
+	public void saveMeal(RecipeDTO recipeDTO) {
+		this.consumableRepository.save(this.convertToMeal(recipeDTO));
 	}
 
 	public List<ConsumableDTO> loadConsumables() {
@@ -50,5 +57,15 @@ public class ConsumableService {
 	private ConsumableDTO convertToConsumableDTO(Consumable consumable) {
 		return new ConsumableDTO(
 				consumable.getName(), consumable.getUnit(), consumable.getServingQuantity());
+	}
+
+	private Recipe convertToMeal(RecipeDTO recipeDTO) {
+		return new Recipe(
+				recipeDTO.name(),
+				recipeDTO.foods().stream().map(this::convertToConsumable).toList());
+	}
+
+	private Consumable convertToConsumable(FoodDTO foodDTO) {
+		return this.consumableRepository.load(foodDTO.name());
 	}
 }

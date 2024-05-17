@@ -20,14 +20,16 @@ package ulb.repositories;
 
 import java.util.List;
 import ulb.models.Consumable;
-import ulb.models.Meal;
+import ulb.models.Recipe;
 
 public interface ConsumableRepository {
 	List<Consumable> loadAll();
 
-	List<Meal> loadAllMeals();
+	List<Recipe> loadAllMeals();
 
 	Consumable load(String name);
 
 	List<Consumable> loadAllBeginningWith(String prefix);
+
+	void save(Recipe recipe);
 }

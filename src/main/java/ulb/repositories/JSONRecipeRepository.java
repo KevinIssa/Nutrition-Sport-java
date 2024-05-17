@@ -18,12 +18,12 @@
  */
 package ulb.repositories;
 
-import ulb.models.Meal;
+import ulb.models.Recipe;
 
-public class JSONRecipeRepository extends JSONRepository<Meal> implements RecipeRepository {
+public class JSONRecipeRepository extends JSONRepository<Recipe> implements RecipeRepository {
 
 	@Override
-	protected Class<Meal> getObjectType() {
-		return Meal.class;
+	protected Class<Recipe> getObjectType() {
+		return Recipe.class;
 	}
 }
