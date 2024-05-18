@@ -62,4 +62,9 @@ public class RecipeService {
 		}
 		return meals;
 	}
+
+	public void deleteAllRecipes() {
+		// logger.info("Deleting all recipes");
+		this.recipeRepository.deleteAll();
+	}
 }

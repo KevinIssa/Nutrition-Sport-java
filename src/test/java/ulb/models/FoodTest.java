@@ -103,4 +103,14 @@ class FoodTest {
 		Food sameFood = new Food("Apple", 52, 52, "1 (182g)", Unit.GRAMS);
 		assertEquals(food, sameFood);
 	}
+
+	@Test
+	void defaultConstructorSetsDefaultValues() {
+		Food defaultFood = new Food();
+		assertNull(defaultFood.getName());
+		assertEquals(0, defaultFood.getCaloriesPer100Unit());
+		assertEquals(0, defaultFood.getCaloriesPerServing());
+		assertNull(defaultFood.getServingQuantity());
+		assertNull(defaultFood.getUnit());
+	}
 }

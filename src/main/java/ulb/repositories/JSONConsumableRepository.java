@@ -40,7 +40,8 @@ public class JSONConsumableRepository implements ConsumableRepository {
 	private static final Logger logger = LoggerFactory.getLogger(JSONConsumableRepository.class);
 
 	private static final String FOOD_FILE = "/ulb/jsons/food.json";
-	private static final String MEAL_FOLDER = "meals";
+	private static final String RECIPES_FOLDER = "recipes";
+	private static final String CONSUMED_MEALS_FOLDER = "consumed_meals";
 
 	public Consumable loadByName(String name) {
 		List<Consumable> consumables = this.loadAll();
@@ -77,6 +78,11 @@ public class JSONConsumableRepository implements ConsumableRepository {
 
 	@Override
 	public void save(Recipe recipe) {
+		File mealFolder = new File(RECIPES_FOLDER);
+		if (!mealFolder.exists()) {
+			mealFolder.mkdirs();
+		}
+
 		logger.debug("Saving meal data to file: {}", recipe.getName());
 		ObjectMapper mapper = new ObjectMapper();
 		class ConsumableEntryList extends ArrayList<Map.Entry<Consumable, Double>> {}
@@ -86,10 +92,11 @@ public class JSONConsumableRepository implements ConsumableRepository {
 								(Class<List<Map.Entry<Consumable, Double>>>) (Class<?>) List.class,
 								new ConsumableListSerializer()));
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+
 		try {
 			mapper.writeValue(
 					new File(
-							MEAL_FOLDER
+							RECIPES_FOLDER
 									+ "/"
 									+ LocalDateTime.now()
 											.format(
@@ -116,7 +123,7 @@ public class JSONConsumableRepository implements ConsumableRepository {
 	}
 
 	public List<Recipe> loadAllMeals() {
-		File folder = new File(MEAL_FOLDER);
+		File folder = new File(RECIPES_FOLDER);
 		File[] files = folder.listFiles();
 		List<Recipe> recipes = new ArrayList<>();
 		if (files != null) {
@@ -149,6 +156,20 @@ public class JSONConsumableRepository implements ConsumableRepository {
 			return binarySearch(consumables, target, mid + 1, end);
 		} else {
 			return binarySearch(consumables, target, start, mid - 1);
+		}
+	}
+
+	@Override
+	public void deleteAll() {
+		File folder = new File(CONSUMED_MEALS_FOLDER);
+		File[] files = folder.listFiles();
+		if (files != null) {
+			// logger.info("Deleting all consumables");
+			for (File file : files) {
+				if (!file.isDirectory()) {
+					file.delete();
+				}
+			}
 		}
 	}
 }

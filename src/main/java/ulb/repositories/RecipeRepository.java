@@ -18,4 +18,6 @@
  */
 package ulb.repositories;
 
-public interface RecipeRepository {}
+public interface RecipeRepository {
+	public void deleteAll();
+}
