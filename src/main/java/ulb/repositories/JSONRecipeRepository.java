@@ -23,7 +23,7 @@ import ulb.models.Recipe;
 
 public class JSONRecipeRepository extends JSONRepository<Recipe> implements RecipeRepository {
 
-	private static final String FOLDER_NAME = "meals";
+	private static final String RECIPES_FOLDER = "recipes";
 
 	@Override
 	protected Class<Recipe> getObjectType() {
@@ -32,7 +32,7 @@ public class JSONRecipeRepository extends JSONRepository<Recipe> implements Reci
 
 	@Override
 	public void deleteAll() {
-		File folder = new File(FOLDER_NAME);
+		File folder = new File(RECIPES_FOLDER);
 		File[] files = folder.listFiles();
 		if (files != null) {
 			// logger.info("Deleting all consumables");
