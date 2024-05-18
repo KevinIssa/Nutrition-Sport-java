@@ -40,9 +40,7 @@ public class MealDetailsViewController implements ViewController {
 	private MealDetailsViewController.Listener listener;
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {
-		System.out.println(listener);
-	}
+	public void initialize(URL url, ResourceBundle resourceBundle) {}
 
 	public void setListener(Object listener) {
 		if (listener == null) {
@@ -54,12 +52,10 @@ public class MealDetailsViewController implements ViewController {
 
 	public void setMeal(RecipeDTO recipeDTO) {
 		mealName.setText(recipeDTO.name());
-		double calorie = 0;
+		Calories.setText(this.listener.getCaloriesConsumed(recipeDTO) + "kcal");
 		for (FoodDTO foodDTO : recipeDTO.foods()) {
-			calorie += this.listener.getCaloriesConsumed(foodDTO);
 			addMealBox(foodDTO);
 		}
-		Calories.setText(Double.toString(calorie) + "kcal");
 	}
 
 	private void addMealBox(FoodDTO foodDTO) {
@@ -103,6 +99,6 @@ public class MealDetailsViewController implements ViewController {
 
 		void returnHome();
 
-		double getCaloriesConsumed(FoodDTO foodDTO);
+		double getCaloriesConsumed(RecipeDTO recipeDTO);
 	}
 }

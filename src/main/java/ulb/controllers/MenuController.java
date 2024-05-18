@@ -321,14 +321,10 @@ public class MenuController extends AppController implements MenuViewController.
 
 	public void loadMealDetails(RecipeDTO recipeDTO) {
 		Stage popupStage = new Stage();
+		ConsumableRepository consumableRepository = new JSONConsumableRepository();
+		ConsumableService consumableService = new ConsumableService(consumableRepository);
 		MealDetailsController controller =
-				new MealDetailsController(
-						new MealDetailsController.Listener() {
-							@Override
-							public void returnHome() {
-								popupStage.close();
-							}
-						});
+				new MealDetailsController(consumableService, () -> popupStage.close());
 		controller.show(popupStage);
 
 		controller.setMeal(recipeDTO);

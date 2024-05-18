@@ -21,17 +21,20 @@ package ulb.controllers;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ulb.dtos.FoodDTO;
 import ulb.dtos.RecipeDTO;
+import ulb.services.ConsumableService;
 import ulb.views.MealDetailsViewController;
 
 public class MealDetailsController extends AppController
 		implements MealDetailsViewController.Listener {
 	private static final Logger logger = LoggerFactory.getLogger(MealDetailsController.class);
+	private final ConsumableService consumableService;
 	private final MealDetailsController.Listener listener;
 
-	public MealDetailsController(MealDetailsController.Listener listener) {
+	public MealDetailsController(
+			ConsumableService consumableService, MealDetailsController.Listener listener) {
 		logger.info("Initializing MealDetailsController");
+		this.consumableService = consumableService;
 		this.listener = listener;
 	}
 
@@ -47,10 +50,8 @@ public class MealDetailsController extends AppController
 	}
 
 	@Override
-	public double getCaloriesConsumed(FoodDTO food) {
-		// TODO: Implement this method
-		return 0;
-		// return food.getCaloriesConsumedByUnit(quantity);
+	public double getCaloriesConsumed(RecipeDTO recipeDTO) {
+		return this.consumableService.getCaloriesConsumed(recipeDTO);
 	}
 
 	@Override

@@ -19,7 +19,6 @@
 package ulb.services;
 
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.ConsumableDTO;
@@ -70,7 +69,8 @@ public class ConsumableService {
 				.forEach(
 						foodDTO ->
 								recipe.addIngredient(
-										this.convertToConsumable(foodDTO), foodDTO.quantity() / recipeDTO.personAmount()));
+										this.convertToConsumable(foodDTO),
+										foodDTO.quantity() / recipeDTO.personAmount()));
 		return recipe;
 	}
 
@@ -81,5 +81,15 @@ public class ConsumableService {
 	public Void deleteAllConsumables() {
 		this.consumableRepository.deleteAll();
 		return null;
+	}
+
+	public double getCaloriesConsumed(RecipeDTO recipeDTO) {
+		return recipeDTO.foods().stream()
+				.mapToDouble(
+						foodDTO ->
+								this.consumableRepository
+										.load(foodDTO.name())
+										.getCaloriesConsumedByUnit(foodDTO.quantity()))
+				.sum();
 	}
 }

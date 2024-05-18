@@ -92,7 +92,7 @@ public class Recipe implements Consumable {
 	 */
 	public double getGramsForServing(double servings) {
 		double totalGrams = 0;
-		for (Map.Entry<Consumable, Double> ingredient : ingredients) { 
+		for (Map.Entry<Consumable, Double> ingredient : ingredients) {
 			totalGrams += ingredient.getValue();
 		}
 		return totalGrams * servings;
