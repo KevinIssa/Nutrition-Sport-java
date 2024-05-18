@@ -44,7 +44,6 @@ public class JSONConsumableRepository implements ConsumableRepository {
 
 	private static final String FOLDER_NAME = "consumed_meals";
 
-
 	public Consumable loadByName(String name) {
 		List<Consumable> consumables = this.loadAll();
 		return binarySearch(consumables, name, 0, consumables.size() - 1);

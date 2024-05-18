@@ -97,4 +97,20 @@ class ConsumedMealTest {
 		String expected = "ConsumedFood{name='null', quantity=0.0, calories=0.0, unit='null'}";
 		assertEquals(expected, food.toString());
 	}
+
+	@Test
+	void equalsReturnsTrueForSameObject() {
+		ConsumedFood food = new ConsumedFood("Apple", 52, 100, "g");
+		consumedMeal.addConsumedFood(food);
+		assertTrue(consumedMeal.equals(consumedMeal));
+
+		ConsumedMeal meal = new ConsumedMeal();
+		ConsumedFood food2 = new ConsumedFood("Apple", 52, 100, "g");
+		meal.addConsumedFood(food2);
+		assertTrue(consumedMeal.equals(meal));
+
+		ConsumedFood food3 = new ConsumedFood("pear", 52, 100, "g");
+		meal.addConsumedFood(food3);
+		assertFalse(consumedMeal.equals(meal));
+	}
 }

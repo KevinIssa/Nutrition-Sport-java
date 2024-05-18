@@ -19,5 +19,5 @@
 package ulb.repositories;
 
 public interface RecipeRepository {
-  public void deleteAll();
+	public void deleteAll();
 }

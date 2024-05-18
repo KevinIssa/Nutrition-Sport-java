@@ -41,7 +41,21 @@ public class Profile {
 	 * Default constructor for Profile.
 	 * Initializes the Profile with no values.
 	 */
-	public Profile() {}
+	public Profile() {
+		this.firstName = new Name();
+		this.lastName = new Name();
+		try {
+			this.weight = new Weight(2); // Default weight and height values are set to 2
+			this.height = new Height(2); // to avoid the triggering the boundary checks.
+		} catch (ValueObjectException e) {
+			logger.error(
+					"Default weight and height values in Profile are invalid Constructor Please"
+							+ " contact the developers");
+			this.weight = new Weight();
+			this.height = new Height();
+		}
+		this.birthDate = new BirthDate();
+	}
 
 	/**
 	 * Constructs a Profile object with specified attributes.

@@ -94,4 +94,17 @@ class ProfileTest {
 				new Profile("Jane", "Doe", Sex.FEMALE, 60, 165, LocalDate.of(1995, 1, 1));
 		assertFalse(profile1.equals(profile2));
 	}
+
+	@Test
+	void defaultProfileConstructor() {
+		assertDoesNotThrow(() -> new Profile());
+
+		Profile profile = new Profile();
+		assertNull(profile.getFirstName());
+		assertNull(profile.getLastName());
+		assertNull(profile.getSex());
+		assertEquals(2, profile.getWeight());
+		assertEquals(2, profile.getHeight());
+		assertNull(profile.getBirthDate());
+	}
 }

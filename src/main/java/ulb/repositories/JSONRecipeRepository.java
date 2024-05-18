@@ -19,7 +19,6 @@
 package ulb.repositories;
 
 import java.io.File;
-
 import ulb.models.Recipe;
 
 public class JSONRecipeRepository extends JSONRepository<Recipe> implements RecipeRepository {

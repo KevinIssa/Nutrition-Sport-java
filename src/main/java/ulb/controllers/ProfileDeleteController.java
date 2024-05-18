@@ -21,8 +21,6 @@ package ulb.controllers;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import ulb.models.Recipe;
 import ulb.services.*;
 import ulb.views.ProfileDeleteConfirmViewController;
 
@@ -45,7 +43,7 @@ public class ProfileDeleteController extends AppController
 			ActivityService activitiesService,
 			ConsumableService consumableService,
 			RecipeService recipeService,
-			ProfileService profileService, 
+			ProfileService profileService,
 			ProfileDeleteController.Listener listener) {
 		logger.info("Initializing ProfileDeleteController");
 		this.activitiesService = activitiesService;
@@ -66,7 +64,7 @@ public class ProfileDeleteController extends AppController
 	public void deleteProfile() {
 		logger.info("Deleting profile");
 		this.profileService.deleteProfile();
-		this.activitiesService.deleteAllActivities();		
+		this.activitiesService.deleteAllActivities();
 		this.consumableService.deleteAllConsumables();
 		this.recipeService.deleteAllRecipes();
 		this.listener.createProfile();
