@@ -32,4 +32,6 @@ public interface ConsumableRepository {
 	List<Consumable> loadAllBeginningWith(String prefix);
 
 	void save(Recipe recipe);
+
+	void deleteAll();
 }

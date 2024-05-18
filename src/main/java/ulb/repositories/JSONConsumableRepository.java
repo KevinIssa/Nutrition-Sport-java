@@ -42,6 +42,9 @@ public class JSONConsumableRepository implements ConsumableRepository {
 	private static final String FOOD_FILE = "/ulb/jsons/food.json";
 	private static final String MEAL_FOLDER = "meals";
 
+	private static final String FOLDER_NAME = "consumed_meals";
+
+
 	public Consumable loadByName(String name) {
 		List<Consumable> consumables = this.loadAll();
 		return binarySearch(consumables, name, 0, consumables.size() - 1);
@@ -149,6 +152,20 @@ public class JSONConsumableRepository implements ConsumableRepository {
 			return binarySearch(consumables, target, mid + 1, end);
 		} else {
 			return binarySearch(consumables, target, start, mid - 1);
+		}
+	}
+
+	@Override
+	public void deleteAll() {
+		File folder = new File(FOLDER_NAME);
+		File[] files = folder.listFiles();
+		if (files != null) {
+			// logger.info("Deleting all consumables");
+			for (File file : files) {
+				if (!file.isDirectory()) {
+					file.delete();
+				}
+			}
 		}
 	}
 }

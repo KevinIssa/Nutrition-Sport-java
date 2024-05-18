@@ -149,6 +149,8 @@ public class MenuController extends AppController implements MenuViewController.
 		Stage popupStage = new Stage();
 		AppController controller =
 				new ProfileDeleteController(
+						this.activityService,
+						this.consumableService,
 						this.profileService,
 						new ProfileDeleteController.Listener() {
 							@Override

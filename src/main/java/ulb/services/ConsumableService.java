@@ -68,4 +68,9 @@ public class ConsumableService {
 	private Consumable convertToConsumable(FoodDTO foodDTO) {
 		return this.consumableRepository.load(foodDTO.name());
 	}
+
+	public Void deleteAllConsumables() {
+		this.consumableRepository.deleteAll();
+		return null;
+	}
 }
