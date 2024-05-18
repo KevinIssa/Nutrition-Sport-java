@@ -90,7 +90,8 @@ class ProfileTest {
 	@Test
 	void equalsReturnsFalseForDifferentData() throws ValueObjectException {
 		Profile profile1 = new Profile("John", "Doe", Sex.MALE, 70, 180, LocalDate.of(1990, 1, 1));
-		Profile profile2 = new Profile("Jane", "Doe", Sex.FEMALE, 60, 165, LocalDate.of(1995, 1, 1));
+		Profile profile2 =
+				new Profile("Jane", "Doe", Sex.FEMALE, 60, 165, LocalDate.of(1995, 1, 1));
 		assertFalse(profile1.equals(profile2));
 	}
 }
