@@ -60,9 +60,14 @@ public class ConsumableService {
 	}
 
 	private Recipe convertToMeal(RecipeDTO recipeDTO) {
-		return new Recipe(
-				recipeDTO.name(),
-				recipeDTO.foods().stream().map(this::convertToConsumable).toList());
+		Recipe recipe = new Recipe(recipeDTO.name());
+		recipeDTO
+				.foods()
+				.forEach(
+						foodDTO ->
+								recipe.addIngredient(
+										this.convertToConsumable(foodDTO), foodDTO.quantity()));
+		return recipe;
 	}
 
 	private Consumable convertToConsumable(FoodDTO foodDTO) {

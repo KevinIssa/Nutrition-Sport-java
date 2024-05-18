@@ -44,13 +44,6 @@ public class Recipe implements Consumable {
 		this.name = name;
 	}
 
-	public Recipe(String name, List<Consumable> list) {
-		this.name = name;
-		for (Consumable consumable : list) {
-			addIngredient(consumable, 100);
-		}
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
