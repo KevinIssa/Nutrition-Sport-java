@@ -44,7 +44,6 @@ public class RecipeService {
 
 	public void deleteMeal(RecipeDTO meal) {
 		logger.info("Deleting a recipe and its associated file");
-		// Recipe recipe = this.recipeRepository.findByName(meal.name());
 		this.recipeRepository.deleteRecipe(meal);
 	}
 

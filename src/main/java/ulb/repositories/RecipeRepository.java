@@ -25,6 +25,5 @@ import ulb.dtos.RecipeDTO;
 public interface RecipeRepository {
 	public void deleteAll();
 
-	// public Recipe findByName(String name);
 	public void deleteRecipe(RecipeDTO recipe);
 }
