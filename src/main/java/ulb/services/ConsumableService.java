@@ -19,6 +19,9 @@
 package ulb.services;
 
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.dtos.ConsumableDTO;
 import ulb.dtos.FoodDTO;
 import ulb.dtos.RecipeDTO;
@@ -27,6 +30,7 @@ import ulb.models.Recipe;
 import ulb.repositories.ConsumableRepository;
 
 public class ConsumableService {
+	private static final Logger logger = LoggerFactory.getLogger(ConsumableService.class);
 
 	private final ConsumableRepository consumableRepository;
 
@@ -66,7 +70,7 @@ public class ConsumableService {
 				.forEach(
 						foodDTO ->
 								recipe.addIngredient(
-										this.convertToConsumable(foodDTO), foodDTO.quantity()));
+										this.convertToConsumable(foodDTO), foodDTO.quantity() / recipeDTO.personAmount()));
 		return recipe;
 	}
 

@@ -80,6 +80,7 @@ public class AddFoodController extends AppController
 
 	@Override
 	public void saveMeal(String mealName, List<FoodDTO> foodList, int personAmount) {
+		logger.debug("Saving meal with name: {}, foodList: {}, personAmount: {}", mealName, foodList, personAmount);
 		this.consumableService.saveMeal(new RecipeDTO(mealName, foodList, personAmount));
 	}
 

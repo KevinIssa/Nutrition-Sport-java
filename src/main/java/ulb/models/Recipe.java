@@ -92,12 +92,9 @@ public class Recipe implements Consumable {
 	 */
 	public double getGramsForServing(double servings) {
 		double totalGrams = 0;
-		logger.info("Calculating grams for servings: {}", servings);
-		for (Map.Entry<Consumable, Double> ingredient : ingredients) {
-			logger.info("Ingredient: {}", ingredient);
+		for (Map.Entry<Consumable, Double> ingredient : ingredients) { 
 			totalGrams += ingredient.getValue();
 		}
-		logger.info("Total grams: {}", totalGrams);
 		return totalGrams * servings;
 	}
 
