@@ -18,12 +18,30 @@
  */
 package ulb.repositories;
 
+import java.io.File;
+
 import ulb.models.Recipe;
 
 public class JSONRecipeRepository extends JSONRepository<Recipe> implements RecipeRepository {
 
+	private static final String FOLDER_NAME = "meals";
+
 	@Override
 	protected Class<Recipe> getObjectType() {
 		return Recipe.class;
+	}
+
+	@Override
+	public void deleteAll() {
+		File folder = new File(FOLDER_NAME);
+		File[] files = folder.listFiles();
+		if (files != null) {
+			// logger.info("Deleting all consumables");
+			for (File file : files) {
+				if (!file.isDirectory()) {
+					file.delete();
+				}
+			}
+		}
 	}
 }

@@ -43,6 +43,7 @@ public class MenuController extends AppController implements MenuViewController.
 	private ActivityService activityService;
 	private CaloriesTrackingService caloriesTrackingService;
 	private ConsumableService consumableService;
+	private RecipeService recipeService;
 
 	public void setProfileService(ProfileService profileService) {
 		logger.info("Setting ProfileService: {}", profileService);
@@ -62,6 +63,11 @@ public class MenuController extends AppController implements MenuViewController.
 	public void setConsumableService(ConsumableService consumableService) {
 		logger.info("Setting ConsumableService: {}", consumableService);
 		this.consumableService = consumableService;
+	}
+
+	public void setRecipeService(RecipeService recipeService) {
+		logger.info("Setting RecipeService: {}", recipeService);
+		this.recipeService = recipeService;
 	}
 
 	@Override
@@ -151,6 +157,7 @@ public class MenuController extends AppController implements MenuViewController.
 				new ProfileDeleteController(
 						this.activityService,
 						this.consumableService,
+						this.recipeService,
 						this.profileService,
 						new ProfileDeleteController.Listener() {
 							@Override
