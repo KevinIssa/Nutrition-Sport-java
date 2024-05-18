@@ -19,6 +19,9 @@
 package ulb.repositories;
 
 import java.io.File;
+import java.io.IOException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import ulb.dtos.RecipeDTO;
 import ulb.models.Recipe;
 
 public class JSONRecipeRepository extends JSONRepository<Recipe> implements RecipeRepository {
@@ -39,6 +42,28 @@ public class JSONRecipeRepository extends JSONRepository<Recipe> implements Reci
 			for (File file : files) {
 				if (!file.isDirectory()) {
 					file.delete();
+				}
+			}
+		}
+	}
+
+	@Override
+	public void deleteRecipe(RecipeDTO recipe) {
+		File folder = new File(RECIPES_FOLDER);
+		File[] files = folder.listFiles();
+		if (files != null) {
+			for (File file : files) {
+				if (!file.isDirectory()) {
+					ObjectMapper objectMapper = new ObjectMapper();
+					try {
+						Recipe recipeFromFile = objectMapper.readValue(file, Recipe.class);
+						if (recipeFromFile.getName().equals(recipe.name())) {
+							file.delete();
+						}
+					} catch (IOException e) {
+						// Handle the exception
+						e.printStackTrace();
+					}
 				}
 			}
 		}

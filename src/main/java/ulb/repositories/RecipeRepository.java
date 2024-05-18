@@ -18,6 +18,11 @@
  */
 package ulb.repositories;
 
+import ulb.dtos.RecipeDTO;
+// import ulb.models.Recipe;
+
 public interface RecipeRepository {
 	public void deleteAll();
+	// public Recipe findByName(String name);
+	public void deleteRecipe(RecipeDTO recipe);
 }
