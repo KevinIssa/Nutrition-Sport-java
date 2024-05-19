@@ -43,7 +43,11 @@ public class ConsumeMealService {
 	}
 
 	public void saveConsumedMeal(ConsumedMealDTO consumedMealDTO) {
-		this.consumeMealRepository.save(this.convertToConsumedMeal(consumedMealDTO));
+		this.saveConsumedMeal(this.convertToConsumedMeal(consumedMealDTO));
+	}
+
+	public void saveConsumedMeal(ConsumedMeal consumedMeal) {
+		this.consumeMealRepository.save(consumedMeal);
 	}
 
 	public List<ConsumedMealDTO> getConsumedMeals() {

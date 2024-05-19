@@ -25,6 +25,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import ulb.dtos.FoodDTO;
 
 public class FoodBox extends HBox {
 	private final String food;
@@ -45,6 +46,16 @@ public class FoodBox extends HBox {
 		this.caloriesValue = calories;
 		this.quantityValue = quantity;
 		this.unit = quantityUnit;
+	}
+
+	public FoodBox(Button button, FoodDTO foodDTO, Double calories) {
+		this(
+			button,
+			foodDTO.name(),
+			calories,
+			foodDTO.quantity(),
+			foodDTO.unit().toString()
+		);
 	}
 
 	public String getFood() {

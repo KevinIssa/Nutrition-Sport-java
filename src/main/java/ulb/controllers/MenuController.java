@@ -43,6 +43,7 @@ public class MenuController extends AppController implements MenuViewController.
 	private ActivityService activityService;
 	private CaloriesTrackingService caloriesTrackingService;
 	private ConsumableService consumableService;
+	private ConsumeMealService consumeMealService;
 	private RecipeService recipeService;
 
 	public void setProfileService(ProfileService profileService) {
@@ -65,10 +66,16 @@ public class MenuController extends AppController implements MenuViewController.
 		this.consumableService = consumableService;
 	}
 
+	public void setConsumeMealService(ConsumeMealService consumeMealService) {
+		logger.info("Setting ConsumeMealService: {}", consumeMealService);
+		this.consumeMealService = consumeMealService;
+	}
+
 	public void setRecipeService(RecipeService recipeService) {
 		logger.info("Setting RecipeService: {}", recipeService);
 		this.recipeService = recipeService;
 	}
+
 
 	@Override
 	public void show(Stage stage) {
@@ -350,7 +357,7 @@ public class MenuController extends AppController implements MenuViewController.
 	public void loadFoodSearchPage(RecipeDTO meal) {
 		Stage popupStage = new Stage();
 		AddFoodController controller =
-				new AddFoodController(this.consumableService, popupStage::close);
+				new AddFoodController(this.consumableService, this.consumeMealService, popupStage::close);
 		controller.show(popupStage);
 		if (meal != null) {
 			controller.setDefaultRecipe(meal);

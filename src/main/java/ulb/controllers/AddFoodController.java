@@ -29,10 +29,12 @@ import ulb.dtos.ConsumableDTO;
 import ulb.dtos.ConsumedFoodDTO;
 import ulb.dtos.FoodDTO;
 import ulb.dtos.RecipeDTO;
+import ulb.enums.Unit;
 import ulb.models.ConsumedMeal;
 import ulb.repositories.JSONConsumableRepository;
 import ulb.repositories.JSONConsumeMealRepository;
 import ulb.services.ConsumableService;
+import ulb.services.ConsumeMealService;
 import ulb.views.AddFoodViewController;
 import ulb.views.MakeMealViewController;
 
@@ -49,6 +51,7 @@ public class AddFoodController extends AppController
 	private static final Logger logger = LoggerFactory.getLogger(AddFoodController.class);
 	public static final String ADD_FOOD_FXML = "/ulb/views/AddFood.fxml";
 	private final ConsumableService consumableService;
+	private final ConsumeMealService consumeMealService;
 	private final AddFoodController.Listener listener;
 	private final FoodPopupController foodPopupController;
 	private boolean isAddFood = true;
@@ -59,8 +62,9 @@ public class AddFoodController extends AppController
 	 * @param listener Listener for the FoodController
 	 */
 	public AddFoodController(
-			ConsumableService consumableService, AddFoodController.Listener listener) {
+			ConsumableService consumableService, ConsumeMealService consumeMealService, AddFoodController.Listener listener) {
 		this.consumableService = consumableService;
+		this.consumeMealService = consumeMealService;
 		this.listener = listener;
 		this.foodPopupController = new FoodPopupController(this.consumableService, this);
 		this.foodPopupController.show(new Stage());
@@ -95,24 +99,13 @@ public class AddFoodController extends AppController
 	}
 
 	@Override
-	public double getCaloriesConsumed(String food, double quantity) {
-		// TODO : Change THAT
-		return new JSONConsumableRepository().load(food).getCaloriesConsumedByUnit(quantity);
-		// return this.foodLoader.getFoodByName(food).getCaloriesConsumedByUnit(quantity);
+	public double getCaloriesConsumed(FoodDTO food) {
+		return this.consumableService.getConsumableByName(food.name()).getCaloriesConsumedByUnit(food.quantity());
 	}
 
 	@Override
-	public void saveConsumedFoods(List<ConsumedFoodDTO> consumedFoodsList, LocalDateTime mealDate) {
-		ConsumedMeal consumedMeal = new ConsumedMeal();
-		for (ConsumedFoodDTO consumedFood : consumedFoodsList) {
-			consumedMeal.addConsumedFood(
-					consumedFood.name(),
-					Double.parseDouble(String.valueOf(consumedFood.quantity())),
-					Double.parseDouble(String.valueOf(consumedFood.calories())),
-					consumedFood.unit());
-		}
-		consumedMeal.setDate(mealDate);
-		new JSONConsumeMealRepository().save(consumedMeal);
+	public void saveConsumedFoods(ConsumedMeal consumedMeal) {
+		this.consumeMealService.saveConsumedMeal(consumedMeal);
 	}
 
 	@Override
@@ -121,8 +114,8 @@ public class AddFoodController extends AppController
 	}
 
 	@Override
-	public String getFoodUnit(String food) {
-		return this.consumableService.loadConsumable(food).unit().toString();
+	public Unit getFoodUnit(String food) {
+		return this.consumableService.loadConsumable(food).unit();
 	}
 
 	@Override
@@ -139,17 +132,18 @@ public class AddFoodController extends AppController
 		this.foodPopupController.show(popup);
 		this.foodPopupController.setFood(food);
 		this.foodPopupController.setFoodServing(this.getFoodServingQuantity(food));
-		this.foodPopupController.setFoodUnit(this.getFoodUnit(food));
+		this.foodPopupController.setFoodUnit(this.getFoodUnit(food).toString());
 		popup.initModality(Modality.APPLICATION_MODAL);
 		popup.showAndWait();
 	}
 
 	@Override
 	public void onEntry(String food, double value) {
+		FoodDTO foodDTO = new FoodDTO(food, value, this.getFoodUnit(food));
 		if (isAddFood) {
-			((AddFoodViewController) this.viewController).addChosenFood(food, value);
+			((AddFoodViewController) this.viewController).addChosenFood(foodDTO);
 		} else {
-			((MakeMealViewController) this.viewController).addChosenFood(food, value);
+			((MakeMealViewController) this.viewController).addChosenFood(foodDTO);
 		}
 	}
 

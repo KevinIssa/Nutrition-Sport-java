@@ -80,11 +80,11 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		this.calorieLabel.setText("0");
 	}
 
-	private void addFoodBox(String food, double quantity, double calories, String foodUnit) {
+	private void addFoodBox(FoodDTO foodDTO, double calories) {
 		Button deleteFoodButton = new Button("X");
 		deleteFoodButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
-		FoodBox foodBox = new FoodBox(deleteFoodButton, food, calories, quantity, foodUnit);
-		deleteFoodButton.setOnAction(e -> this.deleteChosenFood(foodBox, calories, quantity));
+		FoodBox foodBox = new FoodBox(deleteFoodButton, foodDTO, calories);
+		deleteFoodButton.setOnAction(e -> this.deleteChosenFood(foodBox, calories, foodDTO.quantity()));
 		chosenFoodList.getItems().add(foodBox);
 	}
 
@@ -93,26 +93,25 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		this.mealName.setText(meal.name());
 		this.personAmountNumber.setValue(1);
 		for (FoodDTO ingredient : meal.foods()) {
-			addChosenFood(ingredient.name(), ingredient.quantity());
+			addChosenFood(ingredient);
 		}
 	}
 
 	/**
 	 * This method adds the chosen food to the list.
 	 * It gets the serving type of the food, and updates the food item box with the food, calories, quantity, serving type, and value.
-	 * @param food The chosen food.
-	 * @param quantity The quantity (in grams) of the food.
+	 * @param foodDTO The chosen food DTO
 	 */
-	public void addChosenFood(String food, double quantity) {
-		double calories = listener.getCaloriesConsumed(food, quantity);
+	public void addChosenFood(FoodDTO foodDTO) {
+		double calories = listener.getCaloriesConsumed(foodDTO);
+		double quantity = foodDTO.quantity();
 		// Round to 2 decimals
 		calories = BigDecimal.valueOf(calories).setScale(2, RoundingMode.DOWN).doubleValue();
 		quantity = BigDecimal.valueOf(quantity).setScale(2, RoundingMode.DOWN).doubleValue();
 		this.totalCalories += calories;
 		this.calorieLabel.setText(String.format("%.2f", this.totalCalories));
-		String foodUnit = listener.getFoodUnit(food);
 
-		this.addFoodBox(food, quantity, calories, foodUnit);
+		this.addFoodBox(foodDTO, calories);
 	}
 
 	private void deleteChosenFood(FoodBox foodBox, double calories, double quantity) {
@@ -138,8 +137,8 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		try {
 			List<FoodDTO> foodlist = new java.util.ArrayList<>();
 			for (FoodBox foodBox : chosenFoodList.getItems()) {
-				// TODO: UNIT
-				foodlist.add(new FoodDTO(foodBox.getFood(), foodBox.getQuantityValue(), Unit.ALL));
+				foodlist.add(new FoodDTO(
+					foodBox.getFood(), foodBox.getQuantityValue(), listener.getFoodUnit(foodBox.getFood())));
 			}
 			this.listener.saveMeal(
 					new RecipeDTO(this.mealName.getText(), foodlist, this.personAmountNumber.getValue()));
@@ -156,7 +155,7 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		this.personAmountNumber.setValue(1);
 		for (FoodDTO foodDTO : recipeDTO.foods()) {
 			logger.info("Adding foodDTO: {}", foodDTO);
-			addChosenFood(foodDTO.name(), foodDTO.quantity());
+			addChosenFood(foodDTO);
 		}
 	}
 
@@ -165,9 +164,9 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 
 		void changeMode();
 
-		double getCaloriesConsumed(String food, double quantity);
+		double getCaloriesConsumed(FoodDTO food);
 
-		String getFoodUnit(String food);
+		Unit getFoodUnit(String food);
 
 		List<String> getUserSearch(String searchText);
 

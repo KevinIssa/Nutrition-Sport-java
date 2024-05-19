@@ -78,6 +78,10 @@ public class ConsumableService {
 		return this.consumableRepository.load(foodDTO.name());
 	}
 
+	public Consumable getConsumableByName(String foodName) {
+		return this.consumableRepository.load(foodName);
+	}
+
 	public Void deleteAllConsumables() {
 		this.consumableRepository.deleteAll();
 		return null;
