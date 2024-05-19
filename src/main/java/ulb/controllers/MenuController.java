@@ -270,14 +270,9 @@ public class MenuController extends AppController implements MenuViewController.
 	 */
 	@Override
 	public void loadMealHistoryView() {
-		// TODO : MOVE REPO + SERVICE TO APP
-		ConsumeMealRepository consumeMealRepository = new JSONConsumeMealRepository();
-		ConsumableRepository consumableRepository = new JSONConsumableRepository();
-		ConsumeMealService consumeMealService =
-				new ConsumeMealService(consumeMealRepository, consumableRepository);
 		AppController controller =
 				new MealHistoryController(
-						consumeMealService,
+						this.consumeMealService,
 						new MealHistoryController.Listener() {
 							@Override
 							public void mealRecipe() {
@@ -299,13 +294,9 @@ public class MenuController extends AppController implements MenuViewController.
 
 	@Override
 	public void loadMealRecipe() {
-		// TODO : MOVE REPO + SERVICE TO APP
-		RecipeRepository recipeRepository = new JSONRecipeRepository();
-		ConsumableRepository consumableRepository = new JSONConsumableRepository();
-		RecipeService recipeService = new RecipeService(recipeRepository, consumableRepository);
 		AppController controller =
 				new MealRecipeController(
-						recipeService,
+						this.recipeService,
 						new MealRecipeController.Listener() {
 
 							@Override
@@ -328,10 +319,8 @@ public class MenuController extends AppController implements MenuViewController.
 
 	public void loadMealDetails(RecipeDTO recipeDTO) {
 		Stage popupStage = new Stage();
-		ConsumableRepository consumableRepository = new JSONConsumableRepository();
-		ConsumableService consumableService = new ConsumableService(consumableRepository);
 		MealDetailsController controller =
-				new MealDetailsController(consumableService, () -> popupStage.close());
+				new MealDetailsController(this.consumableService, () -> popupStage.close());
 		controller.show(popupStage);
 
 		controller.setMeal(recipeDTO);
