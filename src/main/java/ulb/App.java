@@ -47,18 +47,14 @@ public class App extends Application {
 		ConsumableRepository consumableRepository = new JSONConsumableRepository();
 		RecipeRepository recipeRepository = new JSONRecipeRepository();
 
-		ProfileService profileService = 
-				new ProfileService(profileRepository);
-		ActivityService activityService = 
-				new ActivityService(activityRepository);
+		ProfileService profileService = new ProfileService(profileRepository);
+		ActivityService activityService = new ActivityService(activityRepository);
 		CaloriesTrackingService caloriesTrackingService =
 				new CaloriesTrackingService(activityRepository, consumeMealRepository);
-		ConsumableService consumableService = 
-				new ConsumableService(consumableRepository);
-		ConsumeMealService consumeMealService = 
+		ConsumableService consumableService = new ConsumableService(consumableRepository);
+		ConsumeMealService consumeMealService =
 				new ConsumeMealService(consumeMealRepository, consumableRepository);
-		RecipeService recipeService = 
-				new RecipeService(recipeRepository, consumableRepository);
+		RecipeService recipeService = new RecipeService(recipeRepository, consumableRepository);
 
 		menuController.setProfileService(profileService);
 		menuController.setActivityService(activityService);

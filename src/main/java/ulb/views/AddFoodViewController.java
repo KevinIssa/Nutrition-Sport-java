@@ -155,11 +155,10 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 		ConsumedMeal consumedMeal = new ConsumedMeal();
 		for (ConsumedFoodDTO consumedFood : this.getConsumedFoods()) {
 			consumedMeal.addConsumedFood(
-				consumedFood.name(),
-				Double.parseDouble(String.valueOf(consumedFood.quantity())),
-				Double.parseDouble(String.valueOf(consumedFood.calories())),
-				consumedFood.unit()
-			);
+					consumedFood.name(),
+					Double.parseDouble(String.valueOf(consumedFood.quantity())),
+					Double.parseDouble(String.valueOf(consumedFood.calories())),
+					consumedFood.unit());
 		}
 		return consumedMeal;
 	}
@@ -199,7 +198,7 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 	 * It gets the serving type of the food, and updates the food item box with the food, calories, quantity, serving type, and value.
 	 * @param food The chosen food DTO.
 	 */
-		public void addChosenFood(FoodDTO food) {
+	public void addChosenFood(FoodDTO food) {
 		double calories = listener.getCaloriesConsumed(food);
 		// Round to 2 decimals
 		calories = BigDecimal.valueOf(calories).setScale(2, RoundingMode.DOWN).doubleValue();

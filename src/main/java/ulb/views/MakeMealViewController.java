@@ -84,7 +84,8 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		Button deleteFoodButton = new Button("X");
 		deleteFoodButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
 		FoodBox foodBox = new FoodBox(deleteFoodButton, foodDTO, calories);
-		deleteFoodButton.setOnAction(e -> this.deleteChosenFood(foodBox, calories, foodDTO.quantity()));
+		deleteFoodButton.setOnAction(
+				e -> this.deleteChosenFood(foodBox, calories, foodDTO.quantity()));
 		chosenFoodList.getItems().add(foodBox);
 	}
 
@@ -137,11 +138,15 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		try {
 			List<FoodDTO> foodlist = new java.util.ArrayList<>();
 			for (FoodBox foodBox : chosenFoodList.getItems()) {
-				foodlist.add(new FoodDTO(
-					foodBox.getFood(), foodBox.getQuantityValue(), listener.getFoodUnit(foodBox.getFood())));
+				foodlist.add(
+						new FoodDTO(
+								foodBox.getFood(),
+								foodBox.getQuantityValue(),
+								listener.getFoodUnit(foodBox.getFood())));
 			}
 			this.listener.saveMeal(
-					new RecipeDTO(this.mealName.getText(), foodlist, this.personAmountNumber.getValue()));
+					new RecipeDTO(
+							this.mealName.getText(), foodlist, this.personAmountNumber.getValue()));
 			this.cleanFoodList();
 		} catch (NumberFormatException e) {
 			logger.error("Error while parsing the number of persons");
