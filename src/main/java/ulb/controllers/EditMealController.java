@@ -22,6 +22,7 @@ import java.util.List;
 import javafx.stage.Stage;
 import ulb.dtos.FoodDTO;
 import ulb.dtos.RecipeDTO;
+import ulb.enums.Unit;
 import ulb.views.MakeMealViewController;
 
 public class EditMealController implements MakeMealViewController.Listener {
@@ -59,16 +60,16 @@ public class EditMealController implements MakeMealViewController.Listener {
 	}
 
 	@Override
-	public double getCaloriesConsumed(String food, double quantity) {
+	public double getCaloriesConsumed(FoodDTO foodDTO) {
 		// TODO Implement
 
 		return 0;
 	}
 
 	@Override
-	public String getFoodUnit(String food) {
+	public Unit getFoodUnit(String food) {
 		// TODO Implement
-		return "";
+		return Unit.GRAMS;
 	}
 
 	@Override
