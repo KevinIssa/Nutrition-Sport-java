@@ -142,7 +142,7 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 				foodlist.add(new FoodDTO(foodBox.getFood(), foodBox.getQuantityValue(), Unit.ALL));
 			}
 			this.listener.saveMeal(
-					this.mealName.getText(), foodlist, this.personAmountNumber.getValue());
+					new RecipeDTO(this.mealName.getText(), foodlist, this.personAmountNumber.getValue()));
 			this.cleanFoodList();
 		} catch (NumberFormatException e) {
 			logger.error("Error while parsing the number of persons");
@@ -173,6 +173,6 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 
 		void returnHome();
 
-		void saveMeal(String mealName, List<FoodDTO> foodsList, int personAmount);
+		void saveMeal(RecipeDTO recipeDTO);
 	}
 }
