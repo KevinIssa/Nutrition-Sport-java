@@ -78,7 +78,7 @@ public class EditMealController implements MakeMealViewController.Listener {
 	}
 
 	@Override
-	public void saveMeal(String mealName, List<FoodDTO> foodsList, int personAmount) {
+	public void saveMeal(RecipeDTO recipeDTO) {
 		// TODO Implement
 		this.returnHome();
 	}

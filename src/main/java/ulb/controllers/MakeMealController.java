@@ -20,6 +20,7 @@ package ulb.controllers;
 
 import java.util.List;
 import ulb.dtos.FoodDTO;
+import ulb.dtos.RecipeDTO;
 import ulb.views.MakeMealViewController;
 
 public class MakeMealController implements MakeMealViewController.Listener {
@@ -46,7 +47,7 @@ public class MakeMealController implements MakeMealViewController.Listener {
 	public void returnHome() {}
 
 	@Override
-	public void saveMeal(String mealName, List<FoodDTO> foodsList, int personAmount) {}
+	public void saveMeal(RecipeDTO recipeDTO) {}
 
 	@Override
 	public void changeMode() {}
