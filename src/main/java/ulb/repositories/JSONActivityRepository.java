@@ -24,6 +24,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.models.Activity;
 import ulb.models.CalorieCalculator;
 
@@ -33,6 +35,7 @@ import ulb.models.CalorieCalculator;
  * It uses JSON files for storing and retrieving activities.
  */
 public class JSONActivityRepository extends JSONRepository<Activity> implements ActivityRepository {
+	private static final Logger logger = LoggerFactory.getLogger(JSONActivityRepository.class);
 	private static final String FOLDER_NAME = "activities";
 
 	/**
@@ -43,8 +46,11 @@ public class JSONActivityRepository extends JSONRepository<Activity> implements 
 	public void save(Activity activity) {
 		File folder = new File(FOLDER_NAME);
 		if (!folder.exists()) {
-			// logger.info("Creating activities folder");
-			folder.mkdir();
+			logger.info("Creating activities folder");
+			boolean created = folder.mkdir();
+			if (!created) {
+				logger.info("Failed to create activities folder");
+			}
 		}
 		String filename =
 				FOLDER_NAME
@@ -71,14 +77,14 @@ public class JSONActivityRepository extends JSONRepository<Activity> implements 
 		File[] files = folder.listFiles();
 		List<Activity> activities = new ArrayList<>();
 		if (files != null) {
-			// logger.info("Loading all activities");
+			logger.info("Loading all activities");
 			for (File file : files) {
 				if (!file.isDirectory()) {
 					try {
 						activities.add(super.load(file.getPath()));
 					} catch (IOException e) {
 						// If the file is corrupted, we just skip it
-						// logger.error("Failed to load activity", e);
+						logger.error("Failed to load activity in loadAll: {}", file.getName());
 					}
 				}
 			}
@@ -92,22 +98,16 @@ public class JSONActivityRepository extends JSONRepository<Activity> implements 
 	 */
 	@Override
 	public void delete(Activity activity) {
-		File folder = new File(FOLDER_NAME);
-		File[] files = folder.listFiles();
-		if (files != null) {
-			// logger.info("Deleting all activities");
-			for (File file : files) {
-				Activity loadedActivity = null;
-				try {
-					loadedActivity = load(file.getPath());
-				} catch (IOException e) {
-					// If the file is corrupted, we just skip it
-					// logger.error("Failed to load activity", e);
-					continue;
+		File[] files = new File(FOLDER_NAME).listFiles();
+		if (files == null) return;
+		logger.info("Deleting activity: {}", activity);
+		for (File file : files) {
+			try {
+				if (load(file.getPath()).equals(activity) && !file.delete()) {
+					logger.error("Failed to delete activity: {}", file.getName());
 				}
-				if (loadedActivity.equals(activity)) {
-					file.delete();
-				}
+			} catch (IOException e) {
+				logger.error("Failed to load activity in delete: {}", file.getName());
 			}
 		}
 	}
