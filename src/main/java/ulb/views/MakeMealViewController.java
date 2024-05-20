@@ -186,7 +186,6 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		this.listener.goToHistoryRecipe();
 	}
 
-
 	/**
 	 * Sets the default recipe.
 	 * It sets the default recipe, sets the view to edit mode, hides the switch button, sets the meal name and the number of persons, and adds the foods of the recipe to the chosen foods.
