@@ -34,14 +34,11 @@ public enum Sex {
 	 * @throws IllegalArgumentException If the string does not correspond to any Sex enum value.
 	 */
 	public static Sex fromString(String sex) {
-		switch (sex) {
-			case "♂":
-				return MALE;
-			case "♀":
-				return FEMALE;
-			default:
-				throw new IllegalArgumentException("Invalid sex: " + sex);
-		}
+		return switch (sex) {
+			case "♂" -> MALE;
+			case "♀" -> FEMALE;
+			default -> throw new IllegalArgumentException("Invalid sex: " + sex);
+		};
 	}
 
 	/**
@@ -52,13 +49,9 @@ public enum Sex {
 	 */
 	@Override
 	public String toString() {
-		switch (this) {
-			case MALE:
-				return "♂";
-			case FEMALE:
-				return "♀";
-			default:
-				throw new IllegalStateException("Unexpected value: " + this);
-		}
+		return switch (this) {
+			case MALE -> "♂";
+			case FEMALE -> "♀";
+		};
 	}
 }

@@ -35,16 +35,12 @@ public enum Intensity {
 	 * @throws IllegalArgumentException If the integer does not correspond to any Intensity enum value.
 	 */
 	public static Intensity fromInt(int number) {
-		switch (number) {
-			case 0:
-				return SLOW;
-			case 1:
-				return MODERATE;
-			case 2:
-				return INTENSE;
-			default:
-				throw new IllegalArgumentException("Invalid intensity : " + number);
-		}
+		return switch (number) {
+			case 0 -> SLOW;
+			case 1 -> MODERATE;
+			case 2 -> INTENSE;
+			default -> throw new IllegalArgumentException("Invalid intensity : " + number);
+		};
 	}
 
 	/**
@@ -55,16 +51,13 @@ public enum Intensity {
 	 * @throws IllegalArgumentException If the string does not correspond to any Intensity enum value.
 	 */
 	public static Intensity fromString(String selectedIntensity) {
-		switch (selectedIntensity) {
-			case "Slow":
-				return SLOW;
-			case "Moderate":
-				return MODERATE;
-			case "Intense":
-				return INTENSE;
-			default:
-				throw new IllegalArgumentException("Invalid intensity : " + selectedIntensity);
-		}
+		return switch (selectedIntensity) {
+			case "Slow" -> SLOW;
+			case "Moderate" -> MODERATE;
+			case "Intense" -> INTENSE;
+			default ->
+					throw new IllegalArgumentException("Invalid intensity : " + selectedIntensity);
+		};
 	}
 
 	/**
@@ -75,15 +68,11 @@ public enum Intensity {
 	 */
 	@Override
 	public String toString() {
-		switch (this) {
-			case SLOW:
-				return "slow";
-			case MODERATE:
-				return "moderate";
-			case INTENSE:
-				return "intense";
-			default:
-				throw new IllegalStateException("Unexpected value: " + this);
-		}
+		return switch (this) {
+			case SLOW -> "slow";
+			case MODERATE -> "moderate";
+			case INTENSE -> "intense";
+			default -> throw new IllegalStateException("Unexpected value: " + this);
+		};
 	}
 }

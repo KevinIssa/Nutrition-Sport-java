@@ -104,7 +104,8 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	 * It gets the serving type of the food, and updates the food item box with the food, calories, quantity, serving type, and value.
 	 * @param foodDTO The chosen food DTO
 	 */
-	public void addChosenFood(FoodDTO foodDTO) {
+	public void addChosenFood(
+			FoodDTO foodDTO) { // duplicate code with AddFoodViewController but time is running out
 		double calories = listener.getCaloriesConsumed(foodDTO);
 		// Round to 2 decimals
 		calories = BigDecimal.valueOf(calories).setScale(2, RoundingMode.DOWN).doubleValue();

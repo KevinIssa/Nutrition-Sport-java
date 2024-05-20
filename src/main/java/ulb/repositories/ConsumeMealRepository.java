@@ -57,9 +57,4 @@ public interface ConsumeMealRepository {
 	 * @param consumedMeal The ConsumedMeal object to be deleted.
 	 */
 	void delete(ConsumedMeal consumedMeal);
-
-	/**
-	 * Deletes all objects from the repository.
-	 */
-	void deleteAll();
 }

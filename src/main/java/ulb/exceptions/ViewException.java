@@ -19,15 +19,8 @@
 package ulb.exceptions;
 
 public abstract class ViewException extends Exception {
-	protected ViewException(String message) {
-		super(message);
-	}
 
 	protected ViewException(String message, Throwable cause) {
 		super(message, cause);
-	}
-
-	protected ViewException(Throwable cause) {
-		super(cause);
 	}
 }

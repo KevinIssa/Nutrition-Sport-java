@@ -290,14 +290,11 @@ public class ActivityCreateViewController implements ViewController {
 
 		@Override
 		public Double fromString(String intensity) {
-			switch (intensity) {
-				case "Slow":
-					return 0d;
-				case "Moderate":
-					return 1d;
-				default:
-					return 2d;
-			}
+			return switch (intensity) {
+				case "Slow" -> 0d;
+				case "Moderate" -> 1d;
+				default -> 2d;
+			};
 		}
 	}
 }

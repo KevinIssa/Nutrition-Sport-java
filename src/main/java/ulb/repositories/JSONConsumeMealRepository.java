@@ -147,17 +147,6 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 	}
 
 	@Override
-	public void deleteAll() {
-		File folder = new File(FOLDER_NAME);
-		File[] files = folder.listFiles();
-		if (files != null) {
-			for (File file : files) {
-				file.delete();
-			}
-		}
-	}
-
-	@Override
 	protected Class<ConsumedMeal> getObjectType() {
 		return ConsumedMeal.class;
 	}

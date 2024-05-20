@@ -30,30 +30,6 @@ public enum Sport {
 	VOLLEYBALL;
 
 	/**
-	 * Converts a string to its corresponding Sport enum value.
-	 *
-	 * @param sport The string to be converted.
-	 * @return The corresponding Sport enum value.
-	 * @throws IllegalArgumentException If the string does not correspond to any Sport enum value.
-	 */
-	public static Sport fromString(String sport) {
-		switch (sport.toLowerCase()) {
-			case "walking":
-				return WALKING;
-			case "running":
-				return RUNNING;
-			case "biking":
-				return BIKING;
-			case "swimming":
-				return SWIMMING;
-			case "volleyball":
-				return VOLLEYBALL;
-			default:
-				throw new IllegalArgumentException("Invalid sport: " + sport);
-		}
-	}
-
-	/**
 	 * Converts the enum value to its corresponding string representation.
 	 *
 	 * @return The string representation of the sport.
@@ -61,19 +37,12 @@ public enum Sport {
 	 */
 	@Override
 	public String toString() {
-		switch (this) {
-			case WALKING:
-				return "walking";
-			case RUNNING:
-				return "running";
-			case BIKING:
-				return "biking";
-			case SWIMMING:
-				return "swimming";
-			case VOLLEYBALL:
-				return "volleyball";
-			default:
-				throw new IllegalStateException("Unexpected value: " + this);
-		}
+		return switch (this) {
+			case WALKING -> "walking";
+			case RUNNING -> "running";
+			case BIKING -> "biking";
+			case SWIMMING -> "swimming";
+			case VOLLEYBALL -> "volleyball";
+		};
 	}
 }

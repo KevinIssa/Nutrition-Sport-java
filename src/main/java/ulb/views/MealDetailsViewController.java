@@ -85,6 +85,7 @@ public class MealDetailsViewController implements ViewController {
 		hbox.getChildren().add(1, labelMealQuantity);
 	}
 
+	@SuppressWarnings("SameParameterValue") // Suppressing warning for the width parameter
 	private Label createLabel(String text, int width) {
 		Label label = new Label(text);
 		label.setMinWidth(width);

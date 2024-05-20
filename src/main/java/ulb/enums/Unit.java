@@ -23,22 +23,12 @@ public enum Unit {
 	MILLILITERS,
 	ALL;
 
-	public static Unit fromString(String unit) {
-		return switch (unit) {
-			case "g" -> GRAMS;
-			case "ml" -> MILLILITERS;
-			case "g/ml" -> ALL;
-			default -> throw new IllegalArgumentException("Invalid unit: " + unit);
-		};
-	}
-
 	@Override
 	public String toString() {
 		return switch (this) {
 			case GRAMS -> "g";
 			case MILLILITERS -> "ml";
 			case ALL -> "g/ml";
-			default -> throw new IllegalArgumentException("Invalid unit: " + this);
 		};
 	}
 }

@@ -152,15 +152,6 @@ public class CaloriesTrackingService {
 		}
 
 		/**
-		 * This method checks if the date of this object is the same as the specified date.
-		 * @param date the date to compare with.
-		 * @return true if the dates are the same, false otherwise.
-		 */
-		public boolean isSameDate(LocalDate date) {
-			return this.date.equals(date);
-		}
-
-		/**
 		 * This method builds a DateCalorieDTO object from this object.
 		 * @return a DateCalorieDTO object.
 		 */

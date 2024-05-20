@@ -19,15 +19,7 @@
 package ulb.exceptions;
 
 public class ProfileParameterException extends ViewException {
-	public ProfileParameterException(String message) {
-		super(message);
-	}
-
 	public ProfileParameterException(String message, Throwable cause) {
 		super(message, cause);
-	}
-
-	public ProfileParameterException(Throwable cause) {
-		super(cause);
 	}
 }
