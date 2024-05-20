@@ -223,21 +223,75 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 		this.calorieLabel.setText(Double.toString(this.totalCalories));
 	}
 
+	/**
+	 * Listener interface for the AddFoodViewController.
+	 * This interface should be implemented by any class that needs to respond to actions from the AddFoodViewController.
+	 */
 	public interface Listener {
+
+		/**
+		 * Asks the user for the quantity of the selected food.
+		 * This method should be implemented to handle the action of asking the user for the quantity of the selected food.
+		 *
+		 * @param food The name of the food for which the quantity is to be asked.
+		 */
 		void askUserFoodQuantity(String food);
 
+		/**
+		 * Changes the mode of the view.
+		 * This method should be implemented to handle the action of changing the mode of the view.
+		 */
 		void changeMode();
 
+		/**
+		 * Retrieves the calories consumed for a given food.
+		 * This method should be implemented to return the calories consumed for a given food.
+		 *
+		 * @param food The FoodDTO object representing the food for which the calories consumed are to be retrieved.
+		 * @return The calories consumed for the given food.
+		 */
 		double getCaloriesConsumed(FoodDTO food);
 
+		/**
+		 * Retrieves the serving quantity for a given food.
+		 * This method should be implemented to return the serving quantity for a given food.
+		 *
+		 * @param food The name of the food for which the serving quantity is to be retrieved.
+		 * @return The serving quantity for the given food.
+		 */
 		String getFoodServingQuantity(String food);
 
+		/**
+		 * Retrieves the unit of a given food.
+		 * This method should be implemented to return the unit of a given food.
+		 *
+		 * @param food The name of the food for which the unit is to be retrieved.
+		 * @return The unit of the given food.
+		 */
 		Unit getFoodUnit(String food);
 
+		/**
+		 * Retrieves the user's search results.
+		 * This method should be implemented to return a list of strings representing the user's search results.
+		 *
+		 * @param searchText The text that the user has searched for.
+		 * @return A list of strings representing the user's search results.
+		 */
 		List<String> getUserSearch(String searchText);
 
+		/**
+		 * Triggers the return to the home view.
+		 * This method should be implemented to handle the action of returning to the home view.
+		 */
 		void returnHome();
 
+		/**
+		 * Saves the consumed foods.
+		 * This method should be implemented to handle the action of saving the consumed foods.
+		 *
+		 * @param consumedMeal The ConsumedMeal object representing the consumed foods to be saved.
+		 * @throws SavingException If an error occurs while saving the consumed foods.
+		 */
 		void saveConsumedFoods(ConsumedMeal consumedMeal) throws SavingException;
 
 		void goToHistoryMeal();

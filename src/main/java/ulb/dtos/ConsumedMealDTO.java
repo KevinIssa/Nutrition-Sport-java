@@ -21,4 +21,11 @@ package ulb.dtos;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * This is a record class named ConsumedMealDTO. A record is a special kind of class in Java that helps to model plain data aggregates with less ceremony than normal classes.
+ * This record has two fields: consumedFoods and date.
+ *
+ * @param consumedFoods A list of ConsumedFoodDTO objects representing the foods consumed in a meal.
+ * @param date The date and time when the meal was consumed.
+ */
 public record ConsumedMealDTO(List<ConsumedFoodDTO> consumedFoods, LocalDateTime date) {}

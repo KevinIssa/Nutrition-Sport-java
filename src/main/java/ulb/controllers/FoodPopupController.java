@@ -69,7 +69,17 @@ public class FoodPopupController extends AppController implements FoodPopupViewC
 		this.listener.onEntry(((FoodPopupViewController) this.viewController).getFood(), value);
 	}
 
+	/**
+	 * This is an interface for a listener that reacts to an entry event.
+	 * The event is triggered when a food item and its quantity are entered.
+	 */
 	public interface Listener {
+		/**
+		 * This method is called when an entry event occurs.
+		 *
+		 * @param food The name of the food item that was entered.
+		 * @param value The quantity of the food item that was entered.
+		 */
 		void onEntry(String food, double value);
 	}
 }

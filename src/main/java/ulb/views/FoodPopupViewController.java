@@ -30,6 +30,8 @@ import org.slf4j.LoggerFactory;
 import ulb.widgets.DoubleField;
 
 public class FoodPopupViewController implements ViewController {
+	private static final Logger logger = LoggerFactory.getLogger(FoodPopupViewController.class);
+
 	@FXML TextField gramme;
 	@FXML TextField serving;
 	@FXML Label servinglabel;
@@ -38,7 +40,6 @@ public class FoodPopupViewController implements ViewController {
 	private DoubleField servingField;
 	private DoubleField grammeField;
 	private Listener listener;
-	private static final Logger logger = LoggerFactory.getLogger(FoodPopupViewController.class);
 	private String food;
 
 	private double getFieldValue(DoubleField inputField) throws IllegalArgumentException {
@@ -145,11 +146,33 @@ public class FoodPopupViewController implements ViewController {
 		this.grammeField = new DoubleField(this.gramme);
 	}
 
+	/**
+	 * Listener interface for the FoodPopupViewController.
+	 * This interface should be implemented by any class that needs to respond to actions from the FoodPopupViewController.
+	 */
 	public interface Listener {
+
+		/**
+		 * Handles the entry of a value.
+		 * This method should be implemented to handle the action of entering a value.
+		 *
+		 * @param value The double value that has been entered.
+		 */
 		void onEntry(double value);
 
+		/**
+		 * Handles the action of going back.
+		 * This method should be implemented to handle the action of going back.
+		 */
 		void onBack();
 
+		/**
+		 * Retrieves the serving quantity value for a given food.
+		 * This method should be implemented to return the serving quantity value for a given food.
+		 *
+		 * @param food The name of the food for which the serving quantity value is to be retrieved.
+		 * @return The serving quantity value for the given food.
+		 */
 		double getServingQuantityValue(String food);
 	}
 }

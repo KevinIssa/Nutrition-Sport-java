@@ -28,6 +28,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.DateCalorieDTO;
 
+/**
+ * The GraphComponentViewController class is the controller for the GraphComponentView.
+ * This class is responsible for handling user input and updating the view.
+ */
 public class GraphComponentViewController extends AnchorPane {
 	private static final Logger logger =
 			LoggerFactory.getLogger(GraphComponentViewController.class);
@@ -136,7 +140,18 @@ public class GraphComponentViewController extends AnchorPane {
 		}
 	}
 
+	/**
+	 * Listener interface for the GraphComponentViewController.
+	 * This interface should be implemented by any class that needs to respond to actions from the GraphComponentViewController.
+	 */
 	public interface Listener {
+
+		/**
+		 * Retrieves the data for the graph.
+		 * This method should be implemented to return a list of DateCalorieDTO objects representing the data for the graph.
+		 *
+		 * @return A list of DateCalorieDTO objects representing the data for the graph.
+		 */
 		List<DateCalorieDTO> getGraphData();
 	}
 }

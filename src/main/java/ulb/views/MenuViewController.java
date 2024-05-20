@@ -65,31 +65,56 @@ public class MenuViewController implements ViewController, GraphComponentViewCon
 						+ " kcal");
 	}
 
+	/**
+	 * Toggles the visibility of the "Add Activity" and "Add Food" buttons.
+	 * If the buttons are currently visible, they will be hidden, and vice versa.
+	 */
 	public void showAddButtons() {
 		this.addActivityButton.setVisible(!this.addActivityButton.isVisible());
 		this.addFoodButton.setVisible(!this.addFoodButton.isVisible());
 	}
 
+	/**
+	 * Triggers the loading of the Open Profile view.
+	 * This method should be called when the user wants to open their profile.
+	 */
 	public void openProfile() {
 		listener.loadOpenProfileView();
 	}
 
+	/**
+	 * Triggers the loading of the Create Activity view.
+	 * This method should be called when the user wants to create a new activity.
+	 */
 	public void createActivity() {
 		listener.loadCreateActivityView();
 	}
 
+	/**
+	 * Triggers the loading of the Food Search page.
+	 * This method should be called when the user wants to create a new consumed food entry.
+	 */
 	public void createConsumedFood() {
 		listener.loadFoodSearchPage();
 	}
 
+	/**
+	 * Triggers the loading of the Activity History view.
+	 * This method should be called when the user wants to view their activity history.
+	 */
 	public void activityHistory() {
 		listener.loadActivityHistoryView();
 	}
 
+	/**
+	 * Triggers the loading of the Consumed Food History view.
+	 * This method should be called when the user wants to view their consumed food history.
+	 */
 	public void consumedFoodHistory() {
 		listener.loadMealHistoryView();
 	}
 
+	@Override
 	public void setListener(Object listener) {
 		if (listener == null) {
 			logger.error("Listener is null");
@@ -104,29 +129,87 @@ public class MenuViewController implements ViewController, GraphComponentViewCon
 		return listener.getGraphData();
 	}
 
+	/**
+	 * Listener interface for the MenuViewController.
+	 * This interface should be implemented by any class that needs to respond to actions from the MenuViewController.
+	 */
 	public interface Listener {
+		/**
+		 * Triggers the loading of the Create Activity view.
+		 * This method should be called when the user wants to create a new activity.
+		 */
 		void loadCreateActivityView();
 
+		/**
+		 * Triggers the loading of the Open Profile view.
+		 * This method should be called when the user wants to open their profile.
+		 */
 		void loadOpenProfileView();
 
+		/**
+		 * Triggers the loading of the Create Profile view.
+		 * This method should be called when the user wants to create a new profile.
+		 */
 		void loadCreateProfileView();
 
+		/**
+		 * Triggers the loading of the Menu view.
+		 * This method should be called when the user wants to return to the menu.
+		 */
 		void loadMenuView();
 
+		/**
+		 * Triggers the loading of the Welcome view.
+		 * This method should be called when the user wants to return to the welcome screen.
+		 */
 		void loadWelcomeView();
 
+		/**
+		 * Triggers the loading of the Activity History view.
+		 * This method should be called when the user wants to view their activity history.
+		 */
 		void loadActivityHistoryView();
 
+		/**
+		 * Triggers the loading of the Consumed Food History view.
+		 * This method should be called when the user wants to view their consumed food history.
+		 */
 		void loadMealHistoryView();
 
+		/**
+		 * Triggers the loading of the Meal Recipe view.
+		 * This method should be called when the user wants to view a meal recipe.
+		 */
 		void loadMealRecipe();
 
+		/**
+		 * Triggers the loading of the Food Search page.
+		 * This method should be called when the user wants to search for a food item.
+		 */
 		void loadFoodSearchPage();
 
+		/**
+		 * Retrieves the path of the profile image.
+		 * This method should be implemented to return the path of the profile image.
+		 *
+		 * @return The path of the profile image.
+		 */
 		String getProfileImagePath();
 
+		/**
+		 * Retrieves the data for the graph.
+		 * This method should be implemented to return a list of DateCalorieDTO objects for the graph.
+		 *
+		 * @return A list of DateCalorieDTO objects for the graph.
+		 */
 		List<DateCalorieDTO> getGraphData();
 
+		/**
+		 * Retrieves the weight of the profile.
+		 * This method should be implemented to return the weight of the profile.
+		 *
+		 * @return The weight of the profile.
+		 */
 		String getProfileWeight();
 	}
 }

@@ -134,17 +134,47 @@ public class ActivityHistoryViewController implements ViewController {
 		this.listener.addActivity();
 	}
 
-	// Listener interface for communication with the controller
+	/**
+	 * Listener interface for communication with the controller.
+	 * This interface should be implemented by any class that needs to respond to actions from the ActivityHistoryViewController.
+	 */
 	public interface Listener {
 
+		/**
+		 * Retrieves the activities for a given sport filter.
+		 * This method should be implemented to return a list of ActivityDTO objects representing the activities for the given sport filter.
+		 *
+		 * @param filter The Sport enum representing the sport filter.
+		 * @return A list of ActivityDTO objects representing the activities for the given sport filter.
+		 */
 		List<ActivityDTO> getActivities(Sport filter);
 
+		/**
+		 * Deletes an activity.
+		 * This method should be implemented to handle the action of deleting an activity.
+		 *
+		 * @param activityDTO The ActivityDTO object representing the activity to be deleted.
+		 */
 		void deleteActivity(ActivityDTO activityDTO);
 
+		/**
+		 * Edits an activity.
+		 * This method should be implemented to handle the action of editing an activity.
+		 *
+		 * @param activityDTO The ActivityDTO object representing the activity to be edited.
+		 */
 		void editActivity(ActivityDTO activityDTO);
 
+		/**
+		 * Triggers the return to the home view.
+		 * This method should be implemented to handle the action of returning to the home view.
+		 */
 		void returnHome();
 
+		/**
+		 * Adds an activity.
+		 * This method should be implemented to handle the action of adding an activity.
+		 */
 		void addActivity();
 	}
 }

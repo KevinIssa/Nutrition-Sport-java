@@ -36,8 +36,15 @@ import ulb.dtos.ProfileDTO;
 import ulb.exceptions.ProfileParameterException;
 import ulb.widgets.AbstractFieldTemplate;
 
+/**
+ * Controller for the profile view.
+ */
 public class ProfileViewController implements ViewController {
 	private static final Logger logger = LoggerFactory.getLogger(ProfileViewController.class);
+
+	public static final String PEN_PNG = "/ulb/images/pen.png";
+	public static final String CHECK_PNG = "/ulb/images/check.png";
+
 	@FXML private ImageView profileImage;
 	@FXML private Button imageSelection;
 	@FXML private AbstractFieldTemplate firstnameController;
@@ -67,22 +74,45 @@ public class ProfileViewController implements ViewController {
 		this.setImages();
 	}
 
+	/**
+	 * Sets the images for the fields.
+	 * It loads the pen and check images and sets them for each field.
+	 */
 	private void setImages() {
-		Image pen = loadImage(this.getURL("/ulb/images/pen.png"), 15, 15);
-		Image check = loadImage(this.getURL("/ulb/images/check.png"), 15, 15);
+		Image pen = loadImage(this.getURL(PEN_PNG), 15, 15);
+		Image check = loadImage(this.getURL(CHECK_PNG), 15, 15);
 		this.fields.forEach(field -> field.setImages(pen, check));
 	}
 
+	/**
+	 * Returns the URL of the resource at the specified path.
+	 *
+	 * @param path The path of the resource.
+	 * @return The URL of the resource.
+	 */
 	private URL getURL(String path) {
 		return this.getClass().getResource(path);
 	}
 
+	/**
+	 * Loads an image from the specified URL with the specified dimensions.
+	 *
+	 * @param url The URL of the image.
+	 * @param width The width of the image.
+	 * @param height The height of the image.
+	 * @return The loaded image.
+	 */
 	private Image loadImage(URL url, double width, double height) {
 		return new Image(url.toString(), width, height, true, true);
 	}
 
+	/**
+	 * Sets the default values for the view.
+	 * It sets the pen image for the image selection button, sets the default values for the fields,
+	 * and sets the profile data and image.
+	 */
 	public void setDefaultValue() {
-		ImageView penView = new ImageView(loadImage(this.getURL("/ulb/images/pen.png"), 15, 15));
+		ImageView penView = new ImageView(loadImage(this.getURL(PEN_PNG), 15, 15));
 		ColorAdjust colorAdjust = new ColorAdjust();
 		colorAdjust.setBrightness(1);
 		penView.setEffect(colorAdjust);
@@ -92,6 +122,10 @@ public class ProfileViewController implements ViewController {
 		this.setProfileImage();
 	}
 
+	/**
+	 * Sets the profile data in the view.
+	 * It gets the current profile data from the listener and sets the labels of the fields accordingly.
+	 */
 	private void setProfileData() {
 		ProfileDTO profileDTO = this.listener.getProfile();
 		this.imagePath = profileDTO.imagePath();
@@ -103,6 +137,12 @@ public class ProfileViewController implements ViewController {
 		this.sexController.setLabelText(profileDTO.sex());
 	}
 
+	/**
+	 * Handles the exception thrown when there is an error loading the profile image due to a malformed URL.
+	 * Logs the error message, shows an alert to the user, and then exits the system.
+	 *
+	 * @param e The MalformedURLException that was thrown.
+	 */
 	private void handleImageLoadingError(MalformedURLException e) {
 		logger.error("Error loading profile image due to malformed URL {}", e.getMessage());
 		this.showAlert(
@@ -112,6 +152,11 @@ public class ProfileViewController implements ViewController {
 		System.exit(1);
 	}
 
+	/**
+	 * Sets the profile image.
+	 * Tries to load the image from the file at the path returned by the listener's getProfileImagePath method.
+	 * If a MalformedURLException is thrown, it is handled by the handleImageLoadingError method.
+	 */
 	public void setProfileImage() {
 		try {
 			Image image = loadImage(new File(listener.getProfileImagePath()).toURL(), 129, 125);
@@ -121,6 +166,14 @@ public class ProfileViewController implements ViewController {
 		}
 	}
 
+	/**
+	 * Handles the event when the user selects a new profile image.
+	 * Opens a file chooser for the user to select a new image file.
+	 * If a file is selected, tries to load the image from the file and set it as the profile image.
+	 * If a MalformedURLException is thrown, it is handled by the handleImageLoadingError method.
+	 *
+	 * @param ignored The ActionEvent that triggered this method.
+	 */
 	public void eventHandler(ActionEvent ignored) { // NOSONAR
 		File selectedFile =
 				new FileChooser().showOpenDialog(this.imageSelection.getScene().getWindow());
@@ -134,16 +187,32 @@ public class ProfileViewController implements ViewController {
 		}
 	}
 
+	/**
+	 * Handles the exception thrown when there is an error updating the profile due to invalid data.
+	 * Logs the error message and shows an alert to the user with the error message.
+	 *
+	 * @param e The ProfileParameterException that was thrown.
+	 */
 	private void handleProfileParameterException(ProfileParameterException e) {
 		logger.warn("Error while updating profile", e);
 		this.showAlert("Error de saisie", e.getMessage());
 	}
 
+	/**
+	 * Handles the exception thrown when not all fields are filled.
+	 * Logs a warning message and shows an alert to the user.
+	 */
 	private void handleIncompleteFieldsException() {
 		logger.warn("All fields must be filled");
 		this.showAlert("Erreur", "Tous les champs doivent être remplis.");
 	}
 
+	/**
+	 * Handles the exception thrown when there is a general error saving the profile.
+	 * Logs the error message and shows an alert to the user.
+	 *
+	 * @param e The Exception that was thrown.
+	 */
 	private void handleGeneralException(Exception e) {
 		logger.error("Error while saving profile", e);
 		this.showAlert(
@@ -153,6 +222,14 @@ public class ProfileViewController implements ViewController {
 						+ " le fichier de log.");
 	}
 
+	/**
+	 * This method is used to save the profile data.
+	 * It creates a new ProfileDTO object with the data from the form fields, then calls the listener's updateProfile method to save the data.
+	 * If all fields are filled and the data is valid, it returns to the home view.
+	 * If any fields are empty or null, it handles the exception and shows an error message.
+	 * If the data is not valid, it handles the ProfileParameterException and shows an error message.
+	 * If any other exception occurs, it handles the general exception and shows an error message.
+	 */
 	public void saveProfile() {
 		try {
 			ProfileDTO profileDTO =
@@ -180,6 +257,7 @@ public class ProfileViewController implements ViewController {
 		}
 	}
 
+	@FXML
 	public void deleteProfile() {
 		this.listener.deleteProfileView();
 	}
@@ -189,22 +267,47 @@ public class ProfileViewController implements ViewController {
 		this.listener.returnHome();
 	}
 
-	// Set listener for communication with the controller
+	@Override
 	public void setListener(Object listener) {
 		this.listener = (ProfileViewController.Listener) listener;
 		this.setDefaultValue();
 	}
 
-	// Listener interface for communication with the controller
+	/**
+	 * This is an interface for communication with the controller.
+	 * It provides methods for updating the profile, getting profile data, deleting the profile view, and returning to the home view.
+	 */
 	public interface Listener {
+		/**
+		 * Updates the profile with the given ProfileDTO.
+		 *
+		 * @param profileDTO The ProfileDTO containing the new profile data.
+		 * @throws ProfileParameterException If an error occurs while updating the profile.
+		 */
 		void updateProfile(ProfileDTO profileDTO) throws ProfileParameterException;
 
+		/**
+		 * Gets the current profile data.
+		 *
+		 * @return The current ProfileDTO.
+		 */
 		ProfileDTO getProfile();
 
+		/**
+		 * Gets the path of the profile image.
+		 *
+		 * @return The path of the profile image.
+		 */
 		String getProfileImagePath();
 
+		/**
+		 * Deletes the profile view.
+		 */
 		void deleteProfileView();
 
+		/**
+		 * Returns to the home view.
+		 */
 		void returnHome();
 	}
 }

@@ -134,8 +134,7 @@ public class AddFoodController extends AppController
 	public List<String> getUserSearch(String searchText) {
 		return this.consumableService.loadConsumablesBeginningWith(searchText).stream()
 				.map(ConsumableDTO::name)
-				.toList(); // changed to toList() from collect(Collectors.toList()) for consistency
-		// java:S6204 ~ check if no bug
+				.toList();
 	}
 
 	@Override

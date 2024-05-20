@@ -226,7 +226,7 @@ public class ActivityCreateViewController implements ViewController {
 		this.clickedButton(this.buttonVolleyball, Sport.VOLLEYBALL);
 	}
 
-	// Method to set the listener for communication with the controller
+	@Override
 	public void setListener(Object listener) {
 		if (listener == null) {
 			logger.error("Listener is null");
@@ -250,32 +250,48 @@ public class ActivityCreateViewController implements ViewController {
 
 	public void chooseButton(Sport sport) {
 		switch (sport) {
-			case WALKING:
-				selectWalking();
-				break;
-			case RUNNING:
-				selectRunning();
-				break;
-			case BIKING:
-				selectBiking();
-				break;
-			case SWIMMING:
-				selectSwimming();
-				break;
-			case VOLLEYBALL:
-				selectVolleyball();
-				break;
+			case WALKING -> selectWalking();
+			case RUNNING -> selectRunning();
+			case BIKING -> selectBiking();
+			case SWIMMING -> selectSwimming();
+			case VOLLEYBALL -> selectVolleyball();
 		}
 	}
 
-	// Listener interface for communication with the controller
+	/**
+	 * Listener interface for communication with the controller.
+	 * This interface should be implemented by any class that needs to respond to actions from the ActivityCreateViewController.
+	 */
 	public interface Listener {
+
+		/**
+		 * Saves an activity.
+		 * This method should be implemented to handle the action of saving an activity.
+		 *
+		 * @param activityDTO The ActivityDTO object representing the activity to be saved.
+		 * @throws SavingException If an error occurs while saving the activity.
+		 */
 		void saveActivity(ActivityDTO activityDTO) throws SavingException;
 
+		/**
+		 * Calculates the calories burned during an activity.
+		 * This method should be implemented to return the number of calories burned during an activity.
+		 *
+		 * @param activityDTO The ActivityDTO object representing the activity for which the calories burned are to be calculated.
+		 * @return The number of calories burned during the activity.
+		 */
 		int calculateCalorie(ActivityDTO activityDTO);
 
+		/**
+		 * Triggers the return to the home view.
+		 * This method should be implemented to handle the action of returning to the home view.
+		 */
 		void returnHome();
 
+		/**
+		 * Navigates to the activity history view.
+		 * This method should be implemented to handle the action of navigating to the activity history view.
+		 */
 		void goToActivityHistory();
 	}
 

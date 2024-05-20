@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the profile deletion confirmation view.
+ */
 public class ProfileDeleteConfirmViewController implements ViewController {
 
 	private ProfileDeleteConfirmViewController.Listener
@@ -32,17 +35,25 @@ public class ProfileDeleteConfirmViewController implements ViewController {
 		// Empty method,no initialization needed (java:S1186)
 	}
 
-	// Action when "Yes" button is clicked
+	/**
+	 * This method is triggered when the "Yes" button is clicked.
+	 * It calls the deleteProfile method of the listener to delete the profile.
+	 *
+	 * @throws IOException If an input or output exception occurred
+	 */
 	public void setYesButton() throws IOException {
 		this.listener.deleteProfile();
 	}
 
-	// Action when "No" button is clicked
+	/**
+	 * This method is triggered when the "No" button is clicked.
+	 * It calls the returnHome method of the listener to return to the home view.
+	 */
 	public void setNoButton() {
 		this.listener.returnHome();
 	}
 
-	// Set listener for button actions
+	@Override
 	public void setListener(Object listener) {
 		if (listener == null) {
 			throw new IllegalArgumentException("Listener cannot be null");
@@ -50,10 +61,22 @@ public class ProfileDeleteConfirmViewController implements ViewController {
 		this.listener = (ProfileDeleteConfirmViewController.Listener) listener;
 	}
 
-	// Listener interface for button actions
+	/**
+	 * Listener interface for handling button actions in the ProfileDeleteConfirmViewController.
+	 */
 	public interface Listener {
-		void deleteProfile() throws IOException; // Action when "Yes" button is clicked
+		/**
+		 * Deletes the profile when the "Yes" button is clicked.
+		 * This method should be implemented to handle the action of deleting the profile.
+		 *
+		 * @throws IOException If an input or output exception occurred
+		 */
+		void deleteProfile() throws IOException;
 
-		void returnHome(); // Action when "No" button is clicked
+		/**
+		 * Returns to the home view when the "No" button is clicked.
+		 * This method should be implemented to handle the action of returning to the home view.
+		 */
+		void returnHome();
 	}
 }

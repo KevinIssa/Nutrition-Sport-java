@@ -44,6 +44,7 @@ public class MealHistoryViewController implements ViewController {
 		// Empty method,no initialization needed (java:S1186)
 	}
 
+	@Override
 	public void setListener(Object listener) {
 		if (listener == null) {
 			logger.error("Listener is null");
@@ -53,6 +54,11 @@ public class MealHistoryViewController implements ViewController {
 		this.loadConsumedMeals();
 	}
 
+	/**
+	 * Loads all consumed meals from the listener and adds them to the history list.
+	 * For each meal, a FoodHistoryBox is created and added to the history list.
+	 * The delete button of each FoodHistoryBox is set to call the deleteFoodInHistory method when clicked.
+	 */
 	private void loadConsumedMeals() {
 		List<ConsumedMealDTO> meals = this.listener.getAllMeals();
 		for (ConsumedMealDTO meal : meals) {
@@ -64,6 +70,14 @@ public class MealHistoryViewController implements ViewController {
 		}
 	}
 
+	/**
+	 * Deletes a food from the history list.
+	 * The food and its date are retrieved from the given FoodHistoryBox, and the deleteFood method of the listener is called with these values.
+	 * The FoodHistoryBox is then removed from the history list.
+	 * If an exception occurs, it is handled by the handleException method.
+	 *
+	 * @param foodBox The FoodHistoryBox representing the food to be deleted.
+	 */
 	private void deleteFoodInHistory(FoodHistoryBox foodBox) {
 		try {
 			ConsumedFoodDTO food = foodBox.getFoodDTO();
@@ -75,9 +89,14 @@ public class MealHistoryViewController implements ViewController {
 		}
 	}
 
+	/**
+	 * Handles exceptions by logging an error message.
+	 * The message depends on the type of the exception.
+	 *
+	 * @param e The exception to be handled.
+	 */
 	private void handleException(Exception e) {
 		switch (e) {
-				// variables are intentionally unused
 			case NumberFormatException ignored ->
 					logger.error("Error parsing number: {}", e.getMessage());
 			case DateTimeParseException ignored ->
@@ -91,28 +110,69 @@ public class MealHistoryViewController implements ViewController {
 		}
 	}
 
+	/**
+	 * Triggers the return to the home view.
+	 * This method should be called when the user wants to return to the home view.
+	 */
 	public void returnHome() {
 		this.listener.returnHome();
 	}
 
+	/**
+	 * Triggers the loading of the Add Meal view.
+	 * This method should be called when the user wants to add a meal.
+	 */
 	public void loadAddMeal() {
 		this.listener.addMeal();
 	}
 
+	/**
+	 * Triggers the loading of the Meal Recipe view.
+	 * This method should be called when the user wants to view a meal recipe.
+	 */
 	public void loadMealRecipe() {
 		this.listener.mealRecipe();
 	}
 
+	/**
+	 * Listener interface for the MealHistoryViewController.
+	 * This interface should be implemented by any class that needs to respond to actions from the MealHistoryViewController.
+	 */
 	public interface Listener {
 
-		List<ConsumedMealDTO> getAllMeals(); // Load all meals
+		/**
+		 * Retrieves all consumed meals.
+		 * This method should be implemented to return a list of ConsumedMealDTO objects representing all consumed meals.
+		 *
+		 * @return A list of ConsumedMealDTO objects representing all consumed meals.
+		 */
+		List<ConsumedMealDTO> getAllMeals();
 
-		void returnHome(); // Return to the home view
+		/**
+		 * Triggers the return to the home view.
+		 * This method should be called when the user wants to return to the home view.
+		 */
+		void returnHome();
 
+		/**
+		 * Triggers the loading of the Add Meal view.
+		 * This method should be called when the user wants to add a meal.
+		 */
 		void addMeal();
 
+		/**
+		 * Triggers the loading of the Meal Recipe view.
+		 * This method should be called when the user wants to view a meal recipe.
+		 */
 		void mealRecipe();
 
+		/**
+		 * Deletes a consumed food.
+		 * This method should be implemented to handle the action of deleting a consumed food.
+		 *
+		 * @param consumedFood The ConsumedFoodDTO object representing the consumed food to be deleted.
+		 * @param dateTime The LocalDateTime object representing the date of the consumed food.
+		 */
 		void deleteFood(ConsumedFoodDTO consumedFood, LocalDateTime dateTime);
 	}
 }
