@@ -86,8 +86,7 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		Button deleteFoodButton = new Button("X");
 		deleteFoodButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
 		FoodBox foodBox = new FoodBox(deleteFoodButton, foodDTO, calories);
-		deleteFoodButton.setOnAction(
-				e -> this.deleteChosenFood(foodBox, calories, foodDTO.quantity()));
+		deleteFoodButton.setOnAction(e -> this.deleteChosenFood(foodBox, calories));
 		chosenFoodList.getItems().add(foodBox);
 	}
 
@@ -107,17 +106,15 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	 */
 	public void addChosenFood(FoodDTO foodDTO) {
 		double calories = listener.getCaloriesConsumed(foodDTO);
-		double quantity = foodDTO.quantity();
 		// Round to 2 decimals
 		calories = BigDecimal.valueOf(calories).setScale(2, RoundingMode.DOWN).doubleValue();
-		quantity = BigDecimal.valueOf(quantity).setScale(2, RoundingMode.DOWN).doubleValue();
 		this.totalCalories += calories;
 		this.calorieLabel.setText(String.format("%.2f", this.totalCalories));
 
 		this.addFoodBox(foodDTO, calories);
 	}
 
-	private void deleteChosenFood(FoodBox foodBox, double calories, double quantity) {
+	private void deleteChosenFood(FoodBox foodBox, double calories) {
 		this.chosenFoodList.getItems().remove(foodBox);
 		this.totalCalories -= calories;
 		this.calorieLabel.setText(Double.toString(this.totalCalories));

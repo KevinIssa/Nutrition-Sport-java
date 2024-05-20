@@ -34,7 +34,7 @@ public class MealDetailsViewController implements ViewController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MealDetailsViewController.class);
 	public Label mealName;
-	public Label Calories;
+	public Label calories;
 	public ListView foodList;
 
 	private MealDetailsViewController.Listener listener;
@@ -54,7 +54,7 @@ public class MealDetailsViewController implements ViewController {
 
 	public void setMeal(RecipeDTO recipeDTO) {
 		mealName.setText(recipeDTO.name());
-		Calories.setText(this.listener.getCaloriesConsumed(recipeDTO) + "kcal");
+		calories.setText(this.listener.getCaloriesConsumed(recipeDTO) + "kcal");
 		for (FoodDTO foodDTO : recipeDTO.foods()) {
 			addMealBox(foodDTO);
 		}
@@ -79,10 +79,10 @@ public class MealDetailsViewController implements ViewController {
 	}
 
 	private void setTextInHBox(FoodDTO food, HBox hbox) {
-		Label LabelMealName = createLabel(food.name(), 100);
-		Label LabelMealQuantity = createLabel("quantite: " + food.quantity() + food.unit(), 100);
-		hbox.getChildren().add(0, LabelMealName);
-		hbox.getChildren().add(1, LabelMealQuantity);
+		Label labelMealName = createLabel(food.name(), 100);
+		Label labelMealQuantity = createLabel("quantite: " + food.quantity() + food.unit(), 100);
+		hbox.getChildren().add(0, labelMealName);
+		hbox.getChildren().add(1, labelMealQuantity);
 	}
 
 	private Label createLabel(String text, int width) {

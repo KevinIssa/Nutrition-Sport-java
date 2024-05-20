@@ -18,7 +18,7 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <Label fx:id="Calories" text="1000 Kcal" textFill="#f3fbfb" />
+      <Label fx:id="calories" text="1000 Kcal" textFill="#f3fbfb" />
       <Region prefHeight="22.0" prefWidth="322.0" />
       <ListView fx:id="foodList" prefHeight="293.0" prefWidth="322.0" style="-fx-background-color: #a0aeeb;" />
       <Button onAction="#returnHome" mnemonicParsing="false" prefHeight="43.0" prefWidth="67.0" style="-fx-background-color: #fd9c2d; -fx-background-radius: 10px;" translateX="-120.0" translateY="15.0">
