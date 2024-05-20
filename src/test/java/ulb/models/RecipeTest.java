@@ -28,33 +28,33 @@ class RecipeTest {
 	@Test
 	void equalsReturnsTrueForSameObject() {
 		Recipe recipe1 = new Recipe("Pizza");
-		assertTrue(recipe1.equals(recipe1));
+		assertEquals(recipe1, recipe1);
 	}
 
 	@Test
 	void equalsReturnsFalseForNull() {
 		Recipe recipe1 = new Recipe("Pizza");
-		assertFalse(recipe1.equals(null));
+		assertNotEquals(null, recipe1);
 	}
 
 	@Test
 	void equalsReturnsFalseForDifferentClass() {
 		Recipe recipe1 = new Recipe("Pizza");
-		assertFalse(recipe1.equals(new Object()));
+		assertNotEquals(recipe1, new Object());
 	}
 
 	@Test
 	void equalsReturnsTrueForSameRecipeNameAndIngredients() {
 		Recipe recipe1 = new Recipe("Pizza");
 		Recipe recipe2 = new Recipe("Pizza");
-		assertTrue(recipe1.equals(recipe2));
+		assertEquals(recipe1, recipe2);
 	}
 
 	@Test
 	void equalsReturnsFalseForDifferentRecipeName() {
 		Recipe recipe1 = new Recipe("Pizza");
 		Recipe recipe2 = new Recipe("Burger");
-		assertFalse(recipe1.equals(recipe2));
+		assertNotEquals(recipe1, recipe2);
 	}
 
 	@Test
@@ -62,7 +62,7 @@ class RecipeTest {
 		Recipe recipe1 = new Recipe("Pizza");
 		Recipe recipe2 = new Recipe("Pizza");
 		recipe2.addIngredient(new Food("Cheese", 100, 100, "100g", Unit.GRAMS), 100);
-		assertFalse(recipe1.equals(recipe2));
+		assertNotEquals(recipe1, recipe2);
 	}
 
 	@Test

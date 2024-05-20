@@ -101,7 +101,7 @@ public class JSONConsumableRepository implements ConsumableRepository {
 									+ ".json"),
 					recipe);
 		} catch (IOException e) {
-			logger.error("Error saving meal data to file: {}", recipe.getName());
+			logMealError(recipe.getName());
 		}
 	}
 
@@ -119,10 +119,14 @@ public class JSONConsumableRepository implements ConsumableRepository {
 						file.delete();
 					}
 				} catch (IOException e) {
-					logger.error("Error loading meal data from file: {}", file.getName());
+					logMealError(file.getName());
 				}
 			}
 		}
+	}
+
+	private void logMealError(String message) {
+		logger.error("Error loading meal data from file: {}", message);
 	}
 
 	private List<Food> loadAllFood() {
@@ -150,7 +154,7 @@ public class JSONConsumableRepository implements ConsumableRepository {
 				try {
 					recipes.add(mapper.readValue(file, Recipe.class));
 				} catch (IOException e) {
-					logger.error("Error loading meal data from file: {}", file.getName());
+					logMealError(file.getName());
 				}
 			}
 		}
@@ -200,7 +204,7 @@ public class JSONConsumableRepository implements ConsumableRepository {
 						file.delete();
 					}
 				} catch (IOException e) {
-					logger.error("Error loading meal data from file: {}", file.getName());
+					logMealError(file.getName());
 				}
 			}
 		}

@@ -35,6 +35,8 @@ public class GraphComponentViewController extends AnchorPane {
 	@FXML private LineChart<String, Number> lineChart;
 	@FXML private ChoiceBox<String> graphType;
 
+	private static final String GRAPH_TYPE_AVERAGE = "moyenne";
+	private static final String GRAPH_TYPE_CONSUMED_BURNED = "consommée/brûlée";
 	private List<DateCalorieDTO> data;
 	private Listener listener;
 
@@ -56,8 +58,8 @@ public class GraphComponentViewController extends AnchorPane {
 	}
 
 	private void setButton() {
-		this.graphType.getItems().addAll("moyenne", "consommée/brûlée");
-		this.graphType.setValue("moyenne");
+		this.graphType.getItems().addAll(GRAPH_TYPE_AVERAGE, GRAPH_TYPE_CONSUMED_BURNED);
+		this.graphType.setValue(GRAPH_TYPE_AVERAGE);
 	}
 
 	private void setupBarChart() {
@@ -125,7 +127,7 @@ public class GraphComponentViewController extends AnchorPane {
 
 	@FXML
 	private void onGraphTypeChange() {
-		if (graphType.getValue().equals("moyenne")) {
+		if (graphType.getValue().equals(GRAPH_TYPE_AVERAGE)) {
 			barChart.setVisible(true);
 			lineChart.setVisible(false);
 		} else {

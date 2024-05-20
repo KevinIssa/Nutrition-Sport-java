@@ -89,6 +89,9 @@ public class Search implements Initializable {
 				break;
 			case DOWN:
 				this.onDownPress();
+				break;
+			default:
+				// Do nothing
 		}
 	}
 

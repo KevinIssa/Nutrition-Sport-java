@@ -29,11 +29,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ulb.models.ConsumedFood;
 import ulb.models.ConsumedMeal;
 
 public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 		implements ConsumeMealRepository {
+	private static final Logger logger = LoggerFactory.getLogger(JSONConsumeMealRepository.class);
 	private static final String FOLDER_NAME = "consumed_meals";
 
 	public JSONConsumeMealRepository() {
@@ -48,7 +51,7 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 	public void save(ConsumedMeal consumedMeal) {
 		File folder = new File(FOLDER_NAME);
 		if (!folder.exists()) {
-			// logger.info("Creating activities folder");
+			logger.info("Creating activities folder");
 			folder.mkdir();
 		}
 		String fileName =
@@ -62,7 +65,7 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 		} catch (IOException e) {
 			// TODO: Handle this exception
 			e.printStackTrace();
-			// logger.error("Error saving consumed meal to file: " + fileName);
+			logMealError(fileName);
 		}
 	}
 
@@ -76,8 +79,7 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 				try {
 					consumedMeals.add(this.load(file.getPath()));
 				} catch (IOException e) {
-					//
-					// logger.error("Error loading consumed meal from file: " + file.getPath());
+					logMealError(file.getPath());
 				}
 			}
 		}
@@ -97,7 +99,7 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 						break;
 					}
 				} catch (IOException e) {
-					// logger.error("Error loading consumed meal from file: " + file.getPath());
+					logMealError(file.getPath());
 				}
 			}
 		}
@@ -107,34 +109,41 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 	public void delete(ConsumedFood consumedFood, LocalDateTime date) {
 		File folder = new File(FOLDER_NAME);
 		File[] files = folder.listFiles();
-		boolean isDeleted = false;
-		if (files != null) {
-			for (File file : files) {
-				try {
-					ConsumedMeal loadedConsumedMeal = this.load(file.getPath());
-					if (loadedConsumedMeal.getDate().equals(date)) {
-						for (ConsumedFood Food : loadedConsumedMeal.getConsumedFoods()) {
-							if (consumedFood.equals(Food)) {
-								loadedConsumedMeal.getConsumedFoods().remove(Food);
-								isDeleted = true;
-								break;
-							}
-						}
-					}
-					if (loadedConsumedMeal.getConsumedFoods().isEmpty() && isDeleted) {
-						file.delete();
-						break;
-					} else if (isDeleted) {
-						file.delete();
-						this.save(loadedConsumedMeal, file.getPath());
-						break;
-					}
+		if (files == null) return;
 
-				} catch (IOException e) {
-					// logger.error("Error loading consumed meal from file: " + file.getPath());
+		for (File file : files) {
+			try {
+				ConsumedMeal loadedConsumedMeal = this.load(file.getPath());
+				if (!loadedConsumedMeal.getDate().equals(date)) continue;
+
+				if (removeFoodFromMeal(consumedFood, loadedConsumedMeal)) {
+					updateOrDeleteMeal(file, loadedConsumedMeal);
 				}
+			} catch (IOException e) {
+				logMealError(file.getPath());
 			}
 		}
+	}
+
+	private boolean removeFoodFromMeal(ConsumedFood consumedFood, ConsumedMeal loadedConsumedMeal) {
+		for (ConsumedFood Food : new ArrayList<>(loadedConsumedMeal.getConsumedFoods())) {
+			if (consumedFood.equals(Food)) {
+				loadedConsumedMeal.getConsumedFoods().remove(Food);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void updateOrDeleteMeal(File file, ConsumedMeal loadedConsumedMeal) throws IOException {
+		file.delete();
+		if (!loadedConsumedMeal.getConsumedFoods().isEmpty()) {
+			this.save(loadedConsumedMeal, file.getPath());
+		}
+	}
+
+	private void logMealError(String message) {
+		logger.error("Error loading meal data from file: {}", message);
 	}
 
 	@Override

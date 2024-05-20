@@ -25,7 +25,10 @@ import org.slf4j.LoggerFactory;
 import ulb.enums.Unit;
 
 public class Recipe implements Consumable {
-	private static final Logger logger = LoggerFactory.getLogger(Recipe.class);
+	private static final Logger logger = // NOSONAR
+			LoggerFactory.getLogger(
+					Recipe.class); // java:S1068 - Unused private fields should be removed (future
+	// use)
 
 	private String name;
 	private List<Map.Entry<Consumable, Double>> ingredients = new ArrayList<>();
