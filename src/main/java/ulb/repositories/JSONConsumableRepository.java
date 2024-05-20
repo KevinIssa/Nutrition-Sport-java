@@ -31,22 +31,19 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ulb.dtos.RecipeDTO;
 import ulb.enums.Unit;
 import ulb.models.Consumable;
 import ulb.models.Food;
 import ulb.models.Recipe;
 
-public class JSONConsumableRepository implements ConsumableRepository {
+public class JSONConsumableRepository  implements ConsumableRepository {
 	private static final Logger logger = LoggerFactory.getLogger(JSONConsumableRepository.class);
 
 	private static final String FOOD_FILE = "/ulb/jsons/food.json";
 	private static final String RECIPES_FOLDER = "recipes";
 	private static final String CONSUMED_MEALS_FOLDER = "consumed_meals";
 
-	public Consumable loadByName(String name) {
-		List<Consumable> consumables = this.loadAll();
-		return binarySearch(consumables, name, 0, consumables.size() - 1);
-	}
 
 	@Override
 	public List<Consumable> loadAll() {
@@ -86,7 +83,6 @@ public class JSONConsumableRepository implements ConsumableRepository {
 
 		logger.debug("Saving meal data to file: {}", recipe.getName());
 		ObjectMapper mapper = new ObjectMapper();
-		class ConsumableEntryList extends ArrayList<Map.Entry<Consumable, Double>> {}
 		mapper.registerModule(
 				new SimpleModule()
 						.addSerializer(
@@ -162,24 +158,6 @@ public class JSONConsumableRepository implements ConsumableRepository {
 		return recipes;
 	}
 
-	private Consumable binarySearch(
-			List<Consumable> consumables, String target, int start, int end) {
-		if (start > end) {
-			return null;
-		}
-
-		int mid = start + (end - start) / 2;
-		int comparison = consumables.get(mid).getName().compareToIgnoreCase(target);
-
-		if (comparison == 0) {
-			return consumables.get(mid);
-		} else if (comparison < 0) {
-			return binarySearch(consumables, target, mid + 1, end);
-		} else {
-			return binarySearch(consumables, target, start, mid - 1);
-		}
-	}
-
 	@Override
 	public void deleteAll() {
 		File folder = new File(CONSUMED_MEALS_FOLDER);
@@ -189,6 +167,40 @@ public class JSONConsumableRepository implements ConsumableRepository {
 			for (File file : files) {
 				if (!file.isDirectory()) {
 					file.delete();
+				}
+			}
+		}
+	}
+	@Override
+	public void deleteAllRecipes() {
+		File folder = new File(RECIPES_FOLDER);
+		File[] files = folder.listFiles();
+		if (files != null) {
+			// logger.info("Deleting all consumables");
+			for (File file : files) {
+				if (!file.isDirectory()) {
+					file.delete();
+				}
+			}
+		}
+	}
+
+	@Override
+	public void deleteRecipe(RecipeDTO recipeDTO) {
+		File folder = new File(RECIPES_FOLDER);
+		File[] files = folder.listFiles();
+		if (files != null) {
+			for (File file : files) {
+				ObjectMapper mapper = new ObjectMapper();
+				mapper.registerModule(
+						new SimpleModule().addDeserializer(Recipe.class, new MealDeserializer()));
+				try {
+					Recipe recipe = mapper.readValue(file, Recipe.class);
+					if (recipe.getName().equals(recipeDTO.name())) {
+						file.delete();
+					}
+				} catch (IOException e) {
+					logger.error("Error loading meal data from file: {}", file.getName());
 				}
 			}
 		}
