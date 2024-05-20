@@ -44,23 +44,6 @@ public enum Intensity {
 	}
 
 	/**
-	 * Converts a string to its corresponding Intensity enum value.
-	 *
-	 * @param selectedIntensity The string to be converted.
-	 * @return The corresponding Intensity enum value.
-	 * @throws IllegalArgumentException If the string does not correspond to any Intensity enum value.
-	 */
-	public static Intensity fromString(String selectedIntensity) {
-		return switch (selectedIntensity) {
-			case "Slow" -> SLOW;
-			case "Moderate" -> MODERATE;
-			case "Intense" -> INTENSE;
-			default ->
-					throw new IllegalArgumentException("Invalid intensity : " + selectedIntensity);
-		};
-	}
-
-	/**
 	 * Converts the enum value to its corresponding string representation.
 	 *
 	 * @return The string representation of the intensity.
@@ -72,7 +55,6 @@ public enum Intensity {
 			case SLOW -> "slow";
 			case MODERATE -> "moderate";
 			case INTENSE -> "intense";
-			default -> throw new IllegalStateException("Unexpected value: " + this);
 		};
 	}
 }
