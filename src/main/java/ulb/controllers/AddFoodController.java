@@ -18,7 +18,6 @@
  */
 package ulb.controllers;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.stage.Modality;
@@ -26,13 +25,10 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.ConsumableDTO;
-import ulb.dtos.ConsumedFoodDTO;
 import ulb.dtos.FoodDTO;
 import ulb.dtos.RecipeDTO;
 import ulb.enums.Unit;
 import ulb.models.ConsumedMeal;
-import ulb.repositories.JSONConsumableRepository;
-import ulb.repositories.JSONConsumeMealRepository;
 import ulb.services.ConsumableService;
 import ulb.services.ConsumeMealService;
 import ulb.views.AddFoodViewController;

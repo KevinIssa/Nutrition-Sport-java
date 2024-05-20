@@ -87,7 +87,7 @@ public class ActivityCreateController extends AppController
 	}
 
 	public void setDefaultActivity(ActivityDTO activityDTO) {
-		((ActivityCreateViewController) this.viewController).setDefaultActivity(activityDTO);
+		((ActivityCreateViewController) this.viewController).setDefaultActivityDTO(activityDTO);
 	}
 
 	/**

@@ -48,6 +48,8 @@ public class ActivityCreateViewController implements ViewController {
 	private Sport selectedSport = Sport.WALKING;
 	private Button selectedButton;
 	private Listener listener;
+	private boolean isEdit = false;
+	private ActivityDTO defaultActivityDTO;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -124,6 +126,10 @@ public class ActivityCreateViewController implements ViewController {
 				activityDateTime);
 	}
 
+	public ActivityDTO getDefaultActivityDTO() {
+		return this.defaultActivityDTO;
+	}
+
 	/**
 	 * This method saves the activity.
 	 */
@@ -161,6 +167,9 @@ public class ActivityCreateViewController implements ViewController {
 	}
 
 	public void returnHome() {
+		if (this.isEdit) {
+			this.listener.saveActivity(getDefaultActivityDTO());
+		}
 		this.listener.returnHome();
 	}
 
@@ -215,13 +224,15 @@ public class ActivityCreateViewController implements ViewController {
 		this.listener = (Listener) listener;
 	}
 
-	public void setDefaultActivity(ActivityDTO activityDTO) {
+	public void setDefaultActivityDTO(ActivityDTO activityDTO) {
 		this.selectedSport = activityDTO.sport();
 		this.intensitySlider.setValue(activityDTO.intensity().ordinal());
 		this.durationNumber.setValue(activityDTO.duration());
 		this.activityDate.setValue(activityDTO.date().toLocalDate());
 		this.hourNumber.setValue(activityDTO.date().getHour());
 		this.minuteNumber.setValue(activityDTO.date().getMinute());
+		this.isEdit = true;
+		this.defaultActivityDTO = activityDTO;
 		this.setCaloriesBurned();
 		chooseButton(this.selectedSport);
 	}

@@ -129,7 +129,6 @@ public class MealHistoryViewController implements ViewController {
 
 			ConsumedFoodDTO consumedFood = createConsumedFoodDTO(foodBox);
 			LocalDateTime dateTime = createLocalDateTime(foodBox);
-
 			listener.deleteFood(consumedFood, dateTime);
 			historyList.getItems().remove(foodBox);
 		} catch (Exception e) {

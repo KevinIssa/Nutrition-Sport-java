@@ -78,6 +78,7 @@ public class JSONConsumableRepository implements ConsumableRepository {
 
 	@Override
 	public void save(Recipe recipe) {
+		deleteIfExist(recipe.getName());
 		File mealFolder = new File(RECIPES_FOLDER);
 		if (!mealFolder.exists()) {
 			mealFolder.mkdirs();
@@ -109,6 +110,25 @@ public class JSONConsumableRepository implements ConsumableRepository {
 		}
 	}
 
+	private void deleteIfExist(String name) {
+		File folder = new File(RECIPES_FOLDER);
+		File[] files = folder.listFiles();
+		if (files != null) {
+			for (File file : files) {
+				ObjectMapper mapper = new ObjectMapper();
+				mapper.registerModule(
+						new SimpleModule().addDeserializer(Recipe.class, new MealDeserializer()));
+				try {
+					Recipe recipe = mapper.readValue(file, Recipe.class);
+					if (recipe.getName().equals(name)) {
+						file.delete();
+					}
+				} catch (IOException e) {
+					logger.error("Error loading meal data from file: {}", file.getName());
+				}
+			}
+		}
+	}
 	private List<Food> loadAllFood() {
 		ObjectMapper mapper = new ObjectMapper();
 		try {

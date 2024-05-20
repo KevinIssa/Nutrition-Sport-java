@@ -44,6 +44,8 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	@FXML private NumberField personAmountNumber;
 	@FXML private ToggleButton switchButton;
 	private double totalCalories = 0;
+	private boolean isEditMode;
+	private RecipeDTO recipeDefaultDTO;
 	private MakeMealViewController.Listener listener;
 	private static final Logger logger = LoggerFactory.getLogger(MakeMealViewController.class);
 
@@ -130,6 +132,9 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	}
 
 	public void returnHome() {
+		if (this.isEditMode) {
+			this.listener.saveMeal(recipeDefaultDTO);
+		}
 		this.listener.returnHome();
 	}
 
@@ -150,6 +155,8 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	}
 
 	public void setDefaultRecipe(RecipeDTO recipeDTO) {
+		this.recipeDefaultDTO = recipeDTO;
+		this.isEditMode = true;
 		this.switchButton.setVisible(false);
 		this.mealName.setText(recipeDTO.name());
 		this.personAmountNumber.setValue(1);
