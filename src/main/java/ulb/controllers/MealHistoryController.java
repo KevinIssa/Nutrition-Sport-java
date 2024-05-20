@@ -39,6 +39,13 @@ public class MealHistoryController extends AppController
 	private final ConsumeMealService consumeMealService;
 	private final MealHistoryController.Listener listener;
 
+	/**
+	 * Constructor for the MealHistoryController class.
+	 * It initializes the ConsumeMealService and Listener instances.
+	 *
+	 * @param consumeMealService The ConsumeMealService instance to be used for meal consumption related operations.
+	 * @param listener The Listener instance to be used for handling events triggered in the MealHistory view.
+	 */
 	public MealHistoryController(
 			ConsumeMealService consumeMealService, MealHistoryController.Listener listener) {
 		logger.info("Initializing MealHistoryController");
