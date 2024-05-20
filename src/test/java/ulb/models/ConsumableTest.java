@@ -25,7 +25,26 @@ import ulb.enums.Unit;
 
 class ConsumableTest {
 
-	// TODO : Add tests
+	@Test
+	void servingQuantityTest1() {
+		Food food = new Food("Apple", 52, 52, "1 (182g)", Unit.GRAMS);
+		assertEquals(182, food.extractServingQuantityValue());
+	}
+
+
+	@Test
+	void servingQuantityTest2() {
+		Food food = new Food("Apple", 52, 52, "2 (100g) and 1 (50g)", Unit.GRAMS);
+		assertEquals(100, food.extractServingQuantityValue());
+	}
+
+	@Test
+	void servingQuantityTest3() {
+		Food food = new Food("Apple", 52, 52, "(g)", Unit.GRAMS);
+		assertEquals(0, food.extractServingQuantityValue());
+	}
+
+
 
 	@Test
 	void testGetCaloriesConsumedByGrams() {
