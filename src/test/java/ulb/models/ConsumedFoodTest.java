@@ -28,28 +28,28 @@ class ConsumedFoodTest {
 	void equalsReturnsTrueForIdenticalObjects() {
 		ConsumedFood food1 = new ConsumedFood("Apple", 52, 100, "g");
 		ConsumedFood food2 = food1;
-		assertTrue(food1.equals(food2));
+		assertEquals(food1, food2);
 	}
 
 	@Test
 	void equalsReturnsFalseForDifferentObjects() {
 		ConsumedFood food1 = new ConsumedFood("Apple", 52, 100, "g");
 		ConsumedFood food2 = new ConsumedFood("Banana", 105, 100, "g");
-		assertFalse(food1.equals(food2));
+		assertNotEquals(food1, food2);
 	}
 
 	@Test
 	void equalsReturnsFalseForNull() {
 		ConsumedFood food1 = new ConsumedFood("Apple", 52, 100, "g");
 		ConsumedFood food2 = null;
-		assertFalse(food1.equals(food2));
+		assertNotEquals(food1, food2);
 	}
 
 	@Test
 	void equalsReturnsFalseForDifferentClass() {
 		ConsumedFood food1 = new ConsumedFood("Apple", 52, 100, "g");
 		String food2 = "Apple";
-		assertFalse(food1.equals(food2));
+		assertNotEquals(food1, food2);
 	}
 
 	@Test

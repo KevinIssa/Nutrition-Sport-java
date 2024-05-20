@@ -25,7 +25,6 @@ public class DoubleField {
 
 	public DoubleField(TextField textField) {
 		this.textField = textField;
-		// TODO doublefield should accept , or . as comma so "\\d*\\.?\\d{0,2}" should be changed
 		this.textField
 				.textProperty()
 				.addListener(

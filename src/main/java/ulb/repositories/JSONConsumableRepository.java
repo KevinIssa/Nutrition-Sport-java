@@ -37,13 +37,12 @@ import ulb.models.Consumable;
 import ulb.models.Food;
 import ulb.models.Recipe;
 
-public class JSONConsumableRepository  implements ConsumableRepository {
+public class JSONConsumableRepository implements ConsumableRepository {
 	private static final Logger logger = LoggerFactory.getLogger(JSONConsumableRepository.class);
 
 	private static final String FOOD_FILE = "/ulb/jsons/food.json";
 	private static final String RECIPES_FOLDER = "recipes";
 	private static final String CONSUMED_MEALS_FOLDER = "consumed_meals";
-
 
 	@Override
 	public List<Consumable> loadAll() {
@@ -171,6 +170,7 @@ public class JSONConsumableRepository  implements ConsumableRepository {
 			}
 		}
 	}
+
 	@Override
 	public void deleteAllRecipes() {
 		File folder = new File(RECIPES_FOLDER);

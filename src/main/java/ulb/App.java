@@ -50,8 +50,7 @@ public class App extends Application {
 		CaloriesTrackingService caloriesTrackingService =
 				new CaloriesTrackingService(activityRepository, consumeMealRepository);
 		ConsumableService consumableService = new ConsumableService(consumableRepository);
-		ConsumeMealService consumeMealService =
-				new ConsumeMealService(consumeMealRepository, consumableRepository);
+		ConsumeMealService consumeMealService = new ConsumeMealService(consumeMealRepository);
 
 		menuController.setProfileService(profileService);
 		menuController.setActivityService(activityService);

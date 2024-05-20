@@ -26,23 +26,19 @@ import ulb.dtos.ConsumedFoodDTO;
 import ulb.dtos.ConsumedMealDTO;
 import ulb.models.ConsumedFood;
 import ulb.models.ConsumedMeal;
-import ulb.repositories.ConsumableRepository;
 import ulb.repositories.ConsumeMealRepository;
 
 public class ConsumeMealService {
 	private static final Logger logger = // NOSONAR
 			LoggerFactory.getLogger(
 					ConsumeMealService
-							.class); // java:S1068 - Unused private fields should be removed (future use)
+							.class); // java:S1068 - Unused private fields should be removed (future
+	// use)
 
 	private final ConsumeMealRepository consumeMealRepository;
-	private final ConsumableRepository consumableRepository; //java:S1068 - check if future use
 
-	public ConsumeMealService(
-			ConsumeMealRepository consumeMealRepository,
-			ConsumableRepository consumableRepository) {
+	public ConsumeMealService(ConsumeMealRepository consumeMealRepository) {
 		this.consumeMealRepository = consumeMealRepository;
-		this.consumableRepository = consumableRepository;
 	}
 
 	public void saveConsumedMeal(ConsumedMealDTO consumedMealDTO) {

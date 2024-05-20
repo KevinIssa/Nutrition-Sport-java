@@ -21,7 +21,6 @@ package ulb.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.ConsumableDTO;
@@ -32,10 +31,7 @@ import ulb.models.Recipe;
 import ulb.repositories.ConsumableRepository;
 
 public class ConsumableService {
-	private static final Logger logger = // NOSONAR
-			LoggerFactory.getLogger(
-					ConsumableService
-							.class); // java:S1068 - Unused private fields should be removed
+	private static final Logger logger = LoggerFactory.getLogger(ConsumableService.class);
 
 	private final ConsumableRepository consumableRepository;
 
@@ -45,12 +41,6 @@ public class ConsumableService {
 
 	public void saveMeal(RecipeDTO recipeDTO) {
 		this.consumableRepository.save(this.convertToMeal(recipeDTO));
-	}
-
-	public List<ConsumableDTO> loadConsumables() {
-		return this.consumableRepository.loadAll().stream()
-				.map(this::convertToConsumableDTO)
-				.toList();
 	}
 
 	public List<ConsumableDTO> loadConsumablesBeginningWith(String prefix) {
@@ -88,9 +78,8 @@ public class ConsumableService {
 		return this.consumableRepository.load(foodName);
 	}
 
-	public Void deleteAllConsumables() {
+	public void deleteAllConsumables() {
 		this.consumableRepository.deleteAll();
-		return null;
 	}
 
 	public double getCaloriesConsumed(RecipeDTO recipeDTO) {
@@ -102,6 +91,7 @@ public class ConsumableService {
 										.getCaloriesConsumedByUnit(foodDTO.quantity()))
 				.sum();
 	}
+
 	public void deleteMeal(RecipeDTO meal) {
 		logger.info("Deleting a recipe and its associated file");
 		this.consumableRepository.deleteRecipe(meal);
@@ -124,7 +114,7 @@ public class ConsumableService {
 	}
 
 	public void deleteAllRecipes() {
-		// logger.info("Deleting all recipes");
+		logger.info("Deleting all recipes");
 		this.consumableRepository.deleteAllRecipes();
 	}
 }

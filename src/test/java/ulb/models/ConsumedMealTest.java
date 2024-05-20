@@ -102,15 +102,15 @@ class ConsumedMealTest {
 	void equalsReturnsTrueForSameObject() {
 		ConsumedFood food = new ConsumedFood("Apple", 52, 100, "g");
 		consumedMeal.addConsumedFood(food);
-		assertTrue(consumedMeal.equals(consumedMeal));
+		assertEquals(consumedMeal, consumedMeal);
 
 		ConsumedMeal meal = new ConsumedMeal();
 		ConsumedFood food2 = new ConsumedFood("Apple", 52, 100, "g");
 		meal.addConsumedFood(food2);
-		assertTrue(consumedMeal.equals(meal));
+		assertEquals(consumedMeal, meal);
 
 		ConsumedFood food3 = new ConsumedFood("pear", 52, 100, "g");
 		meal.addConsumedFood(food3);
-		assertFalse(consumedMeal.equals(meal));
+		assertNotEquals(consumedMeal, meal);
 	}
 }

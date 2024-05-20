@@ -19,7 +19,6 @@
 package ulb.repositories;
 
 import java.util.List;
-
 import ulb.dtos.RecipeDTO;
 import ulb.models.Consumable;
 import ulb.models.Recipe;
