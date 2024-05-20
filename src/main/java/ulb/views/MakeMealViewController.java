@@ -141,6 +141,7 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 
 	public void saveMeal() {
 		try {
+			this.isEditMode = false;
 			List<FoodDTO> foodlist = new java.util.ArrayList<>();
 			for (FoodBox foodBox : chosenFoodList.getItems()) {
 				foodlist.add(
