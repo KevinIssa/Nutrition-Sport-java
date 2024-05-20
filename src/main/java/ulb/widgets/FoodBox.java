@@ -49,13 +49,7 @@ public class FoodBox extends HBox {
 	}
 
 	public FoodBox(Button button, FoodDTO foodDTO, Double calories) {
-		this(
-			button,
-			foodDTO.name(),
-			calories,
-			foodDTO.quantity(),
-			foodDTO.unit().toString()
-		);
+		this(button, foodDTO.name(), calories, foodDTO.quantity(), foodDTO.unit().toString());
 	}
 
 	public String getFood() {

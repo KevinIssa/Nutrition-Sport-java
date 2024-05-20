@@ -58,7 +58,9 @@ public class AddFoodController extends AppController
 	 * @param listener Listener for the FoodController
 	 */
 	public AddFoodController(
-			ConsumableService consumableService, ConsumeMealService consumeMealService, AddFoodController.Listener listener) {
+			ConsumableService consumableService,
+			ConsumeMealService consumeMealService,
+			AddFoodController.Listener listener) {
 		this.consumableService = consumableService;
 		this.consumeMealService = consumeMealService;
 		this.listener = listener;
@@ -96,7 +98,9 @@ public class AddFoodController extends AppController
 
 	@Override
 	public double getCaloriesConsumed(FoodDTO food) {
-		return this.consumableService.getConsumableByName(food.name()).getCaloriesConsumedByUnit(food.quantity());
+		return this.consumableService
+				.getConsumableByName(food.name())
+				.getCaloriesConsumedByUnit(food.quantity());
 	}
 
 	@Override

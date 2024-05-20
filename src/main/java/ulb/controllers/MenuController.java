@@ -26,7 +26,6 @@ import org.slf4j.LoggerFactory;
 import ulb.dtos.ActivityDTO;
 import ulb.dtos.DateCalorieDTO;
 import ulb.dtos.RecipeDTO;
-import ulb.repositories.*;
 import ulb.services.*;
 import ulb.views.*;
 
@@ -75,7 +74,6 @@ public class MenuController extends AppController implements MenuViewController.
 		logger.info("Setting RecipeService: {}", recipeService);
 		this.recipeService = recipeService;
 	}
-
 
 	@Override
 	public void show(Stage stage) {
@@ -346,7 +344,8 @@ public class MenuController extends AppController implements MenuViewController.
 	public void loadFoodSearchPage(RecipeDTO meal) {
 		Stage popupStage = new Stage();
 		AddFoodController controller =
-				new AddFoodController(this.consumableService, this.consumeMealService, popupStage::close);
+				new AddFoodController(
+						this.consumableService, this.consumeMealService, popupStage::close);
 		controller.show(popupStage);
 		if (meal != null) {
 			controller.setDefaultRecipe(meal);
