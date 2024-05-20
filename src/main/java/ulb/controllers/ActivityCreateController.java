@@ -71,8 +71,6 @@ public class ActivityCreateController extends AppController
 		activityDTO = new ActivityDTO(activityDTO, burnedCalories);
 		logger.info("Saving activity {}", activityDTO);
 		this.activityService.saveActivity(activityDTO);
-		((ActivityCreateViewController) this.viewController)
-				.showCaloriesConsumed(activityDTO.burnedCalories());
 	}
 
 	@Override

@@ -226,12 +226,6 @@ public class ActivityCreateViewController implements ViewController {
 		this.clickedButton(this.buttonVolleyball, Sport.VOLLEYBALL);
 	}
 
-	public void showCaloriesConsumed(double calories) {
-		this.showAlert(
-				"Calcul du nombre de calories",
-				"Vous avez dépensé " + calories + " calories durant cette activité");
-	}
-
 	// Method to set the listener for communication with the controller
 	public void setListener(Object listener) {
 		if (listener == null) {
