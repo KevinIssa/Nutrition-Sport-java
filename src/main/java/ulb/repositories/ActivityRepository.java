@@ -19,6 +19,7 @@
 package ulb.repositories;
 
 import java.util.List;
+import ulb.exceptions.SavingException;
 import ulb.models.Activity;
 
 /**
@@ -31,7 +32,7 @@ public interface ActivityRepository {
 	 * Saves the given Activity object.
 	 * @param activity The Activity object to be saved.
 	 */
-	void save(Activity activity);
+	void save(Activity activity) throws SavingException;
 
 	/**
 	 * Loads all Activity objects.

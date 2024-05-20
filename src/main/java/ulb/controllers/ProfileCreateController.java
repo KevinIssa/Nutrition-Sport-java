@@ -22,10 +22,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.ProfileDTO;
-import ulb.exceptions.IllegalImageFormatException;
-import ulb.exceptions.InvalidImageException;
-import ulb.exceptions.ProfileParameterException;
-import ulb.exceptions.ValueObjectException;
+import ulb.exceptions.*;
 import ulb.services.ProfileService;
 import ulb.views.ProfileCreateViewController;
 
@@ -59,7 +56,10 @@ public class ProfileCreateController extends AppController
 		try {
 			logger.info("Saving profile {}", profileDTO);
 			this.profileService.saveProfile(profileDTO);
-		} catch (ValueObjectException | IllegalImageFormatException | InvalidImageException e) {
+		} catch (ValueObjectException
+				| IllegalImageFormatException
+				| InvalidImageException
+				| SavingException e) {
 			throw new ProfileParameterException(e.getMessage(), e);
 		}
 	}

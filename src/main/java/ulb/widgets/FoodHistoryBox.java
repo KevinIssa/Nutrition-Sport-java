@@ -48,31 +48,31 @@ public class FoodHistoryBox extends HBox {
 	}
 
 	private void setButtonInHBox() {
-		ImageView imageDelete = createImageView("/ulb/images/trash.png", 30, 30);
+		ImageView imageDelete = createImageView();
 		this.deleteFoodButton.setGraphic(imageDelete);
 		Region spacer = new Region();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
 		this.getChildren().addAll(spacer, deleteFoodButton);
 	}
 
-	private ImageView createImageView(String imagePath, int width, int height) {
-		URL path = getClass().getResource(imagePath);
+	private ImageView createImageView() {
+		URL path = getClass().getResource("/ulb/images/trash.png");
 		assert path != null;
-		Image image = new Image(path.toString(), width, height, false, false);
+		Image image = new Image(path.toString(), 30, 30, false, false);
 		return new ImageView(image);
 	}
 
 	private void setTextInHBox() {
-		Label LabelMealName = createLabel(this.food.name(), 100);
-		Label LabelQuantity = createLabel(this.food.quantity() + " " + this.food.unit(), 40);
-		Label LabelDate =
+		Label labelMealName = createLabel(this.food.name(), 100);
+		Label labelQuantity = createLabel(this.food.quantity() + " " + this.food.unit(), 40);
+		Label labelDate =
 				createLabel(
 						this.date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm")), 120);
-		Label LabelCalorie = createLabel(this.food.calories() + " kcal", 60);
-		this.getChildren().add(0, LabelMealName);
-		this.getChildren().add(1, LabelDate);
-		this.getChildren().add(2, LabelQuantity);
-		this.getChildren().add(3, LabelCalorie);
+		Label labelCalorie = createLabel(this.food.calories() + " kcal", 60);
+		this.getChildren().add(0, labelMealName);
+		this.getChildren().add(1, labelDate);
+		this.getChildren().add(2, labelQuantity);
+		this.getChildren().add(3, labelCalorie);
 	}
 
 	private Label createLabel(String text, int width) {

@@ -21,6 +21,7 @@ package ulb.services;
 import java.time.Duration;
 import java.util.List;
 import ulb.dtos.ActivityDTO;
+import ulb.exceptions.SavingException;
 import ulb.models.Activity;
 import ulb.repositories.ActivityRepository;
 
@@ -43,7 +44,7 @@ public class ActivityService {
 	 * Saves an ActivityDTO object by converting it to an Activity object and saving it using the repository.
 	 * @param activityDTO The ActivityDTO object to be saved.
 	 */
-	public void saveActivity(ActivityDTO activityDTO) {
+	public void saveActivity(ActivityDTO activityDTO) throws SavingException {
 		this.activityRepository.save(this.convertToActivity(activityDTO));
 	}
 

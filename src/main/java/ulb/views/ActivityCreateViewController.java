@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
 import ulb.dtos.ActivityDTO;
 import ulb.enums.Intensity;
 import ulb.enums.Sport;
+import ulb.exceptions.SavingException;
 import ulb.widgets.NumberField;
 
 public class ActivityCreateViewController implements ViewController {
@@ -146,16 +147,20 @@ public class ActivityCreateViewController implements ViewController {
 				this.listener.saveActivity(getActivityDTO());
 				goToActivityHistory();
 			}
-		} catch (NumberFormatException e) {
+		} catch (NumberFormatException ignored) {
 			logger.info("Invalid time entered");
 			showAlert("Erreur de timestamp", "Veuillez entrer une heure valide.");
 		} catch (IllegalArgumentException e) {
 			showAlert("Erreur de validité", e.getMessage());
-		} catch (Exception e) {
+		} catch (SavingException ignored) {
+			showAlert(
+					"Erreur de sauvegarde",
+					"Une erreur s'est produite lors de l'enregistrement de l'activité.");
+		} catch (Exception ignored) {
 			showAlert(
 					"Erreur de inconnue",
 					"Une erreur s'est produite lors de l'enregistrement de l'activité.");
-		}
+		} // this can be done better with message management
 	}
 
 	@FXML
@@ -174,7 +179,13 @@ public class ActivityCreateViewController implements ViewController {
 
 	public void returnHome() {
 		if (this.isEdit) {
-			this.listener.saveActivity(getDefaultActivityDTO());
+			try {
+				this.listener.saveActivity(getDefaultActivityDTO());
+			} catch (SavingException e) {
+				logger.error("Error while saving activity", e);
+				showAlert(
+						"Erreur de sauvegarde", "Une erreur s'est produite lors de la sauvegarde.");
+			}
 		}
 		this.listener.returnHome();
 	}
@@ -265,7 +276,7 @@ public class ActivityCreateViewController implements ViewController {
 
 	// Listener interface for communication with the controller
 	public interface Listener {
-		void saveActivity(ActivityDTO activityDTO);
+		void saveActivity(ActivityDTO activityDTO) throws SavingException;
 
 		int calculateCalorie(ActivityDTO activityDTO);
 

@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.ActivityDTO;
+import ulb.exceptions.SavingException;
 import ulb.services.ActivityService;
 import ulb.services.ProfileService;
 import ulb.views.ActivityCreateViewController;
@@ -65,7 +66,7 @@ public class ActivityCreateController extends AppController
 	}
 
 	@Override
-	public void saveActivity(ActivityDTO activityDTO) {
+	public void saveActivity(ActivityDTO activityDTO) throws SavingException {
 		int burnedCalories = calculateCalorie(activityDTO);
 		activityDTO = new ActivityDTO(activityDTO, burnedCalories);
 		logger.info("Saving activity {}", activityDTO);

@@ -135,11 +135,9 @@ public class JSONConsumableRepository implements ConsumableRepository {
 			return mapper.readValue(
 					getClass().getResourceAsStream(FOOD_FILE), new TypeReference<>() {});
 		} catch (IOException e) {
-			e.printStackTrace();
 			logger.error("Error loading food data from file: {}", FOOD_FILE);
-			System.exit(1);
+			return new ArrayList<>();
 		}
-		return Collections.emptyList();
 	}
 
 	public List<Recipe> loadAllMeals() {
@@ -166,7 +164,7 @@ public class JSONConsumableRepository implements ConsumableRepository {
 		File folder = new File(CONSUMED_MEALS_FOLDER);
 		File[] files = folder.listFiles();
 		if (files != null) {
-			// logger.info("Deleting all consumables");
+			logger.info("Deleting all");
 			for (File file : files) {
 				if (!file.isDirectory()) {
 					file.delete();
@@ -180,7 +178,7 @@ public class JSONConsumableRepository implements ConsumableRepository {
 		File folder = new File(RECIPES_FOLDER);
 		File[] files = folder.listFiles();
 		if (files != null) {
-			// logger.info("Deleting all consumables");
+			logger.info("Deleting all recipes");
 			for (File file : files) {
 				if (!file.isDirectory()) {
 					file.delete();
@@ -240,7 +238,7 @@ class ConsumableListSerializer extends JsonSerializer<List<Map.Entry<Consumable,
  * This class is responsible for converting JSON data into a Recipe object.
  */
 class MealDeserializer extends StdDeserializer<Recipe> {
-	private static final Logger logger = LoggerFactory.getLogger(MealDeserializer.class);
+	private static final Logger logger = LoggerFactory.getLogger(MealDeserializer.class); // NOSONAR
 
 	/**
 	 * Default constructor specifying the type to be deserialized.

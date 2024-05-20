@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ulb.exceptions.SavingException;
 import ulb.models.Activity;
 import ulb.models.CalorieCalculator;
 
@@ -43,7 +44,7 @@ public class JSONActivityRepository extends JSONRepository<Activity> implements 
 	 * @param activity The Activity object to be saved.
 	 */
 	@Override
-	public void save(Activity activity) {
+	public void save(Activity activity) throws SavingException {
 		File folder = new File(FOLDER_NAME);
 		if (!folder.exists()) {
 			logger.info("Creating activities folder");
@@ -61,9 +62,8 @@ public class JSONActivityRepository extends JSONRepository<Activity> implements 
 		try {
 			super.save(activity, filename);
 		} catch (IOException e) {
-			// TODO: Handle exception
-			e.printStackTrace();
-			System.exit(1);
+			logger.error("Failed to save activity");
+			throw new SavingException("Failed to save activity");
 		}
 	}
 

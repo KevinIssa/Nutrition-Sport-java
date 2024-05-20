@@ -20,6 +20,7 @@ package ulb.repositories;
 
 import ulb.exceptions.IllegalImageFormatException;
 import ulb.exceptions.InvalidImageException;
+import ulb.exceptions.SavingException;
 import ulb.models.Profile;
 
 /**
@@ -33,7 +34,7 @@ public interface ProfileRepository {
 	 *
 	 * @param profile the Profile object to be saved
 	 */
-	void save(Profile profile);
+	void save(Profile profile) throws SavingException;
 
 	/**
 	 * Saves the profile image.
@@ -57,7 +58,7 @@ public interface ProfileRepository {
 	 *
 	 * @param profile the Profile object to be updated
 	 */
-	void update(Profile profile);
+	void update(Profile profile) throws SavingException;
 
 	/**
 	 * Deletes a Profile object.

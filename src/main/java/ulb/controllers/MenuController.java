@@ -368,9 +368,9 @@ public class MenuController extends AppController implements MenuViewController.
 	@Override
 	public String getProfileWeight() {
 		float profileWeight = this.profileService.getProfileWeight();
-		if (!(profileWeight % 1 > 0)) {
-			return String.valueOf((int) profileWeight);
+		if (profileWeight % 1 > 0) {
+			return String.valueOf(profileWeight);
 		}
-		return String.valueOf(profileWeight);
+		return String.valueOf((int) profileWeight);
 	}
 }

@@ -121,7 +121,7 @@ public class ProfileViewController implements ViewController {
 		}
 	}
 
-	public void eventHandler(ActionEvent event) {
+	public void eventHandler(ActionEvent ignored) { // NOSONAR
 		File selectedFile =
 				new FileChooser().showOpenDialog(this.imageSelection.getScene().getWindow());
 		if (selectedFile != null) {

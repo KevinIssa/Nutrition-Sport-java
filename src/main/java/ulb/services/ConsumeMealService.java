@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.ConsumedFoodDTO;
 import ulb.dtos.ConsumedMealDTO;
+import ulb.exceptions.SavingException;
 import ulb.models.ConsumedFood;
 import ulb.models.ConsumedMeal;
 import ulb.repositories.ConsumeMealRepository;
@@ -41,7 +42,7 @@ public class ConsumeMealService {
 		this.consumeMealRepository = consumeMealRepository;
 	}
 
-	public void saveConsumedMeal(ConsumedMeal consumedMeal) {
+	public void saveConsumedMeal(ConsumedMeal consumedMeal) throws SavingException {
 		this.consumeMealRepository.save(consumedMeal);
 	}
 
@@ -53,14 +54,6 @@ public class ConsumeMealService {
 
 	public void deleteConsumedFood(ConsumedFoodDTO consumedFoodDTO, LocalDateTime date) {
 		this.consumeMealRepository.delete(this.convertToConsumedFood(consumedFoodDTO), date);
-	}
-
-	private ConsumedMeal convertToConsumedMeal(ConsumedMealDTO consumedMealDTO) {
-		ConsumedMeal consumedMeal = new ConsumedMeal();
-		for (ConsumedFoodDTO consumedFoodDTO : consumedMealDTO.consumedFoods()) {
-			consumedMeal.addConsumedFood(this.convertToConsumedFood(consumedFoodDTO));
-		}
-		return consumedMeal;
 	}
 
 	private ConsumedFood convertToConsumedFood(ConsumedFoodDTO consumedFoodDTO) {

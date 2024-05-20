@@ -37,7 +37,11 @@ public class ProfileCreateViewController implements ViewController {
 	private static final Logger logger = LoggerFactory.getLogger(ProfileCreateViewController.class);
 	@FXML private ImageView image;
 	@FXML private Button imageSelection;
-	@FXML private TextField firstname, lastname, height, weight;
+	@FXML
+	private TextField firstname,
+			lastname,
+			height,
+			weight; // NOSONAR (java:S1659) - Multiple variable one line
 	@FXML private DatePicker birthdate;
 	@FXML private ToggleGroup sex;
 

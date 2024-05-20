@@ -48,7 +48,10 @@ public class ProfileService {
 	 * @throws InvalidImageException if the image is invalid.
 	 */
 	public void saveProfile(ProfileDTO profileDTO)
-			throws ValueObjectException, IllegalImageFormatException, InvalidImageException {
+			throws ValueObjectException,
+					IllegalImageFormatException,
+					InvalidImageException,
+					SavingException {
 		this.profileRepository.save(this.convertToProfile(profileDTO));
 		this.profileRepository.saveProfileImage(profileDTO.imagePath());
 	}
@@ -67,7 +70,10 @@ public class ProfileService {
 	 * @throws ValueObjectException if the value object is invalid.
 	 */
 	public void updateProfile(ProfileDTO profileDTO)
-			throws ValueObjectException, IllegalImageFormatException, InvalidImageException {
+			throws ValueObjectException,
+					IllegalImageFormatException,
+					InvalidImageException,
+					SavingException {
 		this.profileRepository.update(this.convertToProfile(profileDTO));
 		this.profileRepository.saveProfileImage(profileDTO.imagePath());
 	}

@@ -21,9 +21,7 @@ package ulb.widgets;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-public class FieldTemplateController
-		extends AbstractFieldTemplate { // TODO : Rename this class "this class is a container for
-	// the textfield, label and button"
+public class FieldTemplateController extends AbstractFieldTemplate {
 
 	@FXML public TextField infoFieldUser;
 

@@ -41,7 +41,7 @@ public class MealHistoryViewController implements ViewController {
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		System.out.println(listener);
+		// Empty method,no initialization needed (java:S1186)
 	}
 
 	public void setListener(Object listener) {
@@ -78,15 +78,16 @@ public class MealHistoryViewController implements ViewController {
 	private void handleException(Exception e) {
 		switch (e) {
 				// variables are intentionally unused
-			case NumberFormatException numberFormatException ->
-					logger.error("Error parsing number: " + e.getMessage());
-			case DateTimeParseException dateTimeParseException ->
-					logger.error("Error parsing date: " + e.getMessage());
-			case ClassCastException classCastException ->
-					logger.error("Error casting class: " + e.getMessage());
-			case IndexOutOfBoundsException indexOutOfBoundsException ->
-					logger.error("Error accessing index: " + e.getMessage());
-			case null, default -> logger.error("Unexpected error: " + e.getMessage());
+			case NumberFormatException ignored ->
+					logger.error("Error parsing number: {}", e.getMessage());
+			case DateTimeParseException ignored ->
+					logger.error("Error parsing date: {}", e.getMessage());
+			case ClassCastException ignored ->
+					logger.error("Error casting class: {}", e.getMessage());
+			case IndexOutOfBoundsException ignored ->
+					logger.error("Error accessing index: {}", e.getMessage());
+			case null -> logger.error("Error is null");
+			default -> logger.error("Unexpected error:{} ", e.getMessage());
 		}
 	}
 

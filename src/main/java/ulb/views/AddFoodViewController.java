@@ -36,6 +36,7 @@ import org.slf4j.LoggerFactory;
 import ulb.dtos.ConsumedFoodDTO;
 import ulb.dtos.FoodDTO;
 import ulb.enums.Unit;
+import ulb.exceptions.SavingException;
 import ulb.models.ConsumedMeal;
 import ulb.widgets.FoodBox;
 import ulb.widgets.NumberField;
@@ -148,6 +149,8 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 			showAlert("Erreur", "Veuillez entrer une heure valide.");
 		} catch (IllegalArgumentException e) {
 			showAlert("Erreur", e.getMessage());
+		} catch (SavingException e) {
+			showAlert("Erreur", "Erreur lors de la sauvegarde des aliments consommés.");
 		}
 	}
 
@@ -229,6 +232,6 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 
 		void returnHome();
 
-		void saveConsumedFoods(ConsumedMeal consumedMeal);
+		void saveConsumedFoods(ConsumedMeal consumedMeal) throws SavingException;
 	}
 }

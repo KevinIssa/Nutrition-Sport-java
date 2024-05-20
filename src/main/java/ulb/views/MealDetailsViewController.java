@@ -40,7 +40,9 @@ public class MealDetailsViewController implements ViewController {
 	private MealDetailsViewController.Listener listener;
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {}
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		// Empty method, no initialization needed (java:S1186)
+	}
 
 	public void setListener(Object listener) {
 		if (listener == null) {

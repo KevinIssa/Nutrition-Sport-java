@@ -20,6 +20,7 @@ package ulb.repositories;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import ulb.exceptions.SavingException;
 import ulb.models.ConsumedFood;
 import ulb.models.ConsumedMeal;
 
@@ -34,7 +35,7 @@ public interface ConsumeMealRepository {
 	 *
 	 * @param consumedMeal The ConsumedMeal object to be saved.
 	 */
-	void save(ConsumedMeal consumedMeal);
+	void save(ConsumedMeal consumedMeal) throws SavingException;
 
 	/**
 	 * Retrieves all ConsumedMeal objects from the repository.

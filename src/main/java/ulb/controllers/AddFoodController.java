@@ -27,6 +27,7 @@ import ulb.dtos.ConsumableDTO;
 import ulb.dtos.FoodDTO;
 import ulb.dtos.RecipeDTO;
 import ulb.enums.Unit;
+import ulb.exceptions.SavingException;
 import ulb.models.ConsumedMeal;
 import ulb.services.ConsumableService;
 import ulb.services.ConsumeMealService;
@@ -104,7 +105,7 @@ public class AddFoodController extends AppController
 	}
 
 	@Override
-	public void saveConsumedFoods(ConsumedMeal consumedMeal) {
+	public void saveConsumedFoods(ConsumedMeal consumedMeal) throws SavingException {
 		this.consumeMealService.saveConsumedMeal(consumedMeal);
 	}
 

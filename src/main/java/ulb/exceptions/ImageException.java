@@ -30,7 +30,7 @@ public abstract class ImageException extends Exception {
 	 *
 	 * @param message The specific error message for this exception.
 	 */
-	public ImageException(String message) {
+	protected ImageException(String message) {
 		super(message);
 	}
 }

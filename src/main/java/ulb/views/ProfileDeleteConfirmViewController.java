@@ -28,7 +28,9 @@ public class ProfileDeleteConfirmViewController implements ViewController {
 			listener; // Listener interface for communication with the controller
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {}
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		// Empty method,no initialization needed (java:S1186)
+	}
 
 	// Action when "Yes" button is clicked
 	public void setYesButton() throws IOException {

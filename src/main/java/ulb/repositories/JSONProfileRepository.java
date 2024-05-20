@@ -26,6 +26,7 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import ulb.exceptions.IllegalImageFormatException;
 import ulb.exceptions.InvalidImageException;
+import ulb.exceptions.SavingException;
 import ulb.models.Profile;
 
 /**
@@ -35,19 +36,20 @@ import ulb.models.Profile;
 public class JSONProfileRepository extends JSONRepository<Profile> implements ProfileRepository {
 	private static final String FILE_NAME = "profile.json";
 	private static final String IMAGE_PATH = "profile.png";
+	private static final org.slf4j.Logger logger =
+			org.slf4j.LoggerFactory.getLogger(JSONProfileRepository.class);
 
 	/**
 	 * Saves the given Profile object to a JSON file.
 	 * @param profile The Profile object to be saved.
 	 */
 	@Override
-	public void save(Profile profile) {
+	public void save(Profile profile) throws SavingException {
 		try {
 			super.save(profile, FILE_NAME);
 		} catch (IOException e) {
-			// TODO: Handle exception
-			e.printStackTrace();
-			System.exit(1);
+			logger.error("Failed to save profile");
+			throw new SavingException("Failed to save profile");
 		}
 	}
 
@@ -66,8 +68,7 @@ public class JSONProfileRepository extends JSONRepository<Profile> implements Pr
 		if (!(imagePath.endsWith(".png")
 				|| imagePath.endsWith(".jpg")
 				|| imagePath.endsWith(".jpeg"))) {
-			// TODO: Handle exception
-			// logger.warn("Only PNG and JPG images are supported: {}", imagePath);
+			logger.info("Only PNG and JPG images are supported: {}", imagePath);
 			throw new IllegalImageFormatException("Only PNG, JPG and JPEG images are supported");
 		}
 		try {
@@ -76,8 +77,7 @@ public class JSONProfileRepository extends JSONRepository<Profile> implements Pr
 					Paths.get(IMAGE_PATH),
 					java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e) {
-			// TODO: Handle exception
-			// logger.error("Failed to save image", e);
+			logger.error("Failed to save image", e);
 			throw new InvalidImageException("Failed to save image");
 		}
 	}
@@ -91,10 +91,8 @@ public class JSONProfileRepository extends JSONRepository<Profile> implements Pr
 		try {
 			return super.load(FILE_NAME);
 		} catch (IOException e) {
-			// TODO: Handle exception
-			e.printStackTrace();
-			System.exit(1);
-			return null; // Unreachable
+			logger.error("Failed to load profile");
+			return null;
 		}
 	}
 
@@ -103,7 +101,7 @@ public class JSONProfileRepository extends JSONRepository<Profile> implements Pr
 	 * @param profile The Profile object to be updated.
 	 */
 	@Override
-	public void update(Profile profile) {
+	public void update(Profile profile) throws SavingException {
 		this.save(profile);
 	}
 

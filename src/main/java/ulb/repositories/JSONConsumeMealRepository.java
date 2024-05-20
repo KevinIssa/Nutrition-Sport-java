@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ulb.exceptions.SavingException;
 import ulb.models.ConsumedFood;
 import ulb.models.ConsumedMeal;
 
@@ -48,7 +49,7 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 	}
 
 	@Override
-	public void save(ConsumedMeal consumedMeal) {
+	public void save(ConsumedMeal consumedMeal) throws SavingException {
 		File folder = new File(FOLDER_NAME);
 		if (!folder.exists()) {
 			logger.info("Creating activities folder");
@@ -63,9 +64,8 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 		try {
 			this.save(consumedMeal, fileName);
 		} catch (IOException e) {
-			// TODO: Handle this exception
-			e.printStackTrace();
 			logMealError(fileName);
+			throw new SavingException("Error saving meal data to file: " + fileName);
 		}
 	}
 
