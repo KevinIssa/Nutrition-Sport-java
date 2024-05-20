@@ -36,7 +36,12 @@ import ulb.widgets.NumberField;
 public class ActivityCreateViewController implements ViewController {
 	@FXML private Slider intensitySlider;
 	@FXML
-	private Button buttonWalking, buttonRunning, buttonBiking, buttonSwimming, buttonVolleyball;
+	private Button buttonWalking,
+			buttonRunning, // NOSONAR
+			buttonBiking,
+			buttonSwimming,
+			buttonVolleyball; // issue with sonar lint "java:S1659 - Multiple variables
+	// should not be declared in the same declaration" and our code style formatter
 	@FXML private DatePicker activityDate;
 	@FXML private Label burnedCalories;
 
@@ -143,12 +148,13 @@ public class ActivityCreateViewController implements ViewController {
 			}
 		} catch (NumberFormatException e) {
 			logger.info("Invalid time entered");
-			showAlert("Erreur", "Veuillez entrer une heure valide.");
+			showAlert("Erreur de timestamp", "Veuillez entrer une heure valide.");
 		} catch (IllegalArgumentException e) {
-			showAlert("Erreur", e.getMessage());
+			showAlert("Erreur de validité", e.getMessage());
 		} catch (Exception e) {
 			showAlert(
-					"Erreur", "Une erreur s'est produite lors de l'enregistrement de l'activité.");
+					"Erreur de inconnue",
+					"Une erreur s'est produite lors de l'enregistrement de l'activité.");
 		}
 	}
 

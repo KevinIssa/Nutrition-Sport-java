@@ -50,7 +50,7 @@ class ActivityTest {
 						Intensity.MODERATE,
 						Duration.ofHours(2),
 						LocalDateTime.now());
-		assertFalse(activity1.equals(activity2));
+		assertNotEquals(activity1, activity2);
 	}
 
 	@Test

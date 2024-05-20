@@ -45,7 +45,9 @@ public class ActivityHistoryViewController implements ViewController {
 	private Sport filteredSport = null;
 
 	@Override
-	public void initialize(URL url, ResourceBundle resourceBundle) {}
+	public void initialize(URL url, ResourceBundle resourceBundle) {
+		// Normal to do nothing on initialization (reason java:S1186)
+	}
 
 	public void addActivity(ActivityDTO activity) {
 		Button deleteActivityButton = new Button();

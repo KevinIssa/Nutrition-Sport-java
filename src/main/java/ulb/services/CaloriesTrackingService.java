@@ -33,7 +33,10 @@ import ulb.repositories.ConsumeMealRepository;
  * It uses ActivityRepository and ConsumeMealRepository to fetch data.
  */
 public class CaloriesTrackingService {
-	private static final Logger logger = LoggerFactory.getLogger(CaloriesTrackingService.class);
+	private static final Logger logger = // NOSONAR
+			LoggerFactory.getLogger(
+					CaloriesTrackingService
+							.class); // java:S1068 - Unused private fields should be removed
 	private final ActivityRepository activityRepository;
 	private final ConsumeMealRepository consumeMealRepository;
 
@@ -98,8 +101,9 @@ public class CaloriesTrackingService {
 	private static List<DateCalorieDTO> getDateCalorieDTOS(
 			Map<LocalDate, DateCalorie> dateCalories) {
 		List<DateCalorieDTO> dtos = new ArrayList<>();
-		for (LocalDate date : dateCalories.keySet()) {
-			dtos.add(dateCalories.get(date).buildDTO());
+		for (Map.Entry<LocalDate, DateCalorie> entry :
+				dateCalories.entrySet()) { // maintainability : java:S2864
+			dtos.add(entry.getValue().buildDTO());
 		}
 		dtos.sort(Comparator.comparing(DateCalorieDTO::getDate));
 		return dtos;

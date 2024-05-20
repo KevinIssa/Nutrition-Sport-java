@@ -29,7 +29,10 @@ import ulb.models.Recipe;
 import ulb.repositories.ConsumableRepository;
 
 public class ConsumableService {
-	private static final Logger logger = LoggerFactory.getLogger(ConsumableService.class);
+	private static final Logger logger = // NOSONAR
+			LoggerFactory.getLogger(
+					ConsumableService
+							.class); // java:S1068 - Unused private fields should be removed
 
 	private final ConsumableRepository consumableRepository;
 

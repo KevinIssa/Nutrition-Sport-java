@@ -30,10 +30,13 @@ import ulb.repositories.ConsumableRepository;
 import ulb.repositories.ConsumeMealRepository;
 
 public class ConsumeMealService {
-	private static final Logger logger = LoggerFactory.getLogger(ConsumeMealService.class);
+	private static final Logger logger = // NOSONAR
+			LoggerFactory.getLogger(
+					ConsumeMealService
+							.class); // java:S1068 - Unused private fields should be removed (future use)
 
 	private final ConsumeMealRepository consumeMealRepository;
-	private final ConsumableRepository consumableRepository;
+	private final ConsumableRepository consumableRepository; //java:S1068 - check if future use
 
 	public ConsumeMealService(
 			ConsumeMealRepository consumeMealRepository,

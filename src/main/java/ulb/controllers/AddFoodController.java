@@ -19,7 +19,6 @@
 package ulb.controllers;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
@@ -46,6 +45,7 @@ public class AddFoodController extends AppController
 				MakeMealViewController.Listener {
 	private static final Logger logger = LoggerFactory.getLogger(AddFoodController.class);
 	public static final String ADD_FOOD_FXML = "/ulb/views/AddFood.fxml";
+	public static final String MAKE_MEAL_FXML = "/ulb/views/MakeMeal.fxml";
 	private final ConsumableService consumableService;
 	private final ConsumeMealService consumeMealService;
 	private final AddFoodController.Listener listener;
@@ -87,9 +87,9 @@ public class AddFoodController extends AppController
 
 	@Override
 	public void changeMode() {
-		String resource = "/ulb/views/AddFood.fxml";
+		String resource = ADD_FOOD_FXML;
 		if (this.isAddFood) {
-			resource = "/ulb/views/MakeMeal.fxml";
+			resource = MAKE_MEAL_FXML;
 		}
 		this.loadView(resource, this.stage);
 		this.viewController.setListener(this);
@@ -122,7 +122,8 @@ public class AddFoodController extends AppController
 	public List<String> getUserSearch(String searchText) {
 		return this.consumableService.loadConsumablesBeginningWith(searchText).stream()
 				.map(ConsumableDTO::name)
-				.collect(Collectors.toList());
+				.toList(); // changed to toList() from collect(Collectors.toList()) for consistency
+		// java:S6204 ~ check if no bug
 	}
 
 	@Override
