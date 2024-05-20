@@ -84,6 +84,7 @@ public class EditMealController implements MakeMealViewController.Listener {
 		this.returnHome();
 	}
 
+
 	@Override
 	public void changeMode() {
 		// TODO Implement

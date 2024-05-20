@@ -160,6 +160,7 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		}
 	}
 
+
 	public void setDefaultRecipe(RecipeDTO recipeDTO) {
 		this.recipeDefaultDTO = recipeDTO;
 		this.isEditMode = true;
@@ -186,5 +187,6 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		void returnHome();
 
 		void saveMeal(RecipeDTO recipeDTO);
+
 	}
 }

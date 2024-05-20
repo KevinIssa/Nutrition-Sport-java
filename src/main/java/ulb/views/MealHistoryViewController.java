@@ -38,6 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.ConsumedFoodDTO;
 import ulb.dtos.ConsumedMealDTO;
+import ulb.widgets.FoodHistoryBox;
 
 public class MealHistoryViewController implements ViewController {
 	private static final Logger logger = LoggerFactory.getLogger(MealHistoryViewController.class);
@@ -45,7 +46,7 @@ public class MealHistoryViewController implements ViewController {
 	private MealHistoryViewController.Listener
 			listener; // Listener interface for communication with the controller
 
-	@FXML private ListView<HBox> historyList;
+	@FXML private ListView<FoodHistoryBox> historyList;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,71 +66,19 @@ public class MealHistoryViewController implements ViewController {
 		List<ConsumedMealDTO> meals = this.listener.getAllMeals();
 		for (ConsumedMealDTO meal : meals) {
 			for (ConsumedFoodDTO food : meal.consumedFoods()) {
-				HBox mealHBox = createHistoryHBox(food, meal.date());
+				FoodHistoryBox mealHBox = new FoodHistoryBox(food, meal.date());
+				mealHBox.getDeleteFoodButton().setOnAction(event -> deleteFoodInHistory(mealHBox));
 				historyList.getItems().add(mealHBox);
 			}
 		}
 	}
 
-	private HBox createHistoryHBox(ConsumedFoodDTO food, LocalDateTime date) {
-		HBox hbox = createHBox();
-		setTextInHBox(food, date, hbox);
-		setButtonInHBox(hbox);
-		return hbox;
-	}
 
-	private static HBox createHBox() {
-		HBox hbox = new HBox();
-		hbox.setAlignment(Pos.CENTER_LEFT);
-		hbox.setSpacing(10);
-		return hbox;
-	}
-
-	private void setTextInHBox(ConsumedFoodDTO food, LocalDateTime date, HBox hbox) {
-		Label LabelMealName = createLabel(food.name(), 100);
-		Label LabelQuantity = createLabel(food.quantity() + " " + food.unit(), 40);
-		Label LabelDate =
-				createLabel(date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy à HH:mm")), 120);
-		Label LabelCalorie = createLabel(food.calories() + " kcal", 60);
-		hbox.getChildren().add(0, LabelMealName);
-		hbox.getChildren().add(1, LabelDate);
-		hbox.getChildren().add(2, LabelQuantity);
-		hbox.getChildren().add(3, LabelCalorie);
-	}
-
-	private void setButtonInHBox(HBox hbox) {
-		ImageView imageDelete = createImageView("/ulb/images/trash.png", 30, 30);
-		Button deleteActivityButton = new Button("");
-		deleteActivityButton.setGraphic(imageDelete);
-		deleteActivityButton.setOnAction(e -> deleteFoodInHistory(hbox));
-		Region spacer = new Region();
-		HBox.setHgrow(spacer, Priority.ALWAYS);
-		hbox.getChildren().addAll(spacer, deleteActivityButton);
-	}
-
-	private ConsumedFoodDTO createConsumedFoodDTO(HBox foodBox) {
-		String name = ((Label) foodBox.getChildren().get(0)).getText();
-		double quantity =
-				Double.parseDouble(((Label) foodBox.getChildren().get(2)).getText().split(" ")[0]);
-		double calories =
-				Double.parseDouble(((Label) foodBox.getChildren().get(3)).getText().split(" ")[0]);
-		String unit = ((Label) foodBox.getChildren().get(2)).getText().split(" ")[1];
-		return new ConsumedFoodDTO(name, quantity, calories, unit);
-	}
-
-	private LocalDateTime createLocalDateTime(HBox foodBox) {
-		String dateString = ((Label) foodBox.getChildren().get(1)).getText();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy 'à' HH:mm");
-		// Parse the date string to a LocalDateTime object
-		return LocalDateTime.parse(dateString, formatter);
-	}
-
-	private void deleteFoodInHistory(HBox foodBox) {
+	private void deleteFoodInHistory(FoodHistoryBox foodBox) {
 		try {
-
-			ConsumedFoodDTO consumedFood = createConsumedFoodDTO(foodBox);
-			LocalDateTime dateTime = createLocalDateTime(foodBox);
-			listener.deleteFood(consumedFood, dateTime);
+			ConsumedFoodDTO food = foodBox.getFoodDTO();
+			LocalDateTime date = foodBox.getDate();
+			listener.deleteFood(food, date);
 			historyList.getItems().remove(foodBox);
 		} catch (Exception e) {
 			handleException(e);
@@ -151,19 +100,6 @@ public class MealHistoryViewController implements ViewController {
 		}
 	}
 
-	private ImageView createImageView(String imagePath, int width, int height) {
-		URL path = getClass().getResource(imagePath);
-		assert path != null;
-		Image image = new Image(path.toString(), width, height, false, false);
-		return new ImageView(image);
-	}
-
-	private Label createLabel(String text, int width) {
-		Label label = new Label(text);
-		label.setMinWidth(width);
-		label.setMaxWidth(width);
-		return label;
-	}
 
 	public void returnHome() {
 		this.listener.returnHome();

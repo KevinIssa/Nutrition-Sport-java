@@ -199,6 +199,7 @@ public class MenuController extends AppController implements MenuViewController.
 		loadCreateActivityView(activityDTO);
 	}
 
+
 	public void loadCreateActivityView(ActivityDTO activityDTO) {
 		Stage popupStage = new Stage();
 		ActivityCreateController controller =
