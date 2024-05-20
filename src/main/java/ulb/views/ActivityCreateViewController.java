@@ -224,7 +224,7 @@ public class ActivityCreateViewController implements ViewController {
 		this.listener = (Listener) listener;
 	}
 
-	public void setDefaultActivityDTO(ActivityDTO activityDTO) {
+	public void setDefaultActivity(ActivityDTO activityDTO) {
 		this.selectedSport = activityDTO.sport();
 		this.intensitySlider.setValue(activityDTO.intensity().ordinal());
 		this.durationNumber.setValue(activityDTO.duration());

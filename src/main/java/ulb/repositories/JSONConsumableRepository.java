@@ -129,6 +129,7 @@ public class JSONConsumableRepository implements ConsumableRepository {
 			}
 		}
 	}
+
 	private List<Food> loadAllFood() {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
