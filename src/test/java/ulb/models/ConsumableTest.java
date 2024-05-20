@@ -31,7 +31,6 @@ class ConsumableTest {
 		assertEquals(182, food.extractServingQuantityValue());
 	}
 
-
 	@Test
 	void servingQuantityTest2() {
 		Food food = new Food("Apple", 52, 52, "2 (100g) and 1 (50g)", Unit.GRAMS);
@@ -43,8 +42,6 @@ class ConsumableTest {
 		Food food = new Food("Apple", 52, 52, "(g)", Unit.GRAMS);
 		assertEquals(0, food.extractServingQuantityValue());
 	}
-
-
 
 	@Test
 	void testGetCaloriesConsumedByGrams() {

@@ -146,11 +146,12 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 			this.listener.saveConsumedFoods(consumedMeal);
 			this.cleanFoodList();
 		} catch (NumberFormatException e) {
-			showAlert("Erreur", "Veuillez entrer une heure valide.");
+			showAlert("Erreur de timestamp", "Veuillez entrer une heure valide.");
 		} catch (IllegalArgumentException e) {
-			showAlert("Erreur", e.getMessage());
+			showAlert("Erreur de validité", e.getMessage());
 		} catch (SavingException e) {
-			showAlert("Erreur", "Erreur lors de la sauvegarde des aliments consommés.");
+			showAlert(
+					"Erreur de sauvegarde", "Erreur lors de la sauvegarde des aliments consommés.");
 		}
 	}
 

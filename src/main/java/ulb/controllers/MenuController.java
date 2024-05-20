@@ -311,7 +311,7 @@ public class MenuController extends AppController implements MenuViewController.
 	public void loadMealDetails(RecipeDTO recipeDTO) {
 		Stage popupStage = new Stage();
 		MealDetailsController controller =
-				new MealDetailsController(this.consumableService, () -> popupStage.close());
+				new MealDetailsController(this.consumableService, popupStage::close);
 		controller.show(popupStage);
 
 		controller.setMeal(recipeDTO);

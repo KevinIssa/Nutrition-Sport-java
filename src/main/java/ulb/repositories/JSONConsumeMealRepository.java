@@ -191,7 +191,6 @@ class ConsumedMealDeserializer extends StdDeserializer<ConsumedMeal> {
 	 */
 	@Override
 	public ConsumedMeal deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
 		JsonNode node = jp.getCodec().readTree(jp);
 		ConsumedMeal meal = new ConsumedMeal();
 		JsonNode consumedFoodsNode = node.get("consumedFoods");

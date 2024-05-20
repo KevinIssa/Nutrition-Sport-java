@@ -39,9 +39,9 @@ public class ProfileCreateViewController implements ViewController {
 	@FXML private Button imageSelection;
 	@FXML
 	private TextField firstname,
-			lastname,
+			lastname, // NOSONAR
 			height,
-			weight; // NOSONAR (java:S1659) - Multiple variable one line
+			weight; // (java:S1659) - Multiple variable one line
 	@FXML private DatePicker birthdate;
 	@FXML private ToggleGroup sex;
 
