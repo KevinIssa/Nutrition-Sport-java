@@ -45,3 +45,11 @@
     -fx-stroke: transparent;
     -fx-stroke-width: 0;
 }
+.choice-box .label {
+    -fx-text-fill: white;
+}
+
+.choice-box {
+    -fx-control-inner-background: #656ff9;
+    -fx-selection-bar: #b2b7fc;
+}

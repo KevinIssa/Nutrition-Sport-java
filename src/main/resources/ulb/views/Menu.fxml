@@ -100,7 +100,8 @@
             <Font name="Consolas" size="69.0"/>
          </font>
       </Label>
-      <MenuButton mnemonicParsing="false" prefHeight="99.0" prefWidth="118.0" style="-fx-background-color: transparent;"
+      <MenuButton mnemonicParsing="false" prefHeight="99.0" prefWidth="118.0" style="-fx-background-color: transparent; -fx-control-inner-background: #656ff9;
+    -fx-selection-bar: #b2b7fc;"
                   translateX="380.0">
          <graphic>
             <ImageView fitHeight="87.0" fitWidth="83.0" pickOnBounds="true" preserveRatio="true">
