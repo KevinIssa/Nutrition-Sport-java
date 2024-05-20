@@ -41,10 +41,6 @@ public class ConsumeMealService {
 		this.consumeMealRepository = consumeMealRepository;
 	}
 
-	public void saveConsumedMeal(ConsumedMealDTO consumedMealDTO) {
-		this.saveConsumedMeal(this.convertToConsumedMeal(consumedMealDTO));
-	}
-
 	public void saveConsumedMeal(ConsumedMeal consumedMeal) {
 		this.consumeMealRepository.save(consumedMeal);
 	}
@@ -55,16 +51,8 @@ public class ConsumeMealService {
 				.toList();
 	}
 
-	public void deleteConsumedMeal(ConsumedMealDTO consumedMealDTO) {
-		this.consumeMealRepository.delete(this.convertToConsumedMeal(consumedMealDTO));
-	}
-
 	public void deleteConsumedFood(ConsumedFoodDTO consumedFoodDTO, LocalDateTime date) {
 		this.consumeMealRepository.delete(this.convertToConsumedFood(consumedFoodDTO), date);
-	}
-
-	public void deleteAllConsumedMeals() {
-		this.consumeMealRepository.deleteAll();
 	}
 
 	private ConsumedMeal convertToConsumedMeal(ConsumedMealDTO consumedMealDTO) {
