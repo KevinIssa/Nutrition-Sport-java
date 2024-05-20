@@ -84,6 +84,12 @@ public class AddFoodController extends AppController
 	@Override
 	public void saveMeal(RecipeDTO recipeDTO) throws SavingException {
 		this.consumableService.saveMeal(recipeDTO);
+
+	}
+
+	@Override
+	public void goToHistoryRecipe() {
+		this.listener.goToHistoryRecipe();
 	}
 
 	@Override
@@ -107,6 +113,11 @@ public class AddFoodController extends AppController
 	@Override
 	public void saveConsumedFoods(ConsumedMeal consumedMeal) throws SavingException {
 		this.consumeMealService.saveConsumedMeal(consumedMeal);
+	}
+
+	@Override
+	public void goToHistoryMeal() {
+		this.listener.goToHistoryMeal();
 	}
 
 	@Override
@@ -167,5 +178,9 @@ public class AddFoodController extends AppController
 		 * The implementing class should define the behavior that occurs when this event happens.
 		 */
 		void returnHome();
+
+		void goToHistoryRecipe();
+
+		void goToHistoryMeal();
 	}
 }

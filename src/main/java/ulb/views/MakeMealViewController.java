@@ -158,6 +158,7 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 					new RecipeDTO(
 							this.mealName.getText(), foodlist, this.personAmountNumber.getValue()));
 			this.cleanFoodList();
+			this.goToHistoryRecipe();
 		} catch (NumberFormatException e) {
 			logger.error("Error while parsing the number of persons");
 			// juste ignore it normally nothing to do
@@ -167,6 +168,11 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 			showAlert("This meal already exists", "Please choose another name for your meal");
 		}
 	}
+
+	private void goToHistoryRecipe() {
+		this.listener.goToHistoryRecipe();
+	}
+
 
 	public void setDefaultRecipe(RecipeDTO recipeDTO) {
 		logger.debug("Setting default recipe: {}", recipeDTO);
@@ -195,5 +201,7 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		void returnHome();
 
 		void saveMeal(RecipeDTO recipeDTO) throws SavingException;
+
+		void goToHistoryRecipe();
 	}
 }
