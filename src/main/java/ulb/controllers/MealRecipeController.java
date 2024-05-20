@@ -27,7 +27,7 @@ import ulb.services.ConsumableService;
 import ulb.views.MealRecipeViewController;
 
 public class MealRecipeController extends AppController
-		implements MealRecipeViewController.Listener, EditMealController.Listener {
+		implements MealRecipeViewController.Listener {
 	private static final Logger logger = LoggerFactory.getLogger(MealRecipeController.class);
 	private final ConsumableService consumableService;
 	private final MealRecipeController.Listener listener;
