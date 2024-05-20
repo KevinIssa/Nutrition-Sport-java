@@ -20,4 +20,12 @@ package ulb.dtos;
 
 import ulb.enums.Unit;
 
+/**
+ * This is a record class named FoodDTO. A record is a special kind of class in Java that helps to model plain data aggregates with less ceremony than normal classes.
+ * This record has three fields: name, quantity, and unit.
+ *
+ * @param name The name of the food item.
+ * @param quantity The quantity of the food item.
+ * @param unit The unit of the food item.
+ */
 public record FoodDTO(String name, double quantity, Unit unit) {}

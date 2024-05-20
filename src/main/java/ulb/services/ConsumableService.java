@@ -31,34 +31,79 @@ import ulb.models.Consumable;
 import ulb.models.Recipe;
 import ulb.repositories.ConsumableRepository;
 
+/**
+ * This class provides services related to Consumables.
+ * It uses a ConsumableRepository to perform CRUD operations on Consumables and Recipes.
+ */
 public class ConsumableService {
+	/**
+	 * Logger for this class.
+	 */
 	private static final Logger logger = LoggerFactory.getLogger(ConsumableService.class);
 
+	/**
+	 * Repository for performing CRUD operations on Consumables and Recipes.
+	 */
 	private final ConsumableRepository consumableRepository;
 
+	/**
+	 * Constructor for ConsumableService.
+	 *
+	 * @param consumableRepository Repository for performing CRUD operations on Consumables and Recipes.
+	 */
 	public ConsumableService(ConsumableRepository consumableRepository) {
 		this.consumableRepository = consumableRepository;
 	}
 
+	/**
+	 * Saves a meal.
+	 *
+	 * @param recipeDTO The meal to save.
+	 * @throws SavingException If an error occurs while saving the meal.
+	 */
 	public void saveMeal(RecipeDTO recipeDTO) throws SavingException {
 		this.consumableRepository.save(this.convertToMeal(recipeDTO));
 	}
 
+	/**
+	 * Loads all Consumables that begin with a specific prefix.
+	 *
+	 * @param prefix The prefix of the Consumables to load.
+	 * @return A list of all Consumables that begin with the specified prefix.
+	 */
 	public List<ConsumableDTO> loadConsumablesBeginningWith(String prefix) {
 		return this.consumableRepository.loadAllBeginningWith(prefix).stream()
 				.map(this::convertToConsumableDTO)
 				.toList();
 	}
 
+	/**
+	 * Loads a specific Consumable by its name.
+	 *
+	 * @param name The name of the Consumable to load.
+	 * @return The Consumable with the specified name.
+	 */
 	public ConsumableDTO loadConsumable(String name) {
 		return this.convertToConsumableDTO(this.consumableRepository.load(name));
 	}
 
+	/**
+	 * Converts a Consumable to a ConsumableDTO.
+	 *
+	 * @param consumable The Consumable to convert.
+	 * @return The converted ConsumableDTO.
+	 */
 	private ConsumableDTO convertToConsumableDTO(Consumable consumable) {
 		return new ConsumableDTO(
 				consumable.getName(), consumable.getUnit(), consumable.getServingQuantity());
 	}
 
+	/**
+	 * Converts a RecipeDTO to a Recipe.
+	 *
+	 * @param recipeDTO The RecipeDTO to convert.
+	 * @return The converted Recipe.
+	 */
 	private Recipe convertToMeal(RecipeDTO recipeDTO) {
 		Recipe recipe = new Recipe(recipeDTO.name());
 		recipeDTO
@@ -71,18 +116,39 @@ public class ConsumableService {
 		return recipe;
 	}
 
+	/**
+	 * Converts a FoodDTO to a Consumable.
+	 *
+	 * @param foodDTO The FoodDTO to convert.
+	 * @return The converted Consumable.
+	 */
 	private Consumable convertToConsumable(FoodDTO foodDTO) {
 		return this.consumableRepository.load(foodDTO.name());
 	}
 
+	/**
+	 * Loads a specific Consumable by its name.
+	 *
+	 * @param foodName The name of the Consumable to load.
+	 * @return The Consumable with the specified name.
+	 */
 	public Consumable getConsumableByName(String foodName) {
 		return this.consumableRepository.load(foodName);
 	}
 
+	/**
+	 * Deletes all Consumables.
+	 */
 	public void deleteAllConsumables() {
 		this.consumableRepository.deleteAll();
 	}
 
+	/**
+	 * Calculates the total calories consumed in a meal.
+	 *
+	 * @param recipeDTO The meal to calculate the total calories for.
+	 * @return The total calories consumed in the meal.
+	 */
 	public double getCaloriesConsumed(RecipeDTO recipeDTO) {
 		return recipeDTO.foods().stream()
 				.mapToDouble(
@@ -93,11 +159,21 @@ public class ConsumableService {
 				.sum();
 	}
 
+	/**
+	 * Deletes a specific meal.
+	 *
+	 * @param meal The meal to delete.
+	 */
 	public void deleteMeal(RecipeDTO meal) {
 		logger.info("Deleting a recipe and its associated file");
 		this.consumableRepository.deleteRecipe(meal);
 	}
 
+	/**
+	 * Loads all meals.
+	 *
+	 * @return A list of all meals.
+	 */
 	public List<RecipeDTO> loadAllRecipes() {
 		List<RecipeDTO> meals = new ArrayList<>();
 		for (Recipe recipe : this.consumableRepository.loadAllMeals()) {
@@ -114,6 +190,9 @@ public class ConsumableService {
 		return meals;
 	}
 
+	/**
+	 * Deletes all meals.
+	 */
 	public void deleteAllRecipes() {
 		logger.info("Deleting all recipes");
 		this.consumableRepository.deleteAllRecipes();

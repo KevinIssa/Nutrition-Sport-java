@@ -26,12 +26,23 @@ import ulb.dtos.RecipeDTO;
 import ulb.services.ConsumableService;
 import ulb.views.MealRecipeViewController;
 
+/**
+ * This class is a controller for the MealRecipe view.
+ * It extends the AppController class and implements the Listener interface from the MealRecipeViewController.
+ */
 public class MealRecipeController extends AppController
 		implements MealRecipeViewController.Listener {
 	private static final Logger logger = LoggerFactory.getLogger(MealRecipeController.class);
 	private final ConsumableService consumableService;
 	private final MealRecipeController.Listener listener;
 
+	/**
+	 * Constructor for the MealRecipeController class.
+	 * It initializes the ConsumableService and Listener instances.
+	 *
+	 * @param consumableService The ConsumableService instance to be used for consumable related operations.
+	 * @param listener The Listener instance to be used for handling events triggered in the MealRecipe view.
+	 */
 	public MealRecipeController(
 			ConsumableService consumableService, MealRecipeController.Listener listener) {
 		logger.info("Initializing MealRecipeController");
@@ -75,12 +86,29 @@ public class MealRecipeController extends AppController
 		this.listener.returnHome();
 	}
 
+	/**
+	 * This is an interface for a listener that reacts to meal related events.
+	 * The events are triggered when a meal is checked, edited or when the user decides to return to the home screen.
+	 */
 	public interface Listener {
 
+		/**
+		 * This method is called when a meal details event occurs.
+		 *
+		 * @param meal The meal that was selected.
+		 */
 		void mealDetails(RecipeDTO meal);
 
+		/**
+		 * This method is called when a meal edit event occurs.
+		 *
+		 * @param meal The meal that is to be edited.
+		 */
 		void editMeal(RecipeDTO meal);
 
+		/**
+		 * This method is called when a return home event occurs.
+		 */
 		void returnHome();
 	}
 }

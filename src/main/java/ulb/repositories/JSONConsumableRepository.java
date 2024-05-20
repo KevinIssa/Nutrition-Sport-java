@@ -38,6 +38,9 @@ import ulb.models.Consumable;
 import ulb.models.Food;
 import ulb.models.Recipe;
 
+/**
+ * This class is responsible for loading and saving consumable data from and to JSON files.
+ */
 public class JSONConsumableRepository implements ConsumableRepository {
 	private static final Logger logger = LoggerFactory.getLogger(JSONConsumableRepository.class);
 
@@ -108,6 +111,12 @@ public class JSONConsumableRepository implements ConsumableRepository {
 		}
 	}
 
+	/**
+	 * This method checks if a recipe with a given name already exists in the file system.
+	 *
+	 * @param name The name of the recipe to check.
+	 * @return true if a recipe with the given name exists, false otherwise.
+	 */
 	private boolean ifExist(String name) {
 		File[] files = new File(RECIPES_FOLDER).listFiles();
 		if (files == null) return false;
@@ -129,10 +138,20 @@ public class JSONConsumableRepository implements ConsumableRepository {
 		return false;
 	}
 
+	/**
+	 * This method logs an error message when an error occurs while loading meal data from a file.
+	 *
+	 * @param message The name of the file that caused the error.
+	 */
 	private void logMealError(String message) {
 		logger.error("Error loading meal data from file: {}", message);
 	}
 
+	/**
+	 * This method loads all food data from a JSON file.
+	 *
+	 * @return A list of Food objects. If an error occurs while loading the data, an empty list is returned.
+	 */
 	private List<Food> loadAllFood() {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -144,6 +163,7 @@ public class JSONConsumableRepository implements ConsumableRepository {
 		}
 	}
 
+	@Override
 	public List<Recipe> loadAllMeals() {
 		File folder = new File(RECIPES_FOLDER);
 		File[] files = folder.listFiles();
@@ -313,6 +333,12 @@ class MealDeserializer extends StdDeserializer<Recipe> {
 		return new Food(foodName, caloriesPer100, caloriesPerServing, servingQuantity, unit);
 	}
 
+	/**
+	 * This method extracts the recipe data from the JSON node and returns it as a Recipe object.
+	 *
+	 * @param recipeNode JsonNode object containing the recipe data
+	 * @return Recipe object containing the extracted data
+	 */
 	private Recipe getRecipe(JsonNode recipeNode) {
 		String recipeName = recipeNode.get("name").asText();
 		List<Map.Entry<Consumable, Double>> ingredients = this.getIngredients(recipeNode);

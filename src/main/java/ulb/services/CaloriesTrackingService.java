@@ -63,6 +63,10 @@ public class CaloriesTrackingService {
 		return getDateCalorieDTOS(dateCalories);
 	}
 
+	/**
+	 * This method returns a list of DateCalorieDTO objects which represent the calories tracking for the past 31 days.
+	 * @return a list of DateCalorieDTO objects.
+	 */
 	private static Map<LocalDate, DateCalorie> getLocalDateDateCalorieMap(int daysAgo) {
 		Map<LocalDate, DateCalorie> dateCalories = new HashMap<>();
 		for (int i = daysAgo; i >= 0; i--) {
@@ -72,6 +76,11 @@ public class CaloriesTrackingService {
 		return dateCalories;
 	}
 
+	/**
+	 * This method adds the burned calories to the dateCalories map.
+	 * @param firstUsableDate the first date to consider.
+	 * @param dateCalories the map to which the burned calories are added.
+	 */
 	private void addCaloriesBurned(
 			LocalDate firstUsableDate, Map<LocalDate, DateCalorie> dateCalories) {
 		List<Activity> activities = this.activityRepository.loadAll();
@@ -85,6 +94,11 @@ public class CaloriesTrackingService {
 		}
 	}
 
+	/**
+	 * This method adds the consumed calories to the dateCalories map.
+	 * @param firstUsableDate the first date to consider.
+	 * @param dateCalories the map to which the consumed calories are added.
+	 */
 	private void addCaloriesIntake(
 			LocalDate firstUsableDate, Map<LocalDate, DateCalorie> dateCalories) {
 		List<ConsumedMeal> consumedMeals = this.consumeMealRepository.loadAll();
@@ -98,6 +112,11 @@ public class CaloriesTrackingService {
 		}
 	}
 
+	/**
+	 * This method returns a list of DateCalorieDTO objects from the dateCalories map.
+	 * @param dateCalories the map to convert to a list of DateCalorieDTO objects.
+	 * @return a list of DateCalorieDTO objects.
+	 */
 	private static List<DateCalorieDTO> getDateCalorieDTOS(
 			Map<LocalDate, DateCalorie> dateCalories) {
 		List<DateCalorieDTO> dtos = new ArrayList<>();
@@ -107,16 +126,6 @@ public class CaloriesTrackingService {
 		}
 		dtos.sort(Comparator.comparing(DateCalorieDTO::getDate));
 		return dtos;
-	}
-
-	/**
-	 * Retrieves the calorie difference for today's tracking.
-	 *
-	 * @return the calorie difference for today's tracking
-	 */
-	public double getTodayCalorieDelta() {
-		DateCalorieDTO today = this.getCaloriesTracking(0).getFirst();
-		return today.getCalorieDifference();
 	}
 
 	/**

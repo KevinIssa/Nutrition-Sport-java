@@ -35,11 +35,17 @@ import ulb.exceptions.SavingException;
 import ulb.models.ConsumedFood;
 import ulb.models.ConsumedMeal;
 
+/**
+ * JSON repository for consumed meals.
+ */
 public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 		implements ConsumeMealRepository {
 	private static final Logger logger = LoggerFactory.getLogger(JSONConsumeMealRepository.class);
 	private static final String FOLDER_NAME = "consumed_meals";
 
+	/**
+	 * Default constructor.
+	 */
 	public JSONConsumeMealRepository() {
 		super();
 		this.mapper.registerModule(
@@ -125,6 +131,12 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 		}
 	}
 
+	/**
+	 * Removes a consumed food from a consumed meal.
+	 * @param consumedFood ConsumedFood object to be removed
+	 * @param loadedConsumedMeal ConsumedMeal object from which the food will be removed
+	 * @return true if the food was removed, false otherwise
+	 */
 	private boolean removeFoodFromMeal(ConsumedFood consumedFood, ConsumedMeal loadedConsumedMeal) {
 		for (ConsumedFood Food : new ArrayList<>(loadedConsumedMeal.getConsumedFoods())) {
 			if (consumedFood.equals(Food)) {
@@ -135,6 +147,12 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 		return false;
 	}
 
+	/**
+	 * Updates or deletes a consumed meal.
+	 * @param file File object representing the consumed meal
+	 * @param loadedConsumedMeal ConsumedMeal object to be updated or deleted
+	 * @throws IOException if an I/O error occurs
+	 */
 	private void updateOrDeleteMeal(File file, ConsumedMeal loadedConsumedMeal) throws IOException {
 		file.delete();
 		if (!loadedConsumedMeal.getConsumedFoods().isEmpty()) {
@@ -142,6 +160,10 @@ public class JSONConsumeMealRepository extends JSONRepository<ConsumedMeal>
 		}
 	}
 
+	/**
+	 * Logs an error message related to a consumed meal.
+	 * @param message Error message to be logged
+	 */
 	private void logMealError(String message) {
 		logger.error("Error loading meal data from file: {}", message);
 	}
