@@ -145,6 +145,7 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 			consumedMeal.setDate(saveDate);
 			this.listener.saveConsumedFoods(consumedMeal);
 			this.cleanFoodList();
+			this.goToHistoryMeal();
 		} catch (NumberFormatException e) {
 			showAlert("Erreur de timestamp", "Veuillez entrer une heure valide.");
 		} catch (IllegalArgumentException e) {
@@ -153,6 +154,10 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 			showAlert(
 					"Erreur de sauvegarde", "Erreur lors de la sauvegarde des aliments consommés.");
 		}
+	}
+
+	private void goToHistoryMeal() {
+		this.listener.goToHistoryMeal();
 	}
 
 	private ConsumedMeal createMeal() {
@@ -288,5 +293,7 @@ public class AddFoodViewController implements ViewController, Search.Listener {
 		 * @throws SavingException If an error occurs while saving the consumed foods.
 		 */
 		void saveConsumedFoods(ConsumedMeal consumedMeal) throws SavingException;
+
+		void goToHistoryMeal();
 	}
 }

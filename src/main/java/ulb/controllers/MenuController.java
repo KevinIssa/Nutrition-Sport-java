@@ -338,7 +338,26 @@ public class MenuController extends AppController implements MenuViewController.
 		Stage popupStage = new Stage();
 		AddFoodController controller =
 				new AddFoodController(
-						this.consumableService, this.consumeMealService, popupStage::close);
+						this.consumableService,
+						this.consumeMealService,
+						new AddFoodController.Listener() {
+							@Override
+							public void goToHistoryRecipe() {
+								loadMealRecipe();
+								popupStage.close();
+							}
+
+							@Override
+							public void goToHistoryMeal() {
+								loadMealHistoryView();
+								popupStage.close();
+							}
+
+							@Override
+							public void returnHome() {
+								popupStage.close();
+							}
+						});
 		controller.show(popupStage);
 		if (meal != null) {
 			controller.setDefaultRecipe(meal);

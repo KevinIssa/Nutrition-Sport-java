@@ -87,6 +87,11 @@ public class AddFoodController extends AppController
 	}
 
 	@Override
+	public void goToHistoryRecipe() {
+		this.listener.goToHistoryRecipe();
+	}
+
+	@Override
 	public void changeMode() {
 		String resource = ADD_FOOD_FXML;
 		if (this.isAddFood) {
@@ -107,6 +112,11 @@ public class AddFoodController extends AppController
 	@Override
 	public void saveConsumedFoods(ConsumedMeal consumedMeal) throws SavingException {
 		this.consumeMealService.saveConsumedMeal(consumedMeal);
+	}
+
+	@Override
+	public void goToHistoryMeal() {
+		this.listener.goToHistoryMeal();
 	}
 
 	@Override
@@ -154,10 +164,10 @@ public class AddFoodController extends AppController
 	}
 
 	/**
-	 * This is an interface for the Listener within the FoodController class.
-	 * It is used to define the contract for the Listener, which is expected to be implemented by any class that wants to listen to events from the FoodController.
+	 * This is an interface for the Listener within the AddFoodController class.
+	 * It is used to define the contract for the Listener, which is expected to be implemented by any class that wants to listen to events from the AddFoodController.
 	 * <p>
-	 * Currently, it has a single method, returnHome, which is expected to be called when the user wants to return to the home screen of the application.
+	 * It has three methods: returnHome, goToHistoryRecipe, and goToHistoryMeal, which are expected to be called when the user wants to return to the home screen of the application, go to the history of recipes, and go to the history of meals respectively.
 	 */
 	public interface Listener {
 
@@ -166,5 +176,17 @@ public class AddFoodController extends AppController
 		 * The implementing class should define the behavior that occurs when this event happens.
 		 */
 		void returnHome();
+
+		/**
+		 * This method is called when the user wants to go to the history of recipes.
+		 * The implementing class should define the behavior that occurs when this event happens.
+		 */
+		void goToHistoryRecipe();
+
+		/**
+		 * This method is called when the user wants to go to the history of meals.
+		 * The implementing class should define the behavior that occurs when this event happens.
+		 */
+		void goToHistoryMeal();
 	}
 }
