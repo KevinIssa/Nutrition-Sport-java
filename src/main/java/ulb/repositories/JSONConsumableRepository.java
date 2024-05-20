@@ -289,9 +289,14 @@ class MealDeserializer extends StdDeserializer<Recipe> {
 	 * @return Map.Entry object where the key is a Food object and the value is the quantity
 	 */
 	private Map.Entry<Consumable, Double> getIngredient(JsonNode ingredientNode) {
-		Food food = getFood(ingredientNode.get("food"));
+		Consumable consumable;
+		try {
+			consumable = getFood(ingredientNode.get("food"));
+		} catch (Exception e) {
+			consumable = getRecipe(ingredientNode.get("food"));
+		}
 		double quantity = ingredientNode.get("quantity").asDouble();
-		return Map.entry(food, quantity);
+		return Map.entry(consumable, quantity);
 	}
 
 	/**
@@ -306,5 +311,13 @@ class MealDeserializer extends StdDeserializer<Recipe> {
 		String servingQuantity = foodNode.get("servingQuantity").asText();
 		Unit unit = Unit.valueOf(foodNode.get("unit").asText());
 		return new Food(foodName, caloriesPer100, caloriesPerServing, servingQuantity, unit);
+	}
+
+	private Recipe getRecipe(JsonNode recipeNode) {
+		String recipeName = recipeNode.get("name").asText();
+		List<Map.Entry<Consumable, Double>> ingredients = this.getIngredients(recipeNode);
+		Recipe recipe = new Recipe(recipeName);
+		recipe.setIngredients(ingredients);
+		return recipe;
 	}
 }
