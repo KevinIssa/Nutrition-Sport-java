@@ -44,6 +44,7 @@ public class MealDetailsViewController implements ViewController {
 		// Empty method, no initialization needed (java:S1186)
 	}
 
+	@Override
 	public void setListener(Object listener) {
 		if (listener == null) {
 			logger.error("Listener is null");
@@ -98,10 +99,25 @@ public class MealDetailsViewController implements ViewController {
 		this.listener.returnHome();
 	}
 
+	/**
+	 * Listener interface for the MealDetailsViewController.
+	 * This interface should be implemented by any class that needs to respond to actions from the MealDetailsViewController.
+	 */
 	public interface Listener {
 
+		/**
+		 * Triggers the return to the home view.
+		 * This method should be called when the user wants to return to the home view.
+		 */
 		void returnHome();
 
+		/**
+		 * Retrieves the total calories consumed for a given recipe.
+		 * This method should be implemented to return the total calories consumed for a given recipe.
+		 *
+		 * @param recipeDTO The RecipeDTO object representing the recipe for which the total calories consumed are to be retrieved.
+		 * @return The total calories consumed for the given recipe.
+		 */
 		double getCaloriesConsumed(RecipeDTO recipeDTO);
 	}
 }

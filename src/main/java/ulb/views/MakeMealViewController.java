@@ -38,6 +38,7 @@ import ulb.widgets.NumberField;
 import ulb.widgets.Search;
 
 public class MakeMealViewController implements ViewController, Search.Listener {
+	private static final Logger logger = LoggerFactory.getLogger(MakeMealViewController.class);
 	@FXML private TextField mealName;
 	@FXML private Search searchController;
 	@FXML private ListView<FoodBox> chosenFoodList;
@@ -48,7 +49,6 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 	private boolean isEditMode;
 	private RecipeDTO recipeDefaultDTO;
 	private MakeMealViewController.Listener listener;
-	private static final Logger logger = LoggerFactory.getLogger(MakeMealViewController.class);
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -131,6 +131,12 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		this.listener = (Listener) listener;
 	}
 
+	/**
+	 * Returns to the home view.
+	 * If the view is in edit mode, it attempts to save the default recipe.
+	 * If an error occurs while saving, it logs an error message.
+	 * Regardless of whether the view is in edit mode or not, it triggers the return to the home view.
+	 */
 	public void returnHome() {
 		if (this.isEditMode) {
 			try {
@@ -143,6 +149,13 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		this.listener.returnHome();
 	}
 
+	/**
+	 * Saves a meal.
+	 * It creates a list of FoodDTO objects from the chosen foods, and attempts to save a new RecipeDTO object with the meal name, the list of foods, and the number of persons.
+	 * If an error occurs while parsing the number of persons, it logs an error message.
+	 * If the meal already exists, it logs an info message, sets the view to edit mode, and shows an alert.
+	 * After saving the meal, it cleans the food list.
+	 */
 	public void saveMeal() {
 		try {
 			this.isEditMode = false;
@@ -168,6 +181,12 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		}
 	}
 
+	/**
+	 * Sets the default recipe.
+	 * It sets the default recipe, sets the view to edit mode, hides the switch button, sets the meal name and the number of persons, and adds the foods of the recipe to the chosen foods.
+	 *
+	 * @param recipeDTO The RecipeDTO object representing the default recipe.
+	 */
 	public void setDefaultRecipe(RecipeDTO recipeDTO) {
 		logger.debug("Setting default recipe: {}", recipeDTO);
 		this.recipeDefaultDTO = recipeDTO;
@@ -181,19 +200,66 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		}
 	}
 
+	/**
+	 * Listener interface for the MakeMealViewController.
+	 * This interface should be implemented by any class that needs to respond to actions from the MakeMealViewController.
+	 */
 	public interface Listener {
+
+		/**
+		 * Asks the user for the quantity of the selected food.
+		 * This method should be implemented to handle the action of asking the user for the quantity of the selected food.
+		 *
+		 * @param searchText The text that the user has searched for.
+		 */
 		void askUserFoodQuantity(String searchText);
 
+		/**
+		 * Changes the mode of the view.
+		 * This method should be implemented to handle the action of changing the mode of the view.
+		 */
 		void changeMode();
 
+		/**
+		 * Retrieves the calories consumed for a given food.
+		 * This method should be implemented to return the calories consumed for a given food.
+		 *
+		 * @param food The FoodDTO object representing the food for which the calories consumed are to be retrieved.
+		 * @return The calories consumed for the given food.
+		 */
 		double getCaloriesConsumed(FoodDTO food);
 
+		/**
+		 * Retrieves the unit of a given food.
+		 * This method should be implemented to return the unit of a given food.
+		 *
+		 * @param food The name of the food for which the unit is to be retrieved.
+		 * @return The unit of the given food.
+		 */
 		Unit getFoodUnit(String food);
 
+		/**
+		 * Retrieves the user's search results.
+		 * This method should be implemented to return a list of strings representing the user's search results.
+		 *
+		 * @param searchText The text that the user has searched for.
+		 * @return A list of strings representing the user's search results.
+		 */
 		List<String> getUserSearch(String searchText);
 
+		/**
+		 * Triggers the return to the home view.
+		 * This method should be implemented to handle the action of returning to the home view.
+		 */
 		void returnHome();
 
+		/**
+		 * Saves a meal.
+		 * This method should be implemented to handle the action of saving a meal.
+		 *
+		 * @param recipeDTO The RecipeDTO object representing the meal to be saved.
+		 * @throws SavingException If an error occurs while saving the meal.
+		 */
 		void saveMeal(RecipeDTO recipeDTO) throws SavingException;
 	}
 }

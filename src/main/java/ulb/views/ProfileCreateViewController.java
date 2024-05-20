@@ -33,6 +33,9 @@ import org.slf4j.LoggerFactory;
 import ulb.dtos.ProfileDTO;
 import ulb.exceptions.ProfileParameterException;
 
+/**
+ * Controller for the profile creation view.
+ */
 public class ProfileCreateViewController implements ViewController {
 	private static final Logger logger = LoggerFactory.getLogger(ProfileCreateViewController.class);
 	@FXML private ImageView image;
@@ -90,8 +93,15 @@ public class ProfileCreateViewController implements ViewController {
 		}
 	}
 
+	/**
+	 * Creates a ProfileDTO object from the input fields in the view.
+	 * It retrieves the text from the firstname, lastname, weight, and height fields,
+	 * the selected value from the sex toggle group, the selected date from the birthdate picker,
+	 * and the stored image path, and uses these values to create a new ProfileDTO object.
+	 *
+	 * @return A new ProfileDTO object with the data from the input fields.
+	 */
 	private ProfileDTO createDTOProfile() {
-
 		return new ProfileDTO(
 				this.firstname.getText(),
 				this.lastname.getText(),
@@ -102,16 +112,32 @@ public class ProfileCreateViewController implements ViewController {
 				this.imagePath);
 	}
 
+	/**
+	 * Handles the exception thrown when there is an error saving the profile due to invalid data.
+	 * Logs the warning message and shows an alert to the user with the error message.
+	 *
+	 * @param e The ProfileParameterException that was thrown.
+	 */
 	private void handleProfileParameterException(ProfileParameterException e) {
 		logger.warn("Error while saving profile", e);
 		this.showAlert("Error de saisie", e.getMessage());
 	}
 
+	/**
+	 * Handles the exception thrown when not all fields are filled.
+	 * Logs a warning message and shows an alert to the user.
+	 */
 	private void handleIncompleteFieldsException() {
 		logger.warn("All fields must be filled");
 		this.showAlert("Erreur", "Tous les champs doivent être remplis.");
 	}
 
+	/**
+	 * Handles the exception thrown when there is a general error saving the profile.
+	 * Logs the error message and shows an alert to the user.
+	 *
+	 * @param e The Exception that was thrown.
+	 */
 	private void handleGeneralException(Exception e) {
 		logger.error("Error while saving profile", e);
 		this.showAlert(
@@ -121,6 +147,7 @@ public class ProfileCreateViewController implements ViewController {
 						+ " le fichier de log.");
 	}
 
+	@Override
 	public void setListener(Object listener) {
 		if (listener == null) {
 			throw new IllegalArgumentException("Listener cannot be null");
@@ -128,9 +155,24 @@ public class ProfileCreateViewController implements ViewController {
 		this.listener = (Listener) listener;
 	}
 
+	/**
+	 * Listener interface for the ProfileCreateViewController.
+	 * This interface should be implemented by any class that needs to respond to actions from the ProfileCreateViewController.
+	 */
 	public interface Listener {
+		/**
+		 * Saves the profile when the "Save" button is clicked.
+		 * This method should be implemented to handle the action of saving the profile.
+		 *
+		 * @param profileDTO The ProfileDTO object that contains the profile data to be saved.
+		 * @throws ProfileParameterException If the profile data is not valid.
+		 */
 		void saveProfile(ProfileDTO profileDTO) throws ProfileParameterException;
 
+		/**
+		 * Returns to the home view when the "Cancel" button is clicked.
+		 * This method should be implemented to handle the action of returning to the home view.
+		 */
 		void returnHome();
 	}
 }
