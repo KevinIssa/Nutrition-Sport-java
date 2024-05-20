@@ -33,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.RecipeDTO;
 import ulb.enums.Unit;
+import ulb.exceptions.SavingException;
 import ulb.models.Consumable;
 import ulb.models.Food;
 import ulb.models.Recipe;
@@ -73,8 +74,10 @@ public class JSONConsumableRepository implements ConsumableRepository {
 	}
 
 	@Override
-	public void save(Recipe recipe) {
-		deleteIfExist(recipe.getName());
+	public void save(Recipe recipe) throws SavingException {
+		if (ifExist(recipe.getName())) {
+			throw new SavingException("Meal already exists");
+		}
 		File mealFolder = new File(RECIPES_FOLDER);
 		if (!mealFolder.exists()) {
 			mealFolder.mkdirs();
@@ -105,24 +108,25 @@ public class JSONConsumableRepository implements ConsumableRepository {
 		}
 	}
 
-	private void deleteIfExist(String name) {
-		File folder = new File(RECIPES_FOLDER);
-		File[] files = folder.listFiles();
-		if (files != null) {
-			for (File file : files) {
-				ObjectMapper mapper = new ObjectMapper();
-				mapper.registerModule(
-						new SimpleModule().addDeserializer(Recipe.class, new MealDeserializer()));
-				try {
-					Recipe recipe = mapper.readValue(file, Recipe.class);
-					if (recipe.getName().equals(name)) {
-						file.delete();
-					}
-				} catch (IOException e) {
-					logMealError(file.getName());
+	private boolean ifExist(String name) {
+		File[] files = new File(RECIPES_FOLDER).listFiles();
+		if (files == null) return false;
+
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(
+				new SimpleModule().addDeserializer(Recipe.class, new MealDeserializer()));
+
+		for (File file : files) {
+			try {
+				Recipe recipe = mapper.readValue(file, Recipe.class);
+				if (recipe.getName().equals(name)) {
+					return true;
 				}
+			} catch (IOException e) {
+				logMealError(file.getName());
 			}
 		}
+		return false;
 	}
 
 	private void logMealError(String message) {

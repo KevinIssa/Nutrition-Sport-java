@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import ulb.dtos.FoodDTO;
 import ulb.dtos.RecipeDTO;
 import ulb.enums.Unit;
+import ulb.exceptions.SavingException;
 import ulb.widgets.FoodBox;
 import ulb.widgets.NumberField;
 import ulb.widgets.Search;
@@ -132,7 +133,12 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 
 	public void returnHome() {
 		if (this.isEditMode) {
-			this.listener.saveMeal(recipeDefaultDTO);
+			try {
+				this.listener.saveMeal(recipeDefaultDTO);
+			} catch (SavingException e) {
+				logger.error("Error while saving the meal");
+				// should not happen because the meal already exists and will save
+			}
 		}
 		this.listener.returnHome();
 	}
@@ -155,10 +161,15 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 		} catch (NumberFormatException e) {
 			logger.error("Error while parsing the number of persons");
 			// juste ignore it normally nothing to do
+		} catch (SavingException e) {
+			logger.info("the meal could not be saved because it exists already");
+			this.isEditMode = true;
+			showAlert("This meal already exists", "Please choose another name for your meal");
 		}
 	}
 
 	public void setDefaultRecipe(RecipeDTO recipeDTO) {
+		logger.debug("Setting default recipe: {}", recipeDTO);
 		this.recipeDefaultDTO = recipeDTO;
 		this.isEditMode = true;
 		this.switchButton.setVisible(false);
@@ -183,6 +194,6 @@ public class MakeMealViewController implements ViewController, Search.Listener {
 
 		void returnHome();
 
-		void saveMeal(RecipeDTO recipeDTO);
+		void saveMeal(RecipeDTO recipeDTO) throws SavingException;
 	}
 }

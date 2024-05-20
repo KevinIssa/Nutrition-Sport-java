@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import ulb.dtos.ConsumableDTO;
 import ulb.dtos.FoodDTO;
 import ulb.dtos.RecipeDTO;
+import ulb.exceptions.SavingException;
 import ulb.models.Consumable;
 import ulb.models.Recipe;
 import ulb.repositories.ConsumableRepository;
@@ -39,7 +40,7 @@ public class ConsumableService {
 		this.consumableRepository = consumableRepository;
 	}
 
-	public void saveMeal(RecipeDTO recipeDTO) {
+	public void saveMeal(RecipeDTO recipeDTO) throws SavingException {
 		this.consumableRepository.save(this.convertToMeal(recipeDTO));
 	}
 

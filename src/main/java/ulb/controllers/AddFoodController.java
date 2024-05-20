@@ -82,7 +82,7 @@ public class AddFoodController extends AppController
 	}
 
 	@Override
-	public void saveMeal(RecipeDTO recipeDTO) {
+	public void saveMeal(RecipeDTO recipeDTO) throws SavingException {
 		this.consumableService.saveMeal(recipeDTO);
 	}
 
