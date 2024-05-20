@@ -20,20 +20,11 @@ package ulb.views;
 
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ulb.dtos.ConsumedFoodDTO;
@@ -73,7 +64,6 @@ public class MealHistoryViewController implements ViewController {
 		}
 	}
 
-
 	private void deleteFoodInHistory(FoodHistoryBox foodBox) {
 		try {
 			ConsumedFoodDTO food = foodBox.getFoodDTO();
@@ -99,7 +89,6 @@ public class MealHistoryViewController implements ViewController {
 			case null, default -> logger.error("Unexpected error: " + e.getMessage());
 		}
 	}
-
 
 	public void returnHome() {
 		this.listener.returnHome();

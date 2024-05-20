@@ -50,7 +50,6 @@ public class MakeMealController implements MakeMealViewController.Listener {
 	@Override
 	public void saveMeal(RecipeDTO recipeDTO) {}
 
-
 	@Override
 	public void changeMode() {}
 }
