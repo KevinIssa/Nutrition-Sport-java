@@ -19,6 +19,8 @@
 package ulb.repositories;
 
 import java.util.List;
+
+import ulb.dtos.RecipeDTO;
 import ulb.models.Consumable;
 import ulb.models.Recipe;
 
@@ -34,4 +36,8 @@ public interface ConsumableRepository {
 	void save(Recipe recipe);
 
 	void deleteAll();
+
+	void deleteRecipe(RecipeDTO meal);
+
+	void deleteAllRecipes();
 }
