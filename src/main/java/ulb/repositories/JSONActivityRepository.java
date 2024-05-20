@@ -117,14 +117,13 @@ public class JSONActivityRepository extends JSONRepository<Activity> implements 
 	 */
 	@Override
 	public void deleteAll() {
-		File folder = new File(FOLDER_NAME);
-		File[] files = folder.listFiles();
-		if (files != null) {
-			// logger.info("Deleting all activities");
-			for (File file : files) {
-				if (!file.isDirectory()) {
-					file.delete();
-				}
+		File[] files = new File(FOLDER_NAME).listFiles();
+		if (files == null) return;
+
+		logger.info("Deleting all activities");
+		for (File file : files) {
+			if (!file.isDirectory() && !file.delete()) {
+				logger.error("Failed to delete activity: {}", file.getName());
 			}
 		}
 	}
