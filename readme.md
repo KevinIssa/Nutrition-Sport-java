@@ -5,7 +5,7 @@ Ce projet est une application de santé et bien-être développée dans le cadre
 ## Installation
 
 1. Cloner le repository : <br/>
-```git clone https://gitlab.ulb.be/ulb-infof307/2024-groupe-06.git```
+```git clone https://github.com/KevinIssa/Projet-Genie.git```
 
 2. Aller dans le répertoire du projet : <br/>
 ```cd 2024-groupe-06```
