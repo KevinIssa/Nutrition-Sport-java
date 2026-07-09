@@ -7,7 +7,7 @@ This project is a **Health and Wellness Application** developed as part of the *
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/KevinIssa/Nutrition-Sport-java.git```
+git clone https://github.com/KevinIssa/Nutrition-Sport-java.git
 ```
 
 2. Navigate to the project directory:
