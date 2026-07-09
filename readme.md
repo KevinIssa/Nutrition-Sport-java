@@ -1,53 +1,76 @@
-# Application de santé et bien-être
+# Health and Wellness Application
 
-Ce projet est une application de santé et bien-être développée dans le cadre du cours d'INFO-F-307 de l'ULB.
+This project is a **Health and Wellness Application** developed as part of the **INFO-F-307** course at the **Université Libre de Bruxelles (ULB)**.
 
 ## Installation
 
-1. Cloner le repository : <br/>
-```git clone https://github.com/KevinIssa/Projet-Genie.git```
+1. Clone the repository:
 
-2. Aller dans le répertoire du projet : <br/>
-```cd 2024-groupe-06```
+```bash
+git clone https://github.com/KevinIssa/Nutrition-Sport-java.git```
+```
 
-3. Installer les dépendances : <br/>
-```mvn install```
+2. Navigate to the project directory:
 
+```bash
+cd src
+```
 
-## Utilisation
+3. Install the project dependencies:
 
-1. Lancer les tests : <br/>
-```mvn test```
+```bash
+mvn install
+```
 
-2. Lancer l'application : <br/>
-```mvn javafx:run```
+## Usage
 
-3. Générer le package (.jar) : <br/>
-```mvn package```
+Run the unit tests:
 
+```bash
+mvn test
+```
+
+Launch the application:
+
+```bash
+mvn javafx:run
+```
+
+Generate the executable JAR package:
+
+```bash
+mvn package
+```
 
 ## Configuration
 
-Listez les différentes configurations possibles pour votre projet.
+Describe the different configuration options available for the project here.
 
-## Dépendances
+## Dependencies
 
-- Java version 21.0.1
-- Maven version 3.9.5
-- JUnit version 5.10.2
-- JavaFX version 21.0.2
-- Jackson version 2.16.0
-- JAXB version 2.3.1
+- Java 21.0.1
+- Maven 3.9.5
+- JUnit 5.10.2
+- JavaFX 21.0.2
+- Jackson 2.16.0
+- JAXB 2.3.1
 
-## Ressources 
-- Calcul du nombre de calories brulé lors d'une activité selon son intensité:  
-https://www.regivia.com/comment-maigrir-conseils-solutions-trucs-et-astuces/calcul-des-depenses-energetiques-en-calories-par-sports-et-activites/   
-https://en.wikipedia.org/wiki/Metabolic_equivalent_of_task 
+## Resources
 
-- Base de données d'aliment:  
-https://www.kaggle.com/datasets/syedjaferk/calories-in-food-items-per-100gm-ounce-serving 
+### Calories burned during physical activities
 
-## Contributeurs
+The calorie expenditure calculations are based on the following resources:
+
+- https://www.regivia.com/comment-maigrir-conseils-solutions-trucs-et-astuces/calcul-des-depenses-energetiques-en-calories-par-sports-et-activites/
+- https://en.wikipedia.org/wiki/Metabolic_equivalent_of_task
+
+### Food database
+
+The nutritional data used by the application comes from the following dataset:
+
+- https://www.kaggle.com/datasets/syedjaferk/calories-in-food-items-per-100gm-ounce-serving
+
+## Contributors
 
 - Kevin ISSA
 - Hamza CAEYMAN
@@ -58,8 +81,8 @@ https://www.kaggle.com/datasets/syedjaferk/calories-in-food-items-per-100gm-ounc
 - Hugo CHARELS
 - Hodo SOULEIMAN AHMED
 - Kevin VANDERVAEREN
-- Arthur INSTALLÉ  
+- Arthur INSTALLÉ
 
-### Burndown chart
-https://docs.google.com/spreadsheets/d/1WcszClvR-LAXreGe6kIjvUXlaHZTCAJVgDmgL4fkKvc/edit?usp=sharing 
+## Burndown Chart
 
+https://docs.google.com
