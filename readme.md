@@ -42,10 +42,6 @@ Generate the executable JAR package:
 mvn package
 ```
 
-## Configuration
-
-Describe the different configuration options available for the project here.
-
 ## Dependencies
 
 - Java 21.0.1
